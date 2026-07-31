@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import GrillaProductos from '../components/GrillaProductos.astro';
 import { categoriasNavegables, destacados } from '../lib/productos.ts';
-import { COMERCIO, DESCRIPCION_SITIO, MARCA, REDES } from '../lib/sitio.ts';
+import { COMERCIO, DESCRIPCION_SITIO, REDES } from '../lib/sitio.ts';
 import { urlCanonica } from '../lib/seo.ts';
 
 const productosDestacados = await destacados();
@@ -23,8 +23,11 @@ const jsonLd = [
 ---
 
 <Base titulo={COMERCIO} descripcion={DESCRIPCION_SITIO} jsonLd={jsonLd}>
-  <h1 class="text-2xl font-semibold sm:text-3xl">Catálogo {MARCA} en Asunción</h1>
-  <p class="text-texto-suave mt-2 max-w-prose">{DESCRIPCION_SITIO}</p>
+  <h1 class="text-lg font-semibold sm:text-2xl">Catálogo</h1>
+
+  {/* max-w-prose limita a ~65ch y cortaba la frase en dos. En desktop entra
+      completa en una linea: el contenedor da 1152px y el texto ~680px. */}
+  <p class="text-texto-suave mt-2 max-w-prose sm:max-w-none">{DESCRIPCION_SITIO}</p>
 
   <section class="mt-8" aria-labelledby="h-categorias">
     <h2 id="h-categorias" class="text-lg font-semibold">Categorías</h2>

@@ -7,42 +7,53 @@ import logo from '../assets/logo.png';
  * PARCHE TEMPORAL — quitar cuando llegue el logo definitivo
  * ============================================================================
  *
- * `logo.png` es un circulo de ~877 px de diametro dentro de un lienzo de
- * 1024 x 1024, con margenes transparentes de 57 a 84 px (SPEC §2.1). Medido:
+ * `logo.png` deja margen transparente alrededor del contenido, asi que a una
+ * caja de 88 px la medalla se ve a ~76 px. Se compensa escalando.
  *
- *   bbox opaco   x 77..947 (871 px)   y 57..939 (883 px)
- *   diametro     ~877 px  =  85.6 % del lienzo
- *   centro       (512, 498)  -> 14 px arriba del centro geometrico
+ * Medido sobre el archivo (SPEC §2.1), tomando la fila mas ancha y la columna
+ * mas alta con alpha > 128:
  *
- * Consecuencia: a una caja de 88 px la medalla se ve a ~75 px, porque el 14 %
- * restante es margen vacio. Se compensa escalando la imagen para que el circulo
- * llene la caja.
+ *   bbox opaco   x 78..947 (870 px)   y 57..939 (883 px)
+ *   centro       (512.5, 498)
  *
- * PARA DESACTIVARLO: poner ESCALA_MARGEN en 1. Nada mas.
+ * NO es un circulo: mide 870 de ancho por 883 de alto. Los ~13 px extra de
+ * abajo son la sombra proyectada, y es opaca (sigue ahi con alpha > 240).
  *
- * Hay que hacerlo en cuanto el logo venga recortado al trazo, o el circulo se
- * va a pasar de la caja. Con transparencia real el desborde es invisible (las
- * esquinas son alpha 0), asi que el sintoma seria solo un recorte leve del
- * borde del circulo, no un artefacto feo.
+ * De ahi salen los dos errores que hubo que corregir:
+ *   1. Usar el PROMEDIO de las dos dimensiones recorta la mayor. Hay que
+ *      escalar por la MAYOR (883), que es la que limita.
+ *   2. El contenido esta 14 px ARRIBA del centro del lienzo, asi que hay que
+ *      BAJARLO. Con el signo invertido se corta la parte superior.
+ *
+ * PARA DESACTIVARLO: poner MARGEN_SEGURIDAD en 0 (deja ESCALA en 1). Nada mas.
+ * Hacerlo en cuanto el logo venga recortado al trazo.
  */
 const LIENZO = 1024;
-const DIAMETRO = 877;
-const CENTRO_Y = 498;
 
-const ESCALA_MARGEN = LIENZO / DIAMETRO;
+/** bbox del contenido opaco, medido. */
+const BBOX = { x0: 78, x1: 947, y0: 57, y1: 939 };
+
+const ANCHO = BBOX.x1 - BBOX.x0 + 1;
+const ALTO = BBOX.y1 - BBOX.y0 + 1;
 
 /**
- * Corrimiento vertical.
+ * Holgura del 1.5 %.
  *
- * El circulo esta 14 px ARRIBA del centro del lienzo (498 vs 512), asi que al
- * escalar se sale por arriba: hay que bajarlo, no subirlo. El signo importa —
- * al reves recorta la parte superior de la medalla.
- *
- * Se aplica antes del scale (los transforms se leen de derecha a izquierda),
- * asi que el desplazamiento efectivo es este valor por ESCALA_MARGEN, que es
- * justo lo que hace falta para que el borde del circulo caiga en el de la caja.
+ * Ajustado al milimetro el borde caia 0.05 px afuera y se recortaba. En una
+ * curva, medio pixel de recorte se lee como un corte plano. No vale la pena
+ * pelear el ultimo 1 % de tamano: la ganancia baja de 16 % a 14 %.
  */
-const AJUSTE_Y = ((LIENZO / 2 - CENTRO_Y) / LIENZO) * 100;
+const MARGEN_SEGURIDAD = 0.015;
+
+/** Escala limitada por la dimension MAYOR del bbox, no por el promedio. */
+const ESCALA = (LIENZO / Math.max(ANCHO, ALTO)) * (1 - MARGEN_SEGURIDAD);
+
+/**
+ * Centrado. Se aplica antes del scale (los transforms se leen de derecha a
+ * izquierda), asi que el desplazamiento efectivo es este valor por ESCALA.
+ */
+const AJUSTE_X = ((LIENZO / 2 - (BBOX.x0 + BBOX.x1) / 2) / LIENZO) * 100;
+const AJUSTE_Y = ((LIENZO / 2 - (BBOX.y0 + BBOX.y1) / 2) / LIENZO) * 100;
 
 interface Props {
   /** Clases de tamano de la caja. Debe ser cuadrada. */
@@ -66,6 +77,6 @@ const { class: clase = 'h-16 w-16 sm:h-22 sm:w-22', prioridad = false } = Astro.
     alt=""
     loading={prioridad ? 'eager' : 'lazy'}
     class="absolute inset-0 h-full w-full object-contain"
-    style={`transform: scale(${ESCALA_MARGEN.toFixed(4)}) translateY(${AJUSTE_Y.toFixed(3)}%);`}
+    style={`transform: scale(${ESCALA.toFixed(4)}) translate(${AJUSTE_X.toFixed(3)}%, ${AJUSTE_Y.toFixed(3)}%);`}
   />
 </span>
