@@ -1,0 +1,27 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# environment — never commit real values
+.env
+.env.production
+.env.local
+
+# ingesta: insumos regenerables, no fuente de verdad (SPEC §6.2)
+scripts/import/entrada/
+scripts/import/cache/
+scripts/import/reporte-*.md
+
+# cloudflare
+.wrangler/
+
+# estado generado por herramientas locales (registry de skills)
+.atl/
+
+# editor / OS
+.DS_Store
+Thumbs.db
+*.swp

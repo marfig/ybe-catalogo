@@ -1,0 +1,66 @@
+---
+// SMOKE TEST de Fase 0. Verifica que la cadena completa funciona:
+// Tailwind 4, los tokens de @theme, astro:assets sobre el logo, astro:env y
+// Astro.site para el canonical. Fase 1 reemplaza esta pagina por la home real.
+import { Image } from 'astro:assets';
+import { PUBLIC_WHATSAPP } from 'astro:env/client';
+import { INDEXABLE } from 'astro:env/server';
+import logo from '../assets/logo.png';
+import { urlCanonica } from '../lib/seo.ts';
+import '../styles/global.css';
+
+// NO se usa `new URL(Astro.url.pathname, Astro.site)` directo: con
+// build.format 'file' eso daria /index.html. Ver SPEC §7.1.
+const canonical = urlCanonica(Astro.url.pathname, Astro.site);
+---
+
+<html lang="es-PY">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>YBE — verificacion de Fase 0</title>
+    <link rel="canonical" href={canonical.href} />
+    {!INDEXABLE && <meta name="robots" content="noindex, nofollow" />}
+  </head>
+
+  <body class="bg-fondo text-texto min-h-screen">
+    <header
+      class="bg-superficie border-borde sticky top-0 flex h-14 items-center gap-3 border-b px-4 sm:h-16"
+    >
+      <Image src={logo} width={48} height={48} alt="" loading="eager" />
+      <span class="hidden text-xl font-semibold sm:inline">YBE</span>
+    </header>
+
+    <main class="mx-auto max-w-2xl p-6">
+      <h1 class="text-2xl font-semibold">Fase 0 verificada</h1>
+
+      <dl class="border-borde bg-superficie mt-6 divide-y divide-[--color-borde] rounded border">
+        <div class="flex justify-between gap-4 p-3">
+          <dt class="text-texto-suave">Astro.site</dt>
+          <dd><code>{Astro.site?.href ?? 'undefined'}</code></dd>
+        </div>
+        <div class="flex justify-between gap-4 p-3">
+          <dt class="text-texto-suave">canonical</dt>
+          <dd><code>{canonical.href}</code></dd>
+        </div>
+        <div class="flex justify-between gap-4 p-3">
+          <dt class="text-texto-suave">INDEXABLE</dt>
+          <dd><code>{String(INDEXABLE)}</code></dd>
+        </div>
+        <div class="flex justify-between gap-4 p-3">
+          <dt class="text-texto-suave">PUBLIC_WHATSAPP</dt>
+          <dd><code>{PUBLIC_WHATSAPP}</code></dd>
+        </div>
+        <div class="flex justify-between gap-4 p-3">
+          <dt class="text-texto-suave">logo procesado</dt>
+          <dd><code>{logo.width}&times;{logo.height} {logo.format}</code></dd>
+        </div>
+      </dl>
+
+      <p class="text-texto-suave mt-6 text-sm">
+        El logo se ve con fondo a cuadros porque el archivo actual no tiene
+        transparencia real. Es el comportamiento esperado hasta reemplazarlo.
+      </p>
+    </main>
+  </body>
+</html>

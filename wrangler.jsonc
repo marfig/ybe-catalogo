@@ -1,0 +1,10 @@
+{
+  // Sitio puramente estatico: sin "main", sin adapter. Con output: 'static'
+  // el adapter @astrojs/cloudflare no hace falta. Ver SPEC §9.2.
+  "name": "ybe-catalogo",
+  "compatibility_date": "2026-07-31",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}

@@ -1,0 +1,29 @@
+@import 'tailwindcss';
+
+/* Tokens derivados del muestreo de pixeles del logo, no de los defaults de
+   Tailwind. Cada valor y su ratio de contraste estan justificados en SPEC §3.1. */
+@theme {
+  /* Fondo de pagina. Highlight del metal del logo. */
+  --color-fondo: #fafaf9;
+
+  /* Superficie de card. Igual al blanco de las fotos de producto, para que el
+     recorte de la imagen sea invisible. Ver SPEC §3.3. */
+  --color-superficie: #ffffff;
+
+  /* Texto de cuerpo. 14.37:1 sobre --color-fondo. AA y AAA. */
+  --color-texto: #2a2622;
+
+  /* Texto secundario. 6.65:1 sobre --color-fondo. AA si, AAA no (pide 7). */
+  --color-texto-suave: #5f594d;
+
+  /* Primario. Blanco encima da 6.95:1 → apto para el boton de WhatsApp. */
+  --color-primario: #5f594d;
+
+  /* Acento. 3.50:1 sobre --color-fondo: NO sirve para texto de cuerpo.
+     Solo texto >=24px, bordes e iconos, que piden 3:1. */
+  --color-acento: #908476;
+
+  /* Borde. 1.37:1 sobre --color-fondo. Decorativo, nunca texto.
+     Es lo que separa la foto de producto del fondo. Ver SPEC §3.3. */
+  --color-borde: #d8d8d0;
+}

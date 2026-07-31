@@ -1,0 +1,33 @@
+{
+  "name": "ybe-catalogo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "scrape": "node scripts/scrape/index.mjs",
+    "import": "node scripts/import/index.mjs",
+    "test": "node --experimental-strip-types --test",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@astrojs/preact": "^6.0.2",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.1.6",
+    "preact": "^10.29.7",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@aws-sdk/client-s3": "^3.1100.0",
+    "sharp": "^0.35.3",
+    "typescript": "^6.0.3",
+    "wrangler": "^4.118.0"
+  }
+}

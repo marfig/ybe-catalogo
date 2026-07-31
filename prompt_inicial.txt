@@ -1,0 +1,137 @@
+Vamos a armar la especificación técnica de un catálogo de productos web.
+NO escribas código todavía. Tu salida en este turno es un documento en
+docs/SPEC.md, más una lista de preguntas abiertas.
+
+## Contexto del negocio
+
+Catálogo de productos para un comercio en Paraguay. El objetivo NO es vender
+online: es que el cliente encuentre el producto y contacte por WhatsApp. No hay
+pagos, no hay cuentas de usuario, no hay stock en vivo.
+
+Un solo administrador (yo, desarrollador) carga y actualiza los productos. Los
+datos se importan masivamente por script desde catálogos de proveedores, no se
+escriben a mano uno por uno.
+
+## Decisiones ya tomadas
+
+No las cambies, pero cuestionalas si ves un problema real.
+
+**Stack**
+- Astro en modo estático (`output: 'static'`). Sin SSR, sin adapter de servidor.
+- Tailwind para estilos.
+- Deploy en Cloudflare Workers con assets estáticos. Config en `wrangler.jsonc`.
+- Preact para las islas interactivas, cuando hagan falta.
+
+**Datos**
+- SIN base de datos. El contenido son dos archivos JSON versionados en git:
+  - `src/data/productos.json` (generado por el script de importación)
+  - `src/data/categorias.json` (escrito a mano)
+- Se consumen con Content Collections usando el loader `file()` y schema Zod.
+- Un producto puede pertenecer a más de una categoría (array de slugs).
+- Campo `activo: boolean` para ocultar productos sin borrarlos.
+
+**Rutas** — planas, no anidadas por categoría:
+- `/` → home con categorías y destacados
+- `/productos/[slug]` → ficha de producto
+- `/categorias/[slug]` → listado filtrado
+
+Razón: recategorizar un producto no debe romper su URL ni la indexación.
+
+**Imágenes**
+- R2 para el catálogo importado, pre-procesadas ANTES de subir. Nunca
+  optimizadas durante el build.
+- `astro:assets` solo para imágenes propias del sitio (logo, banners).
+
+**Contacto y precios**
+- Link `wa.me` con mensaje pre-armado que SIEMPRE incluye el nombre del
+  producto y su URL canónica.
+- Precios en guaraníes, formateados con `Intl.NumberFormat('es-PY')`.
+
+**Alcance y despliegue**
+- Carrito: fuera de alcance en la fase 1. Diseñá el modelo de datos para que se
+  pueda agregar después sin refactor (nanostores con `persistentAtom`, isla
+  Preact, y el "checkout" arma un mensaje de WhatsApp con los ítems).
+- El dominio real todavía no existe. Arranca en un subdominio `.workers.dev`
+  con `noindex`, y la URL base sale de una variable de entorno `SITE_URL`,
+  nunca hardcodeada.
+
+## Logo
+
+Dejé un `logo.png` en la raíz del repo. Abrilo y miralo antes de especificar
+nada visual.
+
+- Reportame ancho, alto y si tiene canal alpha. Si el fondo es blanco opaco en
+  vez de transparente, avisame.
+- Movelo con `git mv` al lugar que corresponda según la estructura que
+  definiste, y justificá la elección entre `src/assets/` y `public/`. No lo
+  copies: no quiero que quede un duplicado en la raíz.
+- Derivá la paleta del sitio de los colores del logo, no de los defaults de
+  Tailwind. Proponé tokens (primario, acento, fondo, texto, borde) y decime de
+  dónde sacaste cada uno. Verificá contraste WCAG AA del texto sobre fondo y
+  decime el ratio.
+- Especificá el header en función del aspect ratio real que tenga, incluyendo
+  qué pasa en mobile.
+- Listá las variantes derivadas que hacen falta (favicon, og-image) y cómo se
+  generan desde este archivo. Si la resolución no alcanza para alguna, decilo y
+  no la especifiques como resuelta. El og-image necesita 1200×630.
+- Anotá si el color primario del logo choca con las fotos de producto sobre
+  fondo blanco en la grilla.
+- No generes ni reemplaces el logo por tu cuenta. Si falta algo, listalo como
+  algo que tengo que conseguir yo.
+
+## Qué quiero en la spec
+
+1. **Modelo de datos completo**: schema Zod de productos y categorías, con el
+   tipo y la obligatoriedad de cada campo, y un ejemplo real de cada JSON.
+   Justificá cada campo: si no se usa en ninguna vista, no va.
+
+2. **Árbol de archivos** del proyecto, con una línea por archivo explicando qué
+   hace.
+
+3. **Contrato de imágenes**: convención de nombres en R2, variantes de tamaño,
+   y qué pasa cuando un producto no tiene foto.
+
+4. **Script de importación**, especificado como pieza separada del sitio:
+   entradas, salidas, idempotencia (correrlo dos veces no debe duplicar nada),
+   deduplicación de imágenes repetidas, normalización de aspect ratio, y qué
+   hace con un producto que ya existe pero cambió de precio.
+
+5. **SEO**: canonical, Open Graph y JSON-LD tipo Product. Decidí y justificá si
+   conviene publicar precios o no.
+
+6. **Búsqueda y filtros del lado del cliente**: hasta qué cantidad de productos
+   aguanta mandar el JSON completo, y cuál es el plan B.
+
+7. **Fases de implementación** numeradas, cada una entregable y desplegable por
+   sí sola. La fase 1 tiene que ser lo mínimo que sirva a un cliente real.
+
+8. **Sección "Fuera de alcance"** explícita.
+
+## Cómo trabajar
+
+Antes de escribir la spec, hacéme las preguntas que necesites — sobre todo las
+que cambian el modelo de datos: variantes de producto, productos con precio
+variable, subcategorías, multi-marca. Preguntá de a poco, no me tires veinte
+preguntas juntas.
+
+Si alguna de mis decisiones te parece equivocada, decilo con el motivo concreto
+en vez de acatarla en silencio. Si algo depende de un dato que no te di, ponelo
+en "Preguntas abiertas" en vez de inventar un supuesto.
+
+Verificá en la documentación oficial de Astro cualquier API que vayas a
+especificar; no la escribas de memoria.
+
+## Imágenes de muestra
+
+En samples/ dejé imágenes reales del catálogo de origen, sin procesar,
+elegidas a propósito como casos difíciles (distintos aspect ratios, fondos
+opacos, baja resolución, marcas de agua).
+
+- Miralas y reportame el rango de dimensiones y aspect ratios que encontrás.
+- Especificá la grilla y la ficha de producto para que aguanten ESA varianza,
+  no un caso ideal. Decime qué aspect ratio unificado conviene y qué pasa con
+  las que no encajan.
+- Definí el comportamiento para producto sin foto y para foto de resolución
+  insuficiente.
+- Usalas como fixtures del script de importación en la spec.
+- No las trates como contenido definitivo: son descartables.
