@@ -25,10 +25,24 @@ import logo from '../assets/logo.png';
  * esquinas son alpha 0), asi que el sintoma seria solo un recorte leve del
  * borde del circulo, no un artefacto feo.
  */
-const ESCALA_MARGEN = 1024 / 877;
+const LIENZO = 1024;
+const DIAMETRO = 877;
+const CENTRO_Y = 498;
 
-/** Corrimiento vertical: el circulo esta 14 px arriba del centro del lienzo. */
-const AJUSTE_Y = '-1.4%';
+const ESCALA_MARGEN = LIENZO / DIAMETRO;
+
+/**
+ * Corrimiento vertical.
+ *
+ * El circulo esta 14 px ARRIBA del centro del lienzo (498 vs 512), asi que al
+ * escalar se sale por arriba: hay que bajarlo, no subirlo. El signo importa —
+ * al reves recorta la parte superior de la medalla.
+ *
+ * Se aplica antes del scale (los transforms se leen de derecha a izquierda),
+ * asi que el desplazamiento efectivo es este valor por ESCALA_MARGEN, que es
+ * justo lo que hace falta para que el borde del circulo caiga en el de la caja.
+ */
+const AJUSTE_Y = ((LIENZO / 2 - CENTRO_Y) / LIENZO) * 100;
 
 interface Props {
   /** Clases de tamano de la caja. Debe ser cuadrada. */
@@ -52,6 +66,6 @@ const { class: clase = 'h-16 w-16 sm:h-22 sm:w-22', prioridad = false } = Astro.
     alt=""
     loading={prioridad ? 'eager' : 'lazy'}
     class="absolute inset-0 h-full w-full object-contain"
-    style={`transform: scale(${ESCALA_MARGEN.toFixed(4)}) translateY(${AJUSTE_Y});`}
+    style={`transform: scale(${ESCALA_MARGEN.toFixed(4)}) translateY(${AJUSTE_Y.toFixed(3)}%);`}
   />
 </span>

@@ -61,7 +61,8 @@ const productos = defineCollection({
 
     activo: z.boolean().default(true),
     destacado: z.boolean().default(false),
-    actualizado: z.string().date(),
+    // z.iso.date() y no z.string().date(): esta ultima esta deprecada en Zod 4.
+    actualizado: z.iso.date(),
 
     // No se renderiza. Es la clave de idempotencia del importador (SPEC §6.7).
     origen: z.object({

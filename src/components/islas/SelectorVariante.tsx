@@ -8,6 +8,7 @@ import {
   type Imagen,
 } from '../../lib/imagenes.ts';
 import { construirEnlaceWa } from '../../lib/whatsapp.ts';
+import SinFoto from '../SinFoto.tsx';
 
 export interface VarianteIsla {
   sku: string;
@@ -96,13 +97,7 @@ export default function SelectorVariante({ nombre, url, variantes, r2Base, telef
           </div>
         </div>
       ) : (
-        <div
-          class="bg-fondo border-borde text-texto-suave flex aspect-square w-full items-center justify-center rounded border border-dashed"
-          role="img"
-          aria-label="Producto sin imagen disponible"
-        >
-          <span class="text-sm">Sin imagen</span>
-        </div>
+        <SinFoto />
       )}
 
       {imagenes.length > 1 && (
