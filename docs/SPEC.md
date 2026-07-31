@@ -1118,7 +1118,7 @@ Dos grupos con reglas distintas. **El sitio no tiene secretos; el importador sí
 | `SITE_URL` | `astro.config.mjs` vía `loadEnv` | `https://ybe-catalogo.workers.dev` hasta el dominio propio | No |
 | `INDEXABLE` | Build, vía `astro:env/server` | `false` hasta el dominio propio (§7.2) | No |
 | `PUBLIC_R2_BASE` | Build y cliente | Dominio público del bucket R2 | No |
-| `PUBLIC_WHATSAPP` | Build y cliente | `595971878090` | No |
+| `PUBLIC_WHATSAPP` | Build y cliente | `595981857213` | No |
 | `R2_ACCOUNT_ID` | **Solo el importador** | Cuenta de Cloudflare | No |
 | `R2_BUCKET` | **Solo el importador** | Nombre del bucket | No |
 | `R2_ACCESS_KEY_ID` | **Solo el importador** | Token de API de R2 | **Sí** |
@@ -1253,7 +1253,7 @@ export function construirEnlaceWa({ telefono, nombre, url, color }: Args) {
 
 `nombre` y `url` (canónica, absoluta) son **obligatorios**. `url` se construye con `new URL(..., Astro.site)`: nunca hardcodeada.
 
-**Número: `595971878090`** (`PUBLIC_WHATSAPP`).
+**Número: `595981857213`** (`PUBLIC_WHATSAPP`).
 
 Formato: código de país, **sin `+`, sin ceros iniciales, sin espacios, guiones ni paréntesis**. Es lo que pide `wa.me`. El número local `0971 878 090` pierde el `0` inicial y toma el `595` de Paraguay. Un `+` en la URL suele tolerarse, pero no es la forma canónica y no se usa.
 

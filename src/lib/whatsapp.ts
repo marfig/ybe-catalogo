@@ -26,7 +26,7 @@ export function normalizarTelefono(telefono: string): string {
   if (digitos.startsWith('0') || digitos.length < 11) {
     throw new TypeError(
       `El telefono "${telefono}" no tiene codigo de pais. ` +
-        'Formato esperado: codigo de pais + numero sin el 0 inicial, por ejemplo 595971878090.'
+        'Formato esperado: codigo de pais + numero sin el 0 inicial, por ejemplo 595981857213.'
     );
   }
 

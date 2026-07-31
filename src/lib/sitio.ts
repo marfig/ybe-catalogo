@@ -9,7 +9,7 @@
  * Nombre completo del comercio. Alimenta el <title>, og:site_name, el
  * Organization del JSON-LD y el `seller` de la oferta.
  */
-export const COMERCIO = 'Chenson Asunción YBE';
+export const COMERCIO = 'Chenson Asunción';
 
 /**
  * Version corta para lugares apretados (header en movil, aria-labels).

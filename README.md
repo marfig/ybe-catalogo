@@ -23,7 +23,7 @@ npm run dev               # http://localhost:4321
 | `SITE_URL` | `http://localhost:4321` en local. En producción, la URL del deploy |
 | `INDEXABLE` | `false` hasta tener dominio propio |
 | `PUBLIC_R2_BASE` | `/img-dev` para desarrollo local, o el dominio público del bucket R2 |
-| `PUBLIC_WHATSAPP` | `595971878090` |
+| `PUBLIC_WHATSAPP` | `595981857213` |
 | `R2_ACCOUNT_ID`, `R2_BUCKET` | Solo el importador |
 | `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` | Solo el importador. **Secretas** |
 
