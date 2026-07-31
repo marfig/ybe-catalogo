@@ -57,13 +57,20 @@ El material de origen impone límites que el diseño debe absorber. Esta secció
 |---|---|
 | Dimensiones | 1024 × 1024 (aspect ratio 1:1) |
 | Formato | PNG, 8 bits/canal, color type 6 (RGBA), no entrelazado |
-| Peso | 1.77 MB |
-| Canal alpha | Presente, **100 % opaco** — ningún píxel por debajo de alpha 250 |
-| Fondo | Damero `#C4C4C4`/`#FFFFFF` de celda ~12 px **pintado en los píxeles**, ocupando 38.5 % del archivo |
+| Peso | 1.65 MB |
+| Canal alpha | **Real y funcional.** Esquinas en alpha 0, con antialias en el borde del círculo |
+| Fondo | **Transparente.** 42.3 % del lienzo es alpha 0 |
 | Chunk extra | `caBX` (manifest C2PA / Content Credentials), sin uso |
-| Marca útil | Medalla circular de metal cepillado, "YBE / CHENSON", ~838 px de diámetro, centro en (504, 575) — descentrada ~60 px hacia abajo |
+| Marca | Medalla circular de metal cepillado, "YBE / CHENSON" |
+| BBox opaco | x 77..947 (871 px) · y 57..939 (883 px) |
+| Círculo | ~877 px de diámetro, centro en (512, 498) — **85.6 % del lienzo** |
+| Márgenes transparentes | izq 77 · der 76 · arriba 57 · abajo 84 px |
 
-**Restricción:** el archivo no tiene transparencia real. Sobre cualquier fondo mostrará un rectángulo a cuadros. Se usa así hasta que llegue el reemplazo; el nombre `logo.png` se mantiene para que el reemplazo entre sin tocar código.
+**La transparencia funciona:** el logo se puede poner sobre cualquier fondo sin caja ni artefactos. El nombre `logo.png` se mantiene para que un reemplazo futuro entre sin tocar código.
+
+**Limitación menor:** el 14.4 % de margen transparente hace que la medalla se vea más chica que su caja — a 88 px de caja, el círculo mide ~75 px. `src/components/Logo.astro` lo compensa con un escalado, aislado en una sola constante `ESCALA_MARGEN` y marcado como temporal: cuando llegue un archivo recortado al trazo se pone en `1` y listo.
+
+**Sigue faltando** el SVG vectorial y una variante monocromática del monograma (§12 · Logo definitivo). El PNG de 1.65 MB tampoco sirve como placeholder de "sin foto" (§5.4).
 
 **Ubicación: `src/assets/logo.png`, no `public/`.** En `src/assets/` el archivo pasa por `astro:assets`, que infiere `width`/`height` (evita CLS), genera `srcset` y formatos modernos, y añade hash de contenido para cache inmutable. En `public/` se copiaría tal cual y la optimización quedaría manual. Es el caso que la arquitectura reserva para `astro:assets`: imágenes propias del sitio.
 
@@ -187,18 +194,18 @@ El logo se renderiza con `<Image>` de `astro:assets`, `width={48} height={48}`, 
 
 Fondo del header: `--color-superficie` con `border-bottom: 1px solid --color-borde`.
 
-Con el archivo de logo actual, el header muestra el damero dentro del cuadrado de 40/48 px. Es el comportamiento esperado hasta el reemplazo.
+El logo se renderiza con `Logo.astro`, que compensa el margen transparente del archivo (§2.1). Tamaño de caja: 64 px en móvil, 88 px en desktop.
 
 ### 3.5 Variantes derivadas del logo
 
 | Variante | Tamaños | Estado |
 |---|---|---|
-| `favicon.ico` | 16, 32, 48 | Resolución suficiente. **Bloqueada** por el damero y por ilegibilidad del emblema completo a 16 px: necesita variante monocromática del monograma solo |
-| `apple-touch-icon.png` | 180 × 180 | Resolución suficiente. **Bloqueada** por el damero |
-| `icon-512.png` | 512 × 512 | Resolución suficiente. **Bloqueada** por el damero |
+| `favicon.ico` | 16, 32, 48 | **Viable a 32 y 48.** A 16 px el emblema completo es ilegible: para ese tamaño hace falta la variante monocromática del monograma solo |
+| `apple-touch-icon.png` | 180 × 180 | **Viable.** Sobre fondo `--color-superficie`, porque iOS no respeta la transparencia y la compone sobre negro |
+| `icon-512.png` | 512 × 512 | **Viable.** Recortado al bbox opaco de §2.1 para no desperdiciar el 14 % de margen |
 | `og-image.png` | 1200 × 630 | **Viable.** Composición: fondo `--color-fondo`, medalla escalada a ~500 px de alto centrada, wordmark en texto. **Nunca a sangre**: el origen tiene 1024 px de ancho y estirar un cuadrado a 1200 × 630 lo deforma |
 
-Ninguna se considera resuelta hasta que llegue el logo limpio. Se generan con un script en `scripts/assets/` ejecutado a mano, cuya salida se comitea. **No se generan en cada build.**
+Con la transparencia ya funcionando (§2.1), las tres primeras se pueden generar. Se producen con un script en `scripts/assets/` ejecutado a mano, cuya salida se comitea. **No se generan en cada build.**
 
 ---
 
@@ -503,7 +510,7 @@ Se renderiza `<SinFoto />`: `div` con `aspect-ratio: 1/1`, fondo `--color-fondo`
 
 - El SVG es **local** (`src/assets/`), no de R2: el fallback no debe depender de la red para dibujarse.
 - `role="img"` con `aria-label="Producto sin imagen disponible"`.
-- Hasta que exista el SVG monocromático, `<SinFoto />` muestra solo el texto. **No se usa `logo.png`:** 1.77 MB con damero como placeholder es peor que nada.
+- Hasta que exista el SVG monocromático, `<SinFoto />` muestra solo el texto. **No se usa `logo.png`:** 1.65 MB para un placeholder es peor que nada, y el monograma solo no se puede aislar de un PNG.
 - El producto **sigue visible y contactable**. Que no haya foto no lo saca del catálogo.
 
 ### 5.5 Resolución insuficiente
@@ -1365,8 +1372,8 @@ El modelo ya lo soporta: `sku` único por variante es la clave del ítem y no ha
 
 Se identifican por nombre, no por número: al resolverse se integran al cuerpo de la spec y se borran de esta lista, sin renumerar el resto.
 
-**Logo definitivo** *(bloquea la Fase 2)*
-Se necesitan: PNG con alpha real recortado al trazo, idealmente el SVG, y una variante monocromática del monograma (§3.5, §5.4).
+**Logo definitivo** — parcialmente resuelto
+El PNG ya tiene **alpha real** (§2.1), lo que desbloquea favicon, apple-touch e icon-512. Falta: el **SVG vectorial** (para nitidez en cualquier tamaño y para el lockup del header) y una **variante monocromática del monograma solo**, que es lo que necesitan el favicon de 16 px y el placeholder de "sin foto" (§5.4). Un archivo recortado al trazo además permitiría desactivar el parche de `Logo.astro`.
 
 **Redes sociales** — ¿cuáles existen?
 Para `sameAs` de `Organization` y los enlaces del footer.

@@ -1,6 +1,5 @@
 ---
-import { Image } from 'astro:assets';
-import logo from '../assets/logo.png';
+import Logo from './Logo.astro';
 import { COMERCIO, NOMBRE_CORTO } from '../lib/sitio.ts';
 import { categoriasNavegables } from '../lib/productos.ts';
 
@@ -27,19 +26,7 @@ const categorias = (await categoriasNavegables()).map((c) => c.categoria);
         class="flex min-w-0 items-center gap-3 sm:gap-4"
         aria-label={`${COMERCIO} — inicio`}
       >
-        {/*
-          width/height al doble del render para que quede nitido en pantallas 2x.
-          alt="" porque el nombre esta en el texto de al lado: repetirlo es ruido
-          para el lector de pantalla (SPEC §3.4).
-        */}
-        <Image
-          src={logo}
-          width={176}
-          height={176}
-          alt=""
-          loading="eager"
-          class="h-16 w-16 shrink-0 sm:h-22 sm:w-22"
-        />
+        <Logo class="h-16 w-16 sm:h-22 sm:w-22" prioridad />
 
         {/* Wordmark en texto HTML, no imagen: escala, es seleccionable y no pesa */}
         <span class="flex min-w-0 flex-col leading-tight">

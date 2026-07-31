@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+
+/**
+ * ============================================================================
+ * PARCHE TEMPORAL — quitar cuando llegue el logo definitivo
+ * ============================================================================
+ *
+ * `logo.png` es un circulo de ~877 px de diametro dentro de un lienzo de
+ * 1024 x 1024, con margenes transparentes de 57 a 84 px (SPEC §2.1). Medido:
+ *
+ *   bbox opaco   x 77..947 (871 px)   y 57..939 (883 px)
+ *   diametro     ~877 px  =  85.6 % del lienzo
+ *   centro       (512, 498)  -> 14 px arriba del centro geometrico
+ *
+ * Consecuencia: a una caja de 88 px la medalla se ve a ~75 px, porque el 14 %
+ * restante es margen vacio. Se compensa escalando la imagen para que el circulo
+ * llene la caja.
+ *
+ * PARA DESACTIVARLO: poner ESCALA_MARGEN en 1. Nada mas.
+ *
+ * Hay que hacerlo en cuanto el logo venga recortado al trazo, o el circulo se
+ * va a pasar de la caja. Con transparencia real el desborde es invisible (las
+ * esquinas son alpha 0), asi que el sintoma seria solo un recorte leve del
+ * borde del circulo, no un artefacto feo.
+ */
+const ESCALA_MARGEN = 1024 / 877;
+
+/** Corrimiento vertical: el circulo esta 14 px arriba del centro del lienzo. */
+const AJUSTE_Y = '-1.4%';
+
+interface Props {
+  /** Clases de tamano de la caja. Debe ser cuadrada. */
+  class?: string;
+  prioridad?: boolean;
+}
+
+const { class: clase = 'h-16 w-16 sm:h-22 sm:w-22', prioridad = false } = Astro.props;
+---
+
+<span class={`relative block shrink-0 overflow-hidden ${clase}`}>
+  {/*
+    width/height al doble del render mayor para que quede nitido en 2x.
+    alt="" porque el nombre del comercio esta en el wordmark de al lado:
+    repetirlo es ruido para el lector de pantalla (SPEC §3.4).
+  */}
+  <Image
+    src={logo}
+    width={208}
+    height={208}
+    alt=""
+    loading={prioridad ? 'eager' : 'lazy'}
+    class="absolute inset-0 h-full w-full object-contain"
+    style={`transform: scale(${ESCALA_MARGEN.toFixed(4)}) translateY(${AJUSTE_Y});`}
+  />
+</span>
