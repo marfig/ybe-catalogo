@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import logo from '../assets/logo.png';
-import { COMERCIO } from '../lib/sitio.ts';
+import { COMERCIO, NOMBRE_CORTO } from '../lib/sitio.ts';
 import { categoriasNavegables } from '../lib/productos.ts';
 
 // Solo categorias con productos publicados: el header no puede enlazar a una
@@ -9,35 +9,65 @@ import { categoriasNavegables } from '../lib/productos.ts';
 const categorias = (await categoriasNavegables()).map((c) => c.categoria);
 ---
 
-<header
-  class="bg-superficie border-borde sticky top-0 z-20 border-b"
->
-  <div class="mx-auto flex h-14 max-w-6xl items-center gap-3 px-4 sm:h-16 sm:px-6">
-    <a href="/" class="flex shrink-0 items-center gap-2" aria-label={`${COMERCIO} — inicio`}>
-      {/*
-        Lockup horizontal: el emblema completo a 40px deja el texto curvo
-        "CHENSON" en ~7px, ilegible. El wordmark es texto HTML, no imagen
-        (SPEC §3.4). alt="" porque el nombre ya esta en el texto de al lado.
-      */}
-      <Image src={logo} width={48} height={48} alt="" loading="eager" class="h-10 w-10 sm:h-12 sm:w-12" />
-      <span class="hidden text-xl font-semibold sm:inline">{COMERCIO}</span>
-    </a>
+{/*
+  Dos filas: marca arriba, navegacion abajo.
 
-    <nav aria-label="Categorías" class="ml-auto min-w-0">
-      <ul class="flex gap-1 overflow-x-auto text-sm whitespace-nowrap">
-        {
-          categorias.map((c) => (
-            <li>
-              <a
-                href={`/categorias/${c.id}`}
-                class="hover:bg-fondo hover:text-texto text-texto-suave block rounded px-2 py-1"
-              >
-                {c.data.nombre}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
+  Con el logo grande la nav no entra en la misma linea, y apretarla a la derecha
+  la volvia un carrusel de 9 chips en un hueco de 200px. Separar filas le da aire
+  al logo y deja la nav legible.
+
+  Sticky solo la fila de marca: dos filas fijas comerian ~130px de viewport en
+  movil, que en una grilla de productos es carisimo.
+*/}
+<header class="bg-superficie border-borde border-b">
+  <div class="bg-superficie border-borde sticky top-0 z-20 border-b">
+    <div class="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4">
+      <a
+        href="/"
+        class="flex min-w-0 items-center gap-3 sm:gap-4"
+        aria-label={`${COMERCIO} — inicio`}
+      >
+        {/*
+          width/height al doble del render para que quede nitido en pantallas 2x.
+          alt="" porque el nombre esta en el texto de al lado: repetirlo es ruido
+          para el lector de pantalla (SPEC §3.4).
+        */}
+        <Image
+          src={logo}
+          width={176}
+          height={176}
+          alt=""
+          loading="eager"
+          class="h-16 w-16 shrink-0 sm:h-22 sm:w-22"
+        />
+
+        {/* Wordmark en texto HTML, no imagen: escala, es seleccionable y no pesa */}
+        <span class="flex min-w-0 flex-col leading-tight">
+          <span class="truncate text-lg font-semibold sm:text-2xl">
+            Chenson <span class="hidden sm:inline">Asunción</span>
+          </span>
+          <span class="text-texto-suave text-xs tracking-widest uppercase sm:text-sm">
+            {NOMBRE_CORTO}
+          </span>
+        </span>
+      </a>
+    </div>
   </div>
+
+  <nav aria-label="Categorías" class="mx-auto max-w-6xl px-4 sm:px-6">
+    <ul class="flex gap-1 overflow-x-auto py-2 text-sm whitespace-nowrap">
+      {
+        categorias.map((c) => (
+          <li>
+            <a
+              href={`/categorias/${c.id}`}
+              class="hover:bg-fondo hover:text-texto text-texto-suave block rounded px-2 py-1"
+            >
+              {c.data.nombre}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
 </header>

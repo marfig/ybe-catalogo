@@ -10,8 +10,11 @@ const telefono = normalizarTelefono(PUBLIC_WHATSAPP);
   <div
     class="text-texto-suave mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 text-sm sm:px-6"
   >
+    {/* No repetir "productos Chenson" al lado del nombre del local, que ya lo
+        contiene: seria redundante. Se nombra la marca solo si difiere. */}
     <p>
-      <strong class="text-texto">{COMERCIO}</strong> — productos {MARCA}. Consultá por WhatsApp al
+      <strong class="text-texto">{COMERCIO}</strong>
+      {!COMERCIO.includes(MARCA) && <> — productos {MARCA}</>}. Consultá por WhatsApp al
       <a class="underline" href={`https://wa.me/${telefono}`}>+{telefono}</a>.
     </p>
 
