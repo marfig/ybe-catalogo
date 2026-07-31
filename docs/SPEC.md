@@ -903,9 +903,13 @@ No hace falta un estado "precio a confirmar" separado de `precio: null`: con est
 
 En el `<head>` de todas las páginas: `og:type` (`website` en `/` y listados, `product` en la ficha), `og:title`, `og:description`, `og:url` (= canonical), `og:image`, `og:locale` `es_PY`, `og:site_name`. `twitter:card` = `summary_large_image`.
 
+**`og:image` y las URLs de `image` del JSON-LD tienen que ser ABSOLUTAS.** WhatsApp, Facebook y Twitter no resuelven rutas relativas: una `og:image` relativa deja la vista previa sin imagen, que es exactamente lo que no puede fallar en un sitio cuyo objetivo es que compartan productos.
+
+No alcanza con `urlImagen()`: con `PUBLIC_R2_BASE` relativo (`/img-dev` mientras no haya R2) devuelve una ruta relativa. Se usa `urlImagenAbsoluta()`, que resuelve contra `Astro.site` y deja intacta una base que ya sea absoluta. Cuando R2 esté configurado será un no-op, pero el contrato no puede depender de eso.
+
 | Página | `og:image` |
 |---|---|
-| Ficha de producto | `${PUBLIC_R2_BASE}/${variantes[0].imagenes[0]}` en `w600`, con `og:image:width/height` `600`/`600` |
+| Ficha de producto | `urlImagenAbsoluta(variantes[0].imagenes[0], w600)`, con `og:image:width/height` `600`/`600` |
 | Ficha sin foto | `og-image.png` genérico |
 | Home y categorías | `og-image.png` genérico |
 
@@ -1144,6 +1148,33 @@ Las cuatro `R2_*` **no entran al schema de `astro:env`** y no se leen nunca desd
 ```
 
 Sin `main` y sin adapter: con `output: 'static'` el sitio es puramente estático y `@astrojs/cloudflare` no hace falta.
+
+#### `public/_headers` — cache de los assets
+
+Cloudflare sirve los assets con `Cache-Control: public, max-age=0, must-revalidate` por defecto. Para el HTML es correcto: no lleva hash y cambia en cada importación. Para los assets con hash de contenido es un desperdicio, porque su URL cambia si cambia el contenido y no hay nada que revalidar.
+
+Se corrige con un `_headers` en `public/`, que Workers parsea y no sirve:
+
+```
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/img-dev/catalogo/:hash/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+```
+
+**Dos comportamientos verificados en producción que no son evidentes:**
+
+1. **Cloudflare SUMA las cabeceras de todas las reglas que matchean, no las reemplaza.** Con un `Cache-Control` en el catch-all `/*`, el asset inmutable recibía `max-age=0, must-revalidate, public, max-age=31536000, immutable` — y el navegador lee el primero, anulando el cache. Por eso `/*` **no define `Cache-Control`**: el default de Cloudflare ya es el que corresponde al HTML.
+2. **Un splat simple no cruza niveles de ruta.** `/img-dev/*` no matchea `/img-dev/catalogo/{hash}/w600.webp`, que está tres niveles abajo. Hay que usar un placeholder para el segmento intermedio: `/img-dev/catalogo/:hash/*`.
+
+Al verificar, tener en cuenta que **el borde puede servir cabeceras viejas**: un asset pedido antes del cambio devuelve `cf-cache-status: HIT` con las cabeceras del deploy anterior hasta que se refresque. Conviene comprobar sobre una ruta que no se haya pedido nunca.
+
+Cuando las imágenes pasen a R2, la política inmutable la aplica el bucket (§5.1) y la regla `/img-dev/*` deja de hacer falta.
 
 ### 9.3 Formato de precios
 

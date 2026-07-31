@@ -5,6 +5,7 @@ import {
   srcSetImagen,
   anchoMayor,
   validarBaseR2,
+  urlImagenAbsoluta,
   SIZES_CARD,
   type Imagen,
 } from './imagenes.ts';
@@ -100,4 +101,30 @@ test('validarBaseR2: rechaza vacio', () => {
 
 test('urlImagen: valida la base antes de construir la URL', () => {
   assert.throws(() => urlImagen('C:/Program Files/Git/img-dev', COMPLETA, 600), /Git Bash|MSYS/);
+});
+
+// --------------------------------------------------------------------------
+// urlImagenAbsoluta — og:image y JSON-LD exigen URL absoluta
+// --------------------------------------------------------------------------
+
+test('urlImagenAbsoluta: absolutiza una base relativa contra el sitio', () => {
+  // El bug real: con PUBLIC_R2_BASE=/img-dev, og:image salia relativo y
+  // WhatsApp no podia resolverlo -> vista previa sin imagen.
+  const site = new URL('https://ybe-catalogo.chenson.workers.dev');
+  assert.equal(
+    urlImagenAbsoluta('/img-dev', COMPLETA, 600, site),
+    'https://ybe-catalogo.chenson.workers.dev/img-dev/catalogo/406b4fe1006d642b/w600.webp'
+  );
+});
+
+test('urlImagenAbsoluta: deja intacta una base ya absoluta', () => {
+  const site = new URL('https://ybe.test');
+  assert.equal(
+    urlImagenAbsoluta(R2, COMPLETA, 600, site),
+    `${R2}/catalogo/406b4fe1006d642b/w600.webp`
+  );
+});
+
+test('urlImagenAbsoluta: falla si no hay site y la base es relativa', () => {
+  assert.throws(() => urlImagenAbsoluta('/img-dev', COMPLETA, 600, undefined), /og:image|undefined/);
 });

@@ -84,6 +84,34 @@ export function anchoMayor(imagen: Imagen): number {
   return Math.max(...imagen.anchos);
 }
 
+/**
+ * URL ABSOLUTA de una derivada, para Open Graph y JSON-LD.
+ *
+ * Open Graph y schema.org exigen URLs absolutas: WhatsApp, Facebook y Twitter no
+ * resuelven rutas relativas, y una vista previa sin imagen es justo lo que no
+ * puede pasar en un sitio cuyo objetivo es que compartan productos.
+ *
+ * No alcanza con urlImagen(): con PUBLIC_R2_BASE relativo (`/img-dev` en
+ * desarrollo) devuelve una ruta relativa. Cuando R2 este configurado la base va
+ * a ser absoluta y esto sera un no-op, pero el contrato no puede depender de eso.
+ */
+export function urlImagenAbsoluta(
+  r2Base: string,
+  imagen: Imagen,
+  ancho: number,
+  site: URL | undefined
+): string {
+  const url = urlImagen(r2Base, imagen, ancho);
+  if (/^https?:\/\//i.test(url)) return url;
+
+  if (!site) {
+    throw new Error(
+      'Astro.site es undefined: no se puede absolutizar la URL de imagen para og:image.'
+    );
+  }
+  return new URL(url, site).href;
+}
+
 /** `srcset` con unicamente los anchos que existen, de menor a mayor. */
 export function srcSetImagen(r2Base: string, imagen: Imagen): string {
   return [...imagen.anchos]

@@ -5,7 +5,7 @@ import { PUBLIC_R2_BASE, PUBLIC_WHATSAPP } from 'astro:env/client';
 import Base from '../../layouts/Base.astro';
 import Precio from '../../components/Precio.astro';
 import SelectorVariante from '../../components/islas/SelectorVariante.tsx';
-import { urlImagen } from '../../lib/imagenes.ts';
+import { urlImagenAbsoluta } from '../../lib/imagenes.ts';
 import { urlCanonica } from '../../lib/seo.ts';
 import { LEYENDA_PRECIO, COMERCIO, MARCA } from '../../lib/sitio.ts';
 import { normalizarTelefono } from '../../lib/whatsapp.ts';
@@ -30,14 +30,17 @@ const variantes = variantesActivas(producto);
 const inicial = varianteInicial(producto);
 const canonical = urlCanonica(Astro.url.pathname, Astro.site);
 
-// og:image: primera imagen de la variante inicial, en w600 (SPEC §7.4)
+// og:image y JSON-LD exigen URL ABSOLUTA: con PUBLIC_R2_BASE relativo
+// (/img-dev en desarrollo) una ruta relativa deja la vista previa de WhatsApp
+// sin imagen (SPEC §7.4).
 const imgOg = imagenPrincipal(producto);
-const ogImagen = imgOg ? urlImagen(PUBLIC_R2_BASE, imgOg, Math.max(...imgOg.anchos)) : undefined;
+const ogImagen = imgOg
+  ? urlImagenAbsoluta(PUBLIC_R2_BASE, imgOg, Math.max(...imgOg.anchos), Astro.site)
+  : undefined;
 
-// Todas las imagenes activas alimentan `image` del JSON-LD, en orden.
 const imagenesJsonLd = variantes
   .flatMap((v) => v.imagenes)
-  .map((img) => urlImagen(PUBLIC_R2_BASE, img, Math.max(...img.anchos)));
+  .map((img) => urlImagenAbsoluta(PUBLIC_R2_BASE, img, Math.max(...img.anchos), Astro.site));
 
 // priceValidUntil = actualizado + 90 dias: los precios se sostienen 2-3 meses y
 // el valor debe CUBRIR ese intervalo. Uno vencido hace que Google descarte el

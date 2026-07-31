@@ -164,9 +164,21 @@ En Astro 7 el servidor de desarrollo corre como daemon: `npx astro dev stop`,
 
 ---
 
+## Producción
+
+**https://ybe-catalogo.chenson.workers.dev** — Cloudflare Workers, con `noindex`.
+
+```bash
+npm run build && npx wrangler deploy
+```
+
+`INDEXABLE` se mantiene en `false` mientras el sitio viva en `.workers.dev`: si Google
+indexa esa URL, después compite con el dominio propio por las mismas páginas.
+
 ## Estado
 
-- **Fase 1** — catálogo navegable. Listo, corriendo con imágenes locales.
-- Pendiente: bucket R2 y token de escritura; etapa 1 del scrape; logo definitivo; redes sociales.
+- **Fase 1** — catálogo navegable. Listo y desplegado, con imágenes locales.
+- Pendiente: bucket R2 y token de escritura; etapa 1 del scrape; logo definitivo (SVG y
+  variante monocromática); redes sociales; dominio propio.
 
 Puntos abiertos al día: `docs/SPEC.md` §12.
