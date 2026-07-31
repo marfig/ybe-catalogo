@@ -27,8 +27,46 @@ export const SIZES_CARD = '(min-width: 1024px) 280px, (min-width: 640px) 45vw, 9
 /** `sizes` de la imagen principal de la ficha. Tope 600 px: es el techo del origen. */
 export const SIZES_FICHA = '(min-width: 640px) 600px, 100vw';
 
+/**
+ * Valida PUBLIC_R2_BASE. Devuelve la base para poder encadenar.
+ *
+ * Existe porque una base mal seteada NO produce ningun error: produce una
+ * pagina entera de imagenes rotas, que es mucho mas caro de diagnosticar.
+ *
+ * El caso que motivo esto: Git Bash (MSYS) traduce cualquier variable con pinta
+ * de ruta POSIX antes de pasarla al proceso, asi que
+ *   PUBLIC_R2_BASE=/img-dev npm run build
+ * llega a Astro como "C:/Program Files/Git/img-dev". Desde un archivo .env no
+ * pasa, porque lo lee Vite sin intervencion del shell.
+ */
+export function validarBaseR2(r2Base: string): string {
+  const base = r2Base.trim();
+
+  if (base === '') {
+    throw new Error('PUBLIC_R2_BASE esta vacia. Completala en .env.');
+  }
+
+  // Ruta de Windows: letra de unidad, o cualquier backslash.
+  if (/^[a-z]:[/\\]/i.test(base) || base.includes('\\')) {
+    throw new Error(
+      `PUBLIC_R2_BASE parece una ruta de Windows: "${base}".\n` +
+        'Causa tipica: Git Bash (MSYS) traduce las variables con pinta de ruta POSIX. ' +
+        'Defini PUBLIC_R2_BASE en el archivo .env en vez de pasarla por linea de comandos, ' +
+        'o prefija el comando con MSYS_NO_PATHCONV=1.'
+    );
+  }
+
+  if (!/^https?:\/\//i.test(base) && !base.startsWith('/')) {
+    throw new Error(
+      `PUBLIC_R2_BASE debe ser una URL absoluta (https://...) o empezar con barra (/img-dev). Recibio: "${base}".`
+    );
+  }
+
+  return base;
+}
+
 function unirBase(r2Base: string, resto: string): string {
-  return `${r2Base.replace(/\/+$/, '')}/${resto}`;
+  return `${validarBaseR2(r2Base).replace(/\/+$/, '')}/${resto}`;
 }
 
 /** URL absoluta (o relativa en dev) de una derivada concreta. */

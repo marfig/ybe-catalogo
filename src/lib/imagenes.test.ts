@@ -1,6 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { urlImagen, srcSetImagen, anchoMayor, SIZES_CARD, type Imagen } from './imagenes.ts';
+import {
+  urlImagen,
+  srcSetImagen,
+  anchoMayor,
+  validarBaseR2,
+  SIZES_CARD,
+  type Imagen,
+} from './imagenes.ts';
 
 const R2 = 'https://cdn.ybe.test';
 const COMPLETA: Imagen = { base: 'catalogo/406b4fe1006d642b', anchos: [300, 600] };
@@ -59,4 +66,38 @@ test('SIZES_CARD describe el ancho real de la card en cada breakpoint', () => {
   // desperdiciando datos en movil.
   assert.match(SIZES_CARD, /min-width/);
   assert.match(SIZES_CARD, /vw/);
+});
+
+// --------------------------------------------------------------------------
+// validarBaseR2 — un PUBLIC_R2_BASE mal seteado no puede fallar en silencio
+// --------------------------------------------------------------------------
+
+test('validarBaseR2: acepta una URL absoluta y una ruta de raiz', () => {
+  assert.equal(validarBaseR2('https://cdn.ybe.test'), 'https://cdn.ybe.test');
+  assert.equal(validarBaseR2('https://pub-abc123.r2.dev'), 'https://pub-abc123.r2.dev');
+  assert.equal(validarBaseR2('/img-dev'), '/img-dev');
+});
+
+test('validarBaseR2: detecta una ruta de Windows mutilada por Git Bash', () => {
+  // Git Bash (MSYS) traduce cualquier argumento con pinta de ruta POSIX:
+  //   PUBLIC_R2_BASE=/img-dev  ->  C:/Program Files/Git/img-dev
+  // El sintoma es una pagina llena de imagenes rotas SIN ningun error, asi que
+  // se detecta explicitamente y se nombra la causa en el mensaje.
+  assert.throws(() => validarBaseR2('C:/Program Files/Git/img-dev'), /Git Bash|MSYS/);
+  assert.throws(() => validarBaseR2(String.raw`C:\Users\x\img-dev`), /Git Bash|MSYS/);
+});
+
+test('validarBaseR2: rechaza una ruta relativa sin barra inicial', () => {
+  // 'img-dev' se resolveria relativo a la pagina actual: andaria en la home y
+  // se rompería en /productos/x.
+  assert.throws(() => validarBaseR2('img-dev'), /barra|absoluta/i);
+});
+
+test('validarBaseR2: rechaza vacio', () => {
+  assert.throws(() => validarBaseR2(''), /vacio|vacía|vacia/i);
+  assert.throws(() => validarBaseR2('   '), /vacio|vacía|vacia/i);
+});
+
+test('urlImagen: valida la base antes de construir la URL', () => {
+  assert.throws(() => urlImagen('C:/Program Files/Git/img-dev', COMPLETA, 600), /Git Bash|MSYS/);
 });

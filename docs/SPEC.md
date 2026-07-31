@@ -549,9 +549,13 @@ El catálogo se obtiene raspando el sitio del proveedor. Esa operación es de re
 node scripts/scrape/index.mjs --proveedor chenson [--limite N] [--reanudar]
 
 # Etapa 2 — transformación. Toca src/ y R2, no toca el sitio del proveedor
-node scripts/import/index.mjs --proveedor chenson \
-     --crudo scripts/import/entrada/crudo-2026-07-31.json [--dry-run] [--solo-json]
+node scripts/import/index.mjs --proveedor chenson [--crudo <ruta>] [--dry-run] [--solo-json]
 ```
+
+**`--crudo` es opcional: por defecto toma el `crudo-*.json` más reciente de `entrada/`.**
+El flujo normal es scrape → import, así que obligar a tipear la fecha del archivo en cada
+corrida es fricción sin ganancia. Se pasa explícito solo para reprocesar una captura vieja.
+Si `entrada/` está vacío, el importador aborta indicando que hay que correr la etapa 1.
 
 | | Etapa 1 · `scrape` | Etapa 2 · `import` |
 |---|---|---|
