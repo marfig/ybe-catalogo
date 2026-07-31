@@ -1,66 +1,57 @@
 ---
-// SMOKE TEST de Fase 0. Verifica que la cadena completa funciona:
-// Tailwind 4, los tokens de @theme, astro:assets sobre el logo, astro:env y
-// Astro.site para el canonical. Fase 1 reemplaza esta pagina por la home real.
-import { Image } from 'astro:assets';
-import { PUBLIC_WHATSAPP } from 'astro:env/client';
-import { INDEXABLE } from 'astro:env/server';
-import logo from '../assets/logo.png';
+import Base from '../layouts/Base.astro';
+import GrillaProductos from '../components/GrillaProductos.astro';
+import { categoriasNavegables, destacados } from '../lib/productos.ts';
+import { COMERCIO, DESCRIPCION_SITIO, MARCA, REDES } from '../lib/sitio.ts';
 import { urlCanonica } from '../lib/seo.ts';
-import '../styles/global.css';
 
-// NO se usa `new URL(Astro.url.pathname, Astro.site)` directo: con
-// build.format 'file' eso daria /index.html. Ver SPEC §7.1.
-const canonical = urlCanonica(Astro.url.pathname, Astro.site);
+const productosDestacados = await destacados();
+
+// Solo categorias con algo publicado, misma fuente que el header y que
+// getStaticPaths del listado (SPEC §4.3).
+const navegables = await categoriasNavegables();
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: COMERCIO,
+    url: urlCanonica('/', Astro.site).href,
+    ...(REDES.length > 0 ? { sameAs: REDES } : {}),
+  },
+];
 ---
 
-<html lang="es-PY">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>YBE — verificacion de Fase 0</title>
-    <link rel="canonical" href={canonical.href} />
-    {!INDEXABLE && <meta name="robots" content="noindex, nofollow" />}
-  </head>
+<Base titulo={COMERCIO} descripcion={DESCRIPCION_SITIO} jsonLd={jsonLd}>
+  <h1 class="text-2xl font-semibold sm:text-3xl">Catálogo {MARCA}</h1>
+  <p class="text-texto-suave mt-2 max-w-prose">{DESCRIPCION_SITIO}</p>
 
-  <body class="bg-fondo text-texto min-h-screen">
-    <header
-      class="bg-superficie border-borde sticky top-0 flex h-14 items-center gap-3 border-b px-4 sm:h-16"
-    >
-      <Image src={logo} width={48} height={48} alt="" loading="eager" />
-      <span class="hidden text-xl font-semibold sm:inline">YBE</span>
-    </header>
+  <section class="mt-8" aria-labelledby="h-categorias">
+    <h2 id="h-categorias" class="text-lg font-semibold">Categorías</h2>
+    <ul class="mt-3 flex flex-wrap gap-2">
+      {
+        navegables.map(({ categoria, cantidad }) => (
+          <li>
+            <a
+              href={`/categorias/${categoria.id}`}
+              class="border-borde bg-superficie hover:border-acento flex items-baseline gap-2 rounded border px-3 py-2 text-sm"
+            >
+              {categoria.data.nombre}
+              <span class="text-texto-suave text-xs">{cantidad}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 
-    <main class="mx-auto max-w-2xl p-6">
-      <h1 class="text-2xl font-semibold">Fase 0 verificada</h1>
-
-      <dl class="border-borde bg-superficie mt-6 divide-y divide-[--color-borde] rounded border">
-        <div class="flex justify-between gap-4 p-3">
-          <dt class="text-texto-suave">Astro.site</dt>
-          <dd><code>{Astro.site?.href ?? 'undefined'}</code></dd>
-        </div>
-        <div class="flex justify-between gap-4 p-3">
-          <dt class="text-texto-suave">canonical</dt>
-          <dd><code>{canonical.href}</code></dd>
-        </div>
-        <div class="flex justify-between gap-4 p-3">
-          <dt class="text-texto-suave">INDEXABLE</dt>
-          <dd><code>{String(INDEXABLE)}</code></dd>
-        </div>
-        <div class="flex justify-between gap-4 p-3">
-          <dt class="text-texto-suave">PUBLIC_WHATSAPP</dt>
-          <dd><code>{PUBLIC_WHATSAPP}</code></dd>
-        </div>
-        <div class="flex justify-between gap-4 p-3">
-          <dt class="text-texto-suave">logo procesado</dt>
-          <dd><code>{logo.width}&times;{logo.height} {logo.format}</code></dd>
-        </div>
-      </dl>
-
-      <p class="text-texto-suave mt-6 text-sm">
-        El logo se ve con fondo a cuadros porque el archivo actual no tiene
-        transparencia real. Es el comportamiento esperado hasta reemplazarlo.
-      </p>
-    </main>
-  </body>
-</html>
+  <section class="mt-10" aria-labelledby="h-destacados">
+    <h2 id="h-destacados" class="text-lg font-semibold">Destacados</h2>
+    <div class="mt-3">
+      <GrillaProductos
+        productos={productosDestacados}
+        vacio="Todavía no hay productos destacados."
+      />
+    </div>
+  </section>
+</Base>

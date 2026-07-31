@@ -1,0 +1,181 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { PUBLIC_R2_BASE, PUBLIC_WHATSAPP } from 'astro:env/client';
+
+import Base from '../../layouts/Base.astro';
+import Precio from '../../components/Precio.astro';
+import SelectorVariante from '../../components/islas/SelectorVariante.tsx';
+import { urlImagen } from '../../lib/imagenes.ts';
+import { urlCanonica } from '../../lib/seo.ts';
+import { LEYENDA_PRECIO, COMERCIO, MARCA } from '../../lib/sitio.ts';
+import { normalizarTelefono } from '../../lib/whatsapp.ts';
+import {
+  activos,
+  imagenPrincipal,
+  resolverCategorias,
+  variantesActivas,
+  varianteInicial,
+} from '../../lib/productos.ts';
+
+export const getStaticPaths = (async () => {
+  const productos = await activos();
+  return productos.map((producto) => ({ params: { slug: producto.id }, props: { producto } }));
+}) satisfies GetStaticPaths;
+
+const { producto } = Astro.props;
+const { nombre, descripcion, precio } = producto.data;
+
+const categorias = await resolverCategorias(producto);
+const variantes = variantesActivas(producto);
+const inicial = varianteInicial(producto);
+const canonical = urlCanonica(Astro.url.pathname, Astro.site);
+
+// og:image: primera imagen de la variante inicial, en w600 (SPEC §7.4)
+const imgOg = imagenPrincipal(producto);
+const ogImagen = imgOg ? urlImagen(PUBLIC_R2_BASE, imgOg, Math.max(...imgOg.anchos)) : undefined;
+
+// Todas las imagenes activas alimentan `image` del JSON-LD, en orden.
+const imagenesJsonLd = variantes
+  .flatMap((v) => v.imagenes)
+  .map((img) => urlImagen(PUBLIC_R2_BASE, img, Math.max(...img.anchos)));
+
+// priceValidUntil = actualizado + 90 dias: los precios se sostienen 2-3 meses y
+// el valor debe CUBRIR ese intervalo. Uno vencido hace que Google descarte el
+// precio del rich result (SPEC §7.3).
+const validoHasta = new Date(`${producto.data.actualizado}T00:00:00Z`);
+validoHasta.setUTCDate(validoHasta.getUTCDate() + 90);
+
+const jsonLd: unknown[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: urlCanonica('/', Astro.site).href },
+      ...(categorias[0]
+        ? [
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: categorias[0].data.nombre,
+              item: urlCanonica(`/categorias/${categorias[0].id}`, Astro.site).href,
+            },
+          ]
+        : []),
+      { '@type': 'ListItem', position: categorias[0] ? 3 : 2, name: nombre },
+    ],
+  },
+];
+
+// Sin precio NO se emite Product: `offers` es la unica via a un Product valido
+// (no hay reviews ni ratings), y offers exige price. Mejor sin structured data
+// que con un precio inventado (SPEC §7.3, §7.5).
+if (precio !== null && inicial) {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: nombre,
+    ...(descripcion ? { description: descripcion } : {}),
+    sku: inicial.sku,
+    brand: { '@type': 'Brand', name: MARCA },
+    ...(imagenesJsonLd.length > 0 ? { image: imagenesJsonLd } : {}),
+    offers: {
+      '@type': 'Offer',
+      url: canonical.href,
+      priceCurrency: 'PYG',
+      price: precio,
+      priceValidUntil: validoHasta.toISOString().slice(0, 10),
+      // No hay stock en vivo: InStock seria insostenible. InStoreOnly describe
+      // exactamente este negocio (SPEC §7.5).
+      availability: 'https://schema.org/InStoreOnly',
+      seller: { '@type': 'Organization', name: COMERCIO },
+    },
+  });
+}
+---
+
+<Base
+  titulo={nombre}
+  descripcion={descripcion ?? `${nombre} — ${MARCA}. Consultá por WhatsApp.`}
+  ogType="product"
+  ogImagen={ogImagen}
+  jsonLd={jsonLd}
+>
+  <nav aria-label="Migas de pan" class="text-texto-suave text-sm">
+    <ol class="flex flex-wrap items-center gap-1">
+      <li><a href="/" class="hover:text-texto underline">Inicio</a></li>
+      {
+        categorias[0] && (
+          <>
+            <li aria-hidden="true">›</li>
+            <li>
+              <a href={`/categorias/${categorias[0].id}`} class="hover:text-texto underline">
+                {categorias[0].data.nombre}
+              </a>
+            </li>
+          </>
+        )
+      }
+      <li aria-hidden="true">›</li>
+      <li aria-current="page" class="text-texto">{nombre}</li>
+    </ol>
+  </nav>
+
+  <div class="mt-4 grid gap-6 sm:mt-6 lg:grid-cols-2 lg:gap-10">
+    {/*
+      client:visible: la ficha es funcional sin JS porque la isla se renderiza
+      en el servidor con la primera variante (SPEC §9.6).
+    */}
+    <SelectorVariante
+      client:visible
+      nombre={nombre}
+      url={canonical.href}
+      variantes={variantes.map((v) => ({
+        sku: v.sku,
+        color: v.color,
+        colorHex: v.colorHex,
+        imagenes: v.imagenes,
+      }))}
+      r2Base={PUBLIC_R2_BASE}
+      telefono={normalizarTelefono(PUBLIC_WHATSAPP)}
+    />
+
+    <div class="flex flex-col gap-4">
+      <h1 class="text-2xl font-semibold sm:text-3xl">{nombre}</h1>
+
+      <div class="flex flex-col gap-1">
+        <Precio precio={precio} grande />
+        {precio !== null && <p class="text-texto-suave text-xs">{LEYENDA_PRECIO}</p>}
+      </div>
+
+      {descripcion && <p class="max-w-prose leading-relaxed">{descripcion}</p>}
+
+      <dl class="text-texto-suave mt-2 text-sm">
+        <div class="flex gap-2">
+          <dt>Código:</dt>
+          <dd class="text-texto"><code>{producto.data.origen.ref}</code></dd>
+        </div>
+        <div class="flex gap-2">
+          <dt>Marca:</dt>
+          <dd class="text-texto">{MARCA}</dd>
+        </div>
+      </dl>
+
+      {
+        categorias.length > 0 && (
+          <ul class="mt-2 flex flex-wrap gap-2">
+            {categorias.map((c) => (
+              <li>
+                <a
+                  href={`/categorias/${c.id}`}
+                  class="border-borde text-texto-suave hover:border-acento rounded border px-2 py-1 text-xs"
+                >
+                  {c.data.nombre}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </div>
+</Base>

@@ -1,0 +1,17 @@
+[
+  { "id": "mochilas", "nombre": "Mochilas", "orden": 10 },
+  { "id": "carteras", "nombre": "Carteras", "orden": 20 },
+  { "id": "bolsos", "nombre": "Bolsos", "orden": 30 },
+  { "id": "rinoneras", "nombre": "Riñoneras", "orden": 40 },
+  { "id": "valijas", "nombre": "Valijas", "orden": 50 },
+  { "id": "billeteras", "nombre": "Billeteras", "orden": 60 },
+  { "id": "portafolios", "nombre": "Portafolios", "orden": 70 },
+  { "id": "cartucheras", "nombre": "Cartucheras", "orden": 80 },
+  { "id": "necessaires", "nombre": "Necessaires", "orden": 90 },
+  { "id": "porta-traje", "nombre": "Porta traje", "orden": 100 },
+  { "id": "infantil", "nombre": "Diseños infantiles", "orden": 110 },
+  { "id": "notebook", "nombre": "Para notebook", "orden": 200 },
+  { "id": "dama", "nombre": "Para dama", "orden": 210 },
+  { "id": "escolar", "nombre": "Vuelta a clases", "orden": 220 },
+  { "id": "fiesta", "nombre": "Fiesta y noche", "orden": 230 }
+]

@@ -1,0 +1,24 @@
+---
+/**
+ * Placeholder para variantes sin imagen (SPEC §5.4).
+ *
+ * NUNCA se renderiza un <img> roto, y NO se usa logo.png: 1.77 MB con damero
+ * como placeholder es peor que nada. Hasta que exista monograma.svg, muestra
+ * solo el texto.
+ *
+ * El producto sigue visible y contactable: que no haya foto no lo saca del
+ * catalogo.
+ */
+interface Props {
+  compacto?: boolean;
+}
+const { compacto = false } = Astro.props;
+---
+
+<div
+  class="bg-fondo border-borde text-texto-suave flex aspect-square w-full items-center justify-center rounded border border-dashed"
+  role="img"
+  aria-label="Producto sin imagen disponible"
+>
+  <span class={compacto ? 'text-xs' : 'text-sm'}>Sin imagen</span>
+</div>

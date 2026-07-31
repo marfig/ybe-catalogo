@@ -1,0 +1,114 @@
+[
+  {
+    "id": "mochila-urbana-lisa-18",
+    "nombre": "Mochila urbana lisa 18\"",
+    "descripcion": "Mochila de poliéster con bolsillo frontal y compartimento acolchado para notebook de hasta 15 pulgadas.",
+    "categorias": ["mochilas", "notebook", "escolar"],
+    "precio": 285000,
+    "variantes": [
+      {
+        "sku": "CG84101-A",
+        "color": "Azul marino",
+        "colorHex": "#2e3560",
+        "imagenes": [
+          { "base": "catalogo/acaa55fa1e8d3b9c", "anchos": [300, 600] },
+          { "base": "catalogo/67c9ff3b0ed208ef", "anchos": [300, 600] }
+        ]
+      }
+    ],
+    "destacado": true,
+    "actualizado": "2026-07-31",
+    "origen": { "proveedor": "chenson", "ref": "CG84101" }
+  },
+  {
+    "id": "mochila-juvenil-acolchada",
+    "nombre": "Mochila juvenil acolchada",
+    "descripcion": "Mochila compacta de cuerina acolchada con cadena decorativa y monedero desmontable.",
+    "categorias": ["mochilas", "dama", "escolar"],
+    "precio": 320000,
+    "variantes": [
+      {
+        "sku": "CG84455-3",
+        "color": "Negro",
+        "colorHex": "#1a1a1a",
+        "imagenes": [{ "base": "catalogo/862cab4eb0a88563", "anchos": [300, 600] }]
+      },
+      {
+        "sku": "CG84455-F",
+        "color": "Fucsia",
+        "colorHex": "#c0286a",
+        "imagenes": [{ "base": "catalogo/e98d0c8ea68a9c21", "anchos": [300, 600] }]
+      }
+    ],
+    "destacado": true,
+    "actualizado": "2026-07-31",
+    "origen": { "proveedor": "chenson", "ref": "CG84455" }
+  },
+  {
+    "id": "cartera-de-fiesta-con-strass",
+    "nombre": "Cartera de fiesta con strass",
+    "descripcion": "Cartera de mano rígida con aplicación completa de strass y cadena desmontable.",
+    "categorias": ["carteras", "fiesta"],
+    "precio": 195000,
+    "variantes": [
+      {
+        "sku": "CG85527-E",
+        "color": "Champagne",
+        "colorHex": "#b98a70",
+        "imagenes": [{ "base": "catalogo/605ea0e9d91bfbd6", "anchos": [300, 600] }]
+      }
+    ],
+    "destacado": true,
+    "actualizado": "2026-07-31",
+    "origen": { "proveedor": "chenson", "ref": "CG85527" }
+  },
+  {
+    "id": "rinonera-juvenil",
+    "nombre": "Riñonera juvenil",
+    "descripcion": "Riñonera de poliéster con correa regulable y cierre metálico.",
+    "categorias": ["rinoneras", "escolar"],
+    "precio": null,
+    "variantes": [
+      {
+        "sku": "CG82910-R",
+        "color": "Rosa",
+        "colorHex": "#e8a0a8",
+        "imagenes": [{ "base": "catalogo/4629d09be1221bad", "anchos": [300, 600] }]
+      }
+    ],
+    "actualizado": "2026-07-31",
+    "origen": { "proveedor": "chenson", "ref": "CG82910" }
+  },
+  {
+    "id": "billetera-de-dama",
+    "nombre": "Billetera de dama",
+    "categorias": ["billeteras", "dama"],
+    "precio": 95000,
+    "variantes": [
+      {
+        "sku": "CG81500-3",
+        "color": "Negro",
+        "imagenes": []
+      }
+    ],
+    "actualizado": "2026-07-31",
+    "origen": { "proveedor": "chenson", "ref": "CG81500" }
+  },
+  {
+    "id": "cg85900",
+    "nombre": "CG85900",
+    "categorias": ["carteras"],
+    "precio": null,
+    "variantes": [
+      {
+        "sku": "CG85900-P",
+        "color": "Rosado",
+        "colorHex": "#d9b2a6",
+        "imagenes": [{ "base": "catalogo/406b4fe1006d642b", "anchos": [300, 600] }]
+      }
+    ],
+    "activo": false,
+    "actualizado": "2026-07-31",
+    "origen": { "proveedor": "chenson", "ref": "CG85900" }
+  }
+]

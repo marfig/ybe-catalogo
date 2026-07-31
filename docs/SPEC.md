@@ -219,11 +219,20 @@ const categorias = defineCollection({
   }),
 });
 
+// Una imagen guarda la clave direccionada por contenido SIN el sufijo de
+// tamano, mas los anchos que realmente existen. `anchos` es explicito porque
+// segun §5.5 un origen chico genera solo w300: sin este dato el srcset
+// apuntaria a un archivo inexistente.
+const imagen = z.object({
+  base: z.string().regex(/^catalogo\/[0-9a-f]{16}$/),
+  anchos: z.array(z.union([z.literal(300), z.literal(600)])).min(1),
+});
+
 const variante = z.object({
   sku: z.string().min(1),
   color: z.string().min(1),
   colorHex: z.string().regex(/^#[0-9a-f]{6}$/i).optional(),
-  imagenes: z.array(z.string()).default([]),
+  imagenes: z.array(imagen).default([]),
   activo: z.boolean().default(true),
 });
 
@@ -499,11 +508,19 @@ Se renderiza `<SinFoto />`: `div` con `aspect-ratio: 1/1`, fondo `--color-fondo`
 
 ### 5.5 Resolución insuficiente
 
-Umbral: **origen menor a 300 px de lado**.
+La regla se ancla en **nunca ampliar**: un tamaño se genera solo si el origen lo soporta.
 
-- El importador **no genera** `w600` para ese origen; solo `w300`.
-- Si el origen es menor a 150 px de lado, marca la variante con `imagenes: []`: por debajo de eso la foto no informa y el placeholder es más honesto.
-- Emite aviso por consola y una línea en el reporte (§6.5) con el SKU y las dimensiones halladas. **No falla el build:** un producto con foto mala es peor que un producto sin foto, pero mucho mejor que un deploy bloqueado.
+| Lado mayor del origen | Se genera | Efecto en el sitio |
+|---|---|---|
+| ≥ 600 px | `w300` + `w600` | Caso normal. Card a 2×, ficha a 1× |
+| 300–599 px | **solo `w300`** | La ficha cae a `w300`. Se ve blanda pero se ve |
+| < 300 px | **nada** ⇒ `imagenes: []` | Placeholder (§5.4). Ningún tamaño se sostiene sin ampliar |
+
+Ampliar un `w300` desde un origen de 200 px sería inventar píxeles, así que por debajo de 300 el placeholder es más honesto que una foto reventada.
+
+El importador emite aviso por consola y una línea en el reporte (§6.5) con el SKU y las dimensiones halladas. **No falla el build:** un producto con foto mala es peor que un producto sin foto, pero mucho mejor que un deploy bloqueado.
+
+`srcSetR2()` (§8, `src/lib/imagenes.ts`) emite en el `srcset` únicamente los tamaños que existen, así que un origen de 400 px no produce un `<img>` apuntando a un `w600` inexistente.
 
 Con el set de origen actual este caso no se da: las 7 son 600 × 600.
 
@@ -749,9 +766,24 @@ Otros campos, todos provenientes del overlay (§6.6): `nombre` y `descripcion` s
 
 ### 6.10 Normalización de aspect ratio
 
-1. Leer dimensiones. Si AR ∈ [0.98, 1.02] ⇒ redimensionar a 600 × 600. Cubre las 7 muestras, incluida la de 601 × 600.
-2. Si AR está fuera de ese rango ⇒ **rellenar con `#FFFFFF`** hasta el cuadrado, centrando, y luego redimensionar. **Nunca recortar** (§5.3).
-3. Si el lado mayor es menor a 600 ⇒ **no ampliar**: generar solo los tamaños que el origen soporta (§5.5).
+Una sola operación cubre todos los casos: **encajar dentro del cuadrado rellenando con blanco**, nunca recortando (§5.3).
+
+```js
+sharp(origen)
+  .resize(lado, lado, {
+    fit: 'contain',              // encaja dentro, NO recorta
+    background: '#ffffff',       // el relleno coincide con el fondo real
+    withoutEnlargement: true,    // nunca amplía
+  })
+  .webp({ quality: 82 })
+```
+
+- Un origen 1:1 (las 7 muestras) simplemente se redimensiona: el relleno es de 0 px.
+- El de 601 × 600 sale 600 × 600 con 1 px de relleno, imperceptible y sobre blanco.
+- Un origen 300 × 600 sale con barras blancas laterales. Invisibles: coinciden con `--color-superficie` y con el fondo de la foto.
+- `withoutEnlargement` es lo que hace cumplir la tabla de §5.5 sin lógica aparte.
+
+No hay dos ramas según el aspect ratio: `fit: 'contain'` ya es el caso general, y tratar el 1:1 como excepción sería complejidad sin ganancia.
 
 Eso es todo: **no hay etapa de recorte ni de re-encuadre.** El importador redimensiona y, si hace falta, rellena. Nunca quita píxeles. La varianza de ocupación del sujeto se acepta (§5.3) porque cualquier recorte alteraría la marca de agua de forma inconsistente entre productos (§5.6).
 

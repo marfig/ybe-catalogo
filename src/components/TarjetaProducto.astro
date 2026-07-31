@@ -1,0 +1,45 @@
+---
+import { SIZES_CARD } from '../lib/imagenes.ts';
+import { imagenPrincipal, variantesActivas, type Producto } from '../lib/productos.ts';
+import ImagenProducto from './ImagenProducto.astro';
+import Precio from './Precio.astro';
+
+interface Props {
+  producto: Producto;
+}
+
+const { producto } = Astro.props;
+const imagen = imagenPrincipal(producto);
+const variantes = variantesActivas(producto);
+const colores = variantes.length;
+---
+
+{/*
+  El borde es lo que separa la foto del fondo: la foto viene sobre #FFFFFF y
+  --color-fondo es #FAFAF9, contraste 1.01:1 (SPEC §3.3). Sin borde el producto
+  flota sin limite visible.
+*/}
+<a
+  href={`/productos/${producto.id}`}
+  class="border-borde bg-superficie hover:border-acento group flex flex-col overflow-hidden rounded border transition-colors"
+>
+  <ImagenProducto imagen={imagen} alt={producto.data.nombre} sizes={SIZES_CARD} compacto />
+
+  <div class="flex flex-1 flex-col gap-1 p-3">
+    <h3 class="group-hover:text-primario text-sm leading-snug font-medium">
+      {producto.data.nombre}
+    </h3>
+
+    <div class="mt-auto flex items-end justify-between gap-2 pt-1">
+      <Precio precio={producto.data.precio} />
+
+      {
+        colores > 1 && (
+          <span class="text-texto-suave shrink-0 text-xs">
+            {colores} colores
+          </span>
+        )
+      }
+    </div>
+  </div>
+</a>

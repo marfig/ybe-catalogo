@@ -1,0 +1,114 @@
+---
+import type { GetStaticPaths } from 'astro';
+
+import Base from '../../../layouts/Base.astro';
+import GrillaProductos from '../../../components/GrillaProductos.astro';
+import { urlCanonica } from '../../../lib/seo.ts';
+import { categoriasNavegables, porCategoria } from '../../../lib/productos.ts';
+
+/**
+ * Rest param [...page], NO [page].
+ *
+ * Con [page].astro la primera pagina quedaria en /categorias/mochilas/1 y la
+ * URL limpia no existiria. Con el rest param, la pagina 1 ES /categorias/mochilas
+ * y el resto queda en /2, /3 (SPEC §9.5).
+ */
+export const getStaticPaths = (async ({ paginate }) => {
+  // Solo categorias con productos: una pagina de listado vacio es thin content
+  // y el header tampoco la enlaza (SPEC §4.3).
+  const navegables = await categoriasNavegables();
+
+  const paginas = await Promise.all(
+    navegables.map(async ({ categoria }) => {
+      const productos = await porCategoria(categoria.id);
+      return paginate(productos, {
+        params: { slug: categoria.id },
+        props: { categoria },
+        pageSize: 60,
+      });
+    })
+  );
+
+  return paginas.flat();
+}) satisfies GetStaticPaths;
+
+const { page, categoria } = Astro.props;
+
+// Canonical propio por pagina: la 2 no canonicaliza a la 1, son inventarios
+// distintos y colapsarlas esconde productos del indice (SPEC §7.1).
+const titulo =
+  page.currentPage > 1
+    ? `${categoria.data.nombre} — página ${page.currentPage}`
+    : categoria.data.nombre;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: urlCanonica('/', Astro.site).href },
+      { '@type': 'ListItem', position: 2, name: categoria.data.nombre },
+    ],
+  },
+];
+---
+
+<Base
+  titulo={titulo}
+  descripcion={`${categoria.data.nombre} disponibles en el catálogo. Consultá por WhatsApp.`}
+  jsonLd={jsonLd}
+>
+  <nav aria-label="Migas de pan" class="text-texto-suave text-sm">
+    <ol class="flex flex-wrap items-center gap-1">
+      <li><a href="/" class="hover:text-texto underline">Inicio</a></li>
+      <li aria-hidden="true">›</li>
+      <li aria-current="page" class="text-texto">{categoria.data.nombre}</li>
+    </ol>
+  </nav>
+
+  <div class="mt-4 flex flex-wrap items-baseline justify-between gap-2">
+    <h1 class="text-2xl font-semibold sm:text-3xl">{categoria.data.nombre}</h1>
+    <p class="text-texto-suave text-sm">
+      {page.total} {page.total === 1 ? 'producto' : 'productos'}
+      {page.lastPage > 1 && <> · página {page.currentPage} de {page.lastPage}</>}
+    </p>
+  </div>
+
+  <div class="mt-4">
+    <GrillaProductos productos={page.data} />
+  </div>
+
+  {
+    page.lastPage > 1 && (
+      <nav aria-label="Paginación" class="mt-8 flex items-center justify-between gap-4">
+        {page.url.prev ? (
+          <a
+            href={page.url.prev}
+            rel="prev"
+            class="border-borde bg-superficie hover:border-acento rounded border px-3 py-2 text-sm"
+          >
+            ← Anterior
+          </a>
+        ) : (
+          <span />
+        )}
+
+        <span class="text-texto-suave text-sm">
+          {page.currentPage} / {page.lastPage}
+        </span>
+
+        {page.url.next ? (
+          <a
+            href={page.url.next}
+            rel="next"
+            class="border-borde bg-superficie hover:border-acento rounded border px-3 py-2 text-sm"
+          >
+            Siguiente →
+          </a>
+        ) : (
+          <span />
+        )}
+      </nav>
+    )
+  }
+</Base>

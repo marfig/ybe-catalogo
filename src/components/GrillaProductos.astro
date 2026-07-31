@@ -1,0 +1,26 @@
+---
+import type { Producto } from '../lib/productos.ts';
+import TarjetaProducto from './TarjetaProducto.astro';
+
+interface Props {
+  /** Se recibe ya filtrado y ordenado: la grilla no decide que mostrar. */
+  productos: Producto[];
+  vacio?: string;
+}
+
+const { productos, vacio = 'No hay productos en esta categoría.' } = Astro.props;
+---
+
+{
+  productos.length === 0 ? (
+    <p class="text-texto-suave py-8">{vacio}</p>
+  ) : (
+    <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+      {productos.map((producto) => (
+        <li class="flex">
+          <TarjetaProducto producto={producto} />
+        </li>
+      ))}
+    </ul>
+  )
+}

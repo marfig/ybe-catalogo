@@ -1,0 +1,33 @@
+---
+import Base from '../layouts/Base.astro';
+import { categoriasNavegables } from '../lib/productos.ts';
+
+const categorias = (await categoriasNavegables()).map((c) => c.categoria);
+---
+
+<Base titulo="Página no encontrada" descripcion="La página que buscás no existe.">
+  <h1 class="text-2xl font-semibold sm:text-3xl">No encontramos esta página</h1>
+  <p class="text-texto-suave mt-2 max-w-prose">
+    Puede que el producto ya no esté disponible o que la dirección esté mal escrita.
+  </p>
+
+  <p class="mt-6">
+    <a href="/" class="text-primario underline">Volver al inicio</a>
+  </p>
+
+  <h2 class="mt-8 text-lg font-semibold">Categorías</h2>
+  <ul class="mt-3 flex flex-wrap gap-2">
+    {
+      categorias.map((c) => (
+        <li>
+          <a
+            href={`/categorias/${c.id}`}
+            class="border-borde bg-superficie hover:border-acento rounded border px-3 py-2 text-sm"
+          >
+            {c.data.nombre}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Base>

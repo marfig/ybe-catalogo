@@ -1,0 +1,27 @@
+---
+import { formatearGs } from '../lib/precio.ts';
+import { SIN_PRECIO } from '../lib/sitio.ts';
+
+interface Props {
+  precio: number | null;
+  /** La ficha muestra el monto mas grande que la card. */
+  grande?: boolean;
+}
+
+const { precio, grande = false } = Astro.props;
+const tamano = grande ? 'text-2xl' : 'text-base';
+---
+
+{
+  precio === null ? (
+    <span class={`text-texto-suave ${tamano}`}>{SIN_PRECIO}</span>
+  ) : (
+    /*
+      data-precio lleva el numero crudo para que el filtro por rango del buscador
+      (Fase 3) no tenga que parsear el texto formateado (SPEC §9.3).
+    */
+    <span class={`font-semibold ${tamano}`} data-precio={precio}>
+      {formatearGs(precio)}
+    </span>
+  )
+}

@@ -1,0 +1,35 @@
+---
+import { PUBLIC_WHATSAPP } from 'astro:env/client';
+import { normalizarTelefono } from '../lib/whatsapp.ts';
+import { COMERCIO, LEYENDA_PRECIO, MARCA, REDES } from '../lib/sitio.ts';
+
+const telefono = normalizarTelefono(PUBLIC_WHATSAPP);
+---
+
+<footer class="bg-superficie border-borde mt-8 border-t">
+  <div
+    class="text-texto-suave mx-auto flex max-w-6xl flex-col gap-3 px-4 py-6 text-sm sm:px-6"
+  >
+    <p>
+      <strong class="text-texto">{COMERCIO}</strong> — productos {MARCA}. Consultá por WhatsApp al
+      <a class="underline" href={`https://wa.me/${telefono}`}>+{telefono}</a>.
+    </p>
+
+    {/* Leyenda obligatoria junto a los precios publicados (SPEC §7.3) */}
+    <p>{LEYENDA_PRECIO}.</p>
+
+    {
+      REDES.length > 0 && (
+        <ul class="flex gap-3">
+          {REDES.map((url) => (
+            <li>
+              <a class="underline" href={url}>
+                {new URL(url).hostname.replace('www.', '')}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</footer>

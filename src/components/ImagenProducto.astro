@@ -1,0 +1,46 @@
+---
+import { PUBLIC_R2_BASE } from 'astro:env/client';
+import { anchoMayor, srcSetImagen, urlImagen, type Imagen } from '../lib/imagenes.ts';
+import SinFoto from './SinFoto.astro';
+
+interface Props {
+  imagen?: Imagen | undefined;
+  alt: string;
+  sizes: string;
+  /** eager solo para la imagen principal de la ficha; el resto lazy. */
+  prioridad?: boolean;
+  compacto?: boolean;
+  class?: string;
+}
+
+const { imagen, alt, sizes, prioridad = false, compacto = false, class: clase = '' } = Astro.props;
+const mayor = imagen ? anchoMayor(imagen) : 0;
+---
+
+{
+  imagen ? (
+    <div class={`bg-superficie aspect-square w-full overflow-hidden ${clase}`}>
+      {/*
+        <img> plano, no <Image> de astro:assets: las imagenes de catalogo vienen
+        pre-procesadas antes de subir y no se optimizan en build (SPEC §5.2).
+
+        width/height explicitos reservan el espacio y evitan CLS.
+        object-contain y NO object-cover: los sujetos van de AR 0.885 a 2.154 y
+        cover les recortaria los costados (SPEC §5.3).
+      */}
+      <img
+        src={urlImagen(PUBLIC_R2_BASE, imagen, mayor)}
+        srcset={srcSetImagen(PUBLIC_R2_BASE, imagen)}
+        sizes={sizes}
+        width={mayor}
+        height={mayor}
+        alt={alt}
+        loading={prioridad ? 'eager' : 'lazy'}
+        decoding={prioridad ? 'sync' : 'async'}
+        class="h-full w-full object-contain"
+      />
+    </div>
+  ) : (
+    <SinFoto compacto={compacto} />
+  )
+}

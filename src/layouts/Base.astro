@@ -1,0 +1,67 @@
+---
+import { INDEXABLE } from 'astro:env/server';
+import { urlCanonica } from '../lib/seo.ts';
+import { COMERCIO, DESCRIPCION_SITIO } from '../lib/sitio.ts';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  titulo: string;
+  descripcion?: string | undefined;
+  ogType?: 'website' | 'product';
+  ogImagen?: string | undefined;
+  jsonLd?: unknown[];
+}
+
+const {
+  titulo,
+  descripcion = DESCRIPCION_SITIO,
+  ogType = 'website',
+  ogImagen,
+  jsonLd = [],
+} = Astro.props;
+
+// NO se usa Astro.url.pathname directo: con build.format 'file' daria
+// /index.html. Ver SPEC §7.1.
+const canonical = urlCanonica(Astro.url.pathname, Astro.site);
+const tituloCompleto = titulo === COMERCIO ? COMERCIO : `${titulo} — ${COMERCIO}`;
+---
+
+<!doctype html>
+<html lang="es-PY">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{tituloCompleto}</title>
+    <meta name="description" content={descripcion} />
+    <link rel="canonical" href={canonical.href} />
+
+    {/* Falla segura: sin INDEXABLE explicito el sitio NO se indexa (SPEC §7.2) */}
+    {!INDEXABLE && <meta name="robots" content="noindex, nofollow" />}
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={tituloCompleto} />
+    <meta property="og:description" content={descripcion} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:site_name" content={COMERCIO} />
+    <meta property="og:locale" content="es_PY" />
+    {ogImagen && <meta property="og:image" content={ogImagen} />}
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {
+      jsonLd.map((bloque) => (
+        <script type="application/ld+json" set:html={JSON.stringify(bloque)} />
+      ))
+    }
+  </head>
+
+  <body class="bg-fondo text-texto flex min-h-screen flex-col">
+    <Header />
+    <main class="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 sm:py-8">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
