@@ -1086,7 +1086,7 @@ Aviso que la pantalla muestra sin vueltas: las URLs de esos productos pasan de
 | Cloudflare Access | **$0** — hasta 50 usuarios |
 | GitHub Actions | **$0** esperado — a verificar (§16) |
 | **Total mensual** | **$0** |
-| Dominio (independiente de esta etapa) | ~USD 10-15 / año |
+| Dominio | ~USD 10-15 / año. **No lo necesita el desarrollo, sí el lanzamiento**: sin dominio las fotos se sirven por `r2.dev`, que es development-only (§14, Fase 2.1) |
 
 **Lo único que rompería el $0** es que los 10 ms de CPU no alcancen para el
 scrape ni con las mitigaciones de §7.3, y haya que pasar a Workers Paid ($5/mes).
@@ -1154,13 +1154,35 @@ de OAuth de wrangler (`wrangler login --scopes-list`), y no hace falta — el to
 alcanza la API de R2 y recibe respuesta; lo que falta es la suscripción. Queda sin
 verificar si ese checkout exige medio de pago aun quedándose en el free tier.
 
-- Crear bucket, dominio público, `PUBLIC_R2_BASE`.
-- Subir las imágenes existentes.
-- Verificar `Cache-Control: immutable` desde el bucket, y que la regla
+- ✅ R2 habilitado en la cuenta y **bucket `ybe-catalogo` creado**.
+- ✅ Acceso público habilitado: `https://pub-d528716484104bfeb9ae991ab4337347.r2.dev`
+  ⇒ es el valor de `PUBLIC_R2_BASE`.
+- ⬜ Subir las imágenes existentes.
+- ⬜ Verificar `Cache-Control: immutable` servido desde el bucket, y que la regla
   `/img-dev/catalogo/:hash/*` de `public/_headers` ya no haga falta
   (`SPEC.md` §9.2).
 
 Criterio de salida: el sitio publicado sirve imágenes desde R2, sin `/img-dev`.
+
+#### La URL `r2.dev` NO sirve para producción
+
+Verificado en la doc oficial el 2026-08-03: *«Public access through `r2.dev`
+subdomains is rate-limited and should only be used for development purposes»* y
+*«For production use, add your domain to Cloudflare instead»*.
+
+**Esto sube el peso del dominio propio.** Hasta ahora el dominio condicionaba las
+Image Transformations (§15) y el paso de `INDEXABLE` a `true` (`SPEC.md` §7.2).
+Ahora también condiciona **servir las fotos del catálogo**: con `r2.dev` funcionan,
+pero con rate limit y sin garantía de servicio.
+
+Consecuencia concreta: **el sitio no se puede abrir a clientes reales estando en
+`.workers.dev`.** No bloquea ninguna fase de la etapa 2 — todo el desarrollo y las
+pruebas corren sobre `r2.dev` sin problema — pero el lanzamiento sí depende del
+dominio, y no solo por SEO.
+
+Al pasar al dominio propio, el cambio es de configuración: se agrega el dominio
+como *custom domain* del bucket y `PUBLIC_R2_BASE` apunta ahí. Las claves de los
+objetos no cambian, así que ninguna imagen se vuelve a subir.
 
 ### Fase 2.2 — D1 y el volcado (desplegable) · **EN CURSO**
 
