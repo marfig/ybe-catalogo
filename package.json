@@ -13,7 +13,7 @@
     "check": "astro check",
     "scrape": "node scripts/scrape/index.mjs",
     "import": "node scripts/import/index.mjs",
-    "test": "node --experimental-strip-types --test",
+    "test": "node --experimental-strip-types --experimental-sqlite --test",
     "deploy": "wrangler deploy"
   },
   "dependencies": {

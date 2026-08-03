@@ -1,0 +1,32 @@
+{
+  // Config SOLO para operar D1: migraciones y consultas desde la terminal.
+  //
+  // No es un Worker: no tiene "main" y no se despliega. Existe aparte a
+  // proposito, porque el binding a D1 NO puede vivir en el wrangler.jsonc de la
+  // raiz: ese es el del sitio publico, que por diseño no tiene ningun binding
+  // (SPEC-etapa2 §4.1). Un sitio de solo lectura no debe poder escribir en D1
+  // ni por error de programacion.
+  //
+  // El Worker de admin, cuando exista, declara su propio binding a esta misma
+  // base en spike-libre/admin/wrangler.jsonc.
+  //
+  // Uso:
+  //   npx wrangler d1 migrations list ybe-catalogo -c db/wrangler.jsonc --remote
+  //   npx wrangler d1 migrations apply ybe-catalogo -c db/wrangler.jsonc --remote
+  //   npx wrangler d1 execute ybe-catalogo -c db/wrangler.jsonc --remote --command "..."
+  "name": "ybe-db",
+  "compatibility_date": "2026-07-31",
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "ybe-catalogo",
+      "database_id": "693387a5-f13b-4514-ad49-56a6bd5621ef",
+
+      // Va DENTRO del binding, no en el nivel superior: ahi wrangler lo ignora
+      // con un warning. Es relativo a este archivo, asi que apunta a
+      // db/migrations/ — que igual es el default, pero explicito se lee mejor.
+      "migrations_dir": "migrations"
+    }
+  ]
+}
