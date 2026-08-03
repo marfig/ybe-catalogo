@@ -1,0 +1,20 @@
+{
+  // SPIKE DESCARTABLE — Fase 2.0 de docs/SPEC-etapa2.md.
+  //
+  // Unico objetivo: averiguar si parsear una ficha del proveedor y hashear sus
+  // imagenes entra en los 10 ms de CPU del plan Free (SPEC-etapa2 §3.1, §7.3).
+  //
+  // No es parte del producto. Se borra cuando la Fase 2.0 tenga su respuesta.
+  // Vive fuera de la raiz del proyecto a proposito: no comparte package.json,
+  // no comparte config, y no puede afectar al sitio.
+  "name": "ybe-spike-ficha",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-07-31",
+
+  // Sin bindings. Este spike no toca D1 ni R2: mide solo el costo de red +
+  // parseo + hash. El costo de los bindings se mide despues, cuando se sepa
+  // si cuentan como subrequests (pregunta abierta de §16).
+  "observability": {
+    "enabled": true
+  }
+}
