@@ -1,0 +1,15 @@
+Trabajemos en la etapa 2. Como siempre analicemos bien, creemos la spec y cuando esté todo aprobado codifiquemos.
+1. Implementar R2
+2. Tener un área de administrador
+3. Creo que ya lo consideras pero el código del producto es esencial
+4. Vamos a tener una sección para subir masivamente, completar los datos y aprobar para que aparezca en el catálogo
+    - Lo primero será scrapear de una url como ésta https://www.chenson.com.py/lanzamientos/?lz=2026-07-16
+    - Debemos ir a todas las páginas, todas las imágenes y toda la información disponible. Los detalles están en urls como https://www.chenson.com.py/producto/71094-cg85525
+    - Al importar a través de la url quedará como una especie de grid con la foto del producto y todos los datos que se hayan obtenido
+    - A partir de ahí se va a poder actualizar categoría, título, detalle, precio
+    - Cada producto ya tendrá relación con todas las fotos correspondientes
+5. Una opción para eliminar productos, podría ser por el código
+
+Considerar la arquitectura, que vivimos en cloudflare, la implementación más simple y menos costosa
+Básicamente en ésto consiste la etapa 2.
+Analízalo, pregunta lo que dudes, propón la mejores soluciones.
