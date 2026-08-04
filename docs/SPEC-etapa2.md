@@ -1157,10 +1157,23 @@ verificar si ese checkout exige medio de pago aun quedándose en el free tier.
 - ✅ R2 habilitado en la cuenta y **bucket `ybe-catalogo` creado**.
 - ✅ Acceso público habilitado: `https://pub-d528716484104bfeb9ae991ab4337347.r2.dev`
   ⇒ es el valor de `PUBLIC_R2_BASE`.
-- ⬜ Subir las imágenes existentes.
+- ✅ **Cliente S3 de R2** en `scripts/import/r2.mjs` — subida condicional y
+  `Cache-Control` inmutable. 13 tests, todos offline con un doble del cliente.
+- ✅ **Script de relleno** en `scripts/import/subir-existentes.mjs`
+  (`npm run subir-existentes`, con `--dry-run`). Regenera las derivadas desde
+  `samples/` con el pipeline real, no copia `public/img-dev/`.
+- ✅ **Verificado que las claves coinciden**: el ensayo planea exactamente las
+  mismas 14 claves que sirve `public/img-dev/` hoy (249 kB). Era la premisa de
+  toda la fase y ahora está comprobada, no asumida.
+- 🚧 **Subir las imágenes existentes — BLOQUEADO por el token de escritura.**
+  `R2_BUCKET` está en `.env`; faltan `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID` y
+  `R2_SECRET_ACCESS_KEY`. Se crean una vez desde el dashboard (R2 › *Manage R2
+  API Tokens*) con permiso de **lectura y escritura** sobre el bucket. Es trabajo
+  manual de cuenta, no de código: el script ya está listo y es idempotente.
 - ⬜ Verificar `Cache-Control: immutable` servido desde el bucket, y que la regla
   `/img-dev/catalogo/:hash/*` de `public/_headers` ya no haga falta
-  (`SPEC.md` §9.2).
+  (`SPEC.md` §9.2). Depende de la subida.
+- ⬜ Apuntar `PUBLIC_R2_BASE` al bucket y borrar `public/img-dev/`.
 
 Criterio de salida: el sitio publicado sirve imágenes desde R2, sin `/img-dev`.
 
@@ -1200,9 +1213,8 @@ El eslabón que hace que todo lo demás pueda existir.
   `FOREIGN KEY constraint failed: SQLITE_CONSTRAINT_FOREIGNKEY [code: 7500]` y
   `CHECK constraint failed: estado = 'importado' OR slug IS NOT NULL`. **D1
   aplica las foreign keys sin necesidad de `PRAGMA`.**
-- ⬜ Migrar los 4 productos actuales de `productos.json` a D1.
 - ⬜ Capa de consultas (`consultar.mjs`): el SQL que alimenta al volcado.
-- ⬜ Migración de los 4 productos actuales de `productos.json` a D1.
+- ⬜ Migrar los 4 productos actuales de `productos.json` a D1.
 - ⬜ Workflow de GitHub Actions con `concurrency`.
 
 #### Cómo se testea SQL sin nube ni credenciales
