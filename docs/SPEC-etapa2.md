@@ -1141,7 +1141,7 @@ seguir en línea. El código queda en el repo como registro del método.
 Lo que sobrevive del spike son los **selectores verificados de §7.2**, que la Fase
 2.5 reimplementa con tests en lugar de copiarlos.
 
-### Fase 2.1 — R2 real (desplegable)
+### Fase 2.1 — R2 real (desplegable) · **CERRADA 2026-08-04**
 
 Cierra el pendiente que el sitio ya tiene hoy.
 
@@ -1165,15 +1165,19 @@ verificar si ese checkout exige medio de pago aun quedándose en el free tier.
 - ✅ **Verificado que las claves coinciden**: el ensayo planea exactamente las
   mismas 14 claves que sirve `public/img-dev/` hoy (249 kB). Era la premisa de
   toda la fase y ahora está comprobada, no asumida.
-- 🚧 **Subir las imágenes existentes — BLOQUEADO por el token de escritura.**
-  `R2_BUCKET` está en `.env`; faltan `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID` y
-  `R2_SECRET_ACCESS_KEY`. Se crean una vez desde el dashboard (R2 › *Manage R2
-  API Tokens*) con permiso de **lectura y escritura** sobre el bucket. Es trabajo
-  manual de cuenta, no de código: el script ya está listo y es idempotente.
-- ⬜ Verificar `Cache-Control: immutable` servido desde el bucket, y que la regla
-  `/img-dev/catalogo/:hash/*` de `public/_headers` ya no haga falta
-  (`SPEC.md` §9.2). Depende de la subida.
-- ⬜ Apuntar `PUBLIC_R2_BASE` al bucket y borrar `public/img-dev/`.
+- ✅ **Token de escritura creado** y las 14 derivadas **subidas** (249 kB).
+  Reejecutar el script sube 0: el dedupe por `HeadObject` funciona.
+- ✅ **Verificado contra el bucket, objeto por objeto:** las 14 claves devuelven
+  200 con bytes **idénticos** a los locales, `Content-Type: image/webp` y
+  `Cache-Control: public, max-age=31536000, immutable`. No se verificó una y se
+  extrapoló: se comparó el SHA-256 de las 14.
+- ✅ `PUBLIC_R2_BASE` apunta al bucket y el build emite URLs de R2.
+- ✅ **`public/img-dev/` borrado** y su regla sacada de `public/_headers`. El
+  directorio pasa a `.gitignore`: es salida regenerable de
+  `scripts/dev/imagenes-locales.mjs`, que queda como escape para trabajar sin red.
+
+**Fase 2.1 CERRADA 2026-08-04.** Criterio de salida cumplido: el sitio sirve las
+imágenes desde R2 y no queda ninguna referencia funcional a `/img-dev`.
 
 Criterio de salida: el sitio publicado sirve imágenes desde R2, sin `/img-dev`.
 

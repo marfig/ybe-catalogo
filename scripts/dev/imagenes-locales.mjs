@@ -2,8 +2,12 @@
  * Genera las derivadas de las muestras en public/img-dev/, con la MISMA
  * estructura de claves que R2 (SPEC §5.1).
  *
- * Existe para poder ver el sitio antes de tener R2 configurado. Cuando R2 este
- * listo, solo cambia PUBLIC_R2_BASE: ni un componente se toca.
+ * Nacio para ver el sitio antes de tener R2. Desde la fase 2.1 el default es R2
+ * y esto queda como escape para trabajar sin red: se corre el script y se apunta
+ * PUBLIC_R2_BASE a /img-dev. Ni un componente se toca — que era la apuesta de
+ * haber usado desde el principio la misma estructura de claves.
+ *
+ * public/img-dev/ ya NO se versiona: es salida regenerable de este script.
  *
  * Reutiliza scripts/import/imagenes.mjs, el modulo real del importador, para no
  * tener dos pipelines de imagen que puedan divergir.

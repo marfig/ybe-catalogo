@@ -22,7 +22,7 @@ npm run dev               # http://localhost:4321
 |---|---|
 | `SITE_URL` | `http://localhost:4321` en local. En producción, la URL del deploy |
 | `INDEXABLE` | `false` hasta tener dominio propio |
-| `PUBLIC_R2_BASE` | `/img-dev` para desarrollo local, o el dominio público del bucket R2 |
+| `PUBLIC_R2_BASE` | La URL pública del bucket R2. `/img-dev` solo para trabajar sin red |
 | `PUBLIC_WHATSAPP` | `595981857213` |
 | `R2_ACCOUNT_ID`, `R2_BUCKET` | Solo el importador |
 | `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` | Solo el importador. **Secretas** |
@@ -33,13 +33,22 @@ npm run dev               # http://localhost:4321
 > pasarla igual, prefijar con `MSYS_NO_PATHCONV=1`.
 > `validarBaseR2()` detecta este caso y rompe el build con el motivo.
 
-### Imágenes en desarrollo
+### Imágenes
 
-Mientras no haya R2, las derivadas se generan localmente **con la misma estructura de
-claves** que usará R2, así que pasar a producción es solo cambiar `PUBLIC_R2_BASE`:
+**Las imágenes del catálogo viven en R2.** `PUBLIC_R2_BASE` apunta al bucket y el
+`Cache-Control` inmutable viaja en cada objeto, puesto al subirlo — R2 no lee
+`public/_headers`.
 
 ```bash
-node scripts/dev/imagenes-locales.mjs    # samples/ -> public/img-dev/
+npm run subir-existentes -- --dry-run   # ver el plan sin escribir nada
+npm run subir-existentes                # idempotente: solo sube lo que falta
+```
+
+Para trabajar **sin red** se pueden regenerar las derivadas en local, con la misma
+estructura de claves, y apuntar `PUBLIC_R2_BASE` a `/img-dev`:
+
+```bash
+node scripts/dev/imagenes-locales.mjs    # samples/ -> public/img-dev/ (gitignoreado)
 ```
 
 ---
@@ -177,8 +186,16 @@ indexa esa URL, después compite con el dominio propio por las mismas páginas.
 
 ## Estado
 
-- **Fase 1** — catálogo navegable. Listo y desplegado, con imágenes locales.
-- Pendiente: bucket R2 y token de escritura; etapa 1 del scrape; logo definitivo (SVG y
-  variante monocromática); redes sociales; dominio propio.
+- **Fase 1** — catálogo navegable. Listo y desplegado.
+- **Fase 2.1** — imágenes en R2, servidas con cache inmutable. Cerrada.
+- **Fase 2.2** — D1 y el volcado. En curso: falta la capa de consultas, migrar los
+  productos actuales y el workflow de GitHub Actions.
+- Pendiente: etapa 1 del scrape; logo definitivo (SVG y variante monocromática);
+  redes sociales; **dominio propio**.
+
+> **El dominio bloquea el lanzamiento, no el desarrollo.** Las fotos se sirven por
+> `r2.dev`, que Cloudflare documenta como *development-only* y con rate limit. Todo
+> el trabajo de la etapa 2 corre sobre eso sin problema, pero abrir el sitio a
+> clientes reales necesita el dominio — y ya no solo por SEO.
 
 Puntos abiertos al día: `docs/SPEC.md` §12.

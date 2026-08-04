@@ -15,6 +15,10 @@ scripts/import/entrada/
 scripts/import/cache/
 scripts/import/reporte-*.md
 
+# derivadas locales para trabajar sin red. Las de verdad viven en R2 desde la
+# fase 2.1; esto es salida de scripts/dev/imagenes-locales.mjs
+public/img-dev/
+
 # cloudflare
 .wrangler/
 
