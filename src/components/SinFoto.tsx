@@ -8,8 +8,9 @@
  *
  * Antes existia duplicado en los dos lugares y ya habia divergido.
  *
- * NUNCA se renderiza un <img> roto, y NO se usa logo.png: 261 KB para un
- * placeholder es peor que nada, y del PNG no se puede aislar el monograma solo.
+ * NUNCA se renderiza un <img> roto, y NO se usa el PNG del logo: 910 KB en
+ * origen para un placeholder es peor que nada, y del PNG no se puede aislar el
+ * monograma solo.
  *
  * El icono es un glifo de UI, no la marca: no depende de monograma.svg, que
  * sigue pendiente. Su unico trabajo es que el hueco se lea como una decision

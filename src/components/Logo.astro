@@ -1,23 +1,27 @@
 ---
 import { Image } from 'astro:assets';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo_plateado.png';
 
 /**
  * ============================================================================
  * PARCHE TEMPORAL — quitar cuando llegue el logo definitivo
  * ============================================================================
  *
- * `logo.png` deja margen transparente alrededor del contenido, asi que a una
- * caja de 88 px la medalla se ve a ~80 px. Se compensa escalando.
+ * El asset deja margen transparente alrededor del contenido, asi que a una caja
+ * de 88 px la medalla se ve a ~72 px. Se compensa escalando.
  *
  * Medido sobre el archivo (SPEC §2.1), tomando la fila mas ancha y la columna
- * mas alta con alpha > 128:
+ * mas alta con alpha > 0:
  *
- *   lienzo       500 x 500
- *   bbox opaco   x 50..459 (410 px)   y 41..447 (407 px)
- *   centro       (254.5, 244)
+ *   lienzo         1024 x 1024
+ *   bbox visible   x 102..942 (841 px)   y 82..916 (835 px)
+ *   centro         (522, 499)
  *
- * El contenido NO esta centrado: cae 4.5 px a la derecha y 6 px arriba del
+ * El umbral es alpha > 0, no alpha > 128: el filo antialiaseado se VE, y si la
+ * escala lo deja afuera el recorte se nota igual. Sobre este archivo la
+ * diferencia entre los dos umbrales es de 1-2 px, o sea 0.2 % de escala.
+ *
+ * El contenido NO esta centrado: cae 10 px a la derecha y 12.5 px arriba del
  * centro del lienzo. Sin corregirlo, la escala lo empuja fuera de la caja por
  * arriba y por la derecha, y se ve cortado. De ahi el translate.
  *
@@ -32,28 +36,46 @@ import logo from '../assets/logo.png';
  */
 const LIENZO = logo.width;
 
-/** bbox del contenido opaco, medido. */
-const BBOX = { x0: 50, x1: 459, y0: 41, y1: 447 };
+/** bbox del contenido visible (alpha > 0), medido. */
+const BBOX = { x0: 102, x1: 942, y0: 82, y1: 916 };
 
 const ANCHO = BBOX.x1 - BBOX.x0 + 1;
 const ALTO = BBOX.y1 - BBOX.y0 + 1;
 
 /**
- * El BBOX esta medido a mano contra un archivo concreto, asi que un reemplazo de
- * logo.png lo invalida. Estas dos guardas convierten ese error en un fallo de
- * build en vez de un logo recortado que hay que cazar mirando. La segunda es la
- * que faltaba: el bbox de 1024 px sobre un lienzo de 500 se pasaba del borde.
+ * El BBOX esta medido a mano contra un archivo concreto, asi que un reemplazo del
+ * asset lo invalida. Estas tres guardas convierten ese error en un fallo de build
+ * en vez de un logo recortado que hay que cazar mirando. La segunda ya salvo un
+ * caso real: el bbox de 1024 px sobre un lienzo de 500 se pasaba del borde.
  */
 if (logo.width !== logo.height) {
   throw new Error(
-    `Logo.astro espera un asset cuadrado y logo.png es ${logo.width}x${logo.height}. ` +
+    `Logo.astro espera un asset cuadrado y el logo es ${logo.width}x${logo.height}. ` +
       'El translate en % asume que las fracciones del lienzo coinciden con las del elemento.'
   );
 }
 if (BBOX.x1 >= LIENZO || BBOX.y1 >= LIENZO) {
   throw new Error(
     `El BBOX de Logo.astro (x hasta ${BBOX.x1}, y hasta ${BBOX.y1}) no cabe en el lienzo de ` +
-      `${LIENZO} px de logo.png. Volver a medir el bbox opaco y actualizar SPEC §2.1.`
+      `${LIENZO} px del asset. Volver a medir el bbox visible y actualizar SPEC §2.1.`
+  );
+}
+/**
+ * La guarda de arriba solo detecta un lienzo que SE ENCOGIO. Un lienzo que crece
+ * la pasa sin ruido: el bbox de 410 px del archivo de 500 cabia perfecto en este
+ * lienzo de 1024, daba escala 2.46 y el logo salia al doble y recortado, sin
+ * error de build. Pinear el lienzo medido cierra ese lado.
+ *
+ * Lo que NINGUNA guarda puede ver es un reemplazo con el mismo lienzo y otro
+ * encuadre. Para eso hay que volver a medir los pixeles, y no vale meter sharp en
+ * el frontmatter de un componente por un parche que se va cuando llegue el logo
+ * recortado al trazo. Queda como riesgo conocido y documentado en SPEC §2.1.
+ */
+const LIENZO_MEDIDO = 1024;
+if (LIENZO !== LIENZO_MEDIDO) {
+  throw new Error(
+    `El BBOX de Logo.astro se midio sobre un lienzo de ${LIENZO_MEDIDO} px y el asset ahora ` +
+      `es de ${LIENZO} px. Volver a medir el bbox visible y actualizar SPEC §2.1.`
   );
 }
 
@@ -76,6 +98,27 @@ const ESCALA = (LIENZO / Math.max(ANCHO, ALTO)) * (1 - MARGEN_SEGURIDAD);
 const AJUSTE_X = ((LIENZO / 2 - (BBOX.x0 + BBOX.x1) / 2) / LIENZO) * 100;
 const AJUSTE_Y = ((LIENZO / 2 - (BBOX.y0 + BBOX.y1) / 2) / LIENZO) * 100;
 
+/**
+ * Lado en px de la caja mas grande con la que se USA el componente: el `sm:h-22`
+ * del default (22 * 4 px de la escala de Tailwind).
+ *
+ * No se puede derivar: `class` es texto libre, asi que el componente no ve el
+ * tamano real. Hoy el unico caller es Header.astro y pasa el default. Si alguien
+ * monta el logo en una caja mas grande, hay que subir esto o la imagen se sirve
+ * mas chica que el render — no rompe nada, se ve blando, que es peor de cazar.
+ */
+const CAJA_MAX = 88;
+
+/**
+ * Tamano intrinseco que se le pide a astro:assets, al doble del render mayor para
+ * que quede nitido en pantallas 2x.
+ *
+ * Va por ESCALA porque el scale de CSS agranda el elemento DESPUES del layout: a
+ * 88 px de caja el <img> se pinta a ~106 px, no a 88. Sin ese factor se sirve una
+ * imagen mas chica que el render y el logo sale blandito justo en el header.
+ */
+const RENDER = Math.ceil(CAJA_MAX * ESCALA * 2);
+
 interface Props {
   /** Clases de tamano de la caja. Debe ser cuadrada. */
   class?: string;
@@ -87,14 +130,13 @@ const { class: clase = 'h-16 w-16 sm:h-22 sm:w-22', prioridad = false } = Astro.
 
 <span class={`relative block shrink-0 overflow-hidden ${clase}`}>
   {/*
-    width/height al doble del render mayor para que quede nitido en 2x.
     alt="" porque el nombre del comercio esta en el wordmark de al lado:
     repetirlo es ruido para el lector de pantalla (SPEC §3.4).
   */}
   <Image
     src={logo}
-    width={208}
-    height={208}
+    width={RENDER}
+    height={RENDER}
     alt=""
     loading={prioridad ? 'eager' : 'lazy'}
     class="absolute inset-0 h-full w-full object-contain"

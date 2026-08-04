@@ -51,32 +51,38 @@ El sitio arranca en un subdominio `.workers.dev` con `noindex`. La URL base sale
 
 El material de origen impone límites que el diseño debe absorber. Esta sección los fija como datos duros; el resto de la spec deriva de ellos.
 
-### 2.1 Logo — `src/assets/logo.png`
+### 2.1 Logo — `src/assets/logo_plateado.png`
 
 | Propiedad | Valor |
 |---|---|
-| Dimensiones | 500 × 500 (aspect ratio 1:1) |
+| Dimensiones | 1024 × 1024 (aspect ratio 1:1) |
 | Formato | PNG, 8 bits/canal, color type 6 (RGBA), no entrelazado |
-| Peso | 261 KB |
+| Peso | 910 KB en origen — **13 KB servidos** en WebP por `astro:assets` |
 | Chunks | Solo `IHDR` / `IDAT` / `IEND` — sin metadatos ni manifest C2PA |
-| Canal alpha | **Real y funcional.** Esquinas en alpha 0 y 3.2 % del lienzo en alpha parcial, o sea filo antialiaseado de verdad |
-| Fondo | **Transparente.** 51.7 % del lienzo es alpha 0 |
+| Canal alpha | **Real y funcional.** Esquinas en alpha 0 y 1.5 % del lienzo en alpha parcial, o sea filo antialiaseado de verdad |
+| Fondo | **Transparente.** 52.5 % del lienzo es alpha 0 |
 | Marca | Medalla circular de metal cepillado, "CHENSON / YBE" |
-| BBox opaco | x 50..459 (410 px) · y 41..447 (407 px) |
-| Círculo | ~410 px de diámetro — **82 % del lienzo** |
-| Márgenes transparentes | izq 50 · der 40 · arriba 41 · abajo 52 px |
+| BBox visible (alpha > 0) | x 102..942 (841 px) · y 82..916 (835 px) |
+| Círculo | ~841 px de diámetro — **82 % del lienzo** |
+| Márgenes transparentes | izq 102 · der 81 · arriba 82 · abajo 107 px |
 
-**La transparencia funciona:** el logo se puede poner sobre cualquier fondo sin caja ni artefactos. El nombre `logo.png` se mantiene para que un reemplazo futuro entre sin tocar código.
+**Hubo una variante dorada (`logo_dorado.png`) que se descartó.** Compartía lienzo, encuadre y bbox al píxel con la plateada; solo cambiaba el tratamiento de metal. Si vuelve a aparecer una variante, la activa se elige en el `import` de `Logo.astro` y los valores de esta tabla siguen sirviendo **solo si el encuadre es idéntico** — verificarlo, no asumirlo.
 
-**El contenido no está centrado en el lienzo:** el bbox cae 4.5 px a la derecha y 6 px arriba del centro. `src/components/Logo.astro` lo corrige con un `translate`, porque sin eso el escalado empuja la medalla fuera de la caja por arriba y por la derecha y la recorta.
+**La transparencia funciona:** el logo se puede poner sobre cualquier fondo sin caja ni artefactos.
 
-**Cuidado al reemplazar el archivo: el bbox de §2.1 está medido a mano y `Logo.astro` lo usa hardcodeado.** Un reemplazo con otro encuadre o otro lienzo lo invalida y el logo sale recortado. Ya pasó: con el bbox de un archivo de 1024 px aplicado sobre este lienzo de 500, la escala quedaba 23 % de más y se comía 3788 esquinas de píxel. `Logo.astro` ahora deriva el lienzo del propio asset y falla el build si el asset no es cuadrado o si el bbox no cabe en el lienzo, así que ese error no vuelve a pasar en silencio — pero **el bbox hay que volver a medirlo igual** y actualizar esta tabla.
+**El umbral del bbox es alpha > 0, no alpha > 128.** El filo antialiaseado se ve, y si el escalado lo deja fuera de la caja el recorte se nota igual. Sobre este archivo los dos umbrales difieren en 1-2 px (0.2 % de escala), pero el criterio correcto es el visible.
 
-**Limitación menor:** el 18 % de margen transparente hace que la medalla se vea más chica que su caja — a 88 px de caja, el círculo mide ~80 px. `src/components/Logo.astro` lo compensa con un escalado, aislado en una constante `MARGEN_SEGURIDAD` y marcado como temporal: cuando llegue un archivo recortado al trazo se pone en `0` y listo.
+**El contenido no está centrado en el lienzo:** el bbox cae 10 px a la derecha y 12.5 px arriba del centro. `src/components/Logo.astro` lo corrige con un `translate`, porque sin eso el escalado empuja la medalla fuera de la caja por arriba y por la derecha y la recorta.
 
-**Sigue faltando** el SVG vectorial y una variante monocromática del monograma (§12 · Logo definitivo). El PNG de 261 KB tampoco sirve como placeholder de "sin foto" (§5.4).
+**Cuidado al reemplazar el archivo: el bbox de §2.1 está medido a mano y `Logo.astro` lo usa hardcodeado.** Un reemplazo con otro encuadre o otro lienzo lo invalida y el logo sale mal. Ya pasó dos veces: con el bbox de un archivo de 1024 px sobre un lienzo de 500 la escala quedaba 23 % de más y recortaba; con el bbox de 410 px del archivo de 500 sobre este lienzo de 1024 la escala salía 2.46 y la medalla se dibujaba al doble de la caja, recortada. `Logo.astro` tiene tres guardas que fallan el build — asset no cuadrado, bbox que no cabe en el lienzo, y lienzo distinto al medido — así que esos dos casos ya no pasan en silencio.
 
-**Ubicación: `src/assets/logo.png`, no `public/`.** En `src/assets/` el archivo pasa por `astro:assets`, que infiere `width`/`height` (evita CLS), genera `srcset` y formatos modernos, y añade hash de contenido para cache inmutable. En `public/` se copiaría tal cual y la optimización quedaría manual. Es el caso que la arquitectura reserva para `astro:assets`: imágenes propias del sitio.
+**Riesgo conocido que ninguna guarda cubre:** un reemplazo con el **mismo lienzo y otro encuadre**. Detectarlo exige volver a medir los píxeles en cada build, y no vale meter `sharp` en el frontmatter de un componente por un parche que se va cuando llegue el logo recortado al trazo. Si se cambia el archivo, **volver a medir el bbox y actualizar esta tabla** es parte del trabajo, no un opcional.
+
+**Limitación menor:** el 18 % de margen transparente hace que la medalla se vea más chica que su caja — a 88 px de caja, el círculo mide ~72 px. `src/components/Logo.astro` lo compensa con un escalado de 1.1993 (gana 20 %) que deja el círculo al 99 % de la caja, verificado a nivel de píxel sin recorte a 64, 88 y 200 px. Está aislado en una constante `MARGEN_SEGURIDAD` y marcado como temporal: cuando llegue un archivo recortado al trazo se pone en `0` y listo.
+
+**Sigue faltando** el SVG vectorial y una variante monocromática del monograma (§12 · Logo definitivo). El PNG tampoco sirve como placeholder de "sin foto" (§5.4).
+
+**Ubicación: `src/assets/`, no `public/`.** En `src/assets/` el archivo pasa por `astro:assets`, que infiere `width`/`height` (evita CLS), genera `srcset` y formatos modernos, y añade hash de contenido para cache inmutable. En `public/` se copiaría tal cual y la optimización quedaría manual. Es el caso que la arquitectura reserva para `astro:assets`: imágenes propias del sitio. Acá se paga solo: el origen de 910 KB se sirve como un WebP de 13 KB.
 
 Requisitos del archivo definitivo en §12 · Logo definitivo.
 
@@ -514,7 +520,7 @@ Se renderiza `<SinFoto />`: `div` con `aspect-ratio: 1/1`, fondo `--color-fondo`
 
 - El SVG es **local** (`src/assets/`), no de R2: el fallback no debe depender de la red para dibujarse.
 - `role="img"` con `aria-label="Producto sin imagen disponible"`.
-- Hasta que exista el SVG monocromático, `<SinFoto />` muestra solo el texto. **No se usa `logo.png`:** 261 KB para un placeholder es peor que nada, y el monograma solo no se puede aislar de un PNG.
+- Hasta que exista el SVG monocromático, `<SinFoto />` muestra solo el texto. **No se usa el PNG del logo:** 910 KB en origen para un placeholder es peor que nada, y el monograma solo no se puede aislar de un PNG.
 - El producto **sigue visible y contactable**. Que no haya foto no lo saca del catálogo.
 
 ### 5.5 Resolución insuficiente
@@ -1034,7 +1040,7 @@ YBECatalogo/
     │   └── categorias.json             ESCRITO A MANO. Orden y visibilidad de la navegación
     │
     ├── assets/
-    │   ├── logo.png                    500×500 RGBA. Alpha real, 261 KB. bbox medido -> Logo.astro (§2.1)
+    │   ├── logo_plateado.png           1024×1024 RGBA. Alpha real, 910 KB. bbox medido -> Logo.astro (§2.1)
     │   └── monograma.svg               Fase 2 — monograma monocromo para el placeholder y el favicon. FALTA
     │
     ├── styles/
