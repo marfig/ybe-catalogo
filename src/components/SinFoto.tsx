@@ -8,7 +8,7 @@
  *
  * Antes existia duplicado en los dos lugares y ya habia divergido.
  *
- * NUNCA se renderiza un <img> roto, y NO se usa logo.png: 1.65 MB para un
+ * NUNCA se renderiza un <img> roto, y NO se usa logo.png: 261 KB para un
  * placeholder es peor que nada, y del PNG no se puede aislar el monograma solo.
  *
  * El icono es un glifo de UI, no la marca: no depende de monograma.svg, que

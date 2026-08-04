@@ -55,22 +55,26 @@ El material de origen impone límites que el diseño debe absorber. Esta secció
 
 | Propiedad | Valor |
 |---|---|
-| Dimensiones | 1024 × 1024 (aspect ratio 1:1) |
+| Dimensiones | 500 × 500 (aspect ratio 1:1) |
 | Formato | PNG, 8 bits/canal, color type 6 (RGBA), no entrelazado |
-| Peso | 1.65 MB |
-| Canal alpha | **Real y funcional.** Esquinas en alpha 0, con antialias en el borde del círculo |
-| Fondo | **Transparente.** 42.3 % del lienzo es alpha 0 |
-| Chunk extra | `caBX` (manifest C2PA / Content Credentials), sin uso |
-| Marca | Medalla circular de metal cepillado, "YBE / CHENSON" |
-| BBox opaco | x 77..947 (871 px) · y 57..939 (883 px) |
-| Círculo | ~877 px de diámetro, centro en (512, 498) — **85.6 % del lienzo** |
-| Márgenes transparentes | izq 77 · der 76 · arriba 57 · abajo 84 px |
+| Peso | 261 KB |
+| Chunks | Solo `IHDR` / `IDAT` / `IEND` — sin metadatos ni manifest C2PA |
+| Canal alpha | **Real y funcional.** Esquinas en alpha 0 y 3.2 % del lienzo en alpha parcial, o sea filo antialiaseado de verdad |
+| Fondo | **Transparente.** 51.7 % del lienzo es alpha 0 |
+| Marca | Medalla circular de metal cepillado, "CHENSON / YBE" |
+| BBox opaco | x 50..459 (410 px) · y 41..447 (407 px) |
+| Círculo | ~410 px de diámetro — **82 % del lienzo** |
+| Márgenes transparentes | izq 50 · der 40 · arriba 41 · abajo 52 px |
 
 **La transparencia funciona:** el logo se puede poner sobre cualquier fondo sin caja ni artefactos. El nombre `logo.png` se mantiene para que un reemplazo futuro entre sin tocar código.
 
-**Limitación menor:** el 14.4 % de margen transparente hace que la medalla se vea más chica que su caja — a 88 px de caja, el círculo mide ~75 px. `src/components/Logo.astro` lo compensa con un escalado, aislado en una sola constante `ESCALA_MARGEN` y marcado como temporal: cuando llegue un archivo recortado al trazo se pone en `1` y listo.
+**El contenido no está centrado en el lienzo:** el bbox cae 4.5 px a la derecha y 6 px arriba del centro. `src/components/Logo.astro` lo corrige con un `translate`, porque sin eso el escalado empuja la medalla fuera de la caja por arriba y por la derecha y la recorta.
 
-**Sigue faltando** el SVG vectorial y una variante monocromática del monograma (§12 · Logo definitivo). El PNG de 1.65 MB tampoco sirve como placeholder de "sin foto" (§5.4).
+**Cuidado al reemplazar el archivo: el bbox de §2.1 está medido a mano y `Logo.astro` lo usa hardcodeado.** Un reemplazo con otro encuadre o otro lienzo lo invalida y el logo sale recortado. Ya pasó: con el bbox de un archivo de 1024 px aplicado sobre este lienzo de 500, la escala quedaba 23 % de más y se comía 3788 esquinas de píxel. `Logo.astro` ahora deriva el lienzo del propio asset y falla el build si el asset no es cuadrado o si el bbox no cabe en el lienzo, así que ese error no vuelve a pasar en silencio — pero **el bbox hay que volver a medirlo igual** y actualizar esta tabla.
+
+**Limitación menor:** el 18 % de margen transparente hace que la medalla se vea más chica que su caja — a 88 px de caja, el círculo mide ~80 px. `src/components/Logo.astro` lo compensa con un escalado, aislado en una constante `MARGEN_SEGURIDAD` y marcado como temporal: cuando llegue un archivo recortado al trazo se pone en `0` y listo.
+
+**Sigue faltando** el SVG vectorial y una variante monocromática del monograma (§12 · Logo definitivo). El PNG de 261 KB tampoco sirve como placeholder de "sin foto" (§5.4).
 
 **Ubicación: `src/assets/logo.png`, no `public/`.** En `src/assets/` el archivo pasa por `astro:assets`, que infiere `width`/`height` (evita CLS), genera `srcset` y formatos modernos, y añade hash de contenido para cache inmutable. En `public/` se copiaría tal cual y la optimización quedaría manual. Es el caso que la arquitectura reserva para `astro:assets`: imágenes propias del sitio.
 
@@ -510,7 +514,7 @@ Se renderiza `<SinFoto />`: `div` con `aspect-ratio: 1/1`, fondo `--color-fondo`
 
 - El SVG es **local** (`src/assets/`), no de R2: el fallback no debe depender de la red para dibujarse.
 - `role="img"` con `aria-label="Producto sin imagen disponible"`.
-- Hasta que exista el SVG monocromático, `<SinFoto />` muestra solo el texto. **No se usa `logo.png`:** 1.65 MB para un placeholder es peor que nada, y el monograma solo no se puede aislar de un PNG.
+- Hasta que exista el SVG monocromático, `<SinFoto />` muestra solo el texto. **No se usa `logo.png`:** 261 KB para un placeholder es peor que nada, y el monograma solo no se puede aislar de un PNG.
 - El producto **sigue visible y contactable**. Que no haya foto no lo saca del catálogo.
 
 ### 5.5 Resolución insuficiente
@@ -1030,7 +1034,7 @@ YBECatalogo/
     │   └── categorias.json             ESCRITO A MANO. Orden y visibilidad de la navegación
     │
     ├── assets/
-    │   ├── logo.png                    1024×1024 RGBA. Damero pintado, alpha opaco. A REEMPLAZAR (§2.1)
+    │   ├── logo.png                    500×500 RGBA. Alpha real, 261 KB. bbox medido -> Logo.astro (§2.1)
     │   └── monograma.svg               Fase 2 — monograma monocromo para el placeholder y el favicon. FALTA
     │
     ├── styles/

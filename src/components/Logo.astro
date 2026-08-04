@@ -8,40 +8,61 @@ import logo from '../assets/logo.png';
  * ============================================================================
  *
  * `logo.png` deja margen transparente alrededor del contenido, asi que a una
- * caja de 88 px la medalla se ve a ~76 px. Se compensa escalando.
+ * caja de 88 px la medalla se ve a ~80 px. Se compensa escalando.
  *
  * Medido sobre el archivo (SPEC §2.1), tomando la fila mas ancha y la columna
  * mas alta con alpha > 128:
  *
- *   bbox opaco   x 78..947 (870 px)   y 57..939 (883 px)
- *   centro       (512.5, 498)
+ *   lienzo       500 x 500
+ *   bbox opaco   x 50..459 (410 px)   y 41..447 (407 px)
+ *   centro       (254.5, 244)
  *
- * NO es un circulo: mide 870 de ancho por 883 de alto. Los ~13 px extra de
- * abajo son la sombra proyectada, y es opaca (sigue ahi con alpha > 240).
+ * El contenido NO esta centrado: cae 4.5 px a la derecha y 6 px arriba del
+ * centro del lienzo. Sin corregirlo, la escala lo empuja fuera de la caja por
+ * arriba y por la derecha, y se ve cortado. De ahi el translate.
  *
- * De ahi salen los dos errores que hubo que corregir:
- *   1. Usar el PROMEDIO de las dos dimensiones recorta la mayor. Hay que
- *      escalar por la MAYOR (883), que es la que limita.
- *   2. El contenido esta 14 px ARRIBA del centro del lienzo, asi que hay que
- *      BAJARLO. Con el signo invertido se corta la parte superior.
+ * LIENZO sale del propio asset y no va hardcodeado: cuando el archivo cambio de
+ * 1024 a 500 px, la constante vieja dejo una escala 23 % de mas y recorto el
+ * logo. Derivarlo evita que ese error se repita en silencio. Asume asset
+ * CUADRADO — con object-contain en caja cuadrada, las fracciones del lienzo
+ * coinciden con las del elemento, que es lo que mide el translate en %.
  *
  * PARA DESACTIVARLO: poner MARGEN_SEGURIDAD en 0 (deja ESCALA en 1). Nada mas.
  * Hacerlo en cuanto el logo venga recortado al trazo.
  */
-const LIENZO = 1024;
+const LIENZO = logo.width;
 
 /** bbox del contenido opaco, medido. */
-const BBOX = { x0: 78, x1: 947, y0: 57, y1: 939 };
+const BBOX = { x0: 50, x1: 459, y0: 41, y1: 447 };
 
 const ANCHO = BBOX.x1 - BBOX.x0 + 1;
 const ALTO = BBOX.y1 - BBOX.y0 + 1;
+
+/**
+ * El BBOX esta medido a mano contra un archivo concreto, asi que un reemplazo de
+ * logo.png lo invalida. Estas dos guardas convierten ese error en un fallo de
+ * build en vez de un logo recortado que hay que cazar mirando. La segunda es la
+ * que faltaba: el bbox de 1024 px sobre un lienzo de 500 se pasaba del borde.
+ */
+if (logo.width !== logo.height) {
+  throw new Error(
+    `Logo.astro espera un asset cuadrado y logo.png es ${logo.width}x${logo.height}. ` +
+      'El translate en % asume que las fracciones del lienzo coinciden con las del elemento.'
+  );
+}
+if (BBOX.x1 >= LIENZO || BBOX.y1 >= LIENZO) {
+  throw new Error(
+    `El BBOX de Logo.astro (x hasta ${BBOX.x1}, y hasta ${BBOX.y1}) no cabe en el lienzo de ` +
+      `${LIENZO} px de logo.png. Volver a medir el bbox opaco y actualizar SPEC §2.1.`
+  );
+}
 
 /**
  * Holgura del 1.5 %.
  *
  * Ajustado al milimetro el borde caia 0.05 px afuera y se recortaba. En una
  * curva, medio pixel de recorte se lee como un corte plano. No vale la pena
- * pelear el ultimo 1 % de tamano: la ganancia baja de 16 % a 14 %.
+ * pelear el ultimo 1 % de tamano: la ganancia baja de 22 % a 20 %.
  */
 const MARGEN_SEGURIDAD = 0.015;
 
