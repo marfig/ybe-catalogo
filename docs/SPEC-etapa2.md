@@ -1240,7 +1240,35 @@ El eslabón que hace que todo lo demás pueda existir.
   - `sembrar.mjs` **emite SQL** en vez de escribir en la base: para una migración
     de datos que se hace una vez, un artefacto legible y revisable vale más que la
     comodidad. `--limpiar` emite los `DELETE` en orden inverso para reintentar.
+- ✅ **Capa de E/S del volcado** en `scripts/volcado/index.mjs`
+  (`npm run volcar`, con `--dry-run`), más `diferencias.mjs` (reporte de cambios) y
+  `ejecutor-wrangler.mjs` (transporte local). 20 tests.
+  - **Elige el transporte:** con las tres variables de D1 en el entorno usa la API
+    HTTP — lo que corre en la Action; sin ellas cae a wrangler, que en una máquina
+    ya está autenticado. Es deliberado: sin ese fallback el volcado solo se podría
+    ejecutar en CI, y **una pieza que solo corre en CI se depura a ciegas.**
+  - **Criterio de salida VERIFICADO contra la D1 remota:** dos volcados seguidos ⇒
+    el segundo reporta `sin cambios` y **no reescribe el archivo**, así que la
+    publicación no genera un commit vacío.
+  - El reporte no es cosmética: quien publica no entra a GitHub (§11.3). Una **baja**
+    se marca aparte porque deja la URL de un producto publicado en 404.
 - ⬜ Workflow de GitHub Actions con `concurrency`.
+
+#### El primer volcado real: qué cambia exactamente
+
+Medido, no estimado. El diff contra el `productos.json` comiteado es de 165
+inserciones y 76 borrados, pero **el único cambio de CONTENIDO es uno**:
+
+| Qué | Cambia | Por qué |
+|---|---|---|
+| Variantes de `mochila-juvenil-acolchada` | `[Negro, Fucsia]` → `[Fucsia, Negro]` | Orden alfabético por color (`SPEC.md` §6.6) |
+| Orden de los 6 productos | Otro | Orden canónico por `id` (§6.5) |
+| Orden de las claves y formato | Otro | `serializar()` ordena claves y expande arrays |
+| Todo el resto | **Nada** | Verificado campo por campo |
+
+**La única consecuencia visible es la primera fila**, y no es inocua: `variantes[0]`
+es la variante activa en el HTML inicial (`SelectorVariante`), así que cambia el
+color por defecto de ese producto, su `og:image` y la imagen principal del JSON-LD.
 
 #### El ida y vuelta es el test más fuerte que tiene el volcado
 
