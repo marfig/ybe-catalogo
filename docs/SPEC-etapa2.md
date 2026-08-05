@@ -973,14 +973,24 @@ se van de vacaciones.
                      GitHub Actions
                        1. lee D1 por API HTTP
                        2. escribe src/data/productos.json (determinista, §5.5)
-                       3. commit si hubo cambios
+                       3. npm test
                        4. astro build   ← Zod + reference() validan acá
-                       5. wrangler deploy del sitio publico
-                       6. POST de vuelta al admin: ok | error
+                       5. commit y push si hubo cambios
+                       6. wrangler deploy del sitio publico
+                       7. POST de vuelta al admin: ok | error
                               │
                               ▼
                      aprobado → publicado, se sella publicado_en
 ```
+
+**El commit va DESPUÉS del build, no antes.** Una versión anterior de este diagrama
+commiteaba en el paso 3 y validaba en el 4, y es al revés: el build es justamente lo
+que valida el JSON recién volcado. Con ese orden, un volcado que Zod rechaza deja el
+JSON roto **ya comiteado** y `main` roto. Este mismo apartado dice que un build que
+falla no cambia ningún estado — y un commit malo *es* un cambio de estado. Validar
+primero y empujar después deja el repo intacto ante cualquier falla.
+
+Implementado en `.github/workflows/publicar.yml`.
 
 **`concurrency` con `cancel-in-progress`** en el workflow: cinco clicks nerviosos
 colapsan en un solo build. El costo de Actions no lo define quién aprieta el
@@ -1252,7 +1262,25 @@ El eslabón que hace que todo lo demás pueda existir.
     publicación no genera un commit vacío.
   - El reporte no es cosmética: quien publica no entra a GitHub (§11.3). Una **baja**
     se marca aparte porque deja la URL de un producto publicado en 404.
-- ⬜ Workflow de GitHub Actions con `concurrency`.
+- ✅ **Workflow** en `.github/workflows/publicar.yml`. `repository_dispatch`
+  (tipo `publicar`) más `workflow_dispatch` para correrlo a mano;
+  `concurrency` con `cancel-in-progress`. YAML validado con parser.
+  - **Commit después del build, no antes** — ver §11.2.
+  - **Faltan dos pasos que dependen del admin (fase 2.3)** y están declarados a la
+    vista en el propio archivo, no omitidos: el POST de vuelta que alimenta la
+    tabla `publicaciones` (§11.3), y la transición `aprobado` → `publicado` con el
+    sello de `publicado_en` (§5.2). Hoy la segunda es un no-op: sin admin nada pone
+    un producto en `aprobado`.
+  - **Pendiente de configurar en GitHub** (trabajo de cuenta, no de código):
+    secrets `CLOUDFLARE_ACCOUNT_ID`, `D1_DATABASE_ID`, `CLOUDFLARE_API_TOKEN`; vars
+    `SITE_URL`, `INDEXABLE`, `PUBLIC_R2_BASE`, `PUBLIC_WHATSAPP`.
+
+> **Hueco de verificación honesto.** El volcado se probó de punta a punta contra la
+> D1 remota **por el transporte de wrangler**. El transporte por **API HTTP** — que
+> es el que usa la Action — tiene tests unitarios con un `fetch` inyectado, pero
+> nunca corrió contra D1 real, porque no hay token de API en el entorno local. Para
+> cerrarlo: poner las tres variables en `.env` y correr
+> `npm run volcar -- --dry-run`, que con ellas presentes elige la API HTTP.
 
 #### El primer volcado real: qué cambia exactamente
 

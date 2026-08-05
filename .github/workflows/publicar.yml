@@ -1,0 +1,116 @@
+# Publicacion del catalogo (SPEC-etapa2 §11.2).
+#
+# Se dispara con un repository_dispatch desde el admin — un boton, accion de lote,
+# nunca por producto — y tambien a mano desde la pestana Actions.
+#
+# ORDEN DISTINTO AL DEL DIAGRAMA DE §11.2, a proposito. Ese diagrama commitea
+# (paso 3) ANTES del build (paso 4), y es justamente el build el que valida con Zod
+# y reference(). Con ese orden, un volcado que Zod rechaza deja el JSON roto ya
+# comiteado y `main` roto. El propio §11.2 dice que un build que falla no cambia
+# ningun estado, y un commit malo ES un cambio de estado.
+#
+# Aca se valida primero y se empuja despues: si algo falla antes del push, el repo
+# queda intacto y se puede volver a publicar cuando se arregle la causa.
+name: Publicar catálogo
+
+on:
+  repository_dispatch:
+    types: [publicar]
+  workflow_dispatch:
+
+# Cinco clicks nerviosos colapsan en un solo build (§11.2). El costo de Actions no
+# lo define quien aprieta el boton, sino cuantos builds se disparan.
+concurrency:
+  group: publicar
+  cancel-in-progress: true
+
+permissions:
+  contents: write # empujar productos.json
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # ------------------------------------------------------------------
+      # 1-2. Leer D1 y escribir src/data/productos.json
+      # ------------------------------------------------------------------
+      # Con las tres variables presentes, index.mjs usa la API HTTP de D1. Sin
+      # ellas caeria al ejecutor de wrangler, que aca no tiene sesion: por eso
+      # los tres secrets son obligatorios y no opcionales.
+      - name: Volcar D1 a productos.json
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          D1_DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: npm run volcar
+
+      # ------------------------------------------------------------------
+      # 3. Validar ANTES de empujar
+      # ------------------------------------------------------------------
+      - name: Tests
+        run: npm test
+
+      # El build es donde Zod y reference() validan el JSON recien volcado
+      # (§11.2). Si el volcado emitio algo invalido, se cae ACA, con el repo
+      # todavia intacto.
+      - name: Build
+        env:
+          SITE_URL: ${{ vars.SITE_URL }}
+          INDEXABLE: ${{ vars.INDEXABLE }}
+          PUBLIC_R2_BASE: ${{ vars.PUBLIC_R2_BASE }}
+          PUBLIC_WHATSAPP: ${{ vars.PUBLIC_WHATSAPP }}
+        run: npm run build
+
+      # ------------------------------------------------------------------
+      # 4. Recien ahora, commit y push si hubo cambios
+      # ------------------------------------------------------------------
+      # `git diff --quiet` decide: sin cambios no se commitea, asi que una
+      # publicacion sin novedades no genera un commit vacio (SPEC.md §6.5).
+      - name: Commitear productos.json si cambio
+        run: |
+          if git diff --quiet -- src/data/productos.json; then
+            echo "productos.json sin cambios: no se commitea."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/productos.json
+          git commit -m "chore(catalogo): publicar cambios del catalogo"
+          # Destino explicito: no se asume que el checkout haya dejado una rama
+          # con seguimiento. Esto no se puede probar sin correr la Action, asi que
+          # se elige la forma que no depende de ese detalle.
+          git push origin HEAD:${{ github.ref_name }}
+
+      # ------------------------------------------------------------------
+      # 5. Desplegar
+      # ------------------------------------------------------------------
+      - name: Desplegar el sitio publico
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: npm run deploy
+
+      # ------------------------------------------------------------------
+      # 6. PENDIENTE — depende del admin (fase 2.3)
+      # ------------------------------------------------------------------
+      # Faltan dos pasos que §11.2 y §11.3 describen y que NO se pueden cablear
+      # todavia porque el Worker de admin no existe:
+      #
+      #   - POST de vuelta al admin con ok | error, que es lo que alimenta la
+      #     tabla `publicaciones` y hace visible una falla para quien publica y
+      #     no entra a GitHub (§11.3).
+      #   - La transicion `aprobado` -> `publicado` con el sello de
+      #     `publicado_en` (§5.2). Hoy es un no-op: no hay nada que ponga un
+      #     producto en `aprobado` sin admin.
+      #
+      # Se dejan a la vista en vez de omitirse en silencio: un workflow que
+      # parece completo y no lo es es peor que uno que declara su hueco.
