@@ -211,39 +211,124 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   Lista de productos
+   La grilla: una tabla editable
    -------------------------------------------------------------------------- */
-.productos {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: var(--hueco);
-}
 
-.producto {
-  display: grid;
-  /* Casilla, miniatura fija y el resto elastico: las filas quedan alineadas y el ojo
-     baja por una sola columna en vez de zigzaguear. */
-  grid-template-columns: auto 80px 1fr;
-  align-items: start;
-  gap: var(--hueco);
-  background: var(--superficie);
+/**
+ * El marco es lo que scrollea, no la pagina.
+ *
+ * Con siete columnas — una con imagen, una con select y una con input — la tabla no
+ * entra en un telefono. Sin este contenedor, el que se estira es el `body` y toda la
+ * pagina queda con scroll horizontal, incluidos el encabezado y los filtros.
+ */
+.tabla-marco {
+  overflow-x: auto;
   border: 1px solid var(--borde);
   border-radius: var(--radio);
-  padding: var(--hueco);
+  background: var(--superficie);
+  margin-bottom: 1.5rem;
 }
 
-.producto > img,
-.sin-foto {
-  width: 80px;
-  height: 80px;
-  border-radius: var(--radio);
-  object-fit: contain;
+.grilla {
+  width: 100%;
+  border-collapse: collapse;
+  /* Ancho minimo para que las columnas no se aplasten antes de scrollear. */
+  min-width: 56rem;
+}
+
+.grilla th,
+.grilla td {
+  padding: 0.5rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--borde);
+}
+
+.grilla thead th {
+  position: sticky;
+  top: 0;
+  /* Con 50 filas, el encabezado tiene que seguir visible: si no, a mitad de la lista
+     ya no se sabe qué columna es cuál. */
+  background: var(--fondo);
+  border-bottom: 2px solid var(--borde);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--texto-suave);
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.grilla tbody tr:last-child th,
+.grilla tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.grilla tbody tr:hover {
   background: var(--fondo);
 }
 
-/* La casilla de selección: area de toque de 44 px aunque el control mida 13. */
+.col-elegir {
+  width: 44px;
+}
+
+/* La columna de codigo es identidad: monoespaciada y sin cortarse. */
+.grilla th.codigo {
+  font-family: ui-monospace, 'Cascadia Code', 'Consolas', monospace;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.grilla img,
+.sin-foto {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radio);
+  object-fit: contain;
+  background: var(--fondo);
+  display: block;
+}
+
+.sin-foto {
+  display: grid;
+  place-items: center;
+  border: 1px dashed var(--borde);
+  font-size: 0.6875rem;
+  color: var(--texto-suave);
+  text-align: center;
+}
+
+/* Los campos de la fila ocupan su celda: un input de ancho fijo desalinea la tabla. */
+.grilla input[type='text'],
+.grilla select {
+  width: 100%;
+  min-width: 9rem;
+}
+
+/* El precio va alineado a la derecha, como todo numero que se compara de un vistazo. */
+.grilla input.precio {
+  text-align: right;
+  min-width: 7rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.secundarias {
+  margin: 0.25rem 0 0;
+  font-size: 0.75rem;
+  color: var(--texto-suave);
+}
+
+.estado-actual {
+  margin: 0.25rem 0 0;
+  font-size: 0.75rem;
+  color: var(--texto-suave);
+}
+
+.grilla .estado {
+  white-space: normal;
+}
+
+/* La casilla de seleccion: area de toque de 44 px aunque el control mida 13. */
 .elegir {
   display: grid;
   place-items: center;
@@ -258,11 +343,12 @@ button {
 }
 
 /**
- * Texto sólo para lectores de pantalla.
+ * Texto solo para lectores de pantalla.
  *
- * No se usa `display: none` ni `visibility: hidden`: las dos lo sacan del árbol de
- * accesibilidad, que es justo lo contrario de lo que se busca. Sin esta etiqueta,
- * cada casilla se anuncia como "casilla de verificación" sin decir de cuál producto.
+ * No se usa `display: none` ni `visibility: hidden`: las dos lo sacan del arbol de
+ * accesibilidad, que es justo lo contrario de lo que se busca. Sin estas etiquetas,
+ * cada input de la tabla se anuncia como "cuadro de texto" sin decir de que producto
+ * ni de que campo.
  */
 .oculto {
   position: absolute;
@@ -276,58 +362,14 @@ button {
   border: 0;
 }
 
-.sin-foto {
-  display: grid;
-  place-items: center;
-  border: 1px dashed var(--borde);
-  font-size: 0.75rem;
-  color: var(--texto-suave);
-  text-align: center;
+.lote hr {
+  border: 0;
+  border-top: 1px solid var(--borde);
+  margin: var(--hueco) 0;
 }
 
-.datos {
-  min-width: 0; /* deja que el texto largo se corte en vez de estirar la grilla */
-}
-
-.datos > p {
-  margin: 0 0 0.25rem;
-}
-
-.titulo {
-  font-size: 1rem;
-}
-
-.codigo {
-  font-family: ui-monospace, 'Cascadia Code', 'Consolas', monospace;
-}
-
-.meta,
-.origen {
-  font-size: 0.875rem;
-  color: var(--texto-suave);
-}
-
-/* --------------------------------------------------------------------------
-   Estado de validacion. El color NO es el unico portador: cada estado lleva su
-   simbolo y su texto, asi que se entiende en escala de grises y con lector de
-   pantalla.
-   -------------------------------------------------------------------------- */
-.estado {
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-
-.estado--ok {
-  color: var(--ok);
-}
-
-.estado--falta {
-  color: var(--peligro);
-}
-
-.avisos {
-  font-size: 0.8125rem;
-  color: var(--aviso);
+.campo--boton {
+  flex: 0 0 auto;
 }
 
 /* --------------------------------------------------------------------------
