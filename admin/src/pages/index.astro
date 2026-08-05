@@ -1,25 +1,105 @@
 ---
 /**
- * Inicio del admin (SPEC-etapa2 §10.1).
+ * Grilla de productos: la pantalla principal del admin (SPEC-etapa2 §10.3).
  *
- * Por ahora prueba la frontera de punta a punta: si esta pagina se ve, el JWT de
- * Access se valido y los bindings estan. La grilla de §10.3 viene despues.
+ * Busqueda y filtro van por GET, sin JavaScript. Tres razones: la URL queda
+ * compartible y recargable, el botón de atrás funciona, y una pantalla de trabajo no
+ * puede depender de que un bundle cargue.
  */
 import { env } from 'cloudflare:workers';
 
+import { validarParaAprobar } from '../lib/aprobacion.ts';
+import { SLUGS_VALIDOS, nombreCategoria } from '../lib/categorias.ts';
+import { ejecutorD1 } from '../lib/d1.ts';
+import {
+  FILTROS,
+  FILTRO_POR_DEFECTO,
+  contarPorEstado,
+  listarProductos,
+  type ValorFiltro,
+} from '../lib/grilla.ts';
+
 const { identidad } = Astro.locals;
+const parametros = Astro.url.searchParams;
+
+const busqueda = parametros.get('q') ?? '';
 
 /**
- * Se cuentan los productos por estado para confirmar que el binding a D1 responde.
+ * Un `estado` desconocido en la URL cae al default en vez de reventar.
  *
- * Es una consulta agregada, no un listado: alcanza para probar la conexion sin
- * adelantar la grilla, que tiene su propio diseño en §10.3.
+ * `listarProductos` SI revienta ante un filtro invalido — eso protege de mostrar la
+ * papelera por accidente — pero un parametro tipeado a mano en la barra no deberia
+ * dar un error: se corrige y se sigue.
  */
-const { results: porEstado } = await env.DB.prepare(
-  `SELECT estado, COUNT(*) AS cantidad FROM productos GROUP BY estado ORDER BY estado`
-).all<{ estado: string; cantidad: number }>();
+const pedido = parametros.get('estado');
+const estado: ValorFiltro = FILTROS.some((f) => f.valor === pedido)
+  ? (pedido as ValorFiltro)
+  : FILTRO_POR_DEFECTO;
 
-const total = porEstado.reduce((suma, fila) => suma + fila.cantidad, 0);
+const POR_PAGINA = 50;
+const pagina = Math.max(1, Number.parseInt(parametros.get('pagina') ?? '1', 10) || 1);
+
+const ejecutar = ejecutorD1(env.DB);
+const [productos, conteo] = await Promise.all([
+  listarProductos(ejecutar, {
+    estado,
+    busqueda,
+    limite: POR_PAGINA,
+    desplazamiento: (pagina - 1) * POR_PAGINA,
+  }),
+  contarPorEstado(ejecutar, busqueda),
+]);
+
+/** Cuantos hay en el filtro actual, para el paginado. */
+const totalDelFiltro =
+  estado === 'todos'
+    ? conteo.importado + conteo.aprobado + conteo.publicado
+    : conteo[FILTROS.find((f) => f.valor === estado)!.estado as keyof typeof conteo];
+
+const hayMas = pagina * POR_PAGINA < totalDelFiltro;
+
+/** Conserva los parametros vigentes al armar un enlace. */
+function enlace(cambios: Record<string, string | number | null>): string {
+  const p = new URLSearchParams(parametros);
+  for (const [clave, valor] of Object.entries(cambios)) {
+    if (valor === null || valor === '') p.delete(clave);
+    else p.set(clave, String(valor));
+  }
+  const cadena = p.toString();
+  return cadena === '' ? Astro.url.pathname : `${Astro.url.pathname}?${cadena}`;
+}
+
+const guaranies = new Intl.NumberFormat('es-PY');
+
+/**
+ * Se evalua la aprobacion de CADA fila, tambien de las ya aprobadas o publicadas.
+ *
+ * No es trabajo perdido: un producto publicado puede haber quedado invalido porque
+ * se renombro una categoria en `categorias.json`, y la grilla es donde eso se tiene
+ * que ver. Mostrarlo solo para los importados esconderia el problema justo en los
+ * productos que estan en la calle.
+ */
+const filas = productos.map((p) => ({
+  ...p,
+  validacion: validarParaAprobar(
+    {
+      codigo: p.codigo,
+      nombre: p.nombre,
+      precio: p.precio,
+      categorias: p.categorias,
+      // La grilla no trae las variantes una por una: solo cuantas hay y cuantas
+      // fotos en total. Alcanza para las reglas de §5.2, que preguntan si existe al
+      // menos una variante y al menos una foto.
+      variantes:
+        p.variantes === 0
+          ? []
+          : [{ sku: p.codigo, color: '', imagenes: p.imagenes }],
+    },
+    { categoriasValidas: SLUGS_VALIDOS }
+  ),
+}));
+
+const R2 = env.PUBLIC_R2_BASE;
 ---
 
 <!doctype html>
@@ -27,46 +107,112 @@ const total = porEstado.reduce((suma, fila) => suma + fila.cantidad, 0);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- El admin nunca se indexa: es una superficie privada detras de Access. -->
     <meta name="robots" content="noindex, nofollow" />
-    <title>YBE · Administración</title>
+    <title>Productos · YBE Administración</title>
   </head>
   <body>
     <header>
-      <h1>Administración del catálogo</h1>
+      <h1>Productos</h1>
       <p>Sesión de <strong>{identidad.email}</strong></p>
     </header>
 
+    <form method="get" action={Astro.url.pathname} role="search">
+      <p>
+        <label for="q">Buscar por código o nombre</label>
+        <input id="q" name="q" type="search" value={busqueda} placeholder="CG85527" />
+      </p>
+      <p>
+        <label for="estado">Estado</label>
+        <select id="estado" name="estado">
+          {
+            FILTROS.map((f) => (
+              <option value={f.valor} selected={f.valor === estado}>
+                {f.etiqueta}
+                {f.estado ? ` (${conteo[f.estado as keyof typeof conteo]})` : ''}
+              </option>
+            ))
+          }
+        </select>
+      </p>
+      {/* El paginado se reinicia al cambiar el filtro: quedar en la pagina 3 de un
+          resultado de 1 pagina muestra una lista vacia que parece un error. */}
+      <p><button type="submit">Filtrar</button></p>
+    </form>
+
     <main>
-      <h2>Productos en la base</h2>
       {
-        total === 0 ? (
-          <p>No hay productos cargados.</p>
+        filas.length === 0 ? (
+          <p>
+            No hay productos
+            {busqueda !== '' ? <> que coincidan con <strong>{busqueda}</strong></> : null} en este
+            filtro.
+          </p>
         ) : (
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">Estado</th>
-                <th scope="col">Cantidad</th>
-              </tr>
-            </thead>
-            <tbody>
-              {porEstado.map((fila) => (
-                <tr>
-                  <th scope="row">{fila.estado}</th>
-                  <td>{fila.cantidad}</td>
-                </tr>
-              ))}
-            </tbody>
-            <tfoot>
-              <tr>
-                <th scope="row">Total</th>
-                <td>{total}</td>
-              </tr>
-            </tfoot>
-          </table>
+          <ul>
+            {filas.map((p) => (
+              <li>
+                {
+                  p.miniatura ? (
+                    <img
+                      src={`${R2}/catalogo/${p.miniatura}/w300.webp`}
+                      alt=""
+                      width="80"
+                      height="80"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    /* Sin foto se muestra un hueco rotulado, no un <img> roto: el
+                       mismo criterio que <SinFoto /> en el sitio (SPEC.md §5.4). */
+                    <span role="img" aria-label="Producto sin imagen">sin foto</span>
+                  )
+                }
+
+                <p>
+                  <strong>{p.codigo}</strong>
+                  {p.nombre && p.nombre !== p.codigo ? <> · {p.nombre}</> : null}
+                  {p.precio !== null ? <> · Gs. {guaranies.format(p.precio)}</> : <> · Consultar precio</>}
+                </p>
+
+                <p>
+                  {p.variantes} {p.variantes === 1 ? 'color' : 'colores'} ·{' '}
+                  {p.imagenes} {p.imagenes === 1 ? 'foto' : 'fotos'}
+                  {
+                    p.categorias.length > 0 ? (
+                      <> · {p.categorias.map((c) => nombreCategoria(c)).join(', ')}</>
+                    ) : null
+                  }
+                </p>
+
+                {
+                  p.categoria_origen ? (
+                    <p><small>Origen: {p.categoria_origen}</small></p>
+                  ) : null
+                }
+
+                {
+                  p.validacion.puede ? (
+                    <p>✓ listo para aprobar</p>
+                  ) : (
+                    <p>⚠ {p.validacion.faltantes.join(', ')}</p>
+                  )
+                }
+                {
+                  p.validacion.avisos.length > 0 ? (
+                    <p><small>{p.validacion.avisos.join(' · ')}</small></p>
+                  ) : null
+                }
+              </li>
+            ))}
+          </ul>
         )
       }
+
+      <nav aria-label="Paginado">
+        {pagina > 1 ? <a href={enlace({ pagina: pagina - 1 })} rel="prev">Anterior</a> : null}
+        {totalDelFiltro > POR_PAGINA ? <span>Página {pagina}</span> : null}
+        {hayMas ? <a href={enlace({ pagina: pagina + 1 })} rel="next">Siguiente</a> : null}
+      </nav>
     </main>
   </body>
 </html>

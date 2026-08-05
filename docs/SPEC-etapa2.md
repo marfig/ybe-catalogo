@@ -1462,7 +1462,39 @@ El admin vive en `admin/`, con su propio `package.json` y `wrangler.jsonc`
     basura da **403** — o sea que el token sí pasa por verificación; y un
     `Cf-Access-Authenticated-User-Email: intruso@otro.com` falsificado **no tiene
     ningún efecto**.
-- ⬜ Grilla (§10.3) y edición (§10.4), con las validaciones de §5.2.
+- ✅ **Grilla (§10.3), parte de lectura** — 37 tests. Búsqueda por código o nombre,
+  filtro por estado con «Sin completar» por defecto, y el estado de validación
+  debajo de cada producto. Todo por **GET, sin JavaScript**: la URL queda
+  compartible y recargable, el botón de atrás funciona, y una pantalla de trabajo
+  no puede depender de que cargue un bundle.
+  - **`validarParaAprobar()` no devuelve un booleano**, devuelve **qué** falta.
+    Decide dos cosas a la vez: si el botón «Aprobar» se habilita y qué dice la
+    grilla (`⚠ sin nombre, sin precio` / `✓ listo para aprobar`). Un validador
+    binario obligaría a reimplementar los motivos en la vista, y ahí es donde las
+    dos versiones se separan sin que nadie se entere.
+  - **Acumula todos los faltantes**, no corta en el primero: arreglar de a uno y
+    volver a guardar para descubrir el siguiente es trabajo regalado.
+  - **La miniatura sale de la misma variante que muestra el sitio** — el mismo
+    `ORDER BY v.orden, v.color, v.sku, vi.orden, i.hash16` del volcado. Verificado
+    corriendo: `CG84455` muestra la foto de Negro, o sea que la decisión del orden
+    curado llega hasta la grilla.
+  - **La validación se evalúa también en los publicados**, no solo en los
+    importados. Un producto en la calle puede haber quedado inválido porque se
+    renombró una categoría en `categorias.json`, y la grilla es donde eso se tiene
+    que ver. Ya pasa con `CG81500`, que está `publicado` y marca `⚠ sin fotos`.
+  - **Un `estado` inválido en la URL cae al default; en la consulta REVIENTA.** No
+    es incoherencia: un parámetro tipeado a mano en la barra se corrige y se sigue,
+    pero un filtro inválido que llegue al SQL y degrade a «sin WHERE» mostraría la
+    papelera, que es justo lo que §10.3 evita.
+  - **La búsqueda escapa `%` y `_`.** Sin eso, un comodín tipeado por accidente trae
+    todo y se lee como que la búsqueda no filtra. `LIKE` de SQLite es insensible a
+    mayúsculas solo en ASCII: alcanza para el código — que es lo que esa persona
+    tiene a mano (§5.3) — y queda documentado que `RIÑONERA` no matchea `Riñonera`.
+  - Las categorías se traen en una **segunda consulta**, no con `group_concat`: su
+    orden no está especificado en SQLite y `categorias[0]` es el breadcrumb.
+- ⬜ Grilla: aprobación en lote y asignación de categorías en lote (§10.3). Son
+  escrituras y van con la máquina de estados de §5.2.
+- ⬜ Edición (§10.4).
 - ⬜ Publicar (§11.2) con estado visible (§11.3).
 
 #### Tres trampas del adapter, encontradas a la mala
