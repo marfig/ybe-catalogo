@@ -1536,60 +1536,38 @@ producto** en vez de un booleano, y por eso las dos son idempotentes: reintentar
 seguro.
 
 - ⬜ Edición (§10.4).
-- ✅ **Publicar (§11.2) con estado visible (§11.3)** y **Inicio (§10.1)** — 24 tests.
-  El botón vive en el Inicio y no en la grilla: publicar es una acción de lote sobre
-  TODO el catálogo, y ponerlo entre las acciones de la grilla haría pensar que
-  publica lo seleccionado.
+- ✅ **Publicar (§11.2) con estado visible (§11.3)** e **Inicio (§10.1)** — 24 tests.
+  El Inicio pasa a ser `/` y la grilla `/productos`. El botón de publicar vive en el
+  Inicio y **no** en la grilla: publicar es una acción de lote sobre *todo* el
+  catálogo, y ponerlo entre las acciones de la grilla haría pensar que publica lo
+  seleccionado.
   - **El resultado lo escribe la Action en D1, NO lo postea al admin** como dice el
     diagrama de §11.2. La Action no puede pasar Cloudflare Access — no hay navegador
     ni PIN — así que un endpoint de vuelta exigiría un service token o excluir una
     ruta de la política: superficie de autenticación nueva justo en la pieza más
     protegida. La Action ya tiene credenciales de D1 para el volcado, así que escribe
     la fila y el admin la lee. Mismo efecto, sin puerta nueva.
-  - ** en el paso que reporta.** Es lo que hace visible la FALLA, que
-    es el punto entero de §11.3: sin eso un build roto deja la publicación en
+  - **`if: always()` en el paso que reporta.** Es lo que hace visible la *falla*, que
+    es el punto entero de §11.3: sin eso, un build roto deja la publicación en
     «Publicando…» para siempre y quien opera no se entera nunca.
-  - **El admin no muestra el stack.**  descarta la primera línea si
-    tiene pinta de volcado (, The AT command has been deprecated. Please use schtasks.exe instead.
-
-Invalid command.
-
-The AT command schedules commands and programs to run on a computer at      
-a specified time and date. The Schedule service must be running to use      
-the AT command.
-                                                           
-AT [\computername] [ [id] [/DELETE] | /DELETE [/YES]]                    
-AT [\computername] time [/INTERACTIVE]
-    [ /EVERY:date[,...] | /NEXT:date[,...]] "command"
-
-\computername     Specifies a remote computer. Commands are scheduled on the
-                   local computer if this parameter is omitted.             
-id                 Is an identification number assigned to a scheduled      
-                   command.                                                 
-/delete            Cancels a scheduled command. If id is omitted, all the
-                   scheduled commands on the computer are canceled.
-/yes               Used with cancel all jobs command when no further
-                   confirmation is desired.
-time               Specifies the time when command is to run.
-/interactive       Allows the job to interact with the desktop of the user   
-                   who is logged on at the time the job runs.
-/every:date[,...]  Runs the command on each specified day(s) of the week or
-                   month. If date is omitted, the current day of the month
-                   is assumed.                                              
-/next:date[,...]   Runs the specified command on the next occurrence of the
-                   day (for example, next Thursday).  If date is omitted, the
-                   current day of the month is assumed.
-"command"          Is the Windows NT command, or batch program to be run., ) y deja pasar los
+  - **El admin no muestra el stack.** `errorLegible()` descarta la primera línea si
+    tiene pinta de volcado — `node_modules`, `at …`, `ZodError` — y deja pasar los
     mensajes escritos para humanos. Verificado con un stack de Zod real: no aparece.
-    El texto completo SÍ se guarda en la fila — el rol técnico lo necesita; quien
+    El texto completo **sí** se guarda en la fila: el rol técnico lo necesita, y quien
     filtra es la vista, no quien escribe.
   - **Una publicación en curso vence a la hora.** Si la Action muere sin reportar, la
-    fila queda en  para siempre y el botón no vuelve nunca: no habría
-    forma de salir sin tocar la base a mano.
-  -  y  se ven igual: para quien opera son el mismo momento.
-    La diferencia entre encolado y arrancado es vocabulario de CI.
-- ⬜ Sellar  y pasar los  a  tras un build
-  exitoso (§5.2). Declarado a la vista en el workflow.
+    fila queda en `corriendo` para siempre y el botón no vuelve nunca: no habría forma
+    de salir sin tocar la base a mano.
+  - `pendiente` y `corriendo` se ven igual: para quien opera son el mismo momento. La
+    diferencia entre encolado y arrancado es vocabulario de CI.
+  - Se corta **antes** de crear la fila si ya hay una en curso. El workflow colapsa
+    builds con `concurrency`; esto es la mitad de arriba. Y si el dispatch falla, la
+    fila queda marcada como error en vez de dejar un botón que no hizo nada visible.
+  - Las dos puertas que faltan — importar del proveedor, cargar un producto — se
+    muestran **desactivadas con su etapa**, no escondidas: un botón ausente se lee
+    como «no se puede»; uno desactivado con su motivo se lee como «todavía no».
+- ⬜ Sellar `publicado_en` y pasar los `aprobado` a `publicado` tras un build exitoso
+  (§5.2). Declarado a la vista en el workflow.
 
 #### Tres trampas del adapter, encontradas a la mala
 
