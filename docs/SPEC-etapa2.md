@@ -1282,21 +1282,41 @@ El eslabón que hace que todo lo demás pueda existir.
 > cerrarlo: poner las tres variables en `.env` y correr
 > `npm run volcar -- --dry-run`, que con ellas presentes elige la API HTTP.
 
-#### El primer volcado real: qué cambia exactamente
+#### El orden de las variantes es curaduría, no abecedario
 
-Medido, no estimado. El diff contra el `productos.json` comiteado es de 165
-inserciones y 76 borrados, pero **el único cambio de CONTENIDO es uno**:
+`variantes[0]` es la variante activa en el HTML inicial (`SelectorVariante`), así que
+ese orden decide **qué color se ve al abrir la ficha** — y con él el `og:image` y la
+imagen principal del JSON-LD. Es una decisión comercial, no un detalle de
+serialización.
 
-| Qué | Cambia | Por qué |
-|---|---|---|
-| Variantes de `mochila-juvenil-acolchada` | `[Negro, Fucsia]` → `[Fucsia, Negro]` | Orden alfabético por color (`SPEC.md` §6.6) |
-| Orden de los 6 productos | Otro | Orden canónico por `id` (§6.5) |
-| Orden de las claves y formato | Otro | `serializar()` ordena claves y expande arrays |
-| Todo el resto | **Nada** | Verificado campo por campo |
+La regla original de `SPEC.md` §6.6 ordenaba **alfabéticamente por color**, lo que
+dejaba esa decisión en manos del abecedario: `mochila-juvenil-acolchada` habría pasado
+de mostrar Negro a mostrar Fucsia. **Se cambió a la columna `orden`**, con `color` y
+después `sku` como desempates. Los dos desempates no son adorno: sin ellos dos
+variantes con el mismo `orden` quedarían como las devolvió la base y se caería el
+determinismo.
 
-**La única consecuencia visible es la primera fila**, y no es inocua: `variantes[0]`
-es la variante activa en el HTML inicial (`SelectorVariante`), así que cambia el
-color por defecto de ese producto, su `og:image` y la imagen principal del JSON-LD.
+**El costo de la decisión, dicho de frente:** esto convierte a `orden` en curaduría, y
+un re-scrape que la sobreescriba con el orden del proveedor movería los colores por su
+cuenta — que es exactamente la inestabilidad que el alfabético evitaba. Por eso `orden`
+entra en la lista de campos que la importación **nunca** pisa, junto a `activo` y
+`destacado` (`SPEC.md` §6.4 y §6.6).
+
+#### Qué cambió el primer volcado real
+
+Medido, no estimado. **Cero cambios de contenido:** el reporte del volcado dice
+`sin cambios`, los seis productos conservan su orden de variantes — incluido
+`Negro/Fucsia` — y el `og:image` de la ficha sigue apuntando a la foto de Negro
+(`862cab4eb0a88563`), verificado en el HTML construido.
+
+El archivo sí cambió, pero solo de forma: orden canónico de productos por `id`, claves
+alfabéticas y el formato de `serializar()`. `src/data/productos.json` ya está canónico,
+así que la próxima publicación produce un diff chico y legible en vez de esta única
+sacudida de 241 líneas.
+
+**Efecto lateral bueno del cambio de regla:** el ida y vuelta `JSON → D1 → JSON` pasó a
+ser identidad salvo el orden de productos. Antes había que reordenar las variantes del
+lado esperado para compararlo; ahora no.
 
 #### El ida y vuelta es el test más fuerte que tiene el volcado
 

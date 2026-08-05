@@ -90,9 +90,10 @@ for (const id of diff.modificados) console.log(`    ~ ${id}`);
  */
 if (cambio && diff.altas.length === 0 && diff.bajas.length === 0 && diff.modificados.length === 0) {
   console.log(
-    '  AVISO: ningun producto cambio pero el archivo si. Es reordenamiento al orden\n' +
-      '         canonico (productos por id, variantes por color). Ojo que variantes[0]\n' +
-      '         es la variante activa en el HTML inicial.'
+    '  AVISO: ningun producto cambio pero el archivo si. Es forma, no contenido:\n' +
+      '         orden canonico de productos por id, claves alfabeticas y formato de\n' +
+      '         serializar(). El orden de las variantes NO se toca: sale de la columna\n' +
+      '         `orden` de la base, que es curaduria.'
   );
 }
 

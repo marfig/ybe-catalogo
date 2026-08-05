@@ -651,7 +651,7 @@ La unidad del `crudo` es el **modelo**, no la página: la etapa 1 ya resuelve lo
 - **No hay `titulo`, `descripcion` ni `precioTexto`**: el origen no los tiene (§2.3). Entran por el overlay (§6.6).
 - `imagenes` son nombres de archivo dentro de `cache/`, no URLs: la etapa 2 no sale a internet a buscar imágenes.
 - `colorOrigen` va literal, con el prefijo `(X)`. La etapa 2 lo descarta.
-- El orden de `colores` es el del sitio y **no importa**: la etapa 2 reordena alfabéticamente (§6.6).
+- El orden de `colores` es el del sitio y **no se toma como curaduría**: la etapa 2 lo fija con la columna `orden`, que no se vuelve a pisar (§6.6).
 
 ### 6.4 Etapa 2 — entradas
 
@@ -747,7 +747,8 @@ Así el catálogo público solo muestra productos curados, y el trabajo pendient
 
 - **`sku` = `{codigo}-{codigoColor}`**, tomando el `codigoColor` del prefijo `(X)` del origen: `CG85527-P`, `CG85527-3`, `CG85527-E`. Es estable y semántico. Si un color viene sin prefijo, el `sku` cae a `{codigo}-{slug(color)}`. **Nunca un índice posicional:** si el proveedor agrega un color, los SKU existentes no se mueven.
 - **No se usa el `idColor`** (`71010`) en el `sku`: es un autoincremental de la base del proveedor y puede cambiar si recrean el registro.
-- **El orden de las variantes es alfabético por `color` normalizado**, no el del sitio. Sin esto `productos.json` cambiaría entre corridas y rompería la idempotencia (§6.7).
+- **El orden de las variantes lo fija una columna `orden` que es curaduría**, no el del sitio, y el `color` normalizado sirve solo de desempate. Lo que la idempotencia (§6.7) necesita es que el orden sea **estable**, y una columna guardada lo es; lo inestable era el orden en que el proveedor devuelve los colores. **Esta regla la reemplazó `SPEC-etapa2.md` §5.5:** antes era alfabético puro, y eso hacía que el color mostrado por defecto en cada ficha lo decidiera el abecedario en vez de una decisión comercial.
+- **`orden` entra en la lista de campos que la importación NUNCA sobreescribe**, con `activo` y `destacado` (§6.4). Si un re-scrape lo pisara con el orden del proveedor, los colores se moverían solos y volvería justo la inestabilidad que la regla alfabética evitaba.
 - Un `colorOrigen` que no esté en el diccionario genera la variante con el nombre limpiado del prefijo y **sin** `colorHex`: el selector cae a botón con texto (§4.2) y el reporte lo lista. **No inventa un hex.**
 - Un par `padre|hijo` que no esté en `categorias` cae al slug del padre si existe; si tampoco, el modelo queda `activo: false` y se lista en el reporte. Un producto sin categoría es inalcanzable (§4.2), así que no se publica a medias.
 

@@ -122,7 +122,9 @@ Genera `src/data/productos.json`, sube las imágenes nuevas a R2 y escribe el re
 - Es **idempotente**: correrlo dos veces con la misma entrada no cambia nada.
   Verificable con `git diff --exit-code src/data/productos.json`.
 - Solo sube imágenes que no estén ya en R2 (dedupe por hash de contenido).
-- Nunca pisa tu curaduría: `activo` y `destacado` no se sobreescriben.
+- Nunca pisa tu curaduría: `activo`, `destacado` y el **orden de las variantes** no se
+  sobreescriben. Ese orden decide qué color se muestra al abrir la ficha, así que es una
+  decisión tuya y no del abecedario ni del proveedor.
 - Un producto que ya no está en el catálogo del proveedor **no se borra**: pasa a
   `activo: false`. Borrarlo mataría su URL y su indexación.
 - Si un precio cambió más de ±25 %, marca `⚠ REVISAR` y termina con código 2. A esta

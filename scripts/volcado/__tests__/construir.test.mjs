@@ -183,33 +183,69 @@ test('imagenes vacias se emiten como array vacio, no se omiten', () => {
 // Orden de variantes — el punto mas delicado de la idempotencia
 // --------------------------------------------------------------------------
 
-test('las variantes se ordenan alfabeticamente por color, no por la columna orden', () => {
-  // SPEC §6.6: sin esto productos.json cambiaria entre corridas segun el orden
-  // en que el proveedor devuelve los colores, y romperia la idempotencia.
-  // El fixture trae Rosado (orden 0) antes que Negro (orden 1) a proposito.
+test('las variantes se ordenan por la columna orden, que es curaduria', () => {
+  // `variantes[0]` es la variante activa en el HTML inicial (SelectorVariante), o
+  // sea que este orden decide QUE COLOR se ve al abrir la ficha. Es una decision
+  // comercial, no un detalle de serializacion, asi que manda `orden`.
+  //
+  // El fixture trae Rosado (orden 0) antes que Negro (orden 1) a proposito: si
+  // mandara el alfabetico, Negro iria primero.
   assert.deepEqual(
     uno(base()).variantes.map((v) => v.color),
-    ['Negro', 'Rosado']
+    ['Rosado', 'Negro']
   );
 });
 
-test('el orden de colores es por punto de codigo, NO localeCompare', () => {
+test('con el mismo orden decide el color, y es por punto de codigo, NO localeCompare', () => {
   // localeCompare depende del ICU del runtime: la GitHub Action y una maquina
   // local podrian ordenar distinto y el volcado dejaria de ser deterministico.
   // Es el mismo riesgo que SPEC §9.3 evita en el formato de precios.
   //
   // Por punto de codigo: 'A'(0x41) < 'Z'(0x5A) < 'Á'(0xC1)  =>  Azul, Zafiro, Ambar
   // Con localeCompare('es'):                                =>  Ambar, Azul, Zafiro
+  //
+  // Los tres van con el MISMO `orden` a proposito: si tuvieran orden distinto,
+  // `orden` decidiria y este test no probaria nada sobre el comparador de colores.
   const f = base();
   f.variantes = [
     { id: 10, producto_id: 1, sku: 'X-1', color: 'Ámbar', color_hex: null, activo: 1, orden: 0 },
-    { id: 11, producto_id: 1, sku: 'X-2', color: 'Azul', color_hex: null, activo: 1, orden: 1 },
-    { id: 12, producto_id: 1, sku: 'X-3', color: 'Zafiro', color_hex: null, activo: 1, orden: 2 },
+    { id: 11, producto_id: 1, sku: 'X-2', color: 'Azul', color_hex: null, activo: 1, orden: 0 },
+    { id: 12, producto_id: 1, sku: 'X-3', color: 'Zafiro', color_hex: null, activo: 1, orden: 0 },
   ];
   f.imagenes = [];
   assert.deepEqual(
     uno(f).variantes.map((v) => v.color),
     ['Azul', 'Zafiro', 'Ámbar']
+  );
+});
+
+test('con el mismo orden y el mismo color decide el sku', () => {
+  // Ultimo desempate: sin el, dos variantes empatadas quedarian en el orden en que
+  // las devolvio la base y el volcado dejaria de ser determinista.
+  const f = base();
+  f.variantes = [
+    { id: 10, producto_id: 1, sku: 'X-9', color: 'Negro', color_hex: null, activo: 1, orden: 0 },
+    { id: 11, producto_id: 1, sku: 'X-1', color: 'Negro', color_hex: null, activo: 1, orden: 0 },
+  ];
+  f.imagenes = [];
+  assert.deepEqual(
+    uno(f).variantes.map((v) => v.sku),
+    ['X-1', 'X-9']
+  );
+});
+
+test('un orden ausente no rompe el ordenamiento', () => {
+  // Defensa: la columna es NOT NULL con default 0, pero construirProductos recibe
+  // filas de cualquier origen y un NaN en el comparador desordenaria todo.
+  const f = base();
+  f.variantes = [
+    { id: 10, producto_id: 1, sku: 'X-1', color: 'Rojo', color_hex: null, activo: 1 },
+    { id: 11, producto_id: 1, sku: 'X-2', color: 'Azul', color_hex: null, activo: 1 },
+  ];
+  f.imagenes = [];
+  assert.deepEqual(
+    uno(f).variantes.map((v) => v.color),
+    ['Azul', 'Rojo']
   );
 });
 

@@ -48,12 +48,14 @@ export const SQL = {
      WHERE estado IN (${HUECOS})
      ORDER BY id`,
 
+  // `orden` es imprescindible, no informativo: construirProductos() ordena las
+  // variantes por esa columna y de ahi sale que color se ve al abrir la ficha.
   variantes: `
-    SELECT v.id, v.producto_id, v.sku, v.color, v.color_hex, v.activo
+    SELECT v.id, v.producto_id, v.sku, v.color, v.color_hex, v.activo, v.orden
       FROM variantes v
       JOIN productos p ON p.id = v.producto_id
      WHERE p.estado IN (${HUECOS})
-     ORDER BY v.producto_id, v.id`,
+     ORDER BY v.producto_id, v.orden, v.id`,
 
   // La imagen llega identificada por VARIANTE, no por su id: es la forma que
   // espera construirProductos(), que agrupa por variante_id.

@@ -26,9 +26,8 @@ import {
  * campo, el ida y vuelta lo delata; ningun test de una sola direccion lo haria.
  *
  * NO se compara byte a byte contra el archivo comiteado: ese archivo fue escrito a
- * mano y no esta en el orden canonico que produce el volcado (productos por `id`,
- * variantes por `color`). Lo que se afirma es la preservacion del CONTENIDO,
- * normalizando el orden del lado esperado.
+ * mano y el volcado emite los productos ordenados por `id`. Lo que se afirma es la
+ * preservacion del CONTENIDO, normalizando solo ese orden del lado esperado.
  */
 
 const MIGRACION = readFileSync('db/migrations/0001_esquema_inicial.sql', 'utf8');
@@ -63,16 +62,16 @@ function sembrar(db, filas) {
 
 const ejecutorSqlite = (db) => (sql, params = []) => db.prepare(sql).all(...params);
 
-/** Canonicaliza el lado esperado: el volcado ordena, el archivo a mano no. */
+/**
+ * Canonicaliza el lado esperado: solo el orden de los PRODUCTOS, por `id`.
+ *
+ * Las variantes NO se reordenan, y eso es el punto: desde que el volcado ordena por
+ * la columna `orden` (que `aFilas` siembra con la posicion en el JSON), el viaje
+ * devuelve las variantes en el orden original. El ida y vuelta pasa a ser identidad
+ * salvo el orden de productos.
+ */
 function canonico(productos) {
-  return [...productos]
-    .map((p) => ({
-      ...p,
-      variantes: [...p.variantes].sort((a, b) =>
-        a.color < b.color ? -1 : a.color > b.color ? 1 : 0
-      ),
-    }))
-    .sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+  return [...productos].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
 }
 
 /** El pipeline completo de ida y vuelta. */

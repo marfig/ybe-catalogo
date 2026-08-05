@@ -95,11 +95,30 @@ function construirImagenes(filas, codigo) {
 }
 
 function construirVariantes(filas, porVariante, codigo) {
-  // Alfabetico por color, NO por la columna `orden` del proveedor. Sin esto el
-  // JSON cambiaria entre corridas segun el orden en que el origen devuelve los
-  // colores, y se caeria la idempotencia (SPEC §6.6).
+  /**
+   * Por la columna `orden`, con el color y despues el sku como desempates.
+   *
+   * `orden` MANDA porque `variantes[0]` es la variante activa en el HTML inicial
+   * (SelectorVariante): este orden decide que color se ve al abrir la ficha, o sea
+   * que es una decision comercial y no un detalle de serializacion.
+   *
+   * OJO — esto convierte a `orden` en CURADURIA. Un re-scrape que lo sobreescriba
+   * con el orden del proveedor movería los colores por su cuenta, que es justo la
+   * inestabilidad que antes se evitaba ordenando solo por color. `orden` entra en
+   * la lista de campos que la importacion NUNCA pisa, con `activo` y `destacado`
+   * (SPEC §6.4).
+   *
+   * Los dos desempates no son adorno: sin ellos, dos variantes con el mismo
+   * `orden` quedarian en el orden en que las devolvio la base y el volcado dejaria
+   * de ser determinista (SPEC §6.5).
+   */
   return [...filas]
-    .sort((a, b) => porTexto(a.color, b.color) || porTexto(a.sku, b.sku))
+    .sort(
+      (a, b) =>
+        (a.orden ?? 0) - (b.orden ?? 0) ||
+        porTexto(a.color, b.color) ||
+        porTexto(a.sku, b.sku)
+    )
     .map((v) => {
       const variante = {
         sku: v.sku,

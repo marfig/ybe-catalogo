@@ -188,6 +188,10 @@ test('consultarFilas: las columnas son exactamente las que construirProductos le
     'color',
     'color_hex',
     'id',
+    // `orden` decide que color se ve al abrir la ficha. Si se cae del SELECT, todas
+    // las variantes empatan en 0 y el desempate alfabetico cambia el color por
+    // defecto de cada producto multicolor, sin que nada falle.
+    'orden',
     'producto_id',
     'sku',
   ]);
