@@ -24,9 +24,11 @@ import { CATEGORIAS, SLUGS_VALIDOS, nombreCategoria } from '../lib/categorias.ts
 import { ejecutorD1 } from '../lib/d1.ts';
 import { guardarFilas, type CambioFila } from '../lib/guardar.ts';
 import {
+  ESTADOS_LEGIBLES,
   FILTROS,
   FILTRO_POR_DEFECTO,
   contarPorEstado,
+  estadoLegible,
   listarProductos,
   type ValorFiltro,
 } from '../lib/grilla.ts';
@@ -230,6 +232,40 @@ const R2 = env.PUBLIC_R2_BASE;
     <p class="campo campo--boton"><button type="submit">Filtrar</button></p>
   </form>
 
+  {/* El recorrido, a la vista y no en un manual. Es la maquina de estados de §5.2
+      contada en el vocabulario de quien opera: los nombres crudos de la columna
+      (`importado`, `aprobado`) no le dicen nada a nadie. */}
+  <details class="ayuda">
+    <summary>¿Qué significa cada estado?</summary>
+    <ol class="recorrido">
+      <li>
+        <strong>{ESTADOS_LEGIBLES.importado.etiqueta}</strong>
+        <span>{ESTADOS_LEGIBLES.importado.explicacion}</span>
+        <em>Completá nombre, categoría y precio, y apretá «Aprobar».</em>
+      </li>
+      <li>
+        <strong>{ESTADOS_LEGIBLES.aprobado.etiqueta}</strong>
+        <span>{ESTADOS_LEGIBLES.aprobado.explicacion}</span>
+        <em>Ya tiene su dirección web, que no cambia nunca más.</em>
+      </li>
+      <li>
+        <strong>{ESTADOS_LEGIBLES.publicado.etiqueta}</strong>
+        <span>{ESTADOS_LEGIBLES.publicado.explicacion}</span>
+        <em>Podés seguir editando nombre y precio: la dirección no se mueve.</em>
+      </li>
+      <li>
+        <strong>{ESTADOS_LEGIBLES.eliminado.etiqueta}</strong>
+        <span>{ESTADOS_LEGIBLES.eliminado.explicacion}</span>
+        <em>Quien tenga el enlace no encuentra un error, encuentra el catálogo.</em>
+      </li>
+    </ol>
+    <p class="nota">
+      Todavía falta el botón de <strong>publicar</strong>: hoy los productos llegan
+      hasta «Listo para publicar». Sacar de circulación y restaurar tampoco están
+      hechos, así que la papelera se puede mirar pero todavía nada cae ahí.
+    </p>
+  </details>
+
   {
     hayResumen ? (
       <p class={errorAccion ? 'resumen resumen--error' : 'resumen'} role="status">
@@ -265,11 +301,67 @@ const R2 = env.PUBLIC_R2_BASE;
       </p>
     ) : (
       <form method="post" action={destinoPost}>
+        {/* Las acciones van ARRIBA: con 50 filas, un bloque al pie se pierde de vista
+            en la primera mirada y hay que scrollear hasta el fondo para descubrir que
+            existe. */}
+        <fieldset class="lote">
+          <legend>Acciones</legend>
+
+          <p class="lote-fila">
+            <button type="submit" name="accion" value="guardar">Guardar cambios</button>
+            <span class="nota">
+              Guarda nombre, categoría y precio de <strong>todas</strong> las filas de
+              esta página. No hace falta seleccionar nada.
+            </span>
+          </p>
+
+          <hr />
+
+          <p class="nota nota--titulo">Sobre los productos tildados:</p>
+
+          <p class="lote-fila">
+            <button type="submit" name="accion" value="aprobar">Aprobar</button>
+            <label class="lote-check">
+              <input type="checkbox" name="sin-foto" value="si" />
+              aunque no tengan foto
+            </label>
+            <span class="nota">
+              Pasa de <em>Sin completar</em> a <em>Listo para publicar</em> y le crea la
+              dirección web, que no cambia nunca más.
+            </span>
+          </p>
+
+          <p class="lote-fila">
+            <label for="secundaria">Agregar categoría</label>
+            <select id="secundaria" name="secundaria">
+              {CATEGORIAS.map((c) => (
+                <option value={c.id}>{c.nombre}</option>
+              ))}
+            </select>
+            <button type="submit" name="accion" value="categorias">Agregar</button>
+            <span class="nota">
+              Se suma a las que ya tiene. Para cambiar la principal, usá el desplegable
+              de la fila.
+            </span>
+          </p>
+        </fieldset>
+
         <div class="tabla-marco">
           <table class="grilla">
             <caption class="oculto">
               Productos: código, foto, nombre, categoría principal, precio y estado
             </caption>
+            {/* Anchos explicitos: con `table-layout: fixed` manda esto y no el
+                contenido, asi el select no se lleva el ancho del nombre. */}
+            <colgroup>
+              <col style="width: 44px" />
+              <col style="width: 6.5rem" />
+              <col style="width: 72px" />
+              <col />
+              <col style="width: 12rem" />
+              <col style="width: 8rem" />
+              <col style="width: 11rem" />
+            </colgroup>
             <thead>
               <tr>
                 <th scope="col" class="col-elegir">
@@ -374,12 +466,16 @@ const R2 = env.PUBLIC_R2_BASE;
                   </td>
 
                   <td>
+                    {/* Primero DONDE esta el producto, despues que le falta. El estado
+                        es el dato que se busca; la validacion es la accion siguiente. */}
+                    <p class="estado-actual" title={estadoLegible(p.estado).explicacion}>
+                      {estadoLegible(p.estado).etiqueta}
+                    </p>
                     {p.validacion.puede ? (
-                      <span class="estado estado--ok">✓ listo</span>
+                      <span class="estado estado--ok">✓ completo</span>
                     ) : (
                       <span class="estado estado--falta">⚠ {p.validacion.faltantes.join(', ')}</span>
                     )}
-                    <p class="estado-actual">{p.estado}</p>
                   </td>
                 </tr>
               ))}
@@ -387,48 +483,12 @@ const R2 = env.PUBLIC_R2_BASE;
           </table>
         </div>
 
-        {/* Las acciones van al pie porque se usan DESPUES de recorrer las filas: el
-            guardado es lo ultimo que se hace, y las de lote necesitan la seleccion
-            ya hecha. */}
-        <fieldset class="lote">
-          <legend>Acciones</legend>
-
-          <p class="lote-fila">
-            <button type="submit" name="accion" value="guardar">
-              Guardar cambios
-            </button>
-            <span class="nota">Guarda nombre, categoría principal y precio de todas las filas.</span>
-          </p>
-
-          <hr />
-
-          <p class="lote-fila">
-            <button type="submit" name="accion" value="aprobar">
-              Aprobar seleccionados
-            </button>
-            <label class="lote-check">
-              <input type="checkbox" name="sin-foto" value="si" />
-              publicar sin foto
-            </label>
-          </p>
-
-          <p class="lote-fila">
-            <label for="secundaria">Agregar categoría a los seleccionados</label>
-            <select id="secundaria" name="secundaria">
-              {CATEGORIAS.map((c) => (
-                <option value={c.id}>{c.nombre}</option>
-              ))}
-            </select>
-            <button type="submit" name="accion" value="categorias">
-              Agregar
-            </button>
-          </p>
-
-          <p class="nota">
-            Agregar no reemplaza las categorías que el producto ya tiene. Para cambiar la
-            principal, usá el desplegable de la fila.
-          </p>
-        </fieldset>
+        {/* El guardado se repite al pie: con 50 filas, terminar de tipear abajo y
+            tener que volver arriba para guardar es un viaje al vacio. Es el MISMO
+            boton, no otra accion. */}
+        <p class="pie-guardar">
+          <button type="submit" name="accion" value="guardar">Guardar cambios</button>
+        </p>
       </form>
     )
   }

@@ -122,9 +122,14 @@ body {
   color: var(--texto-suave);
 }
 
-input[type='search'],
-select,
-button {
+/**
+ * Todos los controles, no solo algunos.
+ *
+ * Antes esta regla decia `input[type='search']` y los `type='text'` de la grilla
+ * quedaron sin borde, sin padding y sin alto minimo: se veian como texto suelto. Se
+ * usa `:where()` para no subir la especificidad y poder ajustar por celda despues.
+ */
+:where(input[type='search'], input[type='text'], input[type='number'], select, button, textarea) {
   font: inherit;
   /* 44 px de alto minimo: es un tamaño de toque usable en telefono. */
   min-height: 44px;
@@ -210,6 +215,64 @@ button {
   color: var(--texto-suave);
 }
 
+.nota--titulo {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   Ayuda: el recorrido de los estados
+   -------------------------------------------------------------------------- */
+.ayuda {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: var(--hueco);
+  margin-bottom: 1.5rem;
+}
+
+.ayuda summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--primario);
+  /* Area de toque, que un <summary> por defecto es del alto del texto. */
+  min-height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.recorrido {
+  margin: var(--hueco) 0;
+  padding-left: 1.5rem;
+  display: grid;
+  gap: 0.625rem;
+}
+
+.recorrido li {
+  font-size: 0.875rem;
+}
+
+.recorrido strong {
+  display: block;
+}
+
+.recorrido span,
+.recorrido em {
+  display: block;
+  color: var(--texto-suave);
+}
+
+.recorrido em {
+  font-style: normal;
+  font-size: 0.8125rem;
+  color: var(--aviso);
+}
+
+.pie-guardar {
+  margin: 0 0 1.5rem;
+}
+
 /* --------------------------------------------------------------------------
    La grilla: una tabla editable
    -------------------------------------------------------------------------- */
@@ -234,6 +297,12 @@ button {
   border-collapse: collapse;
   /* Ancho minimo para que las columnas no se aplasten antes de scrollear. */
   min-width: 56rem;
+  /**
+   * `fixed` y no `auto`: con `auto` el navegador reparte segun el contenido y la
+   * columna del select se lleva el ancho del nombre, que es el campo que mas se
+   * tipea. Con `fixed` manda el <colgroup> y las 50 filas quedan alineadas.
+   */
+  table-layout: fixed;
 }
 
 .grilla th,
@@ -298,17 +367,30 @@ button {
   text-align: center;
 }
 
-/* Los campos de la fila ocupan su celda: un input de ancho fijo desalinea la tabla. */
+/**
+ * Los anchos los fija el `<colgroup>`, no el contenido.
+ *
+ * Sin eso, el navegador reparte segun lo que hay adentro y la columna de categoria
+ * — que tiene el select mas ancho — se come el espacio del nombre, que es el campo
+ * que mas se tipea.
+ */
 .grilla input[type='text'],
 .grilla select {
   width: 100%;
-  min-width: 9rem;
+  /* Sin min-width: lo pone la columna. Un minimo aca vuelve a estirar la tabla. */
+  min-width: 0;
 }
 
-/* El precio va alineado a la derecha, como todo numero que se compara de un vistazo. */
+/* Los controles de la fila van mas compactos que los de los filtros: son 50. */
+.grilla input[type='text'],
+.grilla select {
+  min-height: 38px;
+  padding: 0.3125rem 0.5rem;
+}
+
+/* El precio alineado a la derecha, como todo numero que se compara de un vistazo. */
 .grilla input.precio {
   text-align: right;
-  min-width: 7rem;
   font-variant-numeric: tabular-nums;
 }
 
@@ -318,10 +400,13 @@ button {
   color: var(--texto-suave);
 }
 
+/* El estado va primero y con peso: es el dato que se busca al recorrer la lista. */
 .estado-actual {
-  margin: 0.25rem 0 0;
-  font-size: 0.75rem;
-  color: var(--texto-suave);
+  margin: 0 0 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  /* `help` avisa que hay un title con la explicacion. */
+  cursor: help;
 }
 
 .grilla .estado {

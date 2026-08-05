@@ -34,6 +34,45 @@ export const FILTROS = [
   estado: string | null;
 }>;
 
+/**
+ * Los cuatro estados en castellano, con lo que significan PARA QUIEN OPERA.
+ *
+ * El valor crudo de la columna (`importado`, `aprobado`...) es vocabulario del
+ * esquema. La pantalla no puede pedirle a nadie que recuerde que "importado"
+ * significa "todavia no se ve en el sitio": lo tiene que decir.
+ *
+ * Vive junto a `FILTROS` para que las etiquetas del filtro y las de la fila no se
+ * puedan contradecir.
+ */
+export const ESTADOS_LEGIBLES = {
+  importado: {
+    etiqueta: 'Sin completar',
+    explicacion: 'No se ve en el sitio. Le faltan datos.',
+  },
+  aprobado: {
+    etiqueta: 'Listo para publicar',
+    explicacion: 'Ya tiene todo, pero todavía no se ve: falta publicar.',
+  },
+  publicado: {
+    etiqueta: 'En el catálogo',
+    explicacion: 'Se ve en el sitio y tiene una dirección web en la calle.',
+  },
+  eliminado: {
+    etiqueta: 'En la papelera',
+    explicacion: 'Se sacó del catálogo. Su dirección web no queda rota.',
+  },
+} as const satisfies Record<string, { etiqueta: string; explicacion: string }>;
+
+/** Etiqueta legible de un estado. Uno desconocido se muestra crudo, no se esconde. */
+export function estadoLegible(estado: string): { etiqueta: string; explicacion: string } {
+  return (
+    ESTADOS_LEGIBLES[estado as keyof typeof ESTADOS_LEGIBLES] ?? {
+      etiqueta: estado,
+      explicacion: 'Estado desconocido: revisar la base.',
+    }
+  );
+}
+
 export const FILTRO_POR_DEFECTO: ValorFiltro = FILTROS[0].valor;
 
 export interface FilaGrilla {
