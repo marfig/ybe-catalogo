@@ -1414,12 +1414,38 @@ Criterio de salida: volcar D1 dos veces seguidas ⇒ `git diff --exit-code
 src/data/productos.json` limpio. Es el test de idempotencia de `SPEC.md` §6.11
 sobre la base nueva.
 
-### Fase 2.3 — Admin: leer y editar (desplegable)
+### Fase 2.3 — Admin: leer y editar (desplegable) · **EN CURSO**
 
-- Worker de admin con adapter de Cloudflare y Access (§6), incluida validación
-  del JWT.
-- Grilla (§10.3) y edición (§10.4), con las validaciones de §5.2.
-- Publicar (§11.2) con estado visible (§11.3).
+El admin vive en `admin/`, con su propio `package.json` y `wrangler.jsonc`
+(§4.1). El sitio público no se toca.
+
+- ✅ **Validación del JWT de Access** en `admin/src/lib/access.ts` — 22 tests, y
+  el valor está en los **casos negativos**: `alg: none`, confusión de algoritmo
+  con `HS256`, firma ajena, `kid` desconocido, cuerpo alterado, `aud` de otra
+  aplicación del equipo, emisor distinto, vencido, `nbf` futuro, sin `exp`.
+  - **La identidad sale del JWT, nunca del header.**
+    `Cf-Access-Authenticated-User-Email` es texto plano: si el Worker queda
+    alcanzable por su URL de `workers.dev` sin la política delante, ese header lo
+    pone cualquiera. Hay un test que manda los dos headers con emails distintos y
+    exige que gane el del JWT, y otro que verifica que el header **solo** no
+    alcanza.
+  - **El algoritmo se fija en el código, no se lee del token.** Honrar el `alg`
+    del token es la vulnerabilidad clásica: `none` deja pasar cualquier cosa y
+    `HS256` permite firmar con la clave *pública* como secreto de HMAC.
+  - **`aud` no es opcional.** Un equipo de Access puede tener varias aplicaciones,
+    todas con el mismo emisor y la misma clave. Sin verificar `aud`, un token
+    emitido para cualquier otra aplicación del equipo abre el admin.
+- ✅ **JWKS con caché y refresco por rotación** en `admin/src/lib/jwks.ts` — 11
+  tests. **Access rota las claves**, y con un caché a secas una rotación deja
+  afuera a todo el mundo hasta que expire el TTL: ante un `kid` ausente se
+  refresca y se reintenta **una** vez, con memoria de qué `kid` ya provocó un
+  refresco para que un `kid` inventado no se convierta en tráfico contra el
+  endpoint de Cloudflare. Un JWKS vacío o malformado **revienta** en vez de
+  degradar a «nadie autorizado», que es un modo de falla mucho más confuso.
+- ⬜ Scaffold del proyecto: adapter `@astrojs/cloudflare`, `wrangler.jsonc` con
+  los bindings D1 + R2, y el middleware que aplica la validación en cada request.
+- ⬜ Grilla (§10.3) y edición (§10.4), con las validaciones de §5.2.
+- ⬜ Publicar (§11.2) con estado visible (§11.3).
 
 Criterio de salida: una persona sin acceso a la terminal edita un producto, lo
 aprueba, lo publica, y lo ve en el sitio. Y si el build falla, entiende qué pasó.

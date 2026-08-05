@@ -7,8 +7,9 @@
   // (SPEC-etapa2 §4.1). Un sitio de solo lectura no debe poder escribir en D1
   // ni por error de programacion.
   //
-  // El Worker de admin, cuando exista, declara su propio binding a esta misma
-  // base en spike-libre/admin/wrangler.jsonc.
+  // El Worker de admin declara su propio binding a esta misma base en
+  // admin/wrangler.jsonc (SPEC-etapa2 §4.1). El apuntador anterior nombraba un
+  // directorio que nunca existio.
   //
   // Uso:
   //   npx wrangler d1 migrations list ybe-catalogo -c db/wrangler.jsonc --remote
