@@ -14,16 +14,20 @@ import logo from '../assets/logo_plateado.png';
  * mas alta con alpha > 0:
  *
  *   lienzo         1024 x 1024
- *   bbox visible   x 102..942 (841 px)   y 82..916 (835 px)
- *   centro         (522, 499)
+ *   bbox visible   x 102..941 (840 px)   y 83..916 (834 px)
+ *   centro         (521.5, 499.5)
  *
  * El umbral es alpha > 0, no alpha > 128: el filo antialiaseado se VE, y si la
  * escala lo deja afuera el recorte se nota igual. Sobre este archivo la
  * diferencia entre los dos umbrales es de 1-2 px, o sea 0.2 % de escala.
  *
- * El contenido NO esta centrado: cae 10 px a la derecha y 12.5 px arriba del
+ * El contenido NO esta centrado: cae 9.5 px a la derecha y 12 px arriba del
  * centro del lienzo. Sin corregirlo, la escala lo empuja fuera de la caja por
  * arriba y por la derecha, y se ve cortado. De ahi el translate.
+ *
+ * ESTOS NUMEROS SE REMIDEN EN CADA CAMBIO DEL ARCHIVO. Ya paso: un reemplazo con
+ * el mismo lienzo corrio el encuadre 1 px y ninguna guarda pudo verlo, porque las
+ * tres miran el lienzo y no el contenido.
  *
  * LIENZO sale del propio asset y no va hardcodeado: cuando el archivo cambio de
  * 1024 a 500 px, la constante vieja dejo una escala 23 % de mas y recorto el
@@ -37,7 +41,7 @@ import logo from '../assets/logo_plateado.png';
 const LIENZO = logo.width;
 
 /** bbox del contenido visible (alpha > 0), medido. */
-const BBOX = { x0: 102, x1: 942, y0: 82, y1: 916 };
+const BBOX = { x0: 102, x1: 941, y0: 83, y1: 916 };
 
 const ANCHO = BBOX.x1 - BBOX.x0 + 1;
 const ALTO = BBOX.y1 - BBOX.y0 + 1;

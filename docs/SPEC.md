@@ -57,14 +57,14 @@ El material de origen impone límites que el diseño debe absorber. Esta secció
 |---|---|
 | Dimensiones | 1024 × 1024 (aspect ratio 1:1) |
 | Formato | PNG, 8 bits/canal, color type 6 (RGBA), no entrelazado |
-| Peso | 910 KB en origen — **13 KB servidos** en WebP por `astro:assets` |
+| Peso | 945 KB en origen — **~13 KB servidos** en WebP por `astro:assets` |
 | Chunks | Solo `IHDR` / `IDAT` / `IEND` — sin metadatos ni manifest C2PA |
-| Canal alpha | **Real y funcional.** Esquinas en alpha 0 y 1.5 % del lienzo en alpha parcial, o sea filo antialiaseado de verdad |
-| Fondo | **Transparente.** 52.5 % del lienzo es alpha 0 |
+| Canal alpha | **Real y funcional.** Esquinas en alpha 0 y 1.7 % del lienzo en alpha parcial, o sea filo antialiaseado de verdad |
+| Fondo | **Transparente.** 52.7 % del lienzo es alpha 0 |
 | Marca | Medalla circular de metal cepillado, "CHENSON / YBE" |
-| BBox visible (alpha > 0) | x 102..942 (841 px) · y 82..916 (835 px) |
-| Círculo | ~841 px de diámetro — **82 % del lienzo** |
-| Márgenes transparentes | izq 102 · der 81 · arriba 82 · abajo 107 px |
+| BBox visible (alpha > 0) | x 102..941 (840 px) · y 83..916 (834 px) |
+| Círculo | ~840 px de diámetro — **82 % del lienzo** |
+| Márgenes transparentes | izq 102 · der 82 · arriba 83 · abajo 107 px |
 
 **Hubo una variante dorada (`logo_dorado.png`) que se descartó.** Compartía lienzo, encuadre y bbox al píxel con la plateada; solo cambiaba el tratamiento de metal. Si vuelve a aparecer una variante, la activa se elige en el `import` de `Logo.astro` y los valores de esta tabla siguen sirviendo **solo si el encuadre es idéntico** — verificarlo, no asumirlo.
 
@@ -72,11 +72,13 @@ El material de origen impone límites que el diseño debe absorber. Esta secció
 
 **El umbral del bbox es alpha > 0, no alpha > 128.** El filo antialiaseado se ve, y si el escalado lo deja fuera de la caja el recorte se nota igual. Sobre este archivo los dos umbrales difieren en 1-2 px (0.2 % de escala), pero el criterio correcto es el visible.
 
-**El contenido no está centrado en el lienzo:** el bbox cae 10 px a la derecha y 12.5 px arriba del centro. `src/components/Logo.astro` lo corrige con un `translate`, porque sin eso el escalado empuja la medalla fuera de la caja por arriba y por la derecha y la recorta.
+**El contenido no está centrado en el lienzo:** el bbox cae 9.5 px a la derecha y 12 px arriba del centro. `src/components/Logo.astro` lo corrige con un `translate`, porque sin eso el escalado empuja la medalla fuera de la caja por arriba y por la derecha y la recorta.
 
 **Cuidado al reemplazar el archivo: el bbox de §2.1 está medido a mano y `Logo.astro` lo usa hardcodeado.** Un reemplazo con otro encuadre o otro lienzo lo invalida y el logo sale mal. Ya pasó dos veces: con el bbox de un archivo de 1024 px sobre un lienzo de 500 la escala quedaba 23 % de más y recortaba; con el bbox de 410 px del archivo de 500 sobre este lienzo de 1024 la escala salía 2.46 y la medalla se dibujaba al doble de la caja, recortada. `Logo.astro` tiene tres guardas que fallan el build — asset no cuadrado, bbox que no cabe en el lienzo, y lienzo distinto al medido — así que esos dos casos ya no pasan en silencio.
 
-**Riesgo conocido que ninguna guarda cubre:** un reemplazo con el **mismo lienzo y otro encuadre**. Detectarlo exige volver a medir los píxeles en cada build, y no vale meter `sharp` en el frontmatter de un componente por un parche que se va cuando llegue el logo recortado al trazo. Si se cambia el archivo, **volver a medir el bbox y actualizar esta tabla** es parte del trabajo, no un opcional.
+**Riesgo conocido que ninguna guarda cubre — y que YA OCURRIÓ:** un reemplazo con el **mismo lienzo y otro encuadre**. Pasó el 2026-08-05: el archivo cambió, el lienzo siguió en 1024, las tres guardas pasaron, y el bbox se había corrido 1 px (`x1` de 942 a 941, `y0` de 82 a 83). No recortó **por suerte**: el bbox hardcodeado quedó más *grande* que el contenido real, así que el logo se dibujó un poco más chico con más margen. Si el corrimiento hubiera sido al revés, recortaba en silencio.
+
+Detectarlo exige volver a medir los píxeles en cada build, y no vale meter `sharp` en el frontmatter de un componente por un parche que se va cuando llegue el logo recortado al trazo. **Al cambiar el archivo hay que remedir el bbox y actualizar esta tabla.** No es un opcional: es la mitad del contrato.
 
 **Limitación menor:** el 18 % de margen transparente hace que la medalla se vea más chica que su caja — a 88 px de caja, el círculo mide ~72 px. `src/components/Logo.astro` lo compensa con un escalado de 1.1993 (gana 20 %) que deja el círculo al 99 % de la caja, verificado a nivel de píxel sin recorte a 64, 88 y 200 px. Está aislado en una constante `MARGEN_SEGURIDAD` y marcado como temporal: cuando llegue un archivo recortado al trazo se pone en `0` y listo.
 
