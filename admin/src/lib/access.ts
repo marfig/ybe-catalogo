@@ -14,6 +14,8 @@
  * Sin dependencias: WebCrypto alcanza y esta en Workers y en Node.
  */
 
+import type { ClaveJwk, Jwks } from './jwks.ts';
+
 /** Solo RS256. Se fija ACA y no se lee del token — ver `algoritmoDeclarado`. */
 const ALGORITMO = { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' } as const;
 
@@ -32,8 +34,14 @@ export interface IdentidadAccess {
 }
 
 export interface OpcionesAccess {
-  /** JWKS del equipo: `https://{equipo}.cloudflareaccess.com/cdn-cgi/access/certs`. */
-  jwks: { keys: JsonWebKey[] };
+  /**
+   * JWKS del equipo: `https://{equipo}.cloudflareaccess.com/cdn-cgi/access/certs`.
+   *
+   * El tipo viene de `jwks.ts` — es un import de SOLO TIPO, sin acoplamiento en
+   * runtime — porque `JsonWebKey` de lib.dom no declara `kid` y sin eso hay que
+   * castear en cada acceso.
+   */
+  jwks: Jwks;
   /** El AUD tag de ESTA aplicacion de Access. */
   aud: string;
   /** `https://{equipo}.cloudflareaccess.com`. */
@@ -83,8 +91,8 @@ function algoritmoDeclarado(cabecera: Record<string, unknown>): void {
   }
 }
 
-function claveDelJwks(jwks: OpcionesAccess['jwks'], kid: unknown): JsonWebKey {
-  const clave = jwks.keys.find((k) => (k as { kid?: string }).kid === kid);
+function claveDelJwks(jwks: Jwks, kid: unknown): ClaveJwk {
+  const clave = jwks.keys.find((k) => k.kid === kid);
   if (!clave) {
     throw new ErrorAccess(
       `kid desconocido: ${JSON.stringify(kid)}. No esta en el JWKS del equipo.`

@@ -1,0 +1,50 @@
+{
+  // Worker de admin: SSR con bindings de lectura y escritura (SPEC-etapa2 §4.1).
+  //
+  // Es el UNICO Worker con bindings. El del sitio publico (wrangler.jsonc de la
+  // raiz) no tiene ninguno a proposito: no puede leer ni escribir D1 ni R2 ni por
+  // un import mal puesto.
+  //
+  // Protegido por Cloudflare Access (§6). La politica se configura en el panel,
+  // pero el Worker NO confia en eso: valida el JWT en cada request
+  // (src/middleware.ts). Access delante es la puerta; la validacion es la cerradura.
+  "name": "ybe-admin",
+  "compatibility_date": "2026-07-31",
+
+  // El adapter de Astro necesita las APIs de Node en el runtime de Workers.
+  "compatibility_flags": ["nodejs_compat"],
+
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS"
+  },
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "ybe-catalogo",
+      "database_id": "693387a5-f13b-4514-ad49-56a6bd5621ef"
+      // Sin migrations_dir: las migraciones se operan desde db/wrangler.jsonc.
+      // Que el Worker de admin pudiera aplicar migraciones no aporta nada y
+      // agranda lo que un bug en el admin puede romper.
+    }
+  ],
+
+  "r2_buckets": [
+    {
+      "binding": "IMAGENES",
+      "bucket_name": "ybe-catalogo"
+    }
+  ],
+
+  "vars": {
+    // CF_ACCESS_TEAM: nombre del equipo de Zero Trust (o su dominio completo).
+    // CF_ACCESS_AUD: el AUD tag de la aplicacion de Access del admin.
+    //
+    // No son secretos — el AUD tag identifica la aplicacion, no autoriza nada — asi
+    // que van como vars y no como secrets. Se completan al crear la aplicacion en
+    // el panel; el middleware falla con la lista de lo que falta.
+    "CF_ACCESS_TEAM": "",
+    "CF_ACCESS_AUD": ""
+  }
+}

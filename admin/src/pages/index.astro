@@ -1,0 +1,72 @@
+---
+/**
+ * Inicio del admin (SPEC-etapa2 §10.1).
+ *
+ * Por ahora prueba la frontera de punta a punta: si esta pagina se ve, el JWT de
+ * Access se valido y los bindings estan. La grilla de §10.3 viene despues.
+ */
+import { env } from 'cloudflare:workers';
+
+const { identidad } = Astro.locals;
+
+/**
+ * Se cuentan los productos por estado para confirmar que el binding a D1 responde.
+ *
+ * Es una consulta agregada, no un listado: alcanza para probar la conexion sin
+ * adelantar la grilla, que tiene su propio diseño en §10.3.
+ */
+const { results: porEstado } = await env.DB.prepare(
+  `SELECT estado, COUNT(*) AS cantidad FROM productos GROUP BY estado ORDER BY estado`
+).all<{ estado: string; cantidad: number }>();
+
+const total = porEstado.reduce((suma, fila) => suma + fila.cantidad, 0);
+---
+
+<!doctype html>
+<html lang="es-PY">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- El admin nunca se indexa: es una superficie privada detras de Access. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <title>YBE · Administración</title>
+  </head>
+  <body>
+    <header>
+      <h1>Administración del catálogo</h1>
+      <p>Sesión de <strong>{identidad.email}</strong></p>
+    </header>
+
+    <main>
+      <h2>Productos en la base</h2>
+      {
+        total === 0 ? (
+          <p>No hay productos cargados.</p>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Estado</th>
+                <th scope="col">Cantidad</th>
+              </tr>
+            </thead>
+            <tbody>
+              {porEstado.map((fila) => (
+                <tr>
+                  <th scope="row">{fila.estado}</th>
+                  <td>{fila.cantidad}</td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr>
+                <th scope="row">Total</th>
+                <td>{total}</td>
+              </tr>
+            </tfoot>
+          </table>
+        )
+      }
+    </main>
+  </body>
+</html>

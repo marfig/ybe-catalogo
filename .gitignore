@@ -29,3 +29,9 @@ public/img-dev/
 .DS_Store
 Thumbs.db
 *.swp
+
+# admin: build y dependencias propias (proyecto aparte, SPEC-etapa2 4.1)
+admin/dist/
+admin/.astro/
+admin/node_modules/
+admin/.dev.vars

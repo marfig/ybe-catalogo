@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { urlJwks, crearProveedorJwks } from './jwks.ts';
+import { urlJwks, crearProveedorJwks, emisorDeEquipo } from './jwks.ts';
 
 /**
  * Tests del proveedor de JWKS con cache.
@@ -54,6 +54,19 @@ test('urlJwks: acepta el dominio completo sin duplicarlo', () => {
     urlJwks('ybe.cloudflareaccess.com'),
     'https://ybe.cloudflareaccess.com/cdn-cgi/access/certs'
   );
+  assert.equal(
+    urlJwks('https://ybe.cloudflareaccess.com/'),
+    'https://ybe.cloudflareaccess.com/cdn-cgi/access/certs'
+  );
+});
+
+test('emisorDeEquipo: el iss esperado sale del MISMO dominio que el JWKS', () => {
+  // Tener el dominio armado en dos lugares es tenerlo mal en uno. El emisor que se
+  // compara contra el `iss` del token y la URL del JWKS comparten origen.
+  for (const forma of ['ybe', 'ybe.cloudflareaccess.com', 'https://ybe.cloudflareaccess.com']) {
+    assert.equal(emisorDeEquipo(forma), 'https://ybe.cloudflareaccess.com');
+    assert.ok(urlJwks(forma).startsWith(emisorDeEquipo(forma)));
+  }
 });
 
 test('trae el JWKS y lo cachea: dos pedidos, una sola llamada de red', async () => {
@@ -97,7 +110,7 @@ test('un kid desconocido invalida el cache y reintenta UNA vez', async () => {
   const jwks = await proveedor.obtener('nueva');
   assert.equal(llamadas.length, 2, 'deberia haber refrescado');
   assert.deepEqual(
-    jwks.keys.map((k) => (k as { kid: string }).kid),
+    jwks.keys.map((k) => k.kid),
     ['vieja', 'nueva']
   );
 });

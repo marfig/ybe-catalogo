@@ -1442,10 +1442,48 @@ El admin vive en `admin/`, con su propio `package.json` y `wrangler.jsonc`
   refresco para que un `kid` inventado no se convierta en tráfico contra el
   endpoint de Cloudflare. Un JWKS vacío o malformado **revienta** en vez de
   degradar a «nadie autorizado», que es un modo de falla mucho más confuso.
-- ⬜ Scaffold del proyecto: adapter `@astrojs/cloudflare`, `wrangler.jsonc` con
-  los bindings D1 + R2, y el middleware que aplica la validación en cada request.
+- ✅ **Scaffold y middleware.** Proyecto aparte en `admin/` con su propio
+  `package.json`, `astro.config.mjs` y `wrangler.jsonc` (bindings `DB` a D1 e
+  `IMAGENES` a R2). `src/middleware.ts` valida en **cada** request, sin lista de
+  rutas exentas: una excepción es una ruta que alguien va a olvidar que existe.
+  Responde **403** con el motivo y `Cache-Control: no-store` en todo.
+  - **El atajo de desarrollo exige DOS condiciones**: estar en desarrollo Y que
+    `ADMIN_DEV_EMAIL` tenga valor. `esDesarrollo` sale de `import.meta.env.DEV`,
+    que en un build de producción es la constante `false`, así que en el bundle
+    desplegado la rama del atajo es **código muerto**. Un `ADMIN_DEV_EMAIL` que
+    quedara seteado en producción por un copiar y pegar del `.env` no cambia nada.
+    Hay 9 tests, y el que importa es el que verifica que **fuera de desarrollo se
+    ignora por completo**.
+  - **Un JWT presente siempre gana sobre el atajo**, y un fallo del verificador se
+    propaga en vez de caer al atajo: un token inválido que entrara por la puerta de
+    desarrollo sería lo peor de los dos mundos.
+  - **Verificado corriendo, no solo compilando:** con el atajo da 200 mostrando la
+    identidad y los conteos reales de D1 (1 eliminado + 5 publicado); con un JWT
+    basura da **403** — o sea que el token sí pasa por verificación; y un
+    `Cf-Access-Authenticated-User-Email: intruso@otro.com` falsificado **no tiene
+    ningún efecto**.
 - ⬜ Grilla (§10.3) y edición (§10.4), con las validaciones de §5.2.
 - ⬜ Publicar (§11.2) con estado visible (§11.3).
+
+#### Tres trampas del adapter, encontradas a la mala
+
+1. **`Astro.locals.runtime.env` se removió en Astro 6.** Ahora el entorno del Worker
+   se importa con `import { env } from 'cloudflare:workers'`. El síntoma es un 500 en
+   el primer acceso. Por eso los módulos de `admin/src/lib/` reciben el entorno **por
+   parámetro**: así siguen corriendo bajo `node --test`, donde `cloudflare:workers`
+   no existe.
+2. **`@astrojs/cloudflare` 13.x declara peer `astro ^6`.** Con Astro 7 la instalación
+   falla con `ERESOLVE`, y la salida NO es `--legacy-peer-deps` — es la línea 14.x,
+   que declara peer `astro ^7`. `platformProxy` también desapareció en 14.x: los
+   bindings en `astro dev` los levanta el plugin de Vite corriendo el Worker en
+   workerd de verdad. Dejar la opción puesta no da error, **se ignora en silencio**.
+3. **El adapter agrega bindings que nadie pidió.** Por defecto mete un binding
+   `IMAGES` (Cloudflare Images) y un KV `SESSION` en el `wrangler.json` que genera, y
+   los auto-provisiona en el deploy. `imageService: 'passthrough'` saca el de
+   imágenes — el admin no transforma nada, las miniaturas salen de R2 ya derivadas.
+   El KV de sesiones **se acepta**: suprimirlo pide declarar un driver de mentira que
+   se rompe el día que el admin quiera un mensaje de «guardado» entre redirects.
+   Queda como recurso auto-provisionado y sin uso, dentro del free tier.
 
 Criterio de salida: una persona sin acceso a la terminal edita un producto, lo
 aprueba, lo publica, y lo ve en el sitio. Y si el build falla, entiende qué pasó.

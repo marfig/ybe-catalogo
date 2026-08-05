@@ -17,8 +17,19 @@ const TTL_POR_DEFECTO = 3600;
 
 type Buscar = (url: string) => Promise<Response>;
 
+/**
+ * Clave de un JWKS.
+ *
+ * `JsonWebKey` de lib.dom NO declara `kid`, y el `kid` es justamente por lo que se
+ * busca una clave. Sin este tipo hacen falta casts en cada acceso — y un cast es
+ * una afirmacion sin verificar: tapaba el hueco en vez de nombrarlo.
+ */
+export interface ClaveJwk extends JsonWebKey {
+  kid?: string;
+}
+
 export interface Jwks {
-  keys: JsonWebKey[];
+  keys: ClaveJwk[];
 }
 
 export interface OpcionesProveedor {
@@ -32,22 +43,32 @@ export interface OpcionesProveedor {
 }
 
 /**
- * Endpoint de certificados del equipo.
+ * Dominio de Access del equipo.
  *
- * Acepta tanto `ybe` como `ybe.cloudflareaccess.com`: es facil configurar la
- * variable con el dominio entero, y que eso produzca
+ * Acepta tanto `ybe` como `ybe.cloudflareaccess.com`, y tambien con esquema: es
+ * facil configurar la variable con el dominio entero, y que eso produzca
  * `ybe.cloudflareaccess.com.cloudflareaccess.com` seria un error molesto de
  * diagnosticar, porque el sintoma es un fetch que falla sin decir por que.
+ *
+ * Vive aca y se exporta porque el emisor esperado del JWT (`iss`) sale del MISMO
+ * dominio: tenerlo dos veces es tenerlo mal una vez.
  */
-export function urlJwks(equipo: string): string {
+export function dominioDeEquipo(equipo: string): string {
   const limpio = equipo
     .trim()
     .replace(/^https?:\/\//, '')
     .replace(/\/+$/, '');
-  const dominio = limpio.endsWith('.cloudflareaccess.com')
-    ? limpio
-    : `${limpio}.cloudflareaccess.com`;
-  return `https://${dominio}/cdn-cgi/access/certs`;
+  return limpio.endsWith('.cloudflareaccess.com') ? limpio : `${limpio}.cloudflareaccess.com`;
+}
+
+/** Emisor (`iss`) que Access pone en los tokens del equipo. */
+export function emisorDeEquipo(equipo: string): string {
+  return `https://${dominioDeEquipo(equipo)}`;
+}
+
+/** Endpoint de certificados del equipo. */
+export function urlJwks(equipo: string): string {
+  return `${emisorDeEquipo(equipo)}/cdn-cgi/access/certs`;
 }
 
 function validarJwks(cuerpo: unknown, url: string): Jwks {
@@ -61,7 +82,7 @@ function validarJwks(cuerpo: unknown, url: string): Jwks {
      */
     throw new Error(`JWKS invalido en ${url}: no trae un arreglo de keys no vacio.`);
   }
-  return { keys: keys as JsonWebKey[] };
+  return { keys: keys as ClaveJwk[] };
 }
 
 export interface ProveedorJwks {
@@ -103,7 +124,7 @@ export function crearProveedorJwks({
   }
 
   const tiene = (jwks: Jwks, kid: string) =>
-    jwks.keys.some((k) => (k as { kid?: string }).kid === kid);
+    jwks.keys.some((k) => k.kid === kid);
 
   return {
     async obtener(kid) {
