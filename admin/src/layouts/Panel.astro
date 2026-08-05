@@ -1,0 +1,40 @@
+---
+/**
+ * Envoltorio de todas las pantallas del admin.
+ *
+ * Existe desde la primera pantalla y no cuando aparezca la segunda: el `<head>`, el
+ * `noindex` y la identidad de la sesion son cosas que NO se pueden olvidar en una
+ * pagina nueva, y un layout es lo que impide olvidarlas.
+ */
+import '../styles/panel.css';
+
+interface Props {
+  titulo: string;
+}
+
+const { titulo } = Astro.props;
+const { identidad } = Astro.locals;
+---
+
+<!doctype html>
+<html lang="es-PY">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {/* El admin nunca se indexa: es una superficie privada detras de Access. */}
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{titulo} · YBE Administración</title>
+  </head>
+  <body>
+    <header class="panel-cabecera">
+      <div class="contenedor">
+        <h1>{titulo}</h1>
+        <p class="sesion">Sesión de <strong>{identidad.email}</strong></p>
+      </div>
+    </header>
+
+    <div class="contenedor">
+      <slot />
+    </div>
+  </body>
+</html>

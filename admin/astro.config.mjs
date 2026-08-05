@@ -61,4 +61,39 @@ export default defineConfig({
    * sintoma es un 500 en el primer acceso, con el motivo en el overlay.
    */
   devToolbar: { enabled: false },
+
+  /**
+   * ============================================================================
+   * BUG CONOCIDO DE DESARROLLO — el 500 del optimizador de deps
+   * ============================================================================
+   *
+   * Sintoma: en `astro dev`, cada tanto y SIN TOCAR NADA, un 500 con
+   *
+   *   The file does not exist at ".vite/deps_ssr/
+   *   @astrojs_cloudflare_entrypoints_server.js?v=..." which is in the optimize
+   *   deps directory.
+   *
+   * Mecanismo, verificado leyendo `@cloudflare/vite-plugin`: el entorno de
+   * Cloudflare corre con `resolve.noExternal: true` — en Workers nada puede quedar
+   * externo — y con `optimizeDeps.noDiscovery: false`. O sea que TODA dependencia
+   * entra al optimizador y se descubre progresivamente. El grafo trae `prismjs` con
+   * ~1200 archivos: cada tanda de descubrimiento vuelve a empaquetar, el cache
+   * cambia de `?v=`, y una referencia en vuelo apunta al hash viejo. En SSR eso no
+   * se recupera con un reload del navegador: es un 500.
+   *
+   * MITIGACION: `npm run dev` borra el cache antes de arrancar (ver package.json).
+   * No es una cura — el 500 puede volver a mitad de sesion sin reiniciar — pero
+   * cada arranque queda limpio y ahi se corta la mayoria de los casos.
+   *
+   * LO QUE SE PROBO Y NO FUNCIONA, para no repetirlo:
+   *   - `vite.optimizeDeps.exclude` del adapter: el archivo sigue apareciendo en
+   *     `deps_ssr`. Es el cache SSR y esa rama no lo gobierna.
+   *   - `vite.ssr.optimizeDeps.exclude`: idem. El entorno del plugin tiene nombre
+   *     dinamico, asi que la exclusion no le llega.
+   *   - `markdown.syntaxHighlight: false` para sacar Prism del grafo: medido, sigue
+   *     en 1561 archivos con 1194 de prismjs. Prism no entra por la config de
+   *     markdown.
+   *
+   * La cura es del lado del plugin. Si el 500 aparece, `npm run dev` de nuevo.
+   */
 });

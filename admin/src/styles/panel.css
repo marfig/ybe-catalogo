@@ -1,0 +1,276 @@
+/**
+ * Estilos del admin. CSS a mano, sin framework.
+ *
+ * El sitio publico usa Tailwind; el admin no, y es deliberado: es una superficie
+ * privada de una sola persona, con pocas pantallas y sin marca. Agregar
+ * @tailwindcss/vite aca sumaria una dependencia y mas modulos al grafo de Vite —
+ * que ya nos dio problemas con el optimizador de deps — para resolver algo que se
+ * escribe en 150 lineas de CSS semantico.
+ *
+ * La PALETA si espeja la del sitio (src/styles/global.css) para que las dos
+ * superficies se sientan un mismo producto. No se importa ese archivo porque esta
+ * escrito en sintaxis de Tailwind (@theme) y no es CSS plano.
+ *
+ * Solo tema claro. El admin se usa de dia, en un escritorio o un telefono, y un
+ * modo oscuro es superficie para mantener sin nadie que lo pida.
+ */
+
+:root {
+  /* Espejo de src/styles/global.css, con los ratios medidos sobre --fondo. */
+  --fondo: #fafaf9;
+  --superficie: #ffffff;
+  --texto: #2a2622; /* 14.37:1 · AAA */
+  --texto-suave: #5f594d; /* 6.65:1 · AA */
+  --borde: #d8d8d0; /* decorativo, NUNCA texto */
+  --primario: #5f594d;
+
+  /* Estados, propios del admin. Ratios calculados sobre --fondo. */
+  --aviso: #8a4b00; /* 6.51:1 · AA */
+  --ok: #17632f; /* 7.02:1 · AAA */
+  --peligro: #a11b1b; /* 7.48:1 · AAA */
+
+  --radio: 6px;
+  --hueco: 0.75rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0 0 3rem;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Ancho de lectura: una grilla a 1600 px de ancho es imposible de escanear. */
+.contenedor {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   Foco visible. El admin es un formulario largo y se recorre con el teclado:
+   un foco invisible lo vuelve inusable, no menos lindo.
+   -------------------------------------------------------------------------- */
+:focus-visible {
+  outline: 2px solid var(--primario);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Encabezado
+   -------------------------------------------------------------------------- */
+.panel-cabecera {
+  background: var(--superficie);
+  border-bottom: 1px solid var(--borde);
+  padding: 1rem 0;
+  margin-bottom: 1.5rem;
+}
+
+.panel-cabecera .contenedor {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--hueco);
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.panel-cabecera h1 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.sesion {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--texto-suave);
+}
+
+/* --------------------------------------------------------------------------
+   Filtros
+   -------------------------------------------------------------------------- */
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--hueco);
+  align-items: flex-end;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: var(--hueco);
+  margin-bottom: 1.5rem;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1 1 12rem;
+}
+
+.campo label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--texto-suave);
+}
+
+input[type='search'],
+select,
+button {
+  font: inherit;
+  /* 44 px de alto minimo: es un tamaño de toque usable en telefono. */
+  min-height: 44px;
+  padding: 0.5rem 0.625rem;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  background: var(--superficie);
+  color: var(--texto);
+}
+
+button {
+  background: var(--primario);
+  color: var(--superficie);
+  border-color: var(--primario);
+  font-weight: 600;
+  cursor: pointer;
+  padding-inline: 1.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   Lista de productos
+   -------------------------------------------------------------------------- */
+.productos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--hueco);
+}
+
+.producto {
+  display: grid;
+  /* La miniatura fija y el resto elastico: las filas quedan alineadas y el ojo
+     baja por una sola columna en vez de zigzaguear. */
+  grid-template-columns: 80px 1fr;
+  gap: var(--hueco);
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: var(--hueco);
+}
+
+.producto > img,
+.sin-foto {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radio);
+  object-fit: contain;
+  background: var(--fondo);
+}
+
+.sin-foto {
+  display: grid;
+  place-items: center;
+  border: 1px dashed var(--borde);
+  font-size: 0.75rem;
+  color: var(--texto-suave);
+  text-align: center;
+}
+
+.datos {
+  min-width: 0; /* deja que el texto largo se corte en vez de estirar la grilla */
+}
+
+.datos > p {
+  margin: 0 0 0.25rem;
+}
+
+.titulo {
+  font-size: 1rem;
+}
+
+.codigo {
+  font-family: ui-monospace, 'Cascadia Code', 'Consolas', monospace;
+}
+
+.meta,
+.origen {
+  font-size: 0.875rem;
+  color: var(--texto-suave);
+}
+
+/* --------------------------------------------------------------------------
+   Estado de validacion. El color NO es el unico portador: cada estado lleva su
+   simbolo y su texto, asi que se entiende en escala de grises y con lector de
+   pantalla.
+   -------------------------------------------------------------------------- */
+.estado {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.estado--ok {
+  color: var(--ok);
+}
+
+.estado--falta {
+  color: var(--peligro);
+}
+
+.avisos {
+  font-size: 0.8125rem;
+  color: var(--aviso);
+}
+
+/* --------------------------------------------------------------------------
+   Paginado y vacio
+   -------------------------------------------------------------------------- */
+.paginado {
+  display: flex;
+  gap: var(--hueco);
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.paginado a {
+  color: var(--primario);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding-inline: 0.5rem;
+}
+
+.paginado span {
+  color: var(--texto-suave);
+  font-size: 0.875rem;
+}
+
+.vacio {
+  background: var(--superficie);
+  border: 1px dashed var(--borde);
+  border-radius: var(--radio);
+  padding: 2rem var(--hueco);
+  text-align: center;
+  color: var(--texto-suave);
+}
+
+@media (max-width: 30rem) {
+  .producto {
+    grid-template-columns: 56px 1fr;
+  }
+
+  .producto > img,
+  .sin-foto {
+    width: 56px;
+    height: 56px;
+  }
+}

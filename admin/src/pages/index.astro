@@ -8,6 +8,7 @@
  */
 import { env } from 'cloudflare:workers';
 
+import Panel from '../layouts/Panel.astro';
 import { validarParaAprobar } from '../lib/aprobacion.ts';
 import { SLUGS_VALIDOS, nombreCategoria } from '../lib/categorias.ts';
 import { ejecutorD1 } from '../lib/d1.ts';
@@ -19,9 +20,7 @@ import {
   type ValorFiltro,
 } from '../lib/grilla.ts';
 
-const { identidad } = Astro.locals;
 const parametros = Astro.url.searchParams;
-
 const busqueda = parametros.get('q') ?? '';
 
 /**
@@ -90,10 +89,7 @@ const filas = productos.map((p) => ({
       // La grilla no trae las variantes una por una: solo cuantas hay y cuantas
       // fotos en total. Alcanza para las reglas de §5.2, que preguntan si existe al
       // menos una variante y al menos una foto.
-      variantes:
-        p.variantes === 0
-          ? []
-          : [{ sku: p.codigo, color: '', imagenes: p.imagenes }],
+      variantes: p.variantes === 0 ? [] : [{ sku: p.codigo, color: '', imagenes: p.imagenes }],
     },
     { categoriasValidas: SLUGS_VALIDOS }
   ),
@@ -102,117 +98,103 @@ const filas = productos.map((p) => ({
 const R2 = env.PUBLIC_R2_BASE;
 ---
 
-<!doctype html>
-<html lang="es-PY">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex, nofollow" />
-    <title>Productos · YBE Administración</title>
-  </head>
-  <body>
-    <header>
-      <h1>Productos</h1>
-      <p>Sesión de <strong>{identidad.email}</strong></p>
-    </header>
+<Panel titulo="Productos">
+  <form method="get" action={Astro.url.pathname} role="search" class="filtros">
+    <p class="campo">
+      <label for="q">Buscar por código o nombre</label>
+      <input id="q" name="q" type="search" value={busqueda} placeholder="CG85527" />
+    </p>
+    <p class="campo">
+      <label for="estado">Estado</label>
+      <select id="estado" name="estado">
+        {
+          FILTROS.map((f) => (
+            <option value={f.valor} selected={f.valor === estado}>
+              {f.etiqueta}
+              {f.estado ? ` (${conteo[f.estado as keyof typeof conteo]})` : ''}
+            </option>
+          ))
+        }
+      </select>
+    </p>
+    {/* El paginado se reinicia al filtrar porque el form no lo reenvia: quedar en la
+        pagina 3 de un resultado de 1 pagina muestra una lista vacia que parece un
+        error. */}
+    <p class="campo" style="flex: 0 0 auto;">
+      <button type="submit">Filtrar</button>
+    </p>
+  </form>
 
-    <form method="get" action={Astro.url.pathname} role="search">
-      <p>
-        <label for="q">Buscar por código o nombre</label>
-        <input id="q" name="q" type="search" value={busqueda} placeholder="CG85527" />
+  {
+    filas.length === 0 ? (
+      <p class="vacio">
+        No hay productos
+        {busqueda !== '' ? (
+          <>
+            {' '}
+            que coincidan con <strong>{busqueda}</strong>
+          </>
+        ) : null}{' '}
+        en este filtro.
       </p>
-      <p>
-        <label for="estado">Estado</label>
-        <select id="estado" name="estado">
-          {
-            FILTROS.map((f) => (
-              <option value={f.valor} selected={f.valor === estado}>
-                {f.etiqueta}
-                {f.estado ? ` (${conteo[f.estado as keyof typeof conteo]})` : ''}
-              </option>
-            ))
-          }
-        </select>
-      </p>
-      {/* El paginado se reinicia al cambiar el filtro: quedar en la pagina 3 de un
-          resultado de 1 pagina muestra una lista vacia que parece un error. */}
-      <p><button type="submit">Filtrar</button></p>
-    </form>
+    ) : (
+      <ul class="productos">
+        {filas.map((p) => (
+          <li class="producto">
+            {p.miniatura ? (
+              <img
+                src={`${R2}/catalogo/${p.miniatura}/w300.webp`}
+                alt=""
+                width="80"
+                height="80"
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              /* Sin foto va un hueco rotulado, no un <img> roto: el mismo criterio
+                 que <SinFoto /> en el sitio (SPEC.md §5.4). */
+              <span class="sin-foto" role="img" aria-label="Producto sin imagen">
+                sin foto
+              </span>
+            )}
 
-    <main>
-      {
-        filas.length === 0 ? (
-          <p>
-            No hay productos
-            {busqueda !== '' ? <> que coincidan con <strong>{busqueda}</strong></> : null} en este
-            filtro.
-          </p>
-        ) : (
-          <ul>
-            {filas.map((p) => (
-              <li>
-                {
-                  p.miniatura ? (
-                    <img
-                      src={`${R2}/catalogo/${p.miniatura}/w300.webp`}
-                      alt=""
-                      width="80"
-                      height="80"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  ) : (
-                    /* Sin foto se muestra un hueco rotulado, no un <img> roto: el
-                       mismo criterio que <SinFoto /> en el sitio (SPEC.md §5.4). */
-                    <span role="img" aria-label="Producto sin imagen">sin foto</span>
-                  )
-                }
+            <div class="datos">
+              <p class="titulo">
+                <strong class="codigo">{p.codigo}</strong>
+                {p.nombre && p.nombre !== p.codigo ? <> · {p.nombre}</> : null}
+                {' · '}
+                {p.precio !== null ? `Gs. ${guaranies.format(p.precio)}` : 'Consultar precio'}
+              </p>
 
-                <p>
-                  <strong>{p.codigo}</strong>
-                  {p.nombre && p.nombre !== p.codigo ? <> · {p.nombre}</> : null}
-                  {p.precio !== null ? <> · Gs. {guaranies.format(p.precio)}</> : <> · Consultar precio</>}
-                </p>
+              <p class="meta">
+                {p.variantes} {p.variantes === 1 ? 'color' : 'colores'} · {p.imagenes}{' '}
+                {p.imagenes === 1 ? 'foto' : 'fotos'}
+                {p.categorias.length > 0 ? (
+                  <> · {p.categorias.map((c) => nombreCategoria(c)).join(', ')}</>
+                ) : null}
+              </p>
 
-                <p>
-                  {p.variantes} {p.variantes === 1 ? 'color' : 'colores'} ·{' '}
-                  {p.imagenes} {p.imagenes === 1 ? 'foto' : 'fotos'}
-                  {
-                    p.categorias.length > 0 ? (
-                      <> · {p.categorias.map((c) => nombreCategoria(c)).join(', ')}</>
-                    ) : null
-                  }
-                </p>
+              {p.categoria_origen ? <p class="origen">Origen: {p.categoria_origen}</p> : null}
 
-                {
-                  p.categoria_origen ? (
-                    <p><small>Origen: {p.categoria_origen}</small></p>
-                  ) : null
-                }
+              {p.validacion.puede ? (
+                <p class="estado estado--ok">✓ listo para aprobar</p>
+              ) : (
+                <p class="estado estado--falta">⚠ {p.validacion.faltantes.join(', ')}</p>
+              )}
 
-                {
-                  p.validacion.puede ? (
-                    <p>✓ listo para aprobar</p>
-                  ) : (
-                    <p>⚠ {p.validacion.faltantes.join(', ')}</p>
-                  )
-                }
-                {
-                  p.validacion.avisos.length > 0 ? (
-                    <p><small>{p.validacion.avisos.join(' · ')}</small></p>
-                  ) : null
-                }
-              </li>
-            ))}
-          </ul>
-        )
-      }
+              {p.validacion.avisos.length > 0 ? (
+                <p class="avisos">{p.validacion.avisos.join(' · ')}</p>
+              ) : null}
+            </div>
+          </li>
+        ))}
+      </ul>
+    )
+  }
 
-      <nav aria-label="Paginado">
-        {pagina > 1 ? <a href={enlace({ pagina: pagina - 1 })} rel="prev">Anterior</a> : null}
-        {totalDelFiltro > POR_PAGINA ? <span>Página {pagina}</span> : null}
-        {hayMas ? <a href={enlace({ pagina: pagina + 1 })} rel="next">Siguiente</a> : null}
-      </nav>
-    </main>
-  </body>
-</html>
+  <nav class="paginado" aria-label="Paginado">
+    {pagina > 1 ? <a href={enlace({ pagina: pagina - 1 })} rel="prev">← Anterior</a> : null}
+    {totalDelFiltro > POR_PAGINA ? <span>Página {pagina}</span> : null}
+    {hayMas ? <a href={enlace({ pagina: pagina + 1 })} rel="next">Siguiente →</a> : null}
+  </nav>
+</Panel>
