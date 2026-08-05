@@ -1229,9 +1229,51 @@ El eslabón que hace que todo lo demás pueda existir.
     producción.** Un doble no daría esa garantía.
   - **Verificado contra la D1 remota**, no solo en local: las cuatro consultas
     devuelven `success: true` con `rows_written: 0`.
-- ⬜ Migrar los 4 productos actuales de `productos.json` a D1. La base remota está
-  **vacía** (0 filas en las cuatro tablas), verificado el 2026-08-05.
+- ✅ **Migración `productos.json` → D1** en `scripts/volcado/desde-json.mjs` (pura)
+  y `scripts/volcado/sembrar.mjs` (emite el guion de SQL). **Aplicada** a la base
+  remota: 6 productos, 7 variantes, 7 imágenes, 13 vínculos de categoría.
+  - **Son 6 productos, no 4** — este checklist decía 4 y estaba mal.
+  - Los metadatos de origen de cada imagen (`ancho_origen`, `alto_origen`,
+    `bytes_origen`, **NOT NULL**) no están en el JSON: describen el archivo
+    original, no la derivada. Se miden sobre `samples/` cruzando por `hash16`.
+    Verificado que los 7 hashes del JSON tienen su archivo de origen.
+  - `sembrar.mjs` **emite SQL** en vez de escribir en la base: para una migración
+    de datos que se hace una vez, un artefacto legible y revisable vale más que la
+    comodidad. `--limpiar` emite los `DELETE` en orden inverso para reintentar.
 - ⬜ Workflow de GitHub Actions con `concurrency`.
+
+#### El ida y vuelta es el test más fuerte que tiene el volcado
+
+`JSON → aFilas → INSERT en el esquema real → consultarFilas → construirProductos → JSON`
+
+Corre en `node:sqlite` con la migración de verdad, así que ejercita también los
+`NOT NULL`, los `CHECK` y las foreign keys. **Si una de las dos direcciones pierde
+un campo, el ida y vuelta lo delata**; ningún test de una sola dirección lo haría.
+Por eso `desde-json.mjs` se queda en el repo aunque la migración sea de una vez.
+
+**Verificado además contra la D1 remota**, no solo en memoria: leer las cuatro
+consultas de la base real y reconstruir da un JSON **idéntico** al comiteado, campo
+por campo.
+
+#### El `productos.json` comiteado NO está en orden canónico
+
+Fue escrito a mano. El volcado ordena productos por `id` y variantes por `color`, y
+el archivo actual no cumple ninguna de las dos: el orden de productos es otro, y
+`mochila-juvenil-acolchada` tiene `[Negro, Fucsia]` donde el canónico es
+`[Fucsia, Negro]`.
+
+**Consecuencia que hay que decidir antes del primer volcado real:** `variantes[0]`
+es la variante activa en el HTML inicial (`SelectorVariante`), así que regenerar el
+archivo **cambia el color que se muestra por defecto** en ese producto — y con él su
+`og:image` y la imagen principal del JSON-LD. No es un bug: es la normalización que
+`SPEC.md` §6.6 pide. Pero es un cambio visible, no un reordenamiento inocuo.
+
+#### Trampa de wrangler: `--file` con `--json` no devuelve las filas
+
+`wrangler d1 execute --file X --json` devuelve un **resumen**
+(`Total queries executed`, `Rows read`) en vez de los resultados. Con `--command` sí
+devuelve las filas. Se descubrió a la mala: parecía que la consulta traía una sola
+fila cuando la base tenía seis.
 
 #### El filtro de estado va en las cuatro consultas, y no es redundancia
 
