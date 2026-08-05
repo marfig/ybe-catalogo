@@ -10,7 +10,7 @@ import { env } from 'cloudflare:workers';
 
 import Panel from '../layouts/Panel.astro';
 import { validarParaAprobar } from '../lib/aprobacion.ts';
-import { SLUGS_VALIDOS, nombreCategoria } from '../lib/categorias.ts';
+import { CATEGORIAS, SLUGS_VALIDOS, nombreCategoria } from '../lib/categorias.ts';
 import { ejecutorD1 } from '../lib/d1.ts';
 import {
   FILTROS,
@@ -19,6 +19,77 @@ import {
   listarProductos,
   type ValorFiltro,
 } from '../lib/grilla.ts';
+import { aprobar, asignarCategorias, type ResultadoItem } from '../lib/transiciones.ts';
+
+const ejecutar = ejecutorD1(env.DB);
+
+/**
+ * POST → acción en lote → redirect (303) al mismo listado.
+ *
+ * Se redirige en vez de renderizar el resultado directo para que recargar no vuelva a
+ * enviar el formulario. Las dos operaciones son idempotentes, así que un reenvío no
+ * rompe nada — pero un F5 que "aprueba de nuevo" igual asusta y ensucia el reporte.
+ *
+ * El resumen viaja en la query porque el admin no tiene sesión donde dejar un mensaje
+ * (ver la nota de sesiones en astro.config.mjs).
+ */
+if (Astro.request.method === 'POST') {
+  const datos = await Astro.request.formData();
+  const ids = datos.getAll('id').map((v) => Number(v)).filter(Number.isInteger);
+  const accion = datos.get('accion');
+
+  const destino = new URL(Astro.url);
+  destino.search = new URLSearchParams({
+    ...Object.fromEntries(Astro.url.searchParams),
+  }).toString();
+
+  const resumir = (rs: ResultadoItem[]) => {
+    const fallidos = rs.filter((r) => !r.ok);
+    destino.searchParams.set('hechos', String(rs.length - fallidos.length));
+    if (fallidos.length > 0) {
+      // Se mandan pocos: el detalle completo vuelve a estar en la grilla, que ya
+      // muestra qué le falta a cada producto.
+      destino.searchParams.set(
+        'fallaron',
+        fallidos
+          .slice(0, 5)
+          .map((r) => r.codigo ?? r.id)
+          .join(',')
+      );
+      destino.searchParams.set('fallidos', String(fallidos.length));
+    }
+  };
+
+  try {
+    if (ids.length === 0) {
+      destino.searchParams.set('error', 'No se seleccionó ningún producto.');
+    } else if (accion === 'aprobar') {
+      resumir(
+        await aprobar(ejecutar, ids, {
+          categoriasValidas: SLUGS_VALIDOS,
+          ahora: new Date().toISOString(),
+          permitirSinFoto: datos.get('sin-foto') === 'si',
+        })
+      );
+    } else if (accion === 'categorias') {
+      resumir(
+        await asignarCategorias(
+          ejecutar,
+          ids,
+          datos.getAll('categoria').map(String),
+          { categoriasValidas: SLUGS_VALIDOS, ahora: new Date().toISOString() }
+        )
+      );
+    } else {
+      destino.searchParams.set('error', 'Acción desconocida.');
+    }
+  } catch (error) {
+    // `asignarCategorias` lanza ante una entrada inválida en vez de aplicar a medias.
+    destino.searchParams.set('error', error instanceof Error ? error.message : String(error));
+  }
+
+  return Astro.redirect(destino.toString(), 303);
+}
 
 const parametros = Astro.url.searchParams;
 const busqueda = parametros.get('q') ?? '';
@@ -38,7 +109,6 @@ const estado: ValorFiltro = FILTROS.some((f) => f.valor === pedido)
 const POR_PAGINA = 50;
 const pagina = Math.max(1, Number.parseInt(parametros.get('pagina') ?? '1', 10) || 1);
 
-const ejecutar = ejecutorD1(env.DB);
 const [productos, conteo] = await Promise.all([
   listarProductos(ejecutar, {
     estado,
@@ -96,6 +166,25 @@ const filas = productos.map((p) => ({
 }));
 
 const R2 = env.PUBLIC_R2_BASE;
+
+/** Resumen de la acción anterior, que llegó por la query tras el redirect. */
+const hechos = Number(parametros.get('hechos') ?? '0');
+const fallidos = Number(parametros.get('fallidos') ?? '0');
+const fallaron = parametros.get('fallaron') ?? '';
+const errorAccion = parametros.get('error');
+const hayResumen = errorAccion !== null || hechos > 0 || fallidos > 0;
+
+/**
+ * La URL a la que vuelve el POST: la misma vista, SIN el resumen anterior.
+ *
+ * Sin limpiarlo, el resumen viejo se sumaría al nuevo y quedaría una pantalla que
+ * dice dos cosas distintas sobre lo mismo.
+ */
+const accion = (() => {
+  const u = new URL(Astro.url);
+  for (const clave of ['hechos', 'fallidos', 'fallaron', 'error']) u.searchParams.delete(clave);
+  return `${u.pathname}${u.search}`;
+})();
 ---
 
 <Panel titulo="Productos">
@@ -126,6 +215,27 @@ const R2 = env.PUBLIC_R2_BASE;
   </form>
 
   {
+    hayResumen ? (
+      <p class={errorAccion ? 'resumen resumen--error' : 'resumen'} role="status">
+        {errorAccion ? (
+          errorAccion
+        ) : (
+          <>
+            {hechos} {hechos === 1 ? 'producto actualizado' : 'productos actualizados'}
+            {fallidos > 0 ? (
+              <>
+                {' · '}
+                {fallidos} sin cambios
+                {fallaron !== '' ? <> ({fallaron}{fallidos > 5 ? '…' : ''})</> : null}
+              </>
+            ) : null}
+          </>
+        )}
+      </p>
+    ) : null
+  }
+
+  {
     filas.length === 0 ? (
       <p class="vacio">
         No hay productos
@@ -138,57 +248,97 @@ const R2 = env.PUBLIC_R2_BASE;
         en este filtro.
       </p>
     ) : (
-      <ul class="productos">
-        {filas.map((p) => (
-          <li class="producto">
-            {p.miniatura ? (
-              <img
-                src={`${R2}/catalogo/${p.miniatura}/w300.webp`}
-                alt=""
-                width="80"
-                height="80"
-                loading="lazy"
-                decoding="async"
-              />
-            ) : (
-              /* Sin foto va un hueco rotulado, no un <img> roto: el mismo criterio
-                 que <SinFoto /> en el sitio (SPEC.md §5.4). */
-              <span class="sin-foto" role="img" aria-label="Producto sin imagen">
-                sin foto
-              </span>
-            )}
+      <form method="post" action={accion}>
+        {/* Las acciones van ARRIBA de la lista: con 50 filas, un botón al pie obliga
+            a scrollear hasta el fondo después de elegir. */}
+        <fieldset class="lote">
+          <legend>Acciones en lote</legend>
 
-            <div class="datos">
-              <p class="titulo">
-                <strong class="codigo">{p.codigo}</strong>
-                {p.nombre && p.nombre !== p.codigo ? <> · {p.nombre}</> : null}
-                {' · '}
-                {p.precio !== null ? `Gs. ${guaranies.format(p.precio)}` : 'Consultar precio'}
-              </p>
+          <p class="lote-fila">
+            <button type="submit" name="accion" value="aprobar">
+              Aprobar seleccionados
+            </button>
+            <label class="lote-check">
+              <input type="checkbox" name="sin-foto" value="si" />
+              publicar sin foto
+            </label>
+          </p>
 
-              <p class="meta">
-                {p.variantes} {p.variantes === 1 ? 'color' : 'colores'} · {p.imagenes}{' '}
-                {p.imagenes === 1 ? 'foto' : 'fotos'}
-                {p.categorias.length > 0 ? (
-                  <> · {p.categorias.map((c) => nombreCategoria(c)).join(', ')}</>
-                ) : null}
-              </p>
+          <p class="lote-fila">
+            <label for="categoria">Agregar categoría</label>
+            <select id="categoria" name="categoria">
+              {CATEGORIAS.map((c) => (
+                <option value={c.id}>{c.nombre}</option>
+              ))}
+            </select>
+            <button type="submit" name="accion" value="categorias">
+              Asignar
+            </button>
+          </p>
 
-              {p.categoria_origen ? <p class="origen">Origen: {p.categoria_origen}</p> : null}
+          <p class="nota">
+            Agregar una categoría no reemplaza las que el producto ya tiene, y la
+            primera define la navegación.
+          </p>
+        </fieldset>
 
-              {p.validacion.puede ? (
-                <p class="estado estado--ok">✓ listo para aprobar</p>
+        <ul class="productos">
+          {filas.map((p) => (
+            <li class="producto">
+              <label class="elegir">
+                <input type="checkbox" name="id" value={String(p.id)} />
+                <span class="oculto">Seleccionar {p.codigo}</span>
+              </label>
+
+              {p.miniatura ? (
+                <img
+                  src={`${R2}/catalogo/${p.miniatura}/w300.webp`}
+                  alt=""
+                  width="80"
+                  height="80"
+                  loading="lazy"
+                  decoding="async"
+                />
               ) : (
-                <p class="estado estado--falta">⚠ {p.validacion.faltantes.join(', ')}</p>
+                /* Sin foto va un hueco rotulado, no una imagen rota: el mismo
+                   criterio que el placeholder del sitio (SPEC.md §5.4). */
+                <span class="sin-foto" role="img" aria-label="Producto sin imagen">
+                  sin foto
+                </span>
               )}
 
-              {p.validacion.avisos.length > 0 ? (
-                <p class="avisos">{p.validacion.avisos.join(' · ')}</p>
-              ) : null}
-            </div>
-          </li>
-        ))}
-      </ul>
+              <div class="datos">
+                <p class="titulo">
+                  <strong class="codigo">{p.codigo}</strong>
+                  {p.nombre && p.nombre !== p.codigo ? <> · {p.nombre}</> : null}
+                  {' · '}
+                  {p.precio !== null ? `Gs. ${guaranies.format(p.precio)}` : 'Consultar precio'}
+                </p>
+
+                <p class="meta">
+                  {p.variantes} {p.variantes === 1 ? 'color' : 'colores'} · {p.imagenes}{' '}
+                  {p.imagenes === 1 ? 'foto' : 'fotos'}
+                  {p.categorias.length > 0 ? (
+                    <> · {p.categorias.map((c) => nombreCategoria(c)).join(', ')}</>
+                  ) : null}
+                </p>
+
+                {p.categoria_origen ? <p class="origen">Origen: {p.categoria_origen}</p> : null}
+
+                {p.validacion.puede ? (
+                  <p class="estado estado--ok">✓ listo para aprobar</p>
+                ) : (
+                  <p class="estado estado--falta">⚠ {p.validacion.faltantes.join(', ')}</p>
+                )}
+
+                {p.validacion.avisos.length > 0 ? (
+                  <p class="avisos">{p.validacion.avisos.join(' · ')}</p>
+                ) : null}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </form>
     )
   }
 

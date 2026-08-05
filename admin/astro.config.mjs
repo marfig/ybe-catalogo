@@ -63,6 +63,22 @@ export default defineConfig({
   devToolbar: { enabled: false },
 
   /**
+   * CSRF: se rechaza todo POST de formulario que venga de otro origen.
+   *
+   * Hace falta de verdad y no es paranoia. Cloudflare Access autentica con la cookie
+   * `CF_Authorization` e inyecta el header con el JWT, asi que un formulario alojado
+   * en OTRO sitio que apunte al admin mandaria la cookie, Access lo dejaria pasar, y
+   * el request llegaria autenticado. La validacion del JWT no protege de esto: el
+   * token es legitimo, lo que no es legitimo es quien disparo el request.
+   *
+   * Astro lo implementa comparando el header `origin` contra el origen del sitio
+   * (`core/app/origin-check.js`). Va EXPLICITO aunque el default sea `true`: es un
+   * control de seguridad, y depender de un default es depender de que nadie lo
+   * cambie en una version futura.
+   */
+  security: { checkOrigin: true },
+
+  /**
    * ============================================================================
    * BUG CONOCIDO DE DESARROLLO — el 500 del optimizador de deps
    * ============================================================================

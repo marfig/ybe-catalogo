@@ -1492,8 +1492,49 @@ El admin vive en `admin/`, con su propio `package.json` y `wrangler.jsonc`
     tiene a mano (§5.3) — y queda documentado que `RIÑONERA` no matchea `Riñonera`.
   - Las categorías se traen en una **segunda consulta**, no con `group_concat`: su
     orden no está especificado en SQLite y `categorias[0]` es el breadcrumb.
-- ⬜ Grilla: aprobación en lote y asignación de categorías en lote (§10.3). Son
-  escrituras y van con la máquina de estados de §5.2.
+- ✅ **Acciones en lote (§10.3)** — 35 tests. Aprobación en lote con la máquina de
+  estados de §5.2, y asignación de categorías en lote.
+  - **El slug se genera al aprobar y NUNCA se regenera.** Es el invariante más caro
+    del sistema: la URL vive en conversaciones de WhatsApp que nadie va a corregir.
+    Si el producto ya tiene slug se reusa, aunque el nombre haya cambiado. Hay test.
+  - **Las colisiones dentro del mismo lote se resuelven**, no sólo contra la base.
+    Dos productos con el mismo nombre generan sus slugs antes de que ninguno esté
+    escrito; sin acumular los reservados, el `UNIQUE` rechazaría al segundo y el lote
+    quedaría a medias. Verificado contra D1: dos «Cartera de prueba» salieron
+    `cartera-de-prueba` y `cartera-de-prueba-2`.
+  - **Sólo `importado` → `aprobado`.** Desde `publicado` retrocedería un producto que
+    ya está en la calle; desde `eliminado` la transición es restaurar, que es otra
+    cosa. El `UPDATE` lleva `AND estado = 'importado'` como guarda optimista.
+  - **`publicado_en` no se toca al aprobar**: se sella en la publicación (§5.2).
+  - **Un lote mixto aprueba los válidos y reporta los inválidos.** Cortar todo por
+    uno obligaría a des-seleccionar de a uno hasta dar con el que molesta.
+  - **Asignar categorías AGREGA, no reemplaza**, y al final: reemplazar destruiría
+    curaduría en silencio y `categorias[0]` es el breadcrumb (§5.1). En cambio una
+    categoría inexistente **corta la operación completa sin escribir nada** — es una
+    elección del usuario aplicada a muchos, así que un slug mal escrito no puede
+    quedar aplicado a medias.
+  - **POST → redirect 303 → GET.** Recargar no reenvía el formulario. Las dos
+    operaciones son idempotentes de todos modos, pero un F5 que «aprueba de nuevo»
+    asusta y ensucia el reporte.
+
+#### CSRF: el JWT válido no alcanza
+
+`security.checkOrigin` va **explícito** en `admin/astro.config.mjs`, y hace falta de
+verdad. Cloudflare Access autentica con la cookie `CF_Authorization` e inyecta el
+header con el JWT: un formulario alojado en **otro** sitio que apunte al admin
+mandaría la cookie, Access lo dejaría pasar, y el request llegaría **autenticado**.
+La validación del JWT no protege de esto — el token es legítimo; lo que no es
+legítimo es quién disparó el request.
+
+Verificado corriendo: un `POST` con `Origin: https://sitio-malicioso.example` recibe
+**403** y el producto sigue en `importado` con `slug` en `NULL`.
+
+**Atomicidad, dicha de frente:** el lote no es atómico. Cada producto se actualiza con
+una sola sentencia, así que ninguno queda a medias, pero si el lote falla en el medio
+unos quedan cambiados y otros no. Por eso cada operación devuelve un resultado **por
+producto** en vez de un booleano, y por eso las dos son idempotentes: reintentar es
+seguro.
+
 - ⬜ Edición (§10.4).
 - ⬜ Publicar (§11.2) con estado visible (§11.3).
 

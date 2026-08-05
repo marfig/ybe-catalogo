@@ -28,8 +28,13 @@ export interface ProductoParaValidar {
 }
 
 export interface OpcionesValidacion {
-  /** Slugs de `categorias.json`. La validacion no adivina cuales existen. */
-  categoriasValidas: Set<string>;
+  /**
+   * Slugs de `categorias.json`. La validacion no adivina cuales existen.
+   *
+   * `ReadonlySet` y no `Set`: esta funcion solo LEE, y declarar `Set` reclamaria el
+   * derecho a mutar el conjunto de quien llama.
+   */
+  categoriasValidas: ReadonlySet<string>;
   /** Confirmacion explicita de publicar sin foto (§5.2-3, SPEC.md §5.4). */
   permitirSinFoto?: boolean;
   /** Precio de la publicacion anterior, para el aviso de variacion. */
