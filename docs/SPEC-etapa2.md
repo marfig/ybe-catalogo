@@ -1217,9 +1217,41 @@ El eslabón que hace que todo lo demás pueda existir.
   `FOREIGN KEY constraint failed: SQLITE_CONSTRAINT_FOREIGNKEY [code: 7500]` y
   `CHECK constraint failed: estado = 'importado' OR slug IS NOT NULL`. **D1
   aplica las foreign keys sin necesidad de `PRAGMA`.**
-- ⬜ Capa de consultas (`consultar.mjs`): el SQL que alimenta al volcado.
-- ⬜ Migrar los 4 productos actuales de `productos.json` a D1.
+- ✅ **Capa de consultas** en `scripts/volcado/consultar.mjs` — 21 tests. Cuatro
+  `SELECT` + el ejecutor contra la API HTTP de D1.
+  - El WHERE **deriva de `PUBLICABLES`** de `construir.mjs`, que ahora se exporta.
+    Con la lista duplicada, agregar un estado publicable dejaría el SQL filtrando
+    por los viejos y el volcado omitiría productos sin que nada falle. Hay un test
+    que ata las dos puntas.
+  - `consultarFilas()` recibe un **ejecutor**, no una conexión. Así el mismo SQL
+    corre contra D1 por HTTP en producción y contra `node:sqlite` en memoria en los
+    tests: **D1 es SQLite, así que el SQL que pasa los tests es el que corre en
+    producción.** Un doble no daría esa garantía.
+  - **Verificado contra la D1 remota**, no solo en local: las cuatro consultas
+    devuelven `success: true` con `rows_written: 0`.
+- ⬜ Migrar los 4 productos actuales de `productos.json` a D1. La base remota está
+  **vacía** (0 filas en las cuatro tablas), verificado el 2026-08-05.
 - ⬜ Workflow de GitHub Actions con `concurrency`.
+
+#### El filtro de estado va en las cuatro consultas, y no es redundancia
+
+Si los hijos vinieran sin su padre, `construirProductos()` los leería como
+huérfanas y cortaría el volcado denunciando una corrupción referencial que no
+existe.
+
+El corolario conviene tenerlo presente: como todo viene filtrado por un `JOIN` a
+`productos`, **las guardas de huérfanas de `construir.mjs` no cubren este camino**
+— una fila realmente huérfana queda excluida por el `JOIN`, no denunciada. Esas
+guardas protegen el contrato de la función pura; lo que protege la base son las
+foreign keys, que D1 aplica.
+
+#### Un error de D1 llega con HTTP 200
+
+`ejecutorD1()` no puede mirar solo el código de estado: D1 reporta los errores de
+SQL con **HTTP 200 y `success: false`**. Leer eso como un resultado vacío haría que
+el volcado escriba un `productos.json` vacío y que la publicación **borre el
+catálogo entero sin un solo error**. Está cubierto por test, igual que el caso de
+más de un resultado para una sola sentencia.
 
 #### Cómo se testea SQL sin nube ni credenciales
 

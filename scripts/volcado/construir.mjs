@@ -12,8 +12,12 @@
 /**
  * Estados que llegan al catalogo. `importado` queda afuera: datos incompletos
  * (SPEC-etapa2 §5.2).
+ *
+ * Se EXPORTA porque `consultar.mjs` deriva de aca el WHERE de las cuatro
+ * consultas. Con la lista duplicada, agregar un estado publicable dejaria el SQL
+ * filtrando por los viejos y el volcado omitiria productos sin que nada falle.
  */
-const PUBLICABLES = new Set(['aprobado', 'publicado', 'eliminado']);
+export const PUBLICABLES = new Set(['aprobado', 'publicado', 'eliminado']);
 
 /** Anchos declarados como literales en content.config.ts. */
 const ANCHOS_VALIDOS = new Set([300, 600]);
