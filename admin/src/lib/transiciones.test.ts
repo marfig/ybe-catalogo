@@ -114,7 +114,7 @@ test('aprobar pasa a aprobado y genera el slug del nombre', async () => {
   const id = alta(db, { nombre: 'Cartera de fiesta con strass' });
 
   const [r] = await aprobar(ejecutor(db), [id], opciones);
-  assert.equal(r.ok, true);
+  assert.equal(r.desenlace, 'hecho');
   assert.equal(r.slug, 'cartera-de-fiesta-con-strass');
 
   const fila = leer(db, id);
@@ -143,7 +143,7 @@ test('un producto que YA tiene slug lo conserva, no se le genera otro', async ()
   const id = alta(db, { nombre: 'Nombre nuevo y distinto', slug: 'slug-viejo-que-esta-en-la-calle' });
 
   const [r] = await aprobar(ejecutor(db), [id], opciones);
-  assert.equal(r.ok, true);
+  assert.equal(r.desenlace, 'hecho');
   assert.equal(leer(db, id).slug, 'slug-viejo-que-esta-en-la-calle');
 });
 
@@ -153,9 +153,10 @@ test('aprobar dos veces no cambia el slug ni revienta', async () => {
   const [primero] = await aprobar(ejecutor(db), [id], opciones);
   const [segundo] = await aprobar(ejecutor(db), [id], opciones);
 
-  assert.equal(primero.ok, true);
-  assert.equal(segundo.ok, false, 'la segunda vez no hay nada que aprobar');
-  assert.match(segundo.motivo!, /aprobado/i);
+  assert.equal(primero.desenlace, 'hecho');
+  // OMITIDO, no fallo: ya paso esa etapa, no hay nada que corregir.
+  assert.equal(segundo.desenlace, 'omitido', 'la segunda vez no hay nada que aprobar');
+  assert.match(segundo.motivo!, /listo para publicar/i);
   assert.equal(leer(db, id).slug, primero.slug);
 });
 
@@ -182,7 +183,7 @@ test('dos productos del MISMO lote con el mismo nombre no colisionan', async () 
   const c = alta(db, { codigo: 'CG3', nombre: 'Cartera de fiesta' });
 
   const rs = await aprobar(ejecutor(db), [a, b, c], opciones);
-  assert.ok(rs.every((r) => r.ok), rs.map((r) => r.motivo).join(' | '));
+  assert.ok(rs.every((r) => r.desenlace === 'hecho'), rs.map((r) => r.motivo).join(' | '));
   assert.deepEqual(
     rs.map((r) => r.slug).sort(),
     ['cartera-de-fiesta', 'cartera-de-fiesta-2', 'cartera-de-fiesta-3']
@@ -197,7 +198,7 @@ test('no aprueba un producto sin nombre, y dice por que', async () => {
   const db = base();
   const id = alta(db, { nombre: null });
   const [r] = await aprobar(ejecutor(db), [id], opciones);
-  assert.equal(r.ok, false);
+  assert.equal(r.desenlace, 'fallo');
   assert.match(r.motivo!, /nombre/i);
   assert.equal(leer(db, id).estado, 'importado', 'no debe haber cambiado de estado');
 });
@@ -206,18 +207,18 @@ test('no aprueba un producto sin fotos salvo confirmacion explicita', async () =
   const db = base();
   const id = alta(db, { fotos: 0 });
   const [sinPermiso] = await aprobar(ejecutor(db), [id], opciones);
-  assert.equal(sinPermiso.ok, false);
+  assert.equal(sinPermiso.desenlace, 'fallo');
   assert.match(sinPermiso.motivo!, /foto/i);
 
   const [conPermiso] = await aprobar(ejecutor(db), [id], { ...opciones, permitirSinFoto: true });
-  assert.equal(conPermiso.ok, true);
+  assert.equal(conPermiso.desenlace, 'hecho');
 });
 
 test('no aprueba con una categoria que no existe en categorias.json', async () => {
   const db = base();
   const id = alta(db, { categorias: ['inventada'] });
   const [r] = await aprobar(ejecutor(db), [id], opciones);
-  assert.equal(r.ok, false);
+  assert.equal(r.desenlace, 'fallo');
   assert.match(r.motivo!, /inventada/);
 });
 
@@ -229,8 +230,8 @@ test('un lote mixto aprueba los validos y reporta los invalidos', async () => {
   const malo = alta(db, { codigo: 'CG2', nombre: null });
 
   const rs = await aprobar(ejecutor(db), [bueno, malo], opciones);
-  assert.equal(rs.find((r) => r.id === bueno)!.ok, true);
-  assert.equal(rs.find((r) => r.id === malo)!.ok, false);
+  assert.equal(rs.find((r) => r.id === bueno)!.desenlace, 'hecho');
+  assert.equal(rs.find((r) => r.id === malo)!.desenlace, 'fallo');
   assert.equal(leer(db, bueno).estado, 'aprobado');
   assert.equal(leer(db, malo).estado, 'importado');
 });
@@ -245,7 +246,11 @@ test('un publicado no se "re-aprueba"', async () => {
   const db = base();
   const id = alta(db, { estado: 'publicado', slug: 'ya-publicado' });
   const [r] = await aprobar(ejecutor(db), [id], opciones);
-  assert.equal(r.ok, false);
+  // OMITIDO, no fallo: la grilla deja editarlo — corregir un precio en vivo es la
+  // tarea mas comun — pero aprobarlo no aplica. Reportarlo como fallo hace parecer
+  // que editar y aprobar se contradicen.
+  assert.equal(r.desenlace, 'omitido');
+  assert.match(r.motivo!, /catálogo/i);
   assert.equal(leer(db, id).estado, 'publicado');
 });
 
@@ -253,7 +258,8 @@ test('un eliminado no se aprueba: se restaura, que es otra transicion', async ()
   const db = base();
   const id = alta(db, { estado: 'eliminado', slug: 'estaba-eliminado' });
   const [r] = await aprobar(ejecutor(db), [id], opciones);
-  assert.equal(r.ok, false);
+  assert.equal(r.desenlace, 'omitido');
+  assert.match(r.motivo!, /papelera/i);
   assert.equal(leer(db, id).estado, 'eliminado');
 });
 
@@ -262,8 +268,8 @@ test('un id que no existe se reporta, no revienta el lote', async () => {
   const id = alta(db, { nombre: 'Cartera de fiesta' });
   const rs = await aprobar(ejecutor(db), [id, 99999], opciones);
   assert.equal(rs.length, 2);
-  assert.equal(rs.find((r) => r.id === 99999)!.ok, false);
-  assert.equal(rs.find((r) => r.id === id)!.ok, true);
+  assert.equal(rs.find((r) => r.id === 99999)!.desenlace, 'fallo');
+  assert.equal(rs.find((r) => r.id === id)!.desenlace, 'hecho');
 });
 
 test('una lista vacia no hace nada y no revienta', async () => {
@@ -281,7 +287,7 @@ test('asigna una categoria a varios productos de una vez', async () => {
   const b = alta(db, { codigo: 'CG2', categorias: [] });
 
   const rs = await asignarCategorias(ejecutor(db), [a, b], ['mochilas'], opciones);
-  assert.ok(rs.every((r) => r.ok));
+  assert.ok(rs.every((r) => r.desenlace === 'hecho'));
 
   for (const id of [a, b]) {
     const cats = db
@@ -312,7 +318,10 @@ test('asignar una categoria que ya tiene no la duplica', async () => {
   const id = alta(db, { categorias: ['carteras'] });
   const [r] = await asignarCategorias(ejecutor(db), [id], ['carteras'], opciones);
 
-  assert.equal(r.ok, true);
+  // No se escribio nada, asi que es omitido: contarlo como "hecho" inflaria el
+  // resumen con trabajo que no ocurrio.
+  assert.equal(r.desenlace, 'omitido');
+  assert.match(r.motivo!, /ya tenía/i);
   const cuantas = db
     .prepare(`SELECT COUNT(*) n FROM producto_categorias WHERE producto_id = ?`)
     .get(id) as { n: number };
@@ -370,5 +379,5 @@ test('asignar toca actualizado_en del producto', async () => {
 test('asignar a un id que no existe se reporta, no revienta', async () => {
   const db = base();
   const rs = await asignarCategorias(ejecutor(db), [99999], ['mochilas'], opciones);
-  assert.equal(rs[0].ok, false);
+  assert.equal(rs[0].desenlace, 'fallo');
 });

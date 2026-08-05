@@ -168,6 +168,21 @@ button {
   color: var(--peligro);
 }
 
+/**
+ * Omitidos en tono neutro y fallos en rojo, en el mismo mensaje.
+ *
+ * Un producto que ya estaba en el catalogo no es un problema: pintarlo del mismo
+ * color que uno al que le falta el nombre es alarmar por algo que no paso.
+ */
+.resumen-omitidos {
+  color: var(--texto-suave);
+  font-weight: 400;
+}
+
+.resumen-fallos {
+  color: var(--peligro);
+}
+
 /* --------------------------------------------------------------------------
    Acciones en lote
    -------------------------------------------------------------------------- */

@@ -14,11 +14,25 @@ import { validarParaAprobar } from './aprobacion.ts';
 import type { Ejecutar } from './grilla.ts';
 import { slugUnico, slugificar } from './slug.ts';
 
+/**
+ * Los tres desenlaces posibles de una transición. NO son dos.
+ *
+ * La distinción que falta cuando esto es un booleano: un producto que ya está en el
+ * catálogo **no es un fallo de aprobación**, simplemente no era candidato. Meterlo en
+ * la misma bolsa que uno al que le falta el nombre alarma por algo que no pasó y
+ * esconde lo único accionable.
+ *
+ *  - `hecho`   — se hizo.
+ *  - `omitido` — no era candidato. No hay nada que corregir.
+ *  - `fallo`   — era candidato y no se pudo. Hay algo que corregir.
+ */
+export type Desenlace = 'hecho' | 'omitido' | 'fallo';
+
 export interface ResultadoItem {
   id: number;
   codigo?: string;
-  ok: boolean;
-  /** Por qué NO se pudo. Presente sólo cuando `ok` es false. */
+  desenlace: Desenlace;
+  /** Por qué. Presente en `omitido` y en `fallo`. */
   motivo?: string;
   /** El slug del producto tras aprobar. */
   slug?: string;
@@ -123,14 +137,22 @@ export async function aprobar(
     // flecha hacia aprobado: desde `publicado` retrocedería un producto que ya está
     // en la calle, y desde `eliminado` la transición es restaurar, que es otra cosa.
     if (p.estado !== 'importado') {
+      /**
+       * OMITIDO, no fallo. Ya paso esta etapa: no hay nada que corregir.
+       *
+       * Es la distincion que el usuario noto: la grilla deja editar un producto
+       * publicado — y esta bien, corregir un precio en vivo es la tarea mas comun —
+       * pero aprobarlo no aplica. Reportarlo como fallo hacia parecer que editar y
+       * aprobar se contradicen.
+       */
       resultados.push({
         id: p.id,
         codigo: p.codigo,
-        ok: false,
+        desenlace: 'omitido',
         motivo:
           p.estado === 'aprobado'
-            ? 'ya estaba aprobado'
-            : `no se puede aprobar desde el estado "${p.estado}"`,
+            ? 'ya estaba listo para publicar'
+            : `ya está ${p.estado === 'publicado' ? 'en el catálogo' : 'en la papelera'}`,
       });
       continue;
     }
@@ -150,7 +172,7 @@ export async function aprobar(
       resultados.push({
         id: p.id,
         codigo: p.codigo,
-        ok: false,
+        desenlace: 'fallo',
         motivo: validacion.faltantes.join(', '),
       });
       continue;
@@ -169,7 +191,7 @@ export async function aprobar(
         resultados.push({
           id: p.id,
           codigo: p.codigo,
-          ok: false,
+          desenlace: 'fallo',
           motivo: error instanceof Error ? error.message : String(error),
         });
         continue;
@@ -199,20 +221,20 @@ export async function aprobar(
       resultados.push({
         id: p.id,
         codigo: p.codigo,
-        ok: false,
+        desenlace: 'fallo',
         motivo: 'el estado cambió mientras se aprobaba; volver a intentar',
       });
       continue;
     }
 
-    resultados.push({ id: p.id, codigo: p.codigo, ok: true, slug });
+    resultados.push({ id: p.id, codigo: p.codigo, desenlace: 'hecho', slug });
   }
 
   // Los ids que no existen se reportan igual: un lote que los ignora en silencio
   // deja creer que se hizo algo con ellos.
   for (const id of ids) {
     if (!porId.has(id)) {
-      resultados.push({ id, ok: false, motivo: 'no existe' });
+      resultados.push({ id, desenlace: 'fallo', motivo: 'no existe' });
     }
   }
 
@@ -274,11 +296,17 @@ export async function asignarCategorias(
       await ejecutar(`UPDATE productos SET actualizado_en = ? WHERE id = ?`, [ahora, p.id]);
     }
 
-    resultados.push({ id: p.id, codigo: p.codigo, ok: true });
+    // Sin categorias nuevas no se escribio nada: omitido, no hecho.
+    resultados.push({
+      id: p.id,
+      codigo: p.codigo,
+      desenlace: nuevas.length > 0 ? 'hecho' : 'omitido',
+      motivo: nuevas.length > 0 ? undefined : 'ya tenía esa categoría',
+    });
   }
 
   for (const id of ids) {
-    if (!porId.has(id)) resultados.push({ id, ok: false, motivo: 'no existe' });
+    if (!porId.has(id)) resultados.push({ id, desenlace: 'fallo', motivo: 'no existe' });
   }
 
   return resultados;

@@ -33,7 +33,12 @@ import {
   type ValorFiltro,
 } from '../lib/grilla.ts';
 import { formatearPrecio, parsearPrecio } from '../lib/precio.ts';
-import { aprobar, asignarCategorias, type ResultadoItem } from '../lib/transiciones.ts';
+import {
+  aprobar,
+  asignarCategorias,
+  type Desenlace,
+  type ResultadoItem,
+} from '../lib/transiciones.ts';
 
 const ejecutar = ejecutorD1(env.DB);
 
@@ -50,21 +55,47 @@ if (Astro.request.method === 'POST') {
   const seleccionados = datos.getAll('id').map(Number).filter(Number.isInteger);
 
   const destino = new URL(Astro.url);
-  const resumir = (rs: Array<ResultadoItem | { ok: boolean; cambio?: boolean; codigo?: string; id: number; motivo?: string }>) => {
-    const fallidos = rs.filter((r) => !r.ok);
-    // Las filas sin cambios no se cuentan como hechas: decir "50 productos
-    // actualizados" cuando no se toco ninguno es mentir con un numero.
-    const hechos = rs.filter((r) => r.ok && (r as { cambio?: boolean }).cambio !== false).length;
-    destino.searchParams.set('hechos', String(hechos));
-    if (fallidos.length > 0) {
-      destino.searchParams.set('fallidos', String(fallidos.length));
+
+  /**
+   * Tres desenlaces, no dos.
+   *
+   * `omitido` no es un fallo: es un producto que no era candidato — ya está en el
+   * catálogo, o ya tenía esa categoría. Mezclarlo con los que sí fallaron alarma por
+   * algo que no pasó y esconde lo único accionable. Es la incoherencia que se veía
+   * al aprobar una fila publicada: la grilla la deja editar, y después parecía decir
+   * que la edición no valía.
+   *
+   * `guardarFilas` usa `ok`/`cambio` en vez de `desenlace`: se traducen acá.
+   */
+  const resumir = (
+    rs: Array<
+      ResultadoItem | { ok: boolean; cambio?: boolean; codigo?: string; id: number; motivo?: string }
+    >
+  ) => {
+    const desenlaceDe = (r: (typeof rs)[number]): Desenlace => {
+      if ('desenlace' in r) return r.desenlace;
+      if (!r.ok) return 'fallo';
+      return r.cambio === false ? 'omitido' : 'hecho';
+    };
+
+    const porTipo = { hecho: [], omitido: [], fallo: [] } as Record<Desenlace, typeof rs>;
+    for (const r of rs) porTipo[desenlaceDe(r)].push(r);
+
+    destino.searchParams.set('hechos', String(porTipo.hecho.length));
+    if (porTipo.omitido.length > 0) {
+      destino.searchParams.set('omitidos', String(porTipo.omitido.length));
+      if (porTipo.omitido[0].motivo) {
+        destino.searchParams.set('omitidoMotivo', porTipo.omitido[0].motivo);
+      }
+    }
+    if (porTipo.fallo.length > 0) {
+      destino.searchParams.set('fallidos', String(porTipo.fallo.length));
       destino.searchParams.set(
         'fallaron',
-        fallidos.slice(0, 5).map((r) => r.codigo ?? r.id).join(',')
+        porTipo.fallo.slice(0, 5).map((r) => r.codigo ?? r.id).join(',')
       );
-      // El motivo del primero: con 50 filas, "1 sin cambios" sin decir por que
-      // obliga a adivinar.
-      if (fallidos[0].motivo) destino.searchParams.set('motivo', fallidos[0].motivo);
+      // El motivo del primero: con 50 filas, un conteo pelado obliga a adivinar.
+      if (porTipo.fallo[0].motivo) destino.searchParams.set('motivo', porTipo.fallo[0].motivo);
     }
   };
 
@@ -194,14 +225,16 @@ const filas = productos.map((p) => ({
 const hechos = Number(parametros.get('hechos') ?? '0');
 const fallidos = Number(parametros.get('fallidos') ?? '0');
 const fallaron = parametros.get('fallaron') ?? '';
+const omitidos = Number(parametros.get('omitidos') ?? '0');
+const omitidoMotivo = parametros.get('omitidoMotivo');
 const motivo = parametros.get('motivo');
 const errorAccion = parametros.get('error');
-const hayResumen = errorAccion !== null || hechos > 0 || fallidos > 0;
+const hayResumen = errorAccion !== null || hechos > 0 || fallidos > 0 || omitidos > 0;
 
 /** La URL a la que vuelve el POST: la misma vista, SIN el resumen anterior. */
 const destinoPost = (() => {
   const u = new URL(Astro.url);
-  for (const c of ['hechos', 'fallidos', 'fallaron', 'motivo', 'error']) u.searchParams.delete(c);
+  for (const c of ['hechos', 'fallidos', 'fallaron', 'motivo', 'omitidos', 'omitidoMotivo', 'error']) u.searchParams.delete(c);
   return `${u.pathname}${u.search}`;
 })();
 
@@ -274,12 +307,19 @@ const R2 = env.PUBLIC_R2_BASE;
         ) : (
           <>
             {hechos} {hechos === 1 ? 'producto actualizado' : 'productos actualizados'}
-            {fallidos > 0 ? (
-              <>
+            {/* Los omitidos van en tono neutro: no hay nada que corregir. */}
+            {omitidos > 0 ? (
+              <span class="resumen-omitidos">
                 {' · '}
-                {fallidos} sin cambios{fallaron !== '' ? ` (${fallaron}${fallidos > 5 ? '…' : ''})` : ''}
+                {omitidos} sin tocar{omitidoMotivo ? ` (${omitidoMotivo})` : ''}
+              </span>
+            ) : null}
+            {fallidos > 0 ? (
+              <span class="resumen-fallos">
+                {' · '}
+                {fallidos} con problemas{fallaron !== '' ? ` (${fallaron}${fallidos > 5 ? '…' : ''})` : ''}
                 {motivo ? `: ${motivo}` : ''}
-              </>
+              </span>
             ) : null}
           </>
         )}
