@@ -10,9 +10,11 @@ import '../styles/panel.css';
 
 interface Props {
   titulo: string;
+  /** Ruta de vuelta. Sin esto, de una pantalla interna sólo se sale con el navegador. */
+  volver?: string;
 }
 
-const { titulo } = Astro.props;
+const { titulo, volver } = Astro.props;
 const { identidad } = Astro.locals;
 ---
 
@@ -28,7 +30,10 @@ const { identidad } = Astro.locals;
   <body>
     <header class="panel-cabecera">
       <div class="contenedor">
-        <h1>{titulo}</h1>
+        <div>
+          {volver ? <a class="volver" href={volver}>← Inicio</a> : null}
+          <h1>{titulo}</h1>
+        </div>
         <p class="sesion">Sesión de <strong>{identidad.email}</strong></p>
       </div>
     </header>

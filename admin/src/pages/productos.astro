@@ -1,0 +1,541 @@
+---
+/**
+ * Grilla de productos: la pantalla principal del admin (SPEC-etapa2 §10.3).
+ *
+ * Es una TABLA EDITABLE, no una lista de solo lectura con un boton "Editar" por fila
+ * como propone el mock del SPEC. El trabajo real es rellenar nombre, precio y
+ * categoria — exactamente las validaciones de §5.2 — y editarlos en la propia lista
+ * evita abrir y cerrar una ficha por producto. El mismo razonamiento con el que §10.3
+ * justifica las categorias en lote ("trabajo de minutos y no de horas") pega mas
+ * fuerte todavia en el nombre y el precio, que NO se pueden hacer en lote.
+ *
+ * La `descripcion` queda AFUERA a proposito: son 80-120 caracteres que en una celda o
+ * se truncan a algo inutil o revientan la altura de la fila, y no es un requisito de
+ * §5.2. Va en la pantalla de edicion (§10.4) junto con fotos y colores.
+ *
+ * Todo por formularios, sin JavaScript: un solo `<form>` para la pagina y un POST con
+ * todas las filas. El guardado por fila serian 50 requests y obligaria a JS.
+ */
+import { env } from 'cloudflare:workers';
+
+import Panel from '../layouts/Panel.astro';
+import { validarParaAprobar } from '../lib/aprobacion.ts';
+import { CATEGORIAS, SLUGS_VALIDOS, nombreCategoria } from '../lib/categorias.ts';
+import { ejecutorD1 } from '../lib/d1.ts';
+import { guardarFilas, type CambioFila } from '../lib/guardar.ts';
+import {
+  ESTADOS_LEGIBLES,
+  FILTROS,
+  FILTRO_POR_DEFECTO,
+  contarPorEstado,
+  estadoLegible,
+  listarProductos,
+  type ValorFiltro,
+} from '../lib/grilla.ts';
+import { formatearPrecio, parsearPrecio } from '../lib/precio.ts';
+import {
+  aprobar,
+  asignarCategorias,
+  type Desenlace,
+  type ResultadoItem,
+} from '../lib/transiciones.ts';
+
+const ejecutar = ejecutorD1(env.DB);
+
+/**
+ * POST -> accion -> redirect 303 al mismo listado.
+ *
+ * Se redirige en vez de renderizar el resultado directo para que recargar no vuelva a
+ * enviar el formulario. El resumen viaja en la query porque el admin no tiene sesion
+ * donde dejar un mensaje (ver la nota de sesiones en astro.config.mjs).
+ */
+if (Astro.request.method === 'POST') {
+  const datos = await Astro.request.formData();
+  const accionPedida = datos.get('accion');
+  const seleccionados = datos.getAll('id').map(Number).filter(Number.isInteger);
+
+  const destino = new URL(Astro.url);
+
+  /**
+   * Tres desenlaces, no dos.
+   *
+   * `omitido` no es un fallo: es un producto que no era candidato — ya está en el
+   * catálogo, o ya tenía esa categoría. Mezclarlo con los que sí fallaron alarma por
+   * algo que no pasó y esconde lo único accionable. Es la incoherencia que se veía
+   * al aprobar una fila publicada: la grilla la deja editar, y después parecía decir
+   * que la edición no valía.
+   *
+   * `guardarFilas` usa `ok`/`cambio` en vez de `desenlace`: se traducen acá.
+   */
+  const resumir = (
+    rs: Array<
+      ResultadoItem | { ok: boolean; cambio?: boolean; codigo?: string; id: number; motivo?: string }
+    >
+  ) => {
+    const desenlaceDe = (r: (typeof rs)[number]): Desenlace => {
+      if ('desenlace' in r) return r.desenlace;
+      if (!r.ok) return 'fallo';
+      return r.cambio === false ? 'omitido' : 'hecho';
+    };
+
+    const porTipo = { hecho: [], omitido: [], fallo: [] } as Record<Desenlace, typeof rs>;
+    for (const r of rs) porTipo[desenlaceDe(r)].push(r);
+
+    destino.searchParams.set('hechos', String(porTipo.hecho.length));
+    if (porTipo.omitido.length > 0) {
+      destino.searchParams.set('omitidos', String(porTipo.omitido.length));
+      if (porTipo.omitido[0].motivo) {
+        destino.searchParams.set('omitidoMotivo', porTipo.omitido[0].motivo);
+      }
+    }
+    if (porTipo.fallo.length > 0) {
+      destino.searchParams.set('fallidos', String(porTipo.fallo.length));
+      destino.searchParams.set(
+        'fallaron',
+        porTipo.fallo.slice(0, 5).map((r) => r.codigo ?? r.id).join(',')
+      );
+      // El motivo del primero: con 50 filas, un conteo pelado obliga a adivinar.
+      if (porTipo.fallo[0].motivo) destino.searchParams.set('motivo', porTipo.fallo[0].motivo);
+    }
+  };
+
+  try {
+    if (accionPedida === 'guardar') {
+      /**
+       * Se recorren los ids que la pagina rindio (`fila`), no la seleccion: guardar no
+       * necesita tildar nada. Las casillas son solo para las acciones en lote.
+       */
+      const cambios: CambioFila[] = [];
+      for (const valor of datos.getAll('fila')) {
+        const id = Number(valor);
+        if (!Number.isInteger(id)) continue;
+        cambios.push({
+          id,
+          nombre: String(datos.get(`nombre-${id}`) ?? ''),
+          precio: parsearPrecio(String(datos.get(`precio-${id}`) ?? '')),
+          categoriaPrincipal: (datos.get(`categoria-${id}`) as string) || null,
+        });
+      }
+      resumir(await guardarFilas(ejecutar, cambios, {
+        categoriasValidas: SLUGS_VALIDOS,
+        ahora: new Date().toISOString(),
+      }));
+    } else if (seleccionados.length === 0) {
+      destino.searchParams.set('error', 'No se seleccionó ningún producto.');
+    } else if (accionPedida === 'aprobar') {
+      resumir(
+        await aprobar(ejecutar, seleccionados, {
+          categoriasValidas: SLUGS_VALIDOS,
+          ahora: new Date().toISOString(),
+          permitirSinFoto: datos.get('sin-foto') === 'si',
+        })
+      );
+    } else if (accionPedida === 'categorias') {
+      resumir(
+        await asignarCategorias(ejecutar, seleccionados, datos.getAll('secundaria').map(String), {
+          categoriasValidas: SLUGS_VALIDOS,
+          ahora: new Date().toISOString(),
+        })
+      );
+    } else {
+      destino.searchParams.set('error', 'Acción desconocida.');
+    }
+  } catch (error) {
+    /**
+     * `parsearPrecio` y `asignarCategorias` lanzan ante una entrada invalida.
+     *
+     * Un precio mal tipeado corta el guardado ENTERO en vez de guardar las demas
+     * filas, y es a proposito: si se guardara lo demas, la pagina se recarga con el
+     * texto que se tipeo perdido y no queda registro de cual era. Cortando, nada se
+     * escribio y el navegador conserva lo tipeado al volver atras.
+     */
+    destino.searchParams.set('error', error instanceof Error ? error.message : String(error));
+  }
+
+  return Astro.redirect(destino.toString(), 303);
+}
+
+const parametros = Astro.url.searchParams;
+const busqueda = parametros.get('q') ?? '';
+
+/**
+ * Un `estado` desconocido en la URL cae al default en vez de reventar.
+ *
+ * `listarProductos` SI revienta ante un filtro invalido — eso protege de mostrar la
+ * papelera por accidente — pero un parametro tipeado a mano en la barra no deberia
+ * dar un error: se corrige y se sigue.
+ */
+const pedido = parametros.get('estado');
+const estado: ValorFiltro = FILTROS.some((f) => f.valor === pedido)
+  ? (pedido as ValorFiltro)
+  : FILTRO_POR_DEFECTO;
+
+const POR_PAGINA = 50;
+const pagina = Math.max(1, Number.parseInt(parametros.get('pagina') ?? '1', 10) || 1);
+
+const [productos, conteo] = await Promise.all([
+  listarProductos(ejecutar, {
+    estado,
+    busqueda,
+    limite: POR_PAGINA,
+    desplazamiento: (pagina - 1) * POR_PAGINA,
+  }),
+  contarPorEstado(ejecutar, busqueda),
+]);
+
+const totalDelFiltro =
+  estado === 'todos'
+    ? conteo.importado + conteo.aprobado + conteo.publicado
+    : conteo[FILTROS.find((f) => f.valor === estado)!.estado as keyof typeof conteo];
+
+const hayMas = pagina * POR_PAGINA < totalDelFiltro;
+
+/** Conserva los parametros vigentes al armar un enlace. */
+function enlace(cambios: Record<string, string | number | null>): string {
+  const p = new URLSearchParams(parametros);
+  for (const [clave, valor] of Object.entries(cambios)) {
+    if (valor === null || valor === '') p.delete(clave);
+    else p.set(clave, String(valor));
+  }
+  const cadena = p.toString();
+  return cadena === '' ? Astro.url.pathname : `${Astro.url.pathname}?${cadena}`;
+}
+
+/**
+ * Se evalua la aprobacion de CADA fila, tambien de las publicadas.
+ *
+ * Un producto en la calle puede haber quedado invalido porque se renombro una
+ * categoria en `categorias.json`, y la grilla es donde eso se tiene que ver.
+ */
+const filas = productos.map((p) => ({
+  ...p,
+  validacion: validarParaAprobar(
+    {
+      codigo: p.codigo,
+      nombre: p.nombre,
+      precio: p.precio,
+      categorias: p.categorias,
+      variantes: p.variantes === 0 ? [] : [{ sku: p.codigo, color: '', imagenes: p.imagenes }],
+    },
+    { categoriasValidas: SLUGS_VALIDOS }
+  ),
+}));
+
+/** Resumen de la accion anterior, que llego por la query tras el redirect. */
+const hechos = Number(parametros.get('hechos') ?? '0');
+const fallidos = Number(parametros.get('fallidos') ?? '0');
+const fallaron = parametros.get('fallaron') ?? '';
+const omitidos = Number(parametros.get('omitidos') ?? '0');
+const omitidoMotivo = parametros.get('omitidoMotivo');
+const motivo = parametros.get('motivo');
+const errorAccion = parametros.get('error');
+const hayResumen = errorAccion !== null || hechos > 0 || fallidos > 0 || omitidos > 0;
+
+/** La URL a la que vuelve el POST: la misma vista, SIN el resumen anterior. */
+const destinoPost = (() => {
+  const u = new URL(Astro.url);
+  for (const c of ['hechos', 'fallidos', 'fallaron', 'motivo', 'omitidos', 'omitidoMotivo', 'error']) u.searchParams.delete(c);
+  return `${u.pathname}${u.search}`;
+})();
+
+const R2 = env.PUBLIC_R2_BASE;
+---
+
+<Panel titulo="Productos" volver="/">
+  {/* El form de filtros va APARTE del de edicion: si fueran uno, filtrar mandaria
+      tambien los campos editados y "Filtrar" se volveria un guardado encubierto. */}
+  <form method="get" action={Astro.url.pathname} role="search" class="filtros">
+    <p class="campo">
+      <label for="q">Buscar por código o nombre</label>
+      <input id="q" name="q" type="search" value={busqueda} placeholder="CG85527" />
+    </p>
+    <p class="campo">
+      <label for="estado">Estado</label>
+      <select id="estado" name="estado">
+        {
+          FILTROS.map((f) => (
+            <option value={f.valor} selected={f.valor === estado}>
+              {f.etiqueta}
+              {f.estado ? ` (${conteo[f.estado as keyof typeof conteo]})` : ''}
+            </option>
+          ))
+        }
+      </select>
+    </p>
+    <p class="campo campo--boton"><button type="submit">Filtrar</button></p>
+  </form>
+
+  {/* El recorrido, a la vista y no en un manual. Es la maquina de estados de §5.2
+      contada en el vocabulario de quien opera: los nombres crudos de la columna
+      (`importado`, `aprobado`) no le dicen nada a nadie. */}
+  <details class="ayuda">
+    <summary>¿Qué significa cada estado?</summary>
+    <ol class="recorrido">
+      <li>
+        <strong>{ESTADOS_LEGIBLES.importado.etiqueta}</strong>
+        <span>{ESTADOS_LEGIBLES.importado.explicacion}</span>
+        <em>Completá nombre, categoría y precio, y apretá «Aprobar».</em>
+      </li>
+      <li>
+        <strong>{ESTADOS_LEGIBLES.aprobado.etiqueta}</strong>
+        <span>{ESTADOS_LEGIBLES.aprobado.explicacion}</span>
+        <em>Ya tiene su dirección web, que no cambia nunca más.</em>
+      </li>
+      <li>
+        <strong>{ESTADOS_LEGIBLES.publicado.etiqueta}</strong>
+        <span>{ESTADOS_LEGIBLES.publicado.explicacion}</span>
+        <em>Podés seguir editando nombre y precio: la dirección no se mueve.</em>
+      </li>
+      <li>
+        <strong>{ESTADOS_LEGIBLES.eliminado.etiqueta}</strong>
+        <span>{ESTADOS_LEGIBLES.eliminado.explicacion}</span>
+        <em>Quien tenga el enlace no encuentra un error, encuentra el catálogo.</em>
+      </li>
+    </ol>
+    <p class="nota">
+      Todavía falta el botón de <strong>publicar</strong>: hoy los productos llegan
+      hasta «Listo para publicar». Sacar de circulación y restaurar tampoco están
+      hechos, así que la papelera se puede mirar pero todavía nada cae ahí.
+    </p>
+  </details>
+
+  {
+    hayResumen ? (
+      <p class={errorAccion ? 'resumen resumen--error' : 'resumen'} role="status">
+        {errorAccion ? (
+          errorAccion
+        ) : (
+          <>
+            {hechos} {hechos === 1 ? 'producto actualizado' : 'productos actualizados'}
+            {/* Los omitidos van en tono neutro: no hay nada que corregir. */}
+            {omitidos > 0 ? (
+              <span class="resumen-omitidos">
+                {' · '}
+                {omitidos} sin tocar{omitidoMotivo ? ` (${omitidoMotivo})` : ''}
+              </span>
+            ) : null}
+            {fallidos > 0 ? (
+              <span class="resumen-fallos">
+                {' · '}
+                {fallidos} con problemas{fallaron !== '' ? ` (${fallaron}${fallidos > 5 ? '…' : ''})` : ''}
+                {motivo ? `: ${motivo}` : ''}
+              </span>
+            ) : null}
+          </>
+        )}
+      </p>
+    ) : null
+  }
+
+  {
+    filas.length === 0 ? (
+      <p class="vacio">
+        No hay productos
+        {busqueda !== '' ? (
+          <>
+            {' '}
+            que coincidan con <strong>{busqueda}</strong>
+          </>
+        ) : null}{' '}
+        en este filtro.
+      </p>
+    ) : (
+      <form method="post" action={destinoPost}>
+        {/* Las acciones van ARRIBA: con 50 filas, un bloque al pie se pierde de vista
+            en la primera mirada y hay que scrollear hasta el fondo para descubrir que
+            existe. */}
+        <fieldset class="lote">
+          <legend>Acciones</legend>
+
+          <p class="lote-fila">
+            <button type="submit" name="accion" value="guardar">Guardar cambios</button>
+            <span class="nota">
+              Guarda nombre, categoría y precio de <strong>todas</strong> las filas de
+              esta página. No hace falta seleccionar nada.
+            </span>
+          </p>
+
+          <hr />
+
+          <p class="nota nota--titulo">Sobre los productos tildados:</p>
+
+          <p class="lote-fila">
+            <button type="submit" name="accion" value="aprobar">Aprobar</button>
+            <label class="lote-check">
+              <input type="checkbox" name="sin-foto" value="si" />
+              aunque no tengan foto
+            </label>
+            <span class="nota">
+              Pasa de <em>Sin completar</em> a <em>Listo para publicar</em> y le crea la
+              dirección web, que no cambia nunca más.
+            </span>
+          </p>
+
+          <p class="lote-fila">
+            <label for="secundaria">Agregar categoría</label>
+            <select id="secundaria" name="secundaria">
+              {CATEGORIAS.map((c) => (
+                <option value={c.id}>{c.nombre}</option>
+              ))}
+            </select>
+            <button type="submit" name="accion" value="categorias">Agregar</button>
+            <span class="nota">
+              Se suma a las que ya tiene. Para cambiar la principal, usá el desplegable
+              de la fila.
+            </span>
+          </p>
+        </fieldset>
+
+        <div class="tabla-marco">
+          <table class="grilla">
+            <caption class="oculto">
+              Productos: código, foto, nombre, categoría principal, precio y estado
+            </caption>
+            {/* Anchos explicitos: con `table-layout: fixed` manda esto y no el
+                contenido, asi el select no se lleva el ancho del nombre. */}
+            <colgroup>
+              <col style="width: 44px" />
+              <col style="width: 6.5rem" />
+              <col style="width: 72px" />
+              <col />
+              <col style="width: 12rem" />
+              <col style="width: 8rem" />
+              <col style="width: 11rem" />
+            </colgroup>
+            <thead>
+              <tr>
+                <th scope="col" class="col-elegir">
+                  <span class="oculto">Seleccionar</span>
+                </th>
+                <th scope="col">Código</th>
+                <th scope="col">Foto</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Categoría principal</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filas.map((p) => (
+                <tr>
+                  <td class="col-elegir">
+                    {/* `fila` marca que esta fila viajo en el POST; `id` marca que
+                        esta tildada. Guardar usa el primero y el lote el segundo. */}
+                    <input type="hidden" name="fila" value={String(p.id)} />
+                    <label class="elegir">
+                      <input type="checkbox" name="id" value={String(p.id)} />
+                      <span class="oculto">Seleccionar {p.codigo}</span>
+                    </label>
+                  </td>
+
+                  <th scope="row" class="codigo">{p.codigo}</th>
+
+                  <td>
+                    {p.miniatura ? (
+                      <img
+                        src={`${R2}/catalogo/${p.miniatura}/w300.webp`}
+                        alt=""
+                        width="56"
+                        height="56"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    ) : (
+                      <span class="sin-foto" role="img" aria-label="Sin imagen">
+                        sin foto
+                      </span>
+                    )}
+                  </td>
+
+                  <td>
+                    <label class="oculto" for={`nombre-${p.id}`}>
+                      Nombre de {p.codigo}
+                    </label>
+                    {/* Un nombre igual al codigo es el marcador de "sin nombre" del importador
+                        (SPEC.md §6.6): se pinta VACIO para que se complete, no para
+                        que se edite el codigo.
+
+                        Ojo con los comentarios de bloque: dentro de la lista de
+                        atributos de una etiqueta, JSX los parsea como ATRIBUTOS y el
+                        error habla de props inexistentes. Van afuera, envueltos en
+                        llaves como este. */}
+                    <input
+                      id={`nombre-${p.id}`}
+                      name={`nombre-${p.id}`}
+                      type="text"
+                      value={p.nombre && p.nombre !== p.codigo ? p.nombre : ''}
+                      placeholder="Sin nombre"
+                    />
+                  </td>
+
+                  <td>
+                    <label class="oculto" for={`categoria-${p.id}`}>
+                      Categoría principal de {p.codigo}
+                    </label>
+                    <select id={`categoria-${p.id}`} name={`categoria-${p.id}`}>
+                      <option value="">— elegir —</option>
+                      {CATEGORIAS.map((c) => (
+                        <option value={c.id} selected={p.categorias[0] === c.id}>
+                          {c.nombre}
+                        </option>
+                      ))}
+                    </select>
+                    {/* Las transversales se ven pero no se editan acá: se asignan en
+                        lote, que es como funcionan (escolar, dama, fiesta cruzan
+                        muchos productos a la vez). */}
+                    {p.categorias.length > 1 ? (
+                      <p class="secundarias">
+                        + {p.categorias.slice(1).map((c) => nombreCategoria(c)).join(', ')}
+                      </p>
+                    ) : null}
+                  </td>
+
+                  <td>
+                    <label class="oculto" for={`precio-${p.id}`}>
+                      Precio de {p.codigo} en guaraníes
+                    </label>
+                    <input
+                      id={`precio-${p.id}`}
+                      name={`precio-${p.id}`}
+                      type="text"
+                      inputmode="numeric"
+                      class="precio"
+                      value={formatearPrecio(p.precio)}
+                      placeholder="Consultar"
+                    />
+                  </td>
+
+                  <td>
+                    {/* Primero DONDE esta el producto, despues que le falta. El estado
+                        es el dato que se busca; la validacion es la accion siguiente. */}
+                    <p class="estado-actual" title={estadoLegible(p.estado).explicacion}>
+                      {estadoLegible(p.estado).etiqueta}
+                    </p>
+                    {p.validacion.puede ? (
+                      <span class="estado estado--ok">✓ completo</span>
+                    ) : (
+                      <span class="estado estado--falta">⚠ {p.validacion.faltantes.join(', ')}</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* El guardado se repite al pie: con 50 filas, terminar de tipear abajo y
+            tener que volver arriba para guardar es un viaje al vacio. Es el MISMO
+            boton, no otra accion. */}
+        <p class="pie-guardar">
+          <button type="submit" name="accion" value="guardar">Guardar cambios</button>
+        </p>
+      </form>
+    )
+  }
+
+  <nav class="paginado" aria-label="Paginado">
+    {pagina > 1 ? <a href={enlace({ pagina: pagina - 1 })} rel="prev">← Anterior</a> : null}
+    {totalDelFiltro > POR_PAGINA ? <span>Página {pagina}</span> : null}
+    {hayMas ? <a href={enlace({ pagina: pagina + 1 })} rel="next">Siguiente →</a> : null}
+  </nav>
+</Panel>

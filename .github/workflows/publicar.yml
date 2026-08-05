@@ -41,6 +41,19 @@ jobs:
       - run: npm ci
 
       # ------------------------------------------------------------------
+      # 0. Avisar que arranco
+      # ------------------------------------------------------------------
+      # El admin muestra "Publicando..." mientras tanto (§11.3). Con
+      # `workflow_dispatch` no hay id y el script se omite solo.
+      - name: Marcar la publicación como en curso
+        env:
+          ID_PUBLICACION: ${{ github.event.client_payload.publicacion }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          D1_DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: node scripts/volcado/publicacion.mjs corriendo
+
+      # ------------------------------------------------------------------
       # 1-2. Leer D1 y escribir src/data/productos.json
       # ------------------------------------------------------------------
       # Con las tres variables presentes, index.mjs usa la API HTTP de D1. Sin
@@ -100,17 +113,41 @@ jobs:
         run: npm run deploy
 
       # ------------------------------------------------------------------
-      # 6. PENDIENTE — depende del admin (fase 2.3)
+      # 6. Reportar el resultado
       # ------------------------------------------------------------------
-      # Faltan dos pasos que §11.2 y §11.3 describen y que NO se pueden cablear
-      # todavia porque el Worker de admin no existe:
+      # NO es un POST al admin como dice el diagrama de §11.2: la Action no puede
+      # pasar Cloudflare Access, y un endpoint de vuelta exigiria un service token
+      # o excluir una ruta de la politica — superficie de autenticacion nueva en la
+      # pieza mas protegida. La Action ya tiene credenciales de D1, asi que escribe
+      # la fila directo y el admin la lee. Mismo efecto de §11.3, sin puerta nueva.
       #
-      #   - POST de vuelta al admin con ok | error, que es lo que alimenta la
-      #     tabla `publicaciones` y hace visible una falla para quien publica y
-      #     no entra a GitHub (§11.3).
-      #   - La transicion `aprobado` -> `publicado` con el sello de
-      #     `publicado_en` (§5.2). Hoy es un no-op: no hay nada que ponga un
-      #     producto en `aprobado` sin admin.
-      #
-      # Se dejan a la vista en vez de omitirse en silencio: un workflow que
+      # `if: always()` es lo que hace visible la FALLA, que es el punto entero de
+      # §11.3: sin eso, un build roto deja la publicacion en "Publicando..." para
+      # siempre y quien opera no se entera nunca.
+      - name: Reportar el resultado
+        if: always()
+        env:
+          ID_PUBLICACION: ${{ github.event.client_payload.publicacion }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          D1_DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ "${{ job.status }}" = "success" ]; then
+            PRODUCTOS=$(node -e "console.log(require('./src/data/productos.json').length)")
+            node scripts/volcado/publicacion.mjs ok \
+              --productos "$PRODUCTOS" \
+              --commit "$(git rev-parse HEAD)" \
+              --run "$RUN_URL"
+          else
+            node scripts/volcado/publicacion.mjs error \
+              --mensaje "El build falló. Ver el detalle técnico en el run." \
+              --run "$RUN_URL"
+          fi
+
+      # ------------------------------------------------------------------
+      # PENDIENTE — la transicion aprobado -> publicado (§5.2)
+      # ------------------------------------------------------------------
+      # Falta sellar `publicado_en` y pasar los `aprobado` a `publicado` tras un
+      # build exitoso. Se deja a la vista en vez de omitirse: un workflow que
       # parece completo y no lo es es peor que uno que declara su hueco.

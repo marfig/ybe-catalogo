@@ -516,3 +516,147 @@ button {
     height: 56px;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Inicio (§10.1)
+   -------------------------------------------------------------------------- */
+.volver {
+  display: inline-block;
+  font-size: 0.8125rem;
+  color: var(--primario);
+  margin-bottom: 0.125rem;
+}
+
+.tarjetas {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: var(--hueco);
+}
+
+.tarjeta a {
+  display: block;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: var(--hueco);
+  text-decoration: none;
+  color: inherit;
+}
+
+.tarjeta strong {
+  display: block;
+  font-size: 1.75rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.tarjeta span {
+  font-size: 0.8125rem;
+  color: var(--texto-suave);
+}
+
+/**
+ * El llamador a la accion de §10.1: «hay trabajo listo que no esta en el sitio».
+ *
+ * Solo se enciende cuando el numero es mayor a cero. Un acento permanente deja de
+ * verse a la semana.
+ */
+.tarjeta--llamador a {
+  border-color: var(--aviso);
+  border-left-width: 4px;
+}
+
+.tarjeta--llamador strong {
+  color: var(--aviso);
+}
+
+.publicacion {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-left-width: 4px;
+  border-radius: var(--radio);
+  padding: var(--hueco);
+  margin-bottom: 1.5rem;
+}
+
+.publicacion h2 {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+}
+
+.publicacion p {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  color: var(--texto-suave);
+}
+
+.publicacion form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--hueco);
+  align-items: center;
+  margin-top: var(--hueco);
+}
+
+.publicacion--ok {
+  border-left-color: var(--ok);
+}
+.publicacion--ok h2 {
+  color: var(--ok);
+}
+
+.publicacion--error {
+  border-left-color: var(--peligro);
+}
+.publicacion--error h2 {
+  color: var(--peligro);
+}
+
+.publicacion--en-curso {
+  border-left-color: var(--aviso);
+}
+.publicacion--en-curso h2 {
+  color: var(--aviso);
+}
+
+button[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.puertas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--hueco);
+}
+
+.puerta {
+  display: block;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: var(--hueco);
+  text-decoration: none;
+  color: inherit;
+}
+
+.puerta strong {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.puerta span {
+  font-size: 0.8125rem;
+  color: var(--texto-suave);
+}
+
+/* Se ve, no se puede usar, y dice por que. Un boton ausente se lee como "no se
+   puede"; uno desactivado con su motivo se lee como "todavia no". */
+.puerta--pendiente {
+  border-style: dashed;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
