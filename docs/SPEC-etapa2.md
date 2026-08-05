@@ -1566,8 +1566,33 @@ seguro.
   - Las dos puertas que faltan — importar del proveedor, cargar un producto — se
     muestran **desactivadas con su etapa**, no escondidas: un botón ausente se lee
     como «no se puede»; uno desactivado con su motivo se lee como «todavía no».
-- ⬜ Sellar `publicado_en` y pasar los `aprobado` a `publicado` tras un build exitoso
-  (§5.2). Declarado a la vista en el workflow.
+- ✅ **Sellado: `aprobado` → `publicado` y `publicado_en`** (§5.2) en
+  `scripts/volcado/sellar.mjs` — 11 tests. Cierra la máquina de estados.
+
+#### El sellado se hace contra el ARCHIVO, no contra «los aprobados de ahora»
+
+Entre el volcado y el sellado pasan minutos. Si alguien aprueba un producto en el
+medio, sellar todos los `aprobado` lo marcaría **En el catálogo** sin estar en el
+sitio — y §11.2 promete exactamente lo contrario: *«nunca queda un `publicado` que en
+realidad no está en el sitio»*.
+
+La fuente de verdad de qué hay en el sitio es `src/data/productos.json`, que es
+literalmente el archivo que se acaba de construir y desplegar. Se sella contra sus
+slugs, y el que llegó tarde espera el próximo build. Verificado contra D1: de dos
+aprobados, sólo el que estaba en el archivo pasó a `publicado`.
+
+Tres detalles del mismo tamaño:
+
+- **El paso va después del deploy y SIN `if: always()`.** Si el deploy falló, nada de
+  esto ocurrió y marcar productos como publicados sería mentir. El orden de los pasos
+  es lo que sostiene la promesa.
+- **`publicado_en` sólo se sella si está vacío.** El esquema dice «primera
+  publicación; NULL = nunca fue público»: pisarlo en cada build lo convertiría en
+  «última publicación», que es otro dato. Correr el workflow dos veces no mueve la
+  fecha.
+- **Un `eliminado` sigue eliminado aunque esté en el JSON.** Aparece ahí con
+  `activo: false` para que su URL no quede rota; estar en el archivo no lo devuelve al
+  catálogo.
 
 #### Tres trampas del adapter, encontradas a la mala
 

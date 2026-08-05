@@ -113,7 +113,26 @@ jobs:
         run: npm run deploy
 
       # ------------------------------------------------------------------
-      # 6. Reportar el resultado
+      # 6. Sellar: aprobado -> publicado y publicado_en (§5.2)
+      # ------------------------------------------------------------------
+      # Va DESPUES del deploy y sin `if: always()`: si el deploy fallo, nada de
+      # esto ocurrio y marcar productos como publicados seria mentir. Es la
+      # promesa de §11.2 — «nunca queda un publicado que en realidad no esta en
+      # el sitio» — y el orden de los pasos es lo que la sostiene.
+      #
+      # Sella contra src/data/productos.json, o sea contra el archivo que se
+      # acaba de desplegar, y no contra "todos los aprobados de ahora": entre el
+      # volcado y este paso pasaron minutos, y un producto aprobado en el medio
+      # NO esta en el sitio todavia.
+      - name: Sellar la publicación
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          D1_DATABASE_ID: ${{ secrets.D1_DATABASE_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: node scripts/volcado/sellar.mjs
+
+      # ------------------------------------------------------------------
+      # 7. Reportar el resultado
       # ------------------------------------------------------------------
       # NO es un POST al admin como dice el diagrama de §11.2: la Action no puede
       # pasar Cloudflare Access, y un endpoint de vuelta exigiria un service token
@@ -145,9 +164,3 @@ jobs:
               --run "$RUN_URL"
           fi
 
-      # ------------------------------------------------------------------
-      # PENDIENTE — la transicion aprobado -> publicado (§5.2)
-      # ------------------------------------------------------------------
-      # Falta sellar `publicado_en` y pasar los `aprobado` a `publicado` tras un
-      # build exitoso. Se deja a la vista en vez de omitirse: un workflow que
-      # parece completo y no lo es es peor que uno que declara su hueco.
