@@ -1422,6 +1422,13 @@ El PNG ya tiene **alpha real** (§2.1), lo que desbloquea favicon, apple-touch e
 **Redes sociales** — ¿cuáles existen?
 Para `sameAs` de `Organization` y los enlaces del footer.
 
+**Buscador en el sitio público** — pedido el 2026-08-06, sin resolver
+Buscar por **código o nombre**. El código es lo que el cliente tiene a mano cuando pregunta por un producto por WhatsApp — el mismo argumento de `SPEC-etapa2.md` §5.3 que justificó el buscador del admin, pero del lado de afuera.
+
+La restricción que manda: **el sitio es estático** (§1.1), así que no hay servidor donde consultar. Las tres salidas son un índice JSON que el navegador filtra, un servicio externo, o romper `output: 'static'` — y la tercera está descartada por §4.1. Con 300 a 1.500 productos (§9.4) el índice pesa unos pocos KB, así que la primera es la que hay que evaluar primero, cuidando que **no se descargue en cada visita** sino recién al usar el buscador: el catálogo se navega desde el teléfono y con datos móviles.
+
+Dos cosas que ya están resueltas y conviene reusar: el criterio de qué se busca (código o nombre) y el aviso de que `LIKE`/comparación ASCII no distingue acentos, los dos documentados en la grilla del admin (`SPEC-etapa2.md` §10.3). Del lado público conviene normalizar los acentos al indexar, porque nadie escribe «Riñonera» con la eñe en un buscador.
+
 ---
 
 ## 13. Referencias
