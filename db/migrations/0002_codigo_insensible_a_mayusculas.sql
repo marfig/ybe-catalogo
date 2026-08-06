@@ -1,0 +1,24 @@
+-- El codigo es la identidad del producto (SPEC-etapa2 §5.3), y el UNIQUE de la
+-- columna NO alcanza para garantizarla.
+--
+-- SQLite compara TEXT con collation BINARY, asi que 'CG85527' y 'cg85527' son dos
+-- valores distintos y el UNIQUE los deja entrar a los dos. Verificado, no supuesto:
+-- se insertaron ambos en una base con el esquema 0001 y ninguno fue rechazado.
+--
+-- El efecto seria un producto duplicado creado por tipear en minuscula: dos filas,
+-- dos slugs, dos URLs en la calle, un solo producto real. Y el peor momento para
+-- descubrirlo es despues de publicar, porque el slug ya es inmutable (§5.2).
+--
+-- La normalizacion en el codigo (admin/src/lib/codigo.ts) es la primera capa y la
+-- que produce un mensaje en castellano. Este indice es la RED: cubre el camino que
+-- alguien olvide normalizar y la carrera entre dos pestanas que insertan a la vez,
+-- donde una consulta previa no alcanza.
+--
+-- Se usa un indice sobre expresion en vez de cambiar la collation de la columna:
+-- SQLite no permite alterar la collation de una columna existente sin recrear la
+-- tabla, y recrear una tabla con datos y foreign keys apuntandole es mucho mas
+-- riesgoso que agregar un indice.
+--
+-- `upper()` en SQLite solo mapea ASCII, que es exactamente el conjunto de los
+-- codigos del proveedor (CG + digitos).
+CREATE UNIQUE INDEX idx_productos_codigo_nocase ON productos(upper(codigo));

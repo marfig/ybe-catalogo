@@ -344,6 +344,39 @@ sobrevive»*. Renombrar un producto publicado cambia el `nombre`, nunca el `slug
 
 ### 5.3 El código como identidad
 
+#### El `UNIQUE` de la columna NO garantiza la unicidad
+
+Verificado, no supuesto: sobre el esquema 0001 se insertaron `CG85527` y `cg85527` y
+**entraron los dos**. SQLite compara `TEXT` con collation `BINARY`, así que para el
+`UNIQUE` son valores distintos.
+
+El efecto sería un producto duplicado creado por tipear en minúscula: dos filas, dos
+slugs, **dos URLs en la calle** para el mismo producto. Y el peor momento para
+descubrirlo es después de publicar, porque el slug ya es inmutable (§5.2).
+
+Se arregla en dos capas, y las dos hacen falta:
+
+| Capa | Qué cubre |
+|---|---|
+| `normalizarCodigo()` en `admin/src/lib/codigo.ts` | El caso normal, con un mensaje en castellano. §10 pide que ningún error del admin sea crudo |
+| Índice único sobre `upper(codigo)` (migración 0002) | Lo que la consulta previa no puede: la carrera entre dos pestañas insertando a la vez, y cualquier camino que olvide normalizar |
+
+Se usó un índice sobre expresión y no un cambio de collation de la columna: SQLite no
+permite alterar la collation sin recrear la tabla, y recrear una tabla con datos y
+foreign keys apuntándole es mucho más riesgoso que agregar un índice.
+
+**Los espacios de los bordes se recortan, los de adentro se rechazan.** Sacarlos
+cambiaría en silencio lo que la persona escribió, y «CG 855 27» es casi siempre un
+error de tipeo.
+
+`buscarPorCodigo()` es la pieza que **los dos caminos de alta comparten**: el
+formulario manual, que ante un código existente ofrece editar ese producto en vez de
+fallar (§9), y el scrape, que hace `UPDATE` y no `INSERT` (§7.5). Devuelve `null` ante
+un código inválido en vez de lanzar: buscar es una consulta, no un alta, y que el
+formulario explote mientras alguien todavía está tipeando sería peor que no encontrar
+nada.
+
+
 `codigo` es `UNIQUE` global y `NOT NULL`. Tres consecuencias buscadas:
 
 1. **Reemplaza el `manifest.json` de `SPEC.md` §6.7.** La idempotencia del scrape
