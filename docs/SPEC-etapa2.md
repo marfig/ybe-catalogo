@@ -843,12 +843,22 @@ por su hash no viaja: se corta antes, en el Worker.
 El mismo pipeline, sin el paso de red. La persona elige un archivo, el navegador
 lo normaliza con el mismo código de canvas y sube las derivadas.
 
-Con una diferencia que el scrape no necesita: **recorte asistido**. Una foto de
-celular son 4000×3000 y aspect ratio arbitrario; encajarla en 1:1 con relleno
-blanco automático suele dejar el producto chico y descentrado. La pantalla
-muestra el cuadrado de 1:1 sobre la foto y permite mover y escalar antes de
-confirmar. Es la diferencia entre una grilla prolija y una llena de fotos
-torcidas, y quien sube la foto es la única persona que sabe qué parte importa.
+Con una diferencia que el scrape no necesita: **recorte**. Una foto de celular son
+4000×3000 y aspect ratio arbitrario; encajarla en 1:1 con relleno blanco automático
+suele dejar el producto chico y descentrado.
+
+**Resuelto con recorte cuadrado centrado automático. El recorte asistido —arrastrar y
+escalar el cuadro— queda descartado por ahora** (decisión del 2026-08-06).
+
+El razonamiento: lo que esta sección atacaba era el **relleno blanco**, y el recorte
+centrado no lo usa — toma el cuadrado más grande que entra y *llena* el cuadro, así
+que el producto nunca sale chico rodeado de blanco. Lo único que no cubre es un
+producto **descentrado en la foto**, y eso se arregla del lado más barato: encuadrando
+al sacar la foto, no construyendo una pantalla de arrastre.
+
+Si algún día hace falta, el costo es sólo la interacción: `calcularEncuadre()` ya
+acepta un recorte arbitrario y está cubierto por tests, incluido el caso de un recorte
+más chico que 300 px, que no genera derivadas porque ampliar inventaría píxeles.
 
 El hash acá sí se calcula sobre el archivo original elegido, en el navegador
 (`crypto.subtle`), y se manda junto con las derivadas.
@@ -1650,10 +1660,21 @@ Tres detalles del mismo tamaño:
 Criterio de salida: una persona sin acceso a la terminal edita un producto, lo
 aprueba, lo publica, y lo ve en el sitio. Y si el build falla, entiende qué pasó.
 
-### Fase 2.4 — Carga manual (desplegable)
+### Fase 2.4 — Carga manual (desplegable) · **EN CURSO**
 
-- Pipeline de canvas de §8, con recorte asistido (§8.3).
-- Formulario de §9.
+- ✅ **Reglas puras de imagen** en `admin/src/lib/imagen.ts` — 19 tests. «Nunca se
+  amplía» es un `Math.min(1, …)` con su test; las derivadas se deciden por el
+  **recorte** y no por el original, que es lo que se escapa fácil.
+- ✅ **Subida a R2** en `admin/src/lib/subida.ts` y `POST /api/imagenes` — 23 tests.
+  El hash lo calcula el navegador, así que **nunca se sobreescribe** una clave
+  existente: el peor caso pasa de «destruiste una foto» a «te devolvió la que ya
+  estaba».
+- ✅ **Pipeline de canvas** en `admin/src/scripts/recorte.ts`, con **recorte cuadrado
+  centrado automático**. El recorte asistido queda descartado, ver §8.3.
+- ✅ **Formulario de §9** en `admin/src/pages/nuevo.astro`, con aviso de código
+  existente mientras se escribe y alta que ofrece **editar** en vez de fallar.
+- ⬜ Probarlo con fotos de celular reales y publicar uno de punta a punta: es el
+  criterio de salida y todavía no se hizo.
 
 Va **antes** del scrape a propósito: construye y valida el pipeline de imágenes
 con el caso controlado —un archivo elegido a mano— en vez de estrenarlo dentro
