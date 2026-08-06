@@ -119,6 +119,52 @@ export function validarSubida({
   }
 }
 
+/**
+ * Arma los datos de subida desde el `FormData` del navegador.
+ *
+ * Va aparte del endpoint y con tests propios porque es el punto donde entra input no
+ * confiable: un campo faltante o un número que no es número no puede terminar en un
+ * `NaN` viajando hasta el `INSERT`.
+ *
+ * Espera: `hash16`, `anchoOrigen`, `altoOrigen`, `bytesOrigen`, y un archivo por cada
+ * ancho con el nombre `w300` / `w600`.
+ */
+export async function datosDesdeFormulario(form: FormData): Promise<DatosSubida> {
+  const texto = (clave: string): string => {
+    const v = form.get(clave);
+    if (typeof v !== 'string' || v.trim() === '') {
+      throw new Error(`Falta el campo ${clave}.`);
+    }
+    return v.trim();
+  };
+
+  const numero = (clave: string): number => {
+    const n = Number(texto(clave));
+    // `Number('')` es 0 y `Number('x')` es NaN: los dos tienen que cortar acá y no
+    // llegar como 0 a la base.
+    if (!Number.isFinite(n)) throw new Error(`El campo ${clave} no es un número.`);
+    return n;
+  };
+
+  const derivadas = new Map<number, Uint8Array>();
+  for (const ancho of ANCHOS) {
+    const archivo = form.get(`w${ancho}`);
+    if (archivo === null) continue;
+    if (typeof archivo === 'string' || typeof archivo.arrayBuffer !== 'function') {
+      throw new Error(`El campo w${ancho} no es un archivo.`);
+    }
+    derivadas.set(ancho, new Uint8Array(await archivo.arrayBuffer()));
+  }
+
+  return {
+    hash16: texto('hash16'),
+    anchoOrigen: numero('anchoOrigen'),
+    altoOrigen: numero('altoOrigen'),
+    bytesOrigen: numero('bytesOrigen'),
+    derivadas,
+  };
+}
+
 export interface Resultado {
   hash16: string;
   /** `true` si el hash ya existía: no se subió nada. */

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
 import { readFileSync } from 'node:fs';
 
-import { esWebp, guardarImagen, validarSubida } from './subida.ts';
+import { datosDesdeFormulario, esWebp, guardarImagen, validarSubida } from './subida.ts';
 import type { Ejecutar } from './grilla.ts';
 
 /**
@@ -36,9 +36,15 @@ const ejecutor =
   async (sql, params = []) =>
     db.prepare(sql).all(...(params as never[])) as never;
 
-/** Bytes con la firma real de un WebP: `RIFF` + tamaño + `WEBP`. */
-function webp(relleno = 64): Uint8Array {
-  const b = new Uint8Array(12 + relleno);
+/**
+ * Bytes con la firma real de un WebP: `RIFF` + tamaño + `WEBP`.
+ *
+ * Se construye sobre un `ArrayBuffer` explícito y no con `new Uint8Array(n)`: el tipo
+ * por defecto es `Uint8Array<ArrayBufferLike>`, que no encaja en `BlobPart` porque
+ * podría estar respaldado por un `SharedArrayBuffer`.
+ */
+function webp(relleno = 64): Uint8Array<ArrayBuffer> {
+  const b = new Uint8Array(new ArrayBuffer(12 + relleno));
   b.set([0x52, 0x49, 0x46, 0x46], 0); // RIFF
   b.set([0x57, 0x45, 0x42, 0x50], 8); // WEBP
   return b;
@@ -268,4 +274,63 @@ test('si R2 falla, NO queda la fila en la base', async () => {
 
   const cuantas = db.prepare(`SELECT COUNT(*) n FROM imagenes`).get() as { n: number };
   assert.equal(cuantas.n, 0);
+});
+
+// --------------------------------------------------------------------------
+// datosDesdeFormulario — el punto donde entra input no confiable
+// --------------------------------------------------------------------------
+
+function formulario(campos: Record<string, string | Blob> = {}) {
+  const f = new FormData();
+  f.set('hash16', HASH);
+  f.set('anchoOrigen', '4000');
+  f.set('altoOrigen', '3000');
+  f.set('bytesOrigen', '2400000');
+  f.set('w300', new Blob([webp()], { type: 'image/webp' }), 'w300.webp');
+  f.set('w600', new Blob([webp()], { type: 'image/webp' }), 'w600.webp');
+  for (const [k, v] of Object.entries(campos)) {
+    if (v === '') f.delete(k);
+    else f.set(k, v);
+  }
+  return f;
+}
+
+test('datosDesdeFormulario arma la subida completa', async () => {
+  const d = await datosDesdeFormulario(formulario());
+  assert.equal(d.hash16, HASH);
+  assert.equal(d.anchoOrigen, 4000);
+  assert.equal(d.bytesOrigen, 2_400_000);
+  assert.deepEqual([...d.derivadas.keys()].sort(), [300, 600]);
+  assert.equal(esWebp(d.derivadas.get(300)!), true);
+});
+
+test('datosDesdeFormulario acepta una sola derivada', async () => {
+  const d = await datosDesdeFormulario(formulario({ w600: '' }));
+  assert.deepEqual([...d.derivadas.keys()], [300]);
+});
+
+test('datosDesdeFormulario RECHAZA un campo faltante', async () => {
+  for (const clave of ['hash16', 'anchoOrigen', 'altoOrigen', 'bytesOrigen']) {
+    await assert.rejects(
+      async () => datosDesdeFormulario(formulario({ [clave]: '' })),
+      new RegExp(clave),
+      `deberia rechazar sin ${clave}`
+    );
+  }
+});
+
+test('datosDesdeFormulario RECHAZA un numero que no es numero', async () => {
+  // El caso que importa: `Number('')` es 0 y `Number('x')` es NaN. Los dos llegarian
+  // al INSERT como un dato inventado si no se cortan aca.
+  await assert.rejects(
+    async () => datosDesdeFormulario(formulario({ anchoOrigen: 'cuatro mil' })),
+    /no es un número/
+  );
+});
+
+test('datosDesdeFormulario RECHAZA un archivo que vino como texto', async () => {
+  await assert.rejects(
+    async () => datosDesdeFormulario(formulario({ w300: 'no soy un archivo' })),
+    /no es un archivo/
+  );
 });
