@@ -1,0 +1,194 @@
+---
+/**
+ * Alta manual de un producto (SPEC-etapa2 §9).
+ *
+ * El GUARDADO es un POST de formulario común, no un `fetch`. No es purismo: si el
+ * JavaScript falla, se pierden las fotos —que se vuelven a elegir en veinte
+ * segundos— y no diez minutos de tipeo. El JS agrega lo que un formulario no puede:
+ * recortar la foto, buscar el código mientras se escribe, y sumar variantes.
+ */
+import { env } from 'cloudflare:workers';
+
+import Panel from '../layouts/Panel.astro';
+import { crearProducto, type VarianteNueva } from '../lib/alta.ts';
+import { CATEGORIAS, SLUGS_VALIDOS } from '../lib/categorias.ts';
+import { ejecutorD1 } from '../lib/d1.ts';
+import { parsearPrecio } from '../lib/precio.ts';
+
+const ejecutar = ejecutorD1(env.DB);
+
+let error: string | null = null;
+let yaExiste: { codigo: string; nombre: string | null; id: number } | null = null;
+
+if (Astro.request.method === 'POST') {
+  const datos = await Astro.request.formData();
+  const texto = (c: string) => String(datos.get(c) ?? '').trim();
+
+  try {
+    /**
+     * Las variantes viajan como campos paralelos `color[]`, `hex[]` y `fotos[]`, y se
+     * emparejan por posición. Es la forma que un formulario sabe mandar sin JS.
+     */
+    const colores = datos.getAll('color').map(String);
+    const hexes = datos.getAll('hex').map(String);
+    const fotos = datos.getAll('fotos').map(String);
+
+    const variantes: VarianteNueva[] = colores
+      .map((color, i) => ({
+        color: color.trim(),
+        colorHex: hexes[i]?.trim() || null,
+        // Los hashes llegan separados por coma desde el campo oculto que llena el JS.
+        hashes: (fotos[i] ?? '').split(',').map((h) => h.trim()).filter(Boolean),
+      }))
+      // Una fila de variante vacía es una que se agregó y no se completó: se ignora
+      // en vez de fallar.
+      .filter((v) => v.color !== '');
+
+    const resultado = await crearProducto(
+      ejecutar,
+      {
+        codigo: texto('codigo'),
+        nombre: texto('nombre') || null,
+        descripcion: texto('descripcion') || null,
+        precio: parsearPrecio(texto('precio')),
+        destacado: datos.get('destacado') === 'si',
+        categorias: datos.getAll('categorias').map(String).filter(Boolean),
+        variantes,
+      },
+      { categoriasValidas: SLUGS_VALIDOS, ahora: new Date().toISOString() }
+    );
+
+    if (resultado.creado) {
+      // A la grilla filtrada por "sin completar", que es donde acaba de caer.
+      return Astro.redirect(
+        `/productos?estado=sin-completar&q=${encodeURIComponent(resultado.codigo!)}&hechos=1`,
+        303
+      );
+    }
+    yaExiste = {
+      codigo: resultado.existente!.codigo,
+      nombre: resultado.existente!.nombre,
+      id: resultado.existente!.id,
+    };
+  } catch (e) {
+    error = e instanceof Error ? e.message : String(e);
+  }
+}
+---
+
+<Panel titulo="Cargar un producto" volver="/">
+  {
+    yaExiste ? (
+      <p class="resumen resumen--error" role="status">
+        Ya existe un producto con el código <strong>{yaExiste.codigo}</strong>
+        {yaExiste.nombre ? <> — {yaExiste.nombre}</> : null}.{' '}
+        <a href={`/productos?q=${encodeURIComponent(yaExiste.codigo)}&estado=todos`}>
+          Buscarlo en la grilla
+        </a>{' '}
+        para editarlo.
+      </p>
+    ) : error ? (
+      <p class="resumen resumen--error" role="status">{error}</p>
+    ) : null
+  }
+
+  <form method="post" class="alta">
+    <fieldset class="lote">
+      <legend>Datos del producto</legend>
+
+      <p class="campo">
+        <label for="codigo">Código *</label>
+        <input id="codigo" name="codigo" required placeholder="CG85527" autocomplete="off" />
+        <span class="nota" id="aviso-codigo" role="status"></span>
+      </p>
+
+      <p class="campo">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" name="nombre" placeholder="Cartera de fiesta con strass" />
+        <span class="nota">Hace falta para aprobar, pero se puede completar después.</span>
+      </p>
+
+      <p class="campo">
+        <label for="descripcion">Descripción</label>
+        <textarea id="descripcion" name="descripcion" rows="3"></textarea>
+      </p>
+
+      <p class="campo">
+        <label for="precio">Precio</label>
+        <input id="precio" name="precio" inputmode="numeric" placeholder="285.000" />
+        <span class="nota">Vacío se publica como «Consultar precio».</span>
+      </p>
+
+      <p class="campo">
+        <label for="categorias">Categorías *</label>
+        {/* `multiple` acá SÍ: no es un dato por fila como en la grilla, es una
+            eleccion puntual, y la primera define la navegación (§5.1). */}
+        <select id="categorias" name="categorias" multiple size="6" required>
+          {CATEGORIAS.map((c) => <option value={c.id}>{c.nombre}</option>)}
+        </select>
+        <span class="nota">La primera que elijas define la navegación del producto.</span>
+      </p>
+
+      <p class="lote-check-fila">
+        <label class="lote-check">
+          <input type="checkbox" name="destacado" value="si" />
+          Destacado en la portada
+        </label>
+      </p>
+    </fieldset>
+
+    <fieldset class="lote" id="variantes">
+      <legend>Colores *</legend>
+      <p class="nota nota--titulo">
+        Al menos uno. Las fotos son opcionales: sin fotos se publica con el
+        placeholder.
+      </p>
+
+      <div class="variantes-lista" id="variantes-lista">
+        {/* La primera fila viene rendida del servidor para que el formulario sirva
+            aunque el JS no cargue. */}
+        <div class="variante">
+          <p class="campo">
+            <label>Color</label>
+            <input name="color" placeholder="Negro" />
+          </p>
+          <p class="campo campo--hex">
+            <label>Color en pantalla</label>
+            <input name="hex" type="color" value="#1a1a1a" />
+            <span class="nota">Opcional.</span>
+          </p>
+          <input type="hidden" name="fotos" value="" />
+          <div class="fotos" hidden></div>
+        </div>
+      </div>
+    </fieldset>
+
+    <p class="pie-guardar">
+      <button type="submit">Crear producto</button>
+      <span class="nota">Se crea «Sin completar»: después lo aprobás desde la grilla.</span>
+    </p>
+  </form>
+
+  <template id="plantilla-variante">
+    <div class="variante">
+      <p class="campo">
+        <label>Color</label>
+        <input name="color" placeholder="Negro" />
+      </p>
+      <p class="campo campo--hex">
+        <label>Color en pantalla</label>
+        <input name="hex" type="color" value="#1a1a1a" />
+        <span class="nota">Opcional.</span>
+      </p>
+      <input type="hidden" name="fotos" value="" />
+      <div class="fotos" hidden></div>
+    </div>
+  </template>
+</Panel>
+
+<script>
+  import { buscarCodigo, prepararAlta } from '../scripts/alta-cliente.ts';
+
+  prepararAlta();
+  buscarCodigo();
+</script>

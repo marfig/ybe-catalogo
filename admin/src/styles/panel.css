@@ -660,3 +660,77 @@ button[disabled] {
   opacity: 0.6;
   cursor: not-allowed;
 }
+
+/* --------------------------------------------------------------------------
+   Alta manual (§9)
+   -------------------------------------------------------------------------- */
+.alta .campo {
+  flex: 1 1 100%;
+  margin: 0 0 var(--hueco);
+}
+
+.alta textarea {
+  width: 100%;
+  resize: vertical;
+}
+
+.alta input[type='text'],
+.alta input:not([type]),
+.alta select,
+.alta textarea {
+  width: 100%;
+}
+
+.campo--hex {
+  flex: 0 0 auto;
+}
+
+.campo--hex input[type='color'] {
+  /* Un input de color a 100% de ancho es una mancha gigante. */
+  width: 4rem;
+  padding: 0.25rem;
+}
+
+.variantes-lista {
+  display: grid;
+  gap: var(--hueco);
+}
+
+.variante {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--hueco);
+  align-items: flex-start;
+  border: 1px dashed var(--borde);
+  border-radius: var(--radio);
+  padding: var(--hueco);
+}
+
+.variante .campo {
+  flex: 1 1 12rem;
+}
+
+.fotos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  flex-basis: 100%;
+}
+
+.fotos img {
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  object-fit: contain;
+  background: var(--fondo);
+}
+
+/* El boton secundario no compite con el que guarda. */
+button.secundario {
+  background: var(--superficie);
+  color: var(--primario);
+  border-color: var(--borde);
+}
+
+.lote-check-fila {
+  margin: 0;
+}
