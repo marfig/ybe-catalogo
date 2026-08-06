@@ -203,14 +203,18 @@ test('ultimaPublicacion devuelve null si no hubo ninguna', async () => {
 test('hayPublicacionEnCurso detecta pendiente y corriendo', async () => {
   // Sin esto, cinco clicks nerviosos crean cinco filas y el admin muestra un estado
   // que no se corresponde con ningun run.
+  //
+  // El `ahora` va SIEMPRE explicito. Sin pasarlo, la funcion usa el reloj real y el
+  // test compara una fecha fija contra "hoy": paso el dia que se escribio y fallo al
+  // siguiente, cuando la publicacion quedo vencida por el paso de las horas.
   const db = base();
-  assert.equal(await hayPublicacionEnCurso(ejecutor(db)), false);
+  assert.equal(await hayPublicacionEnCurso(ejecutor(db), AHORA), false);
 
   await crearPublicacion(ejecutor(db), { email: 'a@a', ahora: AHORA });
-  assert.equal(await hayPublicacionEnCurso(ejecutor(db)), true);
+  assert.equal(await hayPublicacionEnCurso(ejecutor(db), AHORA), true);
 
   db.prepare(`UPDATE publicaciones SET estado = 'ok'`).run();
-  assert.equal(await hayPublicacionEnCurso(ejecutor(db)), false);
+  assert.equal(await hayPublicacionEnCurso(ejecutor(db), AHORA), false);
 });
 
 test('una publicacion vieja y colgada NO bloquea para siempre', async () => {
