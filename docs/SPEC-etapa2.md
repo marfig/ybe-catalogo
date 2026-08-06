@@ -1578,7 +1578,37 @@ unos quedan cambiados y otros no. Por eso cada operación devuelve un resultado 
 producto** en vez de un booleano, y por eso las dos son idempotentes: reintentar es
 seguro.
 
-- ⬜ Edición (§10.4).
+- ✅ **Edición (§10.4)** en `admin/src/pages/productos/[codigo].astro` — 17 tests.
+  Trae **todo** lo cargado para no retipearlo.
+  - **Es pantalla propia y no un modo del formulario de alta.** Un formulario que es
+    «alta» o «edición» según lo que se tipeó en un campo cambia de significado en
+    silencio, y el caso malo es creer que se está creando algo mientras se pisa un
+    producto publicado. Con URL propia el modo es inequívoco, y además da el enlace
+    que la grilla necesitaba para su código.
+  - **Tres cosas no se editan y están fuera del formulario**, mostradas como dato: el
+    **código** (es la identidad, §5.3), el **estado** (sólo se mueve por las
+    transiciones — si esta pantalla pudiera cambiarlo habría dos caminos para lo mismo
+    y uno se olvidaría de generar el slug) y la **dirección web** (§5.2).
+  - **Quitar una variante se rechaza.** Su SKU ya circuló en pedidos y sus fotos
+    quedarían huérfanas: sacar de circulación es destructivo y tiene sus propias
+    reglas (§12). No puede pasar por borrar una fila sin querer.
+  - El alta con un código existente **redirige a esta pantalla**, no muestra un aviso
+    con un enlace: quien llegó hasta ahí ya dijo qué producto quiere.
+
+#### El SKU se empareja por id, no recalculándolo
+
+Encontrado corriendo, y rompía la edición de **todos** los productos del proveedor.
+
+El SKU de un producto scrapeado es `{codigo}-{codigoColor}` con el prefijo `(X)` del
+origen — `CG85527-E` — y `slug(color)` es sólo el **fallback** para colores sin prefijo
+(`SPEC.md` §6.6). Recalcularlo da `CG85527-champagne`, que no coincide con nada: la
+edición creía que todas las variantes existentes se habían borrado y se negaba a
+guardar.
+
+**El SKU es como el slug: se asigna una vez y no se vuelve a derivar.** Las variantes
+existentes viajan con su `id` en el formulario y se emparejan por ahí; el SKU sólo se
+calcula para las nuevas. El color de una variante existente queda de sólo lectura por
+lo mismo — cambiarlo sería otra variante, no la misma renombrada.
 - ✅ **Publicar (§11.2) con estado visible (§11.3)** e **Inicio (§10.1)** — 24 tests.
   El Inicio pasa a ser `/` y la grilla `/productos`. El botón de publicar vive en el
   Inicio y **no** en la grilla: publicar es una acción de lote sobre *todo* el

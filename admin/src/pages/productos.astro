@@ -428,7 +428,11 @@ const R2 = env.PUBLIC_R2_BASE;
                     </label>
                   </td>
 
-                  <th scope="row" class="codigo">{p.codigo}</th>
+                  {/* El codigo es el enlace a la ficha: es el dato con el que se
+                      identifica el producto, asi que es donde la mano va a ir. */}
+                  <th scope="row" class="codigo">
+                    <a href={`/productos/${encodeURIComponent(p.codigo)}`}>{p.codigo}</a>
+                  </th>
 
                   <td>
                     {p.miniatura ? (

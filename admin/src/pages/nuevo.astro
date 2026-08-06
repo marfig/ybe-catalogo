@@ -18,7 +18,6 @@ import { parsearPrecio } from '../lib/precio.ts';
 const ejecutar = ejecutorD1(env.DB);
 
 let error: string | null = null;
-let yaExiste: { codigo: string; nombre: string | null; id: number } | null = null;
 
 if (Astro.request.method === 'POST') {
   const datos = await Astro.request.formData();
@@ -65,11 +64,17 @@ if (Astro.request.method === 'POST') {
         303
       );
     }
-    yaExiste = {
-      codigo: resultado.existente!.codigo,
-      nombre: resultado.existente!.nombre,
-      id: resultado.existente!.id,
-    };
+    /**
+     * El código ya existe: NO se falla, se manda a editarlo con todo cargado (§9).
+     *
+     * Se redirige en vez de mostrar un aviso con un enlace: quien llegó hasta acá ya
+     * dijo qué producto quiere: hacerle apretar un link más es cobrarle un paso por un
+     * error que no cometió.
+     */
+    return Astro.redirect(
+      `/productos/${encodeURIComponent(resultado.existente!.codigo)}?existia=1`,
+      303
+    );
   } catch (e) {
     error = e instanceof Error ? e.message : String(e);
   }
@@ -77,20 +82,7 @@ if (Astro.request.method === 'POST') {
 ---
 
 <Panel titulo="Cargar un producto" volver="/">
-  {
-    yaExiste ? (
-      <p class="resumen resumen--error" role="status">
-        Ya existe un producto con el código <strong>{yaExiste.codigo}</strong>
-        {yaExiste.nombre ? <> — {yaExiste.nombre}</> : null}.{' '}
-        <a href={`/productos?q=${encodeURIComponent(yaExiste.codigo)}&estado=todos`}>
-          Buscarlo en la grilla
-        </a>{' '}
-        para editarlo.
-      </p>
-    ) : error ? (
-      <p class="resumen resumen--error" role="status">{error}</p>
-    ) : null
-  }
+  {error ? <p class="resumen resumen--error" role="status">{error}</p> : null}
 
   <form method="post" class="alta">
     <fieldset class="lote">

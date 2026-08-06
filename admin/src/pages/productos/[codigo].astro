@@ -1,0 +1,213 @@
+---
+/**
+ * Editar un producto (SPEC-etapa2 §10.4).
+ *
+ * Trae TODO lo cargado para no retipearlo. Es pantalla propia y no un modo del
+ * formulario de alta: un formulario que cambia de significado según lo que se tipeó en
+ * un campo lleva a creer que se está creando algo mientras se pisa un producto
+ * publicado. Acá la URL dice qué producto es y el título también.
+ *
+ * Lo que NO se puede cambiar desde acá está fuera del formulario a propósito — el
+ * código, el estado y la dirección web se muestran como dato, no como campo.
+ */
+import { env } from 'cloudflare:workers';
+
+import Panel from '../../layouts/Panel.astro';
+import { CATEGORIAS, SLUGS_VALIDOS } from '../../lib/categorias.ts';
+import { ejecutorD1 } from '../../lib/d1.ts';
+import { actualizarProducto, cargarProducto } from '../../lib/edicion.ts';
+import { estadoLegible } from '../../lib/grilla.ts';
+import { formatearPrecio, parsearPrecio } from '../../lib/precio.ts';
+
+const ejecutar = ejecutorD1(env.DB);
+const { codigo } = Astro.params;
+
+let error: string | null = null;
+
+if (Astro.request.method === 'POST') {
+  const datos = await Astro.request.formData();
+  const texto = (c: string) => String(datos.get(c) ?? '').trim();
+  const producto = await cargarProducto(ejecutar, codigo ?? '');
+
+  if (!producto) return new Response('No existe ese producto.', { status: 404 });
+
+  try {
+    const colores = datos.getAll('color').map(String);
+    const hexes = datos.getAll('hex').map(String);
+    const fotos = datos.getAll('fotos').map(String);
+    // El id viaja para emparejar las variantes que YA existen. Vacío = es nueva.
+    const ids = datos.getAll('varianteId').map(String);
+
+    await actualizarProducto(
+      ejecutar,
+      producto.id,
+      {
+        nombre: texto('nombre') || null,
+        descripcion: texto('descripcion') || null,
+        precio: parsearPrecio(texto('precio')),
+        destacado: datos.get('destacado') === 'si',
+        categorias: datos.getAll('categorias').map(String).filter(Boolean),
+        variantes: colores
+          .map((color, i) => ({
+            id: ids[i] ? Number(ids[i]) : undefined,
+            color: color.trim(),
+            colorHex: hexes[i]?.trim() || null,
+            hashes: (fotos[i] ?? '').split(',').map((h) => h.trim()).filter(Boolean),
+          }))
+          .filter((v) => v.color !== ''),
+      },
+      { categoriasValidas: SLUGS_VALIDOS, ahora: new Date().toISOString() }
+    );
+
+    return Astro.redirect(`${Astro.url.pathname}?guardado=1`, 303);
+  } catch (e) {
+    error = e instanceof Error ? e.message : String(e);
+  }
+}
+
+const producto = await cargarProducto(ejecutar, codigo ?? '');
+if (!producto) return new Response('No existe ese producto.', { status: 404 });
+
+const guardado = Astro.url.searchParams.get('guardado') === '1';
+const estado = estadoLegible(producto.estado);
+const R2 = env.PUBLIC_R2_BASE;
+---
+
+<Panel titulo={producto.nombre || producto.codigo} volver="/productos">
+  {
+    error ? (
+      <p class="resumen resumen--error" role="status">{error}</p>
+    ) : guardado ? (
+      <p class="resumen" role="status">Cambios guardados.</p>
+    ) : null
+  }
+
+  {/* Los tres datos que NO son editables, juntos y como dato. Si estuvieran entre los
+      campos, parecerían campos deshabilitados por un rato y no invariantes. */}
+  <dl class="fijos">
+    <div>
+      <dt>Código</dt>
+      <dd class="codigo">{producto.codigo}</dd>
+    </div>
+    <div>
+      <dt>Estado</dt>
+      <dd title={estado.explicacion}>{estado.etiqueta}</dd>
+    </div>
+    <div>
+      <dt>Dirección web</dt>
+      <dd>
+        {producto.slug ? (
+          <code>/productos/{producto.slug}</code>
+        ) : (
+          <span class="nota">Se crea al aprobar, y no cambia nunca más.</span>
+        )}
+      </dd>
+    </div>
+  </dl>
+
+  <form method="post" class="alta">
+    <fieldset class="lote">
+      <legend>Datos del producto</legend>
+
+      <p class="campo">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" name="nombre" value={producto.nombre ?? ''} />
+      </p>
+
+      <p class="campo">
+        <label for="descripcion">Descripción</label>
+        <textarea id="descripcion" name="descripcion" rows="3">{producto.descripcion ?? ''}</textarea>
+      </p>
+
+      <p class="campo">
+        <label for="precio">Precio</label>
+        <input id="precio" name="precio" inputmode="numeric" value={formatearPrecio(producto.precio)} placeholder="Consultar" />
+      </p>
+
+      <p class="campo">
+        <label for="categorias">Categorías</label>
+        <select id="categorias" name="categorias" multiple size="6">
+          {
+            CATEGORIAS.map((c) => (
+              <option value={c.id} selected={producto.categorias.includes(c.id)}>
+                {c.nombre}
+              </option>
+            ))
+          }
+        </select>
+        <span class="nota">La primera define la navegación del producto.</span>
+      </p>
+
+      <p class="lote-check-fila">
+        <label class="lote-check">
+          <input type="checkbox" name="destacado" value="si" checked={producto.destacado} />
+          Destacado en la portada
+        </label>
+      </p>
+    </fieldset>
+
+    <fieldset class="lote" id="variantes">
+      <legend>Colores</legend>
+      <p class="nota nota--titulo">
+        Desde acá se agregan colores y fotos. Para <strong>quitar</strong> uno hace
+        falta sacar el producto de circulación: su SKU ya circuló y sus fotos quedarían
+        sueltas.
+      </p>
+
+      <div class="variantes-lista" id="variantes-lista">
+        {
+          producto.variantes.map((v) => (
+            <div class="variante">
+              <p class="campo">
+                <label>Color</label>
+                {/* El color existente va de sólo lectura: cambiarlo cambiaría el SKU,
+                    que ya viajó en pedidos. Sería otra variante, no la misma. */}
+                <input name="color" value={v.color} readonly />
+                <span class="nota">{v.sku}</span>
+              </p>
+              <p class="campo campo--hex">
+                <label>Color en pantalla</label>
+                <input name="hex" type="color" value={v.colorHex ?? '#cccccc'} />
+              </p>
+              <input type="hidden" name="varianteId" value={String(v.id)} />
+              <input type="hidden" name="fotos" value={v.hashes.join(',')} />
+              <div class="fotos">
+                {v.hashes.map((h) => (
+                  <img src={`${R2}/catalogo/${h}/w300.webp`} alt="" width="72" height="72" loading="lazy" />
+                ))}
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </fieldset>
+
+    <p class="pie-guardar">
+      <button type="submit">Guardar cambios</button>
+    </p>
+  </form>
+
+  <template id="plantilla-variante">
+    <div class="variante">
+      <p class="campo">
+        <label>Color</label>
+        <input name="color" placeholder="Rojo" />
+      </p>
+      <p class="campo campo--hex">
+        <label>Color en pantalla</label>
+        <input name="hex" type="color" value="#cccccc" />
+      </p>
+      {/* Sin varianteId: el campo va vacio para que el emparejado por posicion
+          no se desalinee, y ausente significa "es nueva". */}
+      <input type="hidden" name="varianteId" value="" />
+      <input type="hidden" name="fotos" value="" />
+      <div class="fotos"></div>
+    </div>
+  </template>
+</Panel>
+
+<script>
+  import { prepararAlta } from '../../scripts/alta-cliente.ts';
+
+  prepararAlta();
+</script>

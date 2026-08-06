@@ -130,9 +130,17 @@ export function buscarCodigo(): void {
       try {
         const r = await fetch(`/api/codigo?codigo=${encodeURIComponent(codigo)}`);
         const cuerpo = (await r.json()) as { existe: boolean; nombre?: string | null };
-        aviso.textContent = cuerpo.existe
-          ? `Ya existe: ${cuerpo.nombre ?? codigo}. Si lo cargás, se te va a ofrecer editarlo.`
-          : '';
+        if (!cuerpo.existe) {
+          aviso.textContent = '';
+          return;
+        }
+        // Enlace directo a la ficha: quien ya sabe cuál es no tiene por qué llenar
+        // el formulario entero para que recién después lo mandemos ahí.
+        aviso.textContent = `Ya existe: ${cuerpo.nombre ?? codigo}. `;
+        const ir = document.createElement('a');
+        ir.href = `/productos/${encodeURIComponent(codigo)}`;
+        ir.textContent = 'Editarlo';
+        aviso.appendChild(ir);
       } catch {
         // Un aviso que no llega no puede romper el formulario: se calla.
       }
