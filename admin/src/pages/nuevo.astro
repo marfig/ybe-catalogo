@@ -58,9 +58,9 @@ if (Astro.request.method === 'POST') {
     );
 
     if (resultado.creado) {
-      // A la grilla filtrada por "sin completar", que es donde acaba de caer.
+      // A la grilla filtrada por "por aprobar", que es donde acaba de caer.
       return Astro.redirect(
-        `/productos?estado=sin-completar&q=${encodeURIComponent(resultado.codigo!)}&hechos=1`,
+        `/productos?estado=por-aprobar&q=${encodeURIComponent(resultado.codigo!)}&hechos=1`,
         303
       );
     }
@@ -157,7 +157,7 @@ if (Astro.request.method === 'POST') {
 
     <p class="pie-guardar">
       <button type="submit">Crear producto</button>
-      <span class="nota">Se crea «Sin completar»: después lo aprobás desde la grilla.</span>
+      <span class="nota">Se crea «Por aprobar»: después lo aprobás desde la grilla.</span>
     </p>
   </form>
 

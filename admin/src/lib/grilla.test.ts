@@ -132,20 +132,20 @@ function alta(db: DatabaseSync, a: Alta = {}) {
 }
 
 // --------------------------------------------------------------------------
-// Filtro por estado. "Sin completar" es el default: la cola de trabajo.
+// Filtro por estado. "Por aprobar" es el default: la cola de trabajo.
 // --------------------------------------------------------------------------
 
-test('FILTROS declara sin-completar como el primero, que es el default', () => {
-  assert.equal(FILTROS[0].valor, 'sin-completar');
+test('FILTROS declara por-aprobar como el primero, que es el default', () => {
+  assert.equal(FILTROS[0].valor, 'por-aprobar');
 });
 
-test('sin-completar trae solo los importados: la cola de trabajo pendiente', async () => {
+test('por-aprobar trae solo los importados: la cola de trabajo pendiente', async () => {
   const db = base();
   alta(db, { estado: 'importado' });
   alta(db, { estado: 'aprobado' });
   alta(db, { estado: 'publicado' });
 
-  const filas = await listarProductos(ejecutor(db), { estado: 'sin-completar' });
+  const filas = await listarProductos(ejecutor(db), { estado: 'por-aprobar' });
   assert.equal(filas.length, 1);
   assert.equal(filas[0].estado, 'importado');
 });
@@ -247,7 +247,7 @@ test('cuenta colores y fotos, y elige la miniatura de la primera variante', asyn
 test('un producto sin fotos trae miniatura en null, no revienta', async () => {
   const db = base();
   alta(db, { estado: 'importado', variantes: [0] });
-  const [fila] = await listarProductos(ejecutor(db), { estado: 'sin-completar' });
+  const [fila] = await listarProductos(ejecutor(db), { estado: 'por-aprobar' });
   assert.equal(fila.miniatura, null);
   assert.equal(fila.imagenes, 0);
 });
@@ -255,7 +255,7 @@ test('un producto sin fotos trae miniatura en null, no revienta', async () => {
 test('un producto sin variantes tampoco revienta', async () => {
   const db = base();
   alta(db, { estado: 'importado', variantes: [] });
-  const [fila] = await listarProductos(ejecutor(db), { estado: 'sin-completar' });
+  const [fila] = await listarProductos(ejecutor(db), { estado: 'por-aprobar' });
   assert.equal(fila.variantes, 0);
   assert.equal(fila.imagenes, 0);
   assert.equal(fila.miniatura, null);
@@ -272,7 +272,7 @@ test('las categorias vienen en su orden, NO alfabetico', async () => {
 test('un producto sin categorias trae un arreglo vacio', async () => {
   const db = base();
   alta(db, { estado: 'importado', categorias: [] });
-  const [fila] = await listarProductos(ejecutor(db), { estado: 'sin-completar' });
+  const [fila] = await listarProductos(ejecutor(db), { estado: 'por-aprobar' });
   assert.deepEqual(fila.categorias, []);
 });
 

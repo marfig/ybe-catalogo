@@ -76,7 +76,7 @@ const errorAccion = Astro.url.searchParams.get('error');
 
 /** Los cuatro contadores, en el orden del recorrido: entra, se aprueba, se publica. */
 const tarjetas = [
-  { clave: 'importado', filtro: 'sin-completar', n: conteo.importado },
+  { clave: 'importado', filtro: 'por-aprobar', n: conteo.importado },
   { clave: 'aprobado', filtro: 'aprobado', n: conteo.aprobado },
   { clave: 'publicado', filtro: 'publicado', n: conteo.publicado },
   { clave: 'eliminado', filtro: 'eliminado', n: conteo.eliminado },
@@ -147,7 +147,7 @@ const tarjetas = [
   </section>
 
   <nav class="puertas" aria-label="Cargar productos">
-    <a class="puerta" href="/productos?estado=sin-completar">
+    <a class="puerta" href="/productos?estado=por-aprobar">
       <strong>Ver productos</strong>
       <span>Completar datos, aprobar y organizar por categoría.</span>
     </a>

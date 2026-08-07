@@ -13,17 +13,20 @@ export type Ejecutar = <T = Record<string, unknown>>(
   params?: unknown[]
 ) => Promise<T[]>;
 
-export type ValorFiltro = 'sin-completar' | 'aprobado' | 'publicado' | 'eliminado' | 'todos';
+export type ValorFiltro = 'por-aprobar' | 'aprobado' | 'publicado' | 'eliminado' | 'todos';
 
 /**
  * Opciones del filtro de estado, en el orden en que se muestran.
  *
- * `sin-completar` va PRIMERO porque es el default: la cola de trabajo pendiente
+ * `por-aprobar` va PRIMERO porque es el default: la cola de trabajo pendiente
  * (§10.3). Ocupa el lugar de la seccion `SIN CURAR` del reporte de SPEC.md §6.6,
  * pero en pantalla y accionable.
+ *
+ * Se llama «Por aprobar» y no «Sin completar» porque nombra la ACCION que falta, no
+ * una carencia: la lista es una cola de trabajo y su nombre tiene que decir qué hacer.
  */
 export const FILTROS = [
-  { valor: 'sin-completar', etiqueta: 'Sin completar', estado: 'importado' },
+  { valor: 'por-aprobar', etiqueta: 'Por aprobar', estado: 'importado' },
   { valor: 'aprobado', etiqueta: 'Listos para publicar', estado: 'aprobado' },
   { valor: 'publicado', etiqueta: 'En el catálogo', estado: 'publicado' },
   { valor: 'eliminado', etiqueta: 'Papelera', estado: 'eliminado' },
@@ -46,8 +49,8 @@ export const FILTROS = [
  */
 export const ESTADOS_LEGIBLES = {
   importado: {
-    etiqueta: 'Sin completar',
-    explicacion: 'No se ve en el sitio. Le faltan datos.',
+    etiqueta: 'Por aprobar',
+    explicacion: 'No se ve en el sitio. Falta completarlo y aprobarlo.',
   },
   aprobado: {
     etiqueta: 'Listo para publicar',
