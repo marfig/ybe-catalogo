@@ -80,36 +80,58 @@ export default defineConfig({
 
   /**
    * ============================================================================
-   * BUG CONOCIDO DE DESARROLLO — el 500 del optimizador de deps
+   * EL 500 DEL OPTIMIZADOR DE DEPS — resuelto, y por qué
    * ============================================================================
    *
-   * Sintoma: en `astro dev`, cada tanto y SIN TOCAR NADA, un 500 con
+   * Síntoma: en `astro dev`, cada tanto, un 500 con
    *
-   *   The file does not exist at ".vite/deps_ssr/
-   *   @astrojs_cloudflare_entrypoints_server.js?v=..." which is in the optimize
-   *   deps directory.
+   *   The file does not exist at ".vite/deps_ssr/<algo>.js?v=094fef51" which is in
+   *   the optimize deps directory.
    *
-   * Mecanismo, verificado leyendo `@cloudflare/vite-plugin`: el entorno de
-   * Cloudflare corre con `resolve.noExternal: true` — en Workers nada puede quedar
-   * externo — y con `optimizeDeps.noDiscovery: false`. O sea que TODA dependencia
-   * entra al optimizador y se descubre progresivamente. El grafo trae `prismjs` con
-   * ~1200 archivos: cada tanda de descubrimiento vuelve a empaquetar, el cache
-   * cambia de `?v=`, y una referencia en vuelo apunta al hash viejo. En SSR eso no
-   * se recupera con un reload del navegador: es un 500.
+   * CAUSA. El entorno `ssr` que arma `@cloudflare/vite-plugin` corre con
+   * `resolve.noExternal: true` —en Workers nada puede quedar externo— y con
+   * `optimizeDeps.noDiscovery: false`, así que toda dependencia entra al optimizador.
+   * Sus entradas de rastreo son:
    *
-   * MITIGACION: `npm run dev` borra el cache antes de arrancar (ver package.json).
-   * No es una cura — el 500 puede volver a mitad de sesion sin reiniciar — pero
-   * cada arranque queda limpio y ahi se corta la mayoria de los casos.
+   *   ['@astrojs/cloudflare/entrypoints/server',
+   *    'src/**\/*.{jsx,tsx,vue,svelte,html,astro}']
    *
-   * LO QUE SE PROBO Y NO FUNCIONA, para no repetirlo:
-   *   - `vite.optimizeDeps.exclude` del adapter: el archivo sigue apareciendo en
-   *     `deps_ssr`. Es el cache SSR y esa rama no lo gobierna.
-   *   - `vite.ssr.optimizeDeps.exclude`: idem. El entorno del plugin tiene nombre
-   *     dinamico, asi que la exclusion no le llega.
-   *   - `markdown.syntaxHighlight: false` para sacar Prism del grafo: medido, sigue
-   *     en 1561 archivos con 1194 de prismjs. Prism no entra por la config de
-   *     markdown.
+   * y los `.ts` NO están en ese glob. Los módulos de `src/lib/` y `src/scripts/`
+   * quedaban sin rastrear al arrancar y se descubrían recién cuando una ruta los
+   * importaba, en pleno request: ahí el optimizador encontraba dependencias nuevas,
+   * volvía a empaquetar, el cache cambiaba de `?v=`, y la referencia en vuelo
+   * apuntaba al hash viejo. En SSR eso no se recupera con un reload: es el 500.
    *
-   * La cura es del lado del plugin. Si el 500 aparece, `npm run dev` de nuevo.
+   * Por eso empeoraba con el tiempo: cada módulo nuevo en `lib/` sumaba una mina.
+   *
+   * VERIFICADO CON UN A/B, no deducido. Con los `.ts` en las entradas, el
+   * `browserHash` de `deps_ssr/_metadata.json` queda igual después de recorrer todas
+   * las rutas. Sin ellos, pasa de `551f147d` a `094fef51` — que es exactamente el
+   * hash del error reportado.
+   *
+   * LO QUE SE PROBÓ ANTES Y NO SIRVE, para no repetirlo:
+   *   - `vite.optimizeDeps.exclude` y `vite.ssr.optimizeDeps.exclude`: son la rama
+   *     legada y no llegan al entorno del plugin. Hay que usar `environments.ssr`.
+   *   - `markdown.syntaxHighlight: false` para achicar el grafo: medido, seguía en
+   *     1561 archivos. Prism no entra por la config de markdown.
+   *   - Borrar `node_modules/.vite`: arregla por un rato porque fuerza un arranque
+   *     limpio, pero el 500 vuelve solo al tocar una ruta no rastreada.
    */
+  vite: {
+    environments: {
+      ssr: {
+        optimizeDeps: {
+          /**
+           * Esta lista REEMPLAZA la del plugin, no se suma: por eso hay que repetir
+           * la entrada del adapter. Si un día aparece otra extensión en `src/`,
+           * agregarla acá o el 500 vuelve.
+           */
+          entries: [
+            '@astrojs/cloudflare/entrypoints/server',
+            'src/**/*.{js,ts,jsx,tsx,vue,svelte,html,astro}',
+          ],
+        },
+      },
+    },
+  },
 });
