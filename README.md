@@ -194,11 +194,15 @@ indexa esa URL, después compite con el dominio propio por las mismas páginas.
   1 request/segundo e idempotencia. Cerrada.
 - **Fase 2.6** — eliminación y papelera: borrado físico de lo que nunca se publicó,
   lógico de lo que sí, restaurar y vaciar. Cerrada.
+- **Fase 2.7** — el código del producto, visible en la ficha y en el mensaje de
+  WhatsApp. Cerrada.
 - **Fases 2.2, 2.3 y 2.4** — volcado a D1, admin de lectura y edición, y carga
   manual. **El código está completo y probado en local**; siguen abiertas porque su
   criterio de salida exige el deploy y Cloudflare Access configurado, que se dejaron
   para el final a propósito.
-- Pendiente de la etapa 2: **2.7** (el código como campo visible).
+- **Todo el código de la etapa 2 está escrito.** Lo que falta para cerrarla es el
+  deploy del admin con Cloudflare Access configurado, que es el criterio de salida de
+  las fases 2.2, 2.3 y 2.4.
 - Pendiente fuera de la etapa 2: buscador por código o nombre en el sitio público;
   el scrape del catálogo **viejo** (otro sitio, migración de una sola vez); logo
   definitivo (SVG y variante monocromática); redes sociales; **dominio propio**.

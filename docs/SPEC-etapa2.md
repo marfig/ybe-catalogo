@@ -2020,12 +2020,40 @@ va a la papelera y se restaura con la misma URL; y vaciar informa qué se lleva 
 de hacerlo. ✅ Verificado sobre la base local, incluida la purga de un eliminado de
 2025 que no tocó uno de agosto.
 
-### Fase 2.7 — El código como campo visible (desplegable)
+### Fase 2.7 — El código como campo visible (desplegable) · **CERRADA 2026-08-07**
 
-- Código en la ficha del producto.
-- Código en el mensaje de WhatsApp.
-- Campo `k` en el índice de búsqueda de `SPEC.md` §9.4, para cuando llegue la
-  Fase 3.
+- ✅ **Código en la ficha, junto al nombre.** Ya se renderizaba, pero en la lista de
+  abajo entre la marca y las categorías. Se subió: es el dato con el que un cliente
+  pregunta, así que va donde la vista cae primero.
+- ✅ **Código en el mensaje de WhatsApp** — 6 tests nuevos en `src/lib/whatsapp.ts`.
+- ⬜ Campo `k` en el índice de búsqueda de `SPEC.md` §9.4. **No entra: ese índice es
+  de la Fase 3 de `SPEC.md` y todavía no existe.** Queda anotado acá y en §5.3 para
+  cuando se construya.
+
+El mensaje quedó así:
+
+```
+Hola! Me interesa este producto:
+
+Mochila juvenil acolchada — Negro
+Código: CG84455
+https://…/productos/mochila-juvenil-acolchada
+```
+
+- **El código va rotulado y en su propia línea**, no pegado al nombre entre
+  paréntesis. Quien atiende ESCANEA la conversación en vez de leerla, y un `CG85527`
+  suelto se confunde con parte del nombre del producto.
+- **La URL queda siempre al final**: es lo que la mayoría de los clientes de chat
+  convierten en vista previa, y texto después la parte al medio.
+- **`codigo` es opcional y un valor en blanco se trata como ausente.** Si un día una
+  ficha se rinde sin él, el botón principal del sitio no puede quedar roto ni mostrar
+  «Código:» sin nada al lado, que se lee como un error del sitio.
+
+**No se agregó un campo `codigo` a `productos.json`.** Ya está en `origen.ref`, y
+§5.3-3 lo diseñó así para absorber el producto manual sin tocar el schema de Astro.
+Dos copias del identificador es una que se puede desincronizar. Lo que se corrigió es
+el comentario de `content.config.ts`, que decía «no se renderiza» y era cierto hasta
+esta fase.
 
 Va última porque es la única que toca `src/`, y conviene hacerlo cuando el resto
 ya está estable.
