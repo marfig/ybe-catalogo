@@ -38,10 +38,14 @@ export async function hash16De(archivo: File): Promise<string> {
     .slice(0, 16);
 }
 
-/** Dibuja el recorte en un cuadrado de `lado` y devuelve el WebP. */
+/**
+ * Dibuja en un cuadrado de `lado` y devuelve el WebP.
+ *
+ * Sin `recorte` entra la imagen entera, escalada y centrada: es el camino del scrape.
+ */
 async function derivada(
   imagen: ImageBitmap,
-  recorte: Recorte,
+  recorte: Recorte | undefined,
   lado: number
 ): Promise<Blob> {
   const lienzo = new OffscreenCanvas(lado, lado);
@@ -77,12 +81,41 @@ async function derivada(
  */
 export async function subirFoto(archivo: File, recorte?: Recorte): Promise<FotoLista> {
   const imagen = await createImageBitmap(archivo);
-  const marco = recorte ?? recorteCentrado(imagen.width, imagen.height);
+  return subir(archivo, imagen, recorte ?? recorteCentrado(imagen.width, imagen.height));
+}
 
-  const anchos = anchosParaLado(marco.lado);
+/**
+ * Lo mismo, pero para una foto que vino del proveedor: **entra entera y se rellena con
+ * blanco** (§8.1).
+ *
+ * NO ES EL MISMO ENCUADRE QUE EL ALTA MANUAL, Y NO PUEDE SERLO. Una foto de celular son
+ * 4000×3000 con encuadre arbitrario, y ahí el cuadrado centrado acerca el producto
+ * (§8.3). Una foto del proveedor ya viene compuesta sobre fondo blanco: recortarle un
+ * cuadrado centrado le corta los costados al producto — un sillón de 800×600 pierde los
+ * apoyabrazos. Y nadie está mirando cuando pasa, porque el scrape corre solo.
+ *
+ * `null` como recorte es exactamente lo que `calcularEncuadre` entiende por «la imagen
+ * completa, escalada y centrada en el cuadrado».
+ */
+export async function subirFotoDelOrigen(archivo: File): Promise<FotoLista> {
+  const imagen = await createImageBitmap(archivo);
+  return subir(archivo, imagen, undefined);
+}
+
+/** El tronco común: elegir derivadas, dibujarlas, subirlas. */
+async function subir(archivo: File, imagen: ImageBitmap, marco?: Recorte): Promise<FotoLista> {
+  /**
+   * El lado que decide qué derivadas entran: el del RECORTE cuando hay recorte, y el
+   * mayor del original cuando la imagen entra entera. Mirar siempre el original diría
+   * que un recorte de 250 px puede dar `w300`, que son 50 píxeles inventados.
+   */
+  const lado = marco ? marco.lado : Math.max(imagen.width, imagen.height);
+
+  const anchos = anchosParaLado(lado);
   if (anchos.length === 0) {
+    imagen.close();
     throw new Error(
-      `El recorte quedó en ${marco.lado} px y hacen falta al menos 300. ` +
+      `La imagen quedó en ${lado} px y hacen falta al menos 300. ` +
         'Ampliar inventaría píxeles: mejor una foto más grande.'
     );
   }
@@ -104,7 +137,7 @@ export async function subirFoto(archivo: File, recorte?: Recorte): Promise<FotoL
 
   // La vista previa sale del canvas que ya se dibujó, no de la red: la foto todavía
   // no está en el CDN y pedirla daría 404 por unos segundos.
-  const chica = await derivada(imagen, marco, Math.min(300, marco.lado));
+  const chica = await derivada(imagen, marco, Math.min(300, lado));
   imagen.close();
 
   return { hash16: cuerpo.hash16, vistaPrevia: URL.createObjectURL(chica) };
