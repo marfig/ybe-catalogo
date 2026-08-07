@@ -182,6 +182,10 @@ Como `productos.json` se comitea en cada publicación:
 
 ### 5.1 Esquema
 
+Es el esquema **acumulado**: `db/migrations/0001` más lo que agregaron `0002` y `0003`,
+anotado en cada caso. La fuente de verdad son los archivos de migración; esto es su
+lectura en limpio.
+
 ```sql
 -- Un producto. La unidad de curaduría y de publicación.
 CREATE TABLE productos (
@@ -202,11 +206,25 @@ CREATE TABLE productos (
   scrape_id     INTEGER REFERENCES scrapes(id),
   creado_en     TEXT    NOT NULL,
   actualizado_en TEXT   NOT NULL,
-  publicado_en  TEXT                       -- primera publicacion. NULL = nunca fue publico
+  publicado_en  TEXT,                      -- primera publicacion. NULL = nunca fue publico
+  cambio_en_origen TEXT                    -- migracion 0003. El aviso que pide §7.5:
+                                           -- el proveedor sumo un color y hay que
+                                           -- mirarlo. FECHA y no booleano, para poder
+                                           -- ordenar la revision por antiguedad.
+                                           -- NULL = sin novedad
 );
 
 CREATE INDEX idx_productos_estado ON productos(estado);
-CREATE INDEX idx_productos_codigo ON productos(codigo);
+CREATE INDEX idx_productos_proveedor ON productos(proveedor);
+
+-- Migracion 0002. El UNIQUE de arriba NO garantizaba la unicidad: la collation por
+-- defecto es BINARY, asi que 'cg85527' y 'CG85527' pasaban como dos productos.
+CREATE UNIQUE INDEX idx_productos_codigo_nocase ON productos(upper(codigo));
+
+-- Migracion 0003. Parcial: solo indexa las filas con aviso, que son pocas. La
+-- consulta del admin es "cuales tienen novedad", nunca "cual es la fecha de este".
+CREATE INDEX idx_productos_cambio_en_origen
+  ON productos(cambio_en_origen) WHERE cambio_en_origen IS NOT NULL;
 
 -- Un color del producto. Comparte nombre y precio con el producto (SPEC §4.2).
 CREATE TABLE variantes (
@@ -569,14 +587,38 @@ lanzamientos, que son decenas de productos y termina en minutos.
 
 | Endpoint | Qué hace |
 |---|---|
-| `POST /api/scrape/listado` | Recibe `{ url }`. Devuelve URLs de fichas y URL de la página siguiente. Crea la fila en `scrapes` si es la primera página |
-| `POST /api/scrape/ficha` | Recibe `{ scrapeId, url }`. Extrae código, colores hermanos, categoría de origen e imágenes. Hashea, guarda en D1 y sube a R2 lo nuevo |
-| `POST /api/scrape/cerrar` | Marca el `scrape` como `terminado` y devuelve el resumen |
+| `POST /api/scrape/listado` | Recibe `{ url, scrapeId? }`. Devuelve URLs de fichas y todas las páginas del lanzamiento. Crea la fila en `scrapes` si es la primera página |
+| `POST /api/scrape/ficha` | Recibe `{ scrapeId, url }`. Extrae código, colores hermanos y categoría de origen, y **registra en D1**. Devuelve las URLs de las fotos de cada color. **No toca R2** |
+| `POST /api/scrape/imagen` | Recibe `{ sku, url }`. Baja la foto del proveedor y hashea los bytes originales. Si el hash ya existe, la vincula y termina. Si es nueva, **devuelve los bytes crudos** |
+| `POST /api/scrape/vincular` | Recibe `{ sku, hash16 }`. Ata una imagen ya subida a su variante |
+| `POST /api/scrape/cerrar` | Marca el `scrape` como `terminado` (o `abortado`) y devuelve el resumen |
 
-La unidad de `/api/scrape/ficha` es el **modelo**, no la página: el bloque
-`#other-colors-tbl` de una sola ficha ya revela todos los colores hermanos
-(`SPEC.md` §2.3), así que no hace falta recorrer el catálogo dos veces. Las
-fichas de los colores hermanos se marcan como visitadas y no se vuelven a pedir.
+#### Por qué `ficha` no sube imágenes — costura corregida el 2026-08-06
+
+La versión anterior de esta tabla decía que `/api/scrape/ficha` *«hashea, guarda en
+D1 y sube a R2 lo nuevo»*. **No puede**, y lo contradecía §8.1 en la misma spec: no
+hay `sharp` en Workers, así que el que deriva `w300`/`w600` es el `<canvas>` del
+navegador. Pero el navegador tampoco puede bajar la foto del proveedor — es otro
+origen y no hay CORS.
+
+El reparto real necesita dos endpoints más:
+
+1. `ficha` registra la estructura y devuelve las URLs de las fotos.
+2. `imagen` hace de **puente**: baja del proveedor y hashea el ORIGINAL. Si ya lo
+   conoce, corta ahí y la foto no viaja — es lo que hace barato repetir una corrida.
+3. El navegador deriva con canvas y sube a `POST /api/imagenes`, que registra el
+   **contenido**.
+4. `vincular` dice **de quién es**. Va aparte porque la misma foto puede pertenecer
+   a variantes de productos distintos, que es el dedupe de `SPEC.md` §6.8.
+
+Es, además, el escalón 2 de la escalera de mitigación de §7.3 — «un request por
+imagen para el hash y la subida, separado del parseo» — aplicado no por CPU sino
+porque el Worker no puede redimensionar.
+
+La unidad de `/api/scrape/ficha` es el **modelo**, no la página: el bloque de
+colores de una sola ficha ya revela todos los colores hermanos (`SPEC.md` §2.3),
+así que no hace falta recorrer el catálogo dos veces. Las fichas de los colores
+hermanos se marcan como visitadas y no se vuelven a pedir.
 
 #### Estructura del origen — verificada el 2026-08-03
 
@@ -588,6 +630,8 @@ fichas de los colores hermanos se marcan como visitadas y no se vuelven a pedir.
 | Colores hermanos | Sección «Colores Disponibles» de la ficha | Link y nombre con prefijo `(X)`. **Presente también en fichas alcanzadas desde lanzamientos** (verificado sobre `/producto/71803-cg86003`) |
 | Imágenes | `/Prelude-images/product/{80hex}.jpg` | Los `src` traen **puerto explícito** `:443`. Hay que normalizar con `new URL()`; comparar strings crudos duplicaría cada imagen |
 | Nombre del color | **`title` de la miniatura** del hermano | `img title="(A) VERDE OSCURO"`. El `<a>` trae `title="Ver en este color"` |
+| **Color de la ficha abierta** | **`og:title` y `<title>`** | `Producto: {CODIGO} ({X}) {NOMBRE}`. **NO está en el bloque de colores.** Ver abajo |
+| **Foto de cada color hermano** | El `src` de esa misma miniatura | **600 × 600, el mismo archivo que sirve su propia ficha.** Ver abajo |
 | Nombre comercial | **No existe** | El título es el código. `SPEC.md` §2.3 confirmado |
 | Precio | **No existe** | Portal de revendedores, detrás de login. `SPEC.md` §2.3 confirmado |
 | Descripción / medidas | **No existe** | El rótulo «Medidas aprox. (alto x largo x ancho):» está en la plantilla, pero **la celda del valor viene vacía** en las 2 fichas verificadas. `SPEC.md` §2.3 confirmado |
@@ -597,6 +641,72 @@ fichas de los colores hermanos se marcan como visitadas y no se vuelven a pedir.
 nombre, el precio, la descripción y la categoría los escribe una persona. Es
 justamente lo que hace razonable pedirle también la categoría (§5.4c): ya está
 frente al formulario.
+
+#### El color de la propia ficha sólo está en el título — medido el 2026-08-06
+
+**Ausente de la spec hasta acá, y omitirlo perdía un color por modelo.**
+
+El bloque de colores de una ficha lista **únicamente a los hermanos**: la ficha
+abierta no se enlaza a sí misma. Sobre `/producto/71163-cg85700` se ven
+`(T) MARRON CLARO` y `(B) MARRON`, y en ningún lado el `(3) NEGRO` que es el color
+que estás mirando.
+
+El único lugar donde aparece es el título:
+
+```html
+<meta property="og:title" content="Producto: CG85700 (3) NEGRO">
+<title>Producto: CG85700 (3) NEGRO</title>
+```
+
+Verificado sobre 5 fichas reales. El formato es `Producto: {CODIGO} ({X}) {NOMBRE}`,
+y el código del título se compara con el de la URL: un título de otro código no
+aporta color.
+
+**El síntoma de no hacerlo es silencioso y engañoso**: de un modelo de 3 colores
+entran 2, y el que falta es SIEMPRE el que estabas mirando. Sin ningún error.
+
+#### La foto del color hermano ya viene en la ficha visitada — medido el 2026-08-07
+
+**Ausente de la spec, y omitirlo dejaba sin imagen a todos los colores menos uno.**
+
+La imagen del bloque de colores **no es una miniatura de baja resolución**. Es el
+mismo archivo que sirve la ficha propia del hermano: mismo hash de 80 hex, mismo
+peso al byte. Medido sobre `/producto/71163-cg85700`:
+
+| Color | Archivo | Medidas | Bytes | ¿Igual al de su ficha? |
+|---|---|---|---|---|
+| `(3) NEGRO` (propio) | `fa9b2d5d…jpg` | 600 × 600 | 124 472 | — |
+| `(T) MARRON CLARO` | `0a3e8919…jpg` | 600 × 600 | 115 561 | **Sí** |
+| `(B) MARRON` | `a6d21d08…jpg` | 600 × 600 | 127 913 | **Sí** |
+
+**Consecuencia de diseño, y es la buena:** no hay que visitar la ficha de cada
+hermano. Un modelo de N colores sigue costando **una** ficha, y todos sus colores se
+quedan con su foto. Ir a buscarlas de a una habría multiplicado por N el tráfico al
+proveedor para traer bytes que ya estaban en la mano.
+
+**El síntoma de no hacerlo** — que es cómo se encontró — es que se importa el
+modelo, aparecen sus tres colores en la grilla, y sólo el de la ficha visitada tiene
+imagen.
+
+Ojo con la dirección de la regla: la foto del hermano es **del hermano**. No entra
+a la galería de la ficha actual, porque le colgaría a esa variante la foto del color
+equivocado, y eso llega hasta el cliente que pide por WhatsApp.
+
+#### El listado enlaza OTROS lanzamientos: hay que filtrar por `lz`
+
+La página de un lanzamiento enlaza también los anteriores (`?lz=2026-07-14`,
+`?lz=2026-06-10`…). Seguir esos enlaces convierte «importar la tanda del 16 de
+julio» en «importar el catálogo entero» sin que nadie lo haya pedido — unos 1.500
+modelos a un request por segundo.
+
+La regla: una URL de paginación cuenta **sólo si su `lz` es el mismo** que el de la
+página que se pidió.
+
+Y hay una trampa de identidad al contar páginas: quien opera pega
+`?lz=2026-07-16`, **sin `page`**, y la paginación de esa misma página se enlaza a sí
+misma como `?lz=2026-07-16&page=1`. Son dos strings distintos y la misma página. Sin
+normalizar —`page` ausente ≡ `page=1`— la primera página se pide **dos veces** y sus
+fichas se cuentan dos veces en el progreso.
 
 #### Las tres clases de imagen — y por qué confundirlas rompe el scrape
 
@@ -754,7 +864,7 @@ Sin `manifest.json` (§5.3), la idempotencia sale de las restricciones de la bas
 | Un modelo ya importado | `productos.codigo UNIQUE` ⇒ `UPDATE`, no `INSERT` |
 | Una variante ya existente | `variantes.sku UNIQUE` |
 | Una imagen ya subida | `imagenes.hash16 UNIQUE` ⇒ no se procesa ni se sube |
-| Una ficha ya visitada en esta corrida | Se consulta por `codigo` antes de pedirla |
+| Una ficha ya visitada en esta corrida | El **navegador** la saltea por `codigo` antes de pedirla. El servidor también corta, pero recién después de bajarla: para cuando se entera, el request al proveedor ya salió |
 
 **Nunca se pisa curaduría.** Un `UPDATE` sobre un producto en estado `aprobado`,
 `publicado` o `eliminado` toca únicamente los campos de origen —
@@ -768,6 +878,12 @@ Un color nuevo del proveedor entra como variante nueva y **el producto queda
 marcado con un aviso en el admin** — «este producto cambió en el origen» — para
 que se revise. No se autopublica un color que nadie miró.
 
+Ese aviso es la columna `productos.cambio_en_origen` de §5.1, que **no existía en el
+esquema original**: la regla estaba escrita acá y no había dónde guardarla. La agrega
+la migración `0003`. Es una fecha y no un booleano —así la revisión se puede ordenar
+por antigüedad— y se limpia cuando una persona revisa el producto, **no cuando se
+publica**: publicar sin mirar es exactamente lo que el aviso existe para evitar.
+
 ---
 
 ## 8. Pipeline de imágenes
@@ -779,20 +895,55 @@ procesamiento: es moverlo al único lugar del sistema que ya tiene un motor de
 imágenes completo y gratis, **el navegador**, vía `<canvas>`.
 
 ```
-worker: GET imagen del proveedor
+POST /api/scrape/imagen  { sku, url }
+   │
+worker: GET imagen del proveedor        ← el navegador no puede: otro origen, sin CORS
    │
    ├── SHA-256 de los BYTES ORIGINALES  ──▶ ¿hash16 ya en D1?
-   │                                            │ si ⇒ reusar, fin
+   │                                            │ si ⇒ vincular, fin. NO viaja
    │                                            │ no ⇓
-   ├── devuelve los bytes al navegador
+   ├── devuelve los bytes crudos (hash en el header X-Hash16)
    │
 navegador: canvas
    ├── encaja en cuadrado, rellena con blanco (SPEC §5.3, §6.10)
    ├── nunca amplia (SPEC §5.5)
    ├── exporta w600 y w300 en WebP q82
    │
-   └── POST al worker ──▶ PUT R2 catalogo/{hash16}/w{300,600}.webp
+   ├── POST /api/imagenes ──────▶ PUT R2 catalogo/{hash16}/w{300,600}.webp
+   │                              (registra el CONTENIDO)
+   └── POST /api/scrape/vincular  (dice de QUIEN es)
 ```
+
+**El corte del hash es lo que hace barato repetir una corrida.** Una foto ya conocida
+muere en el Worker y no viaja: ni bajada al navegador, ni derivadas, ni subida.
+
+**El navegador verifica el hash que le devuelve `/api/imagenes` contra el `X-Hash16`
+del Worker.** Los dos se calcularon sobre los mismos bytes con el mismo algoritmo, así
+que una diferencia significa que el cuerpo llegó cortado. Sin ese corte la foto se
+guardaría bajo una clave que el Worker nunca vio: el dedupe se rompe y R2 junta
+duplicados, en silencio y para siempre.
+
+**El encuadre del scrape NO es el del alta manual.** Acá la imagen entra **entera** y
+lo que sobra se rellena de blanco. El recorte cuadrado centrado de §8.3 es para fotos
+de celular; aplicado a una foto del proveedor le corta los costados al producto — un
+sillón de 800 × 600 pierde los apoyabrazos — y nadie está mirando cuando pasa, porque
+el scrape corre solo.
+
+#### En desarrollo, las miniaturas se leen del R2 local
+
+En `astro dev` el binding `IMAGENES` es un bucket de **miniflare** que vive en
+`.wrangler/state/`, pero `PUBLIC_R2_BASE` apunta al dominio público del bucket de
+Cloudflare. Se escribe en un lado y se lee del otro, así que todo lo recién subido da
+404.
+
+El admin resuelve eso con `GET /img-dev/catalogo/{hash16}/w{300,600}.webp`, que lee
+del binding y **sólo existe en desarrollo**. En producción las imágenes las sirve el
+dominio público del bucket con su `Cache-Control` inmutable (§5.1): dejar la ruta viva
+ahí sería una segunda URL para el mismo contenido y egress a través del Worker por
+algo que R2 ya entrega gratis.
+
+La validación de la clave no es opcional: el endpoint lee del bucket con lo que llega
+por URL, así que sin ella cualquier objeto sería descargable por su nombre.
 
 **El hash se calcula sobre los bytes originales, en el Worker.** No sobre el WebP
 que produce el navegador. Es deliberado: el encoder WebP varía entre navegadores
@@ -863,6 +1014,11 @@ más chico que 300 px, que no genera derivadas porque ampliar inventaría píxel
 El hash acá sí se calcula sobre el archivo original elegido, en el navegador
 (`crypto.subtle`), y se manda junto con las derivadas.
 
+**Son dos encuadres distintos, no uno con parámetros.** La carga manual recorta un
+cuadrado centrado; el scrape encaja la imagen entera y rellena (§8.1). Compartir una
+sola función con el default puesto en «recortar» le cortaba los costados a las fotos
+del proveedor, sin que nadie lo viera, porque el scrape corre solo.
+
 ---
 
 ## 9. Carga manual de un producto
@@ -878,12 +1034,40 @@ Formulario de alta que produce exactamente la misma fila que el scrape, en estad
 | Precio | Opcional. Vacío ⇒ «Consultar precio» |
 | Categorías | Al menos una, del listado de `categorias.json` |
 | Destacado | Opcional |
-| Variantes | Al menos una. Color obligatorio, hex opcional (**nunca se inventa**, `SPEC.md` §6.6) |
+| Variantes | Al menos una. Color obligatorio. **El hex no se carga desde el admin**, ver abajo |
 | Fotos | Por variante, con el recorte de §8.3. Cero fotos es válido: se publica con placeholder |
 
 El SKU se arma como `{codigo}-{slug(color)}`, siguiendo la regla de `SPEC.md`
 §6.6 para colores sin prefijo del proveedor. Nunca un índice posicional: agregar
 un color no mueve los SKU existentes.
+
+#### El `color_hex` no se carga desde el admin — decidido el 2026-08-07
+
+El formulario tenía un `<input type="color">` rotulado «Color en pantalla · Opcional».
+**Se retiró de las dos pantallas (alta y edición) y también del camino de escritura.**
+
+El motivo es que la promesa era imposible de cumplir: **`<input type="color">` no
+tiene estado vacío.** Siempre devuelve un color. Y `SPEC.md` §6.6 —repetido en el
+comentario de la columna en §5.1— dice que `color_hex` es `#rrggbb` **o NULL, y nunca
+se inventa**. Las dos cosas no pueden ser ciertas a la vez.
+
+En la práctica: el scrape nunca escribe esa columna, así que todo lo importado queda
+en NULL. Al abrir un producto importado para ponerle nombre y precio, el formulario
+mandaba el default del input para **todos** sus colores, y el sitio público dibujaba
+una bolita de ese color al lado de cada uno. Un dato que nadie eligió, presentado como
+si alguien lo hubiera elegido.
+
+Sin valor, el selector de variante del sitio **cae a botón con texto**, que es lo que
+`SPEC.md` §4.2 ya preveía. No se pierde nada que estuviera funcionando.
+
+Sacar sólo el input no alcanzaba: el `UPDATE` de la edición escribía la columna en
+cada guardado, así que un formulario que dejara de mandarla habría **borrado en
+silencio** los valores ya cargados. El `UPDATE` toca ahora únicamente el orden.
+
+**Queda pendiente y asumido:** hoy no hay forma de asignar un color de pantalla a un
+producto nuevo. Los que ya lo tienen lo conservan. Si algún día hace falta, el control
+tiene que tener un estado vacío de verdad — un campo de texto validado o una paleta
+con opción «sin color», no un `type="color"`.
 
 ---
 
@@ -902,7 +1086,7 @@ Estado del catálogo de un vistazo, y el estado de la última publicación (§11
 │  Catálogo                                                │
 │                                                          │
 │   142 publicados     8 aprobados sin publicar            │
-│    23 sin completar   4 eliminados                       │
+│    23 por aprobar     4 eliminados                       │
 │                                                          │
 │  ✓ Publicado hace 2 horas · 8 productos                  │
 │                                                          │
@@ -928,10 +1112,45 @@ Página 3 de 7 · 42 fichas leídas · 38 productos nuevos · 2 con error
 ```
 
 El aviso de no cerrar la pestaña es explícito porque es una restricción real del
-diseño (§7.1), no un detalle de implementación que se pueda esconder.
+diseño (§7.1), no un detalle de implementación que se pueda esconder. Va además un
+`beforeunload`: el cartel no alcanza cuando alguien ya decidió cerrar.
 
 Al terminar: resumen con nuevos, repetidos y errores, y un botón directo a la
-grilla filtrada por «sin completar».
+grilla filtrada por «por aprobar». **Los números del resumen salen de la base, no
+del contador de la pantalla** — si los dos no coinciden, el que manda es el que
+quedó guardado.
+
+**La guarda de «ya hay una importación en curso» se renderiza del lado del
+servidor**, no sólo como el 409 del endpoint. Enterarse de que no se puede importar
+DESPUÉS de pegar la URL y apretar el botón es enterarse tarde. Y cerrar la corrida
+anterior es un `<form>` y no un `fetch`: es lo único de esta pantalla que puede
+funcionar sin JavaScript, así que funciona.
+
+Cancelar deja la corrida en `abortado`, que no es un error: lo que ya entró queda,
+porque cada ficha se confirmó individualmente (§7.1), y volver a correr el scrape
+sigue desde donde estaba.
+
+**Esta pantalla necesita JavaScript y lo dice.** El bucle vive en el navegador a
+propósito (§7.1) y el `<canvas>` es el motor de imágenes (§8.1): no hay una versión
+degradada honesta que ofrecer, así que en vez de un formulario que promete algo que
+no puede cumplir hay un `<noscript>` que explica por qué.
+
+#### Dónde vive cada decisión
+
+El bucle corre en el navegador, así que decisiones que en otro diseño tomaría un
+servidor —a qué página ir, qué ficha saltear, cuándo esperar, qué dice el renglón de
+progreso— las toma código de cliente. Y ese código no se puede testear con
+`node --test` si además hace `fetch` y toca el DOM.
+
+Misma división que sostiene el extractor frente al envoltorio de `HTMLRewriter`
+(§7.2): **todo lo que decide vive en un módulo puro con tests**, y en el archivo del
+navegador queda sólo `fetch`, DOM y canvas.
+
+Con una consecuencia que no es obvia: **el corte de fichas ya visitadas tiene que
+estar en el cliente.** El servidor también corta por código, pero lo hace después de
+bajar la ficha — cuando se entera, el pedido al proveedor ya se hizo. El único filtro
+que le ahorra tráfico de verdad es el del navegador, y por eso la cortesía de §7.4
+depende de él.
 
 ### 10.3 Grilla de productos
 
@@ -939,7 +1158,7 @@ La pantalla principal. Es la grilla con foto y datos que pedía el punto 4 del
 pedido original.
 
 ```
-[ Buscar por código o nombre ]   Estado: [ Sin completar ▾ ]   Categoría: [ ▾ ]
+[ Buscar por código o nombre ]   Estado: [ Por aprobar ▾ ]   Categoría: [ ▾ ]
 
 ┌────────┐  CG85527                          ⚠ sin nombre, sin precio
 │ [foto] │  3 colores · 4 fotos
@@ -954,9 +1173,13 @@ pedido original.
 
 - **Búsqueda por código o nombre.** El código es lo que esa persona tiene a mano
   cuando le preguntan por un producto (§5.3).
-- **Filtro por estado**, con «Sin completar» por defecto: la cola de trabajo
+- **Filtro por estado**, con «Por aprobar» por defecto: la cola de trabajo
   pendiente. Esto ocupa el lugar de la sección `SIN CURAR` del reporte de
   `SPEC.md` §6.6, pero en pantalla y accionable.
+  Se llama «Por aprobar» y no «Sin completar» (renombrado el 2026-08-06) porque
+  **nombra la acción que falta, no una carencia**: la lista es una cola de trabajo y
+  su rótulo tiene que decir qué hacer. El valor viaja en la URL como
+  `?estado=por-aprobar`.
 - **Los eliminados no aparecen** salvo que se elija ese filtro. Es la solución al
   ruido del inventario muerto: se filtra, no se borra.
 - **Aprobación en lote** para los que ya pasan las validaciones de §5.2.
@@ -1506,7 +1729,7 @@ El admin vive en `admin/`, con su propio `package.json` y `wrangler.jsonc`
     `Cf-Access-Authenticated-User-Email: intruso@otro.com` falsificado **no tiene
     ningún efecto**.
 - ✅ **Grilla (§10.3), parte de lectura** — 37 tests. Búsqueda por código o nombre,
-  filtro por estado con «Sin completar» por defecto, y el estado de validación
+  filtro por estado con «Por aprobar» por defecto, y el estado de validación
   debajo de cada producto. Todo por **GET, sin JavaScript**: la URL queda
   compartible y recargable, el botón de atrás funciona, y una pantalla de trabajo
   no puede depender de que cargue un bundle.
@@ -1703,6 +1926,9 @@ aprueba, lo publica, y lo ve en el sitio. Y si el build falla, entiende qué pas
   centrado automático**. El recorte asistido queda descartado, ver §8.3.
 - ✅ **Formulario de §9** en `admin/src/pages/nuevo.astro`, con aviso de código
   existente mientras se escribe y alta que ofrece **editar** en vez de fallar.
+- ✅ **Retirado el selector de color** de las dos pantallas y del camino de
+  escritura. `<input type="color">` no tiene estado vacío, así que estampaba un
+  `color_hex` que nadie eligió, contra `SPEC.md` §6.6. Ver §9.
 - ⬜ Probarlo con fotos de celular reales y publicar uno de punta a punta: es el
   criterio de salida y todavía no se hizo.
 
@@ -1714,20 +1940,45 @@ Criterio de salida: producto cargado a mano, con foto de celular recortada,
 publicado y visible. `w300` y `w600` en R2, y el `srcset` del sitio funcionando
 sin tocar `src/`.
 
-### Fase 2.5 — Scrape (desplegable)
+### Fase 2.5 — Scrape (desplegable) · **CERRADA 2026-08-07**
 
-- Endpoints de §7.2 con la granularidad que dictó la Fase 2.0.
-- Bucle en el navegador con progreso (§10.2).
-- Cortesía de §7.4 e idempotencia de §7.5.
+- ✅ **Convenciones del origen** en `admin/src/lib/scrape/origen.ts` — 22 tests.
+  Todo lo que sabe cómo está armado el sitio del proveedor vive ahí y en ningún otro
+  lado: el día que rediseñen hay **un** archivo que mirar y una tanda de tests que se
+  pone roja.
+- ✅ **Extractor** en `scrape/extractor.ts` — 19 tests. Es un acumulador de eventos y
+  no un parser porque `HTMLRewriter` **no existe en Node**, y un extractor que lo use
+  por dentro no se puede testear. El envoltorio (`scrape/ficha.ts`) no tiene ni un
+  `if`.
+- ✅ **Listado con filtro por `lz`** (`scrape/listado.ts`, 8 tests) y **cortesía**
+  (`scrape/robots.ts`, 10 tests).
+- ✅ **Registro que no pisa curaduría** en `scrape/registrar.ts` — 16 tests. Más la
+  migración `0003`, que agrega la columna que §7.5 pedía y no existía.
+- ✅ **Contabilidad de la corrida** en `scrape/corrida.ts` — 9 tests, con caducidad a
+  los 30 minutos para que una pestaña cerrada no bloquee el admin para siempre.
+- ✅ **Los 5 endpoints** de §7.2, incluidos los dos que la costura de §8.1 obligó a
+  agregar.
+- ✅ **Plan y progreso del bucle** en `scrape/marcha.ts` — 37 tests. Puro y testeable
+  aunque corra en el navegador (§10.2).
+- ✅ **Pantalla de §10.2** en `admin/src/pages/importar.astro` y
+  `admin/src/scripts/importar-cliente.ts`.
+- ✅ **`/img-dev`** para ver las miniaturas del R2 local en desarrollo (§8.1).
+- ✅ Migración `0003` aplicada en el D1 **remoto**.
 
 Criterio de salida, sobre una URL de lanzamientos real:
 
-1. Se recorren todas las páginas del listado.
-2. Un modelo con 3 colores entra con sus 3 variantes, SKU `CG85527-{P,3,E}`,
-   orden alfabético, y todas sus fotos relacionadas.
-3. Correrlo dos veces no duplica nada y no pisa ninguna edición manual.
-4. Una ficha caída queda en `scrape_errores` y no corta la corrida.
-5. El paso al proveedor no supera 1 request por segundo.
+1. ✅ Se recorren todas las páginas del listado. Medido: 4 páginas, 16 fichas cada
+   una.
+2. ✅ Un modelo con 3 colores entra con sus 3 variantes y **todas con su foto**.
+   Verificado en D1 sobre `CG85700`: `-3`, `-T` y `-B`, una foto cada una, hashes
+   distintos, y las 6 derivadas servidas.
+3. ✅ Correrlo dos veces no duplica nada y no pisa ninguna edición manual.
+4. ✅ Una ficha caída queda en `scrape_errores` y no corta la corrida.
+5. ✅ El paso al proveedor no supera 1 request por segundo. Cuenta **cada** pedido,
+   fotos incluidas.
+
+Los dos hallazgos que costaron un bug cada uno están en §7.2: el color propio sólo
+está en `og:title`, y la foto de cada hermano ya viene en la ficha visitada.
 
 ### Fase 2.6 — Eliminación y papelera (desplegable)
 
@@ -1766,16 +2017,21 @@ ya está estable.
 
 ## 16. Preguntas abiertas
 
-**Minutos de GitHub Actions en repo privado** — sin verificar
-Se asumieron ~2.000/mes gratuitos, que con builds de 1-2 minutos sobra. Hay que
-confirmarlo contra la doc de GitHub. Si fuera menor, la alternativa es hacer el
-repositorio público (es un catálogo, no hay secretos en el código) o usar Workers
-Builds.
+**~~Minutos de GitHub Actions en repo privado~~** — RESUELTA el 2026-08-07
+**No aplica: el repositorio es público** (`github.com/marfig/ybe-catalogo`,
+verificado contra la API sin autenticación). En repos públicos los runners estándar
+no consumen minutos de la cuota, así que la publicación por Actions (§11.2) no tiene
+techo que administrar. La alternativa que esta pregunta proponía —hacerlo público— ya
+era el estado de hecho. Workers Builds queda descartado por innecesario.
 
-**Llamadas por binding y el límite de subrequests** — a medir en Fase 2.0
-Se asumió que D1 y R2 vía binding no cuentan como subrequests `fetch`. Si
-contaran, el presupuesto de §7.3 se recalcula y probablemente haya que partir por
-imagen.
+**Llamadas por binding y el límite de subrequests** — sigue abierta, y ya no urge
+Se asumió que D1 y R2 vía binding no cuentan como subrequests `fetch`. La Fase 2.5
+corrió un lanzamiento completo sin acercarse al límite, pero **eso no aísla la
+pregunta**: con la granularidad final —una ficha por request, una imagen por request—
+el presupuesto queda tan holgado que no fallaría de ninguna de las dos formas. Dicho
+de otra manera: la mitigación que esta pregunta temía tener que aplicar (*«partir por
+imagen»*, escalón 2 de §7.3) **ya está aplicada**, por otro motivo (§8.1). Queda como
+dato pendiente, no como riesgo.
 
 **~~Paginación del listado de lanzamientos~~** — RESUELTA el 2026-08-03
 Es `?lz={fecha}&page={N}`, con links numerados y flecha `»`, 16 productos por
@@ -1800,20 +2056,26 @@ El rótulo existe en la plantilla y la celda del valor está vacía en las 2 fic
 verificadas. Puede haber productos donde sí esté cargada. El extractor puede
 leerla si aparece, pero **no debe asumir que existe** ni tratarla como obligatoria.
 
-**¿Las imágenes en vivo son más grandes que 600 × 600?**
-Importante y potencialmente buena noticia. `SPEC.md` §2.2-3 declara *«600 × 600 es
-un techo duro»* y §5.2 deriva de ahí que no hay zoom ni derivadas por encima de
-600. Pero esa medición se hizo sobre `samples/`, y las fotos que bajó el spike
-pesan 115–184 KB, bastante para un 600 × 600. **Si el origen en vivo sirve
-resolución mayor, se puede generar una derivada más grande y habilitar el zoom que
-§5.2 descartó.** No lo mide el Worker a propósito (§8.1): el navegador ya conoce
-`naturalWidth`/`naturalHeight` al normalizar con canvas, así que el dato aparece
-gratis en la Fase 2.4.
+**~~¿Las imágenes en vivo son más grandes que 600 × 600?~~** — RESUELTA el 2026-08-07
+**No: son exactamente 600 × 600.** Medido sobre el origen en vivo, leyendo los
+marcadores SOF del JPEG de tres fotos de `/producto/71163-cg85700`:
 
-**¿Hay productos con más de una foto de galería?**
-`CG86003` tiene una sola. `SPEC.md` §4.4 muestra un ejemplo con 2 imágenes en una
-variante, así que el modelo lo soporta, pero no está verificado sobre el origen.
-Se confirma al correr el scrape sobre un lanzamiento completo.
+| Archivo | Medidas | Bytes |
+|---|---|---|
+| `fa9b2d5d…jpg` | 600 × 600 | 124 472 |
+| `0a3e8919…jpg` | 600 × 600 | 115 561 |
+| `a6d21d08…jpg` | 600 × 600 | 127 913 |
+
+El techo duro de `SPEC.md` §2.2-3 queda **confirmado contra el origen real**, no sólo
+contra `samples/`. **No hay zoom ni derivada por encima de 600**, y §5.2 sigue vigente
+sin cambios. El peso de 115–184 KB era JPEG sin optimizar, no más resolución.
+
+**¿Hay productos con más de una foto de galería?** — sigue abierta, con más evidencia
+`CG86003` y `CG85700` tienen **una sola** cada uno. Todas las fichas medidas hasta hoy
+dan exactamente una foto con `alt="product-thumb"`. El modelo lo soporta —`SPEC.md`
+§4.4 muestra una variante con 2— y el código también: la galería es un `Set` y el
+color propio recibe la lista completa, así que si aparece una segunda entra sin tocar
+nada. **No es una pregunta que bloquee: es sólo un dato que no está confirmado.**
 
 **Meses por defecto de la purga**
 §12.3 propone 6. Es una decisión de negocio.
