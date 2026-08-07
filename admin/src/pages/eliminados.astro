@@ -1,0 +1,257 @@
+---
+/**
+ * La papelera (SPEC-etapa2 §10.5, §12.3).
+ *
+ * Lo que se sacó del catálogo, con fecha y autor, y las dos acciones: restaurar y
+ * vaciar. Sólo llegan acá los productos que ESTUVIERON publicados — lo que nunca tuvo
+ * URL se borra de verdad y no pasa por acá (§12.2).
+ *
+ * VACIAR TIENE DOS PASOS Y NO UNO. §12.3 exige informar cuántos productos y cuántas
+ * imágenes se van **antes** de confirmar, y el aviso que la pantalla debe dar sin
+ * vueltas es que esas URLs pasan de «no muestra el producto» a 404 definitivo. Es la
+ * única operación del admin que no tiene vuelta atrás.
+ */
+import { env } from 'cloudflare:workers';
+
+import Panel from '../layouts/Panel.astro';
+import { ejecutorD1 } from '../lib/d1.ts';
+import { baseDeImagenes, clavesDeImagen, urlMiniatura } from '../lib/imagenes.ts';
+import {
+  MESES_PURGA,
+  contarPurga,
+  fechaDeCorte,
+  listarPapelera,
+  purgar,
+  restaurar,
+} from '../lib/papelera.ts';
+import { haceCuanto } from '../lib/publicaciones.ts';
+
+const ejecutar = ejecutorD1(env.DB);
+
+if (Astro.request.method === 'POST') {
+  const datos = await Astro.request.formData();
+  const accion = datos.get('accion');
+  const destino = new URL('/eliminados', Astro.url);
+
+  if (accion === 'restaurar') {
+    const ids = datos.getAll('id').map(Number).filter(Number.isInteger);
+    const r = await restaurar(ejecutar, ids, { ahora: new Date().toISOString() });
+    const hechos = r.filter((x) => x.desenlace === 'hecho').length;
+    destino.searchParams.set('restaurados', String(hechos));
+  } else if (accion === 'vaciar') {
+    const antesDe = fechaDeCorte(new Date().toISOString());
+    const { codigos, huerfanas } = await purgar(ejecutar, { antesDe });
+
+    /**
+     * R2 después de la base, y sin abortar si falla: mismo criterio que en
+     * `/eliminar`. Un objeto sin dueño es invisible; una fila sin objeto es una foto
+     * rota.
+     */
+    if (huerfanas.length > 0) {
+      try {
+        await env.IMAGENES.delete(huerfanas.flatMap(clavesDeImagen));
+      } catch {
+        // No hay nada que la persona pueda hacer con este error.
+      }
+    }
+
+    destino.searchParams.set('purgados', String(codigos.length));
+    destino.searchParams.set('fotos', String(huerfanas.length));
+  }
+
+  return Astro.redirect(`${destino.pathname}${destino.search}`, 303);
+}
+
+const ahora = new Date().toISOString();
+const filas = await listarPapelera(ejecutar);
+
+const antesDe = fechaDeCorte(ahora);
+const purga = await contarPurga(ejecutar, { antesDe });
+
+/** Paso 2 de vaciar: la confirmación. Llega por query para que no haga falta JS. */
+const confirmandoVaciado = Astro.url.searchParams.get('vaciar') === '1';
+
+const restaurados = Number(Astro.url.searchParams.get('restaurados') ?? '0');
+const purgados = Astro.url.searchParams.get('purgados');
+const fotosPurgadas = Astro.url.searchParams.get('fotos');
+
+const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV });
+
+/** `n` con su sustantivo. Un «1 productos» en la pantalla del borrado definitivo. */
+const plural = (n: number, singular: string, muchos: string) =>
+  `${n} ${n === 1 ? singular : muchos}`;
+---
+
+<Panel titulo="Papelera" volver="/">
+  {
+    restaurados > 0 ? (
+      <p class="resumen">
+        {restaurados === 1
+          ? '1 producto volvió al catálogo.'
+          : `${restaurados} productos volvieron al catálogo.`}{' '}
+        <span class="resumen-omitidos">
+          Se van a ver en el sitio con la próxima publicación.
+        </span>
+      </p>
+    ) : null
+  }
+
+  {
+    purgados !== null ? (
+      <p class="resumen">
+        Se vaciaron {plural(Number(purgados), 'producto', 'productos')} y{' '}
+        {plural(Number(fotosPurgadas ?? '0'), 'foto', 'fotos')}.
+      </p>
+    ) : null
+  }
+
+  {
+    filas.length === 0 ? (
+      <p class="vacio">
+        La papelera está vacía. Acá aparece lo que se saca del catálogo después de haber
+        estado publicado; lo que nunca se publicó se borra directamente.
+      </p>
+    ) : (
+      <>
+        <p class="nota nota--titulo">
+          Estos productos no se ven en el sitio, pero <strong>su enlace no está roto</strong>:
+          quien lo tenga guardado no recibe un error. Restaurarlos los devuelve al catálogo
+          con la misma dirección de siempre.
+        </p>
+
+        <form method="post" action="/eliminados">
+          <div class="tabla-marco">
+            <table class="grilla">
+              <caption class="oculto">
+                Productos eliminados: código, nombre, cuándo y quién los sacó
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col" class="col-elegir">
+                    <span class="oculto">Elegir</span>
+                  </th>
+                  <th scope="col">Foto</th>
+                  <th scope="col">Código</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Se sacó</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filas.map((f) => (
+                  <tr>
+                    <td class="col-elegir">
+                      <label class="elegir">
+                        <input type="checkbox" name="id" value={String(f.id)} />
+                        <span class="oculto">Elegir {f.codigo}</span>
+                      </label>
+                    </td>
+                    <td>
+                      {f.miniatura ? (
+                        <img
+                          src={urlMiniatura(R2, f.miniatura, 300)}
+                          alt=""
+                          width="56"
+                          height="56"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <span class="sin-foto" role="img" aria-label="Sin imagen">
+                          sin foto
+                        </span>
+                      )}
+                    </td>
+                    <th scope="row" class="codigo">{f.codigo}</th>
+                    <td>
+                      {f.nombre ?? <span class="nota">sin nombre</span>}
+                      {f.slug ? <span class="nota">/{f.slug}</span> : null}
+                    </td>
+                    <td>
+                      {/* `haceCuanto` y no el ISO: un timestamp crudo es un valor
+                          tecnico en una pantalla que promete castellano (§10). */}
+                      {f.eliminado_en ? haceCuanto(f.eliminado_en, ahora) : 'antes de llevar registro'}
+                      {f.eliminado_por ? <span class="nota">{f.eliminado_por}</span> : null}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p class="pie-guardar">
+            <button type="submit" name="accion" value="restaurar">
+              Restaurar los tildados
+            </button>
+            <span class="nota">
+              Vuelven al catálogo con su dirección de siempre. Se ven en el sitio con la
+              próxima publicación.
+            </span>
+          </p>
+        </form>
+      </>
+    )
+  }
+
+  <section class="confirmar confirmar--definitivo">
+    <h2>Vaciar la papelera</h2>
+
+    {
+      purga.productos === 0 ? (
+        <p class="nota">
+          No hay nada con más de {MESES_PURGA} meses en la papelera. Vaciar no borraría
+          nada.
+        </p>
+      ) : confirmandoVaciado ? (
+        <>
+          <p>
+            Se van a borrar <strong>{plural(purga.productos, 'producto', 'productos')}</strong>
+            {purga.imagenes > 0 ? (
+              <> y <strong>{plural(purga.imagenes, 'foto', 'fotos')}</strong></>
+            ) : null}, definitivamente.
+          </p>
+          <p>
+            <strong>Sus enlaces van a devolver un error.</strong> Hoy esas direcciones no
+            muestran el producto pero funcionan; después de esto quedan rotas para siempre.
+          </p>
+          <ul class="confirmar-lista">
+            {purga.codigos.map((c) => (
+              <li>
+                <strong>{c}</strong>
+              </li>
+            ))}
+          </ul>
+          <form method="post" action="/eliminados">
+            <p class="pie-guardar">
+              <button type="submit" name="accion" value="vaciar" class="peligro">
+                Sí, borrar definitivamente
+              </button>
+              <a class="nota" href="/eliminados">
+                No, dejar todo como está
+              </a>
+            </p>
+          </form>
+        </>
+      ) : (
+        <>
+          <p>
+            Hay <strong>{purga.productos}</strong>{' '}
+            {purga.productos === 1 ? 'producto' : 'productos'} con más de {MESES_PURGA}{' '}
+            meses en la papelera
+            {purga.imagenes > 0 ? (
+              <>, con <strong>{purga.imagenes}</strong>{' '}
+              {purga.imagenes === 1 ? 'foto' : 'fotos'} que no usa nadie más</>
+            ) : null}.
+          </p>
+          <p class="nota">
+            Borrarlos es definitivo y sus enlaces quedan rotos. Lo demás se queda en la
+            papelera hasta cumplir los {MESES_PURGA} meses.
+          </p>
+          <p class="pie-guardar">
+            <a class="boton-enlace peligro" href="/eliminados?vaciar=1">
+              Vaciar la papelera…
+            </a>
+          </p>
+        </>
+      )
+    }
+  </section>
+</Panel>

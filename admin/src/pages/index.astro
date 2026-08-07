@@ -74,12 +74,17 @@ const enCurso = await hayPublicacionEnCurso(ejecutar, ahora);
 const aviso = Astro.url.searchParams.get('aviso');
 const errorAccion = Astro.url.searchParams.get('error');
 
-/** Los cuatro contadores, en el orden del recorrido: entra, se aprueba, se publica. */
+/**
+ * Los cuatro contadores, en el orden del recorrido: entra, se aprueba, se publica.
+ *
+ * La papelera va a su PANTALLA (§10.5) y no al filtro de la grilla: es lo único que se
+ * mira para deshacer algo, y ahí están restaurar y vaciar, que la grilla no tiene.
+ */
 const tarjetas = [
-  { clave: 'importado', filtro: 'por-aprobar', n: conteo.importado },
-  { clave: 'aprobado', filtro: 'aprobado', n: conteo.aprobado },
-  { clave: 'publicado', filtro: 'publicado', n: conteo.publicado },
-  { clave: 'eliminado', filtro: 'eliminado', n: conteo.eliminado },
+  { clave: 'importado', destino: '/productos?estado=por-aprobar', n: conteo.importado },
+  { clave: 'aprobado', destino: '/productos?estado=aprobado', n: conteo.aprobado },
+  { clave: 'publicado', destino: '/productos?estado=publicado', n: conteo.publicado },
+  { clave: 'eliminado', destino: '/eliminados', n: conteo.eliminado },
 ] as const;
 ---
 
@@ -96,7 +101,7 @@ const tarjetas = [
     {
       tarjetas.map((t) => (
         <li class={`tarjeta${t.clave === 'aprobado' && t.n > 0 ? ' tarjeta--llamador' : ''}`}>
-          <a href={`/productos?estado=${t.filtro}`}>
+          <a href={t.destino}>
             <strong>{t.n}</strong>
             <span>{ESTADOS_LEGIBLES[t.clave].etiqueta}</span>
           </a>

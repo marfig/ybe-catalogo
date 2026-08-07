@@ -840,6 +840,28 @@ button.peligro {
   margin-inline-start: 0.5rem;
 }
 
+/**
+ * Un enlace que se ve como boton.
+ *
+ * Es un `<a>` y no un `<button>` porque el primer paso de vaciar la papelera NO cambia
+ * nada: lleva a la pantalla de confirmacion. Un boton ahi prometeria que algo pasa al
+ * apretarlo, y lo unico que tiene que pasar es que se lea lo que va a borrarse.
+ */
+.boton-enlace {
+  display: inline-block;
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 0.5rem 0.875rem;
+  background: var(--superficie);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.boton-enlace.peligro {
+  color: var(--peligro);
+  border-color: var(--peligro);
+}
+
 .lote-check-fila {
   margin: 0;
 }

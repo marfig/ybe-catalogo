@@ -169,6 +169,51 @@ export async function planearEliminacion(
   return plan;
 }
 
+export interface FilaPapelera {
+  id: number;
+  codigo: string;
+  nombre: string | null;
+  slug: string | null;
+  eliminado_en: string | null;
+  eliminado_por: string | null;
+  /** hash16 de la foto que mostraba el sitio. `null` si no tiene. */
+  miniatura: string | null;
+}
+
+/**
+ * El contenido de la papelera (§10.5).
+ *
+ * Ordenado por fecha DESCENDENTE: lo recién sacado es lo que más chance tiene de haber
+ * sido un error, y por lo tanto lo que se va a querer restaurar. Por código —el orden de
+ * la grilla— lo último eliminado aparecería en cualquier lado.
+ *
+ * Las filas sin fecha van al final: son anteriores a la migración 0004 y no se puede
+ * inventar cuándo se eliminaron.
+ *
+ * La miniatura sale con el MISMO orden que la grilla y que el volcado, para que la foto
+ * de la papelera sea la que el sitio mostraba.
+ */
+export async function listarPapelera(
+  ejecutar: Ejecutar,
+  { limite = 200 }: { limite?: number } = {}
+): Promise<FilaPapelera[]> {
+  return ejecutar<FilaPapelera>(
+    `SELECT p.id, p.codigo, p.nombre, p.slug, p.eliminado_en, p.eliminado_por,
+            (SELECT i.hash16
+               FROM variantes v
+               JOIN variante_imagenes vi ON vi.variante_id = v.id
+               JOIN imagenes i ON i.id = vi.imagen_id
+              WHERE v.producto_id = p.id
+              ORDER BY v.orden, v.color, v.sku, vi.orden, i.hash16
+              LIMIT 1) AS miniatura
+       FROM productos p
+      WHERE p.estado = 'eliminado'
+      ORDER BY p.eliminado_en IS NULL, p.eliminado_en DESC, p.codigo
+      LIMIT ?`,
+    [limite]
+  );
+}
+
 export interface ResultadoEliminacion {
   resultados: ResultadoItem[];
   /**

@@ -8,6 +8,7 @@ import {
   contarPurga,
   eliminar,
   fechaDeCorte,
+  listarPapelera,
   planearEliminacion,
   purgar,
   restaurar,
@@ -325,6 +326,65 @@ test('restaurar: un id inexistente se omite con motivo', async () => {
   const r = await restaurar(ejecutor(base()), [99999], { ahora: AHORA });
   assert.equal(r[0].desenlace, 'omitido');
   assert.match(r[0].motivo!, /no existe/i);
+});
+
+// --------------------------------------------------------------------------
+// El contenido de la papelera (§10.5)
+// --------------------------------------------------------------------------
+
+test('listarPapelera: sólo lo eliminado, con su fecha y quién lo hizo', async () => {
+  const db = base();
+  producto(db, { codigo: 'CG1', estado: 'publicado', slug: 'cg1' });
+  const p = producto(db, { codigo: 'CG3', estado: 'publicado', slug: 'cg3', fotos: ['b'.repeat(16)] });
+  await eliminar(ejecutor(db), [p], { ahora: AHORA, porQuien: QUIEN });
+
+  const filas = await listarPapelera(ejecutor(db));
+
+  assert.equal(filas.length, 1);
+  assert.equal(filas[0].codigo, 'CG3');
+  assert.equal(filas[0].eliminado_en, AHORA);
+  assert.equal(filas[0].eliminado_por, QUIEN);
+  assert.equal(filas[0].miniatura, 'b'.repeat(16), 'la foto que mostraba el sitio');
+});
+
+test('listarPapelera: lo más reciente primero', async () => {
+  // Lo recien sacado es lo que mas chance tiene de haber sido un error, asi que es lo
+  // que se va a querer restaurar.
+  const db = base();
+  const viejo = producto(db, { codigo: 'CG1', estado: 'publicado', slug: 'cg1' });
+  const nuevo = producto(db, { codigo: 'CG2', estado: 'publicado', slug: 'cg2' });
+  await eliminar(ejecutor(db), [viejo], { ahora: '2026-01-01T00:00:00Z', porQuien: QUIEN });
+  await eliminar(ejecutor(db), [nuevo], { ahora: '2026-08-01T00:00:00Z', porQuien: QUIEN });
+
+  const filas = await listarPapelera(ejecutor(db));
+
+  assert.deepEqual(
+    filas.map((f) => f.codigo),
+    ['CG2', 'CG1']
+  );
+});
+
+test('listarPapelera: lo que no tiene fecha va al final, no primero', async () => {
+  /**
+   * Las filas anteriores a la migracion 0004 tienen `eliminado_en` en NULL. En un
+   * `ORDER BY ... DESC` pelado, NULL va primero en SQLite: lo mas viejo de todo
+   * encabezaria la lista de «lo que acabas de sacar».
+   */
+  const db = base();
+  producto(db, { codigo: 'CG0', estado: 'eliminado', slug: 'cg0' });
+  const p = producto(db, { codigo: 'CG2', estado: 'publicado', slug: 'cg2' });
+  await eliminar(ejecutor(db), [p], { ahora: AHORA, porQuien: QUIEN });
+
+  const filas = await listarPapelera(ejecutor(db));
+
+  assert.deepEqual(
+    filas.map((f) => f.codigo),
+    ['CG2', 'CG0']
+  );
+});
+
+test('listarPapelera: una papelera vacía es una lista vacía, no un error', async () => {
+  assert.deepEqual(await listarPapelera(ejecutor(base())), []);
 });
 
 // --------------------------------------------------------------------------
