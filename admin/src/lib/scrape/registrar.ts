@@ -43,6 +43,37 @@ export interface ResultadoRegistro {
 }
 
 /**
+ * Cuáles de estos códigos YA están en el catálogo.
+ *
+ * Alimenta la opción «saltear los que ya tengo» de la pantalla de importación. Es UNA
+ * consulta por página del listado, contra la base propia: no le cuesta nada al
+ * proveedor, y lo que ahorra son las decenas de pedidos que costaría descubrir lo
+ * mismo bajando cada ficha.
+ *
+ * COMPARA CON `upper()`, igual que el índice único de §5.3. La collation por defecto
+ * de SQLite es BINARY, así que un `IN (…)` pelado trataría `cg85700` y `CG85700` como
+ * códigos distintos y el salteo dejaría pasar un producto que sí tenemos.
+ *
+ * Incluye los `eliminado` a propósito: un producto en la papelera sigue existiendo —
+ * su código está tomado y su URL vive. Saltearlo es lo correcto; volver a importarlo
+ * haría `UPDATE` sobre una fila que alguien sacó del catálogo a propósito.
+ */
+export async function codigosExistentes(
+  ejecutar: Ejecutar,
+  codigos: string[]
+): Promise<string[]> {
+  if (codigos.length === 0) return [];
+
+  const huecos = codigos.map(() => '?').join(', ');
+  const filas = await ejecutar<{ codigo: string }>(
+    `SELECT codigo FROM productos WHERE upper(codigo) IN (${huecos})`,
+    codigos.map((c) => c.trim().toUpperCase())
+  );
+
+  return filas.map((f) => f.codigo);
+}
+
+/**
  * Nombre de color presentable: `MARRON CLARO` -> `Marron Claro`.
  *
  * El proveedor escribe todo en mayúsculas. Guardarlo así llegaría tal cual al cliente

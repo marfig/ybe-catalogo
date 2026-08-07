@@ -4,7 +4,7 @@ import { DatabaseSync } from 'node:sqlite';
 import { test } from 'node:test';
 
 import type { Ejecutar } from '../grilla.ts';
-import { nombreDeColor, registrarFicha, vincularImagen } from './registrar.ts';
+import { codigosExistentes, nombreDeColor, registrarFicha, vincularImagen } from './registrar.ts';
 
 /**
  * Los tests corren contra el ESQUEMA REAL con `node:sqlite`, que es el mismo motor
@@ -282,4 +282,57 @@ test('nombreDeColor deja los acentos y las palabras cortas bien', () => {
   assert.equal(nombreDeColor('MARRON CLARO'), 'Marron Claro');
   assert.equal(nombreDeColor('VERDE MILITAR'), 'Verde Militar');
   assert.equal(nombreDeColor('AZUL-GRIS'), 'Azul-Gris');
+});
+
+// --------------------------------------------------------------------------
+// Cuáles de estos códigos ya están en el catálogo (§7.5, opción de saltear)
+// --------------------------------------------------------------------------
+
+test('codigosExistentes: devuelve sólo los que ya están', async () => {
+  const db = base();
+  const e = ejecutor(db);
+  await registrarFicha(e, CG85700, opciones);
+
+  const hay = await codigosExistentes(e, ['CG85700', 'CG99999']);
+
+  assert.deepEqual(hay, ['CG85700']);
+});
+
+test('codigosExistentes: compara sin distinguir mayúsculas', async () => {
+  /**
+   * Misma regla que el UNIQUE de §5.3: la collation por defecto es BINARY, asi que
+   * `cg85700` y `CG85700` serian dos codigos distintos para un `IN (…)` pelado — y el
+   * salteo dejaria pasar un producto que si tenemos.
+   */
+  const db = base();
+  const e = ejecutor(db);
+  await registrarFicha(e, CG85700, opciones);
+
+  assert.deepEqual(await codigosExistentes(e, ['cg85700']), ['CG85700']);
+});
+
+test('codigosExistentes: cuenta también lo que está en la papelera', async () => {
+  /**
+   * Un producto eliminado SIGUE existiendo: su codigo esta tomado y su URL vive. Si el
+   * salteo no lo contara, la importacion lo volveria a traer y `registrarFicha` haria
+   * UPDATE sobre una fila `eliminado`, resucitando datos que alguien saco a proposito.
+   */
+  const db = base();
+  const e = ejecutor(db);
+  await registrarFicha(e, CG85700, opciones);
+  // Con slug: el CHECK de §5.2 no deja que nada pase de `importado` sin el suyo, y un
+  // eliminado siempre estuvo publicado antes.
+  db.prepare(
+    `UPDATE productos SET estado = 'eliminado', slug = 'cg85700' WHERE codigo = 'CG85700'`
+  ).run();
+
+  assert.deepEqual(await codigosExistentes(e, ['CG85700']), ['CG85700']);
+});
+
+test('codigosExistentes: sin códigos no consulta y devuelve vacío', async () => {
+  assert.deepEqual(await codigosExistentes(ejecutor(base()), []), []);
+});
+
+test('codigosExistentes: un catálogo vacío no saltea nada', async () => {
+  assert.deepEqual(await codigosExistentes(ejecutor(base()), ['CG85700', 'CG1']), []);
 });

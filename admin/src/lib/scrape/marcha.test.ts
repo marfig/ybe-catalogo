@@ -269,3 +269,32 @@ test('esperaMs: un reloj que va para atrás espera el paso entero y no un númer
    */
   assert.equal(esperaMs(1_005_000, 1_000_000), PASO_MS);
 });
+
+// --------------------------------------------------------------------------
+// Los que se saltean por estar ya en el catálogo
+// --------------------------------------------------------------------------
+
+test('textoDeMarcha: los salteados se nombran, y sólo si los hay', () => {
+  const m = { ...MARCHA_INICIAL, totalPaginas: 4, leidas: 12, nuevos: 12, salteados: 38 };
+  assert.equal(
+    textoDeMarcha(m),
+    'Página 1 de 4 · 12 fichas leídas · 12 productos nuevos · 38 que ya tenía'
+  );
+});
+
+test('textoDeMarcha: sin salteados el renglón no los menciona', () => {
+  const m = { ...MARCHA_INICIAL, totalPaginas: 1, leidas: 5, nuevos: 5 };
+  assert.ok(!textoDeMarcha(m).includes('ya tenía'));
+});
+
+test('textoDeMarcha: en singular no dice «1 que ya tenía»… dice lo correcto', () => {
+  const m = { ...MARCHA_INICIAL, totalPaginas: 1, leidas: 1, nuevos: 1, salteados: 1 };
+  assert.ok(textoDeMarcha(m).includes('1 que ya tenía'));
+});
+
+test('los salteados NO cuentan como leídas: al proveedor no se le pidió nada', () => {
+  // Es la diferencia que justifica la opcion entera. Contarlos como leidas diria que
+  // se hicieron 50 pedidos cuando se hicieron 12.
+  const m = { ...MARCHA_INICIAL, salteados: 38 };
+  assert.equal(m.leidas, 0);
+});

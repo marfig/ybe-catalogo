@@ -87,6 +87,22 @@ const EJEMPLO = `${ORIGEN}/lanzamientos/?lz=2026-07-16`;
       </span>
     </p>
 
+    <p class="campo">
+      <label class="lote-check">
+        <input type="checkbox" id="saltear" name="saltear" checked disabled={abierta !== null} />
+        Saltear los productos que ya tengo
+      </label>
+      <span class="nota">
+        {/* La cuenta no es adorno: sobre una tanda medida, las fichas son 50 de 216
+            pedidos y las fotos 162. Saltear un producto conocido ahorra su ficha Y
+            todas sus fotos, que es donde esta el tiempo. */}
+        Recomendado. Una tanda ya importada vuelve a costar minutos si no se saltea,
+        porque cada foto se le vuelve a pedir al proveedor para saber si cambió.
+        <strong>Destildalo</strong> sólo si querés detectar colores nuevos en productos
+        que ya tenés.
+      </span>
+    </p>
+
     <p class="pie-guardar">
       <button type="submit" disabled={abierta !== null}>Importar</button>
       <span class="nota">

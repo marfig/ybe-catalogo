@@ -35,6 +35,8 @@ interface RespuestaListado {
   paginas?: string[];
   totalPaginas?: number;
   robotsAusente?: boolean;
+  /** Codigos de esta pagina que ya estan en el catalogo. */
+  yaTengo?: string[];
   error?: string;
 }
 
@@ -95,6 +97,12 @@ interface Pantalla {
   problemas: HTMLDetailsElement;
   listaProblemas: HTMLElement;
   resumen: HTMLElement;
+  /**
+   * La casilla de «saltear los que ya tengo». OPCIONAL: si la pantalla no la tuviera,
+   * el bucle sigue andando con el default. Un `null` acá no puede tumbar la
+   * importacion entera por una comodidad.
+   */
+  saltear: HTMLInputElement | null;
 }
 
 function buscarPantalla(): Pantalla | null {
@@ -110,6 +118,7 @@ function buscarPantalla(): Pantalla | null {
   const problemas = de<HTMLDetailsElement>('problemas');
   const listaProblemas = de('lista-problemas');
   const resumen = de('resumen');
+  const saltear = de<HTMLInputElement>('saltear');
 
   if (
     !formulario ||
@@ -137,6 +146,7 @@ function buscarPantalla(): Pantalla | null {
     problemas,
     listaProblemas,
     resumen,
+    saltear,
   };
 }
 
@@ -148,7 +158,7 @@ export function prepararImportacion(): void {
     evento.preventDefault();
     const url = p.url.value.trim();
     if (url === '') return;
-    void correr(p, url);
+    void correr(p, url, { saltearConocidos: p.saltear?.checked ?? true });
   });
 }
 
@@ -158,7 +168,11 @@ export function prepararImportacion(): void {
  * Nunca lanza. Un scrape que se corta con una excepción deja la corrida abierta en la
  * base y la próxima importación choca contra ella sin explicación.
  */
-async function correr(p: Pantalla, urlInicial: string): Promise<void> {
+async function correr(
+  p: Pantalla,
+  urlInicial: string,
+  { saltearConocidos }: { saltearConocidos: boolean }
+): Promise<void> {
   /** Claves de las páginas ya encoladas o visitadas. */
   const paginasVistas = new Set<string>([clavePagina(urlInicial)]);
   /** Códigos que ya no hay que pedirle al proveedor: propios y de hermanos. */
@@ -255,6 +269,20 @@ async function correr(p: Pantalla, urlInicial: string): Promise<void> {
       for (const nueva of paginasPendientes(listado.paginas ?? [], paginasVistas)) {
         paginasVistas.add(clavePagina(nueva));
         cola.push(nueva);
+      }
+
+      /**
+       * SEMBRAR LOS QUE YA TENGO. `sinVisitar` filtra por codigo, asi que meterlos en
+       * el mismo Set que usa el corte por hermanos alcanza: no hay una segunda rama
+       * que mantener, y un producto ya conocido deja de pedirse por el mismo camino
+       * por el que deja de pedirse un color hermano.
+       *
+       * Se cuentan ANTES de filtrar, porque despues ya no estan.
+       */
+      if (saltearConocidos) {
+        const nuevos = (listado.yaTengo ?? []).filter((c) => !codigos.has(c));
+        for (const c of nuevos) codigos.add(c);
+        marcha = { ...marcha, salteados: marcha.salteados + nuevos.length };
       }
 
       const fichas = sinVisitar(listado.fichas ?? [], codigos);

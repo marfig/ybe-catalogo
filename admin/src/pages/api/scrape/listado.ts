@@ -5,6 +5,8 @@ import { ejecutorD1 } from '../../../lib/d1.ts';
 import { cuerpoJson, json, soloPost } from '../../../lib/http.ts';
 import { corridaEnCurso, iniciarCorrida } from '../../../lib/scrape/corrida.ts';
 import { extraerListado } from '../../../lib/scrape/listado.ts';
+import { codigoDesdeUrl } from '../../../lib/scrape/origen.ts';
+import { codigosExistentes } from '../../../lib/scrape/registrar.ts';
 import { leerRobots, permiteRuta } from '../../../lib/scrape/robots.ts';
 
 /**
@@ -74,12 +76,26 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
+  /**
+   * Cuáles de estas fichas son de productos que YA tenemos.
+   *
+   * Va acá y no en un endpoint aparte porque es la misma unidad de trabajo: una página
+   * del listado. Es UNA consulta a la base propia por página, y lo que ahorra son las
+   * decenas de pedidos al proveedor que costaría descubrir lo mismo bajando cada ficha.
+   *
+   * El servidor sólo INFORMA. Saltearlas o no es decisión del navegador, según la
+   * opción de la pantalla: acá no se conoce la intención de quien importa.
+   */
+  const codigos = listado.fichas.map(codigoDesdeUrl).filter((c): c is string => c !== null);
+  const yaTengo = await codigosExistentes(ejecutar, [...new Set(codigos)]);
+
   return json({
     scrapeId,
     fichas: listado.fichas,
     paginas: listado.paginas,
     totalPaginas: listado.totalPaginas,
     robotsAusente: robots.ausente,
+    yaTengo,
   });
 };
 

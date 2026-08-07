@@ -127,6 +127,15 @@ export interface Marcha {
   /** Productos a los que el origen les sumó un color: hay que mirarlos (§7.5). */
   avisados: number;
   errores: number;
+  /**
+   * Fichas que NO se le pidieron al proveedor porque su código ya estaba en el
+   * catálogo.
+   *
+   * Va aparte de `leidas` justamente porque no se leyeron: sumarlas ahí diría que se
+   * hicieron 50 pedidos cuando se hicieron 12, y el número que importa para la
+   * cortesía de §7.4 es cuántos salieron de verdad.
+   */
+  salteados: number;
 }
 
 export const MARCHA_INICIAL: Readonly<Marcha> = Object.freeze({
@@ -137,6 +146,7 @@ export const MARCHA_INICIAL: Readonly<Marcha> = Object.freeze({
   repetidos: 0,
   avisados: 0,
   errores: 0,
+  salteados: 0,
 });
 
 /** Lo que devuelve `/api/scrape/ficha`, en lo que le importa a la contabilidad. */
@@ -184,7 +194,7 @@ function plural(n: number, singular: string, plural: string): string {
  * permanente enseña a ignorar el lugar donde después aparece el aviso de verdad.
  */
 export function textoDeMarcha(marcha: Marcha): string {
-  const { paginasHechas, totalPaginas, leidas, nuevos, errores } = marcha;
+  const { paginasHechas, totalPaginas, leidas, nuevos, errores, salteados } = marcha;
 
   // Terminada la última página el contador se quedaría en «página 8 de 7».
   const actual = Math.min(paginasHechas + 1, totalPaginas);
@@ -194,6 +204,9 @@ export function textoDeMarcha(marcha: Marcha): string {
     plural(leidas, 'ficha leída', 'fichas leídas'),
     plural(nuevos, 'producto nuevo', 'productos nuevos'),
   ];
+  // Los salteados van ANTES de los errores: son la noticia buena y la mayoría del
+  // recorrido cuando la opción está tildada.
+  if (salteados > 0) partes.push(`${salteados} que ya tenía`);
   if (errores > 0) partes.push(`${errores} con error`);
 
   return partes.join(' · ');
