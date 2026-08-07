@@ -17,6 +17,7 @@ import { CATEGORIAS, SLUGS_VALIDOS } from '../../lib/categorias.ts';
 import { ejecutorD1 } from '../../lib/d1.ts';
 import { actualizarProducto, cargarProducto } from '../../lib/edicion.ts';
 import { estadoLegible } from '../../lib/grilla.ts';
+import { baseDeImagenes, urlMiniatura } from '../../lib/imagenes.ts';
 import { formatearPrecio, parsearPrecio } from '../../lib/precio.ts';
 
 const ejecutar = ejecutorD1(env.DB);
@@ -70,7 +71,8 @@ if (!producto) return new Response('No existe ese producto.', { status: 404 });
 
 const guardado = Astro.url.searchParams.get('guardado') === '1';
 const estado = estadoLegible(producto.estado);
-const R2 = env.PUBLIC_R2_BASE;
+/** Misma elección que la grilla, y por el mismo motivo: una sola definición. */
+const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV });
 ---
 
 <Panel titulo={producto.nombre || producto.codigo} volver="/productos">
@@ -173,7 +175,7 @@ const R2 = env.PUBLIC_R2_BASE;
               <input type="hidden" name="fotos" value={v.hashes.join(',')} />
               <div class="fotos">
                 {v.hashes.map((h) => (
-                  <img src={`${R2}/catalogo/${h}/w300.webp`} alt="" width="72" height="72" loading="lazy" />
+                  <img src={urlMiniatura(R2, h, 300)} alt="" width="72" height="72" loading="lazy" />
                 ))}
               </div>
             </div>

@@ -23,7 +23,11 @@ const RE_CLAVE = /^catalogo\/([0-9a-f]{16})\/w(\d+)\.webp$/;
  * de Cloudflare. Apuntar los `<img>` al bucket público da 404 en todo lo que se acaba
  * de subir: se escribe en un lado y se lee del otro.
  *
- * El sitio público ya usa esta misma convención (`PUBLIC_R2_BASE=/img-dev`).
+ * El nombre viene del sitio público, que servía sus imágenes desde `public/img-dev/`
+ * antes de que existiera R2. Ahí era una carpeta de archivos estáticos y se retiró en
+ * la fase 2.1; acá es un endpoint que lee el binding local (`pages/img-dev/`). Se
+ * conserva el nombre porque la ruta significa lo mismo —«las imágenes, en desarrollo»—
+ * pero el mecanismo no tiene nada que ver.
  */
 export const BASE_DEV = '/img-dev';
 

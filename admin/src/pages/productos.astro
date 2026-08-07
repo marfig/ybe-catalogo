@@ -23,6 +23,7 @@ import { validarParaAprobar } from '../lib/aprobacion.ts';
 import { CATEGORIAS, SLUGS_VALIDOS, nombreCategoria } from '../lib/categorias.ts';
 import { ejecutorD1 } from '../lib/d1.ts';
 import { guardarFilas, type CambioFila } from '../lib/guardar.ts';
+import { baseDeImagenes, urlMiniatura } from '../lib/imagenes.ts';
 import {
   ESTADOS_LEGIBLES,
   FILTROS,
@@ -238,7 +239,12 @@ const destinoPost = (() => {
   return `${u.pathname}${u.search}`;
 })();
 
-const R2 = env.PUBLIC_R2_BASE;
+/**
+ * De dónde salen las miniaturas. En dev, del R2 local vía `/img-dev`; en producción,
+ * del dominio público del bucket. La elección no se hace acá: es una sola decisión
+ * compartida, y por eso vive en `lib/imagenes.ts` con sus tests.
+ */
+const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV });
 ---
 
 <Panel titulo="Productos" volver="/">
@@ -437,7 +443,7 @@ const R2 = env.PUBLIC_R2_BASE;
                   <td>
                     {p.miniatura ? (
                       <img
-                        src={`${R2}/catalogo/${p.miniatura}/w300.webp`}
+                        src={urlMiniatura(R2, p.miniatura, 300)}
                         alt=""
                         width="56"
                         height="56"
