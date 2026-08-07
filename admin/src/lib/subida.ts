@@ -11,6 +11,7 @@
  * y pasa a ser «te devolvió la que ya estaba», que es recuperable.
  */
 import { ANCHOS } from './imagen.ts';
+import { claveDeImagen } from './imagenes.ts';
 import type { Ejecutar } from './grilla.ts';
 
 /** Mismo `Cache-Control` que usa el importador (SPEC.md §5.1-2). */
@@ -210,7 +211,7 @@ export async function guardarImagen(
    */
   const anchos = [...derivadas.keys()].sort((a, b) => a - b);
   for (const ancho of anchos) {
-    await balde.put(`catalogo/${hash16}/w${ancho}.webp`, derivadas.get(ancho)!, {
+    await balde.put(claveDeImagen(hash16, ancho), derivadas.get(ancho)!, {
       httpMetadata: { contentType: 'image/webp', cacheControl: CACHE_CONTROL },
     });
   }
