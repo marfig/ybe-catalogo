@@ -56,6 +56,6 @@
     "PUBLIC_R2_BASE": "https://pub-d528716484104bfeb9ae991ab4337347.r2.dev",
 
     // Repositorio al que se manda el repository_dispatch al publicar (§11.2).
-    "GITHUB_REPO": ""
+    "GITHUB_REPO": "marfig/ybe-catalogo"
   }
 }

@@ -48,9 +48,16 @@ export interface OpcionesIdentidad {
  *
  *  - Exige DOS condiciones a la vez: estar en desarrollo Y que `ADMIN_DEV_EMAIL`
  *    tenga un valor. Estar en dev no alcanza; es opt-in explicito.
- *  - `esDesarrollo` llega de `import.meta.env.DEV`, que en un build de produccion
- *    es una constante `false`. O sea que en el bundle desplegado la rama del atajo
- *    es codigo muerto, no una condicion que se evalua.
+ *  - `esDesarrollo` llega de `import.meta.env.DEV`, que Vite reemplaza por la
+ *    constante `false` al compilar para produccion. VERIFICADO sobre el bundle
+ *    desplegado: el unico call site queda literalmente `esDesarrollo: false`.
+ *
+ *    Ojo con lo que esto NO es. La rama sigue estando en el bundle —el cuerpo de
+ *    esta funcion se emite entero, `esDesarrollo && !vacia(...)` incluido— y se
+ *    evalua en cada request. Lo que la hace inalcanzable es el valor que recibe,
+ *    no una eliminacion del bundler. La garantia es «el unico llamador pasa una
+ *    constante de build», y deja de valer el dia que alguien agregue un segundo
+ *    llamador con un valor calculado.
  *  - Si un `ADMIN_DEV_EMAIL` quedara seteado en produccion por un copiar y pegar
  *    del `.env`, no cambia nada: se sigue exigiendo el JWT.
  *  - Un JWT presente SIEMPRE gana sobre el atajo. Asi el atajo no enmascara un
