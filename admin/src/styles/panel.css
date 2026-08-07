@@ -736,16 +736,6 @@ button[disabled] {
   width: 100%;
 }
 
-.campo--hex {
-  flex: 0 0 auto;
-}
-
-.campo--hex input[type='color'] {
-  /* Un input de color a 100% de ancho es una mancha gigante. */
-  width: 4rem;
-  padding: 0.25rem;
-}
-
 .variantes-lista {
   display: grid;
   gap: var(--hueco);

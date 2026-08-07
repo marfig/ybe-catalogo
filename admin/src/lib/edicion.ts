@@ -240,19 +240,22 @@ export async function actualizarProducto(
 
     if (varianteId === undefined) {
       const [v] = await ejecutar<{ id: number }>(
-        `INSERT INTO variantes (producto_id, sku, color, color_hex, orden)
-         VALUES (?, ?, ?, ?, ?) RETURNING id`,
-        [id, skusNuevos[siguienteNuevo++], variante.color.trim(), variante.colorHex || null, orden]
+        // `color_hex` queda NULL: ver `VarianteNueva` en `alta.ts`.
+        `INSERT INTO variantes (producto_id, sku, color, orden)
+         VALUES (?, ?, ?, ?) RETURNING id`,
+        [id, skusNuevos[siguienteNuevo++], variante.color.trim(), orden]
       );
       varianteId = v.id;
     } else {
-      // Ni el `sku` ni el `color` se tocan: el SKU ya circuló y el color es de donde
-      // se derivó. Cambiar el color sería otra variante, no la misma renombrada.
-      await ejecutar(`UPDATE variantes SET color_hex = ?, orden = ? WHERE id = ?`, [
-        variante.colorHex || null,
-        orden,
-        varianteId,
-      ]);
+      /**
+       * Sólo el orden. Ni el `sku` ni el `color` se tocan: el SKU ya circuló y el color
+       * es de donde se derivó — cambiarlo sería otra variante, no la misma renombrada.
+       *
+       * `color_hex` TAMPOCO. Es el único dato de la variante que el admin no puede
+       * escribir, y dejarlo en el UPDATE con un valor que ya no llega del formulario
+       * borraría en silencio los que sí están cargados.
+       */
+      await ejecutar(`UPDATE variantes SET orden = ? WHERE id = ?`, [orden, varianteId]);
     }
 
     // Las fotos se reescriben en bloque: es la forma simple de respetar el orden que

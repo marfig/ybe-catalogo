@@ -9,9 +9,19 @@ import { buscarPorCodigo, normalizarCodigo, type ProductoExistente } from './cod
 import type { Ejecutar } from './grilla.ts';
 import { skuDe } from './imagen.ts';
 
+/**
+ * Una variante nueva.
+ *
+ * NO LLEVA `colorHex` A PROPÓSITO. La columna `color_hex` existe y el sitio público la
+ * usa para la bolita del selector, pero `SPEC.md` §6.6 es explícito: **nunca se
+ * inventa**. Un `<input type="color">` no puede cumplir eso porque no tiene estado
+ * vacío: siempre devuelve un color, así que guardar un producto le estampaba `#cccccc`
+ * a todas sus variantes y el sitio mostraba una bolita gris que nadie eligió.
+ *
+ * Sin valor, el selector del sitio cae a botón con texto, que es lo que §4.2 ya prevé.
+ */
 export interface VarianteNueva {
   color: string;
-  colorHex: string | null;
   /** hash16 de las imágenes ya subidas, en el orden en que se muestran. */
   hashes: string[];
 }
@@ -129,10 +139,12 @@ export async function crearProducto(
     // El orden que se cargó decide qué color se ve al abrir la ficha: es la misma
     // regla curatorial que aplica el volcado.
     const [v] = await ejecutar<{ id: number }>(
-      `INSERT INTO variantes (producto_id, sku, color, color_hex, orden)
-       VALUES (?, ?, ?, ?, ?)
+      // `color_hex` no se escribe: queda NULL, que es lo que corresponde a un color que
+      // nadie midió. Ver `VarianteNueva`.
+      `INSERT INTO variantes (producto_id, sku, color, orden)
+       VALUES (?, ?, ?, ?)
        RETURNING id`,
-      [id, skus[orden], variante.color.trim(), variante.colorHex || null, orden]
+      [id, skus[orden], variante.color.trim(), orden]
     );
 
     for (const [ordenFoto, hash] of variante.hashes.entries()) {

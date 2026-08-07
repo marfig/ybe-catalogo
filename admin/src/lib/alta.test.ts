@@ -50,7 +50,7 @@ const alta = (extra: Record<string, unknown> = {}) => ({
   precio: 195000,
   destacado: false,
   categorias: ['carteras'],
-  variantes: [{ color: 'Negro', colorHex: '#1a1a1a', hashes: [HASH_A] }],
+  variantes: [{ color: 'Negro', hashes: [HASH_A] }],
   ...extra,
 });
 
@@ -89,8 +89,8 @@ test('arma el sku como codigo-slug(color), sin indice posicional', async () => {
     ejecutor(db),
     alta({
       variantes: [
-        { color: 'Azul marino', colorHex: null, hashes: [] },
-        { color: 'Ñandutí', colorHex: null, hashes: [] },
+        { color: 'Azul marino', hashes: [] },
+        { color: 'Ñandutí', hashes: [] },
       ],
     }),
     opciones
@@ -110,8 +110,8 @@ test('el orden de las variantes es el que se cargo, que es curaduria', async () 
     ejecutor(db),
     alta({
       variantes: [
-        { color: 'Zafiro', colorHex: null, hashes: [] },
-        { color: 'Ambar', colorHex: null, hashes: [] },
+        { color: 'Zafiro', hashes: [] },
+        { color: 'Ambar', hashes: [] },
       ],
     }),
     opciones
@@ -127,7 +127,7 @@ test('vincula las imagenes ya subidas, en orden', async () => {
   const db = base();
   await crearProducto(
     ejecutor(db),
-    alta({ variantes: [{ color: 'Negro', colorHex: null, hashes: [HASH_B, HASH_A] }] }),
+    alta({ variantes: [{ color: 'Negro', hashes: [HASH_B, HASH_A] }] }),
     opciones
   );
   const hashes = db
@@ -146,17 +146,19 @@ test('cero fotos es valido: se publica con placeholder', async () => {
   const db = base();
   const r = await crearProducto(
     ejecutor(db),
-    alta({ variantes: [{ color: 'Negro', colorHex: null, hashes: [] }] }),
+    alta({ variantes: [{ color: 'Negro', hashes: [] }] }),
     opciones
   );
   assert.equal(r.creado, true);
 });
 
-test('el hex es opcional y NUNCA se inventa', async () => {
+test('el alta NUNCA inventa un color de pantalla', async () => {
+  // `SPEC.md` §6.6: `color_hex` es #rrggbb o NULL, y nunca se inventa. El alta no tiene
+  // forma de escribirlo, asi que sale NULL y el sitio cae a boton con texto (§4.2).
   const db = base();
   await crearProducto(
     ejecutor(db),
-    alta({ variantes: [{ color: 'Negro', colorHex: null, hashes: [] }] }),
+    alta({ variantes: [{ color: 'Negro', hashes: [] }] }),
     opciones
   );
   const v = db.prepare(`SELECT color_hex FROM variantes`).get() as { color_hex: string | null };
@@ -215,8 +217,8 @@ test('RECHAZA dos variantes del mismo color: darian el mismo sku', async () => {
         ejecutor(db),
         alta({
           variantes: [
-            { color: 'Negro', colorHex: null, hashes: [] },
-            { color: 'negro', colorHex: null, hashes: [] },
+            { color: 'Negro', hashes: [] },
+            { color: 'negro', hashes: [] },
           ],
         }),
         opciones
@@ -232,7 +234,7 @@ test('RECHAZA un hash de imagen que no existe', async () => {
     () =>
       crearProducto(
         ejecutor(db),
-        alta({ variantes: [{ color: 'Negro', colorHex: null, hashes: ['cccccccccccccccc'] }] }),
+        alta({ variantes: [{ color: 'Negro', hashes: ['cccccccccccccccc'] }] }),
         opciones
       ),
     /imagen/i
@@ -246,7 +248,7 @@ test('un alta rechazada NO deja el producto a medias', async () => {
   await assert.rejects(() =>
     crearProducto(
       ejecutor(db),
-      alta({ variantes: [{ color: 'Negro', colorHex: null, hashes: ['cccccccccccccccc'] }] }),
+      alta({ variantes: [{ color: 'Negro', hashes: ['cccccccccccccccc'] }] }),
       opciones
     )
   );

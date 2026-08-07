@@ -29,13 +29,11 @@ if (Astro.request.method === 'POST') {
      * emparejan por posición. Es la forma que un formulario sabe mandar sin JS.
      */
     const colores = datos.getAll('color').map(String);
-    const hexes = datos.getAll('hex').map(String);
     const fotos = datos.getAll('fotos').map(String);
 
     const variantes: VarianteNueva[] = colores
       .map((color, i) => ({
         color: color.trim(),
-        colorHex: hexes[i]?.trim() || null,
         // Los hashes llegan separados por coma desde el campo oculto que llena el JS.
         hashes: (fotos[i] ?? '').split(',').map((h) => h.trim()).filter(Boolean),
       }))
@@ -144,11 +142,6 @@ if (Astro.request.method === 'POST') {
             <label>Color</label>
             <input name="color" placeholder="Negro" />
           </p>
-          <p class="campo campo--hex">
-            <label>Color en pantalla</label>
-            <input name="hex" type="color" value="#1a1a1a" />
-            <span class="nota">Opcional.</span>
-          </p>
           <input type="hidden" name="fotos" value="" />
           <div class="fotos" hidden></div>
         </div>
@@ -166,11 +159,6 @@ if (Astro.request.method === 'POST') {
       <p class="campo">
         <label>Color</label>
         <input name="color" placeholder="Negro" />
-      </p>
-      <p class="campo campo--hex">
-        <label>Color en pantalla</label>
-        <input name="hex" type="color" value="#1a1a1a" />
-        <span class="nota">Opcional.</span>
       </p>
       <input type="hidden" name="fotos" value="" />
       <div class="fotos" hidden></div>

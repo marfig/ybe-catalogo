@@ -140,7 +140,7 @@ test('el SLUG no cambia aunque cambie el nombre', async () => {
       precio: 195000,
       destacado: false,
       categorias: ['carteras'],
-      variantes: [{ id: v, color: 'Negro', colorHex: null, hashes: [HASH_A] }],
+      variantes: [{ id: v, color: 'Negro', hashes: [HASH_A] }],
     },
     opciones
   );
@@ -165,7 +165,7 @@ test('el ESTADO no cambia: solo se mueve por las transiciones', async () => {
       precio: null,
       destacado: false,
       categorias: ['carteras'],
-      variantes: [{ id: v, color: 'Negro', colorHex: null, hashes: [] }],
+      variantes: [{ id: v, color: 'Negro', hashes: [] }],
     },
     opciones
   );
@@ -185,7 +185,7 @@ test('el CODIGO no cambia: es la identidad', async () => {
       precio: null,
       destacado: false,
       categorias: ['carteras'],
-      variantes: [{ id: v, color: 'Negro', colorHex: null, hashes: [] }],
+      variantes: [{ id: v, color: 'Negro', hashes: [] }],
     },
     opciones
   );
@@ -208,7 +208,7 @@ test('vaciar el nombre de un PUBLICADO se rechaza', async () => {
           precio: null,
           destacado: false,
           categorias: ['carteras'],
-          variantes: [{ id: v, color: 'Negro', colorHex: null, hashes: [] }],
+          variantes: [{ id: v, color: 'Negro', hashes: [] }],
         },
         opciones
       ),
@@ -229,7 +229,7 @@ test('vaciar el nombre de un IMPORTADO se permite', async () => {
       precio: null,
       destacado: false,
       categorias: ['carteras'],
-      variantes: [{ id: v, color: 'Negro', colorHex: null, hashes: [] }],
+      variantes: [{ id: v, color: 'Negro', hashes: [] }],
     },
     opciones
   );
@@ -253,7 +253,7 @@ test('actualiza descripcion, precio, destacado y categorias', async () => {
       precio: 250000,
       destacado: true,
       categorias: ['mochilas', 'dama'],
-      variantes: [{ id: v, color: 'Negro', colorHex: null, hashes: [HASH_A] }],
+      variantes: [{ id: v, color: 'Negro', hashes: [HASH_A] }],
     },
     opciones
   );
@@ -288,8 +288,8 @@ test('agregar una variante nueva no toca el SKU de las que estaban', async () =>
       categorias: ['carteras'],
       variantes: [
         // La que ya existe viaja con su id; la nueva no.
-        { id: v, color: 'Negro', colorHex: '#1a1a1a', hashes: [HASH_A] },
-        { color: 'Rojo', colorHex: null, hashes: [HASH_B] },
+        { id: v, color: 'Negro', hashes: [HASH_A] },
+        { color: 'Rojo', hashes: [HASH_B] },
       ],
     },
     opciones
@@ -318,7 +318,7 @@ test('agrega fotos a una variante existente sin perder las que tenia', async () 
       precio: null,
       destacado: false,
       categorias: ['carteras'],
-      variantes: [{ id: v, color: 'Negro', colorHex: null, hashes: [HASH_A, HASH_B] }],
+      variantes: [{ id: v, color: 'Negro', hashes: [HASH_A, HASH_B] }],
     },
     opciones
   );
@@ -351,7 +351,7 @@ test('QUITAR una variante que ya existe se RECHAZA', async () => {
           precio: null,
           destacado: false,
           categorias: ['carteras'],
-          variantes: [{ color: 'Rojo', colorHex: null, hashes: [] }],
+          variantes: [{ color: 'Rojo', hashes: [] }],
         },
         opciones
       ),
@@ -378,7 +378,7 @@ test('RECHAZA una categoria inexistente sin escribir nada', async () => {
           precio: null,
           destacado: false,
           categorias: ['inventada'],
-          variantes: [{ id: v, color: 'Negro', colorHex: null, hashes: [] }],
+          variantes: [{ id: v, color: 'Negro', hashes: [] }],
         },
         opciones
       ),
@@ -399,7 +399,7 @@ test('un producto que no existe se reporta', async () => {
           precio: null,
           destacado: false,
           categorias: ['carteras'],
-          variantes: [{ color: 'Negro', colorHex: null, hashes: [] }],
+          variantes: [{ color: 'Negro', hashes: [] }],
         },
         opciones
       ),
@@ -430,7 +430,7 @@ test('REGRESION: un sku del proveedor que no deriva del color se edita igual', a
       precio: 195000,
       destacado: false,
       categorias: ['carteras'],
-      variantes: [{ id: v, color: 'Champagne', colorHex: '#b98a70', hashes: [HASH_A] }],
+      variantes: [{ id: v, color: 'Champagne', hashes: [HASH_A] }],
     },
     opciones
   );
@@ -440,7 +440,14 @@ test('REGRESION: un sku del proveedor que no deriva del color se edita igual', a
     color_hex: string;
   };
   assert.equal(fila.sku, 'CG85527-E', 'el sku no se recalcula: ya circulo');
-  assert.equal(fila.color_hex, '#b98a70');
+  /**
+   * Y el `color_hex` cargado SOBREVIVE a la edicion.
+   *
+   * El admin ya no tiene con que escribirlo —el `<input type="color">` se saco porque no
+   * tiene estado vacio y estampaba un color que nadie eligio (SPEC.md §6.6)— asi que
+   * este assert es lo que impide que el UPDATE lo ponga en NULL en silencio.
+   */
+  assert.equal(fila.color_hex, '#1a1a1a', 'editar no borra el color cargado');
 });
 
 test('un id de variante ajeno se RECHAZA', async () => {
@@ -458,7 +465,7 @@ test('un id de variante ajeno se RECHAZA', async () => {
           precio: null,
           destacado: false,
           categorias: ['carteras'],
-          variantes: [{ id: 99999, color: 'Negro', colorHex: null, hashes: [] }],
+          variantes: [{ id: 99999, color: 'Negro', hashes: [] }],
         },
         opciones
       ),
