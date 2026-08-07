@@ -1,7 +1,24 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "node_modules"],
+  /*
+   * Este tsconfig es el del SITIO PUBLICO. Los otros dos proyectos del repo se
+   * excluyen porque corren en otro runtime y tienen su propia configuracion:
+   *
+   *   admin  — Worker con su tsconfig y su `npm run check` (SPEC-etapa2 §4.1). Sin
+   *            excluirlo, `**\/*` alcanza `admin/dist/` —el output de build, que
+   *            aparece apenas alguien compila el admin— y `astro check` reporta
+   *            cientos de errores sobre codigo generado. El `exclude: ["dist"]` solo
+   *            cubre el `dist` de la raiz.
+   *   spike  — el Worker descartable de la Fase 2.0 (SPEC-etapa2 §14). Usa tipos del
+   *            runtime de Workers (`HTMLRewriter`, `cf` en `RequestInit`) que aca no
+   *            existen, asi que reportaba 9 errores permanentes.
+   *
+   * Un `check` que siempre reporta errores es un `check` que nadie lee, y ese es el
+   * costo real de dejarlos: el dia que aparezca un error de verdad, se pierde entre
+   * el ruido.
+   */
+  "exclude": ["dist", "node_modules", "admin", "spike"],
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "preact",
