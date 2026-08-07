@@ -37,6 +37,20 @@
     }
   ],
 
+  // Almacen de sesiones de Astro. NO lo usa ningun codigo nuestro —la identidad sale
+  // del JWT de Access en cada request (§6), no de una sesion— pero el adapter de
+  // Cloudflare lo exige y el primer `wrangler deploy` lo provisiono solo.
+  //
+  // VA DECLARADO ACA, aunque funcione sin declararlo: sin esto el id vive unicamente
+  // en la cuenta de Cloudflare, y un deploy desde otra maquina o cuenta provisionaria
+  // un namespace NUEVO sin que nadie se entere de por que hay dos.
+  "kv_namespaces": [
+    {
+      "binding": "SESSION",
+      "id": "b66757af26a34154addb37507a775641"
+    }
+  ],
+
   // GITHUB_TOKEN va como SECRET, no aca:
   //   npx wrangler secret put GITHUB_TOKEN -c admin/wrangler.jsonc
   // Un token con contents:write en vars quedaria en texto plano en el repo.
