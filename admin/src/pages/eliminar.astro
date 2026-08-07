@@ -1,0 +1,214 @@
+---
+/**
+ * Confirmar una eliminación (SPEC-etapa2 §12.2).
+ *
+ * ES UNA PANTALLA Y NO UN `confirm()` DEL NAVEGADOR, y no por gusto: §12.2 exige que la
+ * confirmación diga qué va a pasar —«se va a borrar definitivamente, junto con sus 4
+ * fotos» contra «se va a sacar del catálogo»— y esos dos mensajes no se pueden escribir
+ * sin consultar la base. Un `confirm()` sólo puede decir una advertencia genérica, que
+ * pone el mismo peso sobre la acción reversible y sobre la que no lo es.
+ *
+ * Va aparte de la grilla porque la grilla ya tiene 550 líneas y tres acciones en lote;
+ * el botón de allá llega acá con `formaction`, que es HTML de siempre y funciona sin
+ * JavaScript.
+ *
+ * DOS POST AL MISMO SITIO: el primero trae los ids y RINDE el plan; el segundo llega con
+ * `confirmado` y ejecuta. Un GET no puede eliminar nada — sin eso, un enlace compartido
+ * o un prefetch del navegador borraría productos.
+ */
+import { env } from 'cloudflare:workers';
+
+import Panel from '../layouts/Panel.astro';
+import { ejecutorD1 } from '../lib/d1.ts';
+import { clavesDeImagen } from '../lib/imagenes.ts';
+import { eliminar, planearEliminacion, type PlanEliminacion } from '../lib/papelera.ts';
+
+const ejecutar = ejecutorD1(env.DB);
+const { identidad } = Astro.locals;
+
+if (Astro.request.method !== 'POST') return Astro.redirect('/productos', 303);
+
+const datos = await Astro.request.formData();
+const ids = datos.getAll('id').map(Number).filter(Number.isInteger);
+
+/**
+ * A qué vista de la grilla volver: filtro, búsqueda y página.
+ *
+ * VIENE EN EL CUERPO DEL FORMULARIO, no en la query. La primera versión lo leía de
+ * `Astro.url.searchParams` y el resultado era que eliminar desde la página 3 con un
+ * filtro puesto devolvía a la página 1 sin filtro — el trabajo seguía bien hecho, pero
+ * había que volver a encontrar dónde estabas.
+ */
+const volverQuery = String(datos.get('volver') ?? '');
+
+const volverA = (extra?: Record<string, string>): string => {
+  const u = new URL('/productos', Astro.url);
+  // Sólo la query, nunca el host: un `volver` con dominio ajeno sería un redirect
+  // abierto firmado por nuestra sesión.
+  for (const [k, v] of new URLSearchParams(volverQuery)) u.searchParams.set(k, v);
+  for (const [k, v] of Object.entries(extra ?? {})) u.searchParams.set(k, v);
+  return `${u.pathname}${u.search}`;
+};
+
+if (ids.length === 0) {
+  return Astro.redirect(volverA({ error: 'No se seleccionó ningún producto.' }), 303);
+}
+
+let plan: PlanEliminacion | null = null;
+
+if (datos.get('confirmado') === 'si') {
+  const { resultados, huerfanas } = await eliminar(ejecutar, ids, {
+    ahora: new Date().toISOString(),
+    porQuien: identidad.email,
+  });
+
+  /**
+   * R2 DESPUÉS de la base, y sin abortar si falla.
+   *
+   * Las filas ya no están, así que un error acá deja objetos que nadie referencia:
+   * invisibles y sin costo real (§12.1). Al revés —R2 primero— un fallo dejaría filas
+   * apuntando a objetos borrados, que es una foto rota en el catálogo.
+   */
+  if (huerfanas.length > 0) {
+    try {
+      await env.IMAGENES.delete(huerfanas.flatMap(clavesDeImagen));
+    } catch {
+      // Silencio deliberado: no hay nada que la persona pueda hacer con este error, y
+      // el trabajo que pidió ya se hizo.
+    }
+  }
+
+  const hechos = resultados.filter((r) => r.desenlace === 'hecho').length;
+  const omitidos = resultados.filter((r) => r.desenlace === 'omitido').length;
+
+  const extra: Record<string, string> = { hechos: String(hechos) };
+  if (omitidos > 0) {
+    extra.omitidos = String(omitidos);
+    const motivo = resultados.find((r) => r.desenlace === 'omitido')?.motivo;
+    if (motivo) extra.omitidoMotivo = motivo;
+  }
+
+  return Astro.redirect(volverA(extra), 303);
+}
+
+plan = await planearEliminacion(ejecutar, ids);
+
+const nada = plan.fisicos.length === 0 && plan.logicos.length === 0;
+const fotosQueSeVan = plan.fisicos.reduce((n, p) => n + p.fotos, 0);
+---
+
+<Panel titulo="Eliminar productos" volver="/productos">
+  {
+    nada ? (
+      <section class="resumen resumen--error">
+        <p>No hay nada que eliminar en lo que seleccionaste.</p>
+        {plan.omitidos.map((o) => (
+          <p class="nota">
+            {o.codigo ?? `#${o.id}`}: {o.motivo}.
+          </p>
+        ))}
+        <p>
+          <a href={volverA()}>Volver a la grilla</a>
+        </p>
+      </section>
+    ) : (
+      <>
+        <p class="nota nota--titulo">
+          Revisá qué va a pasar con cada uno. Los dos casos no son lo mismo.
+        </p>
+
+        {plan.fisicos.length > 0 && (
+          <section class="confirmar confirmar--definitivo">
+            <h2>
+              {plan.fisicos.length === 1
+                ? 'Se borra definitivamente 1 producto'
+                : `Se borran definitivamente ${plan.fisicos.length} productos`}
+            </h2>
+            <p>
+              {/* El motivo va con el mensaje, no en un tooltip: es lo que hace que la
+                  diferencia con el otro caso se entienda sin saber la spec. */}
+              Nunca estuvieron en el sitio, así que nadie tiene su enlace. No se pueden
+              recuperar.
+            </p>
+            <ul class="confirmar-lista">
+              {plan.fisicos.map((p) => (
+                <li>
+                  <strong>{p.codigo}</strong>
+                  {p.fotos > 0 ? (
+                    <span class="nota">
+                      {p.fotos === 1 ? 'con su foto' : `con sus ${p.fotos} fotos`}
+                    </span>
+                  ) : (
+                    <span class="nota">sin fotos</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+            {fotosQueSeVan > 0 && (
+              <p class="nota">
+                {fotosQueSeVan === 1
+                  ? 'Se borra 1 foto del almacenamiento.'
+                  : `Se borran ${fotosQueSeVan} fotos del almacenamiento.`}{' '}
+                Las que otro producto siga usando no se tocan.
+              </p>
+            )}
+          </section>
+        )}
+
+        {plan.logicos.length > 0 && (
+          <section class="confirmar">
+            <h2>
+              {plan.logicos.length === 1
+                ? 'Se saca del catálogo 1 producto'
+                : `Se sacan del catálogo ${plan.logicos.length} productos`}
+            </h2>
+            <p>
+              Estuvieron publicados. El enlace deja de mostrarlos pero{' '}
+              <strong>no queda roto</strong>, y se pueden restaurar desde la papelera.
+            </p>
+            <ul class="confirmar-lista">
+              {plan.logicos.map((p) => (
+                <li>
+                  <strong>{p.codigo}</strong>
+                  {p.slug ? <span class="nota">/{p.slug}</span> : null}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {plan.omitidos.length > 0 && (
+          <section class="confirmar">
+            <h2>No se tocan</h2>
+            <ul class="confirmar-lista">
+              {plan.omitidos.map((o) => (
+                <li>
+                  <strong>{o.codigo ?? `#${o.id}`}</strong>
+                  <span class="nota">{o.motivo}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <form method="post" action="/eliminar">
+          {[...plan.fisicos, ...plan.logicos].map((p) => (
+            <input type="hidden" name="id" value={String(p.id)} />
+          ))}
+          <input type="hidden" name="volver" value={volverQuery} />
+          <input type="hidden" name="confirmado" value="si" />
+          <p class="pie-guardar">
+            <button type="submit" class="peligro">
+              {plan.fisicos.length > 0 && plan.logicos.length > 0
+                ? 'Sí, eliminar los dos grupos'
+                : 'Sí, eliminar'}
+            </button>
+            <a class="nota" href={volverA()}>
+              No, volver a la grilla
+            </a>
+          </p>
+        </form>
+      </>
+    )
+  }
+</Panel>

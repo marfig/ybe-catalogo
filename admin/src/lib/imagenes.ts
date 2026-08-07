@@ -49,6 +49,19 @@ export function claveDeImagen(hash16: string, ancho: number): string {
 }
 
 /**
+ * TODAS las claves de R2 de una imagen. Lo que hay que borrar para que no quede nada.
+ *
+ * Emite los dos anchos aunque la imagen sólo tenga `w300` —el caso de un origen de menos
+ * de 600 px (SPEC.md §5.5)— porque `delete` de una clave que no existe es un no-op, y
+ * leer la columna `anchos` para decidirlo agregaría una consulta y una forma de
+ * equivocarse: si ese JSON quedara desincronizado, se dejaría un objeto sin dueño para
+ * siempre, invisible.
+ */
+export function clavesDeImagen(hash16: string): string[] {
+  return ANCHOS.map((ancho) => claveDeImagen(hash16, ancho));
+}
+
+/**
  * Valida una clave que llegó por URL. `null` si no es una miniatura del catálogo.
  *
  * El endpoint de desarrollo lee del binding con la clave que le pasan. Sin esto,

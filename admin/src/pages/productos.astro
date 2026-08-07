@@ -347,6 +347,9 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
       </p>
     ) : (
       <form method="post" action={destinoPost}>
+        {/* Para que la confirmación de /eliminar sepa a qué vista volver: filtro,
+            búsqueda y página. Sin esto, eliminar desde la página 3 devuelve a la 1. */}
+        <input type="hidden" name="volver" value={Astro.url.search.replace(/^\?/, '')} />
         {/* Las acciones van ARRIBA: con 50 filas, un bloque al pie se pierde de vista
             en la primera mirada y hay que scrollear hasta el fondo para descubrir que
             existe. */}
@@ -388,6 +391,23 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
             <span class="nota">
               Se suma a las que ya tiene. Para cambiar la principal, usá el desplegable
               de la fila.
+            </span>
+          </p>
+
+          <hr />
+
+          {/* `formaction` y no otra accion de esta pagina: eliminar necesita una pantalla
+              de confirmacion que diga QUE va a pasar con cada producto (§12.2), y eso
+              depende de una consulta a la base. Es HTML de siempre: sin JavaScript el
+              boton igual lleva a la confirmacion. */}
+          <p class="lote-fila">
+            <button type="submit" class="peligro" formaction="/eliminar" formnovalidate>
+              Eliminar
+            </button>
+            <span class="nota">
+              Los que nunca se publicaron se borran de verdad; los publicados se sacan del
+              catálogo y quedan en la <a href="/eliminados">papelera</a>. La pantalla
+              siguiente lo dice producto por producto antes de hacer nada.
             </span>
           </p>
         </fieldset>

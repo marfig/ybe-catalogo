@@ -7,6 +7,7 @@ import {
   baseDeImagenes,
   claveDeImagen,
   claveDesdeRuta,
+  clavesDeImagen,
   hash16De,
   urlMiniatura,
 } from './imagenes.ts';
@@ -35,6 +36,23 @@ test('claveDeImagen rechaza un hash que no sea 16 hex', () => {
 
 test('claveDeImagen rechaza un ancho fuera del contrato', () => {
   assert.throws(() => claveDeImagen('5edcaf83b3f7571f', 1200), /ancho/i);
+});
+
+test('clavesDeImagen da todas las derivadas, para borrarlas de R2', () => {
+  assert.deepEqual(clavesDeImagen('5edcaf83b3f7571f'), [
+    'catalogo/5edcaf83b3f7571f/w300.webp',
+    'catalogo/5edcaf83b3f7571f/w600.webp',
+  ]);
+});
+
+test('clavesDeImagen emite un ancho por cada uno del contrato', () => {
+  // Si mañana se agrega un ancho, la purga tiene que llevarselo sin que nadie lo
+  // recuerde: dejar un objeto sin dueño es invisible y para siempre.
+  assert.equal(clavesDeImagen('5edcaf83b3f7571f').length, ANCHOS.length);
+});
+
+test('clavesDeImagen rechaza un hash inválido, igual que claveDeImagen', () => {
+  assert.throws(() => clavesDeImagen('../../etc/passwd'), /hash/i);
 });
 
 // --- La eleccion de base: el bug de "subo local y leo del bucket real" ---

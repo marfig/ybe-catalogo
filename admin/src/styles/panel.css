@@ -776,6 +776,70 @@ button.secundario {
   border-color: var(--borde);
 }
 
+/**
+ * El boton de una accion destructiva.
+ *
+ * Va en el borde y el texto, no en el fondo: un boton rojo macizo al lado de los otros
+ * atrae el click en vez de frenarlo. Lo que hace falta es que se lea distinto ANTES de
+ * apretarlo, no que grite.
+ */
+button.peligro {
+  background: var(--superficie);
+  color: var(--peligro);
+  border-color: var(--peligro);
+}
+
+/* --------------------------------------------------------------------------
+   Confirmar una eliminacion (§12.2) y la papelera (§10.5)
+   -------------------------------------------------------------------------- */
+
+.confirmar {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-left-width: 4px;
+  border-radius: var(--radio);
+  padding: var(--hueco);
+  margin: 0 0 1.5rem;
+}
+
+/**
+ * El grupo que NO tiene vuelta atras.
+ *
+ * Es el unico que se pinta, y por eso se distingue. Si los dos bloques fueran rojos, el
+ * color dejaria de significar «esto no se recupera» y pasaria a significar «esto es una
+ * eliminacion», que es justo lo que §12.2 quiere que se lea distinto.
+ */
+.confirmar--definitivo {
+  border-left-color: var(--peligro);
+}
+
+.confirmar h2 {
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+}
+
+.confirmar--definitivo h2 {
+  color: var(--peligro);
+}
+
+.confirmar p {
+  margin: 0 0 var(--hueco);
+}
+
+.confirmar-lista {
+  margin: 0;
+  padding-inline-start: 1.25rem;
+}
+
+.confirmar-lista li {
+  margin: 0 0 0.25rem;
+}
+
+/* El codigo y su detalle en la misma linea, con aire entre los dos. */
+.confirmar-lista .nota {
+  margin-inline-start: 0.5rem;
+}
+
 .lote-check-fila {
   margin: 0;
 }
