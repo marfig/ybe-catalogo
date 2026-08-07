@@ -669,12 +669,51 @@ button[disabled] {
   color: var(--texto-suave);
 }
 
-/* Se ve, no se puede usar, y dice por que. Un boton ausente se lee como "no se
-   puede"; uno desactivado con su motivo se lee como "todavia no". */
-.puerta--pendiente {
-  border-style: dashed;
-  opacity: 0.6;
-  cursor: not-allowed;
+/* --------------------------------------------------------------------------
+   Importar desde el proveedor (§10.2)
+   -------------------------------------------------------------------------- */
+
+/**
+ * La barra de progreso.
+ *
+ * Es un `<div>` con un `<span>` adentro y no un `<progress>` porque `<progress>` no se
+ * puede estilar de forma pareja entre navegadores sin pseudo-elementos propietarios. El
+ * rol y los valores de accesibilidad los pone el marcado (`role="progressbar"`), asi
+ * que lo que se pierde es solo el elemento, no la semantica.
+ */
+.barra {
+  block-size: 0.75rem;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  overflow: hidden;
+  margin: 0 0 var(--hueco);
+}
+
+.barra > span {
+  display: block;
+  block-size: 100%;
+  inline-size: 0;
+  background: var(--primario);
+  /* Acompaña el salto de cada ficha en vez de dar un tirón: el paso es de un segundo,
+     asi que una transicion corta se lee como movimiento y no como parpadeo. */
+  transition: inline-size 0.2s ease-out;
+}
+
+/* El aviso de §10.2: es una restriccion real del diseño, no letra chica. */
+.nota--pestana {
+  color: var(--aviso);
+}
+
+#lista-problemas {
+  margin: 0;
+  padding-inline-start: 1.25rem;
+}
+
+#lista-problemas li {
+  margin: 0 0 0.5rem;
+  /* Las URLs del proveedor son largas y no tienen espacios: sin esto desbordan. */
+  overflow-wrap: anywhere;
 }
 
 /* --------------------------------------------------------------------------

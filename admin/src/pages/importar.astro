@@ -1,0 +1,141 @@
+---
+/**
+ * Importar desde el proveedor (SPEC-etapa2 §10.2).
+ *
+ * La pantalla es un campo y una barra, pero el recorrido corre en la pestaña (§7.1):
+ * el aviso de no cerrarla es explícito porque es una restricción real del diseño, no un
+ * detalle de implementación que se pueda esconder.
+ *
+ * LA GUARDA DE LA CORRIDA ABIERTA VA DEL LADO DEL SERVIDOR y no sólo en el 409 del
+ * endpoint. Enterarse de que no se puede importar DESPUÉS de pegar la URL y apretar el
+ * botón es enterarse tarde. Además cerrar la anterior es un `<form>` y no un `fetch`:
+ * es lo único de esta pantalla que puede funcionar sin JavaScript, así que funciona.
+ */
+import { env } from 'cloudflare:workers';
+
+import Panel from '../layouts/Panel.astro';
+import { ejecutorD1 } from '../lib/d1.ts';
+import { haceCuanto } from '../lib/publicaciones.ts';
+import { cerrarCorrida, corridaEnCurso } from '../lib/scrape/corrida.ts';
+import { ORIGEN } from '../lib/scrape/origen.ts';
+
+const ejecutar = ejecutorD1(env.DB);
+
+if (Astro.request.method === 'POST') {
+  const form = await Astro.request.formData();
+  const scrapeId = Number(form.get('scrapeId'));
+
+  if (Number.isInteger(scrapeId)) {
+    try {
+      await cerrarCorrida(ejecutar, scrapeId, {
+        ahora: new Date().toISOString(),
+        estado: 'abortado',
+      });
+    } catch {
+      // Ya estaba cerrada: el resultado que se pedía igual es el que hay.
+    }
+  }
+
+  // Redirect y no render: sin esto, recargar vuelve a mandar el POST.
+  return Astro.redirect('/importar', 303);
+}
+
+const ahora = new Date().toISOString();
+const abierta = await corridaEnCurso(ejecutar, { ahora });
+
+/** Ejemplo con el origen real, para que se vea qué se espera pegar. */
+const EJEMPLO = `${ORIGEN}/lanzamientos/?lz=2026-07-16`;
+---
+
+<Panel titulo="Importar desde el proveedor" volver="/">
+  {
+    abierta ? (
+      <section class="resumen resumen--error">
+        <p>
+          {/* `haceCuanto` y no el ISO: un timestamp crudo es un valor tecnico en una
+              pantalla que promete castellano (§10). */}
+          Hay una importación que empezó {haceCuanto(abierta.iniciado_en, ahora)}. Dos
+          importaciones a la vez le duplican el tráfico al proveedor, así que se hace de
+          a una.
+        </p>
+        <p class="nota">
+          Si quedó abierta porque se cerró la pestaña, cerrala acá. Lo que ya entró queda
+          guardado: volver a importar sigue desde donde estaba.
+        </p>
+        <form method="post">
+          <input type="hidden" name="scrapeId" value={abierta.id} />
+          <button type="submit" class="secundario">Cerrar la importación anterior</button>
+        </form>
+      </section>
+    ) : null
+  }
+
+  <form id="importar">
+    <p class="campo">
+      <label for="url">Dirección del listado de lanzamientos</label>
+      <input
+        type="url"
+        id="url"
+        name="url"
+        required
+        disabled={abierta !== null}
+        placeholder={EJEMPLO}
+      />
+      <span class="nota">
+        Pegá la dirección de la página de lanzamientos del proveedor. Se importa
+        <strong>esa tanda</strong> y no el catálogo entero.
+      </span>
+    </p>
+
+    <p class="pie-guardar">
+      <button type="submit" disabled={abierta !== null}>Importar</button>
+      <span class="nota">
+        Los productos entran «Por aprobar». No se publica nada hasta que los revises.
+      </span>
+    </p>
+  </form>
+
+  <noscript>
+    <p class="resumen resumen--error">
+      Esta pantalla necesita JavaScript. El recorrido corre en el navegador a propósito:
+      es lo que permite ver el progreso, marcar el paso de un pedido por segundo y
+      procesar las fotos, que el servidor no puede hacer.
+    </p>
+  </noscript>
+
+  <section id="marcha" hidden>
+    <p id="progreso" aria-live="polite"></p>
+
+    <div
+      id="barra"
+      class="barra"
+      role="progressbar"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+      aria-label="Avance de la importación"
+    >
+      <span id="barra-relleno"></span>
+    </div>
+
+    <p class="nota nota--pestana">
+      <strong>No cierres esta pestaña.</strong> El recorrido corre acá: si la cerrás, se
+      interrumpe. Lo que ya entró queda guardado.
+    </p>
+
+    <button type="button" id="cancelar" class="secundario">Cancelar</button>
+
+    <details id="problemas" hidden class="ayuda">
+      <summary>Fichas que no se pudieron leer</summary>
+      <ul id="lista-problemas"></ul>
+    </details>
+  </section>
+
+  <section id="resumen" hidden></section>
+</Panel>
+
+<script>
+  import { prepararImportacion } from '../scripts/importar-cliente.ts';
+
+  prepararImportacion();
+</script>
