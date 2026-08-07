@@ -533,6 +533,46 @@ El Worker **igual valida el JWT de Access** en cada request (`Cf-Access-Jwt-Asse
 contra el JWKS del equipo). Confiar solo en el header sería confiar en que nadie
 puede alcanzar el Worker sin pasar por Access.
 
+#### Cómo se configuró — y por qué no como dice la documentación
+
+Configurado el 2026-08-07. **Los dos caminos documentados no sirvieron**, así que
+queda anotado el que sí, porque es exactamente el tipo de cosa que nadie recuerda.
+
+| Camino | Qué pasó |
+|---|---|
+| El toggle del Worker: *Settings → Domains & Routes → «Enable Cloudflare Access»* (§17) | **Ese botón no existe** en el panel actual. La sección se llama **«Trigger events»**, está vacía, y su único `Add` ofrece Cron triggers y Queues |
+| *Zero Trust → Access controls → Applications → Self-hosted* | La documentación exige *«an active domain on Cloudflare»* y `workers.dev` **no es zona propia**. Además Zero Trust se mudó de `one.dash.cloudflare.com` al panel principal |
+| **Por API** | ✅ Funciona, y sin pedir dominio |
+
+```
+POST /accounts/{cuenta}/access/apps
+  { "name": "...", "domain": "ybe-admin.chenson.workers.dev",
+    "type": "self_hosted", "session_duration": "24h" }
+
+POST /accounts/{cuenta}/access/apps/{app}/policies
+  { "name": "...", "decision": "allow",
+    "include": [{ "email": { "email": "..." } }] }
+```
+
+Hace falta un API token con **Access: Apps and Policies (Edit)**. El OAuth de
+`wrangler` **no sirve**: tiene `workers`, `d1`, `workers_kv`, `queues` y una docena
+más, pero ningún scope de Zero Trust.
+
+El equipo lo autogenera Cloudflare al aceptar el plan Free (acá quedó
+`old-forest-3a66`), y el proveedor de identidad por defecto es el `cloudflare`, o sea
+el PIN de un solo uso por email — que es justo lo que §6 pedía.
+
+**Verificado en tres etapas contra el Worker desplegado**, y las tres importan:
+
+1. **Con las vars vacías: 403 en las ocho rutas probadas**, con el motivo en el
+   cuerpo. El admin falla CERRADO, así que se puede desplegar antes de configurar
+   Access — que es obligatorio, porque la URL tiene que existir para poder
+   protegerla.
+2. **Con Access delante: 302 al login** en las siete rutas probadas, incluidos los
+   endpoints de API y los assets de imagen. El `meta` del redirect confirma el
+   `hostname` y el `aud`.
+3. **El sitio público sigue respondiendo 200 sin autenticación.** Access no lo tocó.
+
 ---
 
 ## 7. Ingesta por scrape
