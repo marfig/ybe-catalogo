@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { AcumuladorFicha } from './extractor.ts';
+import { AcumuladorFicha, fotosPorColor } from './extractor.ts';
+import { skuDeOrigen } from './origen.ts';
 
 /**
  * Los casos salen de HTML REAL, bajado y medido el 2026-08-06 sobre
@@ -51,12 +52,57 @@ test('el color de la ficha abierta sale del og:title', () => {
   assert.equal(cg85700().resultado().colorOrigen, '(3) NEGRO');
 });
 
-test('los dos colores hermanos entran una sola vez cada uno', () => {
+test('los dos colores hermanos entran una sola vez cada uno, con su foto', () => {
+  /**
+   * LA FOTO DEL HERMANO ESTÁ ACÁ Y NO HAY QUE IR A BUSCARLA. Medido el 2026-08-07
+   * sobre `/producto/71163-cg85700`: la imagen del bloque de colores es el MISMO
+   * archivo de 600×600 que sirve la ficha propia del hermano — mismo hash, mismo peso.
+   *
+   * Sin esto, los colores hermanos entran como variantes y se quedan SIN FOTO, porque
+   * su ficha nunca se visita (la saltea el corte por código de la cortesía §7.4).
+   */
   const { hermanos } = cg85700().resultado();
   assert.deepEqual(hermanos, [
-    { url: `${HOST}/producto/71301-cg85700`, colorOrigen: '(T) MARRON CLARO' },
-    { url: `${HOST}/producto/71350-cg85700`, colorOrigen: '(B) MARRON' },
+    {
+      url: `${HOST}/producto/71301-cg85700`,
+      colorOrigen: '(T) MARRON CLARO',
+      foto: `${HOST}/Prelude-images/product/bbb2.jpg`,
+    },
+    {
+      url: `${HOST}/producto/71350-cg85700`,
+      colorOrigen: '(B) MARRON',
+      foto: `${HOST}/Prelude-images/product/ccc3.jpg`,
+    },
   ]);
+});
+
+test('la foto del hermano no se cuela entre las fotos de esta ficha', () => {
+  // Es la otra mitad de la regla: la foto del hermano es DEL HERMANO. Colgarla acá le
+  // pondria a esta variante la foto del color equivocado.
+  const r = cg85700().resultado();
+  assert.deepEqual(r.fotos, [`${HOST}/Prelude-images/product/aaa1.jpg`]);
+  assert.ok(r.hermanos.every((h) => !r.fotos.includes(h.foto!)));
+});
+
+test('la foto del hermano se normaliza igual que las propias', () => {
+  // Sin normalizar el `:443`, la misma imagen entraria dos veces a R2.
+  for (const h of cg85700().resultado().hermanos) {
+    assert.ok(h.foto && !h.foto.includes(':443'), `${h.url} deberia venir sin puerto`);
+  }
+});
+
+test('gana la primera imagen del hermano, no la última', () => {
+  /**
+   * El proveedor emite dos `<a>` por hermano. Si algún día el segundo llevara un icono
+   * de la ruta de imágenes, pisaría la foto de verdad — y el síntoma seria la foto
+   * equivocada, no un error.
+   */
+  const a = new AcumuladorFicha(`${HOST}/producto/71163-cg85700`);
+  a.abrirEnlace('/producto/71301-cg85700');
+  a.verImagen({ src: IMG('buena'), title: '(T) MARRON CLARO' });
+  a.verImagen({ src: IMG('despues'), title: '(T) MARRON CLARO' });
+  a.cerrarEnlace();
+  assert.equal(a.resultado().hermanos[0].foto, `${HOST}/Prelude-images/product/buena.jpg`);
 });
 
 test('la foto repetida por el zoom no se duplica', () => {
@@ -149,8 +195,70 @@ test('un hermano sin nombre de color entra igual, con color nulo', () => {
   a.abrirEnlace('/producto/71301-cg85700');
   a.cerrarEnlace();
   assert.deepEqual(a.resultado().hermanos, [
-    { url: `${HOST}/producto/71301-cg85700`, colorOrigen: null },
+    { url: `${HOST}/producto/71301-cg85700`, colorOrigen: null, foto: null },
   ]);
+});
+
+test('un hermano cuyo enlace no lleva imagen queda con foto nula, no rota', () => {
+  // El bloque de colores emite un `<a>` con la miniatura y otro con el texto: el
+  // segundo no tiene imagen y no puede dejar la foto en `undefined`.
+  const a = new AcumuladorFicha(`${HOST}/producto/71163-cg85700`);
+  a.abrirEnlace('/producto/71301-cg85700');
+  a.verTexto('(T) MARRON CLARO');
+  a.cerrarEnlace();
+  assert.equal(a.resultado().hermanos[0].foto, null);
+});
+
+// --- A qué variante va cada foto ---
+
+test('fotosPorColor reparte la galería propia y la foto de cada hermano', () => {
+  /**
+   * EL BUG QUE ESTA FUNCIÓN CIERRA: sólo el color de la ficha visitada recibía fotos.
+   * Los hermanos entraban como variantes y se quedaban vacíos, porque su ficha nunca se
+   * visita — la saltea el corte por código de §7.4. Se veían los colores, sin imagen.
+   */
+  assert.deepEqual(fotosPorColor(cg85700().resultado()), [
+    { sku: 'CG85700-3', fotos: [`${HOST}/Prelude-images/product/aaa1.jpg`] },
+    { sku: 'CG85700-T', fotos: [`${HOST}/Prelude-images/product/bbb2.jpg`] },
+    { sku: 'CG85700-B', fotos: [`${HOST}/Prelude-images/product/ccc3.jpg`] },
+  ]);
+});
+
+test('fotosPorColor usa el MISMO SKU que registra la variante', () => {
+  // Si no coincidiera, la foto se vincularia a un SKU que no existe y el error
+  // aparecería lejos de la causa.
+  const ficha = cg85700().resultado();
+  const propio = fotosPorColor(ficha)[0];
+  assert.equal(propio.sku, skuDeOrigen(ficha.codigo, ficha.colorOrigen!));
+});
+
+test('fotosPorColor saltea un color sin nombre: no hay SKU donde colgar la foto', () => {
+  const a = new AcumuladorFicha(`${HOST}/producto/71163-cg85700`);
+  a.abrirEnlace('/producto/71301-cg85700');
+  a.verImagen({ src: IMG('huerfana') });
+  a.cerrarEnlace();
+  assert.deepEqual(fotosPorColor(a.resultado()), []);
+});
+
+test('fotosPorColor saltea un color cuyo nombre no da SKU, sin lanzar', () => {
+  // `skuDeOrigen` lanza si del color no queda nada slugificable. Un color roto no puede
+  // tumbar la ficha entera: el producto ya se registró.
+  const a = new AcumuladorFicha(`${HOST}/producto/71163-cg85700`);
+  a.abrirEnlace('/producto/71301-cg85700');
+  a.verImagen({ src: IMG('bbb2'), title: '...' });
+  a.cerrarEnlace();
+  assert.doesNotThrow(() => fotosPorColor(a.resultado()));
+  assert.deepEqual(fotosPorColor(a.resultado()), []);
+});
+
+test('fotosPorColor no inventa una entrada para un color sin fotos', () => {
+  const a = new AcumuladorFicha(`${HOST}/producto/71163-cg85700`);
+  a.verMeta('og:title', 'Producto: CG85700 (3) NEGRO');
+  a.abrirEnlace('/producto/71301-cg85700');
+  a.verTexto('(T) MARRON CLARO');
+  a.cerrarEnlace();
+  // El propio tampoco tiene galeria en este HTML: la lista queda vacia.
+  assert.deepEqual(fotosPorColor(a.resultado()), []);
 });
 
 test('correr la misma ficha dos veces da exactamente lo mismo', () => {

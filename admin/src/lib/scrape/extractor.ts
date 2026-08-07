@@ -19,6 +19,7 @@ import {
   colorDesdeTitulo,
   esFichaDelMismoModelo,
   normalizarUrl,
+  skuDeOrigen,
 } from './origen.ts';
 
 /** Otra ficha del mismo modelo: un color hermano. */
@@ -27,6 +28,15 @@ export interface Hermano {
   url: string;
   /** El color tal cual lo escribe el proveedor, con prefijo: `(T) MARRON CLARO`. */
   colorOrigen: string | null;
+  /**
+   * Su foto, la del bloque de colores. `null` si ese `<a>` no llevaba imagen.
+   *
+   * NO ES UNA MINIATURA DE BAJA RESOLUCIÓN, y esto se midió el 2026-08-07 sobre
+   * `/producto/71163-cg85700`: es el MISMO archivo de 600×600 que sirve la ficha propia
+   * del hermano — mismo hash de 80 hex, mismo peso al byte. Por eso alcanza con visitar
+   * una sola ficha por modelo y todos los colores igual se quedan con su foto.
+   */
+  foto: string | null;
 }
 
 export interface FichaExtraida {
@@ -119,7 +129,7 @@ export class AcumuladorFicha {
 
     let hermano = this.#hermanos.get(absoluta);
     if (!hermano) {
-      hermano = { url: absoluta, colorOrigen: null };
+      hermano = { url: absoluta, colorOrigen: null, foto: null };
       this.#hermanos.set(absoluta, hermano);
     }
     this.#hermanoActual = hermano;
@@ -150,12 +160,20 @@ export class AcumuladorFicha {
     const absoluta = normalizarUrl(src);
     if (!absoluta) return;
 
-    // Dentro de un `<a>` hermano: es la miniatura del selector de color, no una foto
-    // de esta variante. Colgársela le pondría la foto del color equivocado, y eso
-    // llega hasta el cliente que pide por WhatsApp.
+    /**
+     * Dentro de un `<a>` hermano: la imagen es DEL HERMANO, no de esta variante.
+     *
+     * Se queda con él y no entra a `#fotos`. Colgársela a esta variante le pondría la
+     * foto del color equivocado, y eso llega hasta el cliente que pide por WhatsApp.
+     *
+     * La primera gana, igual que con el título: si un segundo `<a>` del bloque trajera
+     * un icono de la ruta de imágenes, pisaría la foto de verdad y el síntoma sería una
+     * foto equivocada, no un error.
+     */
     if (this.#hermanoActual) {
       const nombre = (title ?? '').trim();
       if (nombre) this.#hermanoActual.colorOrigen = nombre;
+      if (!this.#hermanoActual.foto) this.#hermanoActual.foto = absoluta;
       return;
     }
 
@@ -182,4 +200,51 @@ export class AcumuladorFicha {
       hermanos: [...this.#hermanos.values()],
     };
   }
+}
+
+/** Las fotos de un color y la variante a la que pertenecen. */
+export interface FotosDeColor {
+  sku: string;
+  fotos: string[];
+}
+
+/**
+ * Reparte las fotos de la ficha entre las variantes de TODOS los colores del modelo.
+ *
+ * EL BUG QUE ESTA FUNCIÓN CIERRA. Antes sólo el color de la ficha visitada recibía
+ * fotos. Los colores hermanos entraban como variantes desde el bloque de colores y se
+ * quedaban vacíos, porque su ficha nunca se visita: la saltea el corte por código de la
+ * cortesía (§7.4). En pantalla se veían todos los colores y sólo uno con imagen.
+ *
+ * Y no hacía falta ir a buscarlas: la foto del hermano ya viene en esta misma página, en
+ * el bloque de colores, y es el mismo archivo de 600×600 que sirve su propia ficha
+ * (medido el 2026-08-07 sobre `/producto/71163-cg85700`). Un modelo de tres colores
+ * sigue costando UNA ficha.
+ *
+ * El SKU sale de `skuDeOrigen`, la misma función con la que `registrarFicha` crea la
+ * variante. Si fueran dos caminos distintos, la foto se vincularía a un SKU que no
+ * existe y el error aparecería lejos de la causa.
+ */
+export function fotosPorColor(ficha: FichaExtraida): FotosDeColor[] {
+  const salida: FotosDeColor[] = [];
+
+  const agregar = (colorOrigen: string | null, fotos: string[]): void => {
+    if (!colorOrigen || fotos.length === 0) return;
+    try {
+      salida.push({ sku: skuDeOrigen(ficha.codigo, colorOrigen), fotos });
+    } catch {
+      /**
+       * Un color del que no sale SKU tampoco generó variante: `registrarFicha` lo contó
+       * en `coloresSinNombre` y no hay dónde colgar la foto. Se saltea en silencio
+       * porque el producto YA se registró, y lanzar acá lo perdería entero por una foto.
+       */
+    }
+  };
+
+  agregar(ficha.colorOrigen, ficha.fotos);
+  for (const hermano of ficha.hermanos) {
+    agregar(hermano.colorOrigen, hermano.foto ? [hermano.foto] : []);
+  }
+
+  return salida;
 }
