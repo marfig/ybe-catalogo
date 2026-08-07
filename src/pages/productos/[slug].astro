@@ -140,10 +140,22 @@ if (precio !== null && inicial) {
       }))}
       r2Base={PUBLIC_R2_BASE}
       telefono={normalizarTelefono(PUBLIC_WHATSAPP)}
+      codigo={producto.data.origen.ref}
     />
 
     <div class="flex flex-col gap-4">
-      <h1 class="text-lg font-semibold sm:text-2xl">{nombre}</h1>
+      <div class="flex flex-col gap-1">
+        <h1 class="text-lg font-semibold sm:text-2xl">{nombre}</h1>
+        {/*
+          JUNTO AL NOMBRE y no en la lista de abajo (SPEC-etapa2 §5.3). Es el dato con
+          el que un cliente pregunta por WhatsApp — el caso de uso central de este
+          negocio — asi que tiene que estar donde la vista cae primero, no entre la
+          marca y las categorias.
+        */}
+        <p class="text-texto-suave text-sm">
+          Código: <code class="text-texto">{producto.data.origen.ref}</code>
+        </p>
+      </div>
 
       <div class="flex flex-col gap-1">
         <Precio precio={precio} grande />
@@ -153,10 +165,6 @@ if (precio !== null && inicial) {
       {descripcion && <p class="max-w-prose leading-relaxed">{descripcion}</p>}
 
       <dl class="text-texto-suave mt-2 text-sm">
-        <div class="flex gap-2">
-          <dt>Código:</dt>
-          <dd class="text-texto"><code>{producto.data.origen.ref}</code></dd>
-        </div>
         <div class="flex gap-2">
           <dt>Marca:</dt>
           <dd class="text-texto">{MARCA}</dd>

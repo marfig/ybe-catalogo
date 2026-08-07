@@ -63,6 +63,88 @@ test('el texto va URL-encodeado: saltos y acentos no rompen el enlace', () => {
 });
 
 // --------------------------------------------------------------------------
+// El codigo en el mensaje (SPEC-etapa2 §5.3, fase 2.7)
+// --------------------------------------------------------------------------
+
+test('el mensaje lleva el codigo, rotulado', () => {
+  /**
+   * Es el caso de uso central del negocio: del otro lado del chat no se puede tener
+   * que adivinar de que producto se habla. El codigo va ROTULADO y en su propia
+   * linea: quien atiende escanea la conversacion, no la lee.
+   */
+  const enlace = construirEnlaceWa({
+    telefono: TEL,
+    nombre: 'Mochila urbana',
+    url: URL_PROD,
+    codigo: 'CG85527',
+  });
+
+  assert.ok(textoDe(enlace).includes('Código: CG85527'));
+});
+
+test('el codigo no reemplaza al nombre ni a la URL', () => {
+  // Las tres cosas cumplen funciones distintas: el nombre se lee, el codigo se busca
+  // en el sistema, y la URL es la que se abre.
+  const texto = textoDe(
+    construirEnlaceWa({
+      telefono: TEL,
+      nombre: 'Mochila urbana',
+      url: URL_PROD,
+      codigo: 'CG85527',
+    })
+  );
+
+  assert.ok(texto.includes('Mochila urbana'));
+  assert.ok(texto.includes(URL_PROD));
+  assert.ok(texto.includes('CG85527'));
+});
+
+test('el codigo va con el color, no en vez del color', () => {
+  const texto = textoDe(
+    construirEnlaceWa({
+      telefono: TEL,
+      nombre: 'Mochila urbana',
+      url: URL_PROD,
+      color: 'Negro',
+      codigo: 'CG85527',
+    })
+  );
+
+  assert.ok(texto.includes('Mochila urbana — Negro'));
+  assert.ok(texto.includes('Código: CG85527'));
+});
+
+test('sin codigo el mensaje sigue armandose, sin la linea vacia', () => {
+  /**
+   * `codigo` es opcional a proposito: si un dia una ficha se rinde sin el, el boton
+   * principal del sitio NO puede quedar roto — ni mostrar «Código:» sin nada al lado,
+   * que se lee como un error del sitio.
+   */
+  const texto = textoDe(construirEnlaceWa({ telefono: TEL, nombre: 'X', url: URL_PROD }));
+
+  assert.ok(!texto.includes('Código'));
+  assert.ok(texto.includes('X'));
+  assert.ok(texto.includes(URL_PROD));
+});
+
+test('un codigo en blanco se trata como ausente', () => {
+  const texto = textoDe(
+    construirEnlaceWa({ telefono: TEL, nombre: 'X', url: URL_PROD, codigo: '   ' })
+  );
+  assert.ok(!texto.includes('Código'));
+});
+
+test('el codigo va antes de la URL: lo ultimo del mensaje es el enlace', () => {
+  // La URL al final es lo que la mayoria de los clientes de chat convierten en
+  // preview. Meter texto despues la parte al medio.
+  const texto = textoDe(
+    construirEnlaceWa({ telefono: TEL, nombre: 'X', url: URL_PROD, codigo: 'CG1' })
+  );
+  assert.ok(texto.indexOf('Código: CG1') < texto.indexOf(URL_PROD));
+  assert.ok(texto.trimEnd().endsWith(URL_PROD));
+});
+
+// --------------------------------------------------------------------------
 // normalizarTelefono — el formato de wa.me (SPEC §9.7)
 // --------------------------------------------------------------------------
 

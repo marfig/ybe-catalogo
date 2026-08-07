@@ -24,6 +24,8 @@ interface Props {
   variantes: VarianteIsla[];
   r2Base: string;
   telefono: string;
+  /** Codigo del producto. Va rotulado en el mensaje de WhatsApp (SPEC-etapa2 §5.3). */
+  codigo?: string | undefined;
 }
 
 /**
@@ -38,7 +40,14 @@ interface Props {
  * La isla renderiza galeria + swatches + boton porque controla los tres: mover
  * el DOM de otros componentes por querySelector seria fragil.
  */
-export default function SelectorVariante({ nombre, url, variantes, r2Base, telefono }: Props) {
+export default function SelectorVariante({
+  nombre,
+  url,
+  variantes,
+  r2Base,
+  telefono,
+  codigo,
+}: Props) {
   const [iVariante, setIVariante] = useState(0);
   const [iImagen, setIImagen] = useState(0);
 
@@ -77,6 +86,7 @@ export default function SelectorVariante({ nombre, url, variantes, r2Base, telef
     nombre,
     url,
     color: variantes.length > 1 ? variante.color : undefined,
+    codigo,
   });
 
   return (

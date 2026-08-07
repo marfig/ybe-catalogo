@@ -64,7 +64,19 @@ const productos = defineCollection({
     // z.iso.date() y no z.string().date(): esta ultima esta deprecada en Zod 4.
     actualizado: z.iso.date(),
 
-    // No se renderiza. Es la clave de idempotencia del importador (SPEC §6.7).
+    /**
+     * El proveedor y el codigo del producto.
+     *
+     * `ref` SI SE RENDERIZA desde la fase 2.7, corrigiendo el «no se renderiza» que
+     * decia este comentario y `SPEC.md` §4.2: es el codigo con el que el cliente
+     * pregunta por WhatsApp, asi que va en la ficha junto al nombre y en el mensaje
+     * pre-armado (SPEC-etapa2 §5.3).
+     *
+     * Sigue siendo ademas la clave de identidad del catalogo. No hay un campo
+     * `codigo` aparte a proposito: seria el mismo valor escrito dos veces, y dos
+     * copias del identificador es una que se puede desincronizar. Un producto cargado
+     * a mano sale como `{ proveedor: "manual", ref: <codigo> }`.
+     */
     origen: z.object({
       proveedor: z.string().min(1),
       ref: z.string().min(1),
