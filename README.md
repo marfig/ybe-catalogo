@@ -192,12 +192,13 @@ indexa esa URL, después compite con el dominio propio por las mismas páginas.
 - **Fase 2.1** — imágenes en R2, servidas con cache inmutable. Cerrada.
 - **Fase 2.5** — scrape del proveedor: importación con progreso en vivo, cortesía de
   1 request/segundo e idempotencia. Cerrada.
+- **Fase 2.6** — eliminación y papelera: borrado físico de lo que nunca se publicó,
+  lógico de lo que sí, restaurar y vaciar. Cerrada.
 - **Fases 2.2, 2.3 y 2.4** — volcado a D1, admin de lectura y edición, y carga
   manual. **El código está completo y probado en local**; siguen abiertas porque su
   criterio de salida exige el deploy y Cloudflare Access configurado, que se dejaron
   para el final a propósito.
-- Pendiente de la etapa 2: **2.6** (eliminación y papelera) y **2.7** (el código como
-  campo visible).
+- Pendiente de la etapa 2: **2.7** (el código como campo visible).
 - Pendiente fuera de la etapa 2: buscador por código o nombre en el sitio público;
   el scrape del catálogo **viejo** (otro sitio, migración de una sola vez); logo
   definitivo (SVG y variante monocromática); redes sociales; **dominio propio**.

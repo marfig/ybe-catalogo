@@ -1980,10 +1980,45 @@ Criterio de salida, sobre una URL de lanzamientos real:
 Los dos hallazgos que costaron un bug cada uno están en §7.2: el color propio sólo
 está en `og:title`, y la foto de cada hermano ya viene en la ficha visitada.
 
-### Fase 2.6 — Eliminación y papelera (desplegable)
+### Fase 2.6 — Eliminación y papelera (desplegable) · **CERRADA 2026-08-07**
 
-- Regla de §12.2 con sus dos confirmaciones.
-- Papelera (§10.5) y purga con recolección de imágenes (§12.3).
+- ✅ **Núcleo** en `admin/src/lib/papelera.ts` — 36 tests. `planearEliminacion`,
+  `eliminar`, `restaurar`, `listarPapelera`, `contarPurga`, `purgar` y `fechaDeCorte`.
+- ✅ **Migración `0004`**: `eliminado_en` y `eliminado_por`, que §10.5 pedía —«fecha,
+  quién lo hizo»— y el esquema no tenía. Aplicada en local y en **remoto**.
+- ✅ **Confirmación de §12.2** en `admin/src/pages/eliminar.astro`, con un mensaje
+  distinto por grupo y sólo el irreversible pintado.
+- ✅ **Papelera de §10.5** en `admin/src/pages/eliminados.astro`, con restaurar y
+  vaciar en dos pasos.
+- ✅ `clavesDeImagen` en `lib/imagenes.ts` para que la purga se lleve todas las
+  derivadas de R2.
+
+Lo que se aprendió construyéndola:
+
+- **Una foto compartida con un producto que sobrevive no es huérfana.** Es el dedupe
+  de `SPEC.md` §6.8 funcionando: la misma imagen cuelga de variantes de productos
+  distintos. Sin ese filtro, borrar un producto le arranca la foto a otro que sigue
+  publicado. Y contar las huérfanas de a un producto en vez de por lote diría que una
+  foto sobrevive porque la usa otro que también se está borrando.
+- **Primero la base, después R2.** Al revés, un fallo entre las dos bajas deja filas
+  apuntando a objetos borrados, que es una foto rota en el catálogo. En este orden el
+  peor caso es un objeto que nadie referencia: invisible, y el espacio nunca fue el
+  problema (§12.1).
+- **El `slug` no se libera al eliminar.** La URL sigue siendo de ese producto aunque
+  no se muestre: es lo que permite restaurarlo sin que el enlace cambie, y lo que
+  evita que otro producto se quede con una dirección que ya circuló.
+- **La purga ignora los `eliminado` sin fecha.** Las filas anteriores a la migración
+  `0004` tienen `eliminado_en` en NULL; sin ese filtro la primera purga se llevaría
+  todo lo histórico sin poder evaluar su antigüedad. En la papelera se muestran como
+  «antes de llevar registro».
+- **`fechaDeCorte` fija el día después de mover el mes.** `setUTCMonth` sobre un 31 en
+  un mes de 30 rueda al siguiente: «31 de agosto menos 6 meses» daría «31 de febrero»
+  = 3 de marzo, y la purga se comería un mes extra.
+
+Criterio de salida: un producto nunca publicado se borra con sus fotos; uno publicado
+va a la papelera y se restaura con la misma URL; y vaciar informa qué se lleva antes
+de hacerlo. ✅ Verificado sobre la base local, incluida la purga de un eliminado de
+2025 que no tocó uno de agosto.
 
 ### Fase 2.7 — El código como campo visible (desplegable)
 
