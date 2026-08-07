@@ -284,8 +284,24 @@ button {
   color: var(--aviso);
 }
 
+/**
+ * El pie con el boton de guardar y, a veces, una nota que explica que va a pasar.
+ *
+ * Es flex y no flujo inline porque la nota iba pegada al boton, sin separacion. Con
+ * `wrap` la nota baja entera cuando no entra al lado, en vez de partirse contra el
+ * boton; `baseline` la alinea con el texto del boton y no con su caja.
+ */
 .pie-guardar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 0.875rem;
   margin: 0 0 1.5rem;
+}
+
+.pie-guardar .nota {
+  /* Sin base la nota no baja sola: se queda encogiendose al lado del boton. */
+  flex: 1 1 18ch;
 }
 
 /* --------------------------------------------------------------------------
