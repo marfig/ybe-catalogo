@@ -2019,7 +2019,7 @@ la manera más incómoda posible: **falló tres veces y las tres el admin explic
 que pasaba.** Está documentado en §11.3, y lo que se corrigió ahí es parte de este
 criterio, no un extra.
 
-### Fase 2.4 — Carga manual (desplegable) · **EN CURSO**
+### Fase 2.4 — Carga manual (desplegable) · **CERRADA 2026-08-10**
 
 - ✅ **Reglas puras de imagen** en `admin/src/lib/imagen.ts` — 19 tests. «Nunca se
   amplía» es un `Math.min(1, …)` con su test; las derivadas se deciden por el
@@ -2035,8 +2035,8 @@ criterio, no un extra.
 - ✅ **Retirado el selector de color** de las dos pantallas y del camino de
   escritura. `<input type="color">` no tiene estado vacío, así que estampaba un
   `color_hex` que nadie eligió, contra `SPEC.md` §6.6. Ver §9.
-- ⬜ Probarlo con fotos de celular reales y publicar uno de punta a punta: es el
-  criterio de salida y todavía no se hizo.
+- ✅ **Probado con fotos de celular reales y publicado de punta a punta.** Es el
+  criterio de salida, cumplido el 2026-08-10 con `CG15303`.
 
 Va **antes** del scrape a propósito: construye y valida el pipeline de imágenes
 con el caso controlado —un archivo elegido a mano— en vez de estrenarlo dentro
@@ -2046,12 +2046,14 @@ Criterio de salida: producto cargado a mano, con foto de celular recortada,
 publicado y visible. `w300` y `w600` en R2, y el `srcset` del sitio funcionando
 sin tocar `src/`.
 
-**SIGUE ABIERTA, y es la única de la etapa 2 que queda.** Vale aclarar exactamente qué
-falta, porque es fácil creer que ya está: el 2026-08-10 se publicaron dos productos con
-sus fotos, `w300` y `w600` en R2 y `srcset` funcionando en el sitio. Pero los dos son
-`proveedor: chenson` — **entraron por el scrape**, no por el formulario.
+**✅ CUMPLIDO el 2026-08-10.** `CG15303`, `proveedor: manual`, cargado desde `/nuevo`
+con fotos de celular, aprobado, publicado, y respondiendo 200 en
+`/productos/cartera-de-fiesta` con sus 3 fotos.
 
-Son dos caminos distintos del mismo pipeline y no se prueban entre sí:
+Hubo un momento en que pareció cumplido y no lo estaba, y vale anotarlo: ya había dos
+productos publicados con sus fotos, `w300` y `w600` en R2 y `srcset` andando — pero los
+dos eran `proveedor: chenson`, o sea que **entraron por el scrape**. Son dos caminos
+distintos del mismo pipeline y no se prueban entre sí:
 
 | | Alta manual (§8.3) | Scrape (§8.1) |
 |---|---|---|
@@ -2060,13 +2062,10 @@ Son dos caminos distintos del mismo pipeline y no se prueban entre sí:
 | Origen de los bytes | `<input type="file">` | el puente del Worker |
 | Tamaño típico | 4000 × 3000 de celular | 600 × 600 del proveedor |
 
-Lo que el scrape dejó probado en producción es el tramo compartido: canvas, derivadas,
-subida a R2, dedupe por hash y `srcset`. Lo que falta es el tramo propio de esta fase —
-elegir un archivo grande de un teléfono, que se recorte al cuadrado centrado, y que
-salga publicado.
-
-**Falta una sola cosa: cargar un producto desde `/nuevo` con una foto de celular,
-aprobarlo y publicarlo.**
+Lo que el scrape prueba es el tramo compartido —canvas, derivadas, subida a R2, dedupe
+por hash y `srcset`—; el recorte sobre una foto grande sólo lo ejercita esta fase.
+Cerrar la fase con la evidencia del scrape habría sido dar por probado un camino que
+nunca corrió.
 
 ### Fase 2.5 — Scrape (desplegable) · **CERRADA 2026-08-07**
 

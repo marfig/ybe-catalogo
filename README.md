@@ -188,9 +188,9 @@ indexa esa URL, después compite con el dominio propio por las mismas páginas.
 
 ## Estado
 
-**La etapa 2 está terminada salvo una fase.** El admin vive en
-`ybe-admin.chenson.workers.dev`, detrás de Cloudflare Access con login por PIN al
-email, y publica el sitio apretando un botón.
+**La etapa 2 está terminada.** El admin vive en `ybe-admin.chenson.workers.dev`,
+detrás de Cloudflare Access con login por PIN al email, y publica el sitio apretando
+un botón. Las ocho fases cerradas con su criterio de salida verificado.
 
 - **Fase 1** — catálogo navegable. Cerrada.
 - **Fase 2.1** — imágenes en R2, servidas con cache inmutable. Cerrada.
@@ -198,10 +198,8 @@ email, y publica el sitio apretando un botón.
   volcados seguidos dejan `git diff --exit-code` limpio.
 - **Fase 2.3** — admin de lectura y edición. Cerrada: se importó, aprobó y publicó
   desde el navegador, sin terminal, y el producto quedó en el sitio.
-- **Fase 2.4** — carga manual. **La única abierta.** El código está hecho y el
-  pipeline de imágenes quedó probado en producción, pero por el camino del scrape.
-  Falta cargar un producto desde `/nuevo` con una foto de celular y publicarlo: es su
-  criterio de salida y ejercita el recorte, que el scrape no usa.
+- **Fase 2.4** — carga manual con fotos de celular. Cerrada: producto cargado desde
+  `/nuevo`, recortado, aprobado, publicado y visible.
 - **Fase 2.5** — scrape del proveedor: importación con progreso en vivo, cortesía de
   1 request/segundo e idempotencia. Cerrada.
 - **Fase 2.6** — eliminación y papelera: borrado físico de lo que nunca se publicó,
