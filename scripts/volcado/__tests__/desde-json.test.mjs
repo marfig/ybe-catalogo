@@ -31,7 +31,34 @@ import {
  */
 
 const MIGRACION = readFileSync('db/migrations/0001_esquema_inicial.sql', 'utf8');
-const JSON_COMITEADO = JSON.parse(readFileSync('src/data/productos.json', 'utf8'));
+
+/**
+ * EL FIXTURE ESTA CONGELADO, Y NO ES `src/data/productos.json`.
+ *
+ * Antes se leia ese archivo. Rompio en CI el 2026-08-10 y el motivo vale la pena:
+ * `src/data/productos.json` es un archivo GENERADO, y el workflow de publicacion lo
+ * REGENERA desde D1 en el paso anterior a correr los tests (§11.2). O sea que el
+ * fixture cambiaba debajo del test, en CI, con datos que nadie eligio — pasaba en
+ * local y fallaba en la nube.
+ *
+ * Lo que lo delato: dos productos cargados desde el admin en produccion trajeron
+ * imagenes con hashes que no estan en `METADATOS`, y sin sus medidas el INSERT viola
+ * los NOT NULL del esquema. Pero el mismo problema aparece con cualquier producto
+ * nuevo: los asserts de casos borde nombran ids concretos (`cg85900`,
+ * `rinonera-juvenil`) que un catalogo vivo puede no tener.
+ *
+ * Un test cuyo fixture es un artefacto de build no prueba lo que dice probar. Lo que
+ * ESTE test prueba es que el ida y vuelta preserva el contenido sobre un conjunto con
+ * casos borde conocidos —`activo:false`, precio nulo, varias variantes, una imagen
+ * compartida— y eso no depende del catalogo de hoy.
+ *
+ * Los datos vivos igual estan cubiertos, por otras dos redes: Zod y
+ * `reference('categorias')` rompen el build ante un JSON invalido (§11.2 paso 4), y la
+ * idempotencia del volcado se verifica con `git diff --exit-code`.
+ */
+const JSON_COMITEADO = JSON.parse(
+  readFileSync('scripts/volcado/__tests__/fixtures/productos-canonico.json', 'utf8')
+);
 
 /** Metadatos de origen medidos sobre samples/ (SPEC-etapa2 §5.1). */
 const METADATOS = new Map([

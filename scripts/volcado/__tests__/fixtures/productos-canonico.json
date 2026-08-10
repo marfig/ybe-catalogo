@@ -1,0 +1,203 @@
+[
+  {
+    "actualizado": "2026-07-31",
+    "categorias": [
+      "billeteras",
+      "dama"
+    ],
+    "id": "billetera-de-dama",
+    "nombre": "Billetera de dama",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG81500"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [],
+        "sku": "CG81500-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-07-31",
+    "categorias": [
+      "carteras",
+      "fiesta"
+    ],
+    "descripcion": "Cartera de mano rígida con aplicación completa de strass y cadena desmontable.",
+    "destacado": true,
+    "id": "cartera-de-fiesta-con-strass",
+    "nombre": "Cartera de fiesta con strass",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85527"
+    },
+    "precio": 195000,
+    "variantes": [
+      {
+        "color": "Champagne",
+        "colorHex": "#b98a70",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/605ea0e9d91bfbd6"
+          }
+        ],
+        "sku": "CG85527-E"
+      }
+    ]
+  },
+  {
+    "activo": false,
+    "actualizado": "2026-07-31",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cg85900",
+    "nombre": "CG85900",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85900"
+    },
+    "precio": null,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "colorHex": "#d9b2a6",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/406b4fe1006d642b"
+          }
+        ],
+        "sku": "CG85900-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-07-31",
+    "categorias": [
+      "mochilas",
+      "dama",
+      "escolar"
+    ],
+    "descripcion": "Mochila compacta de cuerina acolchada con cadena decorativa y monedero desmontable.",
+    "destacado": true,
+    "id": "mochila-juvenil-acolchada",
+    "nombre": "Mochila juvenil acolchada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG84455"
+    },
+    "precio": 320000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "colorHex": "#1a1a1a",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/862cab4eb0a88563"
+          }
+        ],
+        "sku": "CG84455-3"
+      },
+      {
+        "color": "Fucsia",
+        "colorHex": "#c0286a",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e98d0c8ea68a9c21"
+          }
+        ],
+        "sku": "CG84455-F"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-07-31",
+    "categorias": [
+      "mochilas",
+      "notebook",
+      "escolar"
+    ],
+    "descripcion": "Mochila de poliéster con bolsillo frontal y compartimento acolchado para notebook de hasta 15 pulgadas.",
+    "destacado": true,
+    "id": "mochila-urbana-lisa-18",
+    "nombre": "Mochila urbana lisa 18\"",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG84101"
+    },
+    "precio": 285000,
+    "variantes": [
+      {
+        "color": "Azul marino",
+        "colorHex": "#2e3560",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/acaa55fa1e8d3b9c"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/67c9ff3b0ed208ef"
+          }
+        ],
+        "sku": "CG84101-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-07-31",
+    "categorias": [
+      "rinoneras",
+      "escolar"
+    ],
+    "descripcion": "Riñonera de poliéster con correa regulable y cierre metálico.",
+    "id": "rinonera-juvenil",
+    "nombre": "Riñonera juvenil",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG82910"
+    },
+    "precio": null,
+    "variantes": [
+      {
+        "color": "Rosa",
+        "colorHex": "#e8a0a8",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4629d09be1221bad"
+          }
+        ],
+        "sku": "CG82910-R"
+      }
+    ]
+  }
+]
