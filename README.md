@@ -51,96 +51,80 @@ estructura de claves, y apuntar `PUBLIC_R2_BASE` a `/img-dev`:
 node scripts/dev/imagenes-locales.mjs    # samples/ -> public/img-dev/ (gitignoreado)
 ```
 
+> **Ojo: hay dos `/img-dev` y no son lo mismo.** Este es una carpeta de archivos
+> estáticos del sitio público. El del admin es un **endpoint** que lee el R2 local de
+> miniflare y sólo existe en desarrollo (SPEC-etapa2 §8.1). Mismo nombre porque
+> significan lo mismo —«las imágenes, en desarrollo»— pero el mecanismo no tiene nada
+> que ver.
+
 ---
 
 ## Actualizar el catálogo
 
-**Es un proceso manual que se corre cuando vos querés.** No hay nada agendado ni
-automático. Los precios se sostienen 2–3 meses (SPEC §7.3), así que en la práctica esto
-se hace unas pocas veces al año, o cuando el proveedor carga productos nuevos.
+**Todo se hace desde el admin, sin terminal**: [ybe-admin.chenson.workers.dev](https://ybe-admin.chenson.workers.dev).
+Se entra con un PIN de un solo uso al email — Cloudflare Access, sin contraseñas
+(SPEC-etapa2 §6).
 
-El ciclo completo son cinco pasos:
+Es un proceso manual que se corre cuando vos querés. No hay nada agendado: un scrape
+automático publicaría sin que nadie mire.
 
-### 1. Bajar el catálogo del proveedor
+### 1. Importar del proveedor
 
-```bash
-npm run scrape
-```
+**Importar desde el proveedor** → pegás la dirección del lanzamiento
+(`.../lanzamientos/?lz=2026-07-16`) → **Importar**.
 
-Recorre el sitio del proveedor y escribe `scripts/import/entrada/crudo-{fecha}.json`
-más las imágenes originales en `scripts/import/cache/`.
+- Va a **1 request por segundo** y respeta el `robots.txt`. Una tanda de ~50 modelos
+  son unos minutos, y las fotos son el 75 % de ese tiempo.
+- **«Saltear los productos que ya tengo»** viene tildado. Sin eso, reimportar una tanda
+  cuesta lo mismo que importarla la primera vez.
+- **No cierres la pestaña**: el recorrido corre ahí (§7.1). Si se corta, lo que ya entró
+  queda y volver a importar sigue desde donde estaba.
+- Los productos entran como **«Por aprobar»**. Nada se publica solo.
 
-- Respeta el `robots.txt` del proveedor y va a **1 request por segundo**. Un catálogo
-  de 1.500 productos tarda ~25 minutos. Está bien: se corre pocas veces al año.
-- Tiene caché en disco: una URL ya bajada no se vuelve a pedir.
-- Si se corta, `npm run scrape -- --reanudar` sigue donde quedó.
-- Para probar sin bajar todo: `npm run scrape -- --limite 20`.
+### 2. Completar los datos
 
-Esta etapa **no toca `src/` ni R2**. Si falla, no deja nada a medio escribir.
+**Ver productos** → nombre, precio y categoría se editan en la grilla misma. El
+proveedor no publica ninguna de las tres (SPEC §2.3), así que las escribís vos.
 
-### 2. Ver qué falta curar
+Hay búsqueda por código o nombre, y acciones en lote: asignar categoría a varios de una
+vez, que con 50 productos del mismo tipo es la diferencia entre minutos y horas.
 
-```bash
-npm run import -- --dry-run
-```
+### 3. Aprobar
 
-Escribe un reporte en `scripts/import/reporte-{fecha}.md` sin modificar nada. La sección
-importante es **`SIN CURAR`**: los modelos nuevos que el scrape encontró y que todavía no
-tienen nombre ni precio.
+Aprobar valida que el producto esté completo y **le crea la dirección web, que no
+cambia nunca más** (§5.2). Por eso no se aprueba sin mirar: el slug se genera una sola
+vez y renombrar el producto después no lo mueve.
 
-### 3. Cargar nombres y precios
+### 4. Publicar
 
-El sitio del proveedor **no publica nombres ni precios** (SPEC §2.3), así que eso lo
-escribís vos en `scripts/import/overlay/chenson.json`, con el código de modelo como clave:
+Botón **Publicar cambios** en el Inicio. Es una acción de lote, no por producto.
 
-```json
-{
-  "CG85527": {
-    "nombre": "Cartera de fiesta con strass",
-    "precio": 195000,
-    "descripcion": "Opcional.",
-    "destacado": true
-  }
-}
-```
+El Inicio avisa **«Hay N cambios sin publicar»** cuando el catálogo difiere del sitio —
+incluidas las ediciones de productos que ya estaban publicados, no sólo los aprobados
+nuevos.
 
-- **Sin `nombre`, el producto entra con `activo: false`** y no se publica. Las imágenes
-  quedan igual procesadas y subidas, así que cuando le escribas el nombre se activa sin
-  volver a tocar R2.
-- **Sin `precio`**, se publica mostrando "Consultar precio". Es válido, pero ese producto
-  no lleva structured data de `Product` y pierde el rich result (SPEC §7.3).
-- El precio es **tu precio de venta**, en guaraníes, entero. No el costo del proveedor.
+Publicar dispara GitHub Actions, que vuelca D1 a `productos.json`, corre los tests,
+construye, commitea y despliega (§11.2). Tarda unos minutos y **la pantalla se
+actualiza sola** mientras tanto. Si falla, el admin lo dice en castellano y sin stack.
 
-### 4. Importar
+### Cargar un producto a mano
 
-```bash
-npm run import
-```
+**Cargar un producto** → código, nombre, precio, categorías y fotos. Las fotos se
+recortan a un cuadrado centrado en el navegador y se suben ya derivadas: no hay
+`sharp` en Workers, el motor de imágenes es el `<canvas>` (§8.1).
 
-Genera `src/data/productos.json`, sube las imágenes nuevas a R2 y escribe el reporte.
+### Eliminar
 
-- Es **idempotente**: correrlo dos veces con la misma entrada no cambia nada.
-  Verificable con `git diff --exit-code src/data/productos.json`.
-- Solo sube imágenes que no estén ya en R2 (dedupe por hash de contenido).
-- Nunca pisa tu curaduría: `activo`, `destacado` y el **orden de las variantes** no se
-  sobreescriben. Ese orden decide qué color se muestra al abrir la ficha, así que es una
-  decisión tuya y no del abecedario ni del proveedor.
-- Un producto que ya no está en el catálogo del proveedor **no se borra**: pasa a
-  `activo: false`. Borrarlo mataría su URL y su indexación.
-- Si un precio cambió más de ±25 %, marca `⚠ REVISAR` y termina con código 2. A esta
-  escala eso suele ser un dígito de más tipeado, no un aumento real.
+En la grilla, **Eliminar**. La pantalla siguiente dice qué va a pasar con cada uno,
+porque no son lo mismo:
 
-### 5. Revisar y publicar
+| Estado | Qué pasa |
+|---|---|
+| Nunca publicado | **Borrado definitivo**, con sus fotos |
+| Publicado | Va a la **papelera**. El enlace deja de mostrarlo pero no queda roto, y se puede restaurar |
 
-```bash
-npm test
-npm run build
-npm run preview      # revisar en local antes de publicar
-npm run deploy
-```
-
-Leé el reporte antes de desplegar: ahí están las altas, las bajas, los cambios de precio
-y los avisos.
+Un producto que tuvo URL no se borra de verdad: esa dirección puede estar en la
+conversación de WhatsApp de un cliente, y ahí un 404 no lo reporta nadie (§12.1).
 
 ---
 
@@ -153,25 +137,34 @@ y los avisos.
 | `npm run preview` | Sirve `dist/` para revisar antes de publicar |
 | `npm run check` | Chequeo de tipos |
 | `npm test` | Suite de tests |
-| `npm run scrape` | Etapa 1: baja el catálogo del proveedor |
-| `npm run import` | Etapa 2: genera `productos.json` y sube a R2 |
-| `npm run deploy` | Publica en Cloudflare Workers |
+| `npm run deploy` | Publica el sitio en Cloudflare Workers |
+| `npm run volcar` | Vuelca D1 a `productos.json`. Con `--dry-run` muestra el plan sin escribir |
+| `npm run subir-existentes` | Histórico: subió a R2 las imágenes de `samples/` en la fase 2.1. Idempotente |
+
+**Publicar no se hace desde acá.** El botón del admin dispara GitHub Actions, que corre
+`volcar`, los tests, el build y el deploy en ese orden (§11.2). `npm run volcar` está
+para mirar qué cambiaría, no para publicar a mano.
+
+Los comandos del admin viven en `admin/`: `npm --prefix admin run dev`, `check`,
+`deploy`.
 
 En Astro 7 el servidor de desarrollo corre como daemon: `npx astro dev stop`,
-`npx astro dev status`, `npx astro dev logs`.
+`npx astro dev status`, `npx astro dev logs`. **Al agregar un `.ts` nuevo hay que
+reiniciarlo**: las entradas del pre-bundler se rastrean al arrancar.
 
 ---
 
 ## Qué se edita a mano y qué no
 
+**La fuente de verdad del catálogo es D1**, no el repositorio. Los nombres, precios y
+categorías se escriben en el admin; acá abajo queda lo que sigue viviendo en git.
+
 | Archivo | |
 |---|---|
-| `src/data/productos.json` | **GENERADO.** No editar: la próxima importación lo reescribe |
-| `scripts/import/overlay/chenson.json` | **A mano.** Nombres, precios y destacados |
-| `scripts/import/mapeo/chenson.json` | **A mano.** Categorías del proveedor → slugs propios, y colores → hex |
-| `src/data/categorias.json` | **A mano.** Orden y visibilidad de la navegación |
-| `scripts/import/manifest.json` | **GENERADO** y commiteado. Es el estado que da idempotencia |
-| `scripts/import/entrada/`, `cache/` | Gitignorados. Insumos regenerables |
+| `src/data/productos.json` | **GENERADO** por el volcado y commiteado por la Action. No editar: el próximo volcado lo reescribe |
+| `src/data/categorias.json` | **A mano.** Orden y visibilidad de la navegación. Una categoría nueva es un commit, no una pantalla: es lo que hace que `reference('categorias')` rompa el build ante un slug inválido (§5.4a) |
+| `db/migrations/*.sql` | **A mano**, numeradas. Se aplican con `wrangler d1 migrations apply -c db/wrangler.jsonc` |
+| `scripts/volcado/__tests__/fixtures/` | **CONGELADO.** Fixture del ida y vuelta. No es `productos.json`: un test cuyo fixture es un artefacto de build no prueba lo que dice probar |
 
 ---
 
