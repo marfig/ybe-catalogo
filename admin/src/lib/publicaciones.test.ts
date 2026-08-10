@@ -97,13 +97,23 @@ test('sin publicaciones todavia, lo dice sin alarmar', () => {
 });
 
 test('pendiente y corriendo se ven igual: "Publicando…"', () => {
-  // Para quien opera son el mismo momento: el trabajo esta en curso. La diferencia
-  // entre "encolado" y "arrancado" es vocabulario de CI.
+  /**
+   * Para quien opera son el mismo momento: el trabajo esta en curso. La diferencia
+   * entre "encolado" y "arrancado" es vocabulario de CI.
+   *
+   * La fecha va DENTRO del plazo de vencimiento a proposito. Antes usaba el default de
+   * `pub()` —dos horas— y quedo rojo al agregarle vencimiento al cartel: dos horas en
+   * `corriendo` ya no es «publicando», es «no llego respuesta». El test tenia razon en
+   * lo que afirmaba y su fixture era el que habia envejecido.
+   */
   for (const estado of ['pendiente', 'corriendo']) {
-    const d = describirPublicacion(pub({ estado, terminada_en: null }), AHORA);
+    const d = describirPublicacion(
+      pub({ estado, disparada_en: '2026-08-05T17:57:00Z', terminada_en: null }),
+      AHORA
+    );
     assert.equal(d.tono, 'en-curso', estado);
     assert.match(d.titulo, /Publicando/i);
-    assert.match(d.detalle, /hace 2 horas/);
+    assert.match(d.detalle, /hace 3 minutos/);
   }
 });
 
@@ -225,4 +235,74 @@ test('una publicacion vieja y colgada NO bloquea para siempre', async () => {
   await crearPublicacion(ejecutor(db), { email: 'a@a', ahora: '2026-08-05T10:00:00Z' });
   // Ocho horas despues: ningun build tarda eso.
   assert.equal(await hayPublicacionEnCurso(ejecutor(db), '2026-08-05T18:00:00Z'), false);
+});
+
+// --------------------------------------------------------------------------
+// El cartel tambien caduca, no solo el bloqueo (§11.3)
+// --------------------------------------------------------------------------
+
+test('una publicacion en curso VENCIDA no dice mas "Publicando…"', () => {
+  /**
+   * EL BUG QUE ESTO CIERRA, visto dos veces en produccion el 2026-08-07 y el 08-10.
+   *
+   * `hayPublicacionEnCurso` ya vencia, asi que el BOTON volvia. Pero el CARTEL no
+   * vencia: seguia diciendo «Publicando…» indefinidamente. El sitio ya estaba
+   * publicado y el admin decia que estaba trabajando.
+   *
+   * Peor: el caso real fue una Action que fallo por falta de credenciales — y el paso
+   * que reporta el fallo necesita las MISMAS credenciales, asi que no pudo escribir
+   * que fallo. Cuando el camino de error depende del mismo secreto que el camino
+   * feliz, el vencimiento del lado del lector es la unica red que queda.
+   */
+  const dosHorasDespues = '2026-08-05T16:00:00Z';
+  const d = describirPublicacion(
+    pub({ estado: 'corriendo', disparada_en: '2026-08-05T14:00:00Z', terminada_en: null }),
+    dosHorasDespues
+  );
+
+  assert.notEqual(d.tono, 'en-curso');
+  assert.ok(!/Publicando/i.test(d.titulo), `no deberia decir Publicando: ${d.titulo}`);
+  assert.match(d.detalle, /no llegó|no llego|sin respuesta|volver a intentar/i);
+});
+
+test('vencida se lee como problema, no como exito', () => {
+  // Pintarla de `ok` seria peor que el bug: diria que se publico algo que no se sabe.
+  const d = describirPublicacion(
+    pub({ estado: 'pendiente', disparada_en: '2026-08-05T14:00:00Z', terminada_en: null }),
+    '2026-08-05T16:00:00Z'
+  );
+  assert.equal(d.tono, 'error');
+});
+
+test('dentro del plazo sigue diciendo "Publicando…"', () => {
+  // Un build tarda minutos: el vencimiento no puede alarmar durante el trabajo normal.
+  const d = describirPublicacion(
+    pub({ estado: 'corriendo', disparada_en: '2026-08-05T14:00:00Z', terminada_en: null }),
+    '2026-08-05T14:03:00Z'
+  );
+  assert.equal(d.tono, 'en-curso');
+  assert.match(d.titulo, /Publicando/i);
+});
+
+test('el vencimiento del cartel y el del boton son el MISMO plazo', () => {
+  /**
+   * Si fueran dos numeros distintos habria una ventana donde el boton esta libre y el
+   * cartel dice que hay algo en curso, o al reves. Se comparan por comportamiento
+   * porque la constante no se exporta.
+   */
+  const arranque = '2026-08-05T14:00:00Z';
+  const casiUnaHora = '2026-08-05T14:59:00Z';
+  const pasadaLaHora = '2026-08-05T15:01:00Z';
+
+  const antes = describirPublicacion(
+    pub({ estado: 'corriendo', disparada_en: arranque, terminada_en: null }),
+    casiUnaHora
+  );
+  const despues = describirPublicacion(
+    pub({ estado: 'corriendo', disparada_en: arranque, terminada_en: null }),
+    pasadaLaHora
+  );
+
+  assert.equal(antes.tono, 'en-curso', 'a los 59 minutos todavia esta en curso');
+  assert.equal(despues.tono, 'error', 'pasada la hora ya no');
 });

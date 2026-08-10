@@ -40,6 +40,24 @@ const plural = (n: number, singular: string, muchos: string) =>
   `${n} ${n === 1 ? singular : muchos}`;
 
 /**
+ * ¿Esta publicación en curso lleva colgada más de lo tolerable?
+ *
+ * Una sola definición para las dos preguntas que dependen de ella: si el botón vuelve
+ * (`hayPublicacionEnCurso`) y qué dice el cartel (`describirPublicacion`). Con dos
+ * plazos distintos habría una ventana en la que se contradicen.
+ *
+ * Ante fechas ilegibles devuelve `false`, o sea «todavía en curso». Es el lado
+ * conservador: tratarla como vencida abriría el botón para disparar una segunda
+ * publicación mientras la primera quizás sigue corriendo.
+ */
+function vencida(publicacion: Publicacion, ahora: string): boolean {
+  const inicio = new Date(publicacion.disparada_en).getTime();
+  const t = new Date(ahora).getTime();
+  if (Number.isNaN(inicio) || Number.isNaN(t)) return false;
+  return t - inicio >= VENCIMIENTO_MS;
+}
+
+/**
  * Tiempo transcurrido, en castellano.
  *
  * Un timestamp ISO no le dice nada a nadie; «hace 2 horas» sí. Los dos bordes están
@@ -102,6 +120,35 @@ export function describirPublicacion(
   // `pendiente` y `corriendo` son el mismo momento para quien opera: el trabajo está
   // en curso. La diferencia entre encolado y arrancado es vocabulario de CI.
   if (publicacion.estado === 'pendiente' || publicacion.estado === 'corriendo') {
+    /**
+     * EL CARTEL TAMBIÉN VENCE, no sólo el bloqueo del botón.
+     *
+     * `hayPublicacionEnCurso` ya vencía con este mismo plazo, así que el botón volvía.
+     * Pero esta rama no vencía: seguía diciendo «Publicando…» para siempre. Pasó dos
+     * veces en producción — el sitio ya estaba publicado y el admin decía que seguía
+     * trabajando.
+     *
+     * Y el caso real fue peor que un build lento: la Action falló por falta de
+     * credenciales, y el paso que reporta el fallo necesita LAS MISMAS credenciales, así
+     * que no pudo escribir que falló. Cuando el camino de error depende del mismo
+     * secreto que el camino feliz, este vencimiento del lado del lector es la única red
+     * que queda.
+     *
+     * El plazo es el de `VENCIMIENTO_MS` y no uno propio: dos números distintos darían
+     * una ventana donde el botón está libre y el cartel dice que hay algo en curso.
+     */
+    if (vencida(publicacion, ahora)) {
+      return {
+        tono: 'error',
+        titulo: 'No llegó respuesta de la publicación',
+        detalle:
+          `Empezó ${cuando} y nunca reportó cómo terminó. Puede que el catálogo se ` +
+          'haya publicado igual: mirá el sitio antes de reintentar. Tu trabajo sigue ' +
+          'guardado y se puede volver a intentar sin cargar nada de nuevo.',
+        runUrl,
+      };
+    }
+
     return {
       tono: 'en-curso',
       titulo: 'Publicando…',
@@ -177,9 +224,6 @@ export async function hayPublicacionEnCurso(
   if (ultima === null) return false;
   if (ultima.estado !== 'pendiente' && ultima.estado !== 'corriendo') return false;
 
-  const inicio = new Date(ultima.disparada_en).getTime();
-  const t = new Date(ahora).getTime();
-  if (Number.isNaN(inicio) || Number.isNaN(t)) return true;
-
-  return t - inicio < VENCIMIENTO_MS;
+  // La misma pregunta que usa el cartel, para que no puedan contradecirse.
+  return !vencida(ultima, ahora);
 }
