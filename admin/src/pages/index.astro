@@ -17,6 +17,7 @@ import { ejecutorD1 } from '../lib/d1.ts';
 import { despacharPublicacion, leerConfigDespacho } from '../lib/despacho.ts';
 import { contarPorEstado, ESTADOS_LEGIBLES } from '../lib/grilla.ts';
 import {
+  cambiosSinPublicar,
   crearPublicacion,
   describirPublicacion,
   hayPublicacionEnCurso,
@@ -64,9 +65,10 @@ if (Astro.request.method === 'POST') {
 }
 
 const ahora = new Date().toISOString();
-const [conteo, ultima] = await Promise.all([
+const [conteo, ultima, pendientes] = await Promise.all([
   contarPorEstado(ejecutar),
   ultimaPublicacion(ejecutar),
+  cambiosSinPublicar(ejecutar),
 ]);
 const publicacion = describirPublicacion(ultima, ahora);
 const enCurso = await hayPublicacionEnCurso(ejecutar, ahora);
@@ -136,15 +138,22 @@ const tarjetas = [
         {enCurso ? 'Publicando…' : 'Publicar cambios'}
       </button>
       {
-        conteo.aprobado > 0 && !enCurso ? (
-          <span class="nota">
-            {conteo.aprobado === 1
-              ? 'Hay 1 producto listo que todavía no está en el sitio.'
-              : `Hay ${conteo.aprobado} productos listos que todavía no están en el sitio.`}
+        pendientes > 0 && !enCurso ? (
+          <span class="nota nota--pendiente">
+            {/* Cuenta TODO lo que cambio desde la ultima publicacion exitosa, no solo
+                los aprobados. Editar un producto ya publicado no encendia ninguna
+                señal: se guardaba y el Inicio se quedaba callado (§10.1). */}
+            {pendientes === 1
+              ? 'Hay 1 cambio sin publicar: el sitio todavía no lo muestra.'
+              : `Hay ${pendientes} cambios sin publicar: el sitio todavía no los muestra.`}
           </span>
         ) : (
           <span class="nota">
-            Publicar vuelve a generar el catálogo con todo lo aprobado.
+            {/* Antes decia «con todo lo aprobado», y se leia como que el boton solo
+                tocaba los aprobados. Tambien republica las ediciones de los que ya
+                estaban y saca los eliminados. */}
+            Publicar regenera el catálogo con el estado actual: los aprobados nuevos,
+            las ediciones de los que ya estaban, y las bajas.
           </span>
         )
       }

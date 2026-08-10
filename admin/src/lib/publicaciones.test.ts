@@ -4,6 +4,7 @@ import { DatabaseSync } from 'node:sqlite';
 import { readFileSync } from 'node:fs';
 
 import {
+  cambiosSinPublicar,
   crearPublicacion,
   describirPublicacion,
   haceCuanto,
@@ -305,4 +306,99 @@ test('el vencimiento del cartel y el del boton son el MISMO plazo', () => {
 
   assert.equal(antes.tono, 'en-curso', 'a los 59 minutos todavia esta en curso');
   assert.equal(despues.tono, 'error', 'pasada la hora ya no');
+});
+
+// --------------------------------------------------------------------------
+// Cambios sin publicar (§10.1)
+// --------------------------------------------------------------------------
+
+/** Un producto publicable, con la fecha en que se lo toco por ultima vez. */
+function producto(
+  db: DatabaseSync,
+  { codigo, estado = 'publicado', actualizado }: { codigo: string; estado?: string; actualizado: string }
+) {
+  db.prepare(
+    `INSERT INTO productos (codigo, proveedor, estado, slug, creado_en, actualizado_en)
+     VALUES (?, 'manual', ?, ?, ?, ?)`
+  ).run(codigo, estado, estado === 'importado' ? null : codigo.toLowerCase(), actualizado, actualizado);
+}
+
+/** Una publicacion que termino bien en ese momento. */
+function publicadoEn(db: DatabaseSync, cuando: string) {
+  db.prepare(
+    `INSERT INTO publicaciones (estado, disparada_por, disparada_en, terminada_en, productos)
+     VALUES ('ok', 'a@a', ?, ?, 1)`
+  ).run(cuando, cuando);
+}
+
+test('editar un producto YA PUBLICADO cuenta como cambio sin publicar', async () => {
+  /**
+   * EL CASO QUE ESTO CIERRA. El contador de §10.1 solo miraba `aprobado`, asi que
+   * editar un producto que ya estaba en el catalogo no encendia ninguna señal: la
+   * persona guardaba, el Inicio se quedaba callado, y el sitio quedaba viejo sin que
+   * nada lo dijera.
+   */
+  const db = base();
+  publicadoEn(db, '2026-08-10T10:00:00Z');
+  producto(db, { codigo: 'CG1', estado: 'publicado', actualizado: '2026-08-10T11:00:00Z' });
+
+  assert.equal(await cambiosSinPublicar(ejecutor(db)), 1);
+});
+
+test('un producto sin tocar desde la ultima publicacion no cuenta', async () => {
+  const db = base();
+  producto(db, { codigo: 'CG1', estado: 'publicado', actualizado: '2026-08-10T09:00:00Z' });
+  publicadoEn(db, '2026-08-10T10:00:00Z');
+
+  assert.equal(await cambiosSinPublicar(ejecutor(db)), 0);
+});
+
+test('los `importado` NO cuentan: no salen en el catalogo', async () => {
+  // Un producto a medio completar no es un cambio pendiente de publicar; es trabajo
+  // pendiente de terminar. Contarlo pediria publicar algo que no puede publicarse.
+  const db = base();
+  publicadoEn(db, '2026-08-10T10:00:00Z');
+  producto(db, { codigo: 'CG1', estado: 'importado', actualizado: '2026-08-10T11:00:00Z' });
+
+  assert.equal(await cambiosSinPublicar(ejecutor(db)), 0);
+});
+
+test('un producto eliminado despues de publicar SI cuenta', async () => {
+  // Sacarlo del catalogo es un cambio que el sitio todavia no refleja: hasta que se
+  // publique, el producto se sigue viendo.
+  const db = base();
+  publicadoEn(db, '2026-08-10T10:00:00Z');
+  producto(db, { codigo: 'CG1', estado: 'eliminado', actualizado: '2026-08-10T11:00:00Z' });
+
+  assert.equal(await cambiosSinPublicar(ejecutor(db)), 1);
+});
+
+test('sin ninguna publicacion, todo lo publicable esta pendiente', async () => {
+  const db = base();
+  producto(db, { codigo: 'CG1', estado: 'aprobado', actualizado: '2026-08-10T09:00:00Z' });
+  producto(db, { codigo: 'CG2', estado: 'publicado', actualizado: '2026-08-10T09:00:00Z' });
+  producto(db, { codigo: 'CG3', estado: 'importado', actualizado: '2026-08-10T09:00:00Z' });
+
+  assert.equal(await cambiosSinPublicar(ejecutor(db)), 2);
+});
+
+test('se compara contra la ultima publicacion EXITOSA, no contra la ultima', async () => {
+  /**
+   * Si una publicacion fallo, lo que quedo en el sitio es lo de la anterior. Comparar
+   * contra el intento fallido diria que no hay nada pendiente cuando si lo hay — y es
+   * justo el momento en que hace falta saberlo.
+   */
+  const db = base();
+  publicadoEn(db, '2026-08-10T10:00:00Z');
+  producto(db, { codigo: 'CG1', estado: 'publicado', actualizado: '2026-08-10T11:00:00Z' });
+  db.prepare(
+    `INSERT INTO publicaciones (estado, disparada_por, disparada_en, terminada_en, productos)
+     VALUES ('error', 'a@a', '2026-08-10T12:00:00Z', '2026-08-10T12:01:00Z', 0)`
+  ).run();
+
+  assert.equal(await cambiosSinPublicar(ejecutor(db)), 1);
+});
+
+test('un catalogo vacio no tiene cambios pendientes', async () => {
+  assert.equal(await cambiosSinPublicar(ejecutor(base())), 0);
 });

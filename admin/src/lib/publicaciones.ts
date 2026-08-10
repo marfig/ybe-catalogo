@@ -195,6 +195,45 @@ export async function crearPublicacion(
   return filas[0].id;
 }
 
+/**
+ * Cuántos productos cambiaron desde la última publicación EXITOSA.
+ *
+ * EL HUECO QUE ESTO CIERRA. §10.1 usaba «8 aprobados sin publicar» como llamador a la
+ * acción, y ese contador sólo mira `aprobado`. Editar un producto que YA estaba en el
+ * catálogo no encendía ninguna señal: se guardaba, el Inicio se quedaba callado, y el
+ * sitio quedaba viejo sin que nada lo dijera. Alguien tenía que acordarse de publicar.
+ *
+ * Es el mismo problema que §11.3 ataca del otro lado — estado invisible — sólo que
+ * antes de publicar en vez de después.
+ *
+ * Se compara contra la última publicación **`ok`** y no contra la última a secas: si
+ * la última falló, lo que hay en el sitio es lo de la anterior, y comparar contra el
+ * intento fallido diría que no hay nada pendiente justo cuando más importa saberlo.
+ *
+ * Los `importado` no cuentan: no salen en `productos.json` (§5.2), así que no son un
+ * cambio pendiente de publicar sino trabajo pendiente de terminar. Los `eliminado` sí,
+ * porque hasta que se publique el producto se sigue viendo en el sitio.
+ */
+export async function cambiosSinPublicar(ejecutar: Ejecutar): Promise<number> {
+  const [ultimaOk] = await ejecutar<{ terminada_en: string | null }>(
+    `SELECT terminada_en FROM publicaciones
+      WHERE estado = 'ok' AND terminada_en IS NOT NULL
+      ORDER BY terminada_en DESC, id DESC
+      LIMIT 1`
+  );
+
+  // Sin ninguna publicación exitosa, todo lo publicable está pendiente por definición.
+  const corte = ultimaOk?.terminada_en ?? '';
+
+  const [fila] = await ejecutar<{ n: number }>(
+    `SELECT COUNT(*) AS n FROM productos
+      WHERE estado <> 'importado' AND actualizado_en > ?`,
+    [corte]
+  );
+
+  return fila?.n ?? 0;
+}
+
 /** La más reciente, o `null`. */
 export async function ultimaPublicacion(ejecutar: Ejecutar): Promise<Publicacion | null> {
   const filas = await ejecutar<Publicacion>(

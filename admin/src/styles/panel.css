@@ -705,6 +705,18 @@ button[disabled] {
   color: var(--aviso);
 }
 
+/**
+ * «Hay N cambios sin publicar» (§10.1).
+ *
+ * En tono de aviso y no de error: no hay nada roto, hay trabajo hecho que todavia no
+ * salio. Y no en gris como el resto de las notas, porque en gris se lee como pie de
+ * pagina y esto es el llamador a la accion.
+ */
+.nota--pendiente {
+  color: var(--aviso);
+  font-weight: 600;
+}
+
 #lista-problemas {
   margin: 0;
   padding-inline-start: 1.25rem;
