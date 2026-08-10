@@ -1,7 +1,10 @@
 ---
 import Logo from './Logo.astro';
+import Buscador from './islas/Buscador.tsx';
 import { COMERCIO, NOMBRE_CORTO } from '../lib/sitio.ts';
 import { categoriasNavegables } from '../lib/productos.ts';
+
+const { PUBLIC_R2_BASE } = import.meta.env;
 
 // Solo categorias con productos publicados: el header no puede enlazar a una
 // pagina que no se genera (SPEC §4.3).
@@ -39,6 +42,22 @@ const categorias = (await categoriasNavegables()).map((c) => c.categoria);
         </span>
       </a>
     </div>
+  </div>
+
+  {/*
+    Fila propia, entre la marca y las categorias.
+
+    No va al lado del logo por el mismo motivo que la nav tampoco entra: con el logo
+    grande no queda ancho util en movil. Y no comparte fila con los chips de categoria
+    porque esa nav ya scrollea horizontalmente — dos cosas compitiendo por el mismo
+    gesto.
+
+    `client:idle` y no `client:visible`: esta en el header, o sea visible desde el
+    primer pixel, asi que `visible` la hidrataria compitiendo con el render inicial.
+    Con `idle` espera a que el navegador este libre (SPEC §9.4).
+  */}
+  <div class="mx-auto max-w-6xl px-4 pt-2 sm:px-6">
+    <Buscador client:idle r2Base={PUBLIC_R2_BASE} />
   </div>
 
   <nav aria-label="Categorías" class="mx-auto max-w-6xl px-4 sm:px-6">
