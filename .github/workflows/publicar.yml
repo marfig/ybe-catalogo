@@ -31,9 +31,17 @@ jobs:
   publicar:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # Las dos actions en su mayor mas reciente. La v4 hacia correr SU PROPIO codigo
+      # sobre Node 20, que GitHub deprecio, y el aviso salia en cada corrida.
+      #
+      # OJO CON LA DISTINCION: eso es el runtime INTERNO de las actions, no el Node con
+      # el que se construye el sitio. Ese sigue siendo el 22 de abajo, que es el mismo
+      # que se usa en local (`engines: node >=22.12.0`). Subirlo aca crearia una
+      # diferencia entre CI y la maquina de desarrollo, que es exactamente la clase de
+      # bug que nos costo la corrida anterior.
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
