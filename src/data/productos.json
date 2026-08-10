@@ -21,6 +21,47 @@
     ]
   },
   {
+    "actualizado": "2026-08-07",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-dama",
+    "nombre": "Cartera dama",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85398"
+    },
+    "precio": 198000,
+    "variantes": [
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/61d20255cafea711"
+          }
+        ],
+        "sku": "CG85398-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2b2d683898f173a9"
+          }
+        ],
+        "sku": "CG85398-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-07-31",
     "categorias": [
       "carteras",
@@ -79,6 +120,47 @@
           }
         ],
         "sku": "CG85900-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-07",
+    "categorias": [
+      "mochilas"
+    ],
+    "id": "mochila",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85393"
+    },
+    "precio": 200000,
+    "variantes": [
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/73cbc424a433ece4"
+          }
+        ],
+        "sku": "CG85393-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bedf683c8765c11e"
+          }
+        ],
+        "sku": "CG85393-3"
       }
     ]
   },
