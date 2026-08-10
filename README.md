@@ -188,25 +188,30 @@ indexa esa URL, después compite con el dominio propio por las mismas páginas.
 
 ## Estado
 
-- **Fase 1** — catálogo navegable. Listo y desplegado.
+**La etapa 2 está terminada salvo una fase.** El admin vive en
+`ybe-admin.chenson.workers.dev`, detrás de Cloudflare Access con login por PIN al
+email, y publica el sitio apretando un botón.
+
+- **Fase 1** — catálogo navegable. Cerrada.
 - **Fase 2.1** — imágenes en R2, servidas con cache inmutable. Cerrada.
+- **Fase 2.2** — D1 y volcado, con publicación por GitHub Actions. Cerrada: dos
+  volcados seguidos dejan `git diff --exit-code` limpio.
+- **Fase 2.3** — admin de lectura y edición. Cerrada: se importó, aprobó y publicó
+  desde el navegador, sin terminal, y el producto quedó en el sitio.
+- **Fase 2.4** — carga manual. **La única abierta.** El código está hecho y el
+  pipeline de imágenes quedó probado en producción, pero por el camino del scrape.
+  Falta cargar un producto desde `/nuevo` con una foto de celular y publicarlo: es su
+  criterio de salida y ejercita el recorte, que el scrape no usa.
 - **Fase 2.5** — scrape del proveedor: importación con progreso en vivo, cortesía de
   1 request/segundo e idempotencia. Cerrada.
 - **Fase 2.6** — eliminación y papelera: borrado físico de lo que nunca se publicó,
   lógico de lo que sí, restaurar y vaciar. Cerrada.
 - **Fase 2.7** — el código del producto, visible en la ficha y en el mensaje de
   WhatsApp. Cerrada.
-- **Fases 2.2, 2.3 y 2.4** — volcado a D1, admin de lectura y edición, y carga
-  manual. Código completo, y desde el 2026-08-07 el admin está **desplegado y
-  protegido por Access** en `ybe-admin.chenson.workers.dev`. Siguen abiertas hasta
-  que se cumpla su criterio de salida, que es de uso real: cargar, publicar y ver el
-  producto en el sitio.
-- **Todo el código de la etapa 2 está escrito.** Lo que falta para cerrarla es el
-  deploy del admin con Cloudflare Access configurado, que es el criterio de salida de
-  las fases 2.2, 2.3 y 2.4.
-- Pendiente fuera de la etapa 2: buscador por código o nombre en el sitio público;
-  el scrape del catálogo **viejo** (otro sitio, migración de una sola vez); logo
-  definitivo (SVG y variante monocromática); redes sociales; **dominio propio**.
+
+Pendiente fuera de la etapa 2: buscador por código o nombre en el sitio público;
+el scrape del catálogo **viejo** (otro sitio, migración de una sola vez); logo
+definitivo (SVG y variante monocromática); redes sociales; **dominio propio**.
 
 > **El dominio bloquea el lanzamiento, no el desarrollo.** Las fotos se sirven por
 > `r2.dev`, que Cloudflare documenta como *development-only* y con rate limit. Todo

@@ -1320,6 +1320,57 @@ suele faltar. Un check rojo en GitHub no existe para quien no entra a GitHub.
 Y ante `error`, **notificación al rol técnico** con el link al run de Actions.
 Sin esto, auto-publish es publicar a ciegas.
 
+#### El camino de error no puede depender del mismo secreto que el feliz
+
+**Corregido el 2026-08-10, después de que este apartado fallara en producción dos
+veces.** Es la lección más caras de las tres que dio el primer uso real del botón.
+
+La Action falló porque faltaba `CLOUDFLARE_API_TOKEN`. Y el paso «Reportar el
+resultado» —el que esta sección diseñó para que la falla fuera visible— **necesita ese
+mismo token para escribir en D1.** No pudo reportar nada. La fila quedó en `pendiente`
+y el admin mostró «Publicando…» indefinidamente, mientras el catálogo ya estaba
+publicado.
+
+O sea: la sección que existe para que las fallas se vean **es ciega exactamente ante
+la falla de credenciales**, que es de las más probables al configurar el circuito por
+primera vez.
+
+Un reporte que viaja por el mismo canal que puede romperse no es un reporte. Cuando
+eso pasa, la única red que queda es que **el lector se dé cuenta solo**:
+
+| | Antes | Ahora |
+|---|---|---|
+| El botón vuelve | Sí, `hayPublicacionEnCurso` ya vencía | igual |
+| El cartel vence | **No. Decía «Publicando…» para siempre** | «No llegó respuesta de la publicación» |
+
+El vencimiento sale de **una sola** función que usan las dos preguntas. Con dos plazos
+distintos habría una ventana donde el botón está libre y el cartel dice que hay algo
+en curso; hay un test que fija los dos bordes.
+
+El mensaje de una publicación vencida avisa de **mirar el sitio antes de reintentar**,
+porque puede haberse publicado igual — que es literalmente lo que pasó. Y va con tono
+de error y no de éxito: pintarla de `ok` diría que se publicó algo que nadie sabe si
+se publicó.
+
+Ante fechas ilegibles se responde «todavía en curso», que es el lado conservador:
+tratarla como vencida abriría el botón para disparar una segunda publicación mientras
+la primera quizás sigue corriendo.
+
+#### Las otras dos fallas del primer uso, para no repetirlas
+
+**`repository_dispatch` devuelve 204 aunque no haya ningún workflow escuchando.** El
+primer intento no disparó nada porque `publicar.yml` no estaba en el repositorio
+remoto — había 55 commits sin pushear. Desde el admin, «disparado» y «disparado al
+vacío» son indistinguibles. Y sólo se disparan workflows de la rama **por defecto**:
+tenerlo en otra rama no sirve.
+
+**El circuito necesita credenciales en las DOS direcciones.** `GITHUB_TOKEN` como
+secret del Worker cubre admin → GitHub. La vuelta, GitHub → Cloudflare, necesita en el
+repositorio los secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` y
+`D1_DATABASE_ID`, más las variables `SITE_URL`, `INDEXABLE`, `PUBLIC_R2_BASE` y
+`PUBLIC_WHATSAPP`. El token se arma con la plantilla «Edit Cloudflare Workers» más una
+fila `D1: Edit`: sin ella el workflow despliega pero no puede leer la base.
+
 El mensaje de error del admin **no muestra el stack**. El caso más probable es el
 que `SPEC.md` §4.1 diseñó a propósito: un slug de categoría inválido rompe el
 build. Para quien opera, eso se traduce a «revisá las categorías del producto
@@ -1517,7 +1568,7 @@ Al pasar al dominio propio, el cambio es de configuración: se agrega el dominio
 como *custom domain* del bucket y `PUBLIC_R2_BASE` apunta ahí. Las claves de los
 objetos no cambian, así que ninguna imagen se vuelve a subir.
 
-### Fase 2.2 — D1 y el volcado (desplegable) · **EN CURSO**
+### Fase 2.2 — D1 y el volcado (desplegable) · **CERRADA 2026-08-10**
 
 El eslabón que hace que todo lo demás pueda existir.
 
@@ -1720,7 +1771,12 @@ Criterio de salida: volcar D1 dos veces seguidas ⇒ `git diff --exit-code
 src/data/productos.json` limpio. Es el test de idempotencia de `SPEC.md` §6.11
 sobre la base nueva.
 
-### Fase 2.3 — Admin: leer y editar (desplegable) · **EN CURSO**
+**✅ CUMPLIDO el 2026-08-10**, contra la D1 remota con 8 productos: el segundo volcado
+reporta «sin cambios» y no reescribe el archivo. `git diff --exit-code` limpio. El
+workflow de publicación lo ejercita en cada corrida, que es lo que convierte la
+idempotencia en algo que se verifica solo y no cuando alguien se acuerda.
+
+### Fase 2.3 — Admin: leer y editar (desplegable) · **CERRADA 2026-08-10**
 
 El admin vive en `admin/`, con su propio `package.json` y `wrangler.jsonc`
 (§4.1). El sitio público no se toca.
@@ -1953,6 +2009,16 @@ Tres detalles del mismo tamaño:
 Criterio de salida: una persona sin acceso a la terminal edita un producto, lo
 aprueba, lo publica, y lo ve en el sitio. Y si el build falla, entiende qué pasó.
 
+**✅ CUMPLIDO el 2026-08-10.** Login por PIN de Access, sin terminal en ningún momento:
+se importaron productos, se aprobaron, se publicó con el botón, y `cartera-dama` y
+`mochila` responden 200 en el sitio con su código a la vista. `cg85900`, que está en
+`activo: false`, da 404 — la papelera llegando hasta el sitio público.
+
+La segunda mitad del criterio —«y si el build falla, entiende qué pasó»— se cumplió de
+la manera más incómoda posible: **falló tres veces y las tres el admin explicó mal lo
+que pasaba.** Está documentado en §11.3, y lo que se corrigió ahí es parte de este
+criterio, no un extra.
+
 ### Fase 2.4 — Carga manual (desplegable) · **EN CURSO**
 
 - ✅ **Reglas puras de imagen** en `admin/src/lib/imagen.ts` — 19 tests. «Nunca se
@@ -1979,6 +2045,28 @@ del scrape, donde un fallo se confunde con un problema de red o de parseo.
 Criterio de salida: producto cargado a mano, con foto de celular recortada,
 publicado y visible. `w300` y `w600` en R2, y el `srcset` del sitio funcionando
 sin tocar `src/`.
+
+**SIGUE ABIERTA, y es la única de la etapa 2 que queda.** Vale aclarar exactamente qué
+falta, porque es fácil creer que ya está: el 2026-08-10 se publicaron dos productos con
+sus fotos, `w300` y `w600` en R2 y `srcset` funcionando en el sitio. Pero los dos son
+`proveedor: chenson` — **entraron por el scrape**, no por el formulario.
+
+Son dos caminos distintos del mismo pipeline y no se prueban entre sí:
+
+| | Alta manual (§8.3) | Scrape (§8.1) |
+|---|---|---|
+| Función | `subirFoto` | `subirFotoDelOrigen` |
+| Encuadre | cuadrado centrado, **recorta** | entra entera, **rellena** |
+| Origen de los bytes | `<input type="file">` | el puente del Worker |
+| Tamaño típico | 4000 × 3000 de celular | 600 × 600 del proveedor |
+
+Lo que el scrape dejó probado en producción es el tramo compartido: canvas, derivadas,
+subida a R2, dedupe por hash y `srcset`. Lo que falta es el tramo propio de esta fase —
+elegir un archivo grande de un teléfono, que se recorte al cuadrado centrado, y que
+salga publicado.
+
+**Falta una sola cosa: cargar un producto desde `/nuevo` con una foto de celular,
+aprobarlo y publicarlo.**
 
 ### Fase 2.5 — Scrape (desplegable) · **CERRADA 2026-08-07**
 
