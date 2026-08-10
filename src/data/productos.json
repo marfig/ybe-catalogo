@@ -62,6 +62,62 @@
     ]
   },
   {
+    "actualizado": "2026-08-10",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Cartera pequeña",
+    "destacado": true,
+    "id": "cartera-de-fiesta",
+    "nombre": "Cartera de fiesta",
+    "origen": {
+      "proveedor": "manual",
+      "ref": "CG15303"
+    },
+    "precio": 180000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/68291f6db229610e"
+          }
+        ],
+        "sku": "CG15303-negro"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2ad7910db7000a98"
+          }
+        ],
+        "sku": "CG15303-rojo"
+      },
+      {
+        "color": "Caqui",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/191638c0645f4dce"
+          }
+        ],
+        "sku": "CG15303-caqui"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-07-31",
     "categorias": [
       "carteras",
