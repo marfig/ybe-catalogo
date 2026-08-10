@@ -90,7 +90,9 @@ const tarjetas = [
 ] as const;
 ---
 
-<Panel titulo="Catálogo">
+{/* Sólo mientras publica. El estado cambia en otra máquina —la Action reporta por la
+    base (§11.3)— así que es el único momento en que esta pantalla envejece sola. */}
+<Panel titulo="Catálogo" refrescarCada={enCurso ? 10 : undefined}>
   {
     errorAccion ? (
       <p class="resumen resumen--error" role="status">{errorAccion}</p>

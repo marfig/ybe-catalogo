@@ -12,9 +12,27 @@ interface Props {
   titulo: string;
   /** Ruta de vuelta. Sin esto, de una pantalla interna sólo se sale con el navegador. */
   volver?: string;
+  /**
+   * Segundos para recargar sola la pantalla. Ausente = no se recarga.
+   *
+   * Es para el ÚNICO caso en que el estado cambia sin que nadie toque nada: mientras
+   * corre una publicación, que termina en otra máquina y avisa por la base (§11.3).
+   * Sin esto el cartel dice «Publicando…» hasta que alguien recarga a mano, aunque el
+   * sitio ya esté publicado hace rato.
+   *
+   * `http-equiv` y no JavaScript, por tres razones que importan acá:
+   *
+   *  1. **Se apaga solo.** Quien decide si hay que refrescar es el servidor, en cada
+   *     render. Cuando la publicación termina, la página que vuelve ya no trae la
+   *     etiqueta y los refrescos paran. Con un `setInterval` habría que acordarse de
+   *     cancelarlo, y el modo de falla sería recargar para siempre.
+   *  2. Funciona sin JS, como el resto de esta pantalla.
+   *  3. No hay estado que perder: el Inicio no tiene campos donde se esté tipeando.
+   */
+  refrescarCada?: number;
 }
 
-const { titulo, volver } = Astro.props;
+const { titulo, volver, refrescarCada } = Astro.props;
 const { identidad } = Astro.locals;
 ---
 
@@ -25,6 +43,7 @@ const { identidad } = Astro.locals;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     {/* El admin nunca se indexa: es una superficie privada detras de Access. */}
     <meta name="robots" content="noindex, nofollow" />
+    {refrescarCada ? <meta http-equiv="refresh" content={String(refrescarCada)} /> : null}
     <title>{titulo} · YBE Administración</title>
   </head>
   <body>
