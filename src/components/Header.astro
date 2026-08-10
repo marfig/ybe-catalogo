@@ -24,9 +24,12 @@ const categorias = (await categoriasNavegables()).map((c) => c.categoria);
 <header class="bg-superficie border-borde border-b">
   <div class="bg-superficie border-borde sticky top-0 z-20 border-b">
     <div class="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4">
+      {/* `min-w-0` y el `truncate` del wordmark hacen que la marca CEDA ancho cuando
+          la pantalla es angosta, en vez de empujar al buscador fuera de la fila. El
+          logo no se achica: es el ancla visual. */}
       <a
         href="/"
-        class="flex min-w-0 items-center gap-3 sm:gap-4"
+        class="flex min-w-0 shrink items-center gap-3 sm:gap-4"
         aria-label={`${COMERCIO} — inicio`}
       >
         <Logo class="h-16 w-16 sm:h-22 sm:w-22" prioridad />
@@ -41,23 +44,24 @@ const categorias = (await categoriasNavegables()).map((c) => c.categoria);
           </span>
         </span>
       </a>
+
+      {/*
+        En la MISMA fila que la marca, del otro lado: aprovecha el ancho que en
+        escritorio queda vacio a la derecha del logo, y no suma alto al header — que
+        sticky se paga en viewport, sobre todo en movil.
+
+        `ml-auto` lo empuja a la derecha; `min-w-0` con `max-w` lo deja encoger sin
+        desbordar. La marca cede ancho antes que el buscador porque el logo sigue ahi
+        como ancla: en una pantalla angosta se pierde el wordmark, no la funcion.
+
+        `client:idle` y no `client:visible`: esta visible desde el primer pixel, asi
+        que `visible` lo hidrataria compitiendo con el render inicial. Con `idle`
+        espera a que el navegador este libre (SPEC §9.4).
+      */}
+      <div class="ml-auto w-full max-w-40 min-w-0 sm:max-w-xs">
+        <Buscador client:idle r2Base={PUBLIC_R2_BASE} />
+      </div>
     </div>
-  </div>
-
-  {/*
-    Fila propia, entre la marca y las categorias.
-
-    No va al lado del logo por el mismo motivo que la nav tampoco entra: con el logo
-    grande no queda ancho util en movil. Y no comparte fila con los chips de categoria
-    porque esa nav ya scrollea horizontalmente — dos cosas compitiendo por el mismo
-    gesto.
-
-    `client:idle` y no `client:visible`: esta en el header, o sea visible desde el
-    primer pixel, asi que `visible` la hidrataria compitiendo con el render inicial.
-    Con `idle` espera a que el navegador este libre (SPEC §9.4).
-  */}
-  <div class="mx-auto max-w-6xl px-4 pt-2 sm:px-6">
-    <Buscador client:idle r2Base={PUBLIC_R2_BASE} />
   </div>
 
   <nav aria-label="Categorías" class="mx-auto max-w-6xl px-4 sm:px-6">

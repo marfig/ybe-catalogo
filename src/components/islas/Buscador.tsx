@@ -65,11 +65,13 @@ export default function Buscador({ r2Base }: Props) {
       <label class="sr-only" for="q">
         Buscar por código o nombre
       </label>
+      {/* El `placeholder` va corto porque el campo mide ~160px en móvil. La frase
+          entera vive en el `label` de arriba, que es lo que lee un lector de pantalla. */}
       <input
         id="q"
         type="search"
         autocomplete="off"
-        placeholder="Buscar por código o nombre"
+        placeholder="Código o nombre"
         value={consulta}
         onFocus={() => {
           void cargarIndice();
@@ -85,8 +87,16 @@ export default function Buscador({ r2Base }: Props) {
         class="border-borde focus:border-acento w-full rounded border bg-white px-3 py-2 text-sm outline-none"
       />
 
+      {/*
+        EL DESPLEGABLE ES MÁS ANCHO QUE EL CAMPO, a propósito.
+
+        El input mide ~160px en móvil para caber al lado del logo, y una lista con foto,
+        nombre, código y precio no entra en 160px. Se ancla a la DERECHA y se extiende
+        hacia la izquierda, con tope de 85vw para no salirse de la pantalla. En
+        escritorio vuelve a acompañar el ancho del campo.
+      */}
       {mostrar && (
-        <div class="border-borde absolute inset-x-0 top-full z-30 mt-1 max-h-96 overflow-y-auto rounded border bg-white shadow-lg">
+        <div class="border-borde absolute top-full right-0 z-30 mt-1 max-h-96 w-[min(22rem,85vw)] overflow-y-auto rounded border bg-white shadow-lg sm:w-full">
           {estado === 'cargando' && <p class="text-texto-suave p-3 text-sm">Buscando…</p>}
 
           {estado === 'error' && (
