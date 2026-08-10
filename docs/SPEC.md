@@ -1235,6 +1235,26 @@ No incluye `descripcion`: es el campo más pesado y el que menos aporta a una b�
 
 Búsqueda por `nombre`; filtros por categoría y rango de precio.
 
+**Construido el 2026-08-10 — y los filtros quedaron DESCARTADOS, no pendientes.**
+
+Lo que se hizo: búsqueda por **nombre y código**. El código no estaba en esta sección;
+lo agregó `SPEC-etapa2` §5.3 con el campo `k`, y termina siendo el caso principal — un
+cliente pregunta por WhatsApp citando el código, así que el código gana sobre el nombre
+en el orden de resultados.
+
+Lo que **no** se hace, por decisión del 2026-08-10:
+
+- **Filtro por categoría.** Ya existe la navegación por categorías: están en el header
+  y cada una tiene su listado paginado (§9.5). Un filtro dentro del buscador sería un
+  segundo camino para lo mismo, y un camino paralelo es donde se cometen los errores.
+- **Filtro por rango de precio.** Con 300 a 1.500 productos de una sola marca, el rango
+  no discrimina lo suficiente para pagar la interfaz. Y una parte del catálogo se
+  publica con «Consultar precio» (§7.3), así que el filtro dejaría afuera productos por
+  no tener el dato — que es lo contrario de ayudar a encontrarlos.
+
+Los campos `p` y `c` del índice **se conservan igual**: la lista de resultados muestra
+el precio, y `c` no cuesta nada y deja la puerta abierta sin construir nada.
+
 **Plan B, si se supera el techo de 1.500:**
 
 1. **Shards por categoría** — `/indice/{categoria}.json`. La búsqueda global pasa a ser búsqueda dentro de una categoría, con el shard cargado al entrar. Es el paso más chico y no agrega dependencias: el listado por categoría ya es la vista principal.
