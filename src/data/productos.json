@@ -1,6 +1,7 @@
 [
   {
-    "actualizado": "2026-07-31",
+    "activo": false,
+    "actualizado": "2026-08-10",
     "categorias": [
       "billeteras",
       "dama"
@@ -180,17 +181,19 @@
     ]
   },
   {
-    "actualizado": "2026-08-07",
+    "actualizado": "2026-08-10",
     "categorias": [
-      "mochilas"
+      "mochilas",
+      "dama"
     ],
+    "descripcion": "Para dama",
     "id": "mochila",
     "nombre": "Mochila",
     "origen": {
       "proveedor": "chenson",
       "ref": "CG85393"
     },
-    "precio": 200000,
+    "precio": 220000,
     "variantes": [
       {
         "color": "Marron Oscuro",
