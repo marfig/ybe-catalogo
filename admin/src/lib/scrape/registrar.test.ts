@@ -14,6 +14,7 @@ const MIGRACIONES = [
   '0001_esquema_inicial.sql',
   '0002_codigo_insensible_a_mayusculas.sql',
   '0003_aviso_cambio_en_origen.sql',
+  '0004_papelera.sql',
 ].map((n) => readFileSync(new URL(`../../../../db/migrations/${n}`, import.meta.url), 'utf8'));
 
 const AHORA = '2026-08-06T15:00:00Z';
@@ -335,4 +336,103 @@ test('codigosExistentes: sin códigos no consulta y devuelve vacío', async () =
 
 test('codigosExistentes: un catálogo vacío no saltea nada', async () => {
   assert.deepEqual(await codigosExistentes(ejecutor(base()), ['CG85700', 'CG1']), []);
+});
+
+// --------------------------------------------------------------------------
+// Reimportar algo que esta en la papelera (§7.5 x §12.2)
+// --------------------------------------------------------------------------
+
+test('un producto ELIMINADO reimportado NO vuelve al catalogo', async () => {
+  /**
+   * El cruce de dos reglas que se escribieron por separado, y el de peor consecuencia
+   * si fallara: alguien saco un producto del catalogo a proposito, el proveedor lo
+   * sigue listando, y la proxima importacion lo trae de nuevo. Si el scrape tocara
+   * `estado`, el producto REAPARECERIA en el sitio sin que nadie lo decidiera.
+   *
+   * No pasa porque el UPDATE de `registrarFicha` no nombra `estado` — pero eso es una
+   * propiedad del codigo, y una propiedad sin test es una propiedad hasta que alguien
+   * agrega una columna al UPDATE sin pensarlo.
+   */
+  const db = base();
+  const e = ejecutor(db);
+  await registrarFicha(e, CG85700, opciones);
+
+  db.prepare(
+    `UPDATE productos SET nombre = ?, slug = ?, estado = 'eliminado',
+            eliminado_en = ?, eliminado_por = ? WHERE codigo = 'CG85700'`
+  ).run('Mochila urbana', 'mochila-urbana', AHORA, 'ana@ybe.com.py');
+
+  await registrarFicha(e, CG85700, { scrapeId: null, ahora: DESPUES });
+
+  const p = db.prepare('SELECT * FROM productos').get() as Record<string, unknown>;
+  assert.equal(p.estado, 'eliminado', 'sigue en la papelera');
+  assert.equal(p.nombre, 'Mochila urbana', 'conserva el nombre que le pusieron');
+});
+
+test('el slug de un eliminado sobrevive a la reimportacion', async () => {
+  // Es lo que permite restaurarlo con la MISMA URL. Si el scrape lo liberara o lo
+  // recalculara, restaurar daria una direccion nueva y la vieja quedaria muerta.
+  const db = base();
+  const e = ejecutor(db);
+  await registrarFicha(e, CG85700, opciones);
+  db.prepare(
+    `UPDATE productos SET slug = 'mochila-urbana', estado = 'eliminado' WHERE codigo = 'CG85700'`
+  ).run();
+
+  await registrarFicha(e, CG85700, { scrapeId: null, ahora: DESPUES });
+
+  const p = db.prepare('SELECT slug FROM productos').get() as { slug: string };
+  assert.equal(p.slug, 'mochila-urbana');
+});
+
+test('la marca de quien lo elimino y cuando NO se borra al reimportar', async () => {
+  // La papelera muestra «fecha, quien lo hizo» (§10.5). Que una importacion las
+  // limpiara dejaria un producto en la papelera sin saber quien lo saco.
+  const db = base();
+  const e = ejecutor(db);
+  await registrarFicha(e, CG85700, opciones);
+  db.prepare(
+    `UPDATE productos SET slug = 'x', estado = 'eliminado', eliminado_en = ?,
+            eliminado_por = ? WHERE codigo = 'CG85700'`
+  ).run(AHORA, 'ana@ybe.com.py');
+
+  await registrarFicha(e, CG85700, { scrapeId: null, ahora: DESPUES });
+
+  const p = db.prepare('SELECT eliminado_en, eliminado_por FROM productos').get() as {
+    eliminado_en: string;
+    eliminado_por: string;
+  };
+  assert.equal(p.eliminado_en, AHORA);
+  assert.equal(p.eliminado_por, 'ana@ybe.com.py');
+});
+
+test('un color nuevo entra como variante aunque el producto este eliminado', async () => {
+  /**
+   * La estructura SI se actualiza: el scrape aporta estructura y las personas aportan
+   * decisiones. El color queda registrado y marcado con el aviso, listo para cuando
+   * alguien restaure el producto — pero el producto sigue fuera del catalogo.
+   */
+  const db = base();
+  const e = ejecutor(db);
+  await registrarFicha(e, CG85700, opciones);
+  db.prepare(
+    `UPDATE productos SET slug = 'x', estado = 'eliminado' WHERE codigo = 'CG85700'`
+  ).run();
+
+  const r = await registrarFicha(
+    e,
+    {
+      ...CG85700,
+      colores: [
+        ...CG85700.colores,
+        { colorOrigen: '(9) AZUL', url: 'https://www.chenson.com.py/producto/99999-cg85700' },
+      ],
+    },
+    { scrapeId: null, ahora: DESPUES }
+  );
+
+  assert.deepEqual(r.variantesNuevas, ['CG85700-9']);
+  assert.equal(r.avisoDeCambio, true, 'queda marcado para que alguien lo mire');
+  const p = db.prepare('SELECT estado FROM productos').get() as { estado: string };
+  assert.equal(p.estado, 'eliminado', 'y sigue afuera del catalogo');
 });
