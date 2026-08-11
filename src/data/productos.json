@@ -63,6 +63,142 @@
     ]
   },
   {
+    "actualizado": "2026-08-11",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-dama-2",
+    "nombre": "Cartera dama",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85394"
+    },
+    "precio": 180000,
+    "variantes": [
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/601ddfc0a19d93c5"
+          }
+        ],
+        "sku": "CG85394-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/688c2a8b0eff6780"
+          }
+        ],
+        "sku": "CG85394-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-11",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-dama-3",
+    "nombre": "Cartera dama",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85395"
+    },
+    "precio": 220000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/76770a31a19ec24b"
+          }
+        ],
+        "sku": "CG85395-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0f09fa991addf323"
+          }
+        ],
+        "sku": "CG85395-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/86be0bc423a31ac9"
+          }
+        ],
+        "sku": "CG85395-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-11",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-dama-4",
+    "nombre": "Cartera dama",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85396"
+    },
+    "precio": 200000,
+    "variantes": [
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7d704ae442ebd5a3"
+          }
+        ],
+        "sku": "CG85396-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/acddb3a13496b929"
+          }
+        ],
+        "sku": "CG85396-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-10",
     "categorias": [
       "carteras"
