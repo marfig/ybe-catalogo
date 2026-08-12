@@ -25,6 +25,16 @@ export const getStaticPaths = (async () => {
 const { producto } = Astro.props;
 const { nombre, descripcion, precio } = producto.data;
 
+/**
+ * La misma descripción en una línea, para los metadatos.
+ *
+ * El `<meta name="description">` y el JSON-LD no tienen dónde renderizar un salto de
+ * línea: lo que va ahí es una cadena para un buscador, no un párrafo. Desde que la
+ * importación siembra las medidas, una descripción multilínea es el caso normal y no
+ * la excepción, así que el aplanado dejó de ser hipotético.
+ */
+const descripcionPlana = descripcion?.replace(/\s+/g, ' ').trim() || null;
+
 const categorias = await resolverCategorias(producto);
 const variantes = variantesActivas(producto);
 const inicial = varianteInicial(producto);
@@ -77,7 +87,7 @@ if (precio !== null && inicial) {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: nombre,
-    ...(descripcion ? { description: descripcion } : {}),
+    ...(descripcionPlana ? { description: descripcionPlana } : {}),
     sku: inicial.sku,
     brand: { '@type': 'Brand', name: MARCA },
     ...(imagenesJsonLd.length > 0 ? { image: imagenesJsonLd } : {}),
@@ -98,7 +108,7 @@ if (precio !== null && inicial) {
 
 <Base
   titulo={nombre}
-  descripcion={descripcion ?? `${nombre} — ${MARCA}. Consultá por WhatsApp.`}
+  descripcion={descripcionPlana ?? `${nombre} — ${MARCA}. Consultá por WhatsApp.`}
   ogType="product"
   ogImagen={ogImagen}
   jsonLd={jsonLd}
@@ -162,7 +172,19 @@ if (precio !== null && inicial) {
         {precio !== null && <p class="text-texto-suave text-xs">{LEYENDA_PRECIO}</p>}
       </div>
 
-      {descripcion && <p class="max-w-prose leading-relaxed">{descripcion}</p>}
+      {
+        /**
+         * `whitespace-pre-line` y no un `<p>` pelado: la descripción se escribe en un
+         * `<textarea>` del admin, donde el salto de línea es un `\n` — y HTML colapsa
+         * todo blanco consecutivo en un espacio, así que sin esto lo que se tipeó en
+         * tres párrafos se muestra como uno solo.
+         *
+         * `pre-line` y no `pre`: preserva los saltos pero sigue colapsando los espacios
+         * y dejando que el texto se acomode al ancho. Con `pre` cada línea se iría al
+         * ancho que tenga y la ficha scrollearía de costado en un teléfono.
+         */
+        descripcion && <p class="max-w-prose leading-relaxed whitespace-pre-line">{descripcion}</p>
+      }
 
       <dl class="text-texto-suave mt-2 text-sm">
         <div class="flex gap-2">
