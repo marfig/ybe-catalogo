@@ -18,6 +18,7 @@ import { env } from 'cloudflare:workers';
 import Panel from '../layouts/Panel.astro';
 import { ejecutorD1 } from '../lib/d1.ts';
 import { haceCuanto } from '../lib/publicaciones.ts';
+import { interpretarPostDeBarrido } from '../lib/scrape/barrido.ts';
 import {
   LIMITE_BARRIDO,
   candidatosPorIds,
@@ -43,11 +44,17 @@ let seleccionados: Candidato[] | null = null;
 
 if (Astro.request.method === 'POST') {
   const form = await Astro.request.formData();
-  const scrapeId = Number(form.get('scrapeId'));
 
-  if (Number.isInteger(scrapeId)) {
+  // Quién manda qué lo decide `interpretarPostDeBarrido`, que es puro y tiene tests.
+  // Acá no puede haber un `Number(...)` suelto: fue exactamente lo que rompió esto.
+  const pedido = interpretarPostDeBarrido(
+    form.get('scrapeId') as string | null,
+    form.getAll('id') as string[]
+  );
+
+  if (pedido.tipo === 'cerrar') {
     try {
-      await cerrarCorrida(ejecutar, scrapeId, {
+      await cerrarCorrida(ejecutar, pedido.scrapeId, {
         ahora: new Date().toISOString(),
         estado: 'abortado',
       });
@@ -58,8 +65,7 @@ if (Astro.request.method === 'POST') {
     return Astro.redirect('/barrido', 303);
   }
 
-  const ids = form.getAll('id').map(Number).filter(Number.isInteger);
-  seleccionados = await candidatosPorIds(ejecutar, ids);
+  seleccionados = await candidatosPorIds(ejecutar, pedido.ids);
 }
 
 const ahora = new Date().toISOString();

@@ -23,9 +23,17 @@ const ejecutar = ejecutorD1(env.DB);
 
 if (Astro.request.method === 'POST') {
   const form = await Astro.request.formData();
-  const scrapeId = Number(form.get('scrapeId'));
 
-  if (Number.isInteger(scrapeId)) {
+  /**
+   * `crudo === null` explícito, y `> 0`: `Number(null)` y `Number('')` son ambos `0`,
+   * que es un entero. Hoy acá no hay bug —el único `<form>` de esta página siempre
+   * manda `scrapeId` y el redirect de abajo es incondicional— pero la misma guarda en
+   * `/barrido` se comía la selección de la grilla entera. No existe ninguna corrida 0.
+   */
+  const crudo = form.get('scrapeId');
+  const scrapeId = crudo === null ? Number.NaN : Number(crudo);
+
+  if (Number.isInteger(scrapeId) && scrapeId > 0) {
     try {
       await cerrarCorrida(ejecutar, scrapeId, {
         ahora: new Date().toISOString(),

@@ -13,6 +13,42 @@
  */
 import type { Presencia } from './presencia.ts';
 
+/** Lo que puede pedir un POST a `/barrido`. */
+export type PostDeBarrido =
+  | { tipo: 'cerrar'; scrapeId: number }
+  | { tipo: 'seleccion'; ids: number[] };
+
+/**
+ * Qué pide un POST a `/barrido`.
+ *
+ * DOS FORMULARIOS DISTINTOS LE PEGAN A LA MISMA RUTA. El de la pantalla del barrido
+ * cierra una corrida que quedó colgada y manda `scrapeId`. El de la grilla manda los
+ * productos tildados como `id`, y no manda `scrapeId` en absoluto.
+ *
+ * EL BUG QUE ESTA FUNCIÓN CIERRA, reportado el 2026-08-12 con el síntoma «tildé dos y
+ * dice que va a revisar 6». La decisión era `Number.isInteger(Number(scrapeId))`, y
+ * **`Number(null)` es `0`, que es un entero**: todo POST de la grilla se leía como
+ * «cerrá la corrida 0», redirigía a `/barrido`, y la selección se perdía en el camino.
+ * La pantalla se rendía por GET con la cola automática, así que «Verificar en el
+ * proveedor» nunca revisó lo que alguien había tildado — y el `try/catch` del cierre se
+ * comía el error de la corrida inexistente sin dejar rastro.
+ *
+ * `> 0` y no sólo `isInteger`: `Number('')` también es 0, y no existe ninguna corrida 0,
+ * así que un cero nunca es un cierre legítimo.
+ */
+export function interpretarPostDeBarrido(
+  scrapeId: string | null,
+  ids: readonly string[]
+): PostDeBarrido {
+  const n = scrapeId === null ? Number.NaN : Number(scrapeId);
+  if (Number.isInteger(n) && n > 0) return { tipo: 'cerrar', scrapeId: n };
+
+  return {
+    tipo: 'seleccion',
+    ids: ids.map(Number).filter((i) => Number.isInteger(i) && i > 0),
+  };
+}
+
 export interface Avance {
   /** Cuántos productos entraron a esta corrida. */
   total: number;
