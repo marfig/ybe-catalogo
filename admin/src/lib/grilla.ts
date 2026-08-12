@@ -13,7 +13,13 @@ export type Ejecutar = <T = Record<string, unknown>>(
   params?: unknown[]
 ) => Promise<T[]>;
 
-export type ValorFiltro = 'por-aprobar' | 'aprobado' | 'publicado' | 'eliminado' | 'todos';
+export type ValorFiltro =
+  | 'por-aprobar'
+  | 'aprobado'
+  | 'publicado'
+  | 'dados-de-baja'
+  | 'eliminado'
+  | 'todos';
 
 /**
  * Opciones del filtro de estado, en el orden en que se muestran.
@@ -29,6 +35,16 @@ export const FILTROS = [
   { valor: 'por-aprobar', etiqueta: 'Por aprobar', estado: 'importado' },
   { valor: 'aprobado', etiqueta: 'Listos para publicar', estado: 'aprobado' },
   { valor: 'publicado', etiqueta: 'En el catálogo', estado: 'publicado' },
+  /**
+   * NO ES UN ESTADO, y por eso tiene `estado: null` sin ser «todos».
+   *
+   * Un producto puede estar publicado y dado de baja en el origen AL MISMO TIEMPO: son
+   * dos ejes distintos. Meterlo en la máquina de estados de §5.2 obligaría a inventar un
+   * quinto estado, a romper el `CHECK` del esquema y a decidir qué pasa cuando el
+   * proveedor lo repone. La marca es ortogonal — `ausente_desde` — y esto es un filtro
+   * sobre ella.
+   */
+  { valor: 'dados-de-baja', etiqueta: 'Ya no está en el proveedor', estado: null },
   { valor: 'eliminado', etiqueta: 'Papelera', estado: 'eliminado' },
   { valor: 'todos', etiqueta: 'Todos', estado: null },
 ] as const satisfies ReadonlyArray<{
@@ -86,6 +102,8 @@ export interface FilaGrilla {
   estado: string;
   slug: string | null;
   categoria_origen: string | null;
+  /** Desde cuándo el proveedor dejó de publicarlo. `null` = sigue estando. */
+  ausente_desde: string | null;
   variantes: number;
   imagenes: number;
   /** hash16 de la foto que muestra el sitio por defecto. `null` si no hay. */
@@ -127,10 +145,21 @@ function condicionEstado(valor: ValorFiltro): { sql: string; params: unknown[] }
   if (filtro.estado !== null) {
     return { sql: 'p.estado = ?', params: [filtro.estado] };
   }
+  /**
+   * Las bajas del proveedor cruzan los estados: se filtra por la marca, no por
+   * `p.estado`. Excluye la papelera igual que "Todos" — un producto ya eliminado que
+   * ademas no esta en el origen no es trabajo pendiente para nadie.
+   */
+  if (filtro.valor === 'dados-de-baja') {
+    return { sql: SQL_DADOS_DE_BAJA, params: [] };
+  }
   // "Todos" excluye la papelera a proposito (§10.3): los eliminados solo aparecen
   // con su filtro elegido.
   return { sql: "p.estado <> 'eliminado'", params: [] };
 }
+
+/** La condicion de "dado de baja en el origen". Compartida por el filtro y el conteo. */
+const SQL_DADOS_DE_BAJA = `p.ausente_desde IS NOT NULL AND p.estado <> 'eliminado'`;
 
 /**
  * Condicion de busqueda por codigo o nombre.
@@ -168,6 +197,7 @@ export async function listarProductos(
 
   const filas = await ejecutar<Omit<FilaGrilla, 'categorias'>>(
     `SELECT p.id, p.codigo, p.nombre, p.precio, p.estado, p.slug, p.categoria_origen,
+            p.ausente_desde,
             (SELECT COUNT(*) FROM variantes v WHERE v.producto_id = p.id) AS variantes,
             (SELECT COUNT(DISTINCT vi.imagen_id)
                FROM variantes v
@@ -215,7 +245,14 @@ export async function listarProductos(
 /** Los cuatro estados del esquema (§5.2), para que un conteo en 0 exista igual. */
 const ESTADOS = ['importado', 'aprobado', 'publicado', 'eliminado'] as const;
 
-export type ConteoPorEstado = Record<(typeof ESTADOS)[number], number>;
+export type ConteoPorEstado = Record<(typeof ESTADOS)[number], number> & {
+  /**
+   * Los dados de baja en el origen. Va aparte de los estados y no dentro, porque NO es
+   * uno: se cruza con `publicado` y con `aprobado`, así que sumarlo al resto daría un
+   * total mayor que el catálogo.
+   */
+  dadosDeBaja: number;
+};
 
 /**
  * Cuantos productos hay por estado, respetando la busqueda.
@@ -238,7 +275,26 @@ export async function contarPorEstado(
     b.params
   );
 
-  const conteo = Object.fromEntries(ESTADOS.map((e) => [e, 0])) as ConteoPorEstado;
+  /**
+   * Consulta aparte y no una columna más del `GROUP BY`: la baja en el origen no
+   * particiona el catálogo como el estado, así que no puede salir del mismo agrupado
+   * sin contar dos veces al mismo producto.
+   */
+  const [baja] = await ejecutar<{ cantidad: number }>(
+    `SELECT COUNT(*) AS cantidad
+       FROM productos p
+      WHERE ${b.sql} AND ${SQL_DADOS_DE_BAJA}`,
+    b.params
+  );
+
+  const conteo = {
+    ...(Object.fromEntries(ESTADOS.map((e) => [e, 0])) as Record<
+      (typeof ESTADOS)[number],
+      number
+    >),
+    dadosDeBaja: baja?.cantidad ?? 0,
+  } as ConteoPorEstado;
+
   for (const fila of filas) {
     if (fila.estado in conteo) conteo[fila.estado as keyof ConteoPorEstado] = fila.cantidad;
   }

@@ -9,6 +9,7 @@ import {
   cerrarCorrida,
   codigoYaVisto,
   contarFicha,
+  contarRevisado,
   corridaEnCurso,
   iniciarCorrida,
 } from './corrida.ts';
@@ -18,6 +19,8 @@ const MIGRACIONES = [
   '0001_esquema_inicial.sql',
   '0002_codigo_insensible_a_mayusculas.sql',
   '0003_aviso_cambio_en_origen.sql',
+  '0004_papelera.sql',
+  '0005_barrido_de_bajas.sql',
 ].map((n) => readFileSync(new URL(`../../../../db/migrations/${n}`, import.meta.url), 'utf8'));
 
 const INICIO = '2026-08-06T15:00:00Z';
@@ -47,6 +50,44 @@ test('la corrida se abre en corriendo y con su total de páginas', async () => {
 
 test('sin corridas abiertas devuelve null', async () => {
   assert.equal(await corridaEnCurso(ejecutor(base()), { ahora: INICIO }), null);
+});
+
+test('una corrida sin tipo declarado es una importación', async () => {
+  // Las filas historicas son todas importaciones: el default las cubre sin migrar datos.
+  const e = ejecutor(base());
+  await iniciarCorrida(e, { url: URL_LISTADO, paginas: 1, ahora: INICIO });
+  assert.equal((await corridaEnCurso(e, { ahora: INICIO }))?.tipo, 'importacion');
+});
+
+test('un barrido abierto bloquea una importación, y al revés', async () => {
+  /**
+   * ES EL MOTIVO DE QUE COMPARTAN TABLA. El paso de 1 request por segundo lo marca
+   * cada pestaña por su cuenta, asi que dos recorridos a la vez se lo duplican al
+   * proveedor aunque uno importe y el otro solo pregunte.
+   */
+  const e = ejecutor(base());
+  await iniciarCorrida(e, { url: 'barrido', paginas: 1, ahora: INICIO, tipo: 'barrido' });
+
+  const abierta = await corridaEnCurso(e, { ahora: INICIO });
+  assert.equal(abierta?.tipo, 'barrido');
+});
+
+test('el barrido cuenta revisados sin tocar la contabilidad de la importación', async () => {
+  /**
+   * `nuevos` y `repetidos` significan "productos que entraron al catalogo". El barrido
+   * no hace entrar a ninguno: si los moviera, el resumen de §10.2 diria cualquier cosa
+   * al mezclarse las corridas.
+   */
+  const e = ejecutor(base());
+  const id = await iniciarCorrida(e, { url: 'barrido', paginas: 1, ahora: INICIO, tipo: 'barrido' });
+
+  await contarRevisado(e, id);
+  await contarRevisado(e, id);
+
+  const r = await cerrarCorrida(e, id, { ahora: INICIO });
+  assert.equal(r.hallados, 2);
+  assert.equal(r.nuevos, 0);
+  assert.equal(r.repetidos, 0);
 });
 
 test('una corrida cerrada deja de estar en curso', async () => {

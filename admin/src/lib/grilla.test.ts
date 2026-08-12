@@ -19,16 +19,20 @@ import { FILTROS, contarPorEstado, listarProductos, type Ejecutar } from './gril
  * Con una ruta relativa al cwd, el test pasa corriendo `npm test` desde `admin/` y
  * falla desde la raiz del repo — que es justo desde donde corre la suite completa.
  */
-const MIGRACION = readFileSync(
-  new URL('../../../db/migrations/0001_esquema_inicial.sql', import.meta.url),
-  'utf8'
-);
+const MIGRACIONES = [
+  '0001_esquema_inicial.sql',
+  '0002_codigo_insensible_a_mayusculas.sql',
+  '0003_aviso_cambio_en_origen.sql',
+  '0004_papelera.sql',
+  '0005_barrido_de_bajas.sql',
+].map((n) => readFileSync(new URL(`../../../db/migrations/${n}`, import.meta.url), 'utf8'));
+
 const AHORA = '2026-08-05T12:00:00Z';
 
 function base() {
   const db = new DatabaseSync(':memory:');
   db.exec('PRAGMA foreign_keys = ON;');
-  db.exec(MIGRACION);
+  for (const m of MIGRACIONES) db.exec(m);
   return db;
 }
 
@@ -68,6 +72,8 @@ interface Alta {
   /** Una entrada por variante: cuantas imagenes tiene. */
   variantes?: number[];
   colores?: string[];
+  /** Desde cuando el proveedor dejo de publicarlo. */
+  ausenteDesde?: string | null;
 }
 
 function alta(db: DatabaseSync, a: Alta = {}) {
@@ -79,8 +85,8 @@ function alta(db: DatabaseSync, a: Alta = {}) {
   const productoId = idDe(
     db
       .prepare(
-        `INSERT INTO productos (codigo, proveedor, slug, nombre, precio, estado, categoria_origen, creado_en, actualizado_en)
-         VALUES (?, 'chenson', ?, ?, ?, ?, ?, ?, ?) RETURNING id`
+        `INSERT INTO productos (codigo, proveedor, slug, nombre, precio, estado, categoria_origen, ausente_desde, creado_en, actualizado_en)
+         VALUES (?, 'chenson', ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id`
       )
       .get(
         codigo,
@@ -89,6 +95,7 @@ function alta(db: DatabaseSync, a: Alta = {}) {
         a.precio !== undefined ? a.precio : 100000,
         estado,
         'CARTERA | DE FIESTA',
+        a.ausenteDesde ?? null,
         AHORA,
         AHORA
       ),
@@ -164,6 +171,62 @@ test('LOS ELIMINADOS NO APARECEN salvo que se elija ese filtro', async () => {
   const eliminados = await listarProductos(ejecutor(db), { estado: 'eliminado' });
   assert.equal(eliminados.length, 1);
   assert.equal(eliminados[0].estado, 'eliminado');
+});
+
+test('dados-de-baja cruza los estados: no es uno de ellos', async () => {
+  /**
+   * Un producto puede estar publicado y dado de baja en el origen AL MISMO TIEMPO. Si
+   * la baja fuera un estado habria que elegir uno de los dos, y el que se pierde es el
+   * que dice si el producto se ve en el sitio.
+   */
+  const db = base();
+  alta(db, { codigo: 'CG900', estado: 'publicado', ausenteDesde: AHORA });
+  alta(db, { codigo: 'CG901', estado: 'importado', ausenteDesde: AHORA });
+  alta(db, { codigo: 'CG902', estado: 'publicado' });
+
+  const filas = await listarProductos(ejecutor(db), { estado: 'dados-de-baja' });
+  assert.deepEqual(
+    filas.map((f) => f.codigo),
+    ['CG900', 'CG901']
+  );
+});
+
+test('una baja que ya está en la papelera no es trabajo pendiente', async () => {
+  const db = base();
+  alta(db, { codigo: 'CG903', estado: 'eliminado', ausenteDesde: AHORA });
+  alta(db, { codigo: 'CG904', estado: 'publicado', ausenteDesde: AHORA });
+
+  const filas = await listarProductos(ejecutor(db), { estado: 'dados-de-baja' });
+  assert.deepEqual(
+    filas.map((f) => f.codigo),
+    ['CG904']
+  );
+});
+
+test('la fila trae desde cuándo está dado de baja', async () => {
+  // Sin la fecha la grilla no puede decir "hace tres dias", que es el dato con el que
+  // alguien decide si ya es hora de sacarlo.
+  const db = base();
+  alta(db, { codigo: 'CG905', estado: 'publicado', ausenteDesde: AHORA });
+  alta(db, { codigo: 'CG906', estado: 'publicado' });
+
+  const filas = await listarProductos(ejecutor(db), { estado: 'todos' });
+  assert.equal(filas.find((f) => f.codigo === 'CG905')?.ausente_desde, AHORA);
+  assert.equal(filas.find((f) => f.codigo === 'CG906')?.ausente_desde, null);
+});
+
+test('el conteo de bajas no se suma al de estados', async () => {
+  /**
+   * Son dos ejes: el mismo producto esta en `publicado` Y en `dadosDeBaja`. Si la baja
+   * saliera del mismo GROUP BY, el total del desplegable seria mayor que el catalogo.
+   */
+  const db = base();
+  alta(db, { codigo: 'CG907', estado: 'publicado', ausenteDesde: AHORA });
+  alta(db, { codigo: 'CG908', estado: 'publicado' });
+
+  const conteo = await contarPorEstado(ejecutor(db));
+  assert.equal(conteo.publicado, 2);
+  assert.equal(conteo.dadosDeBaja, 1);
 });
 
 test('un estado desconocido RECHAZA en vez de traer todo', async () => {

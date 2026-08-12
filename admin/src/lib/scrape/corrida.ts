@@ -7,9 +7,20 @@
  */
 import type { Ejecutar } from '../grilla.ts';
 
+/**
+ * Qué clase de recorrido es.
+ *
+ * `importacion` trae productos del proveedor; `barrido` le pregunta por los que ya
+ * tenemos. Comparten tabla para compartir la guarda de `corridaEnCurso`: el paso de 1
+ * request por segundo (§7.4) lo marca cada pestaña por su cuenta, así que dos
+ * recorridos simultáneos se lo duplican al proveedor aunque sean de tipos distintos.
+ */
+export type TipoCorrida = 'importacion' | 'barrido';
+
 export interface Corrida {
   id: number;
   url: string;
+  tipo: TipoCorrida;
   estado: 'corriendo' | 'terminado' | 'abortado';
   paginas: number;
   hallados: number;
@@ -52,14 +63,35 @@ export async function corridaEnCurso(
 /** Abre la corrida. `paginas` es el total que dijo el listado. */
 export async function iniciarCorrida(
   ejecutar: Ejecutar,
-  { url, paginas, ahora }: { url: string; paginas: number; ahora: string }
+  {
+    url,
+    paginas,
+    ahora,
+    tipo = 'importacion',
+  }: { url: string; paginas: number; ahora: string; tipo?: TipoCorrida }
 ): Promise<number> {
   const [fila] = await ejecutar<{ id: number }>(
-    `INSERT INTO scrapes (url, estado, paginas, iniciado_en)
-     VALUES (?, 'corriendo', ?, ?) RETURNING id`,
-    [url, paginas, ahora]
+    `INSERT INTO scrapes (url, tipo, estado, paginas, iniciado_en)
+     VALUES (?, ?, 'corriendo', ?, ?) RETURNING id`,
+    [url, tipo, paginas, ahora]
   );
   return fila.id;
+}
+
+/**
+ * Cuenta un producto revisado por el barrido.
+ *
+ * Sube `hallados` y NADA MÁS. `nuevos` y `repetidos` son de la importación y significan
+ * «productos que entraron al catálogo»; reusarlas para contar presentes y ausentes
+ * sería ponerle a la misma columna dos sentidos según quién la escribió, y el resumen
+ * de §10.2 diría cualquier cosa al mezclarse las corridas.
+ *
+ * El barrido no necesita más contadores en la base porque **su progreso ES la base**:
+ * `revisado_en_origen` dice qué se revisó y `ausente_desde` qué se encontró, así que
+ * una corrida cortada a la mitad no pierde nada y la siguiente sigue sola.
+ */
+export async function contarRevisado(ejecutar: Ejecutar, scrapeId: number): Promise<void> {
+  await ejecutar(`UPDATE scrapes SET hallados = hallados + 1 WHERE id = ?`, [scrapeId]);
 }
 
 /**
