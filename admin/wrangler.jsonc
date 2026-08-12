@@ -67,7 +67,7 @@
     // Base publica del bucket R2, para las miniaturas de la grilla. Es la misma
     // que usa el sitio publico; el admin no necesita leer R2 por binding para
     // mostrar una foto que ya es publica.
-    "PUBLIC_R2_BASE": "https://pub-d528716484104bfeb9ae991ab4337347.r2.dev",
+    "PUBLIC_R2_BASE": "https://img.asuncionybe.com",
 
     // Repositorio al que se manda el repository_dispatch al publicar (§11.2).
     "GITHUB_REPO": "marfig/ybe-catalogo"
