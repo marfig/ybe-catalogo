@@ -28,6 +28,12 @@ export interface FichaParaRegistrar {
   categoriaOrigen?: string | null;
   /** El color propio de la ficha primero, después los hermanos. */
   colores: ColorDeFicha[];
+  /**
+   * Las medidas ya redactadas, o NULL si la ficha no las trae.
+   *
+   * SÓLO SE USA EN EL ALTA. Ver la nota de `registrarFicha`.
+   */
+  medidas?: string | null;
 }
 
 export interface ResultadoRegistro {
@@ -90,6 +96,12 @@ export function nombreDeColor(nombre: string): string {
  *
  * `nombre`, `descripcion`, `precio`, `destacado`, `slug` y `estado` NO aparecen en
  * ningún UPDATE de esta función, y es la razón de que exista.
+ *
+ * `descripcion` SE SIEMBRA EN EL ALTA, y sólo ahí. Un producto que se está creando no
+ * puede tener descripción escrita a mano, así que ponerle las medidas del proveedor no
+ * pisa nada. Uno que ya existe sí puede, y destildar «Saltear los productos que ya
+ * tengo» lo vuelve a importar: por eso la columna sigue fuera del UPDATE de arriba, y
+ * no es una excepción a la regla sino su lectura exacta.
  */
 export async function registrarFicha(
   ejecutar: Ejecutar,
@@ -128,10 +140,20 @@ export async function registrarFicha(
   } else {
     const [fila] = await ejecutar<{ id: number }>(
       `INSERT INTO productos
-         (codigo, proveedor, estado, categoria_origen, url_origen, scrape_id, creado_en, actualizado_en)
-       VALUES (?, 'chenson', 'importado', ?, ?, ?, ?, ?)
+         (codigo, proveedor, estado, categoria_origen, url_origen, descripcion, scrape_id, creado_en, actualizado_en)
+       VALUES (?, 'chenson', 'importado', ?, ?, ?, ?, ?, ?)
        RETURNING id`,
-      [codigo, ficha.categoriaOrigen ?? null, ficha.urlOrigen, scrapeId, ahora, ahora]
+      [
+        codigo,
+        ficha.categoriaOrigen ?? null,
+        ficha.urlOrigen,
+        // `|| null` y no `?? null`: una cadena vacia le dibujaria a la ficha publica un
+        // parrafo en blanco, porque el render pregunta por la descripcion, no por su largo.
+        ficha.medidas?.trim() || null,
+        scrapeId,
+        ahora,
+        ahora,
+      ]
     );
     productoId = fila.id;
   }

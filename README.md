@@ -89,6 +89,16 @@ proveedor no publica ninguna de las tres (SPEC §2.3), así que las escribís vo
 Hay búsqueda por código o nombre, y acciones en lote: asignar categoría a varios de una
 vez, que con 50 productos del mismo tipo es la diferencia entre minutos y horas.
 
+**La descripción llega ya escrita con las medidas** —«Medidas aprox. (alto x largo x
+ancho): 21 x 29 x 14 cm»— porque el proveedor sí las publica y son lo primero que
+pregunta un cliente. Editala libremente: los saltos de línea que escribas se muestran
+como saltos de línea en la ficha.
+
+> **Las medidas se siembran sólo al crear el producto.** Reimportar uno que ya existe no
+> vuelve a tocar la descripción, así que lo que escribiste no se pierde nunca. La
+> contracara: si el proveedor corrige una medida, en un producto que ya tenés no se
+> actualiza sola.
+
 ### 3. Aprobar
 
 Aprobar valida que el producto esté completo y **le crea la dirección web, que no

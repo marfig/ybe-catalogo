@@ -62,6 +62,8 @@ export const POST: APIRoute = async ({ request }) => {
           { colorOrigen: ficha.colorOrigen, url: ficha.url },
           ...ficha.hermanos.map((h) => ({ colorOrigen: h.colorOrigen, url: h.url })),
         ],
+        // Sólo se usa si el producto es nuevo: `registrarFicha` no la pone en el UPDATE.
+        medidas: ficha.medidas,
       },
       { scrapeId, ahora }
     );

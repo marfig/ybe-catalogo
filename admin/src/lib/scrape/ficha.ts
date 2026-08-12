@@ -86,6 +86,24 @@ export async function extraerFicha(
         acumulador.verTexto(t.text);
       },
     })
+    /**
+     * `td` y no `*`, por el presupuesto de CPU de §7.3 que motiva el comentario de
+     * arriba. La página trae tres tablas y un puñado de celdas: es un handler de texto
+     * acotado, no uno sobre 57 KB de documento.
+     *
+     * El texto de la etiqueta viene dentro de un `<span>`, así que se acumula todo lo
+     * que caiga en la celda y se entrega al cerrarla. Quién es etiqueta y quién valor
+     * lo decide el acumulador, que es el que tiene tests.
+     */
+    .on('td', {
+      element(el) {
+        acumulador.abrirCelda();
+        el.onEndTag(() => acumulador.cerrarCelda());
+      },
+      text(t) {
+        acumulador.verTextoCelda(t.text);
+      },
+    })
     .on('img[src]', {
       element(el) {
         acumulador.verImagen({

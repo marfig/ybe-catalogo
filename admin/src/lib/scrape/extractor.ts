@@ -47,6 +47,43 @@ export interface FichaExtraida {
   /** Fotos del producto, en orden de aparición y sin repetir. */
   fotos: string[];
   hermanos: Hermano[];
+  /**
+   * Las medidas ya redactadas, listas para leer.
+   *
+   * `null` cuando la ficha no las trae. Las ocho fichas medidas el 2026-08-12 las
+   * traían todas, así que el nullable NO es un caso observado sino una falla segura:
+   * una ficha sin medidas entra igual, con descripción vacía, en vez de romper la
+   * importación de la tanda entera.
+   */
+  medidas: string | null;
+}
+
+/**
+ * La redacción del catálogo, no la del proveedor.
+ *
+ * Él escribe `Medidas: ( alto x largo x ancho ):`, con espacios sueltos dentro del
+ * paréntesis. Esto es lo que va a leer el cliente en la ficha, así que se escribe acá
+ * una vez y no se copia del origen.
+ */
+export const ETIQUETA_MEDIDAS = 'Medidas aprox. (alto x largo x ancho)';
+
+/** Reconoce la celda de la etiqueta. Basta con la palabra: la llave es el orden. */
+const ES_ETIQUETA_MEDIDAS = /^\s*medidas\s*:/i;
+
+/**
+ * Deja el valor del proveedor legible: `18 X 27 X 8cm` -> `18 x 27 x 8 cm`.
+ *
+ * Devuelve `null` si no hay ni un dígito. Una celda vacía con la etiqueta delante
+ * dejaría «Medidas aprox. (alto x largo x ancho):» y nada después, que es peor que no
+ * tener medidas.
+ */
+function normalizarMedidas(bruto: string): string | null {
+  const limpio = bruto.replace(/\s+/g, ' ').trim();
+  if (!/\d/.test(limpio)) return null;
+
+  return limpio
+    .replace(/\s*[xX×]\s*/g, ' x ')
+    .replace(/(\d)\s*(cm|mm|m)\b/gi, '$1 $2');
 }
 
 /** Atributos de un `<img>`, tal como los devuelve `getAttribute`. */
@@ -80,6 +117,12 @@ export class AcumuladorFicha {
   #enlaceAjeno = false;
   /** Texto acumulado del `<a>` hermano en curso. */
   #textoEnlace = '';
+  /** Texto acumulado de la `<td>` en curso. Las celdas no anidan en este HTML. */
+  #textoCelda = '';
+  /** La celda anterior era la etiqueta de medidas, así que ésta trae el valor. */
+  #esperandoMedidas = false;
+
+  #medidas: string | null = null;
 
   constructor(url: string) {
     const codigo = codigoDesdeUrl(url);
@@ -154,6 +197,46 @@ export class AcumuladorFicha {
     if (this.#hermanoActual) this.#textoEnlace += texto;
   }
 
+  /** `<td>` de apertura. */
+  abrirCelda(): void {
+    this.#textoCelda = '';
+  }
+
+  /** Texto dentro de la `<td>` en curso. Llega en trozos, y a veces dentro de un `<span>`. */
+  verTextoCelda(texto: string): void {
+    this.#textoCelda += texto;
+  }
+
+  /**
+   * Cierre de la `<td>`. Acá está toda la decisión de las medidas.
+   *
+   * LA LLAVE ES EL ORDEN, NO LA ESTRUCTURA, y eso es deliberado. La página tiene tres
+   * tablas y las celdas de `#other-colors-tbl` pasan por el mismo handler: sin exigir
+   * la etiqueta en la celda anterior, el nombre de un color hermano terminaría en la
+   * descripción del producto. Es la misma lección que las fotos de la galería, donde
+   * la hipótesis estructural se midió falsa y ganó la regla por contenido (§7.2).
+   */
+  cerrarCelda(): void {
+    const texto = this.#textoCelda;
+    this.#textoCelda = '';
+
+    if (ES_ETIQUETA_MEDIDAS.test(texto)) {
+      this.#esperandoMedidas = true;
+      return;
+    }
+
+    if (!this.#esperandoMedidas) return;
+    this.#esperandoMedidas = false;
+
+    // La primera gana, igual que el título y la foto del hermano: si apareciera una
+    // segunda tabla de medidas, pisar la primera daría un dato equivocado en vez de
+    // un error, y eso llega hasta el cliente.
+    if (this.#medidas) return;
+
+    const valor = normalizarMedidas(texto);
+    if (valor) this.#medidas = `${ETIQUETA_MEDIDAS}: ${valor}`;
+  }
+
   /** `<img src>`. Decide si es foto del producto, miniatura de color, o ruido. */
   verImagen({ src, alt, title }: AtributosImagen): void {
     if (!src || !src.includes(RUTA_IMAGENES)) return;
@@ -198,6 +281,7 @@ export class AcumuladorFicha {
       // el mismo HTML dan el mismo array, que es lo que hace verificable §7.5.
       fotos: [...this.#fotos],
       hermanos: [...this.#hermanos.values()],
+      medidas: this.#medidas,
     };
   }
 }

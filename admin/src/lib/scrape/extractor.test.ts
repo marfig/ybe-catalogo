@@ -270,3 +270,97 @@ test('correr la misma ficha dos veces da exactamente lo mismo', () => {
 test('una URL que no es ficha se rechaza al construir', () => {
   assert.throws(() => new AcumuladorFicha(`${HOST}/lanzamientos/?lz=2026-07-16`), /ficha/i);
 });
+
+// --- Las medidas ---
+
+/**
+ * Los casos salen de HTML REAL, bajado y medido el 2026-08-12 sobre ocho fichas del
+ * proveedor. La estructura es siempre la misma tabla de dos celdas:
+ *
+ *   <td><span>Medidas: ( alto x largo x ancho ):</span></td>
+ *   <td>21 x 29 x 14cm</td>
+ *
+ * LAS OCHO TRAEN MEDIDAS, y la extracción se verificó contra esos ocho HTML: las nueve
+ * páginas guardadas dan el valor correcto. Que el campo sea nullable es una falla
+ * segura, no un caso observado: si mañana una ficha no las trae, entra sin descripción
+ * en vez de tumbar la importación de la tanda.
+ *
+ * El texto de la etiqueta NO se toma del proveedor. Él escribe `Medidas:`, con
+ * espacios sueltos dentro del paréntesis y sin espacio antes de `cm`. Lo que se
+ * guarda es la redacción del catálogo, que es la que ve el cliente.
+ */
+function conMedidas(valor: string): AcumuladorFicha {
+  const a = new AcumuladorFicha(`${HOST}/producto/70415-cg85398`);
+  a.verMeta('og:title', 'Producto: CG85398 (3) NEGRO');
+
+  // El texto de la etiqueta viene dentro de un <span>, no pegado al <td>.
+  a.abrirCelda();
+  a.verTextoCelda('\n     Medidas: ( alto x largo x ancho ):\n    ');
+  a.cerrarCelda();
+
+  a.abrirCelda();
+  a.verTextoCelda(`\n     ${valor}                    `);
+  a.cerrarCelda();
+
+  return a;
+}
+
+test('las medidas salen de la celda que sigue a la etiqueta', () => {
+  assert.equal(
+    conMedidas('21 x 29 x 14cm').resultado().medidas,
+    'Medidas aprox. (alto x largo x ancho): 21 x 29 x 14 cm'
+  );
+});
+
+test('la unidad se separa del número y el separador se normaliza', () => {
+  // El proveedor escribe `14cm` pegado. Sin esto, la ficha publica muestra el
+  // literal del origen y no el castellano del catalogo.
+  assert.equal(
+    conMedidas('18 X 27 X 8cm').resultado().medidas,
+    'Medidas aprox. (alto x largo x ancho): 18 x 27 x 8 cm'
+  );
+});
+
+test('una ficha sin la tabla de medidas no las inventa', () => {
+  // `null`, no una cadena vacia: la ficha publica pregunta por la descripcion para
+  // decidir si dibuja el parrafo, asi que un '' le dejaria un bloque en blanco.
+  assert.equal(cg85700().resultado().medidas, null);
+});
+
+test('una celda con valor pero sin etiqueta antes no es una medida', () => {
+  /**
+   * La pagina tiene TRES tablas. `#other-colors-tbl` lista los colores hermanos, y
+   * sus celdas pasan por el mismo handler. Sin la etiqueta como llave, el nombre de
+   * un color terminaria en la descripcion del producto.
+   */
+  const a = new AcumuladorFicha(`${HOST}/producto/70415-cg85398`);
+  a.abrirCelda();
+  a.verTextoCelda('(3) NEGRO');
+  a.cerrarCelda();
+  assert.equal(a.resultado().medidas, null);
+});
+
+test('la etiqueta sin un valor con números detrás no deja medidas a medias', () => {
+  // Si el proveedor deja la celda vacia, la etiqueta sola no dice nada: mejor sin
+  // descripcion que con «Medidas aprox. (alto x largo x ancho):» y nada despues.
+  const a = conMedidas('   ');
+  assert.equal(a.resultado().medidas, null);
+});
+
+test('la primera tabla de medidas gana', () => {
+  // Misma regla que el titulo y que la foto del hermano: si apareciera una segunda,
+  // pisar la primera daria un dato equivocado en vez de un error.
+  const a = conMedidas('21 x 29 x 14cm');
+  a.abrirCelda();
+  a.verTextoCelda('Medidas: ( alto x largo x ancho ):');
+  a.cerrarCelda();
+  a.abrirCelda();
+  a.verTextoCelda('99 x 99 x 99cm');
+  a.cerrarCelda();
+  assert.equal(a.resultado().medidas, 'Medidas aprox. (alto x largo x ancho): 21 x 29 x 14 cm');
+});
+
+test('las medidas no rompen el determinismo de la ficha', () => {
+  // Misma precondicion de §7.5 que el test de arriba, ahora con el campo nuevo.
+  assert.deepEqual(conMedidas('21 x 29 x 14cm').resultado(), conMedidas('21 x 29 x 14cm').resultado());
+});

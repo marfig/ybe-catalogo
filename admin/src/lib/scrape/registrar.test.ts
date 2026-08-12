@@ -51,6 +51,8 @@ const CG85700 = {
 
 const opciones = { scrapeId: null, ahora: AHORA };
 
+const MEDIDAS = 'Medidas aprox. (alto x largo x ancho): 21 x 29 x 14 cm';
+
 // --- El alta ---
 
 test('un modelo nuevo entra con sus tres variantes y los SKU del proveedor', () => {
@@ -79,6 +81,47 @@ test('un modelo nuevo nace en importado y sin curaduría', () => {
     assert.equal(p.slug, null);
     assert.equal(p.url_origen, CG85700.urlOrigen);
   });
+});
+
+// --- Las medidas: lo único de origen que entra en un campo de curaduría ---
+
+test('un modelo nuevo nace con las medidas del proveedor como descripción', async () => {
+  const db = base();
+  await registrarFicha(ejecutor(db), { ...CG85700, medidas: MEDIDAS }, opciones);
+  const p = db.prepare('SELECT descripcion FROM productos').get() as { descripcion: string };
+  assert.equal(p.descripcion, MEDIDAS);
+});
+
+test('una ficha sin medidas nace sin descripción, no con una vacía', () => {
+  // `null` y no `''`: la ficha publica pregunta por la descripcion para decidir si
+  // renderiza el parrafo, y una cadena vacia le dibujaria un bloque en blanco.
+  const db = base();
+  return registrarFicha(ejecutor(db), CG85700, opciones).then(() => {
+    const p = db.prepare('SELECT descripcion FROM productos').get() as { descripcion: null };
+    assert.equal(p.descripcion, null);
+  });
+});
+
+test('reimportar NO pisa la descripción escrita a mano', async () => {
+  /**
+   * EL LÍMITE DE TODO ESTO. Las medidas se siembran en el INSERT y en ningún UPDATE,
+   * asi que valen para un producto nuevo —que no puede tener descripcion escrita— y
+   * nunca para uno que ya existe. Destildar «Saltear los productos que ya tengo»
+   * reimporta los que ya estan: sin esta regla, cada corrida borraria lo que
+   * escribiste. Es la razon de ser de `registrarFicha` (§7.5).
+   */
+  const db = base();
+  await registrarFicha(ejecutor(db), { ...CG85700, medidas: MEDIDAS }, opciones);
+  db.prepare('UPDATE productos SET descripcion = ? WHERE codigo = ?').run('Lo que escribí yo.', 'CG85700');
+
+  await registrarFicha(
+    ejecutor(db),
+    { ...CG85700, medidas: 'Medidas aprox. (alto x largo x ancho): 99 x 99 x 99 cm' },
+    { scrapeId: null, ahora: DESPUES }
+  );
+
+  const p = db.prepare('SELECT descripcion FROM productos').get() as { descripcion: string };
+  assert.equal(p.descripcion, 'Lo que escribí yo.');
 });
 
 // --- La idempotencia y la curaduría: el corazón de §7.5 ---
