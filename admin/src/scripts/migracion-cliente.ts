@@ -74,6 +74,7 @@ interface RespuestaCurar {
 interface Pantalla {
   empezar: HTMLButtonElement;
   cancelar: HTMLButtonElement;
+  cuantos: HTMLInputElement;
   progreso: HTMLElement;
   relleno: HTMLElement;
   barra: HTMLElement;
@@ -89,6 +90,7 @@ function pantalla(): Pantalla | null {
   const partes = {
     empezar: buscar<HTMLButtonElement>('empezar'),
     cancelar: buscar<HTMLButtonElement>('cancelar'),
+    cuantos: buscar<HTMLInputElement>('cuantos'),
     progreso: buscar('progreso'),
     // `barra-relleno`, el mismo id que usa la pantalla del barrido.
     relleno: buscar('barra-relleno'),
@@ -183,7 +185,16 @@ export function prepararMigracion(): void {
         return;
       }
 
-      const productos = inventario.productos;
+      /**
+       * El límite de la primera corrida. `Number.isInteger` sobre el valor crudo y no
+       * `Number(...)` a secas: un campo vacío da `''`, y `Number('')` es 0 — la misma
+       * trampa que rompió la selección del barrido. Con un valor que no sirve se recorre
+       * todo, que es lo que el campo dice por defecto.
+       */
+      const pedido = Number(p.cuantos.value);
+      const limite = Number.isInteger(pedido) && pedido > 0 ? pedido : inventario.productos.length;
+      const productos = inventario.productos.slice(0, limite);
+
       avance = { ...AVANCE_INICIAL, total: productos.length };
       mostrar();
 

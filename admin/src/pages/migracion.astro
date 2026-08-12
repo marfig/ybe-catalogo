@@ -69,6 +69,25 @@ import { ORIGEN_VIEJO } from '../lib/migracion/viejo.ts';
 
     <hr />
 
+    {/**
+     * EL LÍMITE ES PARA LA PRIMERA CORRIDA, y no es una comodidad. Sin él la única
+     * opción es 368 productos de una, y si algo del camino está mal te enterás con 189
+     * productos y sus fotos ya dentro. Deshacerlo es Eliminar de a lotes.
+     *
+     * Arranca en 15 y no en 5 porque la mitad del catálogo viejo ya no está en el
+     * proveedor: con 5 podrían salir cinco ausentes y la prueba no ejercitaría ni la
+     * importación de la ficha ni la curaduría, que es justamente lo que se quiere ver.
+     */}
+    <p class="lote-fila">
+      <label for="cuantos">Cuántos revisar</label>
+      <input id="cuantos" name="cuantos" type="number" min="1" max="1000" value="15" />
+      <span class="nota">
+        Para la primera vez dejá 15: alcanza para ver entrar unos siete productos con sus
+        fotos y su nombre. Subilo a 368 cuando quieras hacer la migración completa. Lo ya
+        migrado se saltea solo, así que correrla de nuevo no duplica nada.
+      </span>
+    </p>
+
     <button type="button" id="empezar">Empezar la migración</button>
     <button type="button" id="cancelar" class="secundario" hidden>Cortar</button>
 
