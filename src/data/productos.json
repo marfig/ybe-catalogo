@@ -287,7 +287,8 @@
     ]
   },
   {
-    "actualizado": "2026-08-11",
+    "activo": false,
+    "actualizado": "2026-08-12",
     "categorias": [
       "carteras"
     ],
@@ -359,6 +360,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-08-12",
     "categorias": [
       "mochilas",
@@ -406,7 +408,8 @@
     ]
   },
   {
-    "actualizado": "2026-07-31",
+    "activo": false,
+    "actualizado": "2026-08-12",
     "categorias": [
       "mochilas",
       "notebook",
@@ -446,7 +449,8 @@
     ]
   },
   {
-    "actualizado": "2026-08-10",
+    "activo": false,
+    "actualizado": "2026-08-12",
     "categorias": [
       "rinoneras",
       "escolar"
