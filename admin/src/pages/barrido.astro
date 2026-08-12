@@ -1,0 +1,250 @@
+---
+/**
+ * Barrido de bajas: preguntarle al proveedor si sigue publicando lo que tenemos.
+ *
+ * NO BORRA NADA, Y LA PANTALLA LO DICE DOS VECES. Marca los que ya no están y la
+ * decisión de sacarlos del catálogo se toma en la grilla, con la confirmación de §12.2
+ * que explica producto por producto qué va a pasar. Un scraper que borra solo es la
+ * contracara de uno que publica solo, y del otro lado hay URLs que viven para siempre
+ * en conversaciones de WhatsApp (§12.1).
+ *
+ * LA COLA VIAJA RENDIDA EN LA PÁGINA, en vez de un endpoint que la sirva. Es la lista
+ * de esta corrida y no cambia mientras corre: un pedido más al servidor para traer algo
+ * que ya se sabe al renderizar sería trabajo sin dueño. Para la corrida siguiente se
+ * recarga la pantalla, que además es lo que hace visible que quedaron pendientes.
+ */
+import { env } from 'cloudflare:workers';
+
+import Panel from '../layouts/Panel.astro';
+import { ejecutorD1 } from '../lib/d1.ts';
+import { haceCuanto } from '../lib/publicaciones.ts';
+import {
+  LIMITE_BARRIDO,
+  candidatosPorIds,
+  contarAusentes,
+  contarBarribles,
+  proximosABarrer,
+  type Candidato,
+} from '../lib/scrape/cola.ts';
+import { cerrarCorrida, corridaEnCurso } from '../lib/scrape/corrida.ts';
+import { PASO_MS } from '../lib/scrape/marcha.ts';
+
+const ejecutar = ejecutorD1(env.DB);
+
+/**
+ * DOS POST DISTINTOS.
+ *
+ * Uno cierra un recorrido que quedó abierto, y termina en redirect para que recargar
+ * no lo vuelva a mandar. El otro llega desde la grilla con una selección tildada y
+ * RINDE la pantalla con esa cola — como `/eliminar`, que también responde a un POST con
+ * una pantalla en vez de con un redirect.
+ */
+let seleccionados: Candidato[] | null = null;
+
+if (Astro.request.method === 'POST') {
+  const form = await Astro.request.formData();
+  const scrapeId = Number(form.get('scrapeId'));
+
+  if (Number.isInteger(scrapeId)) {
+    try {
+      await cerrarCorrida(ejecutar, scrapeId, {
+        ahora: new Date().toISOString(),
+        estado: 'abortado',
+      });
+    } catch {
+      // Ya estaba cerrada: el resultado que se pedía igual es el que hay.
+    }
+    // Redirect y no render: sin esto, recargar vuelve a mandar el POST.
+    return Astro.redirect('/barrido', 303);
+  }
+
+  const ids = form.getAll('id').map(Number).filter(Number.isInteger);
+  seleccionados = await candidatosPorIds(ejecutar, ids);
+}
+
+const ahora = new Date().toISOString();
+const abierta = await corridaEnCurso(ejecutar, { ahora });
+
+const [automatica, total, yaDeBaja] = await Promise.all([
+  proximosABarrer(ejecutar, { limite: LIMITE_BARRIDO }),
+  contarBarribles(ejecutar),
+  contarAusentes(ejecutar),
+]);
+
+/** Una selección de la grilla manda sobre la cola automática. */
+const aMano = seleccionados !== null;
+const cola = seleccionados ?? automatica;
+
+/**
+ * Los que no entran en esta corrida. Quedan primeros en la próxima.
+ *
+ * En una selección a mano no hay pendientes que anunciar: quien tildó ya eligió.
+ */
+const pendientes = aMano ? 0 : Math.max(0, total - cola.length);
+
+/** Cuánto va a tardar, a un pedido por segundo. Redondeado hacia arriba. */
+const minutos = Math.ceil((cola.length * PASO_MS) / 60_000);
+const duracion = cola.length === 0 ? '' : minutos <= 1 ? 'menos de un minuto' : `unos ${minutos} minutos`;
+
+/** Sólo lo que el navegador necesita: el id para pedir, el código para mostrar. */
+const paraElNavegador = JSON.stringify(cola.map((c) => ({ id: c.id, codigo: c.codigo })));
+
+const nuncaRevisados = cola.filter((c) => c.revisado_en_origen === null).length;
+---
+
+<Panel titulo="Revisar bajas del proveedor" volver="/">
+  {
+    abierta ? (
+      <section class="resumen resumen--error">
+        <p>
+          {abierta.tipo === 'barrido' ? 'Hay un barrido' : 'Hay una importación'} que empezó{' '}
+          {haceCuanto(abierta.iniciado_en, ahora)}. Dos recorridos a la vez le duplican el
+          tráfico al proveedor, así que se hace de a uno.
+        </p>
+        <p class="nota">
+          Si quedó abierto porque se cerró la pestaña, cerralo acá. Lo que ya se revisó
+          queda anotado: el barrido siguiente arranca por lo que falta.
+        </p>
+        <form method="post">
+          <input type="hidden" name="scrapeId" value={abierta.id} />
+          <button type="submit" class="secundario">
+            Cerrar el recorrido anterior
+          </button>
+        </form>
+      </section>
+    ) : null
+  }
+
+  <p class="nota nota--titulo">
+    Le pregunta al buscador del proveedor, producto por producto, si todavía lo publica.
+    <strong>No borra nada</strong>: marca los que ya no están para que decidas vos.
+  </p>
+
+  {
+    yaDeBaja > 0 ? (
+      <p class="resumen">
+        {yaDeBaja === 1
+          ? 'Hay 1 producto marcado como dado de baja, esperando decisión. '
+          : `Hay ${yaDeBaja} productos marcados como dados de baja, esperando decisión. `}
+        <a href="/productos?estado=dados-de-baja">Verlos en la grilla</a>
+      </p>
+    ) : null
+  }
+
+  {
+    cola.length === 0 ? (
+      <p class="vacio">
+        {aMano
+          ? 'De lo que tildaste no hay nada que revisar: el proveedor no conoce los productos cargados a mano, y los de la papelera ya están fuera del catálogo.'
+          : 'No hay nada para revisar. El barrido no toca los productos cargados a mano —el proveedor no los conoce— ni los que ya están en la papelera.'}
+        {' '}
+        <a href="/productos">Volver a la grilla</a>
+      </p>
+    ) : (
+      <>
+        <section class="confirmar">
+          <h2>
+            {cola.length === 1
+              ? 'Se va a revisar 1 producto'
+              : `Se van a revisar ${cola.length} productos`}
+          </h2>
+          <p>
+            Va a{' '}
+            <strong>
+              1 pedido por segundo
+            </strong>{' '}
+            al proveedor, así que tarda {duracion}.
+          </p>
+          {aMano ? (
+            <p class="nota">
+              Son los que tildaste en la grilla. Se empieza por los que hace más tiempo
+              que nadie revisa, no por el orden en que los elegiste.
+            </p>
+          ) : nuncaRevisados > 0 ? (
+            <p class="nota">
+              {nuncaRevisados === cola.length
+                ? 'Ninguno se revisó nunca.'
+                : `${nuncaRevisados} de estos no se revisaron nunca.`}{' '}
+              Se empieza por los más viejos, y dentro de esos, por los que están en el
+              catálogo.
+            </p>
+          ) : (
+            <p class="nota">
+              Se empieza por los que hace más tiempo que nadie revisa.
+            </p>
+          )}
+          {pendientes > 0 ? (
+            <p class="nota">
+              {/* Lo que no entra NO se esconde: un tope silencioso se lee como "ya se
+                  reviso todo" cuando no fue asi. */}
+              Quedan <strong>{pendientes}</strong> para después. No se pierden: son los
+              más viejos de la próxima corrida, así que apretás de nuevo y sigue por ahí.
+            </p>
+          ) : null}
+
+          <p class="pie-guardar">
+            <button type="button" id="empezar" disabled={abierta !== null}>
+              Empezar a revisar
+            </button>
+          </p>
+        </section>
+
+        <noscript>
+          <p class="resumen resumen--error">
+            Esta pantalla necesita JavaScript. El recorrido corre en el navegador a
+            propósito: es lo que permite ver el progreso y marcar el paso de un pedido por
+            segundo.
+          </p>
+        </noscript>
+
+        <section id="marcha" hidden>
+          <p id="progreso" aria-live="polite"></p>
+
+          <div
+            id="barra"
+            class="barra"
+            role="progressbar"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+            aria-label="Avance del barrido"
+          >
+            <span id="barra-relleno"></span>
+          </div>
+
+          <p class="nota nota--pestana">
+            <strong>No cierres esta pestaña.</strong> El recorrido corre acá: si la
+            cerrás, se interrumpe. Lo revisado hasta ese momento queda anotado.
+          </p>
+
+          <button type="button" id="cancelar" class="secundario">Cancelar</button>
+
+          <details id="bajas" hidden class="ayuda" open>
+            <summary>Los que el proveedor ya no publica</summary>
+            <ul id="lista-bajas"></ul>
+          </details>
+
+          <details id="problemas" hidden class="ayuda">
+            <summary>Los que no se pudieron revisar</summary>
+            <p class="nota">
+              {/* La distincion mas importante de la pantalla. */}
+              <strong>No son bajas.</strong> El proveedor no contestó lo que se esperaba,
+              así que no se sabe. Les vuelve a tocar en el próximo barrido.
+            </p>
+            <ul id="lista-problemas"></ul>
+          </details>
+        </section>
+
+        <section id="resumen" hidden></section>
+
+        <script id="cola" type="application/json" set:html={paraElNavegador} is:inline />
+      </>
+    )
+  }
+</Panel>
+
+<script>
+  import { prepararBarrido } from '../scripts/barrido-cliente.ts';
+
+  prepararBarrido();
+</script>

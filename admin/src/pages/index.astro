@@ -101,6 +101,26 @@ const tarjetas = [
     ) : null
   }
 
+  {
+    /**
+     * El aviso de bajas va ARRIBA de los contadores y no como una quinta tarjeta.
+     *
+     * No es un estado —se cruza con «En el catálogo», así que una tarjeta más haría que
+     * los números no cierren— y además es trabajo que llegó de afuera: nadie lo provocó
+     * y nadie lo va a buscar. Un contador entre otros cuatro se lee de reojo; esto pide
+     * una decisión.
+     */
+    conteo.dadosDeBaja > 0 ? (
+      <p class="resumen resumen--error" role="status">
+        {conteo.dadosDeBaja === 1
+          ? 'Hay 1 producto que el proveedor ya no publica.'
+          : `Hay ${conteo.dadosDeBaja} productos que el proveedor ya no publica.`}{' '}
+        {/* Al lugar donde se decide, no a una lista para mirar: el barrido no borró nada. */}
+        <a href="/productos?estado=dados-de-baja">Revisarlos y decidir qué hacer</a>
+      </p>
+    ) : null
+  }
+
   <ul class="tarjetas">
     {
       tarjetas.map((t) => (
@@ -174,6 +194,10 @@ const tarjetas = [
     <a class="puerta" href="/nuevo">
       <strong>Cargar un producto</strong>
       <span>Alta manual, con fotos desde el teléfono o la computadora.</span>
+    </a>
+    <a class="puerta" href="/barrido">
+      <strong>Revisar bajas del proveedor</strong>
+      <span>Preguntarle al proveedor qué de lo que tenemos ya no publica.</span>
     </a>
   </nav>
 </Panel>

@@ -34,6 +34,7 @@ import {
   type ValorFiltro,
 } from '../lib/grilla.ts';
 import { formatearPrecio, parsearPrecio } from '../lib/precio.ts';
+import { haceCuanto } from '../lib/publicaciones.ts';
 import {
   aprobar,
   asignarCategorias,
@@ -159,6 +160,9 @@ if (Astro.request.method === 'POST') {
 const parametros = Astro.url.searchParams;
 const busqueda = parametros.get('q') ?? '';
 
+/** Para fechar el aviso de baja en cada fila. Una sola marca por render. */
+const ahora = new Date().toISOString();
+
 /**
  * Un `estado` desconocido en la URL cae al default en vez de reventar.
  *
@@ -184,10 +188,19 @@ const [productos, conteo] = await Promise.all([
   contarPorEstado(ejecutar, busqueda),
 ]);
 
-const totalDelFiltro =
-  estado === 'todos'
-    ? conteo.importado + conteo.aprobado + conteo.publicado
-    : conteo[FILTROS.find((f) => f.valor === estado)!.estado as keyof typeof conteo];
+/**
+ * Cuantos productos tiene cada filtro. Alimenta el desplegable y el paginado.
+ *
+ * `dados-de-baja` sale de su propio contador y NO de la suma de estados: es un eje
+ * transversal, asi que el mismo producto ya esta contado en `publicado`.
+ */
+function totalDe(valor: ValorFiltro): number {
+  if (valor === 'dados-de-baja') return conteo.dadosDeBaja;
+  if (valor === 'todos') return conteo.importado + conteo.aprobado + conteo.publicado;
+  return conteo[FILTROS.find((f) => f.valor === valor)!.estado as keyof typeof conteo];
+}
+
+const totalDelFiltro = totalDe(estado);
 
 const hayMas = pagina * POR_PAGINA < totalDelFiltro;
 
@@ -262,7 +275,9 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
           FILTROS.map((f) => (
             <option value={f.valor} selected={f.valor === estado}>
               {f.etiqueta}
-              {f.estado ? ` (${conteo[f.estado as keyof typeof conteo]})` : ''}
+              {/* "Todos" sigue sin numero: es la suma de los de arriba y repetirla no
+                  agrega nada. Las bajas SI lo llevan — es una cola de trabajo. */}
+              {f.estado || f.valor === 'dados-de-baja' ? ` (${totalDe(f.valor)})` : ''}
             </option>
           ))
         }
@@ -391,6 +406,20 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
             <span class="nota">
               Se suma a las que ya tiene. Para cambiar la principal, usá el desplegable
               de la fila.
+            </span>
+          </p>
+
+          <p class="lote-fila">
+            {/* Mismo mecanismo que Eliminar: `formaction` a una pantalla que rinde el
+                recorrido. El barrido no puede correr acá — necesita un bucle con un
+                pedido por segundo, y esta grilla no tiene JavaScript a propósito. */}
+            <button type="submit" class="secundario" formaction="/barrido" formnovalidate>
+              Verificar en el proveedor
+            </button>
+            <span class="nota">
+              Le pregunta al proveedor si todavía los publica. <strong>No borra nada</strong>:
+              marca los que ya no están. Para revisar el catálogo entero está{' '}
+              <a href="/barrido">Revisar bajas del proveedor</a>.
             </span>
           </p>
 
@@ -546,6 +575,16 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
                     ) : (
                       <span class="estado estado--falta">⚠ {p.validacion.faltantes.join(', ')}</span>
                     )}
+                    {/* DEBAJO DEL ESTADO Y NO EN SU LUGAR: son dos ejes. Un producto
+                        puede estar en el catálogo y dado de baja en el origen al mismo
+                        tiempo, y tapar el primero con el segundo esconde justamente el
+                        dato que dice si hay que apurarse. */}
+                    {p.ausente_desde ? (
+                      <span class="estado estado--baja">
+                        ⚠ No está en el proveedor
+                        <span class="nota">desde {haceCuanto(p.ausente_desde, ahora)}</span>
+                      </span>
+                    ) : null}
                   </td>
                 </tr>
               ))}

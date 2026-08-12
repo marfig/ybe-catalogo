@@ -444,6 +444,29 @@ button {
   white-space: normal;
 }
 
+/**
+ * La baja en el proveedor.
+ *
+ * Es el UNICO de los avisos de la celda que lleva color, y no por jerarquia visual
+ * porque si: "falta precio" es trabajo que quedo a medias y se ve al lado del dato que
+ * falta. Esto es un hecho de afuera —el proveedor dejo de publicarlo— que nadie
+ * provoco y que no se ve en ninguna otra columna.
+ *
+ * `--peligro` y no `--aviso` porque la accion que suele seguir es sacarlo del catalogo.
+ */
+.estado--baja {
+  display: block;
+  margin-top: 0.25rem;
+  font-weight: 600;
+  color: var(--peligro);
+}
+
+/* La fecha, debajo y sin el peso: el dato es "no esta", el "desde cuando" matiza. */
+.estado--baja .nota {
+  display: block;
+  font-weight: 400;
+}
+
 /* La casilla de seleccion: area de toque de 44 px aunque el control mida 13. */
 .elegir {
   display: grid;

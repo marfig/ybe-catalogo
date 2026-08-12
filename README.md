@@ -113,6 +113,27 @@ actualiza sola** mientras tanto. Si falla, el admin lo dice en castellano y sin 
 recortan a un cuadrado centrado en el navegador y se suben ya derivadas: no hay
 `sharp` en Workers, el motor de imágenes es el `<canvas>` (§8.1).
 
+### Revisar bajas del proveedor
+
+El proveedor discontinúa modelos y no avisa. **Revisar bajas del proveedor** le
+pregunta a su buscador, producto por producto, si todavía los publica.
+
+**No borra nada.** Marca los que ya no están, y vos decidís desde la grilla con el
+filtro **«Ya no está en el proveedor»** — donde la acción es la misma **Eliminar** de
+siempre, con su pantalla de confirmación.
+
+- Va a 1 request por segundo, igual que la importación, y **no cierres la pestaña**.
+- Revisa hasta 300 por corrida, empezando por los que hace más tiempo que nadie mira.
+  Lo que no entró queda primero en la próxima: apretás de nuevo y sigue por ahí. No
+  hace falta acordarse de nada ni elegir un filtro.
+- Los cargados a mano no se revisan: el proveedor no los conoce.
+- **«No se pudo revisar» no es una baja.** Si el proveedor no contesta lo que se
+  espera, el producto queda como estaba y le vuelve a tocar en el próximo barrido. Es
+  lo que evita que un mal día del sitio marque el catálogo entero como dado de baja.
+
+Para chequear unos pocos sin barrer todo: tildalos en la grilla y **Verificar en el
+proveedor**.
+
 ### Eliminar
 
 En la grilla, **Eliminar**. La pantalla siguiente dice qué va a pasar con cada uno,
@@ -199,6 +220,9 @@ un botón. Las ocho fases cerradas con su criterio de salida verificado.
   lógico de lo que sí, restaurar y vaciar. Cerrada.
 - **Fase 2.7** — el código del producto, visible en la ficha y en el mensaje de
   WhatsApp. Cerrada.
+
+- **Barrido de bajas** — preguntarle al proveedor qué de lo que tenemos ya no publica,
+  marcarlo y dejar la decisión en manos de una persona. Migración `0005`.
 
 Pendiente fuera de la etapa 2: buscador por código o nombre en el sitio público;
 el scrape del catálogo **viejo** (otro sitio, migración de una sola vez); logo
