@@ -1,0 +1,114 @@
+---
+/**
+ * La migración del catálogo viejo. PANTALLA DE UN SOLO USO.
+ *
+ * Cuando los 189 productos estén dentro, esta página, `scripts/migracion-cliente.ts`,
+ * `lib/migracion/` y `pages/api/migracion/` se borran enteras. Nada del catálogo depende
+ * de esto: es un puente que se cruza una vez.
+ *
+ * NO ESTÁ ENLAZADA DESDE EL INICIO a propósito. Migrar 189 productos no es una acción de
+ * todos los días, y una puerta más en el panel es una puerta que alguien va a apretar sin
+ * saber qué hace. Se entra escribiendo `/migracion`.
+ *
+ * Sin JavaScript no funciona, y a diferencia de la grilla eso acá es inevitable: el
+ * recorrido necesita un pedido por segundo durante media hora, y eso no cabe en el
+ * presupuesto de CPU de un Worker (§7.1, §7.3).
+ */
+import Panel from '../layouts/Panel.astro';
+import { ORIGEN_VIEJO } from '../lib/migracion/viejo.ts';
+---
+
+<Panel titulo="Migrar el catálogo viejo" volver="/">
+  <section class="lote">
+    <p>
+      Trae los productos de <strong>{new URL(ORIGEN_VIEJO).host}</strong> al catálogo,
+      quedándose sólo con los que el proveedor todavía publica.
+    </p>
+
+    <p class="nota">
+      De cada origen sale lo que el otro no tiene: del <strong>proveedor</strong>, los
+      colores como variantes con su foto y las medidas; del <strong>catálogo viejo</strong>,
+      el nombre, el precio y la descripción. Se cruzan por el código del producto.
+    </p>
+
+    <hr />
+
+    <p class="nota nota--titulo">Lo que va a pasar:</p>
+    {/* `confirmar-lista` es la clase que el panel ya usa para una lista con sangría. */}
+    <ol class="confirmar-lista">
+      <li>
+        Se lee el <strong>sitemap</strong> del catálogo viejo: son unos 368 productos.
+      </li>
+      <li>
+        A cada uno se le pregunta al buscador del proveedor <strong>si todavía lo
+        publica</strong>. Medido el 2026-08-12, aproximadamente la mitad ya no está.
+      </li>
+      <li>
+        De los que siguen, se importa la ficha del proveedor con sus variantes y fotos —el
+        mismo camino que <strong>Importar desde el proveedor</strong>— y después se le
+        escriben el nombre, el precio y la descripción del catálogo viejo.
+      </li>
+    </ol>
+
+    <p class="nota">
+      <strong>No pisa nada tuyo.</strong> El nombre, el precio y la descripción se escriben
+      sólo sobre un producto que no tiene nombre todavía: si alguna vez lo escribiste vos,
+      queda intacto. Por eso también se puede cortar y volver a empezar sin perder nada.
+    </p>
+
+    <p class="nota">
+      <strong>Nada se publica.</strong> Los productos entran como
+      <em>Por aprobar</em>, igual que en cualquier importación. Aprobar crea la dirección
+      web definitiva, y eso lo decide una persona.
+    </p>
+
+    <p class="nota">
+      Va a <strong>1 pedido por segundo</strong>, la misma cortesía que la importación, así
+      que calculá entre media hora y tres cuartos.
+    </p>
+
+    <hr />
+
+    <button type="button" id="empezar">Empezar la migración</button>
+    <button type="button" id="cancelar" class="secundario" hidden>Cortar</button>
+
+    <noscript>
+      <p class="nota nota--pendiente">
+        Esta pantalla necesita JavaScript: el recorrido corre en la pestaña, con un pedido
+        por segundo, y por eso no puede correr en el servidor.
+      </p>
+    </noscript>
+
+    <p id="progreso" aria-live="polite"></p>
+
+    <div
+      id="barra"
+      class="barra"
+      role="progressbar"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+      aria-label="Avance de la migración"
+    >
+      <span id="barra-relleno"></span>
+    </div>
+
+    <p class="nota nota--pestana">
+      <strong>No cierres esta pestaña.</strong> El recorrido corre acá: si la cerrás, se
+      interrumpe. Lo que ya entró queda, y al volver a empezar sigue por donde iba.
+    </p>
+
+    <details id="problemas" hidden class="ayuda" open>
+      <summary>Los que no se pudieron traer</summary>
+      <ul id="lista-problemas"></ul>
+    </details>
+
+    <section id="resumen" class="resumen" hidden></section>
+  </section>
+</Panel>
+
+<script>
+  import { prepararMigracion } from '../scripts/migracion-cliente.ts';
+
+  prepararMigracion();
+</script>

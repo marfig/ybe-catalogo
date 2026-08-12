@@ -1,7 +1,13 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { codigoDeUrlVieja, curaduriaDeHtml, productosDelSitemap, textoDeDescripcion } from './viejo.ts';
+import {
+  codigoDeUrlVieja,
+  curaduriaDeHtml,
+  esDelOrigenViejo,
+  productosDelSitemap,
+  textoDeDescripcion,
+} from './viejo.ts';
 
 /**
  * Los casos salen de HTML REAL de `chensonasuncionybe.catalogst.com`, bajado y medido
@@ -45,6 +51,22 @@ test('el código es la cola del slug, en mayúsculas', () => {
 test('una URL que no es de producto no da código', () => {
   assert.equal(codigoDeUrlVieja(`${HOST}/category/escolar-varon-qsWDlkjb1v`), null);
   assert.equal(codigoDeUrlVieja(`${HOST}/`), null);
+});
+
+// --- El origen: el endpoint no puede ser un proxy abierto ---
+
+test('sólo se acepta el origen del catálogo viejo', () => {
+  /**
+   * La pantalla le pasa al Worker la URL de cada ficha. Sin esta guarda, cualquiera que
+   * pase por Access podría hacerle pedir cualquier host desde dentro de Cloudflare. Es
+   * la misma regla que `esDelOrigen` aplica al proveedor.
+   */
+  assert.equal(esDelOrigenViejo(`${HOST}/product/algo-123`), true);
+  assert.equal(esDelOrigenViejo('https://www.chenson.com.py/producto/1-cg85700'), false);
+  assert.equal(esDelOrigenViejo('http://chensonasuncionybe.catalogst.com/x'), false, 'http no es https');
+  assert.equal(esDelOrigenViejo('https://chensonasuncionybe.catalogst.com.malo.com/x'), false);
+  assert.equal(esDelOrigenViejo('no es una url'), false);
+  assert.equal(esDelOrigenViejo('file:///etc/passwd'), false);
 });
 
 // --- La descripción: párrafos, no una línea ---

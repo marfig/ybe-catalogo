@@ -15,7 +15,18 @@ import type { Ejecutar } from '../grilla.ts';
  * request por segundo (§7.4) lo marca cada pestaña por su cuenta, así que dos
  * recorridos simultáneos se lo duplican al proveedor aunque sean de tipos distintos.
  */
-export type TipoCorrida = 'importacion' | 'barrido';
+/**
+ * `migracion` es la del catálogo viejo y es DE UN SOLO USO: sale de esta unión cuando esa
+ * migración termine, junto con `lib/migracion/`. Está acá y no como un `'importacion'`
+ * disfrazado porque `scrapes` es de donde alguien va a leer, dentro de seis meses, qué
+ * pasó con esos 189 productos.
+ *
+ * Los dos lugares que se ramifican por esto —`api/scrape/abrir.ts` y `barrido.astro`—
+ * preguntan por `'barrido'` y caen al otro lado, así que una migración en curso se anuncia
+ * como una importación. Es un mensaje impreciso y no un bug: lo que importa de esa guarda
+ * es que NO se pueda abrir un segundo recorrido, y eso vale igual para los tres tipos.
+ */
+export type TipoCorrida = 'importacion' | 'barrido' | 'migracion';
 
 export interface Corrida {
   id: number;

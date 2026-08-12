@@ -16,6 +16,25 @@
  * carpeta se borra entera sin tocar nada del scrape que sigue corriendo todos los días.
  */
 
+/** El catálogo viejo. Migración de una sola vez; cuando termine, esto se borra. */
+export const ORIGEN_VIEJO = 'https://chensonasuncionybe.catalogst.com';
+
+/**
+ * ¿Esta URL es del catálogo viejo?
+ *
+ * La pantalla le pasa al Worker la URL de cada ficha, así que sin esta guarda el endpoint
+ * sería un proxy abierto: cualquiera que pase por Access podría hacerle pedir cualquier
+ * cosa a cualquier host, desde dentro de la red de Cloudflare. Es la misma regla que
+ * `esDelOrigen` aplica al proveedor.
+ */
+export function esDelOrigenViejo(url: string): boolean {
+  try {
+    return new URL(url).origin === new URL(ORIGEN_VIEJO).origin;
+  } catch {
+    return false;
+  }
+}
+
 /** Un producto del catálogo viejo, tal como sale del sitemap. */
 export interface ProductoViejo {
   /** El código del proveedor. Es la identidad con la que se cruzan los dos orígenes. */
