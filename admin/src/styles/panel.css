@@ -201,12 +201,49 @@ button {
   padding-inline: 0.25rem;
 }
 
+/**
+ * Dos columnas: el control y su explicación.
+ *
+ * ERA UN FLEX QUE ENVOLVÍA, y con botones de anchos muy distintos —«Aprobar» contra
+ * «Verificar en el proveedor»— la nota arrancaba en una x diferente en cada fila. Los
+ * bordes izquierdos alineaban igual, así que el bloque no se veía roto: se veía
+ * desordenado, que es peor de diagnosticar.
+ *
+ * Con la columna del control a ancho fijo, todos los botones miden lo mismo y todas
+ * las notas empiezan en el mismo lugar. Los controles de una misma acción se apilan en
+ * la primera columna —desplegable, casilla, botón— y la nota ocupa la segunda.
+ *
+ * EL ANCHO ES FIJO Y NO POR CONTENIDO, y no es un descuido: cada `.lote-fila` es su
+ * propia grilla, así que un `max-content` le daría a cada fila el ancho de SU botón y
+ * volveríamos al zigzag que esto viene a arreglar.
+ *
+ * 17rem sale de medir la etiqueta más larga: «Verificar en el proveedor», 25 caracteres
+ * a 16px semibold —el `font: inherit` de la línea 133— son unos 200 px, más 2,5rem de
+ * `padding-inline` y el borde, ~242 px. Una etiqueta más larga que ésta parte el botón
+ * en dos líneas, así que si aparece una, este número sube con ella.
+ */
 .lote-fila {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--hueco);
-  align-items: center;
+  display: grid;
+  grid-template-columns: 17rem minmax(0, 1fr);
+  column-gap: var(--hueco);
+  row-gap: 0.375rem;
+  align-items: start;
   margin: 0 0 var(--hueco);
+}
+
+/* Todo lo que no es la nota se apila en la primera columna, en el orden del DOM. */
+.lote-fila > *:not(.nota) {
+  grid-column: 1;
+}
+
+/**
+ * `grid-row: 1` es lo que la fija arriba: en el DOM la nota va DESPUÉS de los
+ * controles, así que el emplazamiento automático la mandaría a una fila de abajo y
+ * quedaría colgando al pie de la acción en vez de al lado.
+ */
+.lote-fila > .nota {
+  grid-column: 2;
+  grid-row: 1;
 }
 
 .lote-fila > label[for] {
@@ -553,6 +590,20 @@ button {
   .sin-foto {
     width: 56px;
     height: 56px;
+  }
+
+  /**
+   * En un teléfono no hay lugar para dos columnas: 17rem de control sobre una pantalla
+   * de 30rem dejarían la nota en una tira de cuatro caracteres. La nota pasa debajo de
+   * su control, y ahí el emplazamiento automático es el que corresponde.
+   */
+  .lote-fila {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lote-fila > .nota {
+    grid-column: 1;
+    grid-row: auto;
   }
 }
 
