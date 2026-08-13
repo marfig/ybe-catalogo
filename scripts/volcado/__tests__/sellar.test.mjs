@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
 import { readFileSync } from 'node:fs';
 
-import { sellarPublicados, slugsDelCatalogo } from '../sellar.mjs';
+import { MAX_VARIABLES_D1, sellarPublicados, slugsDelCatalogo } from '../sellar.mjs';
 
 /**
  * Tests del sellado tras una publicacion exitosa (SPEC-etapa2 §5.2, §11.2).
@@ -157,4 +157,38 @@ test('sella varios de una vez', async () => {
   }
   const r = await sellarPublicados(ejecutor(db), new Set(['cg1', 'cg2', 'cg3']), { ahora: AHORA });
   assert.equal(r.publicados, 3);
+});
+
+// --------------------------------------------------------------------------
+// El limite de variables de D1
+// --------------------------------------------------------------------------
+
+test('ninguna consulta pasa el limite de variables ligadas de D1', async () => {
+  // D1 acepta 100 parametros por consulta. Un catalogo grande — el que dejo la
+  // migracion del catalogo viejo — mandaba un `?` por slug en una sola sentencia y
+  // el sellado moria con "too many SQL variables", dejando el sitio publicado y la
+  // base diciendo `aprobado`. Ese desfase es justo lo que §11.2 promete que no pasa.
+  const db = base();
+  const slugs = [];
+  for (let i = 0; i < MAX_VARIABLES_D1 * 2 + 7; i++) {
+    const slug = `producto-${String(i).padStart(4, '0')}`;
+    alta(db, { codigo: `CG${i}`, slug, estado: 'aprobado' });
+    slugs.push(slug);
+  }
+
+  const usados = [];
+  const espia = async (sql, params = []) => {
+    usados.push(params.length);
+    return db.prepare(sql).all(...params);
+  };
+
+  const r = await sellarPublicados(espia, new Set(slugs), { ahora: AHORA });
+
+  assert.ok(usados.length > 0, 'la consulta se ejecuto');
+  const excedidas = usados.filter((cuantos) => cuantos > MAX_VARIABLES_D1);
+  assert.deepEqual(excedidas, [], `hubo consultas con mas de ${MAX_VARIABLES_D1} variables`);
+  assert.equal(r.publicados, slugs.length, 'se sellaron todos, no solo el primer lote');
+  assert.equal(r.sellados, slugs.length);
+  assert.equal(leer(db, 'CG0').estado, 'publicado');
+  assert.equal(leer(db, `CG${slugs.length - 1}`).publicado_en, AHORA);
 });

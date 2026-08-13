@@ -41,7 +41,29 @@ export function slugsDelCatalogo(catalogo) {
 }
 
 /**
+ * Variables ligadas que D1 acepta por consulta.
+ *
+ * No es una eleccion nuestra: es el limite de la API HTTP de D1, y pasarlo devuelve
+ * «too many SQL variables» con HTTP 400. Se exporta para que el test afirme contra el
+ * mismo numero que usa el codigo.
+ */
+export const MAX_VARIABLES_D1 = 100;
+
+/** Parte una lista en lotes de a lo sumo `tamano`. */
+function enLotes(lista, tamano) {
+  const lotes = [];
+  for (let i = 0; i < lista.length; i += tamano) lotes.push(lista.slice(i, i + tamano));
+  return lotes;
+}
+
+/**
  * Pasa a `publicado` los `aprobado` que estan en el catalogo y sella su fecha.
+ *
+ * POR QUE VA POR LOTES. El `IN (...)` lleva un `?` por slug, asi que la consulta crece
+ * con el catalogo: pasados los 100 productos D1 la rechaza entera. Sin lotes, el sitio
+ * queda desplegado y la base sigue diciendo `aprobado` — el desfase exacto que §11.2
+ * promete que no ocurre. Los lotes van en serie a proposito: el ejecutor de wrangler
+ * levanta un proceso por consulta y en paralelo son decenas a la vez.
  *
  * @param {(sql: string, params?: unknown[]) => Promise<object[]>} ejecutar
  * @param {ReadonlySet<string>} slugs  los del archivo desplegado
@@ -50,41 +72,53 @@ export async function sellarPublicados(ejecutar, slugs, { ahora }) {
   if (slugs.size === 0) return { publicados: 0, sellados: 0 };
 
   const lista = [...slugs];
-  const huecos = lista.map(() => '?').join(', ');
+  // El segundo UPDATE gasta una variable en `ahora`, asi que el lote se calcula con
+  // el peor caso y no con el limite pelado.
+  const lotes = enLotes(lista, MAX_VARIABLES_D1 - 1);
 
-  /**
-   * Solo `aprobado` cambia de estado.
-   *
-   * Los `eliminado` tambien aparecen en el JSON — con `activo: false`, para que su
-   * URL no quede rota (§5.2) — y estar en el archivo NO los devuelve al catalogo.
-   */
-  const publicados = await ejecutar(
-    `UPDATE productos
-        SET estado = 'publicado'
-      WHERE estado = 'aprobado' AND slug IN (${huecos})
-      RETURNING id`,
-    lista
-  );
+  let publicados = 0;
+  let sellados = 0;
 
-  /**
-   * `publicado_en` se sella solo si esta vacio: es la PRIMERA publicacion, no la
-   * ultima. El esquema lo dice — «NULL = nunca fue publico» — y pisarlo en cada
-   * build convertiria el campo en otro dato.
-   *
-   * Va aparte del UPDATE de arriba para cubrir tambien el caso de un producto ya
-   * `publicado` al que le falta la fecha, como los que entraron por la migracion.
-   */
-  const sellados = await ejecutar(
-    `UPDATE productos
-        SET publicado_en = ?
-      WHERE publicado_en IS NULL
-        AND estado IN ('publicado', 'eliminado')
-        AND slug IN (${huecos})
-      RETURNING id`,
-    [ahora, ...lista]
-  );
+  for (const lote of lotes) {
+    const huecos = lote.map(() => '?').join(', ');
 
-  return { publicados: publicados.length, sellados: sellados.length };
+    /**
+     * Solo `aprobado` cambia de estado.
+     *
+     * Los `eliminado` tambien aparecen en el JSON — con `activo: false`, para que su
+     * URL no quede rota (§5.2) — y estar en el archivo NO los devuelve al catalogo.
+     */
+    const cambiados = await ejecutar(
+      `UPDATE productos
+          SET estado = 'publicado'
+        WHERE estado = 'aprobado' AND slug IN (${huecos})
+        RETURNING id`,
+      lote
+    );
+
+    /**
+     * `publicado_en` se sella solo si esta vacio: es la PRIMERA publicacion, no la
+     * ultima. El esquema lo dice — «NULL = nunca fue publico» — y pisarlo en cada
+     * build convertiria el campo en otro dato.
+     *
+     * Va aparte del UPDATE de arriba para cubrir tambien el caso de un producto ya
+     * `publicado` al que le falta la fecha, como los que entraron por la migracion.
+     */
+    const fechados = await ejecutar(
+      `UPDATE productos
+          SET publicado_en = ?
+        WHERE publicado_en IS NULL
+          AND estado IN ('publicado', 'eliminado')
+          AND slug IN (${huecos})
+        RETURNING id`,
+      [ahora, ...lote]
+    );
+
+    publicados += cambiados.length;
+    sellados += fechados.length;
+  }
+
+  return { publicados, sellados };
 }
 
 // --------------------------------------------------------------------------
