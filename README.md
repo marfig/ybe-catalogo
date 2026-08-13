@@ -20,9 +20,9 @@ npm run dev               # http://localhost:4321
 
 | Variable | Valor |
 |---|---|
-| `SITE_URL` | `http://localhost:4321` en local. En producción, la URL del deploy |
-| `INDEXABLE` | `false` hasta tener dominio propio |
-| `PUBLIC_R2_BASE` | La URL pública del bucket R2. `/img-dev` solo para trabajar sin red |
+| `SITE_URL` | `http://localhost:4321` en local. `https://asuncionybe.com` en producción |
+| `INDEXABLE` | `false` en local. `true` en producción |
+| `PUBLIC_R2_BASE` | `https://img.asuncionybe.com`. `/img-dev` solo para trabajar sin red |
 | `PUBLIC_WHATSAPP` | `595981857213` |
 | `R2_ACCOUNT_ID`, `R2_BUCKET` | Solo el importador |
 | `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` | Solo el importador. **Secretas** |
@@ -201,14 +201,30 @@ categorías se escriben en el admin; acá abajo queda lo que sigue viviendo en g
 
 ## Producción
 
-**https://ybe-catalogo.chenson.workers.dev** — Cloudflare Workers, con `noindex`.
+**https://asuncionybe.com** — Cloudflare Workers, indexable.
 
 ```bash
 npm run build && npx wrangler deploy
 ```
 
-`INDEXABLE` se mantiene en `false` mientras el sitio viva en `.workers.dev`: si Google
-indexa esa URL, después compite con el dominio propio por las mismas páginas.
+| Host | Qué es |
+|---|---|
+| `asuncionybe.com` | El sitio. Es el canonical: el valor de `SITE_URL` |
+| `www.asuncionybe.com` | Redirect Rule de Cloudflare, 301 al apex, preservando path y query |
+| `img.asuncionybe.com` | Custom domain del bucket R2. Es el valor de `PUBLIC_R2_BASE` |
+| `ybe-admin.chenson.workers.dev` | El admin. **Se queda acá a propósito**: lo usa una sola persona detrás de Access, y moverlo obliga a una aplicación de Access nueva con otro `CF_ACCESS_AUD` |
+
+La ruta `.workers.dev` del sitio público está **desactivada** (devuelve 404) y el
+Public Development URL del bucket R2 está **apagado** (devuelve 401): con el dominio
+propio andando, dos puertas a lo mismo son una que nadie mira.
+
+`INDEXABLE` pasó a `true` con el dominio propio. Estuvo en `false` mientras el sitio
+vivió en `.workers.dev`: si Google indexaba esa URL, después competía con el dominio
+propio por las mismas páginas.
+
+**Always Use HTTPS** está prendido en Cloudflare. Hace falta porque la redirect rule
+de `www` matchea la URL completa —esquema incluido— y sólo cubre `https://`; sin el
+upgrade previo, `http://www.asuncionybe.com` quedaba en un 522.
 
 ## Estado
 
@@ -236,11 +252,11 @@ un botón. Las ocho fases cerradas con su criterio de salida verificado.
 
 Pendiente fuera de la etapa 2: buscador por código o nombre en el sitio público;
 el scrape del catálogo **viejo** (otro sitio, migración de una sola vez); logo
-definitivo (SVG y variante monocromática); redes sociales; **dominio propio**.
+definitivo (SVG y variante monocromática); redes sociales.
 
-> **El dominio bloquea el lanzamiento, no el desarrollo.** Las fotos se sirven por
-> `r2.dev`, que Cloudflare documenta como *development-only* y con rate limit. Todo
-> el trabajo de la etapa 2 corre sobre eso sin problema, pero abrir el sitio a
-> clientes reales necesita el dominio — y ya no solo por SEO.
+> **El dominio propio está puesto y ya no bloquea el lanzamiento.** El sitio vive en
+> `asuncionybe.com` y las fotos salen de `img.asuncionybe.com`, no de `r2.dev` —que
+> Cloudflare documenta como *development-only* y con rate limit—, así que el catálogo
+> se puede abrir a clientes reales.
 
 Puntos abiertos al día: `docs/SPEC.md` §12.

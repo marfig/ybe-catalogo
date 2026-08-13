@@ -1568,6 +1568,14 @@ Al pasar al dominio propio, el cambio es de configuración: se agrega el dominio
 como *custom domain* del bucket y `PUBLIC_R2_BASE` apunta ahí. Las claves de los
 objetos no cambian, así que ninguna imagen se vuelve a subir.
 
+**RESUELTO 2026-08-13.** Se cumplió tal cual: `img.asuncionybe.com` es custom domain
+del bucket, `PUBLIC_R2_BASE` apunta ahí y no se resubió ninguna imagen. El **Public
+Development URL del bucket quedó apagado**, así que la URL `pub-…r2.dev` de más
+arriba ya no sirve: responde **401**. La misma clave por el dominio propio devuelve
+200 `image/webp`. El sitio público pasó a `asuncionybe.com` con `INDEXABLE` en `true`
+(`SPEC.md` §1.4 y §7.2), lo que cierra las tres cosas que este apartado decía que el
+dominio condicionaba.
+
 ### Fase 2.2 — D1 y el volcado (desplegable) · **CERRADA 2026-08-10**
 
 El eslabón que hace que todo lo demás pueda existir.

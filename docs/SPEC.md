@@ -43,7 +43,9 @@ Se consumen con Content Collections usando el loader `file()` y schemas Zod. Un 
 
 ### 1.4 Dominio y despliegue
 
-El sitio arranca en un subdominio `.workers.dev` con `noindex`. La URL base sale de la variable de entorno `SITE_URL` y nunca se hardcodea. El paso a dominio propio no requiere cambios de código: solo cambian `SITE_URL` e `INDEXABLE`.
+El sitio arrancó en un subdominio `.workers.dev` con `noindex`. La URL base sale de la variable de entorno `SITE_URL` y nunca se hardcodea. El paso a dominio propio no requiere cambios de código: solo cambian `SITE_URL` e `INDEXABLE`.
+
+**Cumplido.** El sitio vive en `https://asuncionybe.com` y la migración no tocó una sola línea de código: sólo variables de entorno y configuración de Cloudflare. `www` redirige al apex con un 301 y la ruta `.workers.dev` quedó desactivada, así que hay un único canonical. El admin es la excepción deliberada: se queda en `ybe-admin.chenson.workers.dev` (SPEC-etapa2 §6).
 
 ---
 
@@ -876,7 +878,9 @@ Las variantes **no** generan URL propia. Un `?variante=` no cambia el canonical:
 
 Los listados paginados llevan **canonical propio por página** (§9.5): la página 2 no canonicaliza a la 1.
 
-### 7.2 `noindex` mientras dure `.workers.dev`
+### 7.2 `noindex`, controlado por flag
+
+Nació para tapar el `.workers.dev`. **Hoy `INDEXABLE` está en `true`** en producción, porque el sitio ya vive en el dominio propio (§1.4); lo que sigue describe el mecanismo, que no cambió y sigue gobernando el `noindex` en cualquier despliegue que no sea el de producción.
 
 Controlado por un flag **explícito**, no inferido del hostname:
 
@@ -1132,9 +1136,9 @@ Dos grupos con reglas distintas. **El sitio no tiene secretos; el importador sí
 
 | Variable | Usada por | Valor | Secreta |
 |---|---|---|---|
-| `SITE_URL` | `astro.config.mjs` vía `loadEnv` | `https://ybe-catalogo.workers.dev` hasta el dominio propio | No |
-| `INDEXABLE` | Build, vía `astro:env/server` | `false` hasta el dominio propio (§7.2) | No |
-| `PUBLIC_R2_BASE` | Build y cliente | Dominio público del bucket R2 | No |
+| `SITE_URL` | `astro.config.mjs` vía `loadEnv` | `https://asuncionybe.com` | No |
+| `INDEXABLE` | Build, vía `astro:env/server` | `true` desde el dominio propio (§7.2) | No |
+| `PUBLIC_R2_BASE` | Build y cliente | `https://img.asuncionybe.com`, custom domain del bucket R2 | No |
 | `PUBLIC_WHATSAPP` | Build y cliente | `595981857213` | No |
 | `R2_ACCOUNT_ID` | **Solo el importador** | Cuenta de Cloudflare | No |
 | `R2_BUCKET` | **Solo el importador** | Nombre del bucket | No |
