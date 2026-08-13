@@ -1,6 +1,229 @@
 [
   {
-    "actualizado": "2026-08-12",
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas: alto 28 x largo 16 x ancho 6 cm\nDisponible en color: negro",
+    "id": "bandolera-cruzada",
+    "nombre": "Bandolera cruzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6182039"
+    },
+    "precio": 96000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/56b8ba1241c08783"
+          }
+        ],
+        "sku": "6182039-33"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas: alto 30 x largo 24 x ancho 11 cm\nColores disponibles: negro",
+    "id": "bandolera-mediana-unisex",
+    "nombre": "Bandolera mediana Unisex",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6724061"
+    },
+    "precio": 129000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b86f6dc2e8640dfb"
+          }
+        ],
+        "sku": "6724061-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas: alto 15 x largo 22 x ancho 10 cm",
+    "id": "bandolera-pequena-elegante-con-asas-largas",
+    "nombre": "Bandolera pequeña elegante con asas largas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85362"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4636c1ae0156a501"
+          }
+        ],
+        "sku": "CG85362-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas: alto 11 x largo 19 x ancho 5 cm",
+    "id": "bandolera-tipo-sobre-de-dos-cierres",
+    "nombre": "Bandolera tipo sobre de dos cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG84304"
+    },
+    "precio": 168000,
+    "variantes": [
+      {
+        "color": "Amarillo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8544cf123bf5dfe2"
+          }
+        ],
+        "sku": "CG84304-L"
+      },
+      {
+        "color": "Celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3dbb4ba6739ba045"
+          }
+        ],
+        "sku": "CG84304-7"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b2f5966351c613ea"
+          }
+        ],
+        "sku": "CG84304-R"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "De tela impermeable\nMedidas: alto 11 x largo 19 x ancho 4 cm",
+    "id": "billetera-alargada-doble-cierre",
+    "nombre": "Billetera alargada doble cierre",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2115052"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5ba5f5cfc12a6f28"
+          }
+        ],
+        "sku": "2115052-9"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/df3e5332626c48f7"
+          }
+        ],
+        "sku": "2115052-2"
+      },
+      {
+        "color": "Lila Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/54b02cbbd2340bda"
+          }
+        ],
+        "sku": "2115052-V"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4f177f074b767b31"
+          }
+        ],
+        "sku": "2115052-3"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ed84ee771f855dea"
+          }
+        ],
+        "sku": "2115052-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
     "categorias": [
       "billeteras"
     ],
@@ -60,6 +283,349 @@
         "color": "Negro",
         "imagenes": [],
         "sku": "CG81500-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "De cuero ecológico\nDisponible en color negro",
+    "id": "billetera-de-hombre-sin-cierre",
+    "nombre": "Billetera de hombre sin cierre",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2510406"
+    },
+    "precio": 98000,
+    "variantes": [
+      {
+        "color": "Marron Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0bf28f1094519669"
+          }
+        ],
+        "sku": "2510406-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a1e49f61626c3c46"
+          }
+        ],
+        "sku": "2510406-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "De cuero ecológico\nMedidas: alto 9 x largo 13 cm",
+    "id": "billetera-pequena-con-cierre-y-tarjetero",
+    "nombre": "Billetera pequeña con cierre y tarjetero",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2515215"
+    },
+    "precio": 89000,
+    "variantes": [
+      {
+        "color": "Lila Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5fce972933fed2be"
+          }
+        ],
+        "sku": "2515215-V"
+      },
+      {
+        "color": "Naranjado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ac81f573ea9b54d5"
+          }
+        ],
+        "sku": "2515215-O"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/42fcb61405267732"
+          }
+        ],
+        "sku": "2515215-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "Con cierre y tarjetero",
+    "id": "billetera-pequena-de-tela-impermeable",
+    "nombre": "Billetera pequeña de tela impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG70123"
+    },
+    "precio": 98000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/74b344c9170bd127"
+          }
+        ],
+        "sku": "CG70123-9"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4d92e7525de27658"
+          }
+        ],
+        "sku": "CG70123-2"
+      },
+      {
+        "color": "Lila Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ba3d2a4268284aed"
+          }
+        ],
+        "sku": "CG70123-V"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9a6ce15822386841"
+          }
+        ],
+        "sku": "CG70123-3"
+      },
+      {
+        "color": "Rosa Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/565dcceaec7b1f54"
+          }
+        ],
+        "sku": "CG70123-P"
+      },
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c08ebd2a4ac6fbe0"
+          }
+        ],
+        "sku": "CG70123-F"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9391894532b6ce29"
+          }
+        ],
+        "sku": "CG70123-G"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/67202baea8cecd45"
+          }
+        ],
+        "sku": "CG70123-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Medidas: alto 29 x largo 46 x ancho 24 cm",
+    "id": "bolso-de-viaje-mediano",
+    "nombre": "Bolso de viaje mediano",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734039"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3d16f656fa9c68f6"
+          }
+        ],
+        "sku": "4734039-33"
+      },
+      {
+        "color": "Negro/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e1289c177660da58"
+          }
+        ],
+        "sku": "4734039-31"
+      },
+      {
+        "color": "Rojo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/01f9e793c488816e"
+          }
+        ],
+        "sku": "4734039-R1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Medidas: alto 29 x largo 57 x 19 cm\nDisponible en color negro",
+    "id": "bolso-de-viaje-mediano-2",
+    "nombre": "Bolso de viaje mediano",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4738739"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e26742f881cfd6b9"
+          }
+        ],
+        "sku": "4738739-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Medidas: alto 22 xlargo 40 x ancho 18 cm",
+    "id": "bolso-de-viaje-pequeno",
+    "nombre": "Bolso de viaje Pequeño",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4730886"
+    },
+    "precio": 119000,
+    "variantes": [
+      {
+        "color": "Dp6 Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/08865c618a73cb33"
+          }
+        ],
+        "sku": "4730886-3"
+      },
+      {
+        "color": "Dp6 Rojo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ad78eb587082c382"
+          }
+        ],
+        "sku": "4730886-R2"
       }
     ]
   },
@@ -245,8 +811,7 @@
     ]
   },
   {
-    "activo": false,
-    "actualizado": "2026-08-12",
+    "actualizado": "2026-08-13",
     "categorias": [
       "carteras"
     ],
@@ -335,7 +900,644 @@
     ]
   },
   {
-    "actualizado": "2026-08-12",
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Cartuchera libro",
+    "id": "cartuchera-de-barbie",
+    "nombre": "Cartuchera de barbie",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551190"
+    },
+    "precio": 55000,
+    "variantes": [
+      {
+        "color": "Blue",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c540213f34854adc"
+          }
+        ],
+        "sku": "5551190-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-de-barbie-2",
+    "nombre": "Cartuchera de barbie",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551199"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Blue",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9577d42b246ffa2e"
+          }
+        ],
+        "sku": "5551199-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-de-dinosaurio",
+    "nombre": "Cartuchera de Dinosaurio",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558101"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Azul M.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1e44055f22e48e21"
+          }
+        ],
+        "sku": "5558101-6"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "De un cierre",
+    "id": "cartuchera-de-dinosaurio-2",
+    "nombre": "Cartuchera de dinosaurio",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558198"
+    },
+    "precio": 28000,
+    "variantes": [
+      {
+        "color": "Azul M.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1c34122c30403430"
+          }
+        ],
+        "sku": "5558198-6"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-de-hot-wheels",
+    "nombre": "Cartuchera de Hot Wheels",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551401"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a2e8cc5b0eb8263f"
+          }
+        ],
+        "sku": "5551401-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "De un cierre",
+    "id": "cartuchera-de-hot-wheels-2",
+    "nombre": "Cartuchera de Hot Wheels",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551498"
+    },
+    "precio": 28000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8f5287b4b0510dd6"
+          }
+        ],
+        "sku": "5551498-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-de-monster-cierre-nena",
+    "nombre": "Cartuchera de monster cierre nena",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551201"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/552d80698cc692bd"
+          }
+        ],
+        "sku": "5551201-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-tres-cierres",
+    "nombre": "Cartuchera de tres cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1732307"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "(25-P) Gris/turq.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fea5d14c5234b23f"
+          }
+        ],
+        "sku": "1732307-25-p-gris-turq"
+      },
+      {
+        "color": "(54-P) Verde Cl",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/58dca17d8512a1bb"
+          }
+        ],
+        "sku": "1732307-54-p-verde-cl"
+      },
+      {
+        "color": "(79-P) Celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7e8df5c3acc6d1d5"
+          }
+        ],
+        "sku": "1732307-79-p-celeste"
+      },
+      {
+        "color": "(ag-P) Verde/v.li",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bae1643b57d9371f"
+          }
+        ],
+        "sku": "1732307-ag-p-verde-v-li"
+      },
+      {
+        "color": "(jp-P) Rosa",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/38c90c64d96c04e7"
+          }
+        ],
+        "sku": "1732307-jp-p-rosa"
+      },
+      {
+        "color": "(no-P) Salmon",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0d7886ba929d7da3"
+          }
+        ],
+        "sku": "1732307-no-p-salmon"
+      },
+      {
+        "color": "(pr-P) Salmon/mar",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3bb42e5680539279"
+          }
+        ],
+        "sku": "1732307-pr-p-salmon-mar"
+      },
+      {
+        "color": "(r6-P) Bordo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d70f2ecb65a70684"
+          }
+        ],
+        "sku": "1732307-r6-p-bordo-gris"
+      },
+      {
+        "color": "(ro-P) Rojo/salmo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1ba54bbc6bf060fc"
+          }
+        ],
+        "sku": "1732307-ro-p-rojo-salmo"
+      },
+      {
+        "color": "(vu-P) Lila C/lil",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e6a1115027f290e9"
+          }
+        ],
+        "sku": "1732307-vu-p-lila-c-lil"
+      },
+      {
+        "color": "Azul/celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b8b33780c1dc069d"
+          }
+        ],
+        "sku": "1732307-68"
+      },
+      {
+        "color": "Azul/khaki",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a4e7f3098c157b20"
+          }
+        ],
+        "sku": "1732307-6K"
+      },
+      {
+        "color": "Gris Os/nara",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/64c503e41cbb1754"
+          }
+        ],
+        "sku": "1732307-1O"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/75d4fe7b88c82035"
+          }
+        ],
+        "sku": "1732307-3"
+      },
+      {
+        "color": "Negro/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3e3f6f8b50684bcb"
+          }
+        ],
+        "sku": "1732307-32"
+      },
+      {
+        "color": "Rojo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d407d6029f7ded17"
+          }
+        ],
+        "sku": "1732307-R2"
+      },
+      {
+        "color": "Rosa/verd.ce",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5f6f7acef5e201ba"
+          }
+        ],
+        "sku": "1732307-F5"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/281f1163d2362c5b"
+          }
+        ],
+        "sku": "1732307-PF"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-doble-cierre",
+    "nombre": "Cartuchera doble cierre",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734998"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dc0ed49e7562bef4"
+          }
+        ],
+        "sku": "1734998-9"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1f0212ae22530732"
+          }
+        ],
+        "sku": "1734998-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Rosa",
+    "id": "cartuchera-doble-cierre-de-mario-kart",
+    "nombre": "Cartuchera doble cierre de Mario kart",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66252"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2047f5b2080be256"
+          }
+        ],
+        "sku": "MB66252-F"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-doble-cierre-impermeable",
+    "nombre": "Cartuchera doble cierre impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1132232"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dd9ae646cd4987d6"
+          }
+        ],
+        "sku": "1132232-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre rosa",
+    "id": "cartuchera-doble-cierre-nubecita",
+    "nombre": "Cartuchera doble cierre nubecita",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5554101"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c7b3ab9a5ef355ff"
+          }
+        ],
+        "sku": "5554101-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Girl sirena",
+    "id": "cartuchera-libro-de-sirena-nena",
+    "nombre": "Cartuchera libro de sirena nena",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5553190"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Verde Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/58fca2d64d7370a8"
+          }
+        ],
+        "sku": "5553190-5"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas: alto 15 x largo 22 cm",
+    "id": "cartuchera-libro-impermeable-de-tela",
+    "nombre": "Cartuchera libro impermeable de tela",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1132233"
+    },
+    "precio": 68000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/395be6c800b3f198"
+          }
+        ],
+        "sku": "1132233-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
     "categorias": [
       "cartucheras"
     ],
@@ -361,6 +1563,470 @@
           }
         ],
         "sku": "5551290-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Rosa",
+    "id": "cartuchera-libro-nena",
+    "nombre": "Cartuchera libro nena",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734592"
+    },
+    "precio": 60000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/71b75b8f2649951e"
+          }
+        ],
+        "sku": "1734592-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Cartuchera libro",
+    "id": "cartuchera-libro-nena-2",
+    "nombre": "Cartuchera libro nena",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5554190"
+    },
+    "precio": 55000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5c837bf3647bac7a"
+          }
+        ],
+        "sku": "5554190-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-nena-de-barbie",
+    "nombre": "Cartuchera nena de barbie",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551101"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Blue",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3013b89c169055bd"
+          }
+        ],
+        "sku": "5551101-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-nena-de-pets-kitty",
+    "nombre": "Cartuchera nena de Pets Kitty",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5554201"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/73d3df427ca8f880"
+          }
+        ],
+        "sku": "5554201-I"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-nena-de-pets-kitty-2",
+    "nombre": "Cartuchera nena de Pets Kitty",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5554204"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/98d850e0a99e44c2"
+          }
+        ],
+        "sku": "5554204-I"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-nena-de-sirena",
+    "nombre": "Cartuchera nena de sirena",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5553101"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Verde Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/925a9555315b5a52"
+          }
+        ],
+        "sku": "5553101-5"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-nena-de-unicorn-pets",
+    "nombre": "Cartuchera nena de Unicorn Pets",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558901"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e1cf4555a2c312df"
+          }
+        ],
+        "sku": "5558901-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Cartuchera libro",
+    "id": "cartuchera-nena-de-unicorn-pets-2",
+    "nombre": "Cartuchera nena de Unicorn Pets",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558997"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0fff309922da7e91"
+          }
+        ],
+        "sku": "5558997-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-nene-de-diver",
+    "nombre": "Cartuchera nene de Diver",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558301"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d3f54c2a4a9c9943"
+          }
+        ],
+        "sku": "5558301-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Cartuchera libro",
+    "id": "cartuchera-nene-de-diver-2",
+    "nombre": "Cartuchera nene de Diver",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558390"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/51ebc2044f03d976"
+          }
+        ],
+        "sku": "5558390-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-nene-de-shark",
+    "nombre": "Cartuchera nene de Shark",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5555399"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fd5332b0afbca336"
+          }
+        ],
+        "sku": "5555399-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-nene-de-space",
+    "nombre": "Cartuchera nene de Space",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5555201"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/79c75cf787a87890"
+          }
+        ],
+        "sku": "5555201-1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Cartuchera libro",
+    "id": "cartuchera-nene-de-space-2",
+    "nombre": "Cartuchera nene de Space",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5555297"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1893b25099b227cb"
+          }
+        ],
+        "sku": "5555297-1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-nene-de-speed-runner",
+    "nombre": "Cartuchera nene de speed runner",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5557401"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d379b022d01a8e05"
+          }
+        ],
+        "sku": "5557401-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Cartuchera libro",
+    "id": "cartuchera-nene-de-speed-runner-2",
+    "nombre": "Cartuchera nene de speed runner",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5557490"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0cb43c5320c66c0c"
+          }
+        ],
+        "sku": "5557490-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-nene-de-thomas-friends",
+    "nombre": "Cartuchera nene de Thomas & Friends",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551501"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/26a0718e19f0e777"
+          }
+        ],
+        "sku": "5551501-2"
       }
     ]
   },
@@ -395,7 +2061,538 @@
     ]
   },
   {
-    "actualizado": "2026-08-12",
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "de-barney-nena",
+    "nombre": "De Barney nena",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551301"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d308ae8aa8c32e0f"
+          }
+        ],
+        "sku": "5551301-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "loncheras"
+    ],
+    "descripcion": "Medidas: alto 30 x largo 39 x ancho 29 cm\nNegro\nAzul/gris\nRojo/gris",
+    "id": "lonchera-grande",
+    "nombre": "Lonchera Grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4730007"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Azul/gris Os",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9529ef34119ca00c"
+          }
+        ],
+        "sku": "4730007-61"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fb760fe80b34a384"
+          }
+        ],
+        "sku": "4730007-33"
+      },
+      {
+        "color": "Rojo/gris Os",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4e727b81e0c8e8f0"
+          }
+        ],
+        "sku": "4730007-R1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "loncheras"
+    ],
+    "descripcion": "Medidas: alto 27 x largo 34 x ancho 21 cm",
+    "id": "lonchera-grande-2",
+    "nombre": "Lonchera Grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4731437"
+    },
+    "precio": 149000,
+    "variantes": [
+      {
+        "color": "Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f464d85189c6fafc"
+          }
+        ],
+        "sku": "4731437-62X"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b808ea4a745dd893"
+          }
+        ],
+        "sku": "4731437-33X"
+      },
+      {
+        "color": "Rojo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/310acf74e71ddd72"
+          }
+        ],
+        "sku": "4731437-R2X"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "loncheras"
+    ],
+    "descripcion": "Medidas: alto 28 x largo 23 x ancho 15 cm\nNegro\nNegro/gris\nRojo/gris\nAzul/verde\nGris/celeste\nVerde/gris\nLila/verde\nAzul/naranja\nNaranja/celeste\nRosa/gris",
+    "id": "lonchera-mediana",
+    "nombre": "Lonchera Mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4131462"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Azul M/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/80fe45599afaaa0f"
+          }
+        ],
+        "sku": "4131462-91"
+      },
+      {
+        "color": "Azul/naranja",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/991a81b932664c11"
+          }
+        ],
+        "sku": "4131462-6O"
+      },
+      {
+        "color": "Azul/verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5977e6f3b1a4a977"
+          }
+        ],
+        "sku": "4131462-9G"
+      },
+      {
+        "color": "Gris O/celes",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/21761c9e8519bdf8"
+          }
+        ],
+        "sku": "4131462-17"
+      },
+      {
+        "color": "Lila/ver.cel",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6e6978556e25b905"
+          }
+        ],
+        "sku": "4131462-Q5"
+      },
+      {
+        "color": "Naran/celest",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/da86483e60dabb7e"
+          }
+        ],
+        "sku": "4131462-O7"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6eb94e6d210e5004"
+          }
+        ],
+        "sku": "4131462-3"
+      },
+      {
+        "color": "Rojo/gris Os",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/38ef890367276d50"
+          }
+        ],
+        "sku": "4131462-R1"
+      },
+      {
+        "color": "Rosa Os/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ff3dee87c153ef2c"
+          }
+        ],
+        "sku": "4131462-F1"
+      },
+      {
+        "color": "Verde/gris O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e249d2846cd938b1"
+          }
+        ],
+        "sku": "4131462-A1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "loncheras"
+    ],
+    "descripcion": "Medidas: alto 28 x larho 24 x ancho 16 cm\nNegro\nGris/celeste\nRojo/gris\nVerde/gris\nAzul/gris",
+    "id": "lonchera-mediana-2",
+    "nombre": "Lonchera Mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4132936"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Azul M/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ca5f91439dfbeaf2"
+          }
+        ],
+        "sku": "4132936-91X"
+      },
+      {
+        "color": "Gris Os/cel",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/362f89858c9b2243"
+          }
+        ],
+        "sku": "4132936-17X"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4d78a744cb671170"
+          }
+        ],
+        "sku": "4132936-3X"
+      },
+      {
+        "color": "Rojo/gris O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2da1156290a77652"
+          }
+        ],
+        "sku": "4132936-R1X"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "loncheras"
+    ],
+    "descripcion": "Lonchera P. Para un almuerzo\nMedidas: alto 17 x largo 21 x ancho 16 cm\nNegro\nAzul/gris\nNegro/gris\nRojo/gris",
+    "id": "lonchera-pequena",
+    "nombre": "Lonchera Pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4120856"
+    },
+    "precio": 98000,
+    "variantes": [
+      {
+        "color": "Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7e61bf5c1054686d"
+          }
+        ],
+        "sku": "4120856-62"
+      },
+      {
+        "color": "Negro/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e79765d17331e8b6"
+          }
+        ],
+        "sku": "4120856-32"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/120264f3cad9fadb"
+          }
+        ],
+        "sku": "4120856-33"
+      },
+      {
+        "color": "Rojo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/33e33f15fa724ee3"
+          }
+        ],
+        "sku": "4120856-R2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "loncheras"
+    ],
+    "descripcion": "Medidas: alto 22 x largo 30 x ancho 16 cm\nNegro\nAzul/gris\nRojo/gris\nRosa/gris\nVerde/gris\nAzul/verde\nLila/verde\nAzul/naranja\nNegro/gris",
+    "id": "lonchera-pequena-2",
+    "nombre": "Lonchera pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4131461"
+    },
+    "precio": 116000,
+    "variantes": [
+      {
+        "color": "Azul/naranja",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/571a16d5980da71f"
+          }
+        ],
+        "sku": "4131461-6O"
+      },
+      {
+        "color": "Lila/verd.cl",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6edd060fcaec669d"
+          }
+        ],
+        "sku": "4131461-Q5"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1e22f7db2e77a4cb"
+          }
+        ],
+        "sku": "4131461-3"
+      },
+      {
+        "color": "Rojo/gris Os",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/10425ae99cd84606"
+          }
+        ],
+        "sku": "4131461-R1"
+      },
+      {
+        "color": "Rosa/gris Os",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b937c62736b75234"
+          }
+        ],
+        "sku": "4131461-F1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "loncheras"
+    ],
+    "descripcion": "Medidas: alto 26 x largo 24 x ancho 15 cm",
+    "id": "lonchera-termica",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734591"
+    },
+    "precio": 129000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/22fb1869ceadcaae"
+          }
+        ],
+        "sku": "4734591-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
     "categorias": [
       "loncheras"
     ],
@@ -421,6 +2618,345 @@
           }
         ],
         "sku": "5551115-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "loncheras"
+    ],
+    "descripcion": "Medidas: alto 23 x largo 25 x ancho 17 cm\nCon asas anchas largas",
+    "id": "lonchera-termica-de-barney-nena",
+    "nombre": "Lonchera térmica de Barney nena",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551305"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/66f317d62a665642"
+          }
+        ],
+        "sku": "5551305-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "loncheras"
+    ],
+    "descripcion": "Medidas: alto 22 largo 22 x ancho 10 cm\nCon asas anchas largas",
+    "id": "lonchera-termica-de-hot-wheels-nene",
+    "nombre": "Lonchera térmica de Hot Wheels nene",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551416"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6865af1b0d067cc6"
+          }
+        ],
+        "sku": "5551416-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "loncheras"
+    ],
+    "descripcion": "Medidas: alto 20 x largo 23 x ancho 15 cm",
+    "id": "lonchera-termica-de-mario-kart-con-asas-largas",
+    "nombre": "Lonchera térmica de Mario kart con asas largas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66253"
+    },
+    "precio": 138000,
+    "variantes": [
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/87721e98ed4d42f3"
+          }
+        ],
+        "sku": "MB66253-F"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "loncheras"
+    ],
+    "descripcion": "Medidas: alto 25 x largo 22 x ancho 14 cm\nCon asas largas",
+    "id": "lonchera-termica-de-pets-kitty",
+    "nombre": "Lonchera térmica de Pets Kitty",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5554215"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/72d1c1500362ae53"
+          }
+        ],
+        "sku": "5554215-I"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "loncheras"
+    ],
+    "descripcion": "Medidas: alto 22 x largo 24 x ancho 16 cm\nCon asas largas",
+    "id": "lonchera-termica-de-space",
+    "nombre": "Lonchera térmica de Space",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5555205"
+    },
+    "precio": 120000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e2b021e60d22739f"
+          }
+        ],
+        "sku": "5555205-1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "loncheras"
+    ],
+    "descripcion": "Con asas largas",
+    "id": "lonchera-termica-impermeable",
+    "nombre": "Lonchera térmica impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4134336"
+    },
+    "precio": 118000,
+    "variantes": [
+      {
+        "color": "Celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a4973dd795729dee"
+          }
+        ],
+        "sku": "4134336-9"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5fbe0ebd487f2f9b"
+          }
+        ],
+        "sku": "4134336-2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "loncheras"
+    ],
+    "descripcion": "Medidas: Alto 23 x largo 28 x ancho 29 cm",
+    "id": "lonchera-termica-mediana",
+    "nombre": "Lonchera térmica mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4120858"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d66bdaaef2ed738f"
+          }
+        ],
+        "sku": "4120858-62"
+      },
+      {
+        "color": "Negro/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e7256724bf36854f"
+          }
+        ],
+        "sku": "4120858-32"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f96ff027a024b667"
+          }
+        ],
+        "sku": "4120858-33"
+      },
+      {
+        "color": "Rojo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5751d0a1ae344355"
+          }
+        ],
+        "sku": "4120858-R2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "loncheras"
+    ],
+    "descripcion": "Medidas: alto 23 x largo 29 x ancho 19 cm",
+    "id": "lonchera-termica-mediana-2",
+    "nombre": "Lonchera térmica Mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4720855"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d9b6dbbaa9e57440"
+          }
+        ],
+        "sku": "4720855-61"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0580070d1685216f"
+          }
+        ],
+        "sku": "4720855-33"
+      },
+      {
+        "color": "Rojo/gris O.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c578e7071cc90108"
+          }
+        ],
+        "sku": "4720855-R1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "merenderos"
+    ],
+    "descripcion": "Medidas: alto 22 x largo 24 x ancho 16 cm",
+    "id": "merendero-termico-de-shark",
+    "nombre": "Merendero térmico de Shark",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5555305"
+    },
+    "precio": 122000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/865849d1029e91ee"
+          }
+        ],
+        "sku": "5555305-9"
       }
     ]
   },
@@ -469,7 +3005,1811 @@
     ]
   },
   {
-    "actualizado": "2026-08-12",
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-con-ruedas-grande-de-diver",
+    "nombre": "Mochila con ruedas grande de Diver",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558374"
+    },
+    "precio": 212000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ec8889eca48765b9"
+          }
+        ],
+        "sku": "5558374-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 31 x ancho 18 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-con-ruedas-grande-de-happy-girl",
+    "nombre": "Mochila con ruedas grande de happy girl",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734672"
+    },
+    "precio": 299000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/984a352e179f3496"
+          }
+        ],
+        "sku": "8734672-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 43 x largo 29 x ancho 16 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-con-ruedas-grande-de-mario-kart",
+    "nombre": "Mochila con ruedas grande de Mario kart",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66166"
+    },
+    "precio": 295000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ef7bba6276408d70"
+          }
+        ],
+        "sku": "MB66166-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 43 x largo 30 x ancho 17 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-con-ruedas-grande-de-mario-kart-2",
+    "nombre": "Mochila con ruedas grande de Mario Kart",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66254"
+    },
+    "precio": 295000,
+    "variantes": [
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c7587cffda924a34"
+          }
+        ],
+        "sku": "MB66254-F"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-con-ruedas-grande-de-nubecita",
+    "nombre": "Mochila con ruedas grande de nubecita",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5554174"
+    },
+    "precio": 215000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/adbcc4c433ab9116"
+          }
+        ],
+        "sku": "5554174-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 46 x largo 31 x largo 18 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-con-ruedas-grande-de-pets-kitty",
+    "nombre": "Mochila con ruedas grande de  Pets Kitty",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5554272"
+    },
+    "precio": 259000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0d97221397d39ccd"
+          }
+        ],
+        "sku": "5554272-I"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-con-ruedas-grande-de-shark",
+    "nombre": "Mochila con ruedas grande de Shark",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5555374"
+    },
+    "precio": 220000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/54f69d1657ed3d9f"
+          }
+        ],
+        "sku": "5555374-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-con-ruedas-grande-de-thomas-friends",
+    "nombre": "Mochila con ruedas grande de Thomas & Friends",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551568"
+    },
+    "precio": 225000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3596a04d6a729075"
+          }
+        ],
+        "sku": "5551568-2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 37 x largo 2 x ancho 14 cm\nPara 4 a 6 años",
+    "id": "mochila-con-ruedas-mediana-de-super-mario",
+    "nombre": "Mochila con ruedas mediana de Super Mario",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66577"
+    },
+    "precio": 265000,
+    "variantes": [
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2b5f1214dc3e09ca"
+          }
+        ],
+        "sku": "MB66577-R"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 40 x largo 28 x ancho 15 cm\nPara 5 a 6 años",
+    "id": "mochila-con-ruedas-mediana-de-unicorn-pets",
+    "nombre": "Mochila con ruedas mediana de Unicorn Pets",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558979"
+    },
+    "precio": 165000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7d676849c6ecd0c2"
+          }
+        ],
+        "sku": "5558979-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 35 x largo 28 x ancho 13 cm\nPara 4 a 5 años",
+    "id": "mochila-con-ruedas-pequena-de-barbie",
+    "nombre": "Mochila con ruedas pequeña de Barbie",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551169"
+    },
+    "precio": 198000,
+    "variantes": [
+      {
+        "color": "Blue",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/09c185ab4ae6714d"
+          }
+        ],
+        "sku": "5551169-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 33 x largo 27 x ancho 13 cm\nPara 2 a 5 años",
+    "id": "mochila-con-ruedas-pequena-de-diver",
+    "nombre": "Mochila con ruedas pequeña de Diver",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558366"
+    },
+    "precio": 168000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ce06a8fe861fe714"
+          }
+        ],
+        "sku": "5558366-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 35 x largo 29 x largo 14 cm\nPara 4 a 5 años",
+    "id": "mochila-con-ruedas-pequena-de-mario-kart",
+    "nombre": "Mochila con ruedas pequeña de Mario kart",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66255"
+    },
+    "precio": 249000,
+    "variantes": [
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/30c0c01d47de142c"
+          }
+        ],
+        "sku": "MB66255-F"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 35 x largo 29 x ancho 14 cm\nPara 4 a 5 años",
+    "id": "mochila-con-ruedas-pequena-de-mario-kart-2",
+    "nombre": "Mochila con ruedas pequeña de Mario Kart",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66415"
+    },
+    "precio": 238000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b241eccd452c67fa"
+          }
+        ],
+        "sku": "MB66415-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 34 x largo 24 x ancho 13 cm\nPara 3 a 5 años",
+    "id": "mochila-con-ruedas-pequena-de-nubecita",
+    "nombre": "Mochila con ruedas pequeña de nubecita",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5554109"
+    },
+    "precio": 168000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dc08d7f6a82322d6"
+          }
+        ],
+        "sku": "5554109-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 33 x largo 27 x ancho 13 cm\nPara 2 a 5 años",
+    "id": "mochila-con-ruedas-pequena-de-pets-kitty",
+    "nombre": "Mochila con ruedas pequeña de Pets Kitty",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5554266"
+    },
+    "precio": 178000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/56b2f05b1684b466"
+          }
+        ],
+        "sku": "5554266-I"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 32 x largo 28 x ancho 14cm\nPara 2 a 5 años",
+    "id": "mochila-con-ruedas-pequena-de-shark",
+    "nombre": "Mochila con ruedas pequeña de Shark",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5555328"
+    },
+    "precio": 175000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6c3914abc91a424a"
+          }
+        ],
+        "sku": "5555328-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 34 x largo 24 x ancho 13 cm\nPara 0 a 5 años",
+    "id": "mochila-con-ruedas-pequena-de-sirena",
+    "nombre": "Mochila con ruedas pequeña de sirena",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5553109"
+    },
+    "precio": 166000,
+    "variantes": [
+      {
+        "color": "Verde Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b037807a7ac30a41"
+          }
+        ],
+        "sku": "5553109-5"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 34 x largo 24 x ancho 13 cm\nPara 2 a 5 años",
+    "id": "mochila-con-ruedas-pequena-de-space",
+    "nombre": "Mochila con ruedas pequeña de Space",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5555209"
+    },
+    "precio": 168000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/03f9c3925fe875f3"
+          }
+        ],
+        "sku": "5555209-1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 34 x largo 24 x ancho 13 cm\nPara 2 a 5 años",
+    "id": "mochila-con-ruedas-pequena-de-speed-runner",
+    "nombre": "Mochila con ruedas pequeña de speed runner",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5557409"
+    },
+    "precio": 152000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6241fdbf8295b8a6"
+          }
+        ],
+        "sku": "5557409-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 34 x largo 24 x ancho 13 cm",
+    "id": "mochila-con-ruedas-pequena-de-thomas-friends",
+    "nombre": "Mochila con ruedas pequeña de Thomas & Friends",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551509"
+    },
+    "precio": 172000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7509a853e8459bc1"
+          }
+        ],
+        "sku": "5551509-2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 33 x largo 23 x ancho 12 cm\nPara 2 a 5 sños",
+    "id": "mochila-con-ruedas-pequena-de-unicorn-pets",
+    "nombre": "Mochila con ruedas pequeña de Unicorn Pets",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558909"
+    },
+    "precio": 165000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ef14d525ab599455"
+          }
+        ],
+        "sku": "5558909-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 43 x largo 32 x ancho 20 cm\nCon ruedas siliconadas con luces y manija T de aluminio\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-con-ruedas-reforzada",
+    "nombre": "Mochila con ruedas reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734234"
+    },
+    "precio": 385000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/737be0e38f142864"
+          }
+        ],
+        "sku": "8734234-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 47 x largo 31 x ancho 25 cm\nImpermeable, de 4 cierres, porta notebook, manija de aluminio y ruedas reforzadas.\nDisponible solo en color negro",
+    "id": "mochila-con-ruedas-reforzada-grande",
+    "nombre": "Mochila con ruedas reforzada grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734090"
+    },
+    "precio": 465000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/34210251e95e4a63"
+          }
+        ],
+        "sku": "8734090-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 85 x largo 32 x ancho 28 cm\nNegro/gris\nRojo/gris\nAzul/gris",
+    "id": "mochila-de-camping",
+    "nombre": "Mochila de camping",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8132929"
+    },
+    "precio": 398000,
+    "variantes": [
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bc0cd4542acb3339"
+          }
+        ],
+        "sku": "8132929-R"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 45 x largo 31 x ancho 15 cm",
+    "id": "mochila-espaldera",
+    "nombre": "Mochila espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734087"
+    },
+    "precio": 138000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/57ce5e71fa66e834"
+          }
+        ],
+        "sku": "8734087-63"
+      },
+      {
+        "color": "Azul Marino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0cf1160e6983d17a"
+          }
+        ],
+        "sku": "8734087-93"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b3c55afe08a10692"
+          }
+        ],
+        "sku": "8734087-13"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/19ecabf26d7c8694"
+          }
+        ],
+        "sku": "8734087-33"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/53eb5ef71a1a7afc"
+          }
+        ],
+        "sku": "8734087-R3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5160211597102f21"
+          }
+        ],
+        "sku": "8734087-P3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 30 x ancho 13 cm",
+    "id": "mochila-espaldera-de-3-cierres",
+    "nombre": "Mochila espaldera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8132423"
+    },
+    "precio": 120000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3f5a9f0e3bfee725"
+          }
+        ],
+        "sku": "8132423-9"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d961ba704b5350ae"
+          }
+        ],
+        "sku": "8132423-3Y"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fa9b111a0f741c77"
+          }
+        ],
+        "sku": "8132423-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 33 x largo 25 x ancho 12 cm\nPara 4 a 6 años",
+    "id": "mochila-espaldera-de-barney",
+    "nombre": "Mochila espaldera de Barney",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551325"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/10f9ee040b11fa06"
+          }
+        ],
+        "sku": "5551325-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 45 x largo 31 x ancho 15 cm",
+    "id": "mochila-espaldera-doble-cierre",
+    "nombre": "Mochila espaldera doble cierre",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734084"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f1aafa12c5ecfc10"
+          }
+        ],
+        "sku": "8734084-63"
+      },
+      {
+        "color": "Azul Marino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b1b643990372714e"
+          }
+        ],
+        "sku": "8734084-93"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/334cff2f6fb91de6"
+          }
+        ],
+        "sku": "8734084-13"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a9db1188efe5ee21"
+          }
+        ],
+        "sku": "8734084-33"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/74a584ed3cdaac18"
+          }
+        ],
+        "sku": "8734084-R3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3d1f39b97ab565e6"
+          }
+        ],
+        "sku": "8734084-P3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 46 x largo 33 x ancho 17\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734318"
+    },
+    "precio": 189000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c8d7689d992b6259"
+          }
+        ],
+        "sku": "8734318-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 45 x largo 32 x ancho 17 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-2",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734320"
+    },
+    "precio": 189000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c1bd5c8ace32e1a5"
+          }
+        ],
+        "sku": "8734320-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 43 x largo 31 x ancho 15 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-3",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734996"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/77c82d93d4d8000e"
+          }
+        ],
+        "sku": "8734996-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 42 x largo 28 x ancho 15 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-barbie",
+    "nombre": "Mochila espaldera grande de Barbie",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551120"
+    },
+    "precio": 160000,
+    "variantes": [
+      {
+        "color": "Blue",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/71b640762fa04c18"
+          }
+        ],
+        "sku": "5551120-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 43 x largo 32 x lancho 17 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-barbie-2",
+    "nombre": "Mochila espaldera grande de Barbie",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551145"
+    },
+    "precio": 169000,
+    "variantes": [
+      {
+        "color": "Blue",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bc1de88a92b6b664"
+          }
+        ],
+        "sku": "5551145-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 32 x ancho 20 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-dinosaurio",
+    "nombre": "Mochila espaldera grande de dinosaurio",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558132"
+    },
+    "precio": 168000,
+    "variantes": [
+      {
+        "color": "Azul M.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3ee8cbdd31e08508"
+          }
+        ],
+        "sku": "5558132-6"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 32 x ancho 20 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-diver",
+    "nombre": "Mochila espaldera grande de Diver",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558332"
+    },
+    "precio": 165000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fa0f4c3a3249e417"
+          }
+        ],
+        "sku": "5558332-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 42 x largo 28 x ancho 17 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-hot-wheels",
+    "nombre": "Mochila espaldera grande de Hot Wheels",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551419"
+    },
+    "precio": 158000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f387eccb42b16b8a"
+          }
+        ],
+        "sku": "5551419-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 43 x largo 32 x ancho 17 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-mario",
+    "nombre": "Mochila espaldera grande de Mario",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB70430"
+    },
+    "precio": 192000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bd2d88b4e972b4a5"
+          }
+        ],
+        "sku": "MB70430-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: 43 x largo 29 x 15 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-mario-kart",
+    "nombre": "Mochila espaldera grande de Mario Kart",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66251"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/839fb93ed2748d30"
+          }
+        ],
+        "sku": "MB66251-F"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 43 x largo 31 x ancho 15 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-pets-kitty",
+    "nombre": "Mochila espaldera grande de Pets Kitty",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5554229"
+    },
+    "precio": 165000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c25e3356573b5bdf"
+          }
+        ],
+        "sku": "5554229-I"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 32 x ancho 20 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-sirena",
+    "nombre": "Mochila espaldera grande de sirena",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5553132"
+    },
+    "precio": 160000,
+    "variantes": [
+      {
+        "color": "Verde Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/49c56da7070ebe26"
+          }
+        ],
+        "sku": "5553132-5"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 32 x ancho 20 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-space",
+    "nombre": "Mochila espaldera grande de Space",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5555232"
+    },
+    "precio": 165000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2fc28eb608be2f6f"
+          }
+        ],
+        "sku": "5555232-1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 28 x ancho 18 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-speed-runner",
+    "nombre": "Mochila espaldera grande de speed runner",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5557412"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/142ad91070ce289f"
+          }
+        ],
+        "sku": "5557412-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 30 x ancho 17 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-super-mario",
+    "nombre": "Mochila espaldera grande de Super Mario",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66075"
+    },
+    "precio": 159000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/baee02be8a198fa1"
+          }
+        ],
+        "sku": "MB66075-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 43 x largo 32 x ancho 20 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-unicorn-pets",
+    "nombre": "Mochila espaldera grande de Unicorn Pets",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558932"
+    },
+    "precio": 162000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/388e1bbd45d7eab8"
+          }
+        ],
+        "sku": "5558932-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Para libros 📚 y carpetas 📂\nMedidas: alto 45 x largo 32 x ancho 15 cm",
+    "id": "mochila-espaldera-grande-impermeable",
+    "nombre": "Mochila espaldera grande impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG32227"
+    },
+    "precio": 165000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5dd9ecc041e5fc35"
+          }
+        ],
+        "sku": "CG32227-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 42 x largo 29 x ancho 13 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-impermeable",
+    "nombre": "Mochila espaldera impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8131693"
+    },
+    "precio": 148000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a90871405adfb046"
+          }
+        ],
+        "sku": "8131693-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [],
+        "sku": "8131693-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 31 x ancho 13 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-impermeable-2",
+    "nombre": "Mochila espaldera impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8181421"
+    },
+    "precio": 148000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6f8a08757a42dd71"
+          }
+        ],
+        "sku": "8181421-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 32 x largo 28 x ancho 14 cm",
+    "id": "mochila-espaldera-impermeable-mediana",
+    "nombre": "Mochila espaldera impermeable mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG30075"
+    },
+    "precio": 165000,
+    "variantes": [
+      {
+        "color": "Celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/615cc97c7d30bd10"
+          }
+        ],
+        "sku": "CG30075-9"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c17988341984787c"
+          }
+        ],
+        "sku": "CG30075-2"
+      },
+      {
+        "color": "Gris Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3819a43a0baa457f"
+          }
+        ],
+        "sku": "CG30075-A"
+      },
+      {
+        "color": "Lila Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/30f45d41a72fb7b3"
+          }
+        ],
+        "sku": "CG30075-V"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0738f85ab3cc9369"
+          }
+        ],
+        "sku": "CG30075-3"
+      },
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bad3d49ab726641f"
+          }
+        ],
+        "sku": "CG30075-F"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a076486d3cec7262"
+          }
+        ],
+        "sku": "CG30075-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 36 x largo 28 x ancho 13 cm\nPara 6 a 7 años",
+    "id": "mochila-espaldera-mediana-de-barbie",
+    "nombre": "Mochila espaldera mediana de barbie",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551134"
+    },
+    "precio": 145000,
+    "variantes": [
+      {
+        "color": "Blue",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ca5020235973a78c"
+          }
+        ],
+        "sku": "5551134-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 33 x largo 26 x ancho 13 cm\nPara 4 a 5 años",
+    "id": "mochila-espaldera-mediana-de-barbie-2",
+    "nombre": "Mochila espaldera mediana de barbie",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551151"
+    },
+    "precio": 157000,
+    "variantes": [
+      {
+        "color": "Blue",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1f13cc7466b40f61"
+          }
+        ],
+        "sku": "5551151-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 31 x largo 26 x ancho 12 cm\nPara 4 a 6 años",
+    "id": "mochila-espaldera-mediana-de-dinosaurio",
+    "nombre": "Mochila espaldera mediana de dinosaurio",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558125"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Azul M.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3af3858e97293580"
+          }
+        ],
+        "sku": "5558125-6"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 33 x largo 27 x ancho 13 cm\nPara 4 a 6 años",
+    "id": "mochila-espaldera-mediana-de-diver",
+    "nombre": "Mochila espaldera mediana de Diver",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558351"
+    },
+    "precio": 136000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5a7a54e57f3c21e7"
+          }
+        ],
+        "sku": "5558351-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 36 x largo 29 x ancho 13 cm\nPara 4 a 6 años",
+    "id": "mochila-espaldera-mediana-de-nubecita",
+    "nombre": "Mochila espaldera mediana de nubecita",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5554170"
+    },
+    "precio": 139000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1a8f701aa9a41789"
+          }
+        ],
+        "sku": "5554170-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
     "categorias": [
       "mochilas"
     ],
@@ -498,7 +4838,239 @@
     ]
   },
   {
-    "actualizado": "2026-08-12",
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 31 x largo 26 x ancho 12 cm\nPara 4 a 6 años",
+    "id": "mochila-espaldera-mediana-de-shark",
+    "nombre": "Mochila espaldera mediana de Shark",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5555325"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/00388c9a9d4a6b6f"
+          }
+        ],
+        "sku": "5555325-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 38 x largo 29 x ancho 16 cm\nPara 5 a 7 años",
+    "id": "mochila-espaldera-mediana-de-shark-2",
+    "nombre": "Mochila espaldera mediana de Shark",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5555354"
+    },
+    "precio": 148000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4b91455894193935"
+          }
+        ],
+        "sku": "5555354-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 30 x largo 26 x ancho 12 cm\nPara 4 a 6 años",
+    "id": "mochila-espaldera-mediana-de-sirena",
+    "nombre": "Mochila espaldera mediana de sirena",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5553125"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Verde Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0ebf8bd43d344be6"
+          }
+        ],
+        "sku": "5553125-5"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 36 x largo 28 x ancho 13 cm\nPara 4 a 6 años",
+    "id": "mochila-espaldera-mediana-de-space",
+    "nombre": "Mochila espaldera mediana de Space",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5555270"
+    },
+    "precio": 145000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cddeb2831dac53ca"
+          }
+        ],
+        "sku": "5555270-1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 31 x largo 26 x ancho 12 cm\nPara 4 a 6 años",
+    "id": "mochila-espaldera-mediana-de-speed-runner",
+    "nombre": "Mochila espaldera mediana de speed runner",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5557425"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/25991c5fe816b9b4"
+          }
+        ],
+        "sku": "5557425-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 38 x largo 29 x ancho 16 cm\nPara 5 a 7 años",
+    "id": "mochila-espaldera-mediana-de-speed-runner-2",
+    "nombre": "Mochila espaldera mediana de speed runner",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5557454"
+    },
+    "precio": 133000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d2df652d4e4830ad"
+          }
+        ],
+        "sku": "5557454-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 31 x largo 26 x ancho 12 cm\nPara 4 a 6 años",
+    "id": "mochila-espaldera-mediana-de-thomas-friends",
+    "nombre": "Mochila espaldera mediana de Thomas & Friends",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551525"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6bb463c9932a90e9"
+          }
+        ],
+        "sku": "5551525-2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 38 x largo 29 x ancho 16 cm",
+    "id": "mochila-espaldera-mediana-de-thomas-friends-2",
+    "nombre": "Mochila espaldera mediana de Thomas & Friends",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551554"
+    },
+    "precio": 159000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7694dc959eca4f29"
+          }
+        ],
+        "sku": "5551554-2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
     "categorias": [
       "mochilas"
     ],
@@ -523,6 +5095,1023 @@
           }
         ],
         "sku": "5558954-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 30 x largo 25 x ancho 12 cm\nPara 4 a 6 años",
+    "id": "mochila-espaldera-mediana-de-unicorn-pets-2",
+    "nombre": "Mochila espaldera mediana de Unicorn Pets",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558925"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/723243e8a85b1b7d"
+          }
+        ],
+        "sku": "5558925-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 23 x largo 17 x ancho 12 cm\nPara 0 a 4 años",
+    "id": "mochila-espaldera-pequena-de-barbie",
+    "nombre": "Mochila espaldera pequeña de barbie",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551160"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Blue",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ee27f57154bab3bb"
+          }
+        ],
+        "sku": "5551160-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 24 x largo 18 x ancho 13 cm\nPara 0 a 4 años",
+    "id": "mochila-espaldera-pequena-de-barney",
+    "nombre": "Mochila espaldera pequeña de Barney",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551360"
+    },
+    "precio": 108000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/614d7f9da7553c18"
+          }
+        ],
+        "sku": "5551360-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 24 x largo 18 x ancho 13 cm\nPara 0 a 3 años",
+    "id": "mochila-espaldera-pequena-de-dinosaurio",
+    "nombre": "Mochila espaldera pequeña de dinosaurio",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558160"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Azul M.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/206353f940cffd94"
+          }
+        ],
+        "sku": "5558160-6"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 24 x largo 18 x ancho 13 cm\nPara 0 a 3 años",
+    "id": "mochila-espaldera-pequena-de-diver",
+    "nombre": "Mochila espaldera pequeña de Diver",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558357"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/164cb395105f264f"
+          }
+        ],
+        "sku": "5558357-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto.24 x largo 18 x ancho 13 cm\nPara 0 a 4años",
+    "id": "mochila-espaldera-pequena-de-nubecita",
+    "nombre": "Mochila espaldera pequeña de nubecita",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5554157"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2ee3c41e9377ffb1"
+          }
+        ],
+        "sku": "5554157-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 24 x largo 18 x ancho 12 cm\nPara 0 a 3 años",
+    "id": "mochila-espaldera-pequena-de-pets-kitty",
+    "nombre": "Mochila espaldera pequeña de Pets Kitty",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5554226"
+    },
+    "precio": 126000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d8990021b3e5e893"
+          }
+        ],
+        "sku": "5554226-I"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 24 x largo 18 x ancho 12 cm\nPara 0 a 3 años",
+    "id": "mochila-espaldera-pequena-de-shark",
+    "nombre": "Mochila espaldera pequeña de Shark",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5555357"
+    },
+    "precio": 108000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b799e6649e03ad4d"
+          }
+        ],
+        "sku": "5555357-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 24 x largo 18 x ancho 12 cm\nPara 0 a 4 años",
+    "id": "mochila-espaldera-pequena-de-sirena",
+    "nombre": "Mochila espaldera pequeña de sirena",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5553157"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Verde Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/df709bdf487a4cf3"
+          }
+        ],
+        "sku": "5553157-5"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 24 x largo 18 x ancho 12 cm\nPara 0 a años",
+    "id": "mochila-espaldera-pequena-de-space",
+    "nombre": "Mochila espaldera pequeña de Space",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5555260"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0daeaae5115b427c"
+          }
+        ],
+        "sku": "5555260-1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 23 x largo 17 x ancho 12 cm\nPara 0 a 3 años",
+    "id": "mochila-espaldera-pequena-de-unicorn-pets",
+    "nombre": "Mochila espaldera pequeña de Unicorn Pets",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558957"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c7f9bd5b360e86ee"
+          }
+        ],
+        "sku": "5558957-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 46 x largo 30 x ancho 15 cm",
+    "id": "mochila-espaldera-unisex",
+    "nombre": "Mochila espaldera unisex",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8731481"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "(51-P) Verd Cl/gr",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/16f45ef95bf7dd8a"
+          }
+        ],
+        "sku": "8731481-51-p-verd-cl-gr"
+      },
+      {
+        "color": "(91-P) Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/87a146fef8560a48"
+          }
+        ],
+        "sku": "8731481-91-p-azul-gris"
+      },
+      {
+        "color": "(p1-P) Rosa/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/996b01461d81fd2a"
+          }
+        ],
+        "sku": "8731481-p1-p-rosa-gris"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/22ee9413c29fd9cb"
+          }
+        ],
+        "sku": "8731481-3"
+      },
+      {
+        "color": "Negro/gris O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a752bc6eb22a4db9"
+          }
+        ],
+        "sku": "8731481-31"
+      },
+      {
+        "color": "Rojo/gris Os",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6fe7dad5a0191274"
+          }
+        ],
+        "sku": "8731481-R1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 47 x largo 30 x ancho 20 cm",
+    "id": "mochila-espaldera-unisex-2",
+    "nombre": "Mochila espaldera unisex",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8731688"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/984ebe7f7ced4aaa"
+          }
+        ],
+        "sku": "8731688-3"
+      },
+      {
+        "color": "Negro/azul O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/18917750ddd0d4c4"
+          }
+        ],
+        "sku": "8731688-36"
+      },
+      {
+        "color": "Negro/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8155b269bf806dfe"
+          }
+        ],
+        "sku": "8731688-31"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 45 x largo 32 x ancho 16 cm\nNegro\nAzul/negro",
+    "id": "mochila-espaldera-unisex-3",
+    "nombre": "Mochila espaldera unisex",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8731689"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/afbbd96a969ed5d8"
+          }
+        ],
+        "sku": "8731689-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 31 x ancho 15 cm",
+    "id": "mochila-espaldera-unisex-4",
+    "nombre": "Mochila espaldera unisex",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8782031"
+    },
+    "precio": 139000,
+    "variantes": [
+      {
+        "color": "(2-23) Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/84096282b147508b"
+          }
+        ],
+        "sku": "8782031-2-23-gris"
+      },
+      {
+        "color": "(3-23) Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/542cfb479c4c5dc1"
+          }
+        ],
+        "sku": "8782031-3-23-negro"
+      },
+      {
+        "color": "(6-23) Azul Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/30d03c3b4b27682b"
+          }
+        ],
+        "sku": "8782031-6-23-azul-claro"
+      },
+      {
+        "color": "(9-23) Azul Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/497e3ba979cc9656"
+          }
+        ],
+        "sku": "8782031-9-23-azul-osc"
+      },
+      {
+        "color": "(p-23) Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3a7c89c5217e0039"
+          }
+        ],
+        "sku": "8782031-p-23-rosado"
+      },
+      {
+        "color": "(r-23) Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/010637a56665240b"
+          }
+        ],
+        "sku": "8782031-r-23-rojo"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 43 x largo 31 x ancho 15 cm",
+    "id": "mochila-espaldera-unisex-de-3-cierres",
+    "nombre": "Mochila espaldera unisex de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8131420"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Azul Os/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0c7659e4d07f7149"
+          }
+        ],
+        "sku": "8131420-61"
+      },
+      {
+        "color": "Marron/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a1a5badcc924e54d"
+          }
+        ],
+        "sku": "8131420-C1"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f5e5d5e927142753"
+          }
+        ],
+        "sku": "8131420-3"
+      },
+      {
+        "color": "Negro/gris O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1eac02a5d7ae5f1c"
+          }
+        ],
+        "sku": "8131420-31"
+      },
+      {
+        "color": "Rosa Os/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0c16659bc0c608e7"
+          }
+        ],
+        "sku": "8131420-F1"
+      },
+      {
+        "color": "Verd/gris O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f8cb2e1a82b3c7b3"
+          }
+        ],
+        "sku": "8131420-A1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 32 x ancho 18 cm",
+    "id": "mochila-espaldera-unisex-doble-cierre",
+    "nombre": "Mochila espaldera unisex doble cierre",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8730882"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "(93-P) Azul/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/75a14273a5ce344b"
+          }
+        ],
+        "sku": "8730882-93-p-azul-negro"
+      },
+      {
+        "color": "(a3-P) Verde/negr",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/896f9688ea88c97f"
+          }
+        ],
+        "sku": "8730882-a3-p-verde-negr"
+      },
+      {
+        "color": "(c3-P) Marron/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/297cc147ff5b4722"
+          }
+        ],
+        "sku": "8730882-c3-p-marron-neg"
+      },
+      {
+        "color": "(d3-P) Marron O/n",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b14768066b167150"
+          }
+        ],
+        "sku": "8730882-d3-p-marron-o-n"
+      },
+      {
+        "color": "(m3-P) Vino/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/81a7aa73920e42eb"
+          }
+        ],
+        "sku": "8730882-m3-p-vino-negro"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0997f9adc7e9db6d"
+          }
+        ],
+        "sku": "8730882-33"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-grande-con-ruedas-de-dinosaurio",
+    "nombre": "Mochila grande con ruedas de dinosaurio",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558174"
+    },
+    "precio": 225000,
+    "variantes": [
+      {
+        "color": "Azul M.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/24d541518e4b028e"
+          }
+        ],
+        "sku": "5558174-6"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-grande-con-ruedas-de-hot-wheels",
+    "nombre": "Mochila grande con ruedas de Hot Wheels",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551474"
+    },
+    "precio": 215000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bfa8e1fd2598f1a7"
+          }
+        ],
+        "sku": "5551474-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-grande-con-ruedas-de-sirena",
+    "nombre": "Mochila grande con ruedas de sirena",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5553174"
+    },
+    "precio": 210000,
+    "variantes": [
+      {
+        "color": "Verde Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3aa53561eb2183c6"
+          }
+        ],
+        "sku": "5553174-5"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-grande-con-ruedas-de-speed-runner",
+    "nombre": "Mochila grande con ruedas de speed runner",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5557474"
+    },
+    "precio": 195000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7f7fe48ae23baa4e"
+          }
+        ],
+        "sku": "5557474-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 43 x largo 31 x ancho 15 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-grande-de-monster-espaldera",
+    "nombre": "Mochila grande de monster espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551229"
+    },
+    "precio": 168000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/23903f08ad7e94e3"
+          }
+        ],
+        "sku": "5551229-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 60 x largo 33 x ancho 17 cm",
+    "id": "mochila-impermeable-grande",
+    "nombre": "Mochila impermeable grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8534686"
+    },
+    "precio": 179000,
+    "variantes": [
+      {
+        "color": "Amarillo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d2fe30b41e525f10"
+          }
+        ],
+        "sku": "8534686-L"
+      },
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/67afcb68d05694b4"
+          }
+        ],
+        "sku": "8534686-9"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/017c119d7ee39a9e"
+          }
+        ],
+        "sku": "8534686-2"
+      },
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d3200a26254db804"
+          }
+        ],
+        "sku": "8534686-V"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/89276a45e3aa7d52"
+          }
+        ],
+        "sku": "8534686-3"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/33572e9bcb04aeb0"
+          }
+        ],
+        "sku": "8534686-A"
       }
     ]
   },
@@ -575,7 +6164,533 @@
     ]
   },
   {
-    "actualizado": "2026-08-12",
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 32 x largo 30 x ancho 9 cm\nColor disponible:",
+    "id": "mochila-mediana",
+    "nombre": "Mochila mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85353"
+    },
+    "precio": 229000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/07cab5c4332ecaf9"
+          }
+        ],
+        "sku": "CG85353-E"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cc4393b13e7ac36c"
+          }
+        ],
+        "sku": "CG85353-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 40 x largo 29 x ancho 15 cm\nPara 5 a 6 años",
+    "id": "mochila-mediana-con-ruedas",
+    "nombre": "Mochila mediana con ruedas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551379"
+    },
+    "precio": 176000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a43b1841d5bfe7cc"
+          }
+        ],
+        "sku": "5551379-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 33 x largo 27 x ancho 14 cm\nPara 5 a 6 años",
+    "id": "mochila-mediana-con-ruedas-de-monster",
+    "nombre": "Mochila mediana con ruedas de monster",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551266"
+    },
+    "precio": 196000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a0798150de24da53"
+          }
+        ],
+        "sku": "5551266-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 36 x largo 28 x ancho 13 cm\nPara 6 a 8 años",
+    "id": "mochila-mediana-de-monster-espaldera",
+    "nombre": "Mochila mediana de monster espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551234"
+    },
+    "precio": 138000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5a6e2dbc339b9b67"
+          }
+        ],
+        "sku": "5551234-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 33 x largo 27 x ancho 13 cm\nPara 5 a 6 años",
+    "id": "mochila-mediana-espaldera-de-hot-wheels",
+    "nombre": "Mochila mediana espaldera de Hot Wheels",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551451"
+    },
+    "precio": 145000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2f3c3e11035a294e"
+          }
+        ],
+        "sku": "5551451-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 32 x largo 28 x ancho 13 cm\nPara 3 a 5 años",
+    "id": "mochila-pequena-con-ruedas",
+    "nombre": "Mochila pequeña con ruedas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551428"
+    },
+    "precio": 178000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/030ca65a66cd07ba"
+          }
+        ],
+        "sku": "5551428-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Para 4 a 5 años\nMedidas: alto 35 x largo 29 x ancho 14 cm",
+    "id": "mochila-pequena-con-ruedas-2",
+    "nombre": "Mochila pequeña con ruedas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB65970"
+    },
+    "precio": 252000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ed54b9cb0964e515"
+          }
+        ],
+        "sku": "MB65970-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: 34 x largo 24 x ancho 13 cm\nPara 2 a 5 años",
+    "id": "mochila-pequena-con-ruedas-de-dinosaurio",
+    "nombre": "Mochila pequeña con ruedas de dinosaurio",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558109"
+    },
+    "precio": 166000,
+    "variantes": [
+      {
+        "color": "Azul M.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d75e2574f4644747"
+          }
+        ],
+        "sku": "5558109-6"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 30 x largo 25 x ancho 12 cm\nNegro\nGris\nRosa seca\nVerde\nAzul marino",
+    "id": "mochila-pequena-de-tela-impermeable",
+    "nombre": "Mochila pequeña de tela impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85228"
+    },
+    "precio": 169000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5fa6345a22065a5c"
+          }
+        ],
+        "sku": "CG85228-9"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/113ec600dee3a5b3"
+          }
+        ],
+        "sku": "CG85228-2"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8c1b7dd2210cd77b"
+          }
+        ],
+        "sku": "CG85228-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 31 x largo 25 x ancho 16 cm\nPara 4 a 5 años",
+    "id": "mochila-pequena-espaldera-de-barbie",
+    "nombre": "Mochila pequeña espaldera de barbie",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551136"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Blue",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fe64daf2522a1780"
+          }
+        ],
+        "sku": "5551136-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 24 x largo 18 x ancho 13 cm\nDe 0 a 4 años",
+    "id": "mochila-pequena-espaldera-de-monster",
+    "nombre": "Mochila pequeña espaldera de monster",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551260"
+    },
+    "precio": 108000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ca219f7637886f1e"
+          }
+        ],
+        "sku": "5551260-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 45 x largo 32 x ancho16 cm",
+    "id": "mochila-porta-notebook-doble-cierre",
+    "nombre": "Mochila porta notebook doble cierre",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734044"
+    },
+    "precio": 138000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3331a2713719b194"
+          }
+        ],
+        "sku": "8734044-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 43 x largo 30 x ancho 10 cm",
+    "id": "mochila-porta-notebook-doble-cierre-2",
+    "nombre": "Mochila porta notebook doble cierre",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734089"
+    },
+    "precio": 158000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/03cbf8b2e0cf2b50"
+          }
+        ],
+        "sku": "8734089-63"
+      },
+      {
+        "color": "Azul Marino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bda5878d30370451"
+          }
+        ],
+        "sku": "8734089-93"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a6c4fcefac137ed5"
+          }
+        ],
+        "sku": "8734089-33"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/da7b61d84e53f932"
+          }
+        ],
+        "sku": "8734089-R3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c4c7fb9f65de2a7e"
+          }
+        ],
+        "sku": "8734089-P3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 47 x largo 32 x ancho 17 cm\nNegro\nNegro/gris",
+    "id": "mochila-porta-notebook-tapa-dura",
+    "nombre": "Mochila porta notebook tapa dura",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8134029"
+    },
+    "precio": 225000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4c90d0917c7ffa5d"
+          }
+        ],
+        "sku": "8134029-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 43 x largo 32 x ancho 20 cm\nCon ruedas siliconadas con luces y manija T de aluminio\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-reforzada-con-ruedas",
+    "nombre": "Mochila reforzada con ruedas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734243"
+    },
+    "precio": 385000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7d9085bba9803469"
+          }
+        ],
+        "sku": "8734243-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
     "categorias": [
       "mochilas"
     ],
@@ -669,7 +6784,94 @@
     ]
   },
   {
-    "actualizado": "2026-08-12",
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "De tela impermeable con manija T de aluminio y ruedas siliconadas con luces\nMedidas: alto 43 x largo 35 x ancho 20 cm",
+    "id": "mochila-reforzada-con-ruedas-grande-2",
+    "nombre": "Mochila reforzada con ruedas grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8134338"
+    },
+    "precio": 385000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5ebdcae86559093d"
+          }
+        ],
+        "sku": "8134338-2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 43 x largo 30 x ancho 20 cm\nPara libros 📚 y carpetas 📂",
+    "id": "mochila-reforzada-con-ruedas-grande-de-mario",
+    "nombre": "Mochila reforzada con ruedas grande de Mario",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB70433"
+    },
+    "precio": 398000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/863fc581b6ce2755"
+          }
+        ],
+        "sku": "MB70433-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 43 x largo 32 x ancho 20 cm\nPara libros 📚 y carpetas 📂\nCon ruedas siliconadas con luces y manija T de aluminio",
+    "id": "mochila-reforzada-grande-con-ruedas-de-barbie",
+    "nombre": "Mochila reforzada grande con ruedas de barbie",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551167"
+    },
+    "precio": 395000,
+    "variantes": [
+      {
+        "color": "Blue",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9ad17b4ca53c13df"
+          }
+        ],
+        "sku": "5551167-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
     "categorias": [
       "mochilas"
     ],
@@ -695,6 +6897,367 @@
           }
         ],
         "sku": "5551267-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 33 x ancho 13 cm\nPara libros 📚 y carpetas 📂\nCon ruedas siliconadas con luces y manija T de aluminio",
+    "id": "mochila-reforzada-grande-con-ruedas-de-space",
+    "nombre": "Mochila reforzada grande con ruedas de Space",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5555267"
+    },
+    "precio": 385000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/34fa3a7c51128a8b"
+          }
+        ],
+        "sku": "5555267-1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 45 x largo 32 x ancho 20 cm\nPara libros 📚 y carpetas 📂\nCon ruedas siliconadas con luces y manija T de aluminio",
+    "id": "mochila-reforzada-grande-con-ruedas-de-unicorn-pets",
+    "nombre": "Mochila reforzada grande con ruedas de Unicorn Pets",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558967"
+    },
+    "precio": 385000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7274f7c8b845b2eb"
+          }
+        ],
+        "sku": "5558967-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 48 x largo 32 x ancho 15 cm\nColor disponible: negro",
+    "id": "mochila-reforzada-porta-notebook-g",
+    "nombre": "Mochila reforzada porta notebook G.",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8132243"
+    },
+    "precio": 219000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/88abe4ea24ae1175"
+          }
+        ],
+        "sku": "8132243-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/67081df56976256e"
+          }
+        ],
+        "sku": "8132243-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 22 x largo 22 x ancho 13 cm",
+    "id": "mochila-termica-de-barbie-espaldera",
+    "nombre": "Mochila térmica de barbie espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551106"
+    },
+    "precio": 122000,
+    "variantes": [
+      {
+        "color": "Blue",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3df911ab7b37cd8e"
+          }
+        ],
+        "sku": "5551106-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 22 x largo 23 x ancho 24 cm",
+    "id": "mochila-termica-de-de-thomas-friends",
+    "nombre": "Mochila térmica de de Thomas & Friends",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551506"
+    },
+    "precio": 120000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a7e6596defcfd90d"
+          }
+        ],
+        "sku": "5551506-2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 22 x largo 22 x ancho 14 cm\nCon espaldera",
+    "id": "mochila-termica-de-dinosaurio",
+    "nombre": "Mochila térmica de dinosaurio",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558106"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Azul M.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/deb2f0d26e6ebfa1"
+          }
+        ],
+        "sku": "5558106-6"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 22 x largo 23 x ancho 14 cm",
+    "id": "mochila-termica-de-diver",
+    "nombre": "Mochila térmica de Diver",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558306"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/399e52a4f4518b2e"
+          }
+        ],
+        "sku": "5558306-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 22 x largo 23 x ancho 14 cm\nCon espalderas",
+    "id": "mochila-termica-de-monster-nena",
+    "nombre": "Mochila térmica de Monster nena",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5551206"
+    },
+    "precio": 123000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b3191d7182bda4e0"
+          }
+        ],
+        "sku": "5551206-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 22 x largo 23 x ancho 15 cm\nCon espalderas",
+    "id": "mochila-termica-de-sirena",
+    "nombre": "Mochila térmica de sirena",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5553106"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Verde Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e1d8cdc4f648e984"
+          }
+        ],
+        "sku": "5553106-5"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 22 x largo 23 x ancho 14 cm\nCon espalderas",
+    "id": "mochila-termica-de-speed-runner",
+    "nombre": "Mochila térmica de speed runner",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5557406"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e3881116e3586b8c"
+          }
+        ],
+        "sku": "5557406-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 22 x largo 22 x ancho 13 cm",
+    "id": "mochila-termica-de-unicorn-pets",
+    "nombre": "Mochila térmica de Unicorn Pets",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5558906"
+    },
+    "precio": 118000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5afd6ce224de0415"
+          }
+        ],
+        "sku": "5558906-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas: alto 22 x largo 22 x ancho 14 cm",
+    "id": "mochila-termica-nubecita",
+    "nombre": "Mochila térmica nubecita",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5554106"
+    },
+    "precio": 118000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/31f33751c4baebc2"
+          }
+        ],
+        "sku": "5554106-P"
       }
     ]
   },
@@ -740,7 +7303,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-12",
+    "actualizado": "2026-08-13",
     "categorias": [
       "mochilas"
     ],
@@ -765,6 +7328,393 @@
           }
         ],
         "sku": "5551343-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "necessaires"
+    ],
+    "descripcion": "Mediano\nColor disponible: negro",
+    "id": "neceser-de-tela-unisex",
+    "nombre": "Neceser de tela unisex",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1720750"
+    },
+    "precio": 85000,
+    "variantes": [
+      {
+        "color": "(13-P) Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/71dc115f20c5acb9"
+          }
+        ],
+        "sku": "1720750-13-p-gris"
+      },
+      {
+        "color": "(g3-P) Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1dcfd55f37735c27"
+          }
+        ],
+        "sku": "1720750-g3-p-verde"
+      },
+      {
+        "color": "(r3-P) Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/40476af21f4bf6b0"
+          }
+        ],
+        "sku": "1720750-r3-p-rojo"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/122f2a028a8fa1b4"
+          }
+        ],
+        "sku": "1720750-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "necessaires"
+    ],
+    "descripcion": "De cuero ecológico\nMedidas: alto 13 x largo 22 x ancho 10 cm",
+    "id": "neceser-doble-cierre-mediano",
+    "nombre": "Neceser doble cierre mediano",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1584019"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Lila Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4facfe42ee81a251"
+          }
+        ],
+        "sku": "1584019-V"
+      },
+      {
+        "color": "Naranjado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/91d90e352eb0a3db"
+          }
+        ],
+        "sku": "1584019-O"
+      },
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dd41034d74bdac32"
+          }
+        ],
+        "sku": "1584019-M"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/41968ab97d7d462c"
+          }
+        ],
+        "sku": "1584019-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "necessaires"
+    ],
+    "descripcion": "De cuero ecológico de dos cierres.\nMedidas: alto 14 x largo 24 x ancho 10 cm",
+    "id": "neceser-mediano-unisex",
+    "nombre": "Neceser mediano unisex",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1582357"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/051851cf6a52627e"
+          }
+        ],
+        "sku": "1582357-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "necessaires"
+    ],
+    "descripcion": "De cuero ecológico\nMedidas: alto 14 x largo 25 x ancho 13 cm",
+    "id": "neceser-para-dama-mediana",
+    "nombre": "Neceser para dama mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1584017"
+    },
+    "precio": 120000,
+    "variantes": [
+      {
+        "color": "Lila Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/988730aef3e04350"
+          }
+        ],
+        "sku": "1584017-V"
+      },
+      {
+        "color": "Naranjado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/31db637bfe0d2772"
+          }
+        ],
+        "sku": "1584017-O"
+      },
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2c93780569c3361f"
+          }
+        ],
+        "sku": "1584017-M"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0d24d820a19adf8f"
+          }
+        ],
+        "sku": "1584017-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Color disponible: negro/gris\nMedidas: alto 30 x largo 48 x ancho 26 cm",
+    "id": "porta-mascotas",
+    "nombre": "Porta mascotas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734095"
+    },
+    "precio": 168000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/06694eb17fd7fd2f"
+          }
+        ],
+        "sku": "4734095-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Disponible en color negro\nMedidas: alto 105 x largo 58 cm",
+    "id": "portatrajes-impermeable",
+    "nombre": "Portatrajes impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4790187"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/96dfa8574d4e93b4"
+          }
+        ],
+        "sku": "4790187-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "rinoneras"
+    ],
+    "id": "rinonera-doble-cierre-unisex",
+    "nombre": "Riñonera doble cierre unisex",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734033"
+    },
+    "precio": 79000,
+    "variantes": [
+      {
+        "color": "Azul/gris O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f6d26cabb82979c7"
+          }
+        ],
+        "sku": "1734033-91"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b880021d82ab084c"
+          }
+        ],
+        "sku": "1734033-3"
+      },
+      {
+        "color": "Negro/gris O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fc06b14bd485ede2"
+          }
+        ],
+        "sku": "1734033-31"
+      },
+      {
+        "color": "Rojo/gris O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a641649b2b46fd33"
+          }
+        ],
+        "sku": "1734033-R1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-13",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas: alto 16 x largo 37 x ancho 9 cm\nColor disponible: negro",
+    "id": "rinonera-impermeable-de-3-cierres-unisex",
+    "nombre": "Riñonera impermeable de 3 cierres unisex",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1134098"
+    },
+    "precio": 89000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5e831cdf55079bd2"
+          }
+        ],
+        "sku": "1134098-3"
       }
     ]
   },
