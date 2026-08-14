@@ -98,7 +98,15 @@ export interface FilaGrilla {
   id: number;
   codigo: string;
   nombre: string | null;
+  descripcion: string | null;
   precio: number | null;
+  /**
+   * Si va en la portada (§4.3). BOOLEANO, aunque la columna sea INTEGER.
+   *
+   * La conversión se hace acá y no en la plantilla porque en JSX `checked={0}` es un
+   * valor presente: un 0 crudo saldría tildado en las 50 filas.
+   */
+  destacado: boolean;
   estado: string;
   slug: string | null;
   categoria_origen: string | null;
@@ -111,9 +119,31 @@ export interface FilaGrilla {
   categorias: string[];
 }
 
+/**
+ * Valor del filtro de categoría para «los que no tienen ninguna».
+ *
+ * Es la cola de curaduría más grande que hay: un producto recién scrapeado nace sin
+ * categoría, y sin categoría no se puede aprobar (§5.2). Sin este valor habría que
+ * recorrer la lista entera a ojo para encontrarlos.
+ *
+ * No colisiona con un slug real porque `categorias.json` no tiene ninguno así, y si
+ * algún día lo tuviera el filtro dejaría de encontrarlo — por eso el nombre lleva el
+ * guión que ningún nombre de categoría de negocio usaría.
+ */
+export const SIN_CATEGORIA = 'sin-categoria';
+
 export interface Filtros {
   estado?: ValorFiltro;
   busqueda?: string;
+  /**
+   * Slug de categoría, `SIN_CATEGORIA`, o vacío para no filtrar.
+   *
+   * Un slug filtra por «tiene esta categoría en CUALQUIER posición», no sólo la
+   * principal: las transversales —escolar, dama, fiesta— son secundarias en casi todos
+   * los productos que las llevan, así que mirar sólo `categorias[0]` no encontraría
+   * justamente lo que se está buscando.
+   */
+  categoria?: string;
   limite?: number;
   desplazamiento?: number;
 }
@@ -181,6 +211,39 @@ function condicionBusqueda(busqueda?: string): { sql: string; params: unknown[] 
 }
 
 /**
+ * Condicion de categoria.
+ *
+ * Se resuelve con EXISTS y no con un JOIN, y es la decision que importa acá:
+ *
+ *  1. Un JOIN a `producto_categorias` duplica la fila del producto una vez por
+ *     categoría que matchee, y habría que arreglarlo con DISTINCT o GROUP BY.
+ *  2. Y sobre todo: el JOIN acotaría también las categorías que se traen. La segunda
+ *     consulta de `listarProductos` las lee aparte, así que la columna de la grilla
+ *     seguiría mostrando todas — pero el día que alguien las una en una sola consulta,
+ *     un producto filtrado por «escolar» mostraría sólo «escolar» y guardar le pisaría
+ *     el resto de la curaduría.
+ *
+ * EXISTS pregunta y no trae: acota las filas sin tocar lo que cada fila contiene.
+ */
+function condicionCategoria(categoria?: string): { sql: string; params: unknown[] } {
+  const valor = (categoria ?? '').trim();
+  if (valor === '') return { sql: '1 = 1', params: [] };
+
+  if (valor === SIN_CATEGORIA) {
+    return {
+      sql: `NOT EXISTS (SELECT 1 FROM producto_categorias pc WHERE pc.producto_id = p.id)`,
+      params: [],
+    };
+  }
+
+  return {
+    sql: `EXISTS (SELECT 1 FROM producto_categorias pc
+                   WHERE pc.producto_id = p.id AND pc.categoria_slug = ?)`,
+    params: [valor],
+  };
+}
+
+/**
  * Filas de la grilla.
  *
  * Las categorias se traen en una SEGUNDA consulta y se unen en JS, no con
@@ -190,14 +253,19 @@ function condicionBusqueda(busqueda?: string): { sql: string; params: unknown[] 
  */
 export async function listarProductos(
   ejecutar: Ejecutar,
-  { estado = FILTRO_POR_DEFECTO, busqueda, limite = 50, desplazamiento = 0 }: Filtros = {}
+  { estado = FILTRO_POR_DEFECTO, busqueda, categoria, limite = 50, desplazamiento = 0 }: Filtros = {}
 ): Promise<FilaGrilla[]> {
   const e = condicionEstado(estado);
   const b = condicionBusqueda(busqueda);
+  const c = condicionCategoria(categoria);
 
-  const filas = await ejecutar<Omit<FilaGrilla, 'categorias'>>(
-    `SELECT p.id, p.codigo, p.nombre, p.precio, p.estado, p.slug, p.categoria_origen,
-            p.ausente_desde,
+  // `destacado` llega como el 0/1 de la columna y se normaliza al final, junto con las
+  // categorias: por eso el tipo de la consulta no es el de la fila.
+  const filas = await ejecutar<
+    Omit<FilaGrilla, 'categorias' | 'destacado'> & { destacado: number }
+  >(
+    `SELECT p.id, p.codigo, p.nombre, p.descripcion, p.precio, p.destacado,
+            p.estado, p.slug, p.categoria_origen, p.ausente_desde,
             (SELECT COUNT(*) FROM variantes v WHERE v.producto_id = p.id) AS variantes,
             (SELECT COUNT(DISTINCT vi.imagen_id)
                FROM variantes v
@@ -214,11 +282,11 @@ export async function listarProductos(
               ORDER BY v.orden, v.color, v.sku, vi.orden, i.hash16
               LIMIT 1) AS miniatura
        FROM productos p
-      WHERE ${e.sql} AND ${b.sql}
+      WHERE ${e.sql} AND ${b.sql} AND ${c.sql}
       -- Por codigo: estable entre corridas y es el dato que se tiene a mano.
       ORDER BY p.codigo
       LIMIT ? OFFSET ?`,
-    [...e.params, ...b.params, limite, desplazamiento]
+    [...e.params, ...b.params, ...c.params, limite, desplazamiento]
   );
 
   if (filas.length === 0) return [];
@@ -239,7 +307,11 @@ export async function listarProductos(
     porProducto.set(c.producto_id, lista);
   }
 
-  return filas.map((f) => ({ ...f, categorias: porProducto.get(f.id) ?? [] }));
+  return filas.map((f) => ({
+    ...f,
+    destacado: f.destacado === 1,
+    categorias: porProducto.get(f.id) ?? [],
+  }));
 }
 
 /** Los cuatro estados del esquema (§5.2), para que un conteo en 0 exista igual. */
@@ -264,15 +336,23 @@ export type ConteoPorEstado = Record<(typeof ESTADOS)[number], number> & {
  */
 export async function contarPorEstado(
   ejecutar: Ejecutar,
-  busqueda?: string
+  /**
+   * Los MISMOS acotes que la lista, y no sólo la búsqueda.
+   *
+   * Estos números van en el desplegable de estado. Si la lista se acota por categoría y
+   * el conteo no, el desplegable ofrece «En el catálogo (4)» y al elegirlo aparece uno:
+   * el contador y la lista dirían cosas distintas sobre la misma pantalla.
+   */
+  { busqueda, categoria }: Pick<Filtros, 'busqueda' | 'categoria'> = {}
 ): Promise<ConteoPorEstado> {
   const b = condicionBusqueda(busqueda);
+  const c = condicionCategoria(categoria);
   const filas = await ejecutar<{ estado: string; cantidad: number }>(
     `SELECT p.estado, COUNT(*) AS cantidad
        FROM productos p
-      WHERE ${b.sql}
+      WHERE ${b.sql} AND ${c.sql}
       GROUP BY p.estado`,
-    b.params
+    [...b.params, ...c.params]
   );
 
   /**
@@ -283,8 +363,8 @@ export async function contarPorEstado(
   const [baja] = await ejecutar<{ cantidad: number }>(
     `SELECT COUNT(*) AS cantidad
        FROM productos p
-      WHERE ${b.sql} AND ${SQL_DADOS_DE_BAJA}`,
-    b.params
+      WHERE ${b.sql} AND ${c.sql} AND ${SQL_DADOS_DE_BAJA}`,
+    [...b.params, ...c.params]
   );
 
   const conteo = {

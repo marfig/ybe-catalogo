@@ -51,7 +51,18 @@ const { identidad } = Astro.locals;
       <div class="contenedor">
         <div>
           {volver ? <a class="volver" href={volver}>← Inicio</a> : null}
-          <h1>{titulo}</h1>
+          {/**
+           * El titulo y lo que la pantalla quiera poner a su lado.
+           *
+           * El slot vive ACA, pegado al `<h1>`, y no como una franja aparte: lo que va
+           * en el es ayuda SOBRE esta pantalla, y en un encabezado propio se leeria
+           * como una accion de la aplicacion. Las pantallas que no lo usan no rinden
+           * nada — un slot vacio no ocupa lugar.
+           */}
+          <div class="titulo-fila">
+            <h1>{titulo}</h1>
+            <slot name="junto-al-titulo" />
+          </div>
         </div>
         <p class="sesion">Sesión de <strong>{identidad.email}</strong></p>
       </div>

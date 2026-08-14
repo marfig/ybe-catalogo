@@ -65,9 +65,11 @@ let n = 0;
 interface Alta {
   codigo?: string;
   nombre?: string | null;
+  descripcion?: string | null;
   estado?: string;
   slug?: string | null;
   precio?: number | null;
+  destacado?: boolean;
   categorias?: string[];
   /** Una entrada por variante: cuantas imagenes tiene. */
   variantes?: number[];
@@ -85,14 +87,16 @@ function alta(db: DatabaseSync, a: Alta = {}) {
   const productoId = idDe(
     db
       .prepare(
-        `INSERT INTO productos (codigo, proveedor, slug, nombre, precio, estado, categoria_origen, ausente_desde, creado_en, actualizado_en)
-         VALUES (?, 'chenson', ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id`
+        `INSERT INTO productos (codigo, proveedor, slug, nombre, descripcion, precio, destacado, estado, categoria_origen, ausente_desde, creado_en, actualizado_en)
+         VALUES (?, 'chenson', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id`
       )
       .get(
         codigo,
         slug,
         a.nombre !== undefined ? a.nombre : `Producto ${n}`,
+        a.descripcion !== undefined ? a.descripcion : null,
         a.precio !== undefined ? a.precio : 100000,
+        a.destacado ? 1 : 0,
         estado,
         'CARTERA | DE FIESTA',
         a.ausenteDesde ?? null,
@@ -213,6 +217,34 @@ test('la fila trae desde cuándo está dado de baja', async () => {
   const filas = await listarProductos(ejecutor(db), { estado: 'todos' });
   assert.equal(filas.find((f) => f.codigo === 'CG905')?.ausente_desde, AHORA);
   assert.equal(filas.find((f) => f.codigo === 'CG906')?.ausente_desde, null);
+});
+
+// --------------------------------------------------------------------------
+// Descripcion y destacado: se editan EN la grilla, asi que tienen que venir en la fila
+// --------------------------------------------------------------------------
+
+test('la fila trae la descripcion, que se edita en la grilla', async () => {
+  // Sin este campo el textarea se rinde siempre vacio, y guardar borraria en silencio
+  // la descripcion de todos los productos de la pagina.
+  const db = base();
+  alta(db, { codigo: 'CG907', descripcion: 'Cartera rigida con strass.' });
+  alta(db, { codigo: 'CG908', descripcion: null });
+
+  const filas = await listarProductos(ejecutor(db), { estado: 'todos' });
+  assert.equal(filas.find((f) => f.codigo === 'CG907')?.descripcion, 'Cartera rigida con strass.');
+  assert.equal(filas.find((f) => f.codigo === 'CG908')?.descripcion, null);
+});
+
+test('la fila trae destacado como BOOLEANO, no como el 0/1 de la columna', async () => {
+  // La columna es INTEGER. Que el 0/1 llegue crudo a la plantilla hace que `checked`
+  // reciba un 0, que en JSX es un valor presente: todas las casillas saldrian tildadas.
+  const db = base();
+  alta(db, { codigo: 'CG909', destacado: true });
+  alta(db, { codigo: 'CG910', destacado: false });
+
+  const filas = await listarProductos(ejecutor(db), { estado: 'todos' });
+  assert.equal(filas.find((f) => f.codigo === 'CG909')?.destacado, true);
+  assert.equal(filas.find((f) => f.codigo === 'CG910')?.destacado, false);
 });
 
 test('el conteo de bajas no se suma al de estados', async () => {
@@ -396,10 +428,106 @@ test('contarPorEstado cuenta TODOS los estados, incluido eliminado', async () =>
   assert.equal(conteo.aprobado, 0, 'un estado sin filas cuenta 0, no falta');
 });
 
+// --------------------------------------------------------------------------
+// Filtro por categoria
+// --------------------------------------------------------------------------
+
+test('filtra por categoria en CUALQUIER posicion, no solo la principal', async () => {
+  // Las transversales —escolar, dama— son secundarias en casi todos los productos que
+  // las tienen. Un filtro que solo mirara `categorias[0]` no encontraria ninguno, que
+  // es justo el caso para el que sirve filtrar.
+  const db = base();
+  alta(db, { codigo: 'CG920', categorias: ['mochilas', 'escolar'] });
+  alta(db, { codigo: 'CG921', categorias: ['escolar'] });
+  alta(db, { codigo: 'CG922', categorias: ['carteras'] });
+
+  const filas = await listarProductos(ejecutor(db), { estado: 'todos', categoria: 'escolar' });
+  assert.deepEqual(filas.map((f) => f.codigo).sort(), ['CG920', 'CG921']);
+});
+
+test('un producto con la categoria repetida no sale duplicado', async () => {
+  // El JOIN es lo que duplicaria: si el producto matchea dos veces, aparece dos veces.
+  const db = base();
+  alta(db, { codigo: 'CG923', categorias: ['escolar', 'mochilas'] });
+
+  const filas = await listarProductos(ejecutor(db), { estado: 'todos', categoria: 'escolar' });
+  assert.equal(filas.length, 1);
+});
+
+test('sin-categoria trae los que no tienen NINGUNA: la cola de curaduria', async () => {
+  const db = base();
+  alta(db, { codigo: 'CG924', categorias: [] });
+  alta(db, { codigo: 'CG925', categorias: ['carteras'] });
+
+  const filas = await listarProductos(ejecutor(db), {
+    estado: 'todos',
+    categoria: 'sin-categoria',
+  });
+  assert.deepEqual(filas.map((f) => f.codigo), ['CG924']);
+});
+
+test('sin categoria pedida no filtra nada', async () => {
+  const db = base();
+  alta(db, { codigo: 'CG926', categorias: [] });
+  alta(db, { codigo: 'CG927', categorias: ['carteras'] });
+
+  for (const categoria of [undefined, '']) {
+    const filas = await listarProductos(ejecutor(db), { estado: 'todos', categoria });
+    assert.equal(filas.length, 2, `categoria=${JSON.stringify(categoria)}`);
+  }
+});
+
+test('la categoria se combina con el estado y con la busqueda', async () => {
+  // Los tres filtros son independientes y tienen que poder apilarse: es la diferencia
+  // entre "buscar" y "acotar la cola de trabajo".
+  const db = base();
+  alta(db, { codigo: 'CG930', estado: 'importado', categorias: ['escolar'] });
+  alta(db, { codigo: 'CG931', estado: 'publicado', categorias: ['escolar'] });
+  alta(db, { codigo: 'CG932', estado: 'importado', categorias: ['carteras'] });
+
+  const porEstado = await listarProductos(ejecutor(db), {
+    estado: 'por-aprobar',
+    categoria: 'escolar',
+  });
+  assert.deepEqual(porEstado.map((f) => f.codigo), ['CG930']);
+
+  const conBusqueda = await listarProductos(ejecutor(db), {
+    estado: 'todos',
+    categoria: 'escolar',
+    busqueda: 'CG931',
+  });
+  assert.deepEqual(conBusqueda.map((f) => f.codigo), ['CG931']);
+});
+
+test('las categorias de la fila vienen COMPLETAS aunque se filtre por una', async () => {
+  // El filtro acota QUE filas se traen, no que se ve de cada una. Si el JOIN recortara
+  // las categorias, la columna de la grilla mostraria una curaduria que no es la real y
+  // guardar la pisaria.
+  const db = base();
+  alta(db, { codigo: 'CG933', categorias: ['mochilas', 'escolar', 'dama'] });
+
+  const [fila] = await listarProductos(ejecutor(db), {
+    estado: 'todos',
+    categoria: 'escolar',
+  });
+  assert.deepEqual(fila.categorias, ['mochilas', 'escolar', 'dama']);
+});
+
+test('contarPorEstado respeta la categoria: el desplegable no puede contradecir la lista', async () => {
+  const db = base();
+  alta(db, { codigo: 'CG940', estado: 'importado', categorias: ['escolar'] });
+  alta(db, { codigo: 'CG941', estado: 'publicado', categorias: ['escolar'] });
+  alta(db, { codigo: 'CG942', estado: 'importado', categorias: ['carteras'] });
+
+  const conteo = await contarPorEstado(ejecutor(db), { categoria: 'escolar' });
+  assert.equal(conteo.importado, 1);
+  assert.equal(conteo.publicado, 1);
+});
+
 test('contarPorEstado respeta la busqueda', async () => {
   const db = base();
   alta(db, { codigo: 'CG111', estado: 'importado' });
   alta(db, { codigo: 'CG222', estado: 'importado' });
-  const conteo = await contarPorEstado(ejecutor(db), '111');
+  const conteo = await contarPorEstado(ejecutor(db), { busqueda: '111' });
   assert.equal(conteo.importado, 1);
 });

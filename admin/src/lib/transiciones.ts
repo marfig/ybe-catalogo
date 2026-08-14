@@ -44,6 +44,22 @@ export interface OpcionesTransicion {
   ahora: string;
   /** Confirmación explícita de aprobar sin foto (§5.2-3). */
   permitirSinFoto?: boolean;
+  /**
+   * Qué es un producto al que le falta algo para aprobarse.
+   *
+   * No cambia QUÉ se aprueba —la validación de §5.2 es la misma— sino cómo se REPORTA lo
+   * que no se aprobó, y eso depende de quién eligió el lote:
+   *
+   *  - `false` (default) — lo tildó una persona, producto por producto. Afirmó que este
+   *    debía aprobarse, así que si le falta algo es un **fallo**: hay algo que corregir.
+   *  - `true` — la acción fue «aprobá lo que esté listo». Nadie afirmó nada sobre este
+   *    producto en particular, así que si le falta algo es un **omitido**: no era
+   *    candidato y no hay nada que corregir.
+   *
+   * Sin esta distinción, «Aprobar los completos» sobre una página de 50 con 12 listos
+   * reportaría 38 fallos que nadie provocó, y ahogaría el único dato que se esperaba.
+   */
+  saltearIncompletos?: boolean;
 }
 
 /** Datos mínimos para validar y transicionar. */
@@ -109,7 +125,7 @@ async function traerCategorias(
 export async function aprobar(
   ejecutar: Ejecutar,
   ids: number[],
-  { categoriasValidas, ahora, permitirSinFoto = false }: OpcionesTransicion
+  { categoriasValidas, ahora, permitirSinFoto = false, saltearIncompletos = false }: OpcionesTransicion
 ): Promise<ResultadoItem[]> {
   if (ids.length === 0) return [];
 
@@ -169,10 +185,12 @@ export async function aprobar(
     );
 
     if (!validacion.puede) {
+      // El QUE no se aprueba es siempre el mismo; lo que cambia es si eso cuenta como
+      // algo a corregir. Ver `saltearIncompletos`.
       resultados.push({
         id: p.id,
         codigo: p.codigo,
-        desenlace: 'fallo',
+        desenlace: saltearIncompletos ? 'omitido' : 'fallo',
         motivo: validacion.faltantes.join(', '),
       });
       continue;

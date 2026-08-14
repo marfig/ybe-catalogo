@@ -9,9 +9,19 @@
  * justifica las categorias en lote ("trabajo de minutos y no de horas") pega mas
  * fuerte todavia en el nombre y el precio, que NO se pueden hacer en lote.
  *
- * La `descripcion` queda AFUERA a proposito: son 80-120 caracteres que en una celda o
- * se truncan a algo inutil o revientan la altura de la fila, y no es un requisito de
- * §5.2. Va en la pantalla de edicion (§10.4) junto con fotos y colores.
+ * `descripcion` y `destacado` tambien se editan aca, y este comentario decia lo
+ * contrario. La objecion original era buena pero era al LUGAR, no a la idea: la
+ * descripcion son 80-120 caracteres que en una CELDA se truncan a algo inutil o
+ * revientan la altura de la fila, y una octava columna le sacaria ancho al nombre, que
+ * es el campo que mas se tipea.
+ *
+ * Asi que no va en una celda. Cada producto es su propio `<tbody>` con DOS `<tr>`: la
+ * fila de campos de siempre, y debajo una fila a todo lo ancho —`colspan`— con el
+ * destacado y la descripcion dentro de un `<details>` plegado. La descripcion tiene el
+ * ancho completo de la tabla cuando se abre, y cerrada no cuesta ni una linea.
+ *
+ * Un `<textarea>` dentro de un `<details>` cerrado IGUAL viaja en el POST: `details`
+ * oculta, no deshabilita. Plegar no pierde nada de lo tipeado.
  *
  * Todo por formularios, sin JavaScript: un solo `<form>` para la pagina y un POST con
  * todas las filas. El guardado por fila serian 50 requests y obligaria a JS.
@@ -19,15 +29,17 @@
 import { env } from 'cloudflare:workers';
 
 import Panel from '../layouts/Panel.astro';
+import { ejecutarAccion, esAccion, necesitaSeleccion } from '../lib/acciones.ts';
 import { validarParaAprobar } from '../lib/aprobacion.ts';
 import { CATEGORIAS, SLUGS_VALIDOS, nombreCategoria } from '../lib/categorias.ts';
 import { ejecutorD1 } from '../lib/d1.ts';
-import { guardarFilas, type CambioFila } from '../lib/guardar.ts';
+import type { CambioFila } from '../lib/guardar.ts';
 import { baseDeImagenes, urlMiniatura } from '../lib/imagenes.ts';
 import {
   ESTADOS_LEGIBLES,
   FILTROS,
   FILTRO_POR_DEFECTO,
+  SIN_CATEGORIA,
   contarPorEstado,
   estadoLegible,
   listarProductos,
@@ -35,12 +47,7 @@ import {
 } from '../lib/grilla.ts';
 import { formatearPrecio, parsearPrecio } from '../lib/precio.ts';
 import { haceCuanto } from '../lib/publicaciones.ts';
-import {
-  aprobar,
-  asignarCategorias,
-  type Desenlace,
-  type ResultadoItem,
-} from '../lib/transiciones.ts';
+import type { Desenlace, ResultadoItem } from '../lib/transiciones.ts';
 
 const ejecutar = ejecutorD1(env.DB);
 
@@ -102,10 +109,16 @@ if (Astro.request.method === 'POST') {
   };
 
   try {
-    if (accionPedida === 'guardar') {
+    if (!esAccion(accionPedida)) {
+      destino.searchParams.set('error', 'Acción desconocida.');
+    } else {
       /**
-       * Se recorren los ids que la pagina rindio (`fila`), no la seleccion: guardar no
-       * necesita tildar nada. Las casillas son solo para las acciones en lote.
+       * Se recorren los ids que la pagina rindio (`fila`), no la seleccion, y para las
+       * TRES acciones.
+       *
+       * Guardar no necesita tildar nada —las casillas son solo para el lote— pero
+       * aprobar y asignar categorias tampoco pueden ignorar lo tipeado: es el estado de
+       * verdad de la pantalla. El orden lo impone `ejecutarAccion`; aca solo se parsea.
        */
       const cambios: CambioFila[] = [];
       for (const valor of datos.getAll('fila')) {
@@ -114,42 +127,75 @@ if (Astro.request.method === 'POST') {
         cambios.push({
           id,
           nombre: String(datos.get(`nombre-${id}`) ?? ''),
+          descripcion: String(datos.get(`descripcion-${id}`) ?? ''),
           precio: parsearPrecio(String(datos.get(`precio-${id}`) ?? '')),
+          /**
+           * ACA se traduce "no vino" a `false`, y este es el unico lugar donde se puede
+           * hacer bien.
+           *
+           * Un checkbox sin tildar NO viaja en el POST. La ausencia sola es ambigua
+           * —¿destildado, o la fila no se rindio?— y lo que la desambigua es que se
+           * llego hasta aca recorriendo `fila`, que solo trae las filas que la pagina
+           * rindio. Fila presente + casilla ausente = destildado, sin inputs ocultos.
+           */
+          destacado: datos.get(`destacado-${id}`) === 'si',
           categoriaPrincipal: (datos.get(`categoria-${id}`) as string) || null,
         });
       }
-      resumir(await guardarFilas(ejecutar, cambios, {
-        categoriasValidas: SLUGS_VALIDOS,
-        ahora: new Date().toISOString(),
-      }));
-    } else if (seleccionados.length === 0) {
-      destino.searchParams.set('error', 'No se seleccionó ningún producto.');
-    } else if (accionPedida === 'aprobar') {
       resumir(
-        await aprobar(ejecutar, seleccionados, {
-          categoriasValidas: SLUGS_VALIDOS,
-          ahora: new Date().toISOString(),
-          permitirSinFoto: datos.get('sin-foto') === 'si',
-        })
+        await ejecutarAccion(
+          ejecutar,
+          {
+            accion: accionPedida,
+            cambios,
+            seleccionados,
+            secundarias: datos.getAll('secundaria').map(String),
+            /**
+             * SIEMPRE true: la falta de fotos ya no bloquea.
+             *
+             * Era una casilla que habia que tildar aparte, y la decision de quien opera
+             * fue que aprobar es su responsabilidad. La validacion sigue existiendo en
+             * `aprobacion.ts` —el aviso de "se publica sin foto" se emite igual— pero no
+             * detiene a nadie: el sitio ya muestra el placeholder de "sin imagen".
+             *
+             * Va aca y no borrado de la libreria porque es una decision de ESTA pantalla.
+             * La opcion sigue teniendo sus tests y otra pantalla puede querer lo contrario.
+             */
+            permitirSinFoto: true,
+          },
+          { categoriasValidas: SLUGS_VALIDOS, ahora: new Date().toISOString() }
+        )
       );
-    } else if (accionPedida === 'categorias') {
-      resumir(
-        await asignarCategorias(ejecutar, seleccionados, datos.getAll('secundaria').map(String), {
-          categoriasValidas: SLUGS_VALIDOS,
-          ahora: new Date().toISOString(),
-        })
-      );
-    } else {
-      destino.searchParams.set('error', 'Acción desconocida.');
+
+      /**
+       * El aviso de "no tildaste nada" va DESPUES de ejecutar, no antes.
+       *
+       * Antes cortaba la accion entera, asi que olvidarse de tildar —un error normal—
+       * borraba tambien todo lo que se habia tipeado. Ahora lo tipeado ya se guardo y
+       * esto es solo un aviso, por eso lo dice.
+       */
+      if (necesitaSeleccion(accionPedida) && seleccionados.length === 0) {
+        destino.searchParams.set(
+          'error',
+          'No se seleccionó ningún producto, así que no se aprobó ni se categorizó nada. ' +
+            'Lo que estaba escrito se guardó igual. Para aprobar sin tildar de a uno, ' +
+            'usá «Aprobar los completos».'
+        );
+      }
     }
   } catch (error) {
     /**
-     * `parsearPrecio` y `asignarCategorias` lanzan ante una entrada invalida.
+     * `parsearPrecio` y `asignarCategorias` lanzan ante una entrada invalida, y las dos
+     * cortan la accion entera. Pero ya no cortan lo mismo, y la diferencia importa:
      *
-     * Un precio mal tipeado corta el guardado ENTERO en vez de guardar las demas
-     * filas, y es a proposito: si se guardara lo demas, la pagina se recarga con el
-     * texto que se tipeo perdido y no queda registro de cual era. Cortando, nada se
-     * escribio y el navegador conserva lo tipeado al volver atras.
+     *  - `parsearPrecio` corre ANTES de escribir, al armar `cambios`. Un precio mal
+     *    tipeado no escribe NADA y el navegador conserva lo tipeado al volver atras. Si
+     *    se guardaran las demas filas, la pagina se recargaria con el texto perdido y
+     *    sin registro de cual era.
+     *  - `asignarCategorias` corre DESPUES del guardado, asi que lo tipeado ya quedo
+     *    escrito. Tambien es a proposito: una eleccion vacia en el desplegable del lote
+     *    no tiene por que costarte el trabajo hecho en las filas. Las categorias, que
+     *    son lo que fallo, no quedan a medias — eso lo garantiza `transiciones.ts`.
      */
     destino.searchParams.set('error', error instanceof Error ? error.message : String(error));
   }
@@ -159,6 +205,16 @@ if (Astro.request.method === 'POST') {
 
 const parametros = Astro.url.searchParams;
 const busqueda = parametros.get('q') ?? '';
+
+/**
+ * Categoria pedida. Una desconocida cae a "todas", igual que el estado.
+ *
+ * `SIN_CATEGORIA` es un valor valido y no un slug: son los que no tienen ninguna, que
+ * es la cola de curaduria mas grande de esta pantalla.
+ */
+const categoriaPedida = parametros.get('categoria') ?? '';
+const categoria =
+  categoriaPedida === SIN_CATEGORIA || SLUGS_VALIDOS.has(categoriaPedida) ? categoriaPedida : '';
 
 /** Para fechar el aviso de baja en cada fila. Una sola marca por render. */
 const ahora = new Date().toISOString();
@@ -182,10 +238,13 @@ const [productos, conteo] = await Promise.all([
   listarProductos(ejecutar, {
     estado,
     busqueda,
+    categoria,
     limite: POR_PAGINA,
     desplazamiento: (pagina - 1) * POR_PAGINA,
   }),
-  contarPorEstado(ejecutar, busqueda),
+  // Los mismos acotes que la lista: si no, los numeros del desplegable de estado
+  // prometen filas que el filtro de categoria no va a mostrar.
+  contarPorEstado(ejecutar, { busqueda, categoria }),
 ]);
 
 /**
@@ -231,9 +290,27 @@ const filas = productos.map((p) => ({
       categorias: p.categorias,
       variantes: p.variantes === 0 ? [] : [{ sku: p.codigo, color: '', imagenes: p.imagenes }],
     },
-    { categoriasValidas: SLUGS_VALIDOS }
+    // El MISMO criterio con el que aprueba el POST. Si acá la foto bloqueara y allá no,
+    // la fila diría "⚠ sin fotos" y el botón la aprobaría igual: la insignia mentiría.
+    { categoriasValidas: SLUGS_VALIDOS, permitirSinFoto: true }
   ),
 }));
+
+/**
+ * Cuantos productos de esta pagina va a aprobar «Aprobar los completos».
+ *
+ * Se cuentan solo los `importado` que pasan la validacion, y NO todas las filas
+ * completas: la grilla valida tambien las publicadas —a proposito, ver `filas`— y
+ * contarlas prometeria aprobar productos que ya estan en la calle.
+ *
+ * Es ORIENTATIVO y no una promesa. Se calcula con lo que hay en la base al rendir la
+ * pagina, y la accion guarda antes de aprobar: si se completan filas y despues se
+ * aprieta el boton, van a entrar mas de las que dice este numero. La nota del boton lo
+ * aclara, porque un contador que se queda corto sin explicacion se lee como un bug.
+ */
+const completosParaAprobar = filas.filter(
+  (f) => f.estado === 'importado' && f.validacion.puede
+).length;
 
 /** Resumen de la accion anterior, que llego por la query tras el redirect. */
 const hechos = Number(parametros.get('hechos') ?? '0');
@@ -263,11 +340,13 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
 <Panel titulo="Productos" volver="/">
   {/* El form de filtros va APARTE del de edicion: si fueran uno, filtrar mandaria
       tambien los campos editados y "Filtrar" se volveria un guardado encubierto. */}
+  {/* EL ORDEN ES UN EMBUDO: estado, categoria, codigo.
+      Los dos primeros ACOTAN un conjunto; el ultimo BUSCA uno puntual. Puestos asi se
+      leen como una sola frase — "de los que estan por aprobar, de mochilas, el que
+      diga CG85527" — y de paso se pasa por el filtro de estado antes de tipear el
+      codigo, que es lo que evita buscar un publicado con el filtro en "Por aprobar" y
+      creer que no existe. */}
   <form method="get" action={Astro.url.pathname} role="search" class="filtros">
-    <p class="campo">
-      <label for="q">Buscar por código o nombre</label>
-      <input id="q" name="q" type="search" value={busqueda} placeholder="CG85527" />
-    </p>
     <p class="campo">
       <label for="estado">Estado</label>
       <select id="estado" name="estado">
@@ -283,14 +362,55 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
         }
       </select>
     </p>
+    <p class="campo">
+      <label for="categoria">Categoría</label>
+      <select id="categoria" name="categoria">
+        <option value="">Todas</option>
+        {/* Va PRIMERO, arriba de las categorias reales, porque no es una de ellas: es la
+            cola de trabajo. Un producto recien scrapeado nace sin categoria y sin
+            categoria no se puede aprobar, asi que esta es la lista que hay que vaciar. */}
+        <option value={SIN_CATEGORIA} selected={categoria === SIN_CATEGORIA}>
+          — Sin categoría —
+        </option>
+        {CATEGORIAS.map((c) => (
+          <option value={c.id} selected={categoria === c.id}>
+            {c.nombre}
+          </option>
+        ))}
+      </select>
+    </p>
+    <p class="campo">
+      <label for="q">Buscar por código o nombre</label>
+      <input id="q" name="q" type="search" value={busqueda} placeholder="CG85527" />
+    </p>
     <p class="campo campo--boton"><button type="submit">Filtrar</button></p>
   </form>
 
-  {/* El recorrido, a la vista y no en un manual. Es la maquina de estados de §5.2
-      contada en el vocabulario de quien opera: los nombres crudos de la columna
-      (`importado`, `aprobado`) no le dicen nada a nadie. */}
-  <details class="ayuda">
-    <summary>¿Qué significa cada estado?</summary>
+  {/**
+   * El recorrido sigue estando, pero ya no ocupa lugar: pasa de un bloque plegado en el
+   * flujo a un `?` en la cabecera.
+   *
+   * El contenido es el MISMO y no un resumen. Es la maquina de estados de §5.2 contada
+   * en el vocabulario de quien opera —los nombres crudos de la columna, `importado`,
+   * `aprobado`, no le dicen nada a nadie— y eso no se puede recortar para que entre en
+   * un globo.
+   *
+   * COSTO, dicho de frente: un `<dialog>` necesita JavaScript para abrirse. Es el unico
+   * control de esta pantalla que no funciona sin el. Se acepta porque es AYUDA: sin JS
+   * no se puede leer la leyenda, pero se puede trabajar igual. Ese mismo trato seria
+   * inaceptable para un boton que escribe.
+   */}
+  <button type="button" class="ayuda-abrir" slot="junto-al-titulo" aria-haspopup="dialog"
+    aria-label="¿Qué significa cada estado?" title="¿Qué significa cada estado?"
+    data-abre="ayuda-estados">?</button>
+
+  <dialog id="ayuda-estados" class="ayuda-modal" aria-labelledby="ayuda-titulo">
+    <div class="ayuda-modal-cabecera">
+      <h2 id="ayuda-titulo">¿Qué significa cada estado?</h2>
+      {/* `formmethod="dialog"` no: este boton no esta en un form. Lo cierra el script,
+          y ademas Escape lo cierra solo — eso lo da `<dialog>` nativo. */}
+      <button type="button" class="ayuda-cerrar" data-cierra aria-label="Cerrar">×</button>
+    </div>
     <ol class="recorrido">
       <li>
         <strong>{ESTADOS_LEGIBLES.importado.etiqueta}</strong>
@@ -318,7 +438,7 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
       hasta «Listo para publicar». Sacar de circulación y restaurar tampoco están
       hechos, así que la papelera se puede mirar pero todavía nada cae ahí.
     </p>
-  </details>
+  </dialog>
 
   {
     hayResumen ? (
@@ -361,90 +481,46 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
         en este filtro.
       </p>
     ) : (
-      <form method="post" action={destinoPost}>
+      <form method="post" action={destinoPost} data-completos={completosParaAprobar}>
+        {/* `data-completos` viaja al script: es lo que apaga «Aprobar los completos»
+            cuando no hay ninguno. Lo cuenta el servidor con la misma validacion que va a
+            correr la accion, y reimplementarla en el navegador crearia una segunda verdad
+            que se separaria de la primera sin que nadie se entere.
+
+            EL COMENTARIO VA ADENTRO DEL FORM Y NO ARRIBA. Justo antes de esta etiqueta
+            esta el `: (` del ternario, y ahi Astro espera una EXPRESION: un comentario
+            entre llaves solo ES un comentario donde se esperan HIJOS. En posicion de
+            expresion se lee como un objeto literal y el compilador pierde el hilo del
+            resto del archivo — el error sale como «Panel no tiene etiqueta de cierre», a
+            300 lineas de distancia y sin ninguna relacion con la causa.
+
+            Y por lo mismo: NO escribir llaves literales en un comentario. El parser las
+            cuenta igual que si fueran codigo. */}
         {/* Para que la confirmación de /eliminar sepa a qué vista volver: filtro,
             búsqueda y página. Sin esto, eliminar desde la página 3 devuelve a la 1. */}
         <input type="hidden" name="volver" value={Astro.url.search.replace(/^\?/, '')} />
-        {/* Las acciones van ARRIBA: con 50 filas, un bloque al pie se pierde de vista
-            en la primera mirada y hay que scrollear hasta el fondo para descubrir que
-            existe. */}
-        <fieldset class="lote">
-          <legend>Acciones</legend>
-
-          <p class="lote-fila">
-            <button type="submit" name="accion" value="guardar">Guardar cambios</button>
-            <span class="nota">
-              Guarda nombre, categoría y precio de <strong>todas</strong> las filas de
-              esta página. No hace falta seleccionar nada.
-            </span>
-          </p>
-
-          <hr />
-
-          <p class="nota nota--titulo">Sobre los productos tildados:</p>
-
-          <p class="lote-fila">
-            <button type="submit" name="accion" value="aprobar">Aprobar</button>
-            <label class="lote-check">
-              <input type="checkbox" name="sin-foto" value="si" />
-              aunque no tengan foto
-            </label>
-            <span class="nota">
-              Pasa de <em>Por aprobar</em> a <em>Listo para publicar</em> y le crea la
-              dirección web, que no cambia nunca más.
-            </span>
-          </p>
-
-          <p class="lote-fila">
-            <label for="secundaria">Agregar categoría</label>
-            <select id="secundaria" name="secundaria">
-              {CATEGORIAS.map((c) => (
-                <option value={c.id}>{c.nombre}</option>
-              ))}
-            </select>
-            <button type="submit" name="accion" value="categorias">Agregar</button>
-            <span class="nota">
-              Se suma a las que ya tiene. Para cambiar la principal, usá el desplegable
-              de la fila.
-            </span>
-          </p>
-
-          <p class="lote-fila">
-            {/* Mismo mecanismo que Eliminar: `formaction` a una pantalla que rinde el
-                recorrido. El barrido no puede correr acá — necesita un bucle con un
-                pedido por segundo, y esta grilla no tiene JavaScript a propósito. */}
-            <button type="submit" class="secundario" formaction="/barrido" formnovalidate>
-              Verificar en el proveedor
-            </button>
-            <span class="nota">
-              Le pregunta al proveedor si todavía los publica. <strong>No borra nada</strong>:
-              marca los que ya no están. Para revisar el catálogo entero está{' '}
-              <a href="/barrido">Revisar bajas del proveedor</a>.
-            </span>
-          </p>
-
-          <hr />
-
-          {/* `formaction` y no otra accion de esta pagina: eliminar necesita una pantalla
-              de confirmacion que diga QUE va a pasar con cada producto (§12.2), y eso
-              depende de una consulta a la base. Es HTML de siempre: sin JavaScript el
-              boton igual lleva a la confirmacion. */}
-          <p class="lote-fila">
-            <button type="submit" class="peligro" formaction="/eliminar" formnovalidate>
-              Eliminar
-            </button>
-            <span class="nota">
-              Los que nunca se publicaron se borran de verdad; los publicados se sacan del
-              catálogo y quedan en la <a href="/eliminados">papelera</a>. La pantalla
-              siguiente lo dice producto por producto antes de hacer nada.
-            </span>
-          </p>
-        </fieldset>
+        {/* Arriba queda SOLO la categoría en lote, y no por descarte: es el único
+            control que hay que operar —elegir del desplegable— y no un botón que se
+            aprieta. Un select en una barra fija al pie abre su lista hacia arriba,
+            tapando justamente las filas sobre las que se está por actuar. */}
+        <p class="lote-fila lote-fila--sola">
+          <label for="secundaria">Agregar categoría</label>
+          <select id="secundaria" name="secundaria">
+            {CATEGORIAS.map((c) => (
+              <option value={c.id}>{c.nombre}</option>
+            ))}
+          </select>
+          <button type="submit" name="accion" value="categorias" data-requiere="seleccion">
+            Agregar
+          </button>
+        </p>
 
         <div class="tabla-marco">
           <table class="grilla">
             <caption class="oculto">
-              Productos: código, foto, nombre, categoría principal, precio y estado
+              Productos: código, foto, nombre, categoría principal, precio y estado. Cada
+              producto lleva debajo una segunda fila con su descripción y si va destacado
+              en la portada.
             </caption>
             {/* Anchos explicitos: con `table-layout: fixed` manda esto y no el
                 contenido, asi el select no se lleva el ancho del nombre. */}
@@ -470,9 +546,13 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
                 <th scope="col">Estado</th>
               </tr>
             </thead>
-            <tbody>
-              {filas.map((p) => (
-                <tr>
+            {/* UN <tbody> POR PRODUCTO, no uno para toda la tabla. Varios tbody en una
+                tabla son HTML valido, y es lo que dice que las dos filas de un producto
+                son una unidad: el hover ilumina las dos juntas y el separador va entre
+                productos, no entre las mitades de uno. */}
+            {filas.map((p) => (
+              <tbody>
+                <tr class="fila-campos">
                   <td class="col-elegir">
                     {/* `fila` marca que esta fila viajo en el POST; `id` marca que
                         esta tildada. Guardar usa el primero y el lote el segundo. */}
@@ -587,17 +667,128 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
                     ) : null}
                   </td>
                 </tr>
-              ))}
-            </tbody>
+
+                {/* La segunda fila del producto: a todo lo ancho, para que la
+                    descripcion tenga lugar de verdad sin robarle columnas al nombre. */}
+                <tr class="fila-detalle">
+                  <td colspan="7">
+                    <div class="detalle">
+                      {/* LA DESCRIPCION VA PRIMERO Y EL DESTACADO DESPUES.
+                          Al principio era al revés, con la casilla alineada en la misma
+                          columna que la de seleccionar. Se veía prolijo y estaba mal: dos
+                          casillas en la misma columna vertical se leen como el mismo eje
+                          de control, y no lo son — una elige sobre qué producto operar, la
+                          otra es un DATO del producto. Separadas y de distinto porte se
+                          distinguen solas. */}
+                      <details class="descripcion">
+                        {/* El resumen ADELANTA el contenido en vez de decir solo
+                            "Descripcion": asi se recorren las 50 y se ve cual falta sin
+                            abrir ninguna. Sin esto, plegar esconde justamente el dato
+                            que dice donde hay trabajo. */}
+                        <summary>
+                          {/* El {' '} separa la etiqueta del adelanto tambien en el TEXTO
+                              y no solo en pantalla. El `gap` del flex ya los separa a la
+                              vista, asi que sin esto no se nota: pero el contenido dice
+                              "Descripcionsin cargar", y eso es lo que lee un lector de
+                              pantalla y lo que se copia al seleccionar la fila. */}
+                          Descripción{' '}
+                          <span class={p.descripcion ? 'desc-vista' : 'desc-vista desc-vista--falta'}>
+                            {p.descripcion ?? 'sin cargar'}
+                          </span>
+                        </summary>
+                        {/* El <summary> NO es una etiqueta de formulario: no asocia con
+                            el control ni lo anuncia un lector de pantalla. El <label>
+                            oculto es el que hace ese trabajo. */}
+                        <label class="oculto" for={`descripcion-${p.id}`}>
+                          Descripción de {p.codigo}
+                        </label>
+                        <textarea
+                          id={`descripcion-${p.id}`}
+                          name={`descripcion-${p.id}`}
+                          rows="2"
+                          placeholder="Para qué sirve, de qué material es, qué tamaño tiene."
+                          >{p.descripcion ?? ''}</textarea
+                        >
+                      </details>
+
+                      <label class="destacar">
+                        {/* `checked` recibe un BOOLEANO desde `grilla.ts`. Con el 0/1
+                            crudo de la columna saldrian tildadas las 50: en JSX un 0 es
+                            un valor presente. */}
+                        <input
+                          type="checkbox"
+                          name={`destacado-${p.id}`}
+                          value="si"
+                          checked={p.destacado}
+                        />
+                        Destacado en la portada
+                      </label>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            ))}
           </table>
         </div>
 
-        {/* El guardado se repite al pie: con 50 filas, terminar de tipear abajo y
-            tener que volver arriba para guardar es un viaje al vacio. Es el MISMO
-            boton, no otra accion. */}
-        <p class="pie-guardar">
-          <button type="submit" name="accion" value="guardar">Guardar cambios</button>
-        </p>
+        {/**
+         * TODOS los botones en la barra fija, y no repartidos entre arriba y abajo.
+         *
+         * Con 50 productos y dos filas cada uno son 100 `<tr>`: cualquier bloque de
+         * acciones anclado a un extremo queda a un viaje de distancia desde el medio. La
+         * barra esta siempre a la mano, asi que el lugar donde estan los botones deja de
+         * ser una decision.
+         *
+         * `data-requiere` declara la condicion de cada uno; `scripts/grilla-cliente.ts`
+         * la aplica. Nacen HABILITADOS a proposito: si el script no carga, la pantalla
+         * sigue sirviendo y el servidor valida igual.
+         */}
+        <div class="barra-acciones" role="group" aria-label="Acciones">
+          {/* `cambios` es el INVERSO de `guardado`: gris significa "tu trabajo esta
+              guardado". Es el unico boton que no depende de nada mas — es la salida de
+              emergencia de todo lo tipeado y no puede quedar bloqueado por otra cosa. */}
+          <button type="submit" name="accion" value="guardar" data-requiere="cambios">
+            Guardar cambios
+          </button>
+
+          <button type="submit" name="accion" value="aprobar" data-requiere="guardado seleccion">
+            Aprobar
+          </button>
+
+          <button
+            type="submit"
+            name="accion"
+            value="aprobar-completos"
+            data-requiere="guardado completos"
+          >
+            Aprobar los completos ({completosParaAprobar})
+          </button>
+
+          {/* `formaction` a una pantalla propia: el barrido necesita un bucle con un
+              pedido por segundo, que no cabe en un POST. */}
+          <button
+            type="submit"
+            class="secundario"
+            formaction="/barrido"
+            formnovalidate
+            data-requiere="seleccion"
+          >
+            Verificar en el proveedor
+          </button>
+
+          {/* `formaction` y no otra accion de esta pagina: eliminar necesita una pantalla
+              de confirmacion que diga QUE va a pasar con cada producto (§12.2), y eso
+              depende de una consulta a la base. */}
+          <button
+            type="submit"
+            class="peligro"
+            formaction="/eliminar"
+            formnovalidate
+            data-requiere="seleccion"
+          >
+            Eliminar
+          </button>
+        </div>
       </form>
     )
   }
@@ -608,3 +799,9 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
     {hayMas ? <a href={enlace({ pagina: pagina + 1 })} rel="next">Siguiente →</a> : null}
   </nav>
 </Panel>
+
+<script>
+  import { prepararGrilla } from '../scripts/grilla-cliente.ts';
+
+  prepararGrilla();
+</script>
