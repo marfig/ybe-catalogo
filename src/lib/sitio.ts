@@ -25,8 +25,29 @@ export const NOMBRE_CORTO = 'YBE';
  */
 export const MARCA = 'Chenson';
 
-export const DESCRIPCION_SITIO =
-  'Mochilas, carteras, bolsos y accesorios Chenson en Asunción. Consultá por WhatsApp.';
+/**
+ * La descripcion del sitio, en frases separadas.
+ *
+ * Es un ARREGLO y no una cadena con `<br>` adentro porque el mismo texto va a dos
+ * destinos con reglas opuestas: la `<meta name="description">` y `og:description`,
+ * donde el marcado no se renderiza y solo ensucia lo que leen los buscadores y las
+ * redes, y el parrafo de la portada, donde cortar la linea es una decision visual.
+ *
+ * Y aunque los destinos fueran uno solo, el marcado en la constante no funcionaria:
+ * Astro ESCAPA las expresiones, asi que `{DESCRIPCION_SITIO}` imprimiria el `<br>`
+ * como texto. Para que no lo hiciera habria que pedir `set:html`, que es abrir la
+ * puerta a inyeccion para conseguir un salto de linea.
+ *
+ * La fuente es una: cada destino la arma como le sirve.
+ */
+export const DESCRIPCION_LINEAS = [
+  'Mochilas, carteras, bolsos y accesorios Chenson en Asunción.',
+  'Descuentos para mayoristas de 30 a 40%.',
+  'Consultá por WhatsApp.',
+] as const;
+
+/** Una linea, sin marcado: la version para metadatos y JSON-LD. */
+export const DESCRIPCION_SITIO = DESCRIPCION_LINEAS.join(' ');
 
 /** Leyenda obligatoria junto a todo monto publicado (SPEC §7.3). */
 export const LEYENDA_PRECIO = 'Precio de referencia — confirmalo por WhatsApp';
