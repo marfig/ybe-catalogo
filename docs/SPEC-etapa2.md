@@ -559,8 +559,66 @@ Hace falta un API token con **Access: Apps and Policies (Edit)**. El OAuth de
 más, pero ningún scope de Zero Trust.
 
 El equipo lo autogenera Cloudflare al aceptar el plan Free (acá quedó
-`old-forest-3a66`), y el proveedor de identidad por defecto es el `cloudflare`, o sea
-el PIN de un solo uso por email — que es justo lo que §6 pedía.
+`old-forest-3a66`).
+
+#### El proveedor de identidad por defecto NO es el PIN
+
+Corregido el 2026-08-14. La versión anterior de esta sección afirmaba que el
+proveedor por defecto del equipo era `cloudflare`, «o sea el PIN de un solo uso por
+email». **Son dos proveedores distintos y esa equivalencia era falsa.**
+
+| Tipo | Qué hace |
+|---|---|
+| `cloudflare` | *Login with Cloudflare*: autentica con una cuenta de Cloudflare existente. Trae **«Restrict to account members» activado**, así que solo entran los miembros de la cuenta |
+| `onetimepin` | El PIN de un solo uso al email, que es lo que §6 pide |
+
+Desde el 2026-06-18 Cloudflare cambió el default de las organizaciones nuevas de
+Zero Trust: antes era `onetimepin`, ahora es `cloudflare`. Este equipo quedó del
+lado nuevo.
+
+**El síntoma, cuando falta el `onetimepin`:** se agrega un email a la policy, la
+persona intenta entrar y recibe *«Cloudflare sign-in is restricted to members of the
+account»*. Es fácil leerlo como un problema de la policy y no lo es — el flujo se
+corta en el proveedor de identidad, **antes** de que la policy se evalúe. Mientras
+el único proveedor sea `cloudflare`, la lista de emails de la policy es inalcanzable.
+
+Lo que arregla el equipo, y hay que hacerlo una sola vez:
+
+```
+POST /accounts/{cuenta}/access/identity_providers
+  { "name": "One-time PIN", "type": "onetimepin", "config": {} }
+```
+
+Por panel: *Zero Trust → Integrations → Identity providers → Add new identity
+provider → One-time PIN*. No pide client id, ni secret, ni redirect URL.
+
+Ojo con el token: este endpoint necesita **Access: Organizations, Identity Providers,
+and Groups (Write)**, que es un scope **distinto** del `Access: Apps and Policies
+(Edit)` con el que se creó la aplicación.
+
+Y del lado de la aplicación, *Authentication → «Accept all available identity
+providers»* tiene que estar en ON. Si los proveedores están fijados a mano, agregar
+el `onetimepin` al equipo no alcanza: la aplicación lo sigue ignorando.
+
+**Lo que NO hay que hacer** es agregar a esa persona como miembro de la cuenta de
+Cloudflare. Hace desaparecer el error —el proveedor `cloudflare` la aceptaría— pero
+al precio de entregar D1, R2, DNS, los Workers y el billing para que alguien cargue
+productos. El permiso tiene que alcanzar para la tarea y nada más.
+
+#### Cerrar sesión para probar el acceso de otra persona
+
+```
+https://ybe-admin.chenson.workers.dev/cdn-cgi/access/logout
+```
+
+La cookie `CF_Authorization` se setea **por dominio de aplicación**. El logout del
+team domain (`https://old-forest-3a66.cloudflareaccess.com/cdn-cgi/access/logout`)
+responde *«No Access cookie found»* si el login entró por la URL de la aplicación,
+que es el caso normal acá.
+
+Eso cierra la sesión de **Access**, no la de la cuenta de Cloudflare: el botón de
+*Login with Cloudflare* puede volver a pasar sin preguntar nada. Son dos sesiones,
+en dos capas.
 
 **Verificado en tres etapas contra el Worker desplegado**, y las tres importan:
 
