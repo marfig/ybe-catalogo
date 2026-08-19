@@ -3,7 +3,15 @@ import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
 import { readFileSync } from 'node:fs';
 
-import { FILTROS, ORIGENES, contarPorEstado, listarProductos, type Ejecutar } from './grilla.ts';
+import {
+  FILTROS,
+  ORIGENES,
+  ORIGEN_POR_DEFECTO,
+  contarPorEstado,
+  interpretarOrigen,
+  listarProductos,
+  type Ejecutar,
+} from './grilla.ts';
 
 /**
  * Tests de la consulta de la grilla (SPEC-etapa2 §10.3).
@@ -680,4 +688,38 @@ test('ORIGENES nombra el TRABAJO y no el valor de la columna', async () => {
     assert.ok(o.etiqueta.length > 0, o.valor);
     assert.notEqual(o.etiqueta, o.valor);
   }
+});
+
+test('el origen por defecto es lanzamientos, y «Todos» le puede ganar', async () => {
+  /**
+   * LA DISTINCION QUE SOSTIENE TODO EL FILTRO: no es lo mismo que el parametro FALTE que
+   * que venga VACIO.
+   *
+   *   falta   -> alguien entro a `/productos` y no dijo nada: se asume lanzamientos, que es
+   *              la cola en la que se trabaja todos los dias.
+   *   vacio   -> alguien eligio «Todos» en el desplegable y el formulario mando `origen=`.
+   *
+   * Si las dos se trataran igual, elegir «Todos» volveria a caer en el default y la opcion
+   * seria IMPOSIBLE de usar: se elige, se aprieta Filtrar, y la pantalla vuelve a
+   * lanzamientos sin decir por que. Es la misma familia de trampa que `Number(null)` siendo
+   * 0 en `interpretarPostDeBarrido`.
+   */
+  assert.equal(interpretarOrigen(null), 'chenson');
+  assert.equal(interpretarOrigen(null), ORIGEN_POR_DEFECTO);
+  assert.equal(interpretarOrigen(''), '');
+});
+
+test('un origen pedido y valido se respeta', async () => {
+  assert.equal(interpretarOrigen('catalogo-viejo'), 'catalogo-viejo');
+  assert.equal(interpretarOrigen('manual'), 'manual');
+  assert.equal(interpretarOrigen('chenson'), 'chenson');
+});
+
+test('un origen que no existe muestra todo, no el default', async () => {
+  /**
+   * Un valor tipeado a mano en la barra es una intencion que no se pudo honrar. Mostrar todo
+   * no esconde nada; caer al default filtraria en silencio sobre algo que nadie pidio.
+   */
+  assert.equal(interpretarOrigen('no-existe'), '');
+  assert.equal(interpretarOrigen('CHENSON'), '');
 });

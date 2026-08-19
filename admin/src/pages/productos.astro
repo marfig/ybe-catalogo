@@ -41,6 +41,7 @@ import {
   FILTRO_POR_DEFECTO,
   ORIGENES,
   SIN_CATEGORIA,
+  interpretarOrigen,
   contarPorEstado,
   estadoLegible,
   listarProductos,
@@ -220,12 +221,15 @@ const categoria =
 /**
  * Origen pedido. Uno desconocido cae a «todos», igual que la categoria y el estado.
  *
+ * ARRANCA EN LANZAMIENTOS, que es la cola de trabajo de todos los dias. `interpretarOrigen`
+ * distingue el parametro AUSENTE del parametro VACIO, y de eso depende que «Todos» se pueda
+ * elegir: si los tratara igual, elegirlo volveria a caer en el default.
+ *
  * TEMPORAL, y anotado para que se pueda sacar: existe mientras la cola de lanzamientos y
  * la del catalogo viejo esten abiertas a la vez. Ver `ORIGENES` en `lib/grilla.ts`, que
  * lista todo lo que hay que borrar cuando la migracion termine.
  */
-const origenPedido = parametros.get('origen') ?? '';
-const origen = ORIGENES.some((o) => o.valor === origenPedido) ? origenPedido : '';
+const origen = interpretarOrigen(parametros.get('origen'));
 
 /** Para fechar el aviso de baja en cada fila. Una sola marca por render. */
 const ahora = new Date().toISOString();

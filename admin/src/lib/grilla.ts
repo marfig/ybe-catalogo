@@ -85,6 +85,38 @@ export const ORIGENES = [
 export type ValorOrigen = (typeof ORIGENES)[number]['valor'];
 
 /**
+ * El origen que se muestra al entrar sin pedir nada.
+ *
+ * Los lanzamientos son la cola de trabajo de todos los días: es lo que alguien viene a
+ * completar cuando abre la grilla. Los productos del catálogo viejo entran de a lotes y se
+ * curan aparte, así que arrancar mostrando los dos juntos obliga a filtrar antes de empezar.
+ */
+export const ORIGEN_POR_DEFECTO: ValorOrigen = 'chenson';
+
+/**
+ * Qué origen mostrar, a partir de lo que vino en la URL.
+ *
+ * LA DISTINCIÓN QUE SOSTIENE EL FILTRO: no es lo mismo que el parámetro FALTE que que venga
+ * VACÍO, y de eso depende que «Todos» se pueda usar.
+ *
+ *   `null` — nadie dijo nada: se entró a `/productos` a secas. Va el default.
+ *   `''`   — alguien eligió «Todos» y el formulario mandó `origen=`. Va todo.
+ *
+ * Si los dos casos se trataran igual, elegir «Todos» volvería a caer en el default: se
+ * elige, se aprieta Filtrar, y la pantalla vuelve a lanzamientos sin decir por qué. Es la
+ * misma familia de trampa que `Number(null)` siendo `0` en `interpretarPostDeBarrido`, y por
+ * eso vive acá con tests en vez de en una línea de la página.
+ *
+ * Un valor que no existe muestra TODO y no el default: es una intención que no se pudo
+ * honrar, y mostrar todo no esconde nada — caer al default filtraría en silencio sobre algo
+ * que nadie pidió.
+ */
+export function interpretarOrigen(pedido: string | null): string {
+  if (pedido === null) return ORIGEN_POR_DEFECTO;
+  return ORIGENES.some((o) => o.valor === pedido) ? pedido : '';
+}
+
+/**
  * Los cuatro estados en castellano, con lo que significan PARA QUIEN OPERA.
  *
  * El valor crudo de la columna (`importado`, `aprobado`...) es vocabulario del
