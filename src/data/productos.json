@@ -319,6 +319,230 @@
     ]
   },
   {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "billeteras"
+    ],
+    "id": "billetera-dama-2",
+    "nombre": "billetera dama",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2515287"
+    },
+    "precio": 129000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2aa88b622c44a6c5"
+          }
+        ],
+        "sku": "2515287-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "billeteras"
+    ],
+    "id": "billetera-dama-3",
+    "nombre": "billetera dama",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2515292"
+    },
+    "precio": 119000,
+    "variantes": [
+      {
+        "color": "Amarillo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/13b1f8c7dcb5517a"
+          }
+        ],
+        "sku": "2515292-L"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "billeteras"
+    ],
+    "id": "billetera-dama-4",
+    "nombre": "billetera dama",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2515293"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Amarillo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/da61eed9195623cd"
+          }
+        ],
+        "sku": "2515293-L"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "billetera-dama-5",
+    "nombre": "billetera dama",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2515296"
+    },
+    "precio": 148000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/98a0fd0ffdd23105"
+          }
+        ],
+        "sku": "2515296-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "billeteras"
+    ],
+    "id": "billetera-dama-6",
+    "nombre": "billetera dama",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2515307"
+    },
+    "precio": 118000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8738955eaeef9427"
+          }
+        ],
+        "sku": "2515307-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "billeteras"
+    ],
+    "id": "billetera-dama-7",
+    "nombre": "billetera dama",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2715302"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a28ff332a0f44c76"
+          }
+        ],
+        "sku": "2715302-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "billeteras"
+    ],
+    "id": "billetera-dama-8",
+    "nombre": "billetera dama",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2715305"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1f3420cfe14896d4"
+          }
+        ],
+        "sku": "2715305-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "billeteras"
+    ],
+    "id": "billetera-dama-impermeable",
+    "nombre": "billetera dama impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2115297"
+    },
+    "precio": 108000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/32b958d09b56e7d2"
+          }
+        ],
+        "sku": "2115297-V"
+      }
+    ]
+  },
+  {
     "activo": false,
     "actualizado": "2026-08-10",
     "categorias": [
@@ -379,6 +603,146 @@
           }
         ],
         "sku": "2510406-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "billeteras"
+    ],
+    "id": "billetera-empermeable",
+    "nombre": "billetera empermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2715298"
+    },
+    "precio": 112000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9a9135915f5cf0be"
+          }
+        ],
+        "sku": "2715298-V"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "billeteras"
+    ],
+    "id": "billetera-empermeable-2",
+    "nombre": "billetera empermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2715299"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bcb0623bdca0e729"
+          }
+        ],
+        "sku": "2715299-V"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "billeteras"
+    ],
+    "id": "billetera-empermeable-3",
+    "nombre": "billetera empermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2715300"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c4a29e149721f927"
+          }
+        ],
+        "sku": "2715300-V"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "billeteras"
+    ],
+    "id": "billetera-pequena",
+    "nombre": "billetera pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2515304"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6883d35b7ba782eb"
+          }
+        ],
+        "sku": "2515304-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "billeteras"
+    ],
+    "id": "billetera-pequena-2",
+    "nombre": "billetera pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2715301"
+    },
+    "precio": 106000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/06ce9b0c16165563"
+          }
+        ],
+        "sku": "2715301-V"
       }
     ]
   },
@@ -954,6 +1318,1078 @@
     ]
   },
   {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734388"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/532b2efbec49cb32"
+          }
+        ],
+        "sku": "1734388-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-2",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734610"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/69faf1c9db263bfd"
+          }
+        ],
+        "sku": "1734610-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-3",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1735274"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9cfd1a7892d4cc79"
+          }
+        ],
+        "sku": "1735274-B"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/06ed5d5d02e8be7b"
+          }
+        ],
+        "sku": "1735274-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-1-cierre",
+    "nombre": "cartuchera de 1 cierre",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734566"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/04bb5afdb44e6209"
+          }
+        ],
+        "sku": "1734566-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734324"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ef2df26945b00fd7"
+          }
+        ],
+        "sku": "1734324-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-10",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734682"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/15e6ba28a73cca52"
+          }
+        ],
+        "sku": "1734682-E"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2acda867525146dc"
+          }
+        ],
+        "sku": "1734682-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-11",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734715"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2429092195ae671e"
+          }
+        ],
+        "sku": "1734715-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ea01a2090c3ab29c"
+          }
+        ],
+        "sku": "1734715-3"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cad669e8a87267ce"
+          }
+        ],
+        "sku": "1734715-R"
+      },
+      {
+        "color": "Turquesa",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d8b25b9c529ed2ce"
+          }
+        ],
+        "sku": "1734715-T"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a156636f75d26137"
+          }
+        ],
+        "sku": "1734715-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-12",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734735"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e0977e4089b2a5d9"
+          }
+        ],
+        "sku": "1734735-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f8f5655d20a96dfb"
+          }
+        ],
+        "sku": "1734735-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-13",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734738"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d5b4d44650a07561"
+          }
+        ],
+        "sku": "1734738-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-14",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734744"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5a61f504782ec2a2"
+          }
+        ],
+        "sku": "1734744-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-15",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734749"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bbdfd733f088cda7"
+          }
+        ],
+        "sku": "1734749-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-16",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734752"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cad1b3eb7830e555"
+          }
+        ],
+        "sku": "1734752-V"
+      },
+      {
+        "color": "Lila Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/02c658fd04b3d132"
+          }
+        ],
+        "sku": "1734752-U"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/94acd3f392ea5c21"
+          }
+        ],
+        "sku": "1734752-P"
+      },
+      {
+        "color": "Turquesa",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/59446a2f085dfcdc"
+          }
+        ],
+        "sku": "1734752-T"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-17",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734956"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b2424f80f636b681"
+          }
+        ],
+        "sku": "1734956-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5121457de1f4f37d"
+          }
+        ],
+        "sku": "1734956-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-18",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734960"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5563d8c383150d52"
+          }
+        ],
+        "sku": "1734960-V"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-2",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734385"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2b898ae6af0e09c1"
+          }
+        ],
+        "sku": "1734385-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-3",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734395"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/be7c5ba53b36c8ff"
+          }
+        ],
+        "sku": "1734395-V"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/559a9385d1eb5b7d"
+          }
+        ],
+        "sku": "1734395-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-4",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734398"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/63b07ede7e93ea1b"
+          }
+        ],
+        "sku": "1734398-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-5",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734508"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Naranja",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/71a61169dc64531d"
+          }
+        ],
+        "sku": "1734508-O"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/18538f3ddef11e69"
+          }
+        ],
+        "sku": "1734508-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-6",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734541"
+    },
+    "precio": 39000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8854397e3638a28e"
+          }
+        ],
+        "sku": "1734541-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-7",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734628"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b05c1a14a46180f2"
+          }
+        ],
+        "sku": "1734628-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/51d77d78729a4f11"
+          }
+        ],
+        "sku": "1734628-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-8",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734631"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/71991d9090f163de"
+          }
+        ],
+        "sku": "1734631-3"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6526a59f74c8d904"
+          }
+        ],
+        "sku": "1734631-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-9",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734657"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c7a23401417a1e1f"
+          }
+        ],
+        "sku": "1734657-9"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cf62505c77ea3168"
+          }
+        ],
+        "sku": "1734657-2"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c3126467d897fb4f"
+          }
+        ],
+        "sku": "1734657-G"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7e35f9fbc698b81f"
+          }
+        ],
+        "sku": "1734657-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-3-cierres",
+    "nombre": "cartuchera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734150"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/007952ba375cb1f6"
+          }
+        ],
+        "sku": "1734150-U"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-3-cierres-2",
+    "nombre": "cartuchera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734288"
+    },
+    "precio": 48000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/17086991cbebfae7"
+          }
+        ],
+        "sku": "1734288-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-3-cierres-3",
+    "nombre": "cartuchera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734382"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3a27a170e2ad2ee3"
+          }
+        ],
+        "sku": "1734382-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-3-cierres-4",
+    "nombre": "cartuchera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734526"
+    },
+    "precio": 48000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/85e56a750e5653d9"
+          }
+        ],
+        "sku": "1734526-9"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/171b48ba1f3ef187"
+          }
+        ],
+        "sku": "1734526-R"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-3-cierres-5",
+    "nombre": "cartuchera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734551"
+    },
+    "precio": 48000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ec1e7831fc1fd61f"
+          }
+        ],
+        "sku": "1734551-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-3-cierres-6",
+    "nombre": "cartuchera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734679"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/464d36e24995234e"
+          }
+        ],
+        "sku": "1734679-E"
+      },
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0c67ab921361c46d"
+          }
+        ],
+        "sku": "1734679-V"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-3-cierres-7",
+    "nombre": "cartuchera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1735045"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Rosa Cl/lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e161927ad25be420"
+          }
+        ],
+        "sku": "1735045-I"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-13",
     "categorias": [
       "cartucheras"
@@ -1157,10 +2593,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-19",
     "categorias": [
       "cartucheras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 21 x 10 cm",
     "id": "cartuchera-de-tres-cierres",
     "nombre": "Cartuchera de tres cierres",
     "origen": {
@@ -1406,10 +2843,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-19",
     "categorias": [
       "cartucheras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 13 x 24 x 7 cm",
     "id": "cartuchera-doble-cierre",
     "nombre": "Cartuchera doble cierre",
     "origen": {
@@ -1476,10 +2914,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-19",
     "categorias": [
       "cartucheras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 32 x 8 cm",
     "id": "cartuchera-doble-cierre-impermeable",
     "nombre": "Cartuchera doble cierre impermeable",
     "origen": {
@@ -1529,6 +2968,34 @@
           }
         ],
         "sku": "5554101-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-libro",
+    "nombre": "cartuchera libro",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734536"
+    },
+    "precio": 58000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/924aead85683909f"
+          }
+        ],
+        "sku": "1734536-9X"
       }
     ]
   },
@@ -7619,6 +9086,74 @@
     ]
   },
   {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "necessaires"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho):\t9 x 12 x 6 cm",
+    "id": "neceser-unisex",
+    "nombre": "neceser unisex",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1185605"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cf614ef62b15b749"
+          }
+        ],
+        "sku": "1185605-2"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4eaf529dafc94cf5"
+          }
+        ],
+        "sku": "1185605-B"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b2593f509c66094f"
+          }
+        ],
+        "sku": "1185605-3"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6c507f02297558ae"
+          }
+        ],
+        "sku": "1185605-G"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-14",
     "categorias": [
       "bolsos"
@@ -7677,7 +9212,48 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "rinoneras"
+    ],
+    "id": "rinonera",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734957"
+    },
+    "precio": 68000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cd42d52a6f53bbb3"
+          }
+        ],
+        "sku": "1734957-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4629d09be1221bad"
+          }
+        ],
+        "sku": "1734957-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
     "categorias": [
       "rinoneras"
     ],
