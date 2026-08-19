@@ -278,19 +278,6 @@
     "precio": 105000,
     "variantes": [
       {
-        "color": "Blanco",
-        "imagenes": [
-          {
-            "anchos": [
-              300,
-              600
-            ],
-            "base": "catalogo/d9d386a139a2bdb7"
-          }
-        ],
-        "sku": "2515288-W"
-      },
-      {
         "color": "Marron Claro",
         "imagenes": [
           {
@@ -315,6 +302,19 @@
           }
         ],
         "sku": "2515288-3"
+      },
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d9d386a139a2bdb7"
+          }
+        ],
+        "sku": "2515288-W"
       }
     ]
   },
