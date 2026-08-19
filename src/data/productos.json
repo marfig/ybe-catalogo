@@ -4114,6 +4114,35 @@
     ]
   },
   {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 24 x 14 cm",
+    "id": "lonchera-temica",
+    "nombre": "Lonchera témica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734149"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/54a5ba8fbc23afdd"
+          }
+        ],
+        "sku": "4734149-U"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-13",
     "categorias": [
       "loncheras"
@@ -4139,6 +4168,1230 @@
           }
         ],
         "sku": "4734591-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 22 x 23 x 12 cm",
+    "id": "lonchera-termica-10",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734525"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8bf92f68502c4163"
+          }
+        ],
+        "sku": "4734525-9"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/82431fe489376d05"
+          }
+        ],
+        "sku": "4734525-R"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 26 x 24 x 15 cm",
+    "id": "lonchera-termica-11",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734535"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4afdb52866c52da2"
+          }
+        ],
+        "sku": "4734535-9X"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 22 x 32 x 15 cm",
+    "id": "lonchera-termica-12",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734540"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/da3fb6b5537d8d9e"
+          }
+        ],
+        "sku": "4734540-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 22 x 24 x 17 cm",
+    "id": "lonchera-termica-13",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734550"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dd6ef30ea0e1d375"
+          }
+        ],
+        "sku": "4734550-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 22 x 25 x 13 cm",
+    "id": "lonchera-termica-14",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734565"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d2434c05240c6169"
+          }
+        ],
+        "sku": "4734565-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 23 x 25 x 17 cm",
+    "id": "lonchera-termica-15",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734609"
+    },
+    "precio": 120000,
+    "variantes": [
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/214db05fce5852dc"
+          }
+        ],
+        "sku": "4734609-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-16",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734627"
+    },
+    "precio": 120000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0bd3cdbba08e661a"
+          }
+        ],
+        "sku": "4734627-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f9001b320c5b46ca"
+          }
+        ],
+        "sku": "4734627-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-17",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734630"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d533a3a07231e048"
+          }
+        ],
+        "sku": "4734630-3"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c594a023c51395e5"
+          }
+        ],
+        "sku": "4734630-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-18",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734656"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a04479740a7a77cf"
+          }
+        ],
+        "sku": "4734656-9"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a71775dc30d78891"
+          }
+        ],
+        "sku": "4734656-2"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2e32e38681b6d290"
+          }
+        ],
+        "sku": "4734656-G"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6f13373921f13bc9"
+          }
+        ],
+        "sku": "4734656-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-19",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734676"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c9e7fcc8b04cc2ea"
+          }
+        ],
+        "sku": "4734676-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 24 x 14 cm",
+    "id": "lonchera-termica-2",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734287"
+    },
+    "precio": 120000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ad6809460ad18bbd"
+          }
+        ],
+        "sku": "4734287-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-20",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734678"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c437a0c30c43c885"
+          }
+        ],
+        "sku": "4734678-E"
+      },
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0a9e2a2da12b7a37"
+          }
+        ],
+        "sku": "4734678-V"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-21",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734681"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/12ffdb55695c5f75"
+          }
+        ],
+        "sku": "4734681-E"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/623e9a0a65a315da"
+          }
+        ],
+        "sku": "4734681-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-22",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734688"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f59091d0e6b03510"
+          }
+        ],
+        "sku": "4734688-E"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a0dbeaf199d1ba5b"
+          }
+        ],
+        "sku": "4734688-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5d47992a7a0ef97f"
+          }
+        ],
+        "sku": "4734688-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-23",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734714"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a0997f5f52d880ce"
+          }
+        ],
+        "sku": "4734714-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a3fff3d05f43cbb5"
+          }
+        ],
+        "sku": "4734714-3"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1c3c8f162d400ac0"
+          }
+        ],
+        "sku": "4734714-R"
+      },
+      {
+        "color": "Turquesa",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/804c6392984d594a"
+          }
+        ],
+        "sku": "4734714-T"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c1e805e842cb6b39"
+          }
+        ],
+        "sku": "4734714-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-24",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734737"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dfb442656a757720"
+          }
+        ],
+        "sku": "4734737-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-25",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734740"
+    },
+    "precio": 120000,
+    "variantes": [
+      {
+        "color": "Caqui",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/df0751de096c5975"
+          }
+        ],
+        "sku": "4734740-K"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-26",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734746"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b6a10ee459aae7ee"
+          }
+        ],
+        "sku": "4734746-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-27",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734748"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2fa1c4e3a3a98cd8"
+          }
+        ],
+        "sku": "4734748-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-28",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734751"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a811b327879eb0a5"
+          }
+        ],
+        "sku": "4734751-V"
+      },
+      {
+        "color": "Lila Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/19431171bbc7891b"
+          }
+        ],
+        "sku": "4734751-U"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6a19f273d583722a"
+          }
+        ],
+        "sku": "4734751-P"
+      },
+      {
+        "color": "Turquesa",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/aea66fecad226d3b"
+          }
+        ],
+        "sku": "4734751-T"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-29",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734754"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e7ebe72254a26666"
+          }
+        ],
+        "sku": "4734754-9"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2cb56181e91d983b"
+          }
+        ],
+        "sku": "4734754-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6f51091bc16716d9"
+          }
+        ],
+        "sku": "4734754-3"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/36a6076590bb0e87"
+          }
+        ],
+        "sku": "4734754-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 22 x 23 x 14 cm",
+    "id": "lonchera-termica-3",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734323"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/61516ccc42ea6fc2"
+          }
+        ],
+        "sku": "4734323-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-30",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734775"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/22bde13ad1b81bdc"
+          }
+        ],
+        "sku": "4734775-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1c3b5e59842e0bcf"
+          }
+        ],
+        "sku": "4734775-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 22 x 26 x 16 cm",
+    "id": "lonchera-termica-31",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734955"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6932f145e6a8d969"
+          }
+        ],
+        "sku": "4734955-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ba5e3837aa8d0d0f"
+          }
+        ],
+        "sku": "4734955-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 32 x 13 cm",
+    "id": "lonchera-termica-32",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734959"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1f4229a1373ec39c"
+          }
+        ],
+        "sku": "4734959-V"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 26 x 23 x 15 cm",
+    "id": "lonchera-termica-33",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4735044"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Rosa Cl/lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/393182e2fc353f20"
+          }
+        ],
+        "sku": "4735044-I"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 22 x 25 x 14 cm",
+    "id": "lonchera-termica-4",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734381"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/79dac9efa7fce262"
+          }
+        ],
+        "sku": "4734381-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 22 x 24 x 7 cm",
+    "id": "lonchera-termica-5",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734384"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ddfbb10410e34362"
+          }
+        ],
+        "sku": "4734384-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 22 x 25 x 16 cm",
+    "id": "lonchera-termica-6",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734387"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2ffd142162f71667"
+          }
+        ],
+        "sku": "4734387-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-7",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734394"
+    },
+    "precio": 112000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/091d83c4af0dce7d"
+          }
+        ],
+        "sku": "4734394-V"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/af6016ba660c9bef"
+          }
+        ],
+        "sku": "4734394-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 23 x 25 x 11 cm",
+    "id": "lonchera-termica-8",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734397"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c6a8f56a19833ae4"
+          }
+        ],
+        "sku": "4734397-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 23 x 23 x 13 cm",
+    "id": "lonchera-termica-9",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734507"
+    },
+    "precio": 120000,
+    "variantes": [
+      {
+        "color": "Naranja",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1a701cb9c278924b"
+          }
+        ],
+        "sku": "4734507-O"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7856b2f5dee13cd6"
+          }
+        ],
+        "sku": "4734507-A"
       }
     ]
   },
@@ -7569,6 +8822,48 @@
           }
         ],
         "sku": "5551229-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 51 x 28 x 19 cm",
+    "id": "mochila-impermeable",
+    "nombre": "Mochila impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8134763"
+    },
+    "precio": 165000,
+    "variantes": [
+      {
+        "color": "Amarillo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/12fbea86dbcbe40b"
+          }
+        ],
+        "sku": "8134763-L"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/16aa10f4c9c82997"
+          }
+        ],
+        "sku": "8134763-3"
       }
     ]
   },
