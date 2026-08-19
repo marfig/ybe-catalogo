@@ -472,3 +472,142 @@ test('un id de variante ajeno se RECHAZA', async () => {
     /no pertenecen/i
   );
 });
+
+// --------------------------------------------------------------------------
+// El ORDEN de los colores, que es lo que decide qué se ve del producto.
+// --------------------------------------------------------------------------
+
+test('reordenar los colores reescribe `orden` y no toca nada mas', async () => {
+  /**
+   * ES LA PIEZA QUE SOSTIENE EL REORDENAMIENTO DESDE LA PANTALLA. Los botones de
+   * `alta-cliente.ts` mueven el `<div>` del color y nada mas: el formulario manda los
+   * colores en el orden del DOM y esta funcion deriva `variantes.orden` de la posicion de
+   * cada uno en lo que llega. Si esta propiedad se rompe, los botones dejan de hacer algo
+   * sin que ningun test se ponga rojo.
+   *
+   * Y el orden importa de verdad: el volcado ordena por `orden`, y la primera variante es
+   * la que el sitio rinde por defecto en la ficha, la que da la miniatura de la tarjeta del
+   * listado y la que va al indice del buscador.
+   */
+  const db = base();
+  const { id, varianteId: negro } = alta(db);
+
+  const rojo = (
+    db
+      .prepare(
+        `INSERT INTO variantes (producto_id, sku, color, color_hex, orden)
+         VALUES (?, 'CG85527-rojo', 'Rojo', '#c00000', 1) RETURNING id`
+      )
+      .get(id) as { id: number }
+  ).id;
+  db.prepare(
+    `INSERT INTO variante_imagenes (variante_id, imagen_id, orden)
+     SELECT ?, id, 0 FROM imagenes WHERE hash16 = ?`
+  ).run(rojo, HASH_B);
+
+  // Al reves: el rojo pasa a ser el principal.
+  await actualizarProducto(
+    ejecutor(db),
+    id,
+    {
+      nombre: 'Cartera de fiesta',
+      descripcion: 'Una cartera',
+      precio: 195000,
+      destacado: false,
+      categorias: ['carteras'],
+      variantes: [
+        { id: rojo, color: 'Rojo', hashes: [HASH_B] },
+        { id: negro, color: 'Negro', hashes: [HASH_A] },
+      ],
+    },
+    opciones
+  );
+
+  const vs = db
+    .prepare(
+      `SELECT id, sku, color, color_hex, orden FROM variantes WHERE producto_id = ? ORDER BY orden`
+    )
+    .all(id) as Array<{ id: number; sku: string; color: string; color_hex: string; orden: number }>;
+
+  assert.deepEqual(
+    vs.map((v) => v.sku),
+    ['CG85527-rojo', 'CG85527-negro']
+  );
+  assert.deepEqual(
+    vs.map((v) => v.orden),
+    [0, 1]
+  );
+
+  // NI UNA VARIANTE NUEVA: se emparejan por id, asi que mover no duplica. Si se
+  // emparejaran por SKU recomputado, estas dos entrarian como colores nuevos y el producto
+  // terminaria con cuatro.
+  assert.equal(vs.length, 2);
+  assert.deepEqual(
+    vs.map((v) => v.id),
+    [rojo, negro]
+  );
+
+  // El `color_hex` sobrevive: es el unico dato de la variante que el admin no puede
+  // escribir, y no viaja en el formulario. Reordenar no puede borrarlo.
+  assert.deepEqual(
+    vs.map((v) => v.color_hex),
+    ['#c00000', '#1a1a1a']
+  );
+
+  // Y cada color se queda con SU foto: el vinculo se reescribe en bloque, asi que un
+  // desalineado aca le pondria al rojo la foto del negro.
+  const fotosDe = (varianteId: number) =>
+    (
+      db
+        .prepare(
+          `SELECT i.hash16 FROM variante_imagenes vi
+             JOIN imagenes i ON i.id = vi.imagen_id
+            WHERE vi.variante_id = ? ORDER BY vi.orden`
+        )
+        .all(varianteId) as Array<{ hash16: string }>
+    ).map((f) => f.hash16);
+
+  assert.deepEqual(fotosDe(rojo), [HASH_B]);
+  assert.deepEqual(fotosDe(negro), [HASH_A]);
+});
+
+test('reordenar dos veces vuelve al orden original', async () => {
+  // La propiedad que hace que acomodar colores no pueda dejar el producto peor de como
+  // estaba: es reversible desde la misma pantalla.
+  const db = base();
+  const { id, varianteId: negro } = alta(db);
+  const rojo = (
+    db
+      .prepare(
+        `INSERT INTO variantes (producto_id, sku, color, orden)
+         VALUES (?, 'CG85527-rojo', 'Rojo', 1) RETURNING id`
+      )
+      .get(id) as { id: number }
+  ).id;
+
+  const guardar = (ids: number[]) =>
+    actualizarProducto(
+      ejecutor(db),
+      id,
+      {
+        nombre: 'Cartera de fiesta',
+        descripcion: null,
+        precio: null,
+        destacado: false,
+        categorias: ['carteras'],
+        variantes: ids.map((v) => ({ id: v, color: v === negro ? 'Negro' : 'Rojo', hashes: [] })),
+      },
+      opciones
+    );
+
+  await guardar([rojo, negro]);
+  await guardar([negro, rojo]);
+
+  const vs = db
+    .prepare(`SELECT sku FROM variantes WHERE producto_id = ? ORDER BY orden`)
+    .all(id) as Array<{ sku: string }>;
+  assert.deepEqual(
+    vs.map((v) => v.sku),
+    ['CG85527-negro', 'CG85527-rojo']
+  );
+});
