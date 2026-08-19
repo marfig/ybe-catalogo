@@ -116,8 +116,35 @@ function decodificar(texto: string): string {
  * El renglón que titula la lista de colores. `<p>Colores disponibles:</p>`.
  *
  * Se lo lleva la misma poda que la lista: un título sin su lista no dice nada.
+ *
+ * NO CUBRE TODAS LAS REDACCIONES DEL ORIGEN, y se deja así a propósito. Medido el
+ * 2026-08-19 sobre los 366 productos de la API, de los 54 con lista el origen titula
+ * «Colores disponibles:» en 48, y en los 6 restantes escribe «Color disponible:»,
+ * «Disponibles en color:» o «Colores disponibles varón:». Ampliar el patrón ahora no
+ * arregla nada: la poda sólo corre por el camino de los 189, que ya terminó, y el de los
+ * 177 conserva la lista entera (ver `podarColores`). El costo de un título huérfano es un
+ * renglón de más en una descripción; el de tocar esto es volver a probarlo sin poder.
  */
 const TITULO_COLORES = /^\s*colores\s+disponibles\s*:?\s*$/i;
+
+/** Qué hacer con la lista de colores al redactar la descripción. */
+export interface OpcionesDeDescripcion {
+  /**
+   * `true` —el valor por defecto, que es el de la migración de los 189— poda la lista de
+   * colores y el renglón que la titula.
+   *
+   * SE PODA CUANDO LOS COLORES ENTRAN COMO VARIANTES DE VERDAD, con su SKU y su foto,
+   * desde la ficha del proveedor: repetirlos como prosa los cuenta dos veces, y la lista
+   * del catálogo viejo puede además no coincidir con lo que el proveedor publica hoy.
+   *
+   * `false` la CONSERVA, y es lo que necesitan los 177 productos que el proveedor ya no
+   * publica: ahí no hay ficha del proveedor de dónde sacar variantes —`nombres_variantes`
+   * viene vacío en los 366 de la API y las fotos son un array plano a nivel producto—, así
+   * que esa línea es el único lugar donde dice de qué colores hay. Quien compra pide por
+   * WhatsApp: sin ella no sabe qué pedir.
+   */
+  podarColores?: boolean;
+}
 
 /**
  * La descripción del catálogo viejo, en texto con sus saltos de línea.
@@ -128,22 +155,28 @@ const TITULO_COLORES = /^\s*colores\s+disponibles\s*:?\s*$/i;
  * con `whitespace-pre-line`, la misma solución que nuestra ficha. Los saltos son del
  * autor: aplanarlos es perder información que alguien escribió.
  *
- * LOS COLORES SE DESCARTAN. En el modelo nuevo un color es una variante con su SKU y su
- * foto, que salen de la ficha del proveedor; repetirlos como prosa es contarlos dos
- * veces, y la lista del catálogo viejo puede además no coincidir con lo que el proveedor
- * publica hoy. Se podan por ESTRUCTURA —la `<ol>`/`<ul>` y el renglón que la titula— y
- * no cortando el texto hasta el final: si un producto escribiera algo después de los
- * colores, cortar lo perdería.
+ * LOS COLORES SE DESCARTAN POR DEFECTO. En el modelo nuevo un color es una variante con su
+ * SKU y su foto, que salen de la ficha del proveedor; repetirlos como prosa es contarlos
+ * dos veces, y la lista del catálogo viejo puede además no coincidir con lo que el
+ * proveedor publica hoy. Se podan por ESTRUCTURA —la `<ol>`/`<ul>` y el renglón que la
+ * titula— y no cortando el texto hasta el final: si un producto escribiera algo después de
+ * los colores, cortar lo perdería. Ver `podarColores` para cuándo NO se podan.
  *
  * Devuelve `null` y no cadena vacía cuando no queda nada, y de eso depende el `COALESCE`
  * del UPDATE: con `null` la descripción no se pisa y quedan las medidas que sembró la
  * ficha del proveedor. Es el caso de `cartuchera-doble-cierre-1734033`, cuya descripción
  * entera era la lista de colores.
  */
-export function textoDeDescripcion(fragmento: string): string | null {
-  const texto = fragmento
-    // Las listas de colores, enteras.
-    .replace(/<(ol|ul)\b[^>]*>[\s\S]*?<\/\1>/gi, '')
+export function textoDeDescripcion(
+  fragmento: string,
+  { podarColores = true }: OpcionesDeDescripcion = {}
+): string | null {
+  let texto = fragmento;
+
+  // Las listas de colores, enteras.
+  if (podarColores) texto = texto.replace(/<(ol|ul)\b[^>]*>[\s\S]*?<\/\1>/gi, '');
+
+  texto = texto
     // Cada bloque y cada salto explícito terminan en un renglón.
     .replace(/<br\s*\/?>/gi, '\n')
     .replace(/<\/(p|div|li|h[1-6])\s*>/gi, '\n')
@@ -154,7 +187,8 @@ export function textoDeDescripcion(fragmento: string): string | null {
     .split('\n')
     // El origen deja espacios sueltos al final de varios párrafos.
     .map((r) => r.replace(/[^\S\n]+/g, ' ').trim())
-    .filter((r) => !TITULO_COLORES.test(r));
+    // El título huérfano se va con la lista; si la lista se queda, el título también.
+    .filter((r) => !(podarColores && TITULO_COLORES.test(r)));
 
   const limpio = renglones
     .join('\n')

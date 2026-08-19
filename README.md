@@ -250,9 +250,48 @@ un botón. Las ocho fases cerradas con su criterio de salida verificado.
 - **Barrido de bajas** — preguntarle al proveedor qué de lo que tenemos ya no publica,
   marcarlo y dejar la decisión en manos de una persona. Migración `0005`.
 
-Pendiente fuera de la etapa 2: buscador por código o nombre en el sitio público;
-el scrape del catálogo **viejo** (otro sitio, migración de una sola vez); logo
-definitivo (SVG y variante monocromática); redes sociales.
+- **Migración del catálogo viejo** — traer los 366 productos de
+  `chensonasuncionybe.catalogst.com`, en dos partes y por dos caminos distintos. Ver
+  abajo.
+
+Pendiente fuera de la etapa 2: logo definitivo (SVG y variante monocromática);
+redes sociales.
+
+---
+
+## La migración del catálogo viejo
+
+Se hace desde `/migracion`, que **no está enlazada desde el inicio**: se entra
+escribiendo la dirección. Es una pantalla de un solo uso y su código —`lib/migracion/`,
+`pages/api/migracion/` y los dos scripts de cliente— se borra cuando termine.
+
+**Son dos lotes y no uno, porque tienen dos orígenes.**
+
+| | Los 189 que el proveedor **sí** publica | Los 177 que **ya no** publica |
+|---|---|---|
+| Inventario | sitemap del catálogo viejo | API del catálogo viejo |
+| Nombre, precio, descripción | ficha HTML del catálogo viejo | API del catálogo viejo |
+| Fotos y colores | ficha del **proveedor**: variantes de verdad, una foto por color | API del catálogo viejo: fotos planas, colores como texto en la descripción |
+| Variantes | una por color | **una sola** |
+| `proveedor` | `chenson` | `catalogo-viejo` |
+| Estado | cerrado: entraron y se publicaron | la pantalla actual |
+
+El primer camino **ya no funciona y no es un bug nuestro**: medido el 2026-08-19, el
+`sitemap.xml` del catálogo viejo devuelve un `urlset` vacío y sus fichas dejaron de traer
+JSON-LD en el HTML del servidor —lo inyecta el JavaScript en el navegador—, así que
+`productosDelSitemap` y `curaduriaDeHtml` hoy devolverían cero y nada. El código se queda
+para poder leer qué se hizo con esos 189.
+
+**Por qué el segundo camino no le pregunta nada al proveedor.** Estos 177 productos son
+exactamente los que el proveedor ya no tiene: preguntar es gastar un request para que
+diga «no está». Y por eso mismo entran con `proveedor = 'catalogo-viejo'`, que es lo que
+los deja **fuera del barrido de bajas**: `cola.ts` barre por lista blanca —sólo
+`chenson`— y sin eso serían 177 falsas bajas marcadas todos los días.
+
+> **La categoría no se migra, en ninguno de los dos lotes.** La taxonomía vieja son 24
+> categorías partidas por género y público; las nuestras son 15 partidas por tipo de
+> producto. Traducir unas a otras es decidir, así que se asignan a mano desde la grilla
+> con la acción en lote.
 
 > **El dominio propio está puesto y ya no bloquea el lanzamiento.** El sitio vive en
 > `asuncionybe.com` y las fotos salen de `img.asuncionybe.com`, no de `r2.dev` —que

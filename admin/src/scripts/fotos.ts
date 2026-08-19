@@ -18,6 +18,17 @@ export interface FichaConFotos {
 }
 
 /**
+ * El puente por defecto: el del proveedor, que es el que se usa todos los dias.
+ *
+ * ES UN PARAMETRO Y NO UNA CONSTANTE PORQUE HAY DOS ORIGENES DE FOTOS, y cada uno tiene su
+ * propia guarda de origen en el servidor. `/api/scrape/imagen` sólo acepta URLs del
+ * proveedor; las fotos del catálogo viejo entran por `/api/migracion/imagen`, que se borra
+ * cuando la migración termine. Ampliar la guarda del de todos los días habría dejado para
+ * siempre un permiso que hacía falta una vez.
+ */
+export const PUENTE_DEL_PROVEEDOR = '/api/scrape/imagen';
+
+/**
  * Las fotos de una ficha, una por una (§8.1).
  *
  * El Worker baja la imagen y hashea los BYTES ORIGINALES. Si ya la conoce, responde
@@ -30,7 +41,8 @@ export interface FichaConFotos {
 export async function traerFotos(
   ficha: FichaConFotos,
   cortesia: () => Promise<void>,
-  anotarProblema: (que: string, motivo: string) => void
+  anotarProblema: (que: string, motivo: string) => void,
+  puente: string = PUENTE_DEL_PROVEEDOR
 ): Promise<void> {
   /**
    * TODOS los colores del modelo, no sólo el de la ficha visitada. Las fichas de los
@@ -39,7 +51,7 @@ export async function traerFotos(
    */
   for (const { sku, fotos } of ficha.colores ?? []) {
     for (const url of fotos) {
-      await unaFoto({ sku, url, codigo: ficha.codigo, cortesia, anotarProblema });
+      await unaFoto({ sku, url, codigo: ficha.codigo, cortesia, anotarProblema, puente });
     }
   }
 }
@@ -51,12 +63,14 @@ async function unaFoto({
   codigo,
   cortesia,
   anotarProblema,
+  puente,
 }: {
   sku: string;
   url: string;
   codigo: string | undefined;
   cortesia: () => Promise<void>;
   anotarProblema: (que: string, motivo: string) => void;
+  puente: string;
 }): Promise<void> {
   // El SKU va en el aviso: en un modelo de tres colores, «falló una foto de CG85700» no
   // alcanza para saber cuál variante quedó sin imagen.
@@ -64,7 +78,7 @@ async function unaFoto({
 
   try {
     await cortesia();
-    const respuesta = await fetch('/api/scrape/imagen', {
+    const respuesta = await fetch(puente, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ sku, url }),

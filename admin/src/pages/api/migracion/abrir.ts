@@ -22,7 +22,25 @@ import { corridaEnCurso, iniciarCorrida } from '../../../lib/scrape/corrida.ts';
 interface Peticion {
   /** Cuántos productos trae el catálogo viejo. Sólo para el registro. */
   total?: number;
+  /**
+   * Cuál de las dos migraciones es. `true` para la de los productos que el proveedor ya no
+   * publica.
+   */
+  faltantes?: boolean;
 }
+
+/**
+ * Las dos corridas que puede abrir esta pantalla, con su nombre en el registro.
+ *
+ * SON DOS CADENAS FIJAS Y NO UN TEXTO QUE MANDA EL NAVEGADOR. `scrapes.url` es de dónde sale
+ * el resumen que alguien va a leer dentro de seis meses para entender qué pasó con estos
+ * productos: si lo escribiera la pestaña, ese registro diría lo que dijera quien armó el
+ * pedido.
+ */
+const NOMBRES = {
+  cruzada: 'migracion del catalogo viejo',
+  faltantes: 'migracion de los que el proveedor ya no publica',
+} as const;
 
 export const POST: APIRoute = async ({ request }) => {
   const datos = await cuerpoJson<Peticion>(request);
@@ -41,7 +59,7 @@ export const POST: APIRoute = async ({ request }) => {
   }
 
   const scrapeId = await iniciarCorrida(ejecutar, {
-    url: 'migracion del catalogo viejo',
+    url: datos?.faltantes === true ? NOMBRES.faltantes : NOMBRES.cruzada,
     tipo: 'migracion',
     paginas: Math.max(1, Number(datos?.total) || 1),
     ahora,
