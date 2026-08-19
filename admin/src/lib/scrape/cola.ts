@@ -27,14 +27,25 @@ export interface Candidato {
 }
 
 /**
- * Lo que NO se le pregunta al proveedor.
+ * A quién SÍ se le pregunta al proveedor.
  *
- *  - `proveedor = 'manual'`: no salió de ningún origen, así que el buscador del
- *    proveedor no lo va a encontrar nunca y lo marcaría de baja siempre.
- *  - `estado = 'eliminado'`: ya está en la papelera. Preguntar por él es gastar un
+ *  - `proveedor = 'chenson'`: salió del proveedor, o sea que su buscador lo conoce y una
+ *    respuesta «no está» significa algo.
+ *  - `estado <> 'eliminado'`: los de la papelera no. Preguntar por ellos es gastar un
  *    request en algo sobre lo que ya se decidió.
+ *
+ * ES UNA LISTA BLANCA, y antes era negra —`proveedor <> 'manual'`—. El cambio no es de
+ * estilo: con la lista negra, cualquier origen que se agregue entra a la cola por olvido, y
+ * ya pasó. La migración del catálogo viejo trae 177 productos con
+ * `proveedor = 'catalogo-viejo'` que son EXACTAMENTE los que el proveedor ya no publica: la
+ * lista negra les preguntaría todos los días, recibiría `ausente` siempre, y los dejaría
+ * marcados de baja para siempre. Un aviso permanente que es siempre falso enseña a ignorar
+ * el lugar donde después aparece el de verdad.
+ *
+ * Los cargados a mano siguen afuera por la misma razón de siempre: el buscador del proveedor
+ * no los conoce y los marcaría de baja igual.
  */
-const BARRIBLES = `p.proveedor <> 'manual' AND p.estado <> 'eliminado'`;
+const BARRIBLES = `p.proveedor = 'chenson' AND p.estado <> 'eliminado'`;
 
 /**
  * El orden de la cola.

@@ -143,6 +143,45 @@ test('no se le pregunta al proveedor por un producto cargado a mano', async () =
   assert.deepEqual(codigos(await proximosABarrer(ejecutor(db), { limite: 10 })), ['CG002']);
 });
 
+test('SÓLO se barre lo que salió del proveedor, y es una lista blanca', async () => {
+  /**
+   * EL CASO QUE OBLIGÓ A CAMBIAR LA REGLA. La condición era `proveedor <> 'manual'`, o sea
+   * una lista NEGRA: cualquier origen nuevo entraba a la cola por olvido.
+   *
+   * Y apareció uno. Los 177 productos que la migración del catálogo viejo trae con
+   * `proveedor = 'catalogo-viejo'` son exactamente los que el proveedor YA NO PUBLICA: con
+   * la lista negra, el barrido les preguntaría todos los días, recibiría `ausente` siempre,
+   * y quedarían 177 marcados de baja para siempre. Un aviso permanente que es siempre falso
+   * enseña a ignorar el lugar donde después aparece el de verdad.
+   *
+   * Con lista blanca, el que se agrega mañana tampoco entra hasta que alguien lo decida.
+   */
+  const db = base();
+  sembrar(db, [
+    { codigo: 'CG001', proveedor: 'chenson' },
+    { codigo: 'CG002', proveedor: 'manual' },
+    { codigo: 'CG003', proveedor: 'catalogo-viejo' },
+    { codigo: 'CG004', proveedor: 'lo-que-venga-manana' },
+  ]);
+
+  assert.deepEqual(codigos(await proximosABarrer(ejecutor(db), { limite: 10 })), ['CG001']);
+});
+
+test('un producto del catálogo viejo tampoco se puede barrer de a uno', async () => {
+  /**
+   * La grilla deja tildar productos y mandarlos a revisar. Si `candidatoPorId` no aplicara
+   * la misma regla que la cola, el barrido en lote los saltearía pero el de a uno los
+   * marcaría de baja igual — la peor versión de las dos.
+   */
+  const db = base();
+  sembrar(db, [{ codigo: 'CG003', proveedor: 'catalogo-viejo' }]);
+
+  const [{ id }] = (await ejecutor(db)(`SELECT id FROM productos WHERE codigo = 'CG003'`)) as Array<{
+    id: number;
+  }>;
+  assert.equal(await candidatoPorId(ejecutor(db), id), null);
+});
+
 test('la papelera no se barre', async () => {
   const db = base();
   sembrar(db, [
