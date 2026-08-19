@@ -54,6 +54,37 @@ export const FILTROS = [
 }>;
 
 /**
+ * Opciones del filtro de ORIGEN, en el orden en que se muestran.
+ *
+ * NO ES UN EJE MÁS PORQUE HAYA TRES VALORES EN LA COLUMNA: es porque son DOS TRABAJOS
+ * distintos en la misma cola. Un producto de lanzamientos llega con estructura y sin nada
+ * escrito —hay que ponerle nombre, precio y descripción—; uno del catálogo viejo llega con
+ * los tres ya puestos y lo único que le falta es la categoría. Mezclados en «Por aprobar»
+ * obligan a decidir fila por fila cuál de los dos trabajos toca, y eso no se ve mirando la
+ * fila: los códigos no los distinguen.
+ *
+ * LAS ETIQUETAS NOMBRAN EL TRABAJO Y NO LA COLUMNA. `chenson`, `catalogo-viejo` y `manual`
+ * son vocabulario del esquema: la pantalla no puede pedirle a nadie que los aprenda. Mismo
+ * criterio que `FILTROS`, que se llama «Por aprobar» y no «importado».
+ *
+ * ESTO SE VA CUANDO LA MIGRACIÓN TERMINE, y es lo único de la grilla que lo hace. Cuando
+ * los 177 del catálogo viejo estén aprobados, `proveedor` deja de separar trabajo: todo lo
+ * que entra es `chenson` o `manual`. Para sacarlo alcanza con borrar esta lista,
+ * `condicionOrigen`, el campo `origen` de `Filtros`, sus dos usos en las consultas de abajo
+ * y el `<select>` de `productos.astro`. Está anotado acá porque nadie se va a acordar solo.
+ *
+ * `lanzamientos` es la palabra de quien opera: el scrape entra por la página de lanzamientos
+ * del proveedor (§5.4b), y así lo llama.
+ */
+export const ORIGENES = [
+  { valor: 'chenson', etiqueta: 'Lanzamientos' },
+  { valor: 'catalogo-viejo', etiqueta: 'Catálogo viejo' },
+  { valor: 'manual', etiqueta: 'Cargados a mano' },
+] as const satisfies ReadonlyArray<{ valor: string; etiqueta: string }>;
+
+export type ValorOrigen = (typeof ORIGENES)[number]['valor'];
+
+/**
  * Los cuatro estados en castellano, con lo que significan PARA QUIEN OPERA.
  *
  * El valor crudo de la columna (`importado`, `aprobado`...) es vocabulario del
@@ -144,6 +175,12 @@ export interface Filtros {
    * justamente lo que se está buscando.
    */
   categoria?: string;
+  /**
+   * `productos.proveedor`, o vacío para no filtrar. Ver `ORIGENES`.
+   *
+   * TEMPORAL: se va cuando la migración del catálogo viejo termine.
+   */
+  origen?: string;
   limite?: number;
   desplazamiento?: number;
 }
@@ -244,6 +281,21 @@ function condicionCategoria(categoria?: string): { sql: string; params: unknown[
 }
 
 /**
+ * Condicion de origen.
+ *
+ * Un valor desconocido FILTRA DE VERDAD y la lista sale vacía, igual que una categoría que
+ * no existe. Degradar a «sin filtro» mostraría el catálogo entero, y eso se lee como que el
+ * filtro no hace nada — que es peor que una lista vacía, porque no se nota. Quien valida
+ * contra `ORIGENES` es la pantalla, antes de llegar acá.
+ */
+function condicionOrigen(origen?: string): { sql: string; params: unknown[] } {
+  const valor = (origen ?? '').trim();
+  if (valor === '') return { sql: '1 = 1', params: [] };
+
+  return { sql: 'p.proveedor = ?', params: [valor] };
+}
+
+/**
  * Filas de la grilla.
  *
  * Las categorias se traen en una SEGUNDA consulta y se unen en JS, no con
@@ -253,11 +305,19 @@ function condicionCategoria(categoria?: string): { sql: string; params: unknown[
  */
 export async function listarProductos(
   ejecutar: Ejecutar,
-  { estado = FILTRO_POR_DEFECTO, busqueda, categoria, limite = 50, desplazamiento = 0 }: Filtros = {}
+  {
+    estado = FILTRO_POR_DEFECTO,
+    busqueda,
+    categoria,
+    origen,
+    limite = 50,
+    desplazamiento = 0,
+  }: Filtros = {}
 ): Promise<FilaGrilla[]> {
   const e = condicionEstado(estado);
   const b = condicionBusqueda(busqueda);
   const c = condicionCategoria(categoria);
+  const o = condicionOrigen(origen);
 
   // `destacado` llega como el 0/1 de la columna y se normaliza al final, junto con las
   // categorias: por eso el tipo de la consulta no es el de la fila.
@@ -282,11 +342,11 @@ export async function listarProductos(
               ORDER BY v.orden, v.color, v.sku, vi.orden, i.hash16
               LIMIT 1) AS miniatura
        FROM productos p
-      WHERE ${e.sql} AND ${b.sql} AND ${c.sql}
+      WHERE ${e.sql} AND ${b.sql} AND ${c.sql} AND ${o.sql}
       -- Por codigo: estable entre corridas y es el dato que se tiene a mano.
       ORDER BY p.codigo
       LIMIT ? OFFSET ?`,
-    [...e.params, ...b.params, ...c.params, limite, desplazamiento]
+    [...e.params, ...b.params, ...c.params, ...o.params, limite, desplazamiento]
   );
 
   if (filas.length === 0) return [];
@@ -342,17 +402,20 @@ export async function contarPorEstado(
    * Estos números van en el desplegable de estado. Si la lista se acota por categoría y
    * el conteo no, el desplegable ofrece «En el catálogo (4)» y al elegirlo aparece uno:
    * el contador y la lista dirían cosas distintas sobre la misma pantalla.
+   *
+   * Vale igual para `origen`, y por eso entró acá al mismo tiempo que en la lista.
    */
-  { busqueda, categoria }: Pick<Filtros, 'busqueda' | 'categoria'> = {}
+  { busqueda, categoria, origen }: Pick<Filtros, 'busqueda' | 'categoria' | 'origen'> = {}
 ): Promise<ConteoPorEstado> {
   const b = condicionBusqueda(busqueda);
   const c = condicionCategoria(categoria);
+  const o = condicionOrigen(origen);
   const filas = await ejecutar<{ estado: string; cantidad: number }>(
     `SELECT p.estado, COUNT(*) AS cantidad
        FROM productos p
-      WHERE ${b.sql} AND ${c.sql}
+      WHERE ${b.sql} AND ${c.sql} AND ${o.sql}
       GROUP BY p.estado`,
-    [...b.params, ...c.params]
+    [...b.params, ...c.params, ...o.params]
   );
 
   /**
@@ -363,8 +426,8 @@ export async function contarPorEstado(
   const [baja] = await ejecutar<{ cantidad: number }>(
     `SELECT COUNT(*) AS cantidad
        FROM productos p
-      WHERE ${b.sql} AND ${c.sql} AND ${SQL_DADOS_DE_BAJA}`,
-    [...b.params, ...c.params]
+      WHERE ${b.sql} AND ${c.sql} AND ${o.sql} AND ${SQL_DADOS_DE_BAJA}`,
+    [...b.params, ...c.params, ...o.params]
   );
 
   const conteo = {

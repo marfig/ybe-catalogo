@@ -39,6 +39,7 @@ import {
   ESTADOS_LEGIBLES,
   FILTROS,
   FILTRO_POR_DEFECTO,
+  ORIGENES,
   SIN_CATEGORIA,
   contarPorEstado,
   estadoLegible,
@@ -216,6 +217,16 @@ const categoriaPedida = parametros.get('categoria') ?? '';
 const categoria =
   categoriaPedida === SIN_CATEGORIA || SLUGS_VALIDOS.has(categoriaPedida) ? categoriaPedida : '';
 
+/**
+ * Origen pedido. Uno desconocido cae a «todos», igual que la categoria y el estado.
+ *
+ * TEMPORAL, y anotado para que se pueda sacar: existe mientras la cola de lanzamientos y
+ * la del catalogo viejo esten abiertas a la vez. Ver `ORIGENES` en `lib/grilla.ts`, que
+ * lista todo lo que hay que borrar cuando la migracion termine.
+ */
+const origenPedido = parametros.get('origen') ?? '';
+const origen = ORIGENES.some((o) => o.valor === origenPedido) ? origenPedido : '';
+
 /** Para fechar el aviso de baja en cada fila. Una sola marca por render. */
 const ahora = new Date().toISOString();
 
@@ -239,12 +250,13 @@ const [productos, conteo] = await Promise.all([
     estado,
     busqueda,
     categoria,
+    origen,
     limite: POR_PAGINA,
     desplazamiento: (pagina - 1) * POR_PAGINA,
   }),
   // Los mismos acotes que la lista: si no, los numeros del desplegable de estado
-  // prometen filas que el filtro de categoria no va a mostrar.
-  contarPorEstado(ejecutar, { busqueda, categoria }),
+  // prometen filas que los filtros de categoria y origen no van a mostrar.
+  contarPorEstado(ejecutar, { busqueda, categoria, origen }),
 ]);
 
 /**
@@ -340,12 +352,15 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
 <Panel titulo="Productos" volver="/">
   {/* El form de filtros va APARTE del de edicion: si fueran uno, filtrar mandaria
       tambien los campos editados y "Filtrar" se volveria un guardado encubierto. */}
-  {/* EL ORDEN ES UN EMBUDO: estado, categoria, codigo.
-      Los dos primeros ACOTAN un conjunto; el ultimo BUSCA uno puntual. Puestos asi se
-      leen como una sola frase — "de los que estan por aprobar, de mochilas, el que
-      diga CG85527" — y de paso se pasa por el filtro de estado antes de tipear el
-      codigo, que es lo que evita buscar un publicado con el filtro en "Por aprobar" y
-      creer que no existe. */}
+  {/* EL ORDEN ES UN EMBUDO: estado, origen, categoria, codigo.
+      Los tres primeros ACOTAN un conjunto; el ultimo BUSCA uno puntual. Puestos asi se
+      leen como una sola frase — "de los que estan por aprobar, de los lanzamientos, de
+      mochilas, el que diga CG85527" — y de paso se pasa por el filtro de estado antes de
+      tipear el codigo, que es lo que evita buscar un publicado con el filtro en "Por
+      aprobar" y creer que no existe.
+
+      El origen va SEGUNDO, antes de la categoria, porque es el corte mas grueso: son dos
+      o tres grupos contra dieciseis categorias, y el embudo va de grueso a fino. */}
   <form method="get" action={Astro.url.pathname} role="search" class="filtros">
     <p class="campo">
       <label for="estado">Estado</label>
@@ -360,6 +375,26 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
             </option>
           ))
         }
+      </select>
+    </p>
+    {/**
+     * FILTRO TEMPORAL. Existe porque hay dos colas de trabajo distintas abiertas a la
+     * vez: los lanzamientos llegan sin nombre, sin precio y sin descripcion, y el
+     * catalogo viejo llega con los tres puestos y solo le falta la categoria. Son dos
+     * tareas distintas y la fila no las distingue a simple vista.
+     *
+     * SE BORRA CUANDO LA MIGRACION TERMINE. `ORIGENES` en `lib/grilla.ts` lista las cinco
+     * cosas que hay que sacar, esta entre ellas.
+     */}
+    <p class="campo">
+      <label for="origen">Origen</label>
+      <select id="origen" name="origen">
+        <option value="">Todos</option>
+        {ORIGENES.map((o) => (
+          <option value={o.valor} selected={origen === o.valor}>
+            {o.etiqueta}
+          </option>
+        ))}
       </select>
     </p>
     <p class="campo">

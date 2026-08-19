@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
 import { readFileSync } from 'node:fs';
 
-import { FILTROS, contarPorEstado, listarProductos, type Ejecutar } from './grilla.ts';
+import { FILTROS, ORIGENES, contarPorEstado, listarProductos, type Ejecutar } from './grilla.ts';
 
 /**
  * Tests de la consulta de la grilla (SPEC-etapa2 §10.3).
@@ -62,6 +62,9 @@ function idDe(fila: Record<string, unknown> | undefined, que: string): number {
 
 let n = 0;
 
+/** Los codigos de una lista de filas, en su orden. */
+const codigos = (filas: Array<{ codigo: string }>): string[] => filas.map((f) => f.codigo);
+
 interface Alta {
   codigo?: string;
   nombre?: string | null;
@@ -76,6 +79,8 @@ interface Alta {
   colores?: string[];
   /** Desde cuando el proveedor dejo de publicarlo. */
   ausenteDesde?: string | null;
+  /** De donde salio: `chenson`, `catalogo-viejo` o `manual`. */
+  proveedor?: string;
 }
 
 function alta(db: DatabaseSync, a: Alta = {}) {
@@ -88,10 +93,11 @@ function alta(db: DatabaseSync, a: Alta = {}) {
     db
       .prepare(
         `INSERT INTO productos (codigo, proveedor, slug, nombre, descripcion, precio, destacado, estado, categoria_origen, ausente_desde, creado_en, actualizado_en)
-         VALUES (?, 'chenson', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id`
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) RETURNING id`
       )
       .get(
         codigo,
+        a.proveedor ?? 'chenson',
         slug,
         a.nombre !== undefined ? a.nombre : `Producto ${n}`,
         a.descripcion !== undefined ? a.descripcion : null,
@@ -530,4 +536,148 @@ test('contarPorEstado respeta la busqueda', async () => {
   alta(db, { codigo: 'CG222', estado: 'importado' });
   const conteo = await contarPorEstado(ejecutor(db), { busqueda: '111' });
   assert.equal(conteo.importado, 1);
+});
+
+// --- El origen: no mezclar dos colas de trabajo distintas ---
+
+test('filtra por origen: los lanzamientos y el catalogo viejo, aparte', async () => {
+  /**
+   * POR QUE EXISTE ESTE FILTRO. Los dos origenes no son dos etiquetas: son DOS TRABAJOS
+   * distintos en la misma cola. Un producto de lanzamientos llega con estructura y sin
+   * nada escrito —hay que ponerle nombre, precio y descripcion—; uno del catalogo viejo
+   * llega con todo eso ya puesto y lo unico que le falta es la categoria. Mezclados en
+   * «Por aprobar» obligan a decidir fila por fila que tipo de trabajo toca, y eso no se
+   * ve mirando la fila.
+   */
+  const db = base();
+  alta(db, { codigo: 'CG700', proveedor: 'chenson' });
+  alta(db, { codigo: '8732209', proveedor: 'catalogo-viejo' });
+  alta(db, { codigo: 'AMANO1', proveedor: 'manual' });
+
+  assert.deepEqual(codigos(await listarProductos(ejecutor(db), { origen: 'chenson' })), ['CG700']);
+  assert.deepEqual(codigos(await listarProductos(ejecutor(db), { origen: 'catalogo-viejo' })), [
+    '8732209',
+  ]);
+  assert.deepEqual(codigos(await listarProductos(ejecutor(db), { origen: 'manual' })), ['AMANO1']);
+});
+
+test('sin origen pedido no filtra nada', async () => {
+  // El default es ver todo: el filtro acota cuando alguien lo pide, no por su cuenta.
+  const db = base();
+  alta(db, { codigo: 'CG701', proveedor: 'chenson' });
+  alta(db, { codigo: '8732210', proveedor: 'catalogo-viejo' });
+
+  assert.equal((await listarProductos(ejecutor(db), {})).length, 2);
+  assert.equal((await listarProductos(ejecutor(db), { origen: '' })).length, 2);
+  assert.equal((await listarProductos(ejecutor(db), { origen: '   ' })).length, 2);
+});
+
+test('un origen que no existe no trae nada, y no lo esconde trayendo todo', async () => {
+  /**
+   * Mismo trato que una categoria desconocida: se filtra de verdad y la lista sale
+   * vacia. Degradar a «sin filtro» mostraria el catalogo entero y se leeria como que el
+   * filtro no hace nada — que es peor que una lista vacia, porque no se nota.
+   */
+  const db = base();
+  alta(db, { codigo: 'CG702', proveedor: 'chenson' });
+
+  assert.equal((await listarProductos(ejecutor(db), { origen: 'no-existe' })).length, 0);
+});
+
+test('el origen se combina con el estado, la categoria y la busqueda', async () => {
+  const db = base();
+  alta(db, { codigo: 'CG710', proveedor: 'chenson', estado: 'importado', categorias: ['escolar'] });
+  alta(db, {
+    codigo: '8732211',
+    proveedor: 'catalogo-viejo',
+    estado: 'importado',
+    categorias: ['escolar'],
+  });
+  alta(db, {
+    codigo: '8732212',
+    proveedor: 'catalogo-viejo',
+    estado: 'publicado',
+    categorias: ['escolar'],
+  });
+  alta(db, {
+    codigo: '8732213',
+    proveedor: 'catalogo-viejo',
+    estado: 'importado',
+    categorias: ['carteras'],
+  });
+
+  assert.deepEqual(
+    codigos(
+      await listarProductos(ejecutor(db), {
+        origen: 'catalogo-viejo',
+        estado: 'por-aprobar',
+        categoria: 'escolar',
+      })
+    ),
+    ['8732211']
+  );
+
+  assert.deepEqual(
+    codigos(
+      await listarProductos(ejecutor(db), { origen: 'catalogo-viejo', busqueda: '8732213' })
+    ),
+    ['8732213']
+  );
+});
+
+test('contarPorEstado respeta el origen: el desplegable no puede contradecir la lista', async () => {
+  /**
+   * LA MISMA REGLA QUE YA VALIA PARA LA CATEGORIA, y por eso el filtro nuevo tuvo que
+   * entrar tambien acá: si la lista se acota por origen y el conteo no, el desplegable
+   * de estado ofrece «Por aprobar (40)» y al elegirlo aparecen dos. El contador y la
+   * lista dirian cosas distintas sobre la misma pantalla.
+   */
+  const db = base();
+  alta(db, { codigo: 'CG720', proveedor: 'chenson', estado: 'importado' });
+  alta(db, { codigo: 'CG721', proveedor: 'chenson', estado: 'importado' });
+  alta(db, { codigo: '8732220', proveedor: 'catalogo-viejo', estado: 'importado' });
+  alta(db, { codigo: '8732221', proveedor: 'catalogo-viejo', estado: 'publicado' });
+
+  const soloViejo = await contarPorEstado(ejecutor(db), { origen: 'catalogo-viejo' });
+  assert.equal(soloViejo.importado, 1);
+  assert.equal(soloViejo.publicado, 1);
+
+  const todos = await contarPorEstado(ejecutor(db), {});
+  assert.equal(todos.importado, 3);
+});
+
+test('las bajas del proveedor tambien se cuentan dentro del origen elegido', async () => {
+  /**
+   * El contador de «Ya no está en el proveedor» sale de su propia consulta, así que el
+   * acote nuevo tenía que aplicarse en las DOS. Y vale la pena mirarlo: un producto del
+   * catálogo viejo no deberia poder aparecer ahi nunca —`cola.ts` no lo barre, así que
+   * nadie le escribe `ausente_desde`— pero si alguna vez aparece, el filtro tiene que
+   * poder mostrarlo en su origen y no en el de al lado.
+   */
+  const db = base();
+  alta(db, { codigo: 'CG730', proveedor: 'chenson', estado: 'publicado', ausenteDesde: AHORA });
+  alta(db, { codigo: '8732230', proveedor: 'catalogo-viejo', estado: 'publicado' });
+
+  assert.equal((await contarPorEstado(ejecutor(db), { origen: 'chenson' })).dadosDeBaja, 1);
+  assert.equal((await contarPorEstado(ejecutor(db), { origen: 'catalogo-viejo' })).dadosDeBaja, 0);
+});
+
+test('ORIGENES nombra el TRABAJO y no el valor de la columna', async () => {
+  /**
+   * `chenson`, `catalogo-viejo` y `manual` son vocabulario del esquema: no le dicen nada
+   * a quien opera. La lista de opciones tiene que decir qué cola es cada una, igual que
+   * `FILTROS` se llama «Por aprobar» y no «importado».
+   *
+   * Y cubre los TRES valores que el esquema puede tener: si mañana entra un origen nuevo
+   * sin agregarse acá, quedaría invisible en el desplegable y sus productos no se podrían
+   * aislar desde la pantalla.
+   */
+  assert.deepEqual(
+    ORIGENES.map((o) => o.valor),
+    ['chenson', 'catalogo-viejo', 'manual']
+  );
+  for (const o of ORIGENES) {
+    assert.ok(o.etiqueta.length > 0, o.valor);
+    assert.notEqual(o.etiqueta, o.valor);
+  }
 });
