@@ -1,5 +1,8 @@
 [
   { "id": "mochilas", "nombre": "Mochilas", "orden": 10 },
+  { "id": "mochila-infantil", "nombre": "Mochila infantil", "orden": 11 },
+  { "id": "mochila-dama", "nombre": "Mochila dama", "orden": 12 },
+  { "id": "mochila-para-notebook", "nombre": "Mochila para notebook", "orden": 13 },
   { "id": "carteras", "nombre": "Carteras", "orden": 20 },
   { "id": "bolsos", "nombre": "Bolsos", "orden": 30 },
   { "id": "bandoleras", "nombre": "Bandoleras", "orden": 35 },
