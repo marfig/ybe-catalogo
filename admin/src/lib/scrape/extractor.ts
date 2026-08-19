@@ -61,14 +61,27 @@ export interface FichaExtraida {
 /**
  * La redacción del catálogo, no la del proveedor.
  *
- * Él escribe `Medidas: ( alto x largo x ancho ):`, con espacios sueltos dentro del
- * paréntesis. Esto es lo que va a leer el cliente en la ficha, así que se escribe acá
- * una vez y no se copia del origen.
+ * Él escribe de DOS formas —`Medidas: ( alto x largo x ancho ):` y
+ * `Medidas aprox. (alto x largo x ancho):`—, con espacios sueltos dentro del paréntesis.
+ * Esto es lo que va a leer el cliente en la ficha, así que se escribe acá una vez y no se
+ * copia del origen.
  */
 export const ETIQUETA_MEDIDAS = 'Medidas aprox. (alto x largo x ancho)';
 
-/** Reconoce la celda de la etiqueta. Basta con la palabra: la llave es el orden. */
-const ES_ETIQUETA_MEDIDAS = /^\s*medidas\s*:/i;
+/**
+ * Reconoce la celda de la etiqueta. Basta con la palabra: la llave es el orden.
+ *
+ * ERA `/^\s*medidas\s*:/i` Y COSTÓ 427 PRODUCTOS. Ese patrón exigía el `:` pegado a la
+ * palabra, así que reconocía `Medidas: (…)` y NO `Medidas aprox. (…)` — que es la forma
+ * mayoritaria del proveedor. Medido el 2026-08-19 sobre lo importado de lanzamientos: 427
+ * productos sin descripción contra 31 con ella, con las medidas presentes en las fichas de
+ * los dos grupos y en el mismo marcado. La diferencia era la palabra `aprox.`.
+ *
+ * El comentario de arriba ya decía «basta con la palabra»; el patrón no lo implementaba. El
+ * `\b` es lo que ahora lo cumple, y a la vez evita que `Medidasx` cuele — aunque si colara,
+ * `normalizarMedidas` devuelve `null` ante un valor que no son medidas.
+ */
+const ES_ETIQUETA_MEDIDAS = /^\s*medidas\b/i;
 
 /**
  * Deja el valor del proveedor legible: `18 X 27 X 8cm` -> `18 x 27 x 8 cm`.

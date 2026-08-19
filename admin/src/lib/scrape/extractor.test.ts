@@ -289,13 +289,16 @@ test('una URL que no es ficha se rechaza al construir', () => {
  * espacios sueltos dentro del paréntesis y sin espacio antes de `cm`. Lo que se
  * guarda es la redacción del catálogo, que es la que ve el cliente.
  */
-function conMedidas(valor: string): AcumuladorFicha {
+function conMedidas(
+  valor: string,
+  etiqueta = '\n     Medidas: ( alto x largo x ancho ):\n    '
+): AcumuladorFicha {
   const a = new AcumuladorFicha(`${HOST}/producto/70415-cg85398`);
   a.verMeta('og:title', 'Producto: CG85398 (3) NEGRO');
 
   // El texto de la etiqueta viene dentro de un <span>, no pegado al <td>.
   a.abrirCelda();
-  a.verTextoCelda('\n     Medidas: ( alto x largo x ancho ):\n    ');
+  a.verTextoCelda(etiqueta);
   a.cerrarCelda();
 
   a.abrirCelda();
@@ -304,6 +307,41 @@ function conMedidas(valor: string): AcumuladorFicha {
 
   return a;
 }
+
+/**
+ * LAS DOS ETIQUETAS DEL PROVEEDOR, y este test existe por un bug que costó 427 productos.
+ *
+ * El regex era `/^\s*medidas\s*:/i`, o sea que exigía el `:` pegado a la palabra. Las ocho
+ * fichas que se midieron el 2026-08-12 escribían `Medidas: ( alto x largo x ancho ):` y
+ * pasaban; la otra forma del proveedor —`Medidas aprox. (alto x largo x ancho):`— no, y es
+ * la MAYORITARIA. Medido el 2026-08-19 sobre lo importado de lanzamientos: 427 sin
+ * descripción contra 31 con ella, y las dos fichas comparadas traían las medidas en el mismo
+ * marcado. La única diferencia era la palabra `aprox.`.
+ *
+ * El comentario que estaba al lado del regex ya decía lo correcto —«basta con la palabra: la
+ * llave es el orden»— y el regex no lo implementaba. Ahora sí.
+ */
+test('las dos etiquetas del proveedor dan medidas', () => {
+  for (const etiqueta of [
+    'Medidas: ( alto x largo x ancho ):',
+    'Medidas aprox. (alto x largo x ancho):',
+    '\n   MEDIDAS APROX. (ALTO X LARGO X ANCHO):  ',
+    'Medidas ( alto x largo x ancho )',
+  ]) {
+    assert.equal(
+      conMedidas('21 x 29 x 14cm', etiqueta).resultado().medidas,
+      'Medidas aprox. (alto x largo x ancho): 21 x 29 x 14 cm',
+      etiqueta
+    );
+  }
+});
+
+test('una celda que sólo empieza parecido no arrastra el valor de al lado', () => {
+  // `\b` corta en el límite de palabra: `Medidasx` no es la etiqueta. Y si alguna colara,
+  // `normalizarMedidas` devuelve `null` ante un valor que no son medidas: falla segura.
+  assert.equal(conMedidas('21 x 29 x 14cm', 'Medidasx del envase:').resultado().medidas, null);
+  assert.equal(conMedidas('21 x 29 x 14cm', 'Peso aproximado:').resultado().medidas, null);
+});
 
 test('las medidas salen de la celda que sigue a la etiqueta', () => {
   assert.equal(
