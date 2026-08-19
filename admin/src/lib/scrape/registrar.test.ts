@@ -124,6 +124,64 @@ test('reimportar NO pisa la descripción escrita a mano', async () => {
   assert.equal(p.descripcion, 'Lo que escribí yo.');
 });
 
+test('reimportar SÍ rellena una descripción que está vacía', async () => {
+  /**
+   * LA OTRA MITAD DE LA REGLA, y entró por un caso real: 438 productos quedaron sin
+   * descripción porque el regex de las medidas no reconocía la etiqueta mayoritaria del
+   * proveedor. Arreglado el regex, reimportar no los arreglaba — las medidas se sembraban
+   * sólo en el INSERT, así que un producto que ya existía se quedaba vacío para siempre.
+   *
+   * NO CONTRADICE «EL SCRAPE NO REVIERTE DECISIONES HUMANAS»: es su lectura exacta. Donde
+   * no hay nada escrito no hay decisión que revertir. El `COALESCE` deja ganar SIEMPRE al
+   * valor que ya está —incluso a uno que el propio scrape sembró antes— así que la única
+   * fila que se toca es la que está en NULL.
+   */
+  const db = base();
+  // Entra sin medidas: es el caso de los 427.
+  await registrarFicha(ejecutor(db), { ...CG85700, medidas: null }, opciones);
+  assert.equal(
+    (db.prepare('SELECT descripcion FROM productos').get() as { descripcion: null }).descripcion,
+    null
+  );
+
+  await registrarFicha(
+    ejecutor(db),
+    { ...CG85700, medidas: MEDIDAS },
+    { scrapeId: null, ahora: DESPUES }
+  );
+
+  const p = db.prepare('SELECT descripcion FROM productos').get() as { descripcion: string };
+  assert.equal(p.descripcion, MEDIDAS);
+});
+
+test('rellenar no le gana a lo que ya está, ni con otras medidas', async () => {
+  // El orden del COALESCE es `COALESCE(descripcion, ?)` y no al revés: la columna primero.
+  // Invertirlo pisaria en cada corrida lo que el proveedor haya cambiado de redaccion.
+  const db = base();
+  await registrarFicha(ejecutor(db), { ...CG85700, medidas: MEDIDAS }, opciones);
+
+  await registrarFicha(
+    ejecutor(db),
+    { ...CG85700, medidas: 'Medidas aprox. (alto x largo x ancho): 1 x 1 x 1 cm' },
+    { scrapeId: null, ahora: DESPUES }
+  );
+
+  const p = db.prepare('SELECT descripcion FROM productos').get() as { descripcion: string };
+  assert.equal(p.descripcion, MEDIDAS);
+});
+
+test('una ficha que sigue sin medidas deja la descripción en NULL', async () => {
+  // Sin esto, un `''` dibujaria un parrafo en blanco en la ficha publica.
+  const db = base();
+  await registrarFicha(ejecutor(db), { ...CG85700, medidas: null }, opciones);
+  await registrarFicha(ejecutor(db), { ...CG85700, medidas: '   ' }, { scrapeId: null, ahora: DESPUES });
+
+  assert.equal(
+    (db.prepare('SELECT descripcion FROM productos').get() as { descripcion: null }).descripcion,
+    null
+  );
+});
+
 // --- La idempotencia y la curaduría: el corazón de §7.5 ---
 
 test('correrlo dos veces no duplica nada', async () => {

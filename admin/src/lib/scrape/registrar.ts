@@ -94,14 +94,16 @@ export function nombreDeColor(nombre: string): string {
 /**
  * Registra una ficha. Devuelve qué cambió, para el resumen de §10.2.
  *
- * `nombre`, `descripcion`, `precio`, `destacado`, `slug` y `estado` NO aparecen en
- * ningún UPDATE de esta función, y es la razón de que exista.
+ * `nombre`, `precio`, `destacado`, `slug` y `estado` NO aparecen en ningún UPDATE de
+ * esta función, y es la razón de que exista.
  *
- * `descripcion` SE SIEMBRA EN EL ALTA, y sólo ahí. Un producto que se está creando no
- * puede tener descripción escrita a mano, así que ponerle las medidas del proveedor no
- * pisa nada. Uno que ya existe sí puede, y destildar «Saltear los productos que ya
- * tengo» lo vuelve a importar: por eso la columna sigue fuera del UPDATE de arriba, y
- * no es una excepción a la regla sino su lectura exacta.
+ * `descripcion` SÍ APARECE, y con una regla propia: se siembra en el alta, y en el UPDATE
+ * se escribe **sólo si está en NULL** (`COALESCE(descripcion, ?)`). Lo que ya está gana
+ * siempre, incluso contra unas medidas nuevas del proveedor.
+ *
+ * No es una excepción a la regla de arriba sino su lectura exacta: donde no hay nada
+ * escrito no hay decisión humana que revertir. La nota larga de por qué —438 productos
+ * vacíos por un regex— está en el propio UPDATE.
  */
 export async function registrarFicha(
   ejecutar: Ejecutar,
@@ -126,15 +128,40 @@ export async function registrarFicha(
     /**
      * Sólo los campos DE ORIGEN. La lista corta es el control: cualquier columna que
      * alguien agregue acá sin pensarlo pisaría curaduría en la próxima corrida.
+     *
+     * `descripcion` ES LA EXCEPCIÓN, y su COALESCE va AL REVÉS que los otros dos: la
+     * columna primero. O sea que lo que ya está gana siempre, y lo único que se escribe es
+     * una descripción que está en NULL.
+     *
+     * No contradice la regla de arriba: es su lectura exacta. Donde no hay nada escrito no
+     * hay decisión humana que revertir. Y entró por un caso real — 438 productos quedaron
+     * sin descripción porque el regex de las medidas no reconocía la etiqueta mayoritaria
+     * del proveedor (ver `ES_ETIQUETA_MEDIDAS`). Arreglado el regex, reimportar no los
+     * arreglaba: las medidas se sembraban sólo en el INSERT, así que un producto ya
+     * existente se quedaba vacío para siempre y no había ningún camino para completarlo.
+     *
+     * INVERTIR EL ORDEN SERÍA EL BUG: `COALESCE(?, descripcion)` pisaría en cada corrida lo
+     * que alguien escribió, que es exactamente lo que esta función existe para impedir.
      */
     await ejecutar(
       `UPDATE productos
           SET categoria_origen = COALESCE(?, categoria_origen),
               url_origen       = ?,
+              descripcion      = COALESCE(descripcion, ?),
               scrape_id        = COALESCE(?, scrape_id),
               actualizado_en   = ?
         WHERE id = ?`,
-      [ficha.categoriaOrigen ?? null, ficha.urlOrigen, scrapeId, ahora, existente.id]
+      [
+        ficha.categoriaOrigen ?? null,
+        ficha.urlOrigen,
+        // `|| null` igual que en el INSERT: una cadena vacia le dibujaria a la ficha
+        // publica un parrafo en blanco, porque el render pregunta por la descripcion y no
+        // por su largo.
+        ficha.medidas?.trim() || null,
+        scrapeId,
+        ahora,
+        existente.id,
+      ]
     );
     productoId = existente.id;
   } else {
