@@ -7,6 +7,7 @@ import {
   productoDeParse,
   productosDeRespuesta,
   urlDeConsulta,
+  urlDeFicha,
 } from './parse.ts';
 import { textoDeDescripcion } from './viejo.ts';
 
@@ -23,6 +24,7 @@ import { textoDeDescripcion } from './viejo.ts';
 /** Un producto tal como lo devuelve la API, con los campos que se usan. */
 const CG34337 = {
   objectId: 'aBcDeFgHiJ',
+  place: { __type: 'Pointer', className: 'Place', objectId: 'KygQqU2BGC' },
   codigo: 'CG34337',
   titulo: 'Mochila reforzada con ruedas grande ',
   precio: 398000,
@@ -42,6 +44,8 @@ const CG34337 = {
 };
 
 const SOLO_UNA = {
+  objectId: 'kLmNoPqRsT',
+  place: { __type: 'Pointer', className: 'Place', objectId: 'KygQqU2BGC' },
   codigo: '2510407',
   titulo: 'Billetera sin cierre de hombre',
   precio: 98000,
@@ -289,4 +293,57 @@ test('una respuesta sin `results` no es una tienda vacía', () => {
   assert.equal(productosDeRespuesta({ error: 'unauthorized' }), null);
   assert.equal(productosDeRespuesta(null), null);
   assert.equal(productosDeRespuesta({ results: 'no es una lista' }), null);
+});
+
+// --- La ficha por objectId: la llave que no depende de la grafía del código ---
+
+test('la ficha de un producto se pide por su objectId', () => {
+  /**
+   * POR QUÉ NO SE BUSCA MÁS POR CÓDIGO, y costó 3 productos de los 177.
+   *
+   * El inventario devolvía el código ya NORMALIZADO —`normalizarCodigo` lo pasa a
+   * mayúsculas— y el alta lo usaba de llave en un `where` contra Parse, que compara con
+   * distinción de mayúsculas. Tres productos tienen el código guardado en minúsculas
+   * (`Fla`, `Bl`, `Gat`), así que la consulta devolvía cero filas y el endpoint reportaba
+   * «El catálogo viejo ya no tiene este producto» sobre productos que estaban ahí.
+   *
+   * El `objectId` es la llave real: inmutable, exacta, y de paso inmune a que alguien edite
+   * el código entre que la pestaña arma la lista y llega el pedido.
+   */
+  assert.equal(
+    urlDeFicha('aBcDeFgHiJ'),
+    'https://ecured.ecunegocio.com/parse/classes/Post/aBcDeFgHiJ'
+  );
+});
+
+test('el objectId viaja en el producto leído', () => {
+  assert.equal(productoDeParse(CG34337)!.objectId, 'aBcDeFgHiJ');
+});
+
+test('un producto sin objectId no se puede pedir después, así que no se lee', () => {
+  assert.equal(productoDeParse({ ...CG34337, objectId: '' }), null);
+  assert.equal(productoDeParse({ ...CG34337, objectId: undefined }), null);
+});
+
+test('UN PRODUCTO DE OTRA TIENDA NO SE LEE, aunque el objectId exista', () => {
+  /**
+   * ES LA GUARDA QUE REEMPLAZA A LA DEL `where`. Buscando por código, el filtro por `place`
+   * viajaba en la misma consulta y era imposible traer un producto ajeno. Pidiendo por
+   * `objectId` la pestaña manda un identificador suelto: sin esta verificación, cualquiera
+   * que pase por Access podría hacer que el catálogo se llene con productos de otra tienda
+   * del mismo Parse.
+   */
+  const ajeno = {
+    ...CG34337,
+    place: { __type: 'Pointer', className: 'Place', objectId: 'OtraTienda' },
+  };
+  assert.equal(productoDeParse(ajeno), null);
+
+  // Y sin `place` tampoco: no se asume que sea nuestro.
+  assert.equal(productoDeParse({ ...CG34337, place: undefined }), null);
+  assert.equal(productoDeParse({ ...CG34337, place: 'KygQqU2BGC' }), null);
+});
+
+test('el producto de la tienda propia sí se lee', () => {
+  assert.equal(productoDeParse(CG34337)?.codigo, 'CG34337');
 });

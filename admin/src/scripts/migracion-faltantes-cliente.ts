@@ -43,6 +43,8 @@ import { postJson } from './pedidos.ts';
 const PUENTE_DEL_VIEJO = '/api/migracion/imagen';
 
 interface ProductoFaltante {
+  /** La llave con la que el servidor vuelve a pedir el producto. Ver `crear.ts`. */
+  objectId: string;
   codigo: string;
   nombre: string;
 }
@@ -267,6 +269,8 @@ export function prepararMigracionDeFaltantes(): void {
         await cortesia();
         const creado = await postJson<RespuestaCrear>('/api/migracion/crear', {
           scrapeId,
+          objectId: producto.objectId,
+          // Sólo para que un error pueda nombrarlo. La llave es el `objectId`.
           codigo: producto.codigo,
         });
 

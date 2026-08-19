@@ -38,6 +38,7 @@ const ejecutor =
 
 /** Uno de los 177 reales: `8732209`, con dos fotos y su lista de colores. */
 const PRODUCTO: ProductoDelViejo = {
+  objectId: 'FMMEjUbImL',
   codigo: '8732209',
   nombre: 'Mochila porta notebook impermeable',
   precio: 165000,

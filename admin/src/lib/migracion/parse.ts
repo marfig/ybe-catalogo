@@ -90,6 +90,16 @@ export function esDelCdnViejo(url: string): boolean {
 
 /** Lo que la migración le pide al catálogo viejo por cada producto. */
 export interface ProductoDelViejo {
+  /**
+   * La llave del producto EN PARSE. Es con lo que se lo vuelve a pedir para crearlo.
+   *
+   * NO SE USA EL CÓDIGO PARA ESO, y costó 3 productos de los 177 aprenderlo: el inventario
+   * devuelve el código ya normalizado a mayúsculas, y un `where` por código contra Parse
+   * compara distinguiendo mayúsculas. Los tres productos con el código guardado en
+   * minúsculas (`Fla`, `Bl`, `Gat`) daban cero filas, y el endpoint reportaba una baja que
+   * no había ocurrido. El `objectId` es inmutable y exacto.
+   */
+  objectId: string;
   /** El código del proveedor. Es la identidad con la que se cruza contra nuestra base. */
   codigo: string;
   nombre: string;
@@ -153,6 +163,33 @@ export function urlDeConsulta({
   return url.href;
 }
 
+/**
+ * La URL de UN producto, por su `objectId`.
+ *
+ * Es un GET directo al objeto: no lleva `where`, así que no hay grafía que pueda no
+ * coincidir. Ojo con lo que eso implica — sin `where` tampoco viaja el filtro por tienda, y
+ * quien lea la respuesta TIENE que verificarla. Lo hace `productoDeParse`.
+ */
+export function urlDeFicha(objectId: string): string {
+  return new URL(`classes/${CLASE_PRODUCTOS}/${encodeURIComponent(objectId)}`, SERVIDOR_PARSE).href;
+}
+
+/**
+ * ¿Este producto es de NUESTRA tienda vieja?
+ *
+ * REEMPLAZA A LA GUARDA QUE VIAJABA EN EL `where`. Buscando por código, el filtro por
+ * `place` iba en la misma consulta y era imposible traer un producto ajeno. Pidiendo por
+ * `objectId`, la pestaña manda un identificador suelto: sin esta verificación, cualquiera que
+ * pase por Access podría llenar el catálogo con productos de otra tienda del mismo Parse.
+ *
+ * Sin `place`, o con un `place` que no es un puntero, la respuesta es NO: no se asume que
+ * algo sea nuestro porque no diga lo contrario.
+ */
+function esDeLaTiendaVieja(crudo: unknown): boolean {
+  if (!crudo || typeof crudo !== 'object') return false;
+  return (crudo as { objectId?: unknown }).objectId === PLACE_VIEJO;
+}
+
 /** Un entero positivo, o `null`. El guaraní no tiene decimales. */
 function precioEntero(crudo: unknown): number | null {
   if (typeof crudo !== 'number' || !Number.isFinite(crudo)) return null;
@@ -187,6 +224,17 @@ export function productoDeParse(crudo: unknown): ProductoDelViejo | null {
   if (!crudo || typeof crudo !== 'object') return null;
   const post = crudo as Record<string, unknown>;
 
+  /**
+   * La tienda, ANTES que cualquier otra cosa. Un producto de otra tienda no se lee ni a
+   * medias: si la verificación estuviera al final, todo el parseo de abajo ya habría corrido
+   * sobre datos ajenos y sería más fácil que alguien la corra de lugar sin notarlo.
+   */
+  if (!esDeLaTiendaVieja(post.place)) return null;
+
+  // Sin `objectId` no se lo puede volver a pedir para crearlo, así que no sirve.
+  const objectId = typeof post.objectId === 'string' ? post.objectId.trim() : '';
+  if (!objectId) return null;
+
   let codigo: string;
   try {
     codigo = normalizarCodigo(typeof post.codigo === 'string' ? post.codigo : '');
@@ -219,6 +267,7 @@ export function productoDeParse(crudo: unknown): ProductoDelViejo | null {
   }
 
   return {
+    objectId,
     codigo,
     nombre,
     precio: precioEntero(post.precio),

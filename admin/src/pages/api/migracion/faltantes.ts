@@ -91,16 +91,19 @@ export const POST: APIRoute = async ({ request }) => {
   const faltan = pagina.productos.filter((p) => !yaTenemos.has(p.codigo.toUpperCase()));
 
   /**
-   * Viajan sólo el código y el nombre. El nombre es para que la pantalla pueda nombrar un
-   * problema con algo legible en vez de un número; los datos que se van a ESCRIBIR salen de
-   * la API en el paso siguiente, nunca del navegador.
+   * Viajan el `objectId`, el código y el nombre. El `objectId` es la LLAVE con la que el
+   * alta vuelve a pedir el producto —ver la nota de `ProductoDelViejo`—; el código y el
+   * nombre son sólo para que la pantalla pueda nombrar un problema con algo legible.
+   *
+   * Los datos que se van a ESCRIBIR salen de la API en el paso siguiente, nunca del
+   * navegador, y el `objectId` que la pestaña devuelve se verifica contra la tienda.
    */
   return json({
     total: pagina.total,
     revisados: pagina.productos.length,
     descartados: pagina.descartados,
     yaEstaban: pagina.productos.length - faltan.length,
-    productos: faltan.map((p) => ({ codigo: p.codigo, nombre: p.nombre })),
+    productos: faltan.map((p) => ({ objectId: p.objectId, codigo: p.codigo, nombre: p.nombre })),
   });
 };
 

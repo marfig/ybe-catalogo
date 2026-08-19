@@ -4,7 +4,7 @@ import { env } from 'cloudflare:workers';
 import { ejecutorD1 } from '../../../lib/d1.ts';
 import { cuerpoJson, json, soloPost } from '../../../lib/http.ts';
 import { crearDesdeViejo } from '../../../lib/migracion/crear.ts';
-import { APP_ID_PARSE, productosDeRespuesta, urlDeConsulta } from '../../../lib/migracion/parse.ts';
+import { APP_ID_PARSE, productoDeParse, urlDeFicha } from '../../../lib/migracion/parse.ts';
 import { anotarError, contarFicha } from '../../../lib/scrape/corrida.ts';
 import { USER_AGENT } from '../../../lib/scrape/ficha.ts';
 
@@ -27,20 +27,31 @@ import { USER_AGENT } from '../../../lib/scrape/ficha.ts';
 
 interface Peticion {
   scrapeId?: number;
-  /** El código del producto en el catálogo viejo. */
+  /**
+   * La LLAVE del producto en el catálogo viejo: su `objectId` de Parse.
+   *
+   * No el código. Ver la nota de `ProductoDelViejo`: el inventario devuelve el código
+   * normalizado a mayúsculas y Parse compara distinguiéndolas, así que los tres productos
+   * con el código guardado en minúsculas daban cero filas y se reportaban como bajas.
+   */
+  objectId?: string;
+  /** Sólo para nombrar el producto en un mensaje de error. NUNCA se usa de llave. */
   codigo?: string;
 }
 
 export const POST: APIRoute = async ({ request }) => {
   const datos = await cuerpoJson<Peticion>(request);
-  const codigo = typeof datos?.codigo === 'string' ? datos.codigo.trim() : '';
-  if (!codigo) return json({ error: 'Falta el código del producto.' }, 400);
+  const objectId = typeof datos?.objectId === 'string' ? datos.objectId.trim() : '';
+  if (!objectId) return json({ error: 'Falta el identificador del producto.' }, 400);
   if (typeof datos?.scrapeId !== 'number') return json({ error: 'Falta el scrapeId.' }, 400);
+
+  // Para los mensajes nada más: si la ficha no llega, no hay de dónde sacar un nombre.
+  const comoSeLlama = typeof datos.codigo === 'string' && datos.codigo.trim() ? datos.codigo.trim() : objectId;
 
   const { scrapeId } = datos;
   const ahora = new Date().toISOString();
   const ejecutar = ejecutorD1(env.DB);
-  const url = urlDeConsulta({ codigo });
+  const url = urlDeFicha(objectId);
 
   try {
     const respuesta = await fetch(url, {
@@ -50,26 +61,27 @@ export const POST: APIRoute = async ({ request }) => {
         Accept: 'application/json',
       },
     });
+    /**
+     * Un 404 acá SÍ significa que el producto se dio de baja: se pide por `objectId`, que es
+     * exacto, así que no hay grafía que pueda fallar. Es la diferencia con la versión
+     * anterior, que buscaba por código y reportaba bajas inexistentes.
+     */
+    if (respuesta.status === 404) {
+      throw new Error(`El catálogo viejo ya no tiene ${comoSeLlama}.`);
+    }
     if (!respuesta.ok) {
       throw new Error(`El catálogo viejo respondió HTTP ${respuesta.status}.`);
     }
 
-    const pagina = productosDeRespuesta(await respuesta.json());
-    if (!pagina) throw new Error('La API del catálogo viejo no devolvió lo esperado.');
-
-    const [producto] = pagina.productos;
+    /**
+     * `productoDeParse` verifica que el producto sea DE ESTA TIENDA, y acá eso es la guarda
+     * de seguridad y no una validación de forma: pedir por `objectId` no lleva el filtro por
+     * `place` en la consulta, así que sin esto un identificador ajeno traeria el producto de
+     * otra tienda del mismo Parse. Devuelve `null` también si falta el título o las fotos.
+     */
+    const producto = productoDeParse(await respuesta.json());
     if (!producto) {
-      /**
-       * Cero filas puede ser que el producto se dio de baja del catálogo viejo entre que la
-       * pestaña armó la lista y llegó este pedido, o que no trae fotos o título y
-       * `productoDeParse` lo descartó. En los dos casos no hay nada que crear y no se
-       * adivina: queda anotado con su motivo.
-       */
-      throw new Error(
-        pagina.descartados > 0
-          ? 'El catálogo viejo no da los datos completos de este producto.'
-          : 'El catálogo viejo ya no tiene este producto.'
-      );
+      throw new Error(`El catálogo viejo no da los datos completos de ${comoSeLlama}.`);
     }
 
     const registro = await crearDesdeViejo(ejecutar, producto, { scrapeId, ahora });
