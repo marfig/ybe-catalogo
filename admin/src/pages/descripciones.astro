@@ -1,0 +1,137 @@
+---
+/**
+ * Rellenar las descripciones que faltan. PANTALLA DE UN SOLO USO.
+ *
+ * POR QUÉ EXISTE. El regex que reconoce la etiqueta de medidas del proveedor aceptaba una sola
+ * de sus dos redacciones —`Medidas: (…)` sí, `Medidas aprox. (…)` no— y la que no reconocía es
+ * la mayoritaria. Resultado medido el 2026-08-19: 438 productos con la descripción vacía, con
+ * las medidas presentes en la ficha del proveedor todo el tiempo.
+ *
+ * Arreglado el regex, reimportar NO los arreglaba: las medidas se sembraban sólo en el alta.
+ * Así que `registrarFicha` ahora también rellena una descripción vacía en el UPDATE, y lo
+ * único que falta es volver a pasar por esas fichas. Esta pantalla es ese paso.
+ *
+ * NO ESCRIBE POR NINGÚN CAMINO NUEVO: llama a `/api/scrape/ficha`, el mismo endpoint de todas
+ * las importaciones. Si el relleno funciona acá, el arreglo queda probado sobre el camino que
+ * va a correr siempre.
+ *
+ * NO ESTÁ ENLAZADA DESDE EL INICIO, igual que `/migracion`: se entra escribiendo
+ * `/descripciones`. Y se borra —con su endpoint, su cliente y `lib/scrape/pendientes.ts`—
+ * cuando no queden productos sin descripción. Lo que se queda es el regex y el COALESCE.
+ */
+import Panel from '../layouts/Panel.astro';
+import { ejecutorD1 } from '../lib/d1.ts';
+import { sinDescripcion } from '../lib/scrape/pendientes.ts';
+import { env } from 'cloudflare:workers';
+
+/**
+ * Se cuenta EN EL SERVIDOR, al rendir. Así la pantalla dice cuántos son antes de que nadie
+ * apriete nada — que es la diferencia entre «esto va a hacer algo» y «probemos a ver».
+ */
+const pendientes = await sinDescripcion(ejecutorD1(env.DB));
+const cuantos = pendientes.length;
+
+/** A 1 pedido por segundo, y sin fotos: es un pedido por producto. */
+const minutos = Math.max(1, Math.round(cuantos / 60));
+---
+
+<Panel titulo="Completar las descripciones que faltan" volver="/">
+  <section class="lote">
+    {
+      cuantos === 0 ? (
+        <p class="nota nota--titulo">
+          <strong>No falta ninguna.</strong> Todos los productos del proveedor tienen
+          descripción, así que esta pantalla ya no tiene nada que hacer y se puede borrar.
+        </p>
+      ) : (
+        <>
+          <p>
+            Hay <strong>{cuantos} producto{cuantos === 1 ? '' : 's'}</strong> del proveedor
+            sin descripción. Sus medidas están en la ficha del proveedor: se le vuelve a
+            pedir y se les escribe.
+          </p>
+
+          <p class="nota">
+            <strong>Por qué pasó.</strong> El proveedor rotula las medidas de dos formas
+            distintas y sólo se reconocía una. Ya está arreglado, así que de acá en adelante
+            entran solas — esto es para los que ya estaban.
+          </p>
+
+          <hr />
+
+          <p class="nota nota--titulo">Lo que va a pasar:</p>
+          {/* `confirmar-lista` es la clase que el panel ya usa para una lista con sangría. */}
+          <ol class="confirmar-lista">
+            <li>
+              Se le pide al proveedor la ficha de cada uno de esos {cuantos}, a
+              <strong> 1 por segundo</strong>. Calculá {minutos} minuto{minutos === 1 ? '' : 's'}.
+            </li>
+            <li>
+              Si la ficha trae medidas, se escriben como descripción.
+              <strong> Sólo si está vacía</strong>: nada de lo que hayas escrito vos se toca.
+            </li>
+            <li>
+              <strong>No se bajan fotos.</strong> Estos productos ya las tienen, y saltear ese
+              paso es lo que hace que sean minutos y no media hora.
+            </li>
+          </ol>
+
+          <p class="nota">
+            Incluye los que están <strong>publicados</strong>: un producto en la calle sin
+            descripción es el que más molesta, porque es el que un cliente está mirando.
+            Rellenarlo no cambia su dirección web ni su estado.
+          </p>
+
+          <p class="nota">
+            Si el proveedor sigue sin dar medidas para alguno, ese producto queda como está y
+            vuelve a aparecer en esta lista. No se inventa nada.
+          </p>
+
+          <hr />
+
+          <button type="button" id="empezar">Completar las {cuantos}</button>
+          <button type="button" id="cancelar" class="secundario" hidden>Cortar</button>
+
+          <noscript>
+            <p class="nota nota--pendiente">
+              Esta pantalla necesita JavaScript: el recorrido corre en la pestaña, con un
+              pedido por segundo, y por eso no puede correr en el servidor.
+            </p>
+          </noscript>
+
+          <p id="progreso" aria-live="polite"></p>
+
+          <div
+            id="barra"
+            class="barra"
+            role="progressbar"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+            aria-label="Avance del relleno de descripciones"
+          >
+            <span id="barra-relleno"></span>
+          </div>
+
+          <p class="nota nota--pestana">
+            <strong>No cierres esta pestaña.</strong> El recorrido corre acá: si la cerrás, se
+            interrumpe. Lo que ya se escribió queda, y al volver a empezar sigue por donde iba.
+          </p>
+
+          <details id="problemas" hidden class="ayuda" open>
+            <summary>Los que no se pudieron completar</summary>
+            <ul id="lista-problemas"></ul>
+          </details>
+
+          <section id="resumen" class="resumen" hidden></section>
+        </>
+      )
+    }
+  </section>
+</Panel>
+
+<script>
+  import { prepararDescripciones } from '../scripts/descripciones-cliente.ts';
+
+  prepararDescripciones();
+</script>
