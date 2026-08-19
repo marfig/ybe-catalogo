@@ -265,6 +265,60 @@
     ]
   },
   {
+    "actualizado": "2026-08-19",
+    "categorias": [
+      "billeteras"
+    ],
+    "id": "billetera-dama",
+    "nombre": "Billetera dama",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2515288"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d9d386a139a2bdb7"
+          }
+        ],
+        "sku": "2515288-W"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b1888cc11b47dd94"
+          }
+        ],
+        "sku": "2515288-T"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/77627f0570bb4cc9"
+          }
+        ],
+        "sku": "2515288-3"
+      }
+    ]
+  },
+  {
     "activo": false,
     "actualizado": "2026-08-10",
     "categorias": [
