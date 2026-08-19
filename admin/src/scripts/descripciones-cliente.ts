@@ -2,7 +2,7 @@
  * El relleno de las descripciones que faltan. CÓDIGO DE UN SOLO USO.
  *
  * QUÉ ARREGLA. El regex que reconoce la etiqueta de medidas del proveedor aceptaba sólo una de
- * sus dos redacciones, así que 438 productos entraron con la descripción vacía. Arreglado el
+ * sus dos redacciones, así que 432 productos vivos entraron con la descripción vacía. Arreglado el
  * regex, hacía falta volver a pasar por esas fichas — y `registrarFicha` ahora rellena una
  * descripción vacía en el UPDATE, así que pasar es todo lo que hay que hacer.
  *

@@ -3,13 +3,14 @@
  *
  * POR QUÉ EXISTE ESTO Y NO ALCANZA CON REIMPORTAR. El regex que reconoce la etiqueta de
  * medidas del proveedor sólo aceptaba una de sus dos redacciones (ver `ES_ETIQUETA_MEDIDAS`),
- * así que 438 productos entraron con `descripcion` en NULL. Arreglado el regex, reimportar
+ * así que 438 productos entraron con `descripcion` en NULL. De esos, **432 son recuperables**:
+ * los otros 6 están en la papelera y esta lista los excluye. Arreglado el regex, reimportar
  * seguía sin arreglarlos: las medidas se sembraban únicamente en el INSERT.
  *
  * Ahora `registrarFicha` también rellena una descripción vacía en el UPDATE, así que lo único
  * que falta es VOLVER A PASAR por esas fichas. Esta consulta es la lista de trabajo, y el
  * relleno lo hace `/api/scrape/ficha`, el endpoint de todos los días: no hay ningún camino de
- * escritura nuevo, y si el relleno funciona sobre 438 productos el arreglo queda probado.
+ * escritura nuevo, y si el relleno funciona sobre esos 432 el arreglo queda probado.
  *
  * ES CÓDIGO DE UN SOLO USO. Cuando no queden productos sin descripción, esta función, su
  * pantalla y su endpoint se borran; el arreglo del regex y el COALESCE se quedan, que son los

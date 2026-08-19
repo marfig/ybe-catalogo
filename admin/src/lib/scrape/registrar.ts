@@ -102,7 +102,7 @@ export function nombreDeColor(nombre: string): string {
  * siempre, incluso contra unas medidas nuevas del proveedor.
  *
  * No es una excepción a la regla de arriba sino su lectura exacta: donde no hay nada
- * escrito no hay decisión humana que revertir. La nota larga de por qué —438 productos
+ * escrito no hay decisión humana que revertir. La nota larga de por qué —432 productos
  * vacíos por un regex— está en el propio UPDATE.
  */
 export async function registrarFicha(
@@ -134,7 +134,7 @@ export async function registrarFicha(
      * una descripción que está en NULL.
      *
      * No contradice la regla de arriba: es su lectura exacta. Donde no hay nada escrito no
-     * hay decisión humana que revertir. Y entró por un caso real — 438 productos quedaron
+     * hay decisión humana que revertir. Y entró por un caso real — 432 productos quedaron
      * sin descripción porque el regex de las medidas no reconocía la etiqueta mayoritaria
      * del proveedor (ver `ES_ETIQUETA_MEDIDAS`). Arreglado el regex, reimportar no los
      * arreglaba: las medidas se sembraban sólo en el INSERT, así que un producto ya

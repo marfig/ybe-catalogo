@@ -4,8 +4,9 @@
  *
  * POR QUÉ EXISTE. El regex que reconoce la etiqueta de medidas del proveedor aceptaba una sola
  * de sus dos redacciones —`Medidas: (…)` sí, `Medidas aprox. (…)` no— y la que no reconocía es
- * la mayoritaria. Resultado medido el 2026-08-19: 438 productos con la descripción vacía, con
- * las medidas presentes en la ficha del proveedor todo el tiempo.
+ * la mayoritaria. Resultado medido el 2026-08-19: 438 productos con la descripción vacía —432
+ * recuperables y 6 ya en la papelera, que esta pantalla no toca—, con las medidas presentes en
+ * la ficha del proveedor todo el tiempo.
  *
  * Arreglado el regex, reimportar NO los arreglaba: las medidas se sembraban sólo en el alta.
  * Así que `registrarFicha` ahora también rellena una descripción vacía en el UPDATE, y lo
