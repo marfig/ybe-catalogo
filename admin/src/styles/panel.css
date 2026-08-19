@@ -1129,6 +1129,37 @@ button[disabled] {
   flex: 1 1 12rem;
 }
 
+/* --------------------------------------------------------------------------
+ * El orden de los colores.
+ *
+ * Va en su propio renglon ARRIBA de los campos del color —`flex-basis: 100%`
+ * sobre el flex de `.variante`— porque el orden es del color entero y no de
+ * uno de sus campos. Se inyecta desde JS: sin JavaScript no hay a donde mover
+ * nada, asi que estas reglas no aplican a nada y no molestan.
+ * -------------------------------------------------------------------------- */
+.variante-orden {
+  display: flex;
+  flex-basis: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+/* Ancho fijo para que las flechas de todas las filas queden alineadas: si el
+   rotulo empujara, «Se ve primero» correria las del primer color y la columna
+   de botones dejaria de ser una columna. */
+.variante-orden > .nota {
+  flex: 0 0 auto;
+  min-inline-size: 7rem;
+}
+
+/* Las flechas son un glifo: sin este recorte heredan el `padding-inline` de
+   1.25rem del boton comun y quedan tres veces mas anchas que altas. */
+.variante-orden button {
+  padding-inline: 0.75rem;
+}
+
 .fotos {
   display: flex;
   flex-wrap: wrap;
