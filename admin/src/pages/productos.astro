@@ -32,7 +32,7 @@ import Panel from '../layouts/Panel.astro';
 import { ejecutarAccion, esAccion, necesitaSeleccion } from '../lib/acciones.ts';
 import { validarParaAprobar } from '../lib/aprobacion.ts';
 import { CATEGORIAS, SLUGS_VALIDOS, nombreCategoria } from '../lib/categorias.ts';
-import { ejecutorD1 } from '../lib/d1.ts';
+import { ejecutorD1, loteD1 } from '../lib/d1.ts';
 import type { CambioFila } from '../lib/guardar.ts';
 import { baseDeImagenes, urlMiniatura } from '../lib/imagenes.ts';
 import {
@@ -165,7 +165,13 @@ if (Astro.request.method === 'POST') {
              */
             permitirSinFoto: true,
           },
-          { categoriasValidas: SLUGS_VALIDOS, ahora: new Date().toISOString() }
+          {
+            categoriasValidas: SLUGS_VALIDOS,
+            ahora: new Date().toISOString(),
+            // Todas las escrituras de la accion en UN viaje y UNA transaccion. Ver
+            // `EjecutarLote`: guardar una pagina eran ~200 escrituras en serie.
+            lote: loteD1(env.DB),
+          }
         )
       );
 

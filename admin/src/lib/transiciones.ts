@@ -3,15 +3,23 @@
  *
  * Acá se ESCRIBE. Dos operaciones: aprobar y asignar categorías.
  *
- * ATOMICIDAD, dicho de frente: el lote NO es atómico. Cada producto se actualiza con
- * una sola sentencia, así que ningún producto queda a medias — pero si el lote falla
- * en el medio, unos quedan cambiados y otros no. Por eso cada operación devuelve un
- * resultado POR PRODUCTO en vez de un booleano: la pantalla puede decir exactamente
- * qué pasó con cada uno, y reintentar es seguro porque las dos operaciones son
+ * ATOMICIDAD, dicho de frente: el lote SÍ es atómico, y antes no lo era. Las escrituras
+ * se juntan y salen en un `EjecutarLote`, que es un viaje y una transacción: si una falla,
+ * no queda ninguna aplicada. Antes cada producto se escribía con su propio `await` y un
+ * fallo a la mitad dejaba unos cambiados y otros no.
+ *
+ * Cambió por rendimiento, no por corrección: escribiendo de a una, aprobar o categorizar
+ * una página de 50 eran decenas de viajes en serie en un solo request, y el 2026-08-19 eso
+ * —con una migración corriendo en paralelo— colgaba la pantalla. Ver `EjecutarLote`.
+ *
+ * LO QUE NO CAMBIÓ es que cada operación devuelve un resultado POR PRODUCTO: la validación
+ * sigue decidiendo fila por fila antes de escribir, y `RETURNING` sigue distinguiendo al
+ * producto cuyo estado cambió en el medio, porque el lote devuelve las filas de cada
+ * sentencia por separado. Reintentar sigue siendo seguro: las dos operaciones son
  * idempotentes.
  */
 import { validarParaAprobar } from './aprobacion.ts';
-import type { Ejecutar } from './grilla.ts';
+import type { Ejecutar, EjecutarLote, Sentencia } from './grilla.ts';
 import { slugUnico, slugificar } from './slug.ts';
 
 /**
@@ -40,6 +48,15 @@ export interface ResultadoItem {
 
 export interface OpcionesTransicion {
   categoriasValidas: ReadonlySet<string>;
+  /**
+   * Por donde salen las escrituras: todas juntas, en un viaje y una transaccion.
+   *
+   * Ver `EjecutarLote` en `grilla.ts`. Estas transiciones escribian de a una dentro de un
+   * bucle, asi que aprobar o categorizar una pagina de 50 eran decenas de escrituras en
+   * serie en un solo request — y el 2026-08-19 eso, sumado a una migracion corriendo,
+   * colgaba la pantalla.
+   */
+  lote: EjecutarLote;
   /** Marca de tiempo a escribir. Inyectable para que los tests sean estables. */
   ahora: string;
   /** Confirmación explícita de aprobar sin foto (§5.2-3). */
@@ -125,7 +142,13 @@ async function traerCategorias(
 export async function aprobar(
   ejecutar: Ejecutar,
   ids: number[],
-  { categoriasValidas, ahora, permitirSinFoto = false, saltearIncompletos = false }: OpcionesTransicion
+  {
+    categoriasValidas,
+    ahora,
+    lote,
+    permitirSinFoto = false,
+    saltearIncompletos = false,
+  }: OpcionesTransicion
 ): Promise<ResultadoItem[]> {
   if (ids.length === 0) return [];
 
@@ -147,6 +170,16 @@ export async function aprobar(
 
   const porId = new Map(productos.map((p) => [p.id, p]));
   const resultados: ResultadoItem[] = [];
+
+  /** Las escrituras, para mandarlas todas juntas al final. */
+  const sentencias: Sentencia[] = [];
+  /** Que fila pidio cada sentencia, y en que puesto de `resultados` va su desenlace. */
+  const reservas: Array<{
+    p: { id: number; codigo: string };
+    slug: string;
+    puesto: number;
+    sentencia: number;
+  }> = [];
 
   for (const p of productos) {
     // Sólo `importado` → `aprobado`. La máquina de estados de §5.2 no tiene otra
@@ -227,25 +260,44 @@ export async function aprobar(
      *
      * `publicado_en` NO se toca: se sella en la publicación, no al aprobar (§5.2).
      */
-    const filas = await ejecutar<{ id: number }>(
-      `UPDATE productos
-          SET estado = 'aprobado', slug = ?, actualizado_en = ?
-        WHERE id = ? AND estado = 'importado'
-        RETURNING id`,
-      [slug, ahora, p.id]
-    );
-
-    if (filas.length === 0) {
-      resultados.push({
-        id: p.id,
-        codigo: p.codigo,
-        desenlace: 'fallo',
-        motivo: 'el estado cambió mientras se aprobaba; volver a intentar',
-      });
-      continue;
-    }
-
+    /**
+     * La escritura se GUARDA para mandarla con las demas, y el resultado se resuelve
+     * despues. Se reserva ya el lugar en `resultados` para no cambiar el orden en que se
+     * reportan las filas: `resumir` muestra el motivo de la PRIMERA que fallo.
+     */
+    reservas.push({ p, slug, puesto: resultados.length, sentencia: sentencias.length });
     resultados.push({ id: p.id, codigo: p.codigo, desenlace: 'hecho', slug });
+    sentencias.push({
+      sql: `UPDATE productos
+               SET estado = 'aprobado', slug = ?, actualizado_en = ?
+             WHERE id = ? AND estado = 'importado'
+             RETURNING id`,
+      params: [slug, ahora, p.id],
+    });
+  }
+
+  /**
+   * Un viaje con las 50 escrituras, y recien ahi se lee que paso con cada una.
+   *
+   * `RETURNING` que vuelve vacio sigue siendo como se detecta que el estado cambio en el
+   * medio: `batch()` devuelve las filas de cada sentencia por separado, asi que la guarda
+   * optimista se mantiene fila por fila. Lo que cambia es que si una sentencia REVIENTA, no
+   * queda ninguna aplicada — antes las anteriores quedaban. Es el mismo trato que
+   * `guardarFilas`: para una accion de formulario, todas o ninguna.
+   */
+  if (sentencias.length > 0) {
+    const filasPorSentencia = await lote<{ id: number }>(sentencias);
+
+    for (const r of reservas) {
+      if ((filasPorSentencia[r.sentencia] ?? []).length === 0) {
+        resultados[r.puesto] = {
+          id: r.p.id,
+          codigo: r.p.codigo,
+          desenlace: 'fallo',
+          motivo: 'el estado cambió mientras se aprobaba; volver a intentar',
+        };
+      }
+    }
   }
 
   // Los ids que no existen se reportan igual: un lote que los ignora en silencio
@@ -273,7 +325,7 @@ export async function asignarCategorias(
   ejecutar: Ejecutar,
   ids: number[],
   slugsCategorias: string[],
-  { categoriasValidas, ahora }: OpcionesTransicion
+  { categoriasValidas, ahora, lote }: OpcionesTransicion
 ): Promise<ResultadoItem[]> {
   if (slugsCategorias.length === 0) {
     throw new Error('No se eligió ninguna categoría para asignar.');
@@ -295,6 +347,9 @@ export async function asignarCategorias(
   const porId = new Map(productos.map((p) => [p.id, p]));
   const resultados: ResultadoItem[] = [];
 
+  /** Las escrituras, para mandarlas todas juntas al final. */
+  const sentencias: Sentencia[] = [];
+
   for (const p of productos) {
     const ya = existentes.get(p.id) ?? [];
     const nuevas = slugsCategorias.filter((c) => !ya.includes(c));
@@ -303,15 +358,18 @@ export async function asignarCategorias(
       // El orden arranca después de las que ya tiene, para no mover el breadcrumb.
       let orden = ya.length;
       for (const categoria of nuevas) {
-        await ejecutar(
-          `INSERT INTO producto_categorias (producto_id, categoria_slug, orden) VALUES (?, ?, ?)`,
-          [p.id, categoria, orden]
-        );
+        sentencias.push({
+          sql: `INSERT INTO producto_categorias (producto_id, categoria_slug, orden) VALUES (?, ?, ?)`,
+          params: [p.id, categoria, orden],
+        });
         orden++;
       }
       // Sin esto el volcado emitiría una fecha `actualizado` vieja para un producto
       // que sí cambió.
-      await ejecutar(`UPDATE productos SET actualizado_en = ? WHERE id = ?`, [ahora, p.id]);
+      sentencias.push({
+        sql: `UPDATE productos SET actualizado_en = ? WHERE id = ?`,
+        params: [ahora, p.id],
+      });
     }
 
     // Sin categorias nuevas no se escribio nada: omitido, no hecho.
@@ -326,6 +384,12 @@ export async function asignarCategorias(
   for (const id of ids) {
     if (!porId.has(id)) resultados.push({ id, desenlace: 'fallo', motivo: 'no existe' });
   }
+
+  /**
+   * Un viaje con todas las categorias del lote. Si un producto ya las tenia no aporto
+   * ninguna sentencia, asi que asignar algo que ya estaba no le cuesta nada a la base.
+   */
+  if (sentencias.length > 0) await lote(sentencias);
 
   return resultados;
 }

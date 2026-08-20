@@ -71,5 +71,21 @@
 
     // Repositorio al que se manda el repository_dispatch al publicar (§11.2).
     "GITHUB_REPO": "marfig/ybe-catalogo"
+  },
+
+  // Registro de invocaciones.
+  //
+  // ENTRO POR UN INCIDENTE QUE NO DEJO RASTRO. El 2026-08-19 el admin estuvo muy
+  // lento durante una tarde de carga —una migracion masiva y otra persona curando
+  // en la grilla al mismo tiempo— y horas despues ya estaba sano. Diagnosticarlo
+  // fue reconstruirlo de memoria: no habia ni una duracion registrada, y las
+  // mediciones que si se podian hacer eran en calma, o sea sobre el escenario que
+  // no fallaba. El inicio paso de 17 s a 526 ms sin cambiar una linea de codigo.
+  //
+  // Con esto, la proxima vez hay numeros en vez de una sensacion: duracion por
+  // request y cada subpedido que hace el Worker, que es justo donde aparecen los
+  // viajes a D1.
+  "observability": {
+    "enabled": true
   }
 }

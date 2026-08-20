@@ -5,6 +5,7 @@ import { readFileSync } from 'node:fs';
 
 import { ejecutarAccion, esAccion, necesitaSeleccion } from './acciones.ts';
 import type { CambioFila } from './guardar.ts';
+import { loteSqlite } from './d1.ts';
 import type { Ejecutar } from './grilla.ts';
 
 /**
@@ -113,6 +114,14 @@ const cambio = (c: Partial<CambioFila> & { id: number }): CambioFila => ({
 
 const opciones = { categoriasValidas: CATEGORIAS, ahora: AHORA };
 
+/**
+ * Las opciones con el ejecutor de lote de esta base.
+ *
+ * `loteSqlite` no es un doble: es la implementacion de `d1.ts` que cumple el mismo
+ * contrato que `batch()` de D1, asi que estos tests ejercitan el camino de escritura real.
+ */
+const con = (db: DatabaseSync) => ({ ...opciones, lote: loteSqlite(db) });
+
 // --------------------------------------------------------------------------
 // esAccion: la puerta de entrada
 // --------------------------------------------------------------------------
@@ -157,7 +166,7 @@ test('APROBAR guarda primero: lo tipeado en pantalla es lo que se valida', async
       seleccionados: [id],
       permitirSinFoto: true,
     },
-    opciones
+    con(db)
   );
 
   const fila = leer(db, id);
@@ -184,7 +193,7 @@ test('sin el guardado previo el mismo caso fallaria: la base sola no alcanza', a
       seleccionados: [id],
       permitirSinFoto: true,
     },
-    opciones
+    con(db)
   );
 
   assert.equal(leer(db, id).estado, 'importado');
@@ -212,7 +221,7 @@ test('una fila que fallo al guardar NO se aprueba: se actuaria sobre datos viejo
       seleccionados: [id],
       permitirSinFoto: true,
     },
-    opciones
+    con(db)
   );
 
   assert.equal(leer(db, id).nombre, 'No me borres');
@@ -238,7 +247,7 @@ test('el fallo al guardar se reporta AUNQUE la fila no estuviera tildada', async
       seleccionados: [tildado],
       permitirSinFoto: true,
     },
-    opciones
+    con(db)
   );
 
   assert.equal(leer(db, tildado).estado, 'aprobado', 'el tildado se aprueba igual');
@@ -271,7 +280,7 @@ test('aprobar-completos aprueba los listos e IGNORA la seleccion', async () => {
       seleccionados: [],
       permitirSinFoto: true,
     },
-    opciones
+    con(db)
   );
 
   assert.equal(leer(db, listo).estado, 'aprobado');
@@ -299,7 +308,7 @@ test('un incompleto sale OMITIDO, no como fallo: nadie afirmo que estuviera list
       seleccionados: [],
       permitirSinFoto: true,
     },
-    opciones
+    con(db)
   );
 
   const suyo = rs.find((r) => r.id === incompleto)!;
@@ -322,7 +331,7 @@ test('el mismo incompleto TILDADO a mano sigue siendo un fallo', async () => {
       seleccionados: [incompleto],
       permitirSinFoto: true,
     },
-    opciones
+    con(db)
   );
 
   const suyo = rs.find((r) => r.id === incompleto)!;
@@ -344,7 +353,7 @@ test('aprobar-completos valida sobre LO TIPEADO: lo que acabas de completar entr
       seleccionados: [],
       permitirSinFoto: true,
     },
-    opciones
+    con(db)
   );
 
   const fila = leer(db, id);
@@ -370,7 +379,7 @@ test('aprobar-completos no toca los que ya pasaron: siguen omitidos por su estad
       seleccionados: [],
       permitirSinFoto: true,
     },
-    opciones
+    con(db)
   );
 
   assert.equal(leer(db, publicado).estado, 'publicado');
@@ -393,7 +402,7 @@ test('aprobar-completos respeta el pedido de aprobar sin foto', async () => {
       seleccionados: [],
       permitirSinFoto: false,
     },
-    opciones
+    con(db)
   );
 
   assert.equal(leer(db, sinFoto).estado, 'importado');
@@ -415,7 +424,7 @@ test('una fila que fallo al guardar queda afuera tambien de aprobar-completos', 
       seleccionados: [],
       permitirSinFoto: true,
     },
-    opciones
+    con(db)
   );
 
   assert.equal(leer(db, malo).nombre, 'No me borres');
@@ -437,7 +446,7 @@ test('guardar devuelve los resultados del guardado y no transiciona nada', async
   const rs = await ejecutarAccion(
     ejecutor(db),
     { accion: 'guardar', cambios: [cambio({ id, nombre: 'Despues' })], seleccionados: [id] },
-    opciones
+    con(db)
   );
 
   const fila = leer(db, id);
@@ -464,7 +473,7 @@ test('categorias tambien guarda primero: la principal tipeada no se pierde', asy
       seleccionados: [id],
       secundarias: ['escolar'],
     },
-    opciones
+    con(db)
   );
 
   // La principal salio del select de la fila; la secundaria del lote. El orden importa:
@@ -488,7 +497,7 @@ test('categorias sin ninguna elegida LANZA, y lo tipeado ya quedo guardado', asy
         seleccionados: [id],
         secundarias: [],
       },
-      opciones
+      con(db)
     ),
     /categoría/i
   );
@@ -508,7 +517,7 @@ test('aprobar sin nada tildado igual GUARDA lo tipeado', async () => {
   const rs = await ejecutarAccion(
     ejecutor(db),
     { accion: 'aprobar', cambios: [cambio({ id, nombre: 'Despues' })], seleccionados: [] },
-    opciones
+    con(db)
   );
 
   assert.equal(leer(db, id).nombre, 'Despues');
@@ -521,7 +530,7 @@ test('una pagina sin filas no escribe ni revienta', async () => {
   const rs = await ejecutarAccion(
     ejecutor(db),
     { accion: 'guardar', cambios: [], seleccionados: [] },
-    opciones
+    con(db)
   );
   assert.deepEqual(rs, []);
 });

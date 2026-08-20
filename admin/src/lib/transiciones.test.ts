@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
 import { readFileSync } from 'node:fs';
 
-import { aprobar, asignarCategorias } from './transiciones.ts';
+import { aprobar, asignarCategorias, type OpcionesTransicion } from './transiciones.ts';
+import { loteSqlite } from './d1.ts';
 import type { Ejecutar } from './grilla.ts';
 
 /**
@@ -105,6 +106,17 @@ const leer = (db: DatabaseSync, id: number) =>
 
 const opciones = { categoriasValidas: CATEGORIAS, ahora: AHORA };
 
+/**
+ * Las opciones con el ejecutor de lote de esta base.
+ *
+ * `loteSqlite` no es un doble: es la implementacion de `d1.ts` que cumple el mismo
+ * contrato que `batch()` de D1, asi que estos tests ejercitan el camino real de escritura.
+ */
+const con = (
+  db: DatabaseSync,
+  extra: Partial<OpcionesTransicion> = {}
+): OpcionesTransicion => ({ ...opciones, ...extra, lote: loteSqlite(db) });
+
 // --------------------------------------------------------------------------
 // Aprobar: el camino feliz y el slug
 // --------------------------------------------------------------------------
@@ -113,7 +125,7 @@ test('aprobar pasa a aprobado y genera el slug del nombre', async () => {
   const db = base();
   const id = alta(db, { nombre: 'Cartera de fiesta con strass' });
 
-  const [r] = await aprobar(ejecutor(db), [id], opciones);
+  const [r] = await aprobar(ejecutor(db), [id], con(db));
   assert.equal(r.desenlace, 'hecho');
   assert.equal(r.slug, 'cartera-de-fiesta-con-strass');
 
@@ -129,7 +141,7 @@ test('aprobar pasa a aprobado y genera el slug del nombre', async () => {
 test('el slug sale sin tildes ni eñes', async () => {
   const db = base();
   const id = alta(db, { nombre: 'Riñonera juvenil' });
-  const [r] = await aprobar(ejecutor(db), [id], opciones);
+  const [r] = await aprobar(ejecutor(db), [id], con(db));
   assert.equal(r.slug, 'rinonera-juvenil');
 });
 
@@ -142,7 +154,7 @@ test('un producto que YA tiene slug lo conserva, no se le genera otro', async ()
   const db = base();
   const id = alta(db, { nombre: 'Nombre nuevo y distinto', slug: 'slug-viejo-que-esta-en-la-calle' });
 
-  const [r] = await aprobar(ejecutor(db), [id], opciones);
+  const [r] = await aprobar(ejecutor(db), [id], con(db));
   assert.equal(r.desenlace, 'hecho');
   assert.equal(leer(db, id).slug, 'slug-viejo-que-esta-en-la-calle');
 });
@@ -150,8 +162,8 @@ test('un producto que YA tiene slug lo conserva, no se le genera otro', async ()
 test('aprobar dos veces no cambia el slug ni revienta', async () => {
   const db = base();
   const id = alta(db, { nombre: 'Cartera de fiesta' });
-  const [primero] = await aprobar(ejecutor(db), [id], opciones);
-  const [segundo] = await aprobar(ejecutor(db), [id], opciones);
+  const [primero] = await aprobar(ejecutor(db), [id], con(db));
+  const [segundo] = await aprobar(ejecutor(db), [id], con(db));
 
   assert.equal(primero.desenlace, 'hecho');
   // OMITIDO, no fallo: ya paso esa etapa, no hay nada que corregir.
@@ -169,7 +181,7 @@ test('una colision con un slug EXISTENTE sufija -2', async () => {
   alta(db, { codigo: 'CG1', estado: 'publicado', slug: 'cartera-de-fiesta', nombre: 'Cartera de fiesta' });
   const id = alta(db, { codigo: 'CG2', nombre: 'Cartera de fiesta' });
 
-  const [r] = await aprobar(ejecutor(db), [id], opciones);
+  const [r] = await aprobar(ejecutor(db), [id], con(db));
   assert.equal(r.slug, 'cartera-de-fiesta-2');
 });
 
@@ -182,7 +194,7 @@ test('dos productos del MISMO lote con el mismo nombre no colisionan', async () 
   const b = alta(db, { codigo: 'CG2', nombre: 'Cartera de fiesta' });
   const c = alta(db, { codigo: 'CG3', nombre: 'Cartera de fiesta' });
 
-  const rs = await aprobar(ejecutor(db), [a, b, c], opciones);
+  const rs = await aprobar(ejecutor(db), [a, b, c], con(db));
   assert.ok(rs.every((r) => r.desenlace === 'hecho'), rs.map((r) => r.motivo).join(' | '));
   assert.deepEqual(
     rs.map((r) => r.slug).sort(),
@@ -197,7 +209,7 @@ test('dos productos del MISMO lote con el mismo nombre no colisionan', async () 
 test('no aprueba un producto sin nombre, y dice por que', async () => {
   const db = base();
   const id = alta(db, { nombre: null });
-  const [r] = await aprobar(ejecutor(db), [id], opciones);
+  const [r] = await aprobar(ejecutor(db), [id], con(db));
   assert.equal(r.desenlace, 'fallo');
   assert.match(r.motivo!, /nombre/i);
   assert.equal(leer(db, id).estado, 'importado', 'no debe haber cambiado de estado');
@@ -206,18 +218,18 @@ test('no aprueba un producto sin nombre, y dice por que', async () => {
 test('no aprueba un producto sin fotos salvo confirmacion explicita', async () => {
   const db = base();
   const id = alta(db, { fotos: 0 });
-  const [sinPermiso] = await aprobar(ejecutor(db), [id], opciones);
+  const [sinPermiso] = await aprobar(ejecutor(db), [id], con(db));
   assert.equal(sinPermiso.desenlace, 'fallo');
   assert.match(sinPermiso.motivo!, /foto/i);
 
-  const [conPermiso] = await aprobar(ejecutor(db), [id], { ...opciones, permitirSinFoto: true });
+  const [conPermiso] = await aprobar(ejecutor(db), [id], con(db, { permitirSinFoto: true }));
   assert.equal(conPermiso.desenlace, 'hecho');
 });
 
 test('no aprueba con una categoria que no existe en categorias.json', async () => {
   const db = base();
   const id = alta(db, { categorias: ['inventada'] });
-  const [r] = await aprobar(ejecutor(db), [id], opciones);
+  const [r] = await aprobar(ejecutor(db), [id], con(db));
   assert.equal(r.desenlace, 'fallo');
   assert.match(r.motivo!, /inventada/);
 });
@@ -229,7 +241,7 @@ test('un lote mixto aprueba los validos y reporta los invalidos', async () => {
   const bueno = alta(db, { codigo: 'CG1', nombre: 'Cartera de fiesta' });
   const malo = alta(db, { codigo: 'CG2', nombre: null });
 
-  const rs = await aprobar(ejecutor(db), [bueno, malo], opciones);
+  const rs = await aprobar(ejecutor(db), [bueno, malo], con(db));
   assert.equal(rs.find((r) => r.id === bueno)!.desenlace, 'hecho');
   assert.equal(rs.find((r) => r.id === malo)!.desenlace, 'fallo');
   assert.equal(leer(db, bueno).estado, 'aprobado');
@@ -245,7 +257,7 @@ test('un publicado no se "re-aprueba"', async () => {
   // retrocederia un producto que ya esta en la calle.
   const db = base();
   const id = alta(db, { estado: 'publicado', slug: 'ya-publicado' });
-  const [r] = await aprobar(ejecutor(db), [id], opciones);
+  const [r] = await aprobar(ejecutor(db), [id], con(db));
   // OMITIDO, no fallo: la grilla deja editarlo — corregir un precio en vivo es la
   // tarea mas comun — pero aprobarlo no aplica. Reportarlo como fallo hace parecer
   // que editar y aprobar se contradicen.
@@ -257,7 +269,7 @@ test('un publicado no se "re-aprueba"', async () => {
 test('un eliminado no se aprueba: se restaura, que es otra transicion', async () => {
   const db = base();
   const id = alta(db, { estado: 'eliminado', slug: 'estaba-eliminado' });
-  const [r] = await aprobar(ejecutor(db), [id], opciones);
+  const [r] = await aprobar(ejecutor(db), [id], con(db));
   assert.equal(r.desenlace, 'omitido');
   assert.match(r.motivo!, /papelera/i);
   assert.equal(leer(db, id).estado, 'eliminado');
@@ -266,7 +278,7 @@ test('un eliminado no se aprueba: se restaura, que es otra transicion', async ()
 test('un id que no existe se reporta, no revienta el lote', async () => {
   const db = base();
   const id = alta(db, { nombre: 'Cartera de fiesta' });
-  const rs = await aprobar(ejecutor(db), [id, 99999], opciones);
+  const rs = await aprobar(ejecutor(db), [id, 99999], con(db));
   assert.equal(rs.length, 2);
   assert.equal(rs.find((r) => r.id === 99999)!.desenlace, 'fallo');
   assert.equal(rs.find((r) => r.id === id)!.desenlace, 'hecho');
@@ -274,7 +286,7 @@ test('un id que no existe se reporta, no revienta el lote', async () => {
 
 test('una lista vacia no hace nada y no revienta', async () => {
   const db = base();
-  assert.deepEqual(await aprobar(ejecutor(db), [], opciones), []);
+  assert.deepEqual(await aprobar(ejecutor(db), [], con(db)), []);
 });
 
 // --------------------------------------------------------------------------
@@ -286,7 +298,7 @@ test('asigna una categoria a varios productos de una vez', async () => {
   const a = alta(db, { codigo: 'CG1', categorias: [] });
   const b = alta(db, { codigo: 'CG2', categorias: [] });
 
-  const rs = await asignarCategorias(ejecutor(db), [a, b], ['mochilas'], opciones);
+  const rs = await asignarCategorias(ejecutor(db), [a, b], ['mochilas'], con(db));
   assert.ok(rs.every((r) => r.desenlace === 'hecho'));
 
   for (const id of [a, b]) {
@@ -304,7 +316,7 @@ test('AGREGA sin pisar las categorias que ya tenia, y no cambia el breadcrumb', 
   const db = base();
   const id = alta(db, { categorias: ['carteras', 'fiesta'] });
 
-  await asignarCategorias(ejecutor(db), [id], ['dama'], opciones);
+  await asignarCategorias(ejecutor(db), [id], ['dama'], con(db));
 
   const cats = db
     .prepare(`SELECT categoria_slug FROM producto_categorias WHERE producto_id = ? ORDER BY orden`)
@@ -316,7 +328,7 @@ test('AGREGA sin pisar las categorias que ya tenia, y no cambia el breadcrumb', 
 test('asignar una categoria que ya tiene no la duplica', async () => {
   const db = base();
   const id = alta(db, { categorias: ['carteras'] });
-  const [r] = await asignarCategorias(ejecutor(db), [id], ['carteras'], opciones);
+  const [r] = await asignarCategorias(ejecutor(db), [id], ['carteras'], con(db));
 
   // No se escribio nada, asi que es omitido: contarlo como "hecho" inflaria el
   // resumen con trabajo que no ocurrio.
@@ -335,7 +347,7 @@ test('una categoria invalida CORTA la operacion completa, sin escribir nada', as
   const id = alta(db, { categorias: [] });
 
   await assert.rejects(
-    () => asignarCategorias(ejecutor(db), [id], ['mochilas', 'inventada'], opciones),
+    () => asignarCategorias(ejecutor(db), [id], ['mochilas', 'inventada'], con(db)),
     /inventada/
   );
 
@@ -348,13 +360,13 @@ test('una categoria invalida CORTA la operacion completa, sin escribir nada', as
 test('asignar sin categorias corta: no es una operacion valida', async () => {
   const db = base();
   const id = alta(db);
-  await assert.rejects(() => asignarCategorias(ejecutor(db), [id], [], opciones), /categor/i);
+  await assert.rejects(() => asignarCategorias(ejecutor(db), [id], [], con(db)), /categor/i);
 });
 
 test('asignar varias categorias respeta el orden pedido', async () => {
   const db = base();
   const id = alta(db, { categorias: [] });
-  await asignarCategorias(ejecutor(db), [id], ['mochilas', 'escolar', 'dama'], opciones);
+  await asignarCategorias(ejecutor(db), [id], ['mochilas', 'escolar', 'dama'], con(db));
 
   const cats = db
     .prepare(`SELECT categoria_slug FROM producto_categorias WHERE producto_id = ? ORDER BY orden`)
@@ -369,15 +381,105 @@ test('asignar toca actualizado_en del producto', async () => {
   const db = base();
   const id = alta(db, { categorias: [] });
   const otraFecha = '2026-09-09T09:00:00Z';
-  await asignarCategorias(ejecutor(db), [id], ['mochilas'], {
-    ...opciones,
-    ahora: otraFecha,
-  });
+  await asignarCategorias(ejecutor(db), [id], ['mochilas'], con(db, { ahora: otraFecha, }));
   assert.equal(leer(db, id).actualizado_en, otraFecha);
 });
 
 test('asignar a un id que no existe se reporta, no revienta', async () => {
   const db = base();
-  const rs = await asignarCategorias(ejecutor(db), [99999], ['mochilas'], opciones);
+  const rs = await asignarCategorias(ejecutor(db), [99999], ['mochilas'], con(db));
   assert.equal(rs[0].desenlace, 'fallo');
+});
+
+// --------------------------------------------------------------------------
+// Los viajes a la base. Es lo que colgaba la pantalla.
+// --------------------------------------------------------------------------
+
+/** Un lote que cuenta las llamadas, para medir los viajes. */
+function loteContado(db: DatabaseSync) {
+  const real = loteSqlite(db);
+  const llamadas: number[] = [];
+  const lote = (async (sentencias) => {
+    llamadas.push(sentencias.length);
+    return real(sentencias);
+  }) as typeof real;
+  return { lote, llamadas };
+}
+
+test('APROBAR CINCUENTA ES UN SOLO VIAJE', async () => {
+  /**
+   * Antes era un `await` por producto dentro del bucle. El SQL tarda decimas de
+   * milisegundo pero el viaje no, y D1 es SQLite: un solo escritor a la vez. Con una
+   * migracion corriendo en paralelo, esos viajes en serie colgaban la pantalla.
+   *
+   * Se cuenta el numero de llamadas y no el tiempo: un test de tiempo seria flaky y no
+   * diria por que falla.
+   */
+  const db = base();
+  const ids = Array.from({ length: 50 }, (_, i) =>
+    alta(db, { codigo: `CG${800 + i}`, nombre: `Producto ${i}`, categorias: ['carteras'] })
+  );
+  const { lote, llamadas } = loteContado(db);
+
+  const rs = await aprobar(ejecutor(db), ids, { ...opciones, lote });
+
+  assert.equal(rs.filter((r) => r.desenlace === 'hecho').length, 50);
+  assert.equal(llamadas.length, 1, `fueron ${llamadas.length} viajes`);
+  assert.equal(llamadas[0], 50, 'las 50 escrituras tienen que ir en el mismo lote');
+});
+
+test('aprobar sigue detectando fila por fila el estado que cambio en el medio', async () => {
+  /**
+   * LA PROPIEDAD QUE NO SE PODIA PERDER AL AGRUPAR. El `RETURNING` con
+   * `AND estado = 'importado'` es una guarda optimista por fila. `batch()` devuelve las
+   * filas de CADA sentencia por separado, asi que se sigue sabiendo cual no aplico —
+   * y se reporta sobre el producto correcto, no sobre el de al lado.
+   */
+  const db = base();
+  const a = alta(db, { codigo: 'CGA', nombre: 'Uno', categorias: ['carteras'] });
+  const b = alta(db, { codigo: 'CGB', nombre: 'Dos', categorias: ['carteras'] });
+
+  /**
+   * Se simula la carrera EXACTA: el estado de `b` cambia despues de que `aprobar` leyo los
+   * productos y antes de que salgan las escrituras. Poner `b` en `publicado` de entrada no
+   * serviria — lo atraparia una validacion anterior y se reportaria como `omitido`, sin
+   * llegar nunca a la guarda del `RETURNING`.
+   */
+  const real = loteSqlite(db);
+  const lote = (async (sentencias) => {
+    db.prepare(`UPDATE productos SET estado = 'publicado', slug = 'dos' WHERE id = ?`).run(b);
+    return real(sentencias);
+  }) as typeof real;
+
+  const rs = await aprobar(ejecutor(db), [a, b], { ...opciones, lote });
+
+  const porId = new Map(rs.map((r) => [r.id, r]));
+  assert.equal(porId.get(a)!.desenlace, 'hecho');
+  assert.equal(porId.get(b)!.desenlace, 'fallo');
+  assert.match(porId.get(b)!.motivo ?? '', /estado cambió/i);
+});
+
+test('asignar categorias a cincuenta es un solo viaje', async () => {
+  const db = base();
+  const ids = Array.from({ length: 50 }, (_, i) =>
+    alta(db, { codigo: `CG${700 + i}`, nombre: `Producto ${i}`, categorias: ['carteras'] })
+  );
+  const { lote, llamadas } = loteContado(db);
+
+  await asignarCategorias(ejecutor(db), ids, ['fiesta'], { ...opciones, lote });
+
+  assert.equal(llamadas.length, 1, `fueron ${llamadas.length} viajes`);
+  // Un INSERT y un UPDATE de fecha por producto.
+  assert.equal(llamadas[0], 100);
+});
+
+test('asignar una categoria que ya tenian no gasta ni un viaje', async () => {
+  // Sin sentencias no hay llamada: es lo mismo que hace `guardarFilas` cuando nada cambio.
+  const db = base();
+  const id = alta(db, { nombre: 'Uno', categorias: ['carteras'] });
+  const { lote, llamadas } = loteContado(db);
+
+  await asignarCategorias(ejecutor(db), [id], ['carteras'], { ...opciones, lote });
+
+  assert.equal(llamadas.length, 0);
 });

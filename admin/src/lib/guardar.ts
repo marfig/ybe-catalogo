@@ -20,7 +20,7 @@
  *  2. **Cambiar el nombre NO cambia el slug** (SPEC.md §6.7). La URL es inmutable
  *     desde que existe.
  */
-import type { Ejecutar } from './grilla.ts';
+import type { Ejecutar, EjecutarLote, Sentencia } from './grilla.ts';
 
 export interface CambioFila {
   id: number;
@@ -62,6 +62,20 @@ export interface ResultadoFila {
 export interface OpcionesGuardado {
   categoriasValidas: ReadonlySet<string>;
   ahora: string;
+  /**
+   * Por dónde salen las escrituras: TODAS juntas, en un viaje y una transacción.
+   *
+   * ENTRO POR UN INCIDENTE. Antes cada escritura era su propio `await` dentro del bucle,
+   * asi que guardar una pagina de 50 filas eran unas 200 escrituras en serie en un solo
+   * request. El 2026-08-19, con una migracion corriendo y otra persona curando la grilla,
+   * eso colgaba la pantalla; en calma el mismo codigo respondia en medio segundo. El costo
+   * nunca estuvo en el SQL —0,3 ms medidos— sino en la cantidad de viajes, y D1 es SQLite:
+   * un solo escritor a la vez.
+   *
+   * Y de paso da atomicidad, que faltaba: el `DELETE` + `INSERT` de las categorias podia
+   * quedar a medias y dejar un producto sin ninguna — que rompe el build del sitio.
+   */
+  lote: EjecutarLote;
 }
 
 interface FilaActual {
@@ -80,7 +94,7 @@ const huecos = (n: number) => Array.from({ length: n }, () => '?').join(', ');
 export async function guardarFilas(
   ejecutar: Ejecutar,
   cambios: CambioFila[],
-  { categoriasValidas, ahora }: OpcionesGuardado
+  { categoriasValidas, ahora, lote }: OpcionesGuardado
 ): Promise<ResultadoFila[]> {
   if (cambios.length === 0) return [];
 
@@ -111,6 +125,14 @@ export async function guardarFilas(
   }
 
   const resultados: ResultadoFila[] = [];
+
+  /**
+   * Las escrituras se JUNTAN y se mandan al final, no de a una dentro del bucle.
+   *
+   * El bucle sigue decidiendo exactamente lo mismo —que se escribe y que no— y eso es lo
+   * que hace seguro el cambio: lo unico que se movio es CUANDO sale el SQL.
+   */
+  const sentencias: Sentencia[] = [];
 
   for (const cambio of cambios) {
     const actual = actuales.get(cambio.id);
@@ -194,12 +216,12 @@ export async function guardarFilas(
        * El `slug` NO está acá, y es deliberado: cambiar el nombre de un producto
        * publicado cambia el nombre, nunca la URL (SPEC.md §6.7).
        */
-      await ejecutar(
-        `UPDATE productos
-            SET nombre = ?, descripcion = ?, precio = ?, destacado = ?, actualizado_en = ?
-          WHERE id = ?`,
-        [nombre, descripcion, cambio.precio, cambio.destacado ? 1 : 0, ahora, cambio.id]
-      );
+      sentencias.push({
+        sql: `UPDATE productos
+                 SET nombre = ?, descripcion = ?, precio = ?, destacado = ?, actualizado_en = ?
+               WHERE id = ?`,
+        params: [nombre, descripcion, cambio.precio, cambio.destacado ? 1 : 0, ahora, cambio.id],
+      });
     }
 
     if (cambiaCategoria) {
@@ -213,22 +235,44 @@ export async function guardarFilas(
       const resto = yaTiene.slice(1).filter((c) => c !== principal);
       const nuevas = [principal!, ...resto];
 
-      await ejecutar(`DELETE FROM producto_categorias WHERE producto_id = ?`, [cambio.id]);
+      /**
+       * El DELETE y sus INSERT van en el MISMO lote, y de eso depende que no pueda quedar
+       * un producto sin ninguna categoria: el lote es una transaccion.
+       */
+      sentencias.push({
+        sql: `DELETE FROM producto_categorias WHERE producto_id = ?`,
+        params: [cambio.id],
+      });
       for (const [orden, slug] of nuevas.entries()) {
-        await ejecutar(
-          `INSERT INTO producto_categorias (producto_id, categoria_slug, orden) VALUES (?, ?, ?)`,
-          [cambio.id, slug, orden]
-        );
+        sentencias.push({
+          sql: `INSERT INTO producto_categorias (producto_id, categoria_slug, orden) VALUES (?, ?, ?)`,
+          params: [cambio.id, slug, orden],
+        });
       }
 
       // Si sólo cambió la categoría, la fecha igual tiene que moverse.
       if (!cambiaColumna) {
-        await ejecutar(`UPDATE productos SET actualizado_en = ? WHERE id = ?`, [ahora, cambio.id]);
+        sentencias.push({
+          sql: `UPDATE productos SET actualizado_en = ? WHERE id = ?`,
+          params: [ahora, cambio.id],
+        });
       }
     }
 
     resultados.push({ id: cambio.id, codigo: actual.codigo, ok: true, cambio: true });
   }
+
+  /**
+   * Un solo viaje, con todo adentro. Si nada cambió no sale ni una llamada — que es el
+   * invariante 1 llevado hasta el final: abrir la grilla y apretar Guardar sin tocar nada
+   * no le cuesta nada a la base.
+   *
+   * Si el lote falla, LANZA y no queda nada escrito. Es un cambio de comportamiento
+   * deliberado: antes una fila que rompía no arrastraba a las otras 49, y ahora sí. Para un
+   * formulario es lo correcto — se corrige lo que está mal y se vuelve a guardar— y es lo
+   * que impide que un guardado a medias deje un producto sin categoría.
+   */
+  if (sentencias.length > 0) await lote(sentencias);
 
   return resultados;
 }

@@ -13,6 +13,38 @@ export type Ejecutar = <T = Record<string, unknown>>(
   params?: unknown[]
 ) => Promise<T[]>;
 
+/** Una sentencia suelta, para mandar varias juntas. */
+export interface Sentencia {
+  sql: string;
+  params?: unknown[];
+}
+
+/**
+ * `(sentencias) => filas de cada una`. Todas en UN viaje y en UNA transacción.
+ *
+ * POR QUÉ EXISTE, y no es una optimización de escritorio. Cada llamada a `Ejecutar` es
+ * un viaje de ida y vuelta a D1: el SQL tarda décimas de milisegundo pero el viaje no.
+ * Las acciones en lote de la grilla escribían de a una dentro de un bucle, así que
+ * guardar una página de 50 filas eran unas 200 escrituras EN SERIE en un solo request.
+ *
+ * El 2026-08-19 eso colapsó: con una migración masiva corriendo y otra persona curando
+ * en la grilla, la pantalla se colgaba y el inicio llegó a 17 s. En calma las mismas
+ * consultas dan 0,3 ms — el costo nunca estuvo en el SQL sino en la cantidad de viajes,
+ * y D1 es SQLite, con un solo escritor a la vez.
+ *
+ * Y ADEMÁS DA ATOMICIDAD, que es lo que faltaba: `guardarFilas` hacía
+ * `DELETE FROM producto_categorias` y después los INSERT. Un request que muriera en el
+ * medio dejaba el producto sin ninguna categoría — y un publicable sin categoría rompe
+ * el build, porque el esquema del sitio exige al menos una. No dejó daño, pero fue suerte.
+ *
+ * Devuelve las filas de CADA sentencia, en orden, para que quien llama pueda seguir
+ * reportando fila por fila: es lo que permite que `RETURNING` siga distinguiendo un
+ * producto cuyo estado cambió en el medio.
+ */
+export type EjecutarLote = <T = Record<string, unknown>>(
+  sentencias: readonly Sentencia[]
+) => Promise<T[][]>;
+
 export type ValorFiltro =
   | 'por-aprobar'
   | 'aprobado'
