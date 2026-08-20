@@ -167,19 +167,37 @@ test('SÓLO se barre lo que salió del proveedor, y es una lista blanca', async 
   assert.deepEqual(codigos(await proximosABarrer(ejecutor(db), { limite: 10 })), ['CG001']);
 });
 
-test('un producto del catálogo viejo tampoco se puede barrer de a uno', async () => {
+test('la cola automatica y lo tildado NO tienen la misma regla, a proposito', async () => {
   /**
-   * La grilla deja tildar productos y mandarlos a revisar. Si `candidatoPorId` no aplicara
-   * la misma regla que la cola, el barrido en lote los saltearía pero el de a uno los
-   * marcaría de baja igual — la peor versión de las dos.
+   * ESTE TEST AFIRMABA LO CONTRARIO Y ESTABA MAL. Decia que un producto del catalogo viejo
+   * tampoco se podia barrer de a uno, «para que las dos puertas tengan la misma regla». La
+   * simetria sonaba bien y el resultado era que tildar un producto y mandarlo a revisar
+   * respondia «no hay nada que revisar» sobre algo que el proveedor conoce perfectamente.
+   *
+   * Son dos cosas distintas y ahora se lee asi:
+   *
+   *   la cola automatica  — un PRESUPUESTO que rota solo. Gasta un pedido por segundo, y
+   *                         sumarle 174 productos que casi siempre van a volver `ausente`
+   *                         llena el filtro de bajas con lo que ya se sabe.
+   *   lo tildado          — una PREGUNTA de una persona sobre productos concretos. No hay
+   *                         presupuesto que administrar, y quien decide es quien tildo.
    */
   const db = base();
-  sembrar(db, [{ codigo: 'CG003', proveedor: 'catalogo-viejo' }]);
+  sembrar(db, [
+    { codigo: 'CG700', proveedor: 'chenson' },
+    { codigo: '8732209', proveedor: 'catalogo-viejo' },
+    { codigo: 'AMANO', proveedor: 'manual' },
+  ]);
+  const ejecutar = ejecutor(db);
 
-  const [{ id }] = (await ejecutor(db)(`SELECT id FROM productos WHERE codigo = 'CG003'`)) as Array<{
-    id: number;
-  }>;
-  assert.equal(await candidatoPorId(ejecutor(db), id), null);
+  // La rotacion automatica: solo lo que salio del proveedor.
+  assert.deepEqual(codigos(await proximosABarrer(ejecutar, { limite: 10 })), ['CG700']);
+
+  // Tildado: los tres, cada uno resoluble de a uno.
+  const ids = await ejecutar<{ id: number; codigo: string }>('SELECT id, codigo FROM productos');
+  for (const f of ids) {
+    assert.equal((await candidatoPorId(ejecutar, f.id))?.codigo, f.codigo, f.codigo);
+  }
 });
 
 test('la papelera no se barre', async () => {
@@ -215,10 +233,47 @@ test('un candidato que dejó de ser barrible ya no se resuelve', async () => {
   const ids = await ejecutar<{ id: number; codigo: string }>('SELECT id, codigo FROM productos');
   const idDe = (c: string) => ids.find((f) => f.codigo === c)!.id;
 
+  /**
+   * TILDAR ES UNA PREGUNTA EXPLICITA, y el codigo no la discute.
+   *
+   * Este camino NO filtra por origen ni por estado: si alguien marco un producto y lo mando
+   * a revisar, quiere saber que dice el proveedor sobre ese producto. Todos se manejan por
+   * su codigo y asi se buscan en el proveedor, incluidos los cargados a mano — que el
+   * buscador lo encuentre o no es informacion util, no un motivo para no preguntar.
+   *
+   * Lo unico que sigue devolviendo `null` es un id que no existe.
+   */
   assert.equal((await candidatoPorId(ejecutar, idDe('CG001')))?.codigo, 'CG001');
-  assert.equal(await candidatoPorId(ejecutar, idDe('CG002')), null, 'está en la papelera');
-  assert.equal(await candidatoPorId(ejecutar, idDe('CG003')), null, 'es de carga manual');
+  assert.equal((await candidatoPorId(ejecutar, idDe('CG002')))?.codigo, 'CG002', 'papelera');
+  assert.equal((await candidatoPorId(ejecutar, idDe('CG003')))?.codigo, 'CG003', 'manual');
   assert.equal(await candidatoPorId(ejecutar, 9999), null, 'no existe');
+});
+
+test('tildar un producto del catalogo viejo lo manda a revisar', async () => {
+  /**
+   * EL CASO QUE ROMPI Y ESTE TEST FIJA. Al construir la migracion, `BARRIBLES` paso de
+   * lista negra a lista blanca —`proveedor = 'chenson'`— para que los 174 del catalogo
+   * viejo no entraran a la cola automatica. Eso tambien los dejo afuera del camino manual,
+   * asi que tildarlos devolvia «no hay nada que revisar» sobre productos que el proveedor
+   * conoce perfectamente: sus codigos SON codigos del proveedor.
+   *
+   * Y preguntar sirve: el proveedor repone modelos, y `ausente_desde` vuelve a NULL cuando
+   * uno reaparece (ver `presencia.ts`). Es la unica forma de enterarse.
+   */
+  const db = base();
+  sembrar(db, [
+    { codigo: '8732209', proveedor: 'catalogo-viejo' },
+    { codigo: 'AMANO', proveedor: 'manual' },
+    { codigo: 'CG700', proveedor: 'chenson' },
+  ]);
+  const ejecutar = ejecutor(db);
+  const ids = await ejecutar<{ id: number }>('SELECT id FROM productos');
+
+  const cola = await candidatosPorIds(
+    ejecutar,
+    ids.map((f) => f.id)
+  );
+  assert.equal(cola.length, 3, 'los tres tildados tienen que entrar');
 });
 
 test('una selección a mano se filtra y se ordena como la cola', async () => {
@@ -236,9 +291,13 @@ test('una selección a mano se filtra y se ordena como la cola', async () => {
     ids.map((f) => f.id)
   );
 
-  // CG002 primero aunque se haya tildado despues: el orden lo pone la antiguedad.
-  // CG003 no entra: el proveedor no conoce un producto cargado a mano.
-  assert.deepEqual(codigos(cola), ['CG002', 'CG001']);
+  /**
+   * CG002 primero aunque se haya tildado despues: el orden lo pone la antiguedad, igual que
+   * en la cola automatica. Y CG003 SI entra aunque sea de carga manual — lo tildaron.
+   * Va ultimo porque nunca se reviso, y los nunca revisados van primero... no: `revisado`
+   * en NULL ordena ANTES, asi que CG003 encabeza.
+   */
+  assert.deepEqual(codigos(cola), ['CG003', 'CG002', 'CG001']);
 });
 
 test('una selección vacía no consulta nada', async () => {

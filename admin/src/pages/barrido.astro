@@ -140,9 +140,17 @@ const nuncaRevisados = cola.filter((c) => c.revisado_en_origen === null).length;
   {
     cola.length === 0 ? (
       <p class="vacio">
+        {/**
+         * Los dos textos dicen cosas DISTINTAS porque las dos puertas tienen reglas
+         * distintas, y el de la selección decía el motivo equivocado: afirmaba que el
+         * proveedor no conoce los productos cargados a mano, sobre productos que sí conoce.
+         *
+         * Lo tildado se revisa sin importar el origen ni el estado, así que acá una lista
+         * vacía sólo puede ser que esos productos ya no existan.
+         */}
         {aMano
-          ? 'De lo que tildaste no hay nada que revisar: el proveedor no conoce los productos cargados a mano, y los de la papelera ya están fuera del catálogo.'
-          : 'No hay nada para revisar. El barrido no toca los productos cargados a mano —el proveedor no los conoce— ni los que ya están en la papelera.'}
+          ? 'Ninguno de los productos que tildaste sigue existiendo: puede que se hayan borrado desde otra pestaña.'
+          : 'No hay nada en la cola. La revisión automática recorre sólo los productos que salieron del proveedor; para revisar cualquier otro, tildalo en la grilla y mandalo desde ahí.'}
         {' '}
         <a href="/productos">Volver a la grilla</a>
       </p>

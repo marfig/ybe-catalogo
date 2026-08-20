@@ -92,19 +92,30 @@ export async function proximosABarrer(
 }
 
 /**
- * Un candidato por id, o `null` si no existe o no es barrible.
+ * Un candidato por id, o `null` si no existe.
  *
- * El endpoint lo usa para NO confiar en lo que le manda la pestaña. La página rinde la
- * cola una vez y se puede quedar abierta horas: para cuando llega el pedido, ese
- * producto puede haberse eliminado desde otra pestaña. Sin este chequeo, el barrido
- * marcaría como dado de baja algo que ya está en la papelera, o le preguntaría al
- * proveedor por un producto cargado a mano — que nunca va a encontrar.
+ * NO FILTRA POR ORIGEN NI POR ESTADO, y es lo que lo separa de la cola automática.
+ *
+ * Tildar un producto y mandarlo a revisar es una PREGUNTA EXPLÍCITA sobre ese producto, y
+ * el código no la discute: todos se manejan por su código y así se buscan en el proveedor.
+ * Que el buscador lo encuentre o no es información útil — también para uno cargado a mano,
+ * cuyo código puede ser perfectamente un código del proveedor.
+ *
+ * ANTES SÍ FILTRABA, y estaba mal. Cuando la migración del catálogo viejo cambió
+ * `BARRIBLES` a lista blanca para mantener sus 174 productos fuera de la ROTACIÓN
+ * automática, este camino se llevó la misma regla de rebote: tildarlos devolvía «no hay
+ * nada que revisar» sobre productos que el proveedor conoce perfectamente. Quién se
+ * pregunta por qué producto lo decide quien opera, no esta función.
+ *
+ * Sigue existiendo para que el endpoint NO confíe en lo que le manda la pestaña: la página
+ * rinde la cola una vez y puede quedar abierta horas, así que el id se resuelve contra la
+ * base en el momento del pedido. Lo único que devuelve `null` es un id que no existe.
  */
 export async function candidatoPorId(ejecutar: Ejecutar, id: number): Promise<Candidato | null> {
   const [fila] = await ejecutar<Candidato>(
     `SELECT p.id, p.codigo, p.estado, p.revisado_en_origen, p.ausente_desde
        FROM productos p
-      WHERE p.id = ? AND ${BARRIBLES}`,
+      WHERE p.id = ?`,
     [id]
   );
   return fila ?? null;
@@ -116,9 +127,8 @@ export async function candidatoPorId(ejecutar: Ejecutar, id: number): Promise<Ca
  * Respeta el ORDEN DE LA COLA y no el de la selección: si alguien tilda 40 productos,
  * revisar primero los que hace más tiempo que nadie mira sigue siendo lo correcto.
  *
- * Filtra igual que el barrido automático. Un producto de carga manual tildado por
- * error no se le pregunta al proveedor: no lo conoce, y responder «no está» sobre él
- * sería inventar una baja.
+ * NO filtra por origen ni por estado, al revés que la cola automática: lo tildado se
+ * revisa. Ver `candidatoPorId` para el por qué — y para el bug que arregló.
  */
 export async function candidatosPorIds(ejecutar: Ejecutar, ids: number[]): Promise<Candidato[]> {
   if (ids.length === 0) return [];
@@ -127,7 +137,7 @@ export async function candidatosPorIds(ejecutar: Ejecutar, ids: number[]): Promi
   return ejecutar<Candidato>(
     `SELECT p.id, p.codigo, p.estado, p.revisado_en_origen, p.ausente_desde
        FROM productos p
-      WHERE p.id IN (${huecos}) AND ${BARRIBLES}
+      WHERE p.id IN (${huecos})
       ORDER BY ${ORDEN}`,
     ids
   );
