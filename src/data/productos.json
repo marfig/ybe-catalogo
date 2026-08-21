@@ -1,10 +1,10 @@
 [
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
       "bandoleras"
     ],
-    "descripcion": "Medidas: alto 28 x largo 16 x ancho 6 cm\nDisponible en color: negro",
+    "descripcion": "Medidas: alto 28 x largo 16 x ancho 6 cm\r\nDisponible en color: negro",
     "id": "bandolera-cruzada",
     "nombre": "Bandolera cruzada",
     "origen": {
@@ -29,11 +29,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
       "bandoleras"
     ],
-    "descripcion": "Medidas: alto 30 x largo 24 x ancho 11 cm\nColores disponibles: negro",
+    "descripcion": "Medidas: alto 30 x largo 24 x ancho 11 cm\r\nColores disponibles: negro",
     "id": "bandolera-mediana-unisex",
     "nombre": "Bandolera mediana Unisex",
     "origen": {
@@ -58,9 +58,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "bandoleras"
+      "bandolera-dama"
     ],
     "descripcion": "Medidas: alto 15 x largo 22 x ancho 10 cm",
     "id": "bandolera-pequena-elegante-con-asas-largas",
@@ -87,9 +87,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "bandoleras"
+      "bandolera-dama"
     ],
     "descripcion": "Medidas: alto 11 x largo 19 x ancho 5 cm",
     "id": "bandolera-tipo-sobre-de-dos-cierres",
@@ -2506,9 +2506,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "cartucheras"
+      "mochila-infantil"
     ],
     "descripcion": "De un cierre",
     "id": "cartuchera-de-dinosaurio-2",
@@ -5396,9 +5396,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "loncheras"
+      "lonchera-termica-infantil"
     ],
     "descripcion": "Medidas: alto 25 x largo 21 x ancho 13 cm\r\nCon asas largas",
     "destacado": true,
@@ -5426,11 +5426,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "loncheras"
+      "lonchera-termica-infantil"
     ],
-    "descripcion": "Medidas: alto 23 x largo 25 x ancho 17 cm\nCon asas anchas largas",
+    "descripcion": "Medidas: alto 23 x largo 25 x ancho 17 cm\r\nCon asas anchas largas",
     "id": "lonchera-termica-de-barney-nena",
     "nombre": "Lonchera térmica de Barney nena",
     "origen": {
@@ -5455,11 +5455,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "loncheras"
+      "lonchera-termica-infantil"
     ],
-    "descripcion": "Medidas: alto 22 largo 22 x ancho 10 cm\nCon asas anchas largas",
+    "descripcion": "Medidas: alto 22 largo 22 x ancho 10 cm\r\nCon asas anchas largas",
     "id": "lonchera-termica-de-hot-wheels-nene",
     "nombre": "Lonchera térmica de Hot Wheels nene",
     "origen": {
@@ -5484,9 +5484,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "loncheras"
+      "lonchera-termica-infantil"
     ],
     "descripcion": "Medidas: alto 20 x largo 23 x ancho 15 cm",
     "id": "lonchera-termica-de-mario-kart-con-asas-largas",
@@ -5513,11 +5513,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "loncheras"
+      "lonchera-termica-infantil"
     ],
-    "descripcion": "Medidas: alto 25 x largo 22 x ancho 14 cm\nCon asas largas",
+    "descripcion": "Medidas: alto 25 x largo 22 x ancho 14 cm\r\nCon asas largas",
     "id": "lonchera-termica-de-pets-kitty",
     "nombre": "Lonchera térmica de Pets Kitty",
     "origen": {
@@ -5542,11 +5542,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "loncheras"
+      "lonchera-termica-infantil"
     ],
-    "descripcion": "Medidas: alto 22 x largo 24 x ancho 16 cm\nCon asas largas",
+    "descripcion": "Medidas: alto 22 x largo 24 x ancho 16 cm\r\nCon asas largas",
     "id": "lonchera-termica-de-space",
     "nombre": "Lonchera térmica de Space",
     "origen": {
@@ -5571,9 +5571,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "loncheras"
+      "lonchera-termica-infantil"
     ],
     "descripcion": "Con asas largas",
     "id": "lonchera-termica-impermeable",
@@ -5809,11 +5809,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-con-ruedas-grande-de-diver",
     "nombre": "Mochila con ruedas grande de Diver",
     "origen": {
@@ -5838,11 +5838,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 44 x largo 31 x ancho 18 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 44 x largo 31 x ancho 18 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-con-ruedas-grande-de-happy-girl",
     "nombre": "Mochila con ruedas grande de happy girl",
     "origen": {
@@ -5867,11 +5867,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 43 x largo 29 x ancho 16 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 43 x largo 29 x ancho 16 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-con-ruedas-grande-de-mario-kart",
     "nombre": "Mochila con ruedas grande de Mario kart",
     "origen": {
@@ -5896,11 +5896,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 43 x largo 30 x ancho 17 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 43 x largo 30 x ancho 17 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-con-ruedas-grande-de-mario-kart-2",
     "nombre": "Mochila con ruedas grande de Mario Kart",
     "origen": {
@@ -5925,11 +5925,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-con-ruedas-grande-de-nubecita",
     "nombre": "Mochila con ruedas grande de nubecita",
     "origen": {
@@ -5954,11 +5954,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 46 x largo 31 x largo 18 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 46 x largo 31 x largo 18 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-con-ruedas-grande-de-pets-kitty",
     "nombre": "Mochila con ruedas grande de  Pets Kitty",
     "origen": {
@@ -5983,11 +5983,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-con-ruedas-grande-de-shark",
     "nombre": "Mochila con ruedas grande de Shark",
     "origen": {
@@ -6012,11 +6012,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-con-ruedas-grande-de-thomas-friends",
     "nombre": "Mochila con ruedas grande de Thomas & Friends",
     "origen": {
@@ -6041,11 +6041,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 37 x largo 2 x ancho 14 cm\nPara 4 a 6 años",
+    "descripcion": "Medidas: alto 37 x largo 2 x ancho 14 cm\r\nPara 4 a 6 años",
     "id": "mochila-con-ruedas-mediana-de-super-mario",
     "nombre": "Mochila con ruedas mediana de Super Mario",
     "origen": {
@@ -6070,11 +6070,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 40 x largo 28 x ancho 15 cm\nPara 5 a 6 años",
+    "descripcion": "Medidas: alto 40 x largo 28 x ancho 15 cm\r\nPara 5 a 6 años",
     "id": "mochila-con-ruedas-mediana-de-unicorn-pets",
     "nombre": "Mochila con ruedas mediana de Unicorn Pets",
     "origen": {
@@ -6099,9 +6099,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
     "descripcion": "Medidas: alto 35 x largo 28 x ancho 13 cm\r\nPara 4 a 5 años",
     "id": "mochila-con-ruedas-pequena-de-barbie",
@@ -6128,11 +6128,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 33 x largo 27 x ancho 13 cm\nPara 2 a 5 años",
+    "descripcion": "Medidas: alto 33 x largo 27 x ancho 13 cm\r\nPara 2 a 5 años",
     "id": "mochila-con-ruedas-pequena-de-diver",
     "nombre": "Mochila con ruedas pequeña de Diver",
     "origen": {
@@ -6157,11 +6157,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 35 x largo 29 x largo 14 cm\nPara 4 a 5 años",
+    "descripcion": "Medidas: alto 35 x largo 29 x largo 14 cm\r\nPara 4 a 5 años",
     "id": "mochila-con-ruedas-pequena-de-mario-kart",
     "nombre": "Mochila con ruedas pequeña de Mario kart",
     "origen": {
@@ -6186,11 +6186,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 35 x largo 29 x ancho 14 cm\nPara 4 a 5 años",
+    "descripcion": "Medidas: alto 35 x largo 29 x ancho 14 cm\r\nPara 4 a 5 años",
     "id": "mochila-con-ruedas-pequena-de-mario-kart-2",
     "nombre": "Mochila con ruedas pequeña de Mario Kart",
     "origen": {
@@ -6215,11 +6215,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 34 x largo 24 x ancho 13 cm\nPara 3 a 5 años",
+    "descripcion": "Medidas: alto 34 x largo 24 x ancho 13 cm\r\nPara 3 a 5 años",
     "id": "mochila-con-ruedas-pequena-de-nubecita",
     "nombre": "Mochila con ruedas pequeña de nubecita",
     "origen": {
@@ -6244,11 +6244,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 33 x largo 27 x ancho 13 cm\nPara 2 a 5 años",
+    "descripcion": "Medidas: alto 33 x largo 27 x ancho 13 cm\r\nPara 2 a 5 años",
     "id": "mochila-con-ruedas-pequena-de-pets-kitty",
     "nombre": "Mochila con ruedas pequeña de Pets Kitty",
     "origen": {
@@ -6273,11 +6273,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 32 x largo 28 x ancho 14cm\nPara 2 a 5 años",
+    "descripcion": "Medidas: alto 32 x largo 28 x ancho 14cm\r\nPara 2 a 5 años",
     "id": "mochila-con-ruedas-pequena-de-shark",
     "nombre": "Mochila con ruedas pequeña de Shark",
     "origen": {
@@ -6302,11 +6302,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 34 x largo 24 x ancho 13 cm\nPara 0 a 5 años",
+    "descripcion": "Medidas: alto 34 x largo 24 x ancho 13 cm\r\nPara 0 a 5 años",
     "id": "mochila-con-ruedas-pequena-de-sirena",
     "nombre": "Mochila con ruedas pequeña de sirena",
     "origen": {
@@ -6331,11 +6331,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 34 x largo 24 x ancho 13 cm\nPara 2 a 5 años",
+    "descripcion": "Medidas: alto 34 x largo 24 x ancho 13 cm\r\nPara 2 a 5 años",
     "id": "mochila-con-ruedas-pequena-de-space",
     "nombre": "Mochila con ruedas pequeña de Space",
     "origen": {
@@ -6360,11 +6360,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 34 x largo 24 x ancho 13 cm\nPara 2 a 5 años",
+    "descripcion": "Medidas: alto 34 x largo 24 x ancho 13 cm\r\nPara 2 a 5 años",
     "id": "mochila-con-ruedas-pequena-de-speed-runner",
     "nombre": "Mochila con ruedas pequeña de speed runner",
     "origen": {
@@ -6389,9 +6389,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
     "descripcion": "Medidas: alto 34 x largo 24 x ancho 13 cm",
     "id": "mochila-con-ruedas-pequena-de-thomas-friends",
@@ -6418,11 +6418,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 33 x largo 23 x ancho 12 cm\nPara 2 a 5 sños",
+    "descripcion": "Medidas: alto 33 x largo 23 x ancho 12 cm\r\nPara 2 a 5 sños",
     "id": "mochila-con-ruedas-pequena-de-unicorn-pets",
     "nombre": "Mochila con ruedas pequeña de Unicorn Pets",
     "origen": {
@@ -6447,11 +6447,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 43 x largo 32 x ancho 20 cm\nCon ruedas siliconadas con luces y manija T de aluminio\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 43 x largo 32 x ancho 20 cm\r\nCon ruedas siliconadas con luces y manija T de aluminio\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-con-ruedas-reforzada",
     "nombre": "Mochila con ruedas reforzada",
     "origen": {
@@ -6476,11 +6476,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-para-notebook"
     ],
-    "descripcion": "Medidas: alto 47 x largo 31 x ancho 25 cm\nImpermeable, de 4 cierres, porta notebook, manija de aluminio y ruedas reforzadas.\nDisponible solo en color negro",
+    "descripcion": "Medidas: alto 47 x largo 31 x ancho 25 cm\r\nImpermeable, de 4 cierres, porta notebook, manija de aluminio y ruedas reforzadas.\r\nDisponible solo en color negro",
     "id": "mochila-con-ruedas-reforzada-grande",
     "nombre": "Mochila con ruedas reforzada grande",
     "origen": {
@@ -6505,11 +6505,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-camping"
     ],
-    "descripcion": "Medidas: alto 85 x largo 32 x ancho 28 cm\nNegro/gris\nRojo/gris\nAzul/gris",
+    "descripcion": "Medidas: alto 85 x largo 32 x ancho 28 cm\r\nNegro/gris\r\nRojo/gris\r\nAzul/gris",
     "id": "mochila-de-camping",
     "nombre": "Mochila de camping",
     "origen": {
@@ -6683,11 +6683,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 33 x largo 25 x ancho 12 cm\nPara 4 a 6 años",
+    "descripcion": "Medidas: alto 33 x largo 25 x ancho 12 cm\r\nPara 4 a 6 años",
     "id": "mochila-espaldera-de-barney",
     "nombre": "Mochila espaldera de Barney",
     "origen": {
@@ -6805,11 +6805,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
       "mochilas"
     ],
-    "descripcion": "Medidas: alto 46 x largo 33 x ancho 17\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 46 x largo 33 x ancho 17\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-espaldera-grande",
     "nombre": "Mochila espaldera grande",
     "origen": {
@@ -6834,11 +6834,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
       "mochilas"
     ],
-    "descripcion": "Medidas: alto 45 x largo 32 x ancho 17 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 45 x largo 32 x ancho 17 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-espaldera-grande-2",
     "nombre": "Mochila espaldera grande",
     "origen": {
@@ -6863,11 +6863,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 43 x largo 31 x ancho 15 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 43 x largo 31 x ancho 15 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-espaldera-grande-3",
     "nombre": "Mochila espaldera grande",
     "origen": {
@@ -6892,9 +6892,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
     "descripcion": "Medidas: alto 42 x largo 28 x ancho 15 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-espaldera-grande-de-barbie",
@@ -6921,9 +6921,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
     "descripcion": "Medidas: alto 43 x largo 32 x lancho 17 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-espaldera-grande-de-barbie-2",
@@ -6950,11 +6950,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 44 x largo 32 x ancho 20 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 44 x largo 32 x ancho 20 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-espaldera-grande-de-dinosaurio",
     "nombre": "Mochila espaldera grande de dinosaurio",
     "origen": {
@@ -6979,11 +6979,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 44 x largo 32 x ancho 20 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 44 x largo 32 x ancho 20 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-espaldera-grande-de-diver",
     "nombre": "Mochila espaldera grande de Diver",
     "origen": {
@@ -7008,11 +7008,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
       "mochilas"
     ],
-    "descripcion": "Medidas: alto 42 x largo 28 x ancho 17 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 42 x largo 28 x ancho 17 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-espaldera-grande-de-hot-wheels",
     "nombre": "Mochila espaldera grande de Hot Wheels",
     "origen": {
@@ -7037,11 +7037,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 43 x largo 32 x ancho 17 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 43 x largo 32 x ancho 17 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-espaldera-grande-de-mario",
     "nombre": "Mochila espaldera grande de Mario",
     "origen": {
@@ -7066,11 +7066,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: 43 x largo 29 x 15 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: 43 x largo 29 x 15 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-espaldera-grande-de-mario-kart",
     "nombre": "Mochila espaldera grande de Mario Kart",
     "origen": {
@@ -7095,11 +7095,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 43 x largo 31 x ancho 15 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 43 x largo 31 x ancho 15 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-espaldera-grande-de-pets-kitty",
     "nombre": "Mochila espaldera grande de Pets Kitty",
     "origen": {
@@ -7124,11 +7124,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 44 x largo 32 x ancho 20 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 44 x largo 32 x ancho 20 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-espaldera-grande-de-sirena",
     "nombre": "Mochila espaldera grande de sirena",
     "origen": {
@@ -7153,11 +7153,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 44 x largo 32 x ancho 20 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 44 x largo 32 x ancho 20 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-espaldera-grande-de-space",
     "nombre": "Mochila espaldera grande de Space",
     "origen": {
@@ -7182,11 +7182,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 44 x largo 28 x ancho 18 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 44 x largo 28 x ancho 18 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-espaldera-grande-de-speed-runner",
     "nombre": "Mochila espaldera grande de speed runner",
     "origen": {
@@ -7211,11 +7211,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 44 x largo 30 x ancho 17 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 44 x largo 30 x ancho 17 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-espaldera-grande-de-super-mario",
     "nombre": "Mochila espaldera grande de Super Mario",
     "origen": {
@@ -7240,11 +7240,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 43 x largo 32 x ancho 20 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 43 x largo 32 x ancho 20 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-espaldera-grande-de-unicorn-pets",
     "nombre": "Mochila espaldera grande de Unicorn Pets",
     "origen": {
@@ -7269,11 +7269,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
       "mochilas"
     ],
-    "descripcion": "Para libros 📚 y carpetas 📂\nMedidas: alto 45 x largo 32 x ancho 15 cm",
+    "descripcion": "Para libros 📚 y carpetas 📂\r\nMedidas: alto 45 x largo 32 x ancho 15 cm",
     "id": "mochila-espaldera-grande-impermeable",
     "nombre": "Mochila espaldera grande impermeable",
     "origen": {
@@ -7298,11 +7298,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
       "mochilas"
     ],
-    "descripcion": "Medidas: alto 42 x largo 29 x ancho 13 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 42 x largo 29 x ancho 13 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-espaldera-impermeable",
     "nombre": "Mochila espaldera impermeable",
     "origen": {
@@ -7332,11 +7332,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
       "mochilas"
     ],
-    "descripcion": "Medidas: alto 44 x largo 31 x ancho 13 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 44 x largo 31 x ancho 13 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-espaldera-impermeable-2",
     "nombre": "Mochila espaldera impermeable",
     "origen": {
@@ -7361,9 +7361,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-dama"
     ],
     "descripcion": "Medidas: alto 32 x largo 28 x ancho 14 cm",
     "id": "mochila-espaldera-impermeable-mediana",
@@ -7468,9 +7468,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
     "descripcion": "Medidas: alto 36 x largo 28 x ancho 13 cm\r\nPara 6 a 7 años",
     "id": "mochila-espaldera-mediana-de-barbie",
@@ -7497,9 +7497,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
     "descripcion": "Medidas: alto 33 x largo 26 x ancho 13 cm\r\nPara 4 a 5 años",
     "id": "mochila-espaldera-mediana-de-barbie-2",
@@ -7526,11 +7526,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 31 x largo 26 x ancho 12 cm\nPara 4 a 6 años",
+    "descripcion": "Medidas: alto 31 x largo 26 x ancho 12 cm\r\nPara 4 a 6 años",
     "id": "mochila-espaldera-mediana-de-dinosaurio",
     "nombre": "Mochila espaldera mediana de dinosaurio",
     "origen": {
@@ -7555,11 +7555,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 33 x largo 27 x ancho 13 cm\nPara 4 a 6 años",
+    "descripcion": "Medidas: alto 33 x largo 27 x ancho 13 cm\r\nPara 4 a 6 años",
     "id": "mochila-espaldera-mediana-de-diver",
     "nombre": "Mochila espaldera mediana de Diver",
     "origen": {
@@ -7584,11 +7584,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 36 x largo 29 x ancho 13 cm\nPara 4 a 6 años",
+    "descripcion": "Medidas: alto 36 x largo 29 x ancho 13 cm\r\nPara 4 a 6 años",
     "id": "mochila-espaldera-mediana-de-nubecita",
     "nombre": "Mochila espaldera mediana de nubecita",
     "origen": {
@@ -7613,11 +7613,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 37 x largo 29 x ancho 14 cm\nPara 6 a 7 años",
+    "descripcion": "Medidas: alto 37 x largo 29 x ancho 14 cm\r\nPara 6 a 7 años",
     "id": "mochila-espaldera-mediana-de-pets-kitty",
     "nombre": "Mochila espaldera mediana de Pets Kitty",
     "origen": {
@@ -7642,11 +7642,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 31 x largo 26 x ancho 12 cm\nPara 4 a 6 años",
+    "descripcion": "Medidas: alto 31 x largo 26 x ancho 12 cm\r\nPara 4 a 6 años",
     "id": "mochila-espaldera-mediana-de-shark",
     "nombre": "Mochila espaldera mediana de Shark",
     "origen": {
@@ -7671,11 +7671,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
       "mochilas"
     ],
-    "descripcion": "Medidas: alto 38 x largo 29 x ancho 16 cm\nPara 5 a 7 años",
+    "descripcion": "Medidas: alto 38 x largo 29 x ancho 16 cm\r\nPara 5 a 7 años",
     "id": "mochila-espaldera-mediana-de-shark-2",
     "nombre": "Mochila espaldera mediana de Shark",
     "origen": {
@@ -7700,11 +7700,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 30 x largo 26 x ancho 12 cm\nPara 4 a 6 años",
+    "descripcion": "Medidas: alto 30 x largo 26 x ancho 12 cm\r\nPara 4 a 6 años",
     "id": "mochila-espaldera-mediana-de-sirena",
     "nombre": "Mochila espaldera mediana de sirena",
     "origen": {
@@ -7729,11 +7729,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 36 x largo 28 x ancho 13 cm\nPara 4 a 6 años",
+    "descripcion": "Medidas: alto 36 x largo 28 x ancho 13 cm\r\nPara 4 a 6 años",
     "id": "mochila-espaldera-mediana-de-space",
     "nombre": "Mochila espaldera mediana de Space",
     "origen": {
@@ -7758,11 +7758,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 31 x largo 26 x ancho 12 cm\nPara 4 a 6 años",
+    "descripcion": "Medidas: alto 31 x largo 26 x ancho 12 cm\r\nPara 4 a 6 años",
     "id": "mochila-espaldera-mediana-de-speed-runner",
     "nombre": "Mochila espaldera mediana de speed runner",
     "origen": {
@@ -7787,11 +7787,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 38 x largo 29 x ancho 16 cm\nPara 5 a 7 años",
+    "descripcion": "Medidas: alto 38 x largo 29 x ancho 16 cm\r\nPara 5 a 7 años",
     "id": "mochila-espaldera-mediana-de-speed-runner-2",
     "nombre": "Mochila espaldera mediana de speed runner",
     "origen": {
@@ -7816,11 +7816,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 31 x largo 26 x ancho 12 cm\nPara 4 a 6 años",
+    "descripcion": "Medidas: alto 31 x largo 26 x ancho 12 cm\r\nPara 4 a 6 años",
     "id": "mochila-espaldera-mediana-de-thomas-friends",
     "nombre": "Mochila espaldera mediana de Thomas & Friends",
     "origen": {
@@ -7845,9 +7845,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
     "descripcion": "Medidas: alto 38 x largo 29 x ancho 16 cm",
     "id": "mochila-espaldera-mediana-de-thomas-friends-2",
@@ -7874,11 +7874,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 37 x largo 27 x ancho 15 cm\nPara 5 a 7 años",
+    "descripcion": "Medidas: alto 37 x largo 27 x ancho 15 cm\r\nPara 5 a 7 años",
     "id": "mochila-espaldera-mediana-de-unicorn-pets",
     "nombre": "Mochila espaldera mediana de Unicorn Pets",
     "origen": {
@@ -7903,11 +7903,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 30 x largo 25 x ancho 12 cm\nPara 4 a 6 años",
+    "descripcion": "Medidas: alto 30 x largo 25 x ancho 12 cm\r\nPara 4 a 6 años",
     "id": "mochila-espaldera-mediana-de-unicorn-pets-2",
     "nombre": "Mochila espaldera mediana de Unicorn Pets",
     "origen": {
@@ -7932,9 +7932,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
     "descripcion": "Medidas: alto 23 x largo 17 x ancho 12 cm\r\nPara 0 a 4 años",
     "id": "mochila-espaldera-pequena-de-barbie",
@@ -7961,11 +7961,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 24 x largo 18 x ancho 13 cm\nPara 0 a 4 años",
+    "descripcion": "Medidas: alto 24 x largo 18 x ancho 13 cm\r\nPara 0 a 4 años",
     "id": "mochila-espaldera-pequena-de-barney",
     "nombre": "Mochila espaldera pequeña de Barney",
     "origen": {
@@ -7990,11 +7990,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 24 x largo 18 x ancho 13 cm\nPara 0 a 3 años",
+    "descripcion": "Medidas: alto 24 x largo 18 x ancho 13 cm\r\nPara 0 a 3 años",
     "id": "mochila-espaldera-pequena-de-dinosaurio",
     "nombre": "Mochila espaldera pequeña de dinosaurio",
     "origen": {
@@ -8019,11 +8019,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 24 x largo 18 x ancho 13 cm\nPara 0 a 3 años",
+    "descripcion": "Medidas: alto 24 x largo 18 x ancho 13 cm\r\nPara 0 a 3 años",
     "id": "mochila-espaldera-pequena-de-diver",
     "nombre": "Mochila espaldera pequeña de Diver",
     "origen": {
@@ -8048,11 +8048,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto.24 x largo 18 x ancho 13 cm\nPara 0 a 4años",
+    "descripcion": "Medidas: alto.24 x largo 18 x ancho 13 cm\r\nPara 0 a 4años",
     "id": "mochila-espaldera-pequena-de-nubecita",
     "nombre": "Mochila espaldera pequeña de nubecita",
     "origen": {
@@ -8077,11 +8077,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 24 x largo 18 x ancho 12 cm\nPara 0 a 3 años",
+    "descripcion": "Medidas: alto 24 x largo 18 x ancho 12 cm\r\nPara 0 a 3 años",
     "id": "mochila-espaldera-pequena-de-pets-kitty",
     "nombre": "Mochila espaldera pequeña de Pets Kitty",
     "origen": {
@@ -8106,11 +8106,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 24 x largo 18 x ancho 12 cm\nPara 0 a 3 años",
+    "descripcion": "Medidas: alto 24 x largo 18 x ancho 12 cm\r\nPara 0 a 3 años",
     "id": "mochila-espaldera-pequena-de-shark",
     "nombre": "Mochila espaldera pequeña de Shark",
     "origen": {
@@ -8135,11 +8135,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 24 x largo 18 x ancho 12 cm\nPara 0 a 4 años",
+    "descripcion": "Medidas: alto 24 x largo 18 x ancho 12 cm\r\nPara 0 a 4 años",
     "id": "mochila-espaldera-pequena-de-sirena",
     "nombre": "Mochila espaldera pequeña de sirena",
     "origen": {
@@ -8164,11 +8164,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 24 x largo 18 x ancho 12 cm\nPara 0 a años",
+    "descripcion": "Medidas: alto 24 x largo 18 x ancho 12 cm\r\nPara 0 a años",
     "id": "mochila-espaldera-pequena-de-space",
     "nombre": "Mochila espaldera pequeña de Space",
     "origen": {
@@ -8193,11 +8193,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 23 x largo 17 x ancho 12 cm\nPara 0 a 3 años",
+    "descripcion": "Medidas: alto 23 x largo 17 x ancho 12 cm\r\nPara 0 a 3 años",
     "id": "mochila-espaldera-pequena-de-unicorn-pets",
     "nombre": "Mochila espaldera pequeña de Unicorn Pets",
     "origen": {
@@ -8371,11 +8371,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
       "mochilas"
     ],
-    "descripcion": "Medidas: alto 45 x largo 32 x ancho 16 cm\nNegro\nAzul/negro",
+    "descripcion": "Medidas: alto 45 x largo 32 x ancho 16 cm\r\nNegro\r\nAzul/negro",
     "id": "mochila-espaldera-unisex-3",
     "nombre": "Mochila espaldera unisex",
     "origen": {
@@ -8682,11 +8682,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-grande-con-ruedas-de-dinosaurio",
     "nombre": "Mochila grande con ruedas de dinosaurio",
     "origen": {
@@ -8711,11 +8711,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-grande-con-ruedas-de-hot-wheels",
     "nombre": "Mochila grande con ruedas de Hot Wheels",
     "origen": {
@@ -8740,11 +8740,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-grande-con-ruedas-de-sirena",
     "nombre": "Mochila grande con ruedas de sirena",
     "origen": {
@@ -8769,11 +8769,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 44 x largo 34 x ancho 16 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-grande-con-ruedas-de-speed-runner",
     "nombre": "Mochila grande con ruedas de speed runner",
     "origen": {
@@ -8798,9 +8798,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
     "descripcion": "Medidas: alto 43 x largo 31 x ancho 15 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-grande-de-monster-espaldera",
@@ -8868,9 +8868,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-para-notebook"
     ],
     "descripcion": "Medidas: alto 60 x largo 33 x ancho 17 cm",
     "id": "mochila-impermeable-grande",
@@ -9010,11 +9010,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "bandolera-dama"
     ],
-    "descripcion": "Medidas: alto 32 x largo 30 x ancho 9 cm\nColor disponible:",
+    "descripcion": "Medidas: alto 32 x largo 30 x ancho 9 cm\r\nColor disponible:",
     "id": "mochila-mediana",
     "nombre": "Mochila mediana",
     "origen": {
@@ -9052,11 +9052,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 40 x largo 29 x ancho 15 cm\nPara 5 a 6 años",
+    "descripcion": "Medidas: alto 40 x largo 29 x ancho 15 cm\r\nPara 5 a 6 años",
     "id": "mochila-mediana-con-ruedas",
     "nombre": "Mochila mediana con ruedas",
     "origen": {
@@ -9081,9 +9081,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
     "descripcion": "Medidas: alto 33 x largo 27 x ancho 14 cm\r\nPara 5 a 6 años",
     "id": "mochila-mediana-con-ruedas-de-monster",
@@ -9110,9 +9110,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
     "descripcion": "Medidas: alto 36 x largo 28 x ancho 13 cm\r\nPara 6 a 8 años",
     "id": "mochila-mediana-de-monster-espaldera",
@@ -9139,11 +9139,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 33 x largo 27 x ancho 13 cm\nPara 5 a 6 años",
+    "descripcion": "Medidas: alto 33 x largo 27 x ancho 13 cm\r\nPara 5 a 6 años",
     "id": "mochila-mediana-espaldera-de-hot-wheels",
     "nombre": "Mochila mediana espaldera de Hot Wheels",
     "origen": {
@@ -9168,11 +9168,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 32 x largo 28 x ancho 13 cm\nPara 3 a 5 años",
+    "descripcion": "Medidas: alto 32 x largo 28 x ancho 13 cm\r\nPara 3 a 5 años",
     "id": "mochila-pequena-con-ruedas",
     "nombre": "Mochila pequeña con ruedas",
     "origen": {
@@ -9197,11 +9197,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Para 4 a 5 años\nMedidas: alto 35 x largo 29 x ancho 14 cm",
+    "descripcion": "Para 4 a 5 años\r\nMedidas: alto 35 x largo 29 x ancho 14 cm",
     "id": "mochila-pequena-con-ruedas-2",
     "nombre": "Mochila pequeña con ruedas",
     "origen": {
@@ -9226,11 +9226,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: 34 x largo 24 x ancho 13 cm\nPara 2 a 5 años",
+    "descripcion": "Medidas: 34 x largo 24 x ancho 13 cm\r\nPara 2 a 5 años",
     "id": "mochila-pequena-con-ruedas-de-dinosaurio",
     "nombre": "Mochila pequeña con ruedas de dinosaurio",
     "origen": {
@@ -9255,11 +9255,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-dama"
     ],
-    "descripcion": "Medidas: alto 30 x largo 25 x ancho 12 cm\nNegro\nGris\nRosa seca\nVerde\nAzul marino",
+    "descripcion": "Medidas: alto 30 x largo 25 x ancho 12 cm\r\nNegro\r\nGris\r\nRosa seca\r\nVerde\r\nAzul marino",
     "id": "mochila-pequena-de-tela-impermeable",
     "nombre": "Mochila pequeña de tela impermeable",
     "origen": {
@@ -9310,9 +9310,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
     "descripcion": "Medidas: alto 31 x largo 25 x ancho 16 cm\r\nPara 4 a 5 años",
     "id": "mochila-pequena-espaldera-de-barbie",
@@ -9339,9 +9339,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
     "descripcion": "Medidas: alto 24 x largo 18 x ancho 13 cm\r\nDe 0 a 4 años",
     "id": "mochila-pequena-espaldera-de-monster",
@@ -9397,9 +9397,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-para-notebook"
     ],
     "descripcion": "Medidas: alto 43 x largo 30 x ancho 10 cm",
     "id": "mochila-porta-notebook-doble-cierre-2",
@@ -9478,11 +9478,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-para-notebook"
     ],
-    "descripcion": "Medidas: alto 47 x largo 32 x ancho 17 cm\nNegro\nNegro/gris",
+    "descripcion": "Medidas: alto 47 x largo 32 x ancho 17 cm\r\nNegro\r\nNegro/gris",
     "id": "mochila-porta-notebook-tapa-dura",
     "nombre": "Mochila porta notebook tapa dura",
     "origen": {
@@ -9507,11 +9507,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 43 x largo 32 x ancho 20 cm\nCon ruedas siliconadas con luces y manija T de aluminio\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 43 x largo 32 x ancho 20 cm\r\nCon ruedas siliconadas con luces y manija T de aluminio\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-reforzada-con-ruedas",
     "nombre": "Mochila reforzada con ruedas",
     "origen": {
@@ -9536,11 +9536,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "De tela impermeable, manija T de aluminio y ruedas siliconadas y con luces\nMedidas: alto 42 x largo 32 x sncho 18 cm\nAmplio para libros 📚 y carpetas 📂\nDisponibles en color:",
+    "descripcion": "De tela impermeable, manija T de aluminio y ruedas siliconadas y con luces\r\nMedidas: alto 42 x largo 32 x sncho 18 cm\r\nAmplio para libros 📚 y carpetas 📂\r\nDisponibles en color:",
     "id": "mochila-reforzada-con-ruedas-grande",
     "nombre": "Mochila reforzada con ruedas grande",
     "origen": {
@@ -9630,11 +9630,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "De tela impermeable con manija T de aluminio y ruedas siliconadas con luces\nMedidas: alto 43 x largo 35 x ancho 20 cm",
+    "descripcion": "De tela impermeable con manija T de aluminio y ruedas siliconadas con luces\r\nMedidas: alto 43 x largo 35 x ancho 20 cm",
     "id": "mochila-reforzada-con-ruedas-grande-2",
     "nombre": "Mochila reforzada con ruedas grande",
     "origen": {
@@ -9659,11 +9659,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 43 x largo 30 x ancho 20 cm\nPara libros 📚 y carpetas 📂",
+    "descripcion": "Medidas: alto 43 x largo 30 x ancho 20 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-reforzada-con-ruedas-grande-de-mario",
     "nombre": "Mochila reforzada con ruedas grande de Mario",
     "origen": {
@@ -9688,9 +9688,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
     "descripcion": "Medidas: alto 43 x largo 32 x ancho 20 cm\r\nPara libros 📚 y carpetas 📂\r\nCon ruedas siliconadas con luces y manija T de aluminio",
     "id": "mochila-reforzada-grande-con-ruedas-de-barbie",
@@ -9717,9 +9717,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
     "descripcion": "Medidas: alto 44 x largo 33 x ancho 14 cm\r\nCon ruedas siliconadas con luces y manija T de aluminio\r\nPara libros 📚 y carpetas 📂",
     "destacado": true,
@@ -9747,11 +9747,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 44 x largo 33 x ancho 13 cm\nPara libros 📚 y carpetas 📂\nCon ruedas siliconadas con luces y manija T de aluminio",
+    "descripcion": "Medidas: alto 44 x largo 33 x ancho 13 cm\r\nPara libros 📚 y carpetas 📂\r\nCon ruedas siliconadas con luces y manija T de aluminio",
     "id": "mochila-reforzada-grande-con-ruedas-de-space",
     "nombre": "Mochila reforzada grande con ruedas de Space",
     "origen": {
@@ -9776,11 +9776,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 45 x largo 32 x ancho 20 cm\nPara libros 📚 y carpetas 📂\nCon ruedas siliconadas con luces y manija T de aluminio",
+    "descripcion": "Medidas: alto 45 x largo 32 x ancho 20 cm\r\nPara libros 📚 y carpetas 📂\r\nCon ruedas siliconadas con luces y manija T de aluminio",
     "id": "mochila-reforzada-grande-con-ruedas-de-unicorn-pets",
     "nombre": "Mochila reforzada grande con ruedas de Unicorn Pets",
     "origen": {
@@ -9805,11 +9805,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-para-notebook"
     ],
-    "descripcion": "Medidas: alto 48 x largo 32 x ancho 15 cm\nColor disponible: negro",
+    "descripcion": "Medidas: alto 48 x largo 32 x ancho 15 cm\r\nColor disponible: negro",
     "id": "mochila-reforzada-porta-notebook-g",
     "nombre": "Mochila reforzada porta notebook G.",
     "origen": {
@@ -9847,9 +9847,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "lonchera-termica-infantil"
     ],
     "descripcion": "Medidas: alto 22 x largo 22 x ancho 13 cm",
     "id": "mochila-termica-de-barbie-espaldera",
@@ -9876,9 +9876,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "lonchera-termica-infantil"
     ],
     "descripcion": "Medidas: alto 22 x largo 23 x ancho 24 cm",
     "id": "mochila-termica-de-de-thomas-friends",
@@ -9905,11 +9905,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "lonchera-termica-infantil"
     ],
-    "descripcion": "Medidas: alto 22 x largo 22 x ancho 14 cm\nCon espaldera",
+    "descripcion": "Medidas: alto 22 x largo 22 x ancho 14 cm\r\nCon espaldera",
     "id": "mochila-termica-de-dinosaurio",
     "nombre": "Mochila térmica de dinosaurio",
     "origen": {
@@ -9934,9 +9934,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "lonchera-termica-infantil"
     ],
     "descripcion": "Medidas: alto 22 x largo 23 x ancho 14 cm",
     "id": "mochila-termica-de-diver",
@@ -9963,9 +9963,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "lonchera-termica-infantil"
     ],
     "descripcion": "Medidas: alto 22 x largo 23 x ancho 14 cm\r\nCon espalderas",
     "id": "mochila-termica-de-monster-nena",
@@ -9992,11 +9992,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "lonchera-termica-infantil"
     ],
-    "descripcion": "Medidas: alto 22 x largo 23 x ancho 15 cm\nCon espalderas",
+    "descripcion": "Medidas: alto 22 x largo 23 x ancho 15 cm\r\nCon espalderas",
     "id": "mochila-termica-de-sirena",
     "nombre": "Mochila térmica de sirena",
     "origen": {
@@ -10021,11 +10021,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "lonchera-termica-infantil"
     ],
-    "descripcion": "Medidas: alto 22 x largo 23 x ancho 14 cm\nCon espalderas",
+    "descripcion": "Medidas: alto 22 x largo 23 x ancho 14 cm\r\nCon espalderas",
     "id": "mochila-termica-de-speed-runner",
     "nombre": "Mochila térmica de speed runner",
     "origen": {
@@ -10050,9 +10050,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "lonchera-termica-infantil"
     ],
     "descripcion": "Medidas: alto 22 x largo 22 x ancho 13 cm",
     "id": "mochila-termica-de-unicorn-pets",
@@ -10079,9 +10079,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "lonchera-termica-infantil"
     ],
     "descripcion": "Medidas: alto 22 x largo 22 x ancho 14 cm",
     "id": "mochila-termica-nubecita",
@@ -10149,11 +10149,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
-    "descripcion": "Medidas: alto 39 x largo 30 x ancho 20 cm\nPara 6 a 7 años",
+    "descripcion": "Medidas: alto 39 x largo 30 x ancho 20 cm\r\nPara 6 a 7 años",
     "id": "mochilas-espaldera-mediana-de-barney",
     "nombre": "Mochilas espaldera mediana de Barney",
     "origen": {
@@ -10479,9 +10479,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "bolsos"
+      "mascota"
     ],
     "descripcion": "Color disponible: negro/gris\r\nMedidas: alto 30 x largo 48 x ancho 26 cm",
     "id": "porta-mascotas",
@@ -10508,9 +10508,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-08-21",
     "categorias": [
-      "bolsos"
+      "porta-traje"
     ],
     "descripcion": "Disponible en color negro\r\nMedidas: alto 105 x largo 58 cm",
     "id": "portatrajes-impermeable",
