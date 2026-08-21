@@ -91,9 +91,15 @@ const enLaFila = categorias.slice(0, EN_LA_FILA);
       nada. Fuera de las islas el sitio publico no tiene JS propio, y un menu no
       justifica abrir esa excepcion.
 
-      LO QUE NO HACE, dicho para que no sorprenda a quien lo lea despues: no cierra
-      con Escape ni al clickear afuera. `<details>` no lo trae y sin JS no se
-      consigue. Se cierra con el mismo boton.
+      Cierra con su propio `<summary>` —eso es nativo— y tambien al clickear afuera,
+      que si necesita el script del final del archivo: `<details>` no lo trae. Se le
+      agrego porque un panel que sigue abierto mientras se clickea el resto de la
+      pagina se lee como algo trabado, no como algo abierto a proposito.
+
+      LO QUE NO HACE, dicho para que no sorprenda a quien lo lea despues: no se abre
+      al pasar el mouse. Hover no existe en touch, y en movil este disparador ES la
+      navegacion entera —las tres de la fila estan ocultas—, asi que seguiria
+      necesitando el click igual. Se abre con click en las dos.
 
       El `relative` va en esta fila y NO en el `<details>`: asi el panel se posiciona
       contra el contenedor y abre a su ancho, en vez del ancho del enlace que lo dispara.
@@ -119,7 +125,7 @@ const enLaFila = categorias.slice(0, EN_LA_FILA);
         }
       </ul>
 
-      <details class="group">
+      <details class="group" data-menu-categorias>
         {/*
           Enlace y no boton: sin borde ni relleno de caja, el mismo color y tamaño que
           las de al lado. Lo unico que lo distingue es la flecha, que es justamente lo
@@ -200,3 +206,67 @@ const enLaFila = categorias.slice(0, EN_LA_FILA);
     </div>
   </nav>
 </header>
+
+{/*
+  El unico JS propio del sitio publico fuera de las islas, y esta acotado a eso: darle
+  al desplegable del header las dos salidas que `<details>` no trae —clickear afuera y
+  Escape—, porque un panel superpuesto que solo cierra con su propio disparador se lee
+  como algo trabado.
+
+  El selector es `[data-menu-categorias]` y NO `details` a secas a proposito: cerrar al
+  clickear afuera es lo correcto para un menu, pero es lo incorrecto para un acordeon
+  —un FAQ, una ficha plegable—, donde lo que se abrio se queda abierto. Un listener
+  global sobre todos los `<details>` le impondria a los futuros un comportamiento de
+  menu que no pidieron.
+
+  Van en `document` con UN listener cada uno en vez de uno por menu: el panel se cierra
+  igual desde cualquier parte de la pagina, y no hay que enganchar ni desenganchar nada
+  cuando el menu se abre y se cierra.
+
+  Los dos escuchan en fase de captura (`true`): si algo adentro del panel llegara a
+  frenar la propagacion, el menu igual se entera. En burbujeo se quedaria abierto sin
+  motivo visible, que es exactamente el sintoma que este script vino a sacar. Ninguno
+  de los dos llama a `preventDefault` ni a `stopPropagation`, asi que el evento le
+  sigue llegando intacto a todo lo demas —el Escape del Buscador, por ejemplo.
+*/}
+<script>
+  const menusAbiertos = () =>
+    document.querySelectorAll<HTMLDetailsElement>('details[data-menu-categorias][open]');
+
+  document.addEventListener(
+    'click',
+    (evento) => {
+      const objetivo = evento.target;
+      if (!(objetivo instanceof Node)) return;
+
+      for (const menu of menusAbiertos()) {
+        // `contains` incluye al propio `<summary>`: el click sobre el disparador lo
+        // maneja el `<details>` nativo, y cerrarlo aca ademas lo dejaria abriendose y
+        // cerrandose en el mismo gesto.
+        if (!menu.contains(objetivo)) menu.open = false;
+      }
+    },
+    true,
+  );
+
+  document.addEventListener(
+    'keydown',
+    (evento) => {
+      if (evento.key !== 'Escape') return;
+
+      for (const menu of menusAbiertos()) {
+        /*
+          El foco se devuelve al disparador SOLO si estaba adentro del panel. Cerrar
+          con el foco en un enlace de la lista lo dejaria en la nada —el navegador lo
+          manda al `<body>` y quien navega con teclado pierde el lugar—, pero robarlo
+          cuando el foco esta en el buscador seria peor: sacarle a alguien el cursor de
+          donde estaba escribiendo.
+        */
+        const teniaElFoco = menu.contains(document.activeElement);
+        menu.open = false;
+        if (teniaElFoco) menu.querySelector('summary')?.focus();
+      }
+    },
+    true,
+  );
+</script>
