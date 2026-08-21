@@ -9,6 +9,20 @@ const { PUBLIC_R2_BASE } = import.meta.env;
 // Solo categorias con productos publicados: el header no puede enlazar a una
 // pagina que no se genera (SPEC §4.3).
 const categorias = (await categoriasNavegables()).map((c) => c.categoria);
+
+/**
+ * Las que se ven sin abrir nada.
+ *
+ * Son las primeras por `orden`, y eso es deliberado: `orden` YA es la prioridad de
+ * navegacion que declara `categorias.json`, asi que quien elige cuales se destacan es
+ * quien edita ese archivo. Un campo `destacada` aparte seria una segunda lista de
+ * prioridad que se desincroniza de la primera.
+ *
+ * TRES es el numero porque el header no puede volver a crecer con el catalogo: el
+ * ancho de esta fila queda acotado por esta constante, no por cuantas categorias haya.
+ */
+const EN_LA_FILA = 3;
+const enLaFila = categorias.slice(0, EN_LA_FILA);
 ---
 
 {/*
@@ -65,19 +79,124 @@ const categorias = (await categoriasNavegables()).map((c) => c.categoria);
   </div>
 
   <nav aria-label="Categorías" class="mx-auto max-w-6xl px-4 sm:px-6">
-    <ul class="flex gap-1 overflow-x-auto py-2 text-sm whitespace-nowrap">
-      {
-        categorias.map((c) => (
-          <li>
+    {/*
+      Un DISPARADOR, no una lista. El header no puede crecer con el catalogo: la tira
+      de una sola linea obligaba a shift+rueda en escritorio —un gesto que nadie
+      descubre, y por eso el navegador plantaba su barra nativa a la vista— y
+      envolverla daba dos filas hoy y cuatro con las 24 categorias que ya hay en
+      `categorias.json`. Un boton mide siempre lo mismo.
+
+      `<details>` y no una isla: es un desplegable nativo, operable con teclado, con
+      el estado expandido que ya entienden los lectores de pantalla, y sin hidratar
+      nada. Fuera de las islas el sitio publico no tiene JS propio, y un menu no
+      justifica abrir esa excepcion.
+
+      LO QUE NO HACE, dicho para que no sorprenda a quien lo lea despues: no cierra
+      con Escape ni al clickear afuera. `<details>` no lo trae y sin JS no se
+      consigue. Se cierra con el mismo boton.
+
+      El `relative` va en esta fila y NO en el `<details>`: asi el panel se posiciona
+      contra el contenedor y abre a su ancho, en vez del ancho del enlace que lo dispara.
+    */}
+    <div class="relative flex items-center gap-3 py-2 text-sm">
+      {/*
+        Las tres de la fila se esconden en movil: «Bandolera para Hombre» y dos mas no
+        entran en 375px, y meterlas devolveria el desborde que este cambio vino a sacar.
+        En movil queda solo el disparador, que es la tira entera en un enlace.
+      */}
+      <ul class="hidden items-center gap-1 sm:flex">
+        {
+          enLaFila.map((c) => (
+            <li>
+              <a
+                href={`/categorias/${c.id}`}
+                class="hover:bg-fondo hover:text-texto text-texto-suave block rounded px-2 py-1"
+              >
+                {c.data.nombre}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <details class="group">
+        {/*
+          Enlace y no boton: sin borde ni relleno de caja, el mismo color y tamaño que
+          las de al lado. Lo unico que lo distingue es la flecha, que es justamente lo
+          que hay que comunicar — que despliega, no que navega.
+        */}
+        <summary
+          class="text-texto-suave hover:text-texto inline-flex cursor-pointer list-none items-center gap-1 rounded px-1 py-1 hover:underline [&::-webkit-details-marker]:hidden"
+        >
+          {/*
+            El texto cambia con el ancho porque el sentido cambia: con tres a la vista
+            esto es «el resto», y sin ninguna a la vista es la lista entera. Un solo
+            rotulo mentiria en uno de los dos casos.
+          */}
+          <span class="sm:hidden">Categorías</span>
+          <span class="hidden sm:inline">Ver todas</span>
+
+          {/* `aria-hidden`: el estado ya lo canta `<summary>`, la flecha solo lo dibuja. */}
+          <svg
+            class="h-4 w-4 transition-transform group-open:rotate-180"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.17l3.71-3.94a.75.75 0 1 1 1.08 1.04l-4.25 4.5a.75.75 0 0 1-1.08 0l-4.25-4.5a.75.75 0 0 1 .02-1.06Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </summary>
+
+        {/*
+          Se superpone al contenido en vez de empujarlo: `absolute` para que abrir el
+          menu no reacomode la grilla de productos que hay abajo.
+
+          El panel lista TODAS, incluidas las tres que ya se ven en la fila. Omitirlas
+          dejaria huecos en una lista que se recorre con la vista, y buscar una que no
+          esta donde deberia estar cuesta mas que leerla dos veces.
+
+          `max-h` con scroll propio porque con 24 categorias el panel va a medir mas que
+          un viewport de movil, y un panel mas alto que la pantalla deja el disparador
+          para cerrarlo fuera de vista.
+        */}
+        <div
+          class="border-borde bg-superficie absolute inset-x-0 top-full z-10 mt-1 max-h-[70vh] overflow-y-auto rounded border p-3 shadow-lg"
+        >
+          <ul class="grid gap-x-4 gap-y-1 sm:grid-cols-2 lg:grid-cols-3">
+            {
+              categorias.map((c) => (
+                <li>
+                  <a
+                    href={`/categorias/${c.id}`}
+                    class="hover:bg-fondo hover:text-texto text-texto-suave block rounded px-2 py-1.5"
+                  >
+                    {c.data.nombre}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+
+          {/*
+            Salida al indice: el panel es para saltar rapido a una categoria que ya se
+            sabe cual es, y `/categorias` es para ELEGIR — ahi cada una entra con la
+            foto de su producto mas nuevo. Son dos preguntas distintas y el panel no
+            puede contestar la segunda sin volverse la pagina.
+          */}
+          <div class="border-borde mt-2 border-t pt-2">
             <a
-              href={`/categorias/${c.id}`}
-              class="hover:bg-fondo hover:text-texto text-texto-suave block rounded px-2 py-1"
+              href="/categorias"
+              class="hover:bg-fondo hover:text-texto text-texto-suave block rounded px-2 py-1.5 underline"
             >
-              {c.data.nombre}
+              Ver todas con fotos
             </a>
-          </li>
-        ))
-      }
-    </ul>
+          </div>
+        </div>
+      </details>
+    </div>
   </nav>
 </header>
