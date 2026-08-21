@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { construirProductos, serializar } from '../construir.mjs';
+import { construirProductos, contarEnElCatalogo, serializar } from '../construir.mjs';
 
 /**
  * Tests del volcado D1 -> productos.json (SPEC-etapa2 §5.5).
@@ -377,4 +377,38 @@ test('una variante huerfana, sin producto, lanza', () => {
     id: 99, producto_id: 404, sku: 'X-9', color: 'Gris', color_hex: null, activo: 1, orden: 0,
   });
   assert.throws(() => construirProductos(f), /404/);
+});
+
+// --------------------------------------------------------------------------
+// contarEnElCatalogo
+// --------------------------------------------------------------------------
+
+/**
+ * El numero que la Action reporta al admin (§11.3).
+ *
+ * Existe porque `productos.json.length` NO es ese numero y se veia como un bug: el
+ * panel decia «281 productos en el catalogo» mientras la tarjeta del tablero decia
+ * 270. Los 11 de diferencia eran los eliminados, que van al JSON a proposito —con
+ * `activo: false`, para que su direccion no quede rota— pero que estan justamente
+ * FUERA del catalogo.
+ */
+test('contarEnElCatalogo no cuenta los eliminados', () => {
+  assert.equal(
+    contarEnElCatalogo([{ id: 'a' }, { id: 'b', activo: false }, { id: 'c' }]),
+    2
+  );
+});
+
+test('contarEnElCatalogo cuenta al que no declara `activo`', () => {
+  // `construirProductos` solo ESCRIBE `activo` cuando vale false; el resto sale sin
+  // el campo y Zod le pone `true` al leerlo. Contar por `=== true` daria siempre 0.
+  assert.equal(contarEnElCatalogo([{ id: 'a' }, { id: 'b' }]), 2);
+});
+
+test('contarEnElCatalogo sobre la salida real de construirProductos', () => {
+  // Contra el productor real y no contra literales: si `construir` cambiara la forma
+  // en que apaga un producto, este test se entera y el de arriba no.
+  const f = base();
+  f.productos[0].estado = 'eliminado';
+  assert.equal(contarEnElCatalogo(construirProductos(f)), 0);
 });

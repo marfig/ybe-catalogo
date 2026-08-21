@@ -251,3 +251,20 @@ function ordenarClaves(valor) {
 export function serializar(productos) {
   return `${JSON.stringify(ordenarClaves(productos), null, 2)}\n`;
 }
+
+/**
+ * Cuantos de estos productos estan EN EL CATALOGO, que no es lo mismo que cuantos hay.
+ *
+ * Vive aca, al lado de la unica linea que apaga un producto (`producto.activo = false`),
+ * porque la regla es una sola: lo que el sitio publico muestra es lo que no esta
+ * apagado —`activos()` en `src/lib/productos.ts` filtra por el mismo campo—. Con la
+ * cuenta escrita en el YAML de la Action, la regla vivia en dos lados y sin un test que
+ * la sujete.
+ *
+ * `!== false` y NO `=== true`: un producto en el catalogo sale SIN el campo, porque
+ * `construirProductos` solo lo escribe para apagar. Zod le pone el `true` recien al
+ * leer el JSON, asi que aca todavia es `undefined`.
+ */
+export function contarEnElCatalogo(productos) {
+  return productos.filter((p) => p.activo !== false).length;
+}

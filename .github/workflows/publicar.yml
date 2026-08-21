@@ -161,7 +161,11 @@ jobs:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           if [ "${{ job.status }}" = "success" ]; then
-            PRODUCTOS=$(node -e "console.log(require('./src/data/productos.json').length)")
+            # Los EN EL CATALOGO, que no son todas las filas del JSON: los eliminados
+            # tambien se vuelcan, con `activo: false`, para no romper sus direcciones.
+            # Contar filas hacia que el panel dijera «281 en el catalogo» mientras el
+            # tablero decia 270. La regla vive en construir.mjs, con test.
+            PRODUCTOS=$(node scripts/volcado/contar.mjs)
             node scripts/volcado/publicacion.mjs ok \
               --productos "$PRODUCTOS" \
               --commit "$(git rev-parse HEAD)" \
