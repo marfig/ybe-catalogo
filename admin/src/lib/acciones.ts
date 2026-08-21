@@ -24,9 +24,16 @@
 import type { Ejecutar } from './grilla.ts';
 import { guardarFilas, type CambioFila, type OpcionesGuardado, type ResultadoFila } from './guardar.ts';
 import { aprobar, asignarCategorias, type ResultadoItem } from './transiciones.ts';
+import { desmarcarBaja } from './scrape/cola.ts';
 
 /** Las acciones que esta pantalla resuelve por sí misma. */
-export const ACCIONES = ['guardar', 'aprobar', 'aprobar-completos', 'categorias'] as const;
+export const ACCIONES = [
+  'guardar',
+  'aprobar',
+  'aprobar-completos',
+  'categorias',
+  'no-es-baja',
+] as const;
 
 export type Accion = (typeof ACCIONES)[number];
 
@@ -50,7 +57,7 @@ export function esAccion(valor: unknown): valor is Accion {
  * diseñada para no seleccionar ninguno.
  */
 export function necesitaSeleccion(accion: Accion): boolean {
-  return accion === 'aprobar' || accion === 'categorias';
+  return accion === 'aprobar' || accion === 'categorias' || accion === 'no-es-baja';
 }
 
 export interface EntradaAccion {
@@ -107,6 +114,18 @@ export async function ejecutarAccion(
 
   if (accion === 'aprobar') {
     return [...fallosAlGuardar, ...(await aprobar(ejecutar, aptos, { ...opciones, permitirSinFoto }))];
+  }
+
+  /**
+   * «No es una baja»: saca la marca que dejó el barrido, sin preguntarle al proveedor.
+   *
+   * NO es una transición de estado y por eso la función vive con `marcar()` en
+   * `scrape/cola.ts`: `ausente_desde` es un eje ortogonal a `estado`. Acá sólo se la
+   * despacha, con el mismo guardado previo que las demás — la regla del módulo no tiene
+   * excepciones, y esta pantalla es una tabla editable en todas sus filas.
+   */
+  if (accion === 'no-es-baja') {
+    return [...fallosAlGuardar, ...(await desmarcarBaja(ejecutar, aptos, opciones))];
   }
 
   /**

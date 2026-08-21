@@ -21,10 +21,17 @@ import type { Ejecutar } from './grilla.ts';
  * estaba a la vista. Y el redirect borraba lo tipeado.
  */
 
-const MIGRACION = readFileSync(
-  new URL('../../../db/migrations/0001_esquema_inicial.sql', import.meta.url),
-  'utf8'
-);
+/**
+ * TODAS las migraciones y no solo el esquema inicial: `no-es-baja` opera sobre
+ * `ausente_desde`, que entra en la 0005. Con una sola, esa accion no se puede probar.
+ */
+const MIGRACIONES = [
+  '0001_esquema_inicial.sql',
+  '0002_codigo_insensible_a_mayusculas.sql',
+  '0003_aviso_cambio_en_origen.sql',
+  '0004_papelera.sql',
+  '0005_barrido_de_bajas.sql',
+].map((n) => readFileSync(new URL(`../../../db/migrations/${n}`, import.meta.url), 'utf8'));
 const ANTES = '2026-08-01T10:00:00Z';
 const AHORA = '2026-08-05T16:00:00Z';
 const CATEGORIAS = new Set(['carteras', 'mochilas', 'escolar', 'dama']);
@@ -32,7 +39,7 @@ const CATEGORIAS = new Set(['carteras', 'mochilas', 'escolar', 'dama']);
 function base() {
   const db = new DatabaseSync(':memory:');
   db.exec('PRAGMA foreign_keys = ON;');
-  db.exec(MIGRACION);
+  for (const m of MIGRACIONES) db.exec(m);
   return db;
 }
 
@@ -533,4 +540,66 @@ test('una pagina sin filas no escribe ni revienta', async () => {
     con(db)
   );
   assert.deepEqual(rs, []);
+});
+
+// --------------------------------------------------------------------------
+// no-es-baja
+// --------------------------------------------------------------------------
+
+/** Marca un producto como dado de baja en el origen, como lo dejaria el barrido. */
+function marcarBaja(db: DatabaseSync, id: number): void {
+  db.prepare(`UPDATE productos SET ausente_desde = ? WHERE id = ?`).run(ANTES, id);
+}
+
+test('esAccion acepta no-es-baja', () => {
+  assert.equal(esAccion('no-es-baja'), true);
+});
+
+test('no-es-baja opera sobre lo tildado', () => {
+  // Es una correccion producto por producto: nadie quiere «sacale la marca a los 300».
+  assert.equal(necesitaSeleccion('no-es-baja'), true);
+});
+
+test('no-es-baja saca la marca de los tildados', async () => {
+  const db = base();
+  const id = alta(db, { codigo: 'CG3001' });
+  marcarBaja(db, id);
+
+  const rs = await ejecutarAccion(
+    ejecutor(db),
+    { accion: 'no-es-baja', cambios: [cambio({ id })], seleccionados: [id] },
+    con(db)
+  );
+
+  assert.equal(rs.length, 1);
+  assert.equal((rs[0] as { desenlace: string }).desenlace, 'hecho');
+  const [fila] = await ejecutor(db)<{ ausente_desde: string | null }>(
+    'SELECT ausente_desde FROM productos WHERE id = ?',
+    [id]
+  );
+  assert.equal(fila.ausente_desde, null);
+});
+
+test('no-es-baja guarda PRIMERO lo tipeado, como toda accion que escribe', async () => {
+  /*
+   * La regla del modulo. Alguien corrige el nombre en la grilla, tilda el producto y
+   * aprieta «No es una baja»: sin el guardado previo, el redirect 303 recarga desde la
+   * base y lo tipeado se pierde sin aviso — el bug que justifica este archivo.
+   */
+  const db = base();
+  const id = alta(db, { codigo: 'CG3002', nombre: 'Viejo' });
+  marcarBaja(db, id);
+
+  await ejecutarAccion(
+    ejecutor(db),
+    { accion: 'no-es-baja', cambios: [cambio({ id, nombre: 'Nombre corregido' })], seleccionados: [id] },
+    con(db)
+  );
+
+  const [fila] = await ejecutor(db)<{ nombre: string; ausente_desde: string | null }>(
+    'SELECT nombre, ausente_desde FROM productos WHERE id = ?',
+    [id]
+  );
+  assert.equal(fila.nombre, 'Nombre corregido');
+  assert.equal(fila.ausente_desde, null);
 });

@@ -9,10 +9,12 @@ import {
   candidatosPorIds,
   contarAusentes,
   contarBarribles,
+  desmarcarBaja,
   listarAusentes,
   marcar,
   proximosABarrer,
 } from './cola.ts';
+import { loteSqlite } from '../d1.ts';
 
 /**
  * Contra el ESQUEMA REAL con `node:sqlite`, que es el mismo motor que D1. Un orden
@@ -437,4 +439,96 @@ test('las bajas se listan de la más vieja a la más nueva', async () => {
   ]);
 
   assert.deepEqual(codigos(await listarAusentes(ejecutor(db))), ['CG002', 'CG001']);
+});
+
+// --------------------------------------------------------------------------
+// desmarcarBaja
+// --------------------------------------------------------------------------
+
+/**
+ * La salida MANUAL de la marca de baja.
+ *
+ * Hasta que existió, `ausente_desde` sólo la borraba `marcar()` al encontrar el
+ * producto presente en el proveedor. Si el proveedor de verdad no lo tiene —una
+ * corrida de prueba, un código que su buscador no matchea— no había forma de sacarlo
+ * del listado desde el admin: hubo que correr un UPDATE a mano sobre D1 de producción.
+ * Eso es lo que esta función deja de pedir.
+ */
+const lote = (db: DatabaseSync) => loteSqlite(db);
+const opciones = (db: DatabaseSync) => ({ lote: lote(db), ahora: HOY });
+
+test('desmarcarBaja limpia la marca y lo reporta como hecho', async () => {
+  const db = base();
+  sembrar(db, [{ codigo: 'CG001', ausente: AYER }]);
+  const [{ id }] = await ejecutor(db)<{ id: number }>('SELECT id FROM productos');
+
+  const [r] = await desmarcarBaja(ejecutor(db), [id], opciones(db));
+
+  assert.equal(r.desenlace, 'hecho');
+  assert.equal(r.codigo, 'CG001');
+  const [fila] = await ejecutor(db)<{ ausente_desde: string | null }>(
+    'SELECT ausente_desde FROM productos'
+  );
+  assert.equal(fila.ausente_desde, null);
+});
+
+test('desmarcarBaja NO toca actualizado_en', async () => {
+  /*
+   * Mismo criterio que `marcar()`: `actualizado_en` alimenta el aviso de «hay cambios
+   * sin publicar» del Inicio (§11.3), y esta marca no cambia NADA de lo que el sitio
+   * muestra. Moverlo pediría publicar por una corrección que no publicó nada.
+   */
+  const db = base();
+  sembrar(db, [{ codigo: 'CG001', ausente: AYER }]);
+  const [{ id }] = await ejecutor(db)<{ id: number }>('SELECT id FROM productos');
+
+  await desmarcarBaja(ejecutor(db), [id], opciones(db));
+
+  const [fila] = await ejecutor(db)<{ actualizado_en: string }>(
+    'SELECT actualizado_en FROM productos'
+  );
+  assert.equal(fila.actualizado_en, AYER);
+});
+
+test('desmarcarBaja sobre uno que no estaba marcado es omitido, no hecho', async () => {
+  // No hay nada que corregir: es el desenlace `omitido` de §10.3, no un fallo.
+  const db = base();
+  sembrar(db, [{ codigo: 'CG001', ausente: null }]);
+  const [{ id }] = await ejecutor(db)<{ id: number }>('SELECT id FROM productos');
+
+  const [r] = await desmarcarBaja(ejecutor(db), [id], opciones(db));
+
+  assert.equal(r.desenlace, 'omitido');
+  assert.match(r.motivo ?? '', /baja/i);
+});
+
+test('desmarcarBaja NO devuelve la revisión: revisado_en_origen queda', async () => {
+  // Es el registro honesto de que se miró. Borrarlo mandaría el producto al frente de
+  // la cola del barrido, que es trabajo inventado.
+  const db = base();
+  sembrar(db, [{ codigo: 'CG001', revisado: AYER, ausente: AYER }]);
+  const [{ id }] = await ejecutor(db)<{ id: number }>('SELECT id FROM productos');
+
+  await desmarcarBaja(ejecutor(db), [id], opciones(db));
+
+  const [fila] = await ejecutor(db)<{ revisado_en_origen: string }>(
+    'SELECT revisado_en_origen FROM productos'
+  );
+  assert.equal(fila.revisado_en_origen, AYER);
+});
+
+test('desmarcarBaja: un id que no existe es fallo, y no arrastra a los demás', async () => {
+  const db = base();
+  sembrar(db, [{ codigo: 'CG001', ausente: AYER }]);
+  const [{ id }] = await ejecutor(db)<{ id: number }>('SELECT id FROM productos');
+
+  const rs = await desmarcarBaja(ejecutor(db), [id, 9999], opciones(db));
+
+  assert.equal(rs.find((r) => r.id === id)?.desenlace, 'hecho');
+  assert.equal(rs.find((r) => r.id === 9999)?.desenlace, 'fallo');
+});
+
+test('desmarcarBaja sin ids no escribe ni lanza', async () => {
+  const db = base();
+  assert.deepEqual(await desmarcarBaja(ejecutor(db), [], opciones(db)), []);
 });

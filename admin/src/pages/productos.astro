@@ -115,12 +115,12 @@ if (Astro.request.method === 'POST') {
       destino.searchParams.set('error', 'Acción desconocida.');
     } else {
       /**
-       * Se recorren los ids que la pagina rindio (`fila`), no la seleccion, y para las
-       * TRES acciones.
+       * Se recorren los ids que la pagina rindio (`fila`), no la seleccion, y para
+       * TODAS las acciones, sin excepcion.
        *
-       * Guardar no necesita tildar nada —las casillas son solo para el lote— pero
-       * aprobar y asignar categorias tampoco pueden ignorar lo tipeado: es el estado de
-       * verdad de la pantalla. El orden lo impone `ejecutarAccion`; aca solo se parsea.
+       * Guardar no necesita tildar nada —las casillas son solo para el lote— pero las
+       * demas tampoco pueden ignorar lo tipeado: es el estado de verdad de la pantalla.
+       * El orden lo impone `ejecutarAccion`; aca solo se parsea.
        */
       const cambios: CambioFila[] = [];
       for (const valor of datos.getAll('fila')) {
@@ -333,6 +333,16 @@ const filas = productos.map((p) => ({
 const completosParaAprobar = filas.filter(
   (f) => f.estado === 'importado' && f.validacion.puede
 ).length;
+
+/**
+ * Si en esta pantalla hay algo marcado como baja del proveedor.
+ *
+ * El boton de «No es una baja» aparece SOLO cuando hay a que aplicarselo. Es una
+ * correccion de una marca equivocada, no una operacion del dia a dia: mostrarlo siempre
+ * suma un sexto boton a la barra para el 99% de las pantallas donde no hay ninguna baja,
+ * y ese ruido se paga en cada uso de la grilla.
+ */
+const hayBajasEnLaPagina = filas.some((f) => f.ausente_desde !== null);
 
 /** Resumen de la accion anterior, que llego por la query tras el redirect. */
 const hechos = Number(parametros.get('hechos') ?? '0');
@@ -824,6 +834,30 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
           >
             Verificar en el proveedor
           </button>
+
+          {/*
+            Saca la marca que dejo el barrido, sin preguntarle al proveedor.
+
+            VA AL LADO DE «Verificar en el proveedor» porque son las dos respuestas a la
+            misma pregunta —«esto sigue existiendo?»—: una se la hace al proveedor y la
+            otra la contesta quien opera. La de la maquina va primero: es la que trae
+            informacion nueva, y esta apaga un aviso sin averiguar nada.
+
+            Sin este boton la unica salida era un UPDATE a mano sobre D1 de produccion,
+            que fue exactamente lo que hubo que hacer la primera vez que una corrida de
+            prueba dejo 8 productos mal marcados.
+          */}
+          {hayBajasEnLaPagina ? (
+            <button
+              type="submit"
+              class="secundario"
+              name="accion"
+              value="no-es-baja"
+              data-requiere="guardado seleccion"
+            >
+              No es una baja
+            </button>
+          ) : null}
 
           {/* `formaction` y no otra accion de esta pagina: eliminar necesita una pantalla
               de confirmacion que diga QUE va a pasar con cada producto (§12.2), y eso

@@ -14,7 +14,8 @@
  * ESTE MÓDULO NO BORRA NADA. Marca, y una persona decide desde la grilla con el flujo
  * de eliminación que ya existe (§12.2).
  */
-import type { Ejecutar } from '../grilla.ts';
+import type { Ejecutar, Sentencia } from '../grilla.ts';
+import type { OpcionesTransicion, ResultadoItem } from '../transiciones.ts';
 import type { Presencia } from './presencia.ts';
 
 /** Un producto al que hay que preguntarle al proveedor. */
@@ -253,4 +254,78 @@ export async function listarAusentes(
       LIMIT ?`,
     [limite]
   );
+}
+
+/**
+ * Saca la marca de baja a mano, sin preguntarle al proveedor.
+ *
+ * ES LA UNICA SALIDA MANUAL de `ausente_desde`, y existe por un caso real: una corrida
+ * de prueba dejo 8 productos marcados que el proveedor efectivamente NO tiene. Volver a
+ * barrerlos los marcaba de nuevo —correctamente—, asi que el camino soportado no
+ * alcanzaba y hubo que correr un UPDATE a mano sobre D1 de produccion. Una operacion que
+ * termina en SQL escrito a mano sobre la base viva es una funcion que falta.
+ *
+ * VIVE ACA, con `marcar()`, y no en `transiciones.ts` donde estan las otras acciones en
+ * lote de la grilla. `ausente_desde` es ORTOGONAL a `estado` —un producto puede estar en
+ * el catalogo y dado de baja al mismo tiempo, y la grilla los muestra como dos ejes
+ * distintos a proposito—, asi que esto no es una transicion. Lo que si comparte con
+ * ellas es el contrato de salida, `ResultadoItem`, porque lo consume el mismo resumen.
+ *
+ * NO FILTRA POR ESTADO, por el mismo motivo que `candidatosPorIds`: lo que se tilda se
+ * opera. Quien decide sobre que producto se pregunta es quien opera, no esta funcion.
+ */
+export async function desmarcarBaja(
+  ejecutar: Ejecutar,
+  ids: number[],
+  { lote }: Pick<OpcionesTransicion, 'lote'>
+): Promise<ResultadoItem[]> {
+  if (ids.length === 0) return [];
+
+  const huecos = ids.map(() => '?').join(', ');
+  const productos = await ejecutar<{ id: number; codigo: string; ausente_desde: string | null }>(
+    `SELECT id, codigo, ausente_desde
+       FROM productos
+      WHERE id IN (${huecos})
+      ORDER BY codigo`,
+    ids
+  );
+
+  const porId = new Map(productos.map((p) => [p.id, p]));
+  const resultados: ResultadoItem[] = [];
+  const sentencias: Sentencia[] = [];
+
+  for (const p of productos) {
+    if (p.ausente_desde === null) {
+      // No habia nada que sacar. `omitido` y no `hecho`: no hay nada que corregir, pero
+      // tampoco se escribio nada, y el resumen no puede decir que si.
+      resultados.push({
+        id: p.id,
+        codigo: p.codigo,
+        desenlace: 'omitido',
+        motivo: 'no estaba marcado como baja',
+      });
+      continue;
+    }
+
+    /**
+     * Se limpia `ausente_desde` y NADA MAS. Ni `revisado_en_origen`, que es el registro
+     * honesto de que se miro —borrarlo mandaria el producto al frente de la cola del
+     * barrido, que es trabajo inventado—, ni `actualizado_en`, por el mismo motivo por
+     * el que no lo toca `marcar()`: alimenta el aviso de «hay cambios sin publicar»
+     * (§11.3), y esto no cambia nada de lo que el sitio muestra.
+     */
+    sentencias.push({
+      sql: `UPDATE productos SET ausente_desde = NULL WHERE id = ?`,
+      params: [p.id],
+    });
+    resultados.push({ id: p.id, codigo: p.codigo, desenlace: 'hecho' });
+  }
+
+  for (const id of ids) {
+    if (!porId.has(id)) resultados.push({ id, desenlace: 'fallo', motivo: 'no existe' });
+  }
+
+  if (sentencias.length > 0) await lote(sentencias);
+
+  return resultados;
 }
