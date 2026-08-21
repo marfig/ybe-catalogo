@@ -48,9 +48,33 @@ const productos = defineCollection({
     nombre: z.string().min(1),
     descripcion: z.string().optional(),
 
-    // reference() es deliberado: un slug de categoria mal escrito por el
-    // importador ROMPE EL BUILD en vez de renderizar una categoria vacia en
-    // produccion. El costo es resolver con getEntries().
+    /**
+     * `reference()` NO VALIDA QUE LA CATEGORIA EXISTA. Esto decia lo contrario.
+     *
+     * Lo que hace es normalizar el valor a `{ id, collection }` para que
+     * `getEntries()` lo pueda resolver, y validar la FORMA: string, numero, o un
+     * objeto cuyo `collection` coincida. Nunca busca el id en la coleccion destino
+     * —ver `createReference` en `astro/dist/content/runtime.js`—, asi que un slug
+     * con un typo pasa igual que uno correcto.
+     *
+     * Y NO ROMPE EL BUILD, que es lo que este comentario prometia. Un slug que no
+     * existe resuelve a `undefined` y `resolverCategorias` lo descarta con su
+     * `Boolean(c)` (`src/lib/productos.ts`): la categoria desaparece del producto en
+     * silencio, sin error ni warning. Casi exactamente el «renderizar una categoria
+     * vacia en produccion» que la promesa decia estar evitando.
+     *
+     * NO ES UNA PROMESA INOCENTE: se uso como fundamento para que las categorias no
+     * tengan tabla en D1 (`db/migrations/0001_esquema_inicial.sql`, SPEC-etapa2
+     * §5.4a) — el argumento era que una tabla se desincronizaria de esta validacion.
+     * La decision puede seguir siendo la correcta, pero no por este motivo.
+     *
+     * LA RED QUE SI EXISTE es `validarParaAprobar` en el admin: bloquea la
+     * aprobacion nombrando las categorias inexistentes. Tiene un hueco conocido, y
+     * conviene saberlo antes de confiarle el catalogo: valida EN EL MOMENTO DE
+     * APROBAR. Un producto aprobado cuando la categoria existia, y que sigue
+     * publicado apuntandole despues de que se la saco de `categorias.json`, ya paso
+     * por esa puerta y nadie lo vuelve a revisar.
+     */
     categorias: z.array(reference('categorias')).min(1),
 
     // Entero: el guarani no tiene decimales. null explicito = "Consultar precio".
