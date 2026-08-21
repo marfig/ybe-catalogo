@@ -1,0 +1,134 @@
+---
+import Base from '../../layouts/Base.astro';
+import ImagenProducto from '../../components/ImagenProducto.astro';
+import { SIZES_CARD } from '../../lib/imagenes.ts';
+import { urlCanonica } from '../../lib/seo.ts';
+import { activos, categoriasNavegables, imagenPrincipal } from '../../lib/productos.ts';
+
+/**
+ * Indice completo de categorias.
+ *
+ * EXISTE PARA DESCARGAR AL HEADER Y A LA HOME. Las dos mostraban la lista entera, y
+ * una lista entera crece con el catalogo: la tira del header desbordaba y el bloque de
+ * la home mide ~750px en un movil con las 24 categorias del archivo. Ahora los dos
+ * muestran unas pocas y mandan aca, que es el unico lugar donde la lista completa es
+ * el contenido de la pagina y no un estorbo delante de los productos.
+ *
+ * Y de paso `/categorias` deja de ser un 404: era la URL que se obtiene recortando
+ * `/categorias/mochilas`, que es algo que la gente hace.
+ *
+ * `categoriasNavegables` y no `categoriasActivas`: una categoria sin productos no
+ * tiene pagina generada, asi que enlazarla seria enlazar un 404 (SPEC §4.3). Las
+ * vacias no se listan hasta que tengan algo publicado.
+ */
+const navegables = await categoriasNavegables();
+const total = navegables.reduce((suma, c) => suma + c.cantidad, 0);
+
+/**
+ * Portada de cada caja: la imagen del primer producto de la categoria.
+ *
+ * `activos()` UNA vez y `find` por categoria, no `porCategoria()` por cada una: esa
+ * recorre el catalogo entero cada vez, y con 24 categorias son 24 recorridas para
+ * quedarse con el primer elemento de cada una.
+ *
+ * «Primero» es el primero del orden estable global —novedades primero, desempate por
+ * id (ver `ordenar`)—, asi que la portada es el producto mas nuevo de la categoria y
+ * se renueva sola cuando entra stock. No hace falta un campo `portada` que alguien
+ * tenga que mantener a mano.
+ */
+const productos = await activos();
+
+const tarjetas = navegables.map(({ categoria, cantidad }) => {
+  const primero = productos.find((p) => p.data.categorias.some((r) => r.id === categoria.id));
+
+  return {
+    categoria,
+    cantidad,
+    portada: primero ? imagenPrincipal(primero) : undefined,
+  };
+});
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: urlCanonica('/', Astro.site).href },
+      { '@type': 'ListItem', position: 2, name: 'Categorías' },
+    ],
+  },
+];
+---
+
+<Base
+  titulo="Categorías"
+  descripcion="Todas las categorías del catálogo. Consultá por WhatsApp."
+  jsonLd={jsonLd}
+>
+  <nav aria-label="Migas de pan" class="text-texto-suave text-sm">
+    <ol class="flex flex-wrap items-center gap-1">
+      <li><a href="/" class="hover:text-texto underline">Inicio</a></li>
+      <li aria-hidden="true">›</li>
+      <li aria-current="page" class="text-texto">Categorías</li>
+    </ol>
+  </nav>
+
+  <div class="mt-4 flex flex-wrap items-baseline justify-between gap-2">
+    <h1 class="text-lg font-semibold sm:text-2xl">Categorías</h1>
+    <p class="text-texto-suave text-sm">
+      {navegables.length} {navegables.length === 1 ? 'categoría' : 'categorías'} ·{' '}
+      {total} {total === 1 ? 'producto' : 'productos'}
+    </p>
+  </div>
+
+  {
+    navegables.length === 0 ? (
+      <p class="text-texto-suave mt-6 text-sm">Todavía no hay categorías con productos publicados.</p>
+    ) : (
+      /*
+        LAS MISMAS COLUMNAS QUE `GrillaProductos` —2 / 3 / 4— y no una grilla propia.
+        Que la caja de categoria mida lo mismo que la de producto es lo que deja usar
+        `SIZES_CARD` tal cual: el `sizes` describe el ancho REAL de la caja, asi que
+        una grilla distinta lo volveria mentira y el navegador bajaria el tamaño
+        equivocado.
+      */
+      <ul class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+        {tarjetas.map(({ categoria, cantidad, portada }) => (
+          <li class="flex">
+            {/*
+              Estructura de `TarjetaProducto`: foto arriba, texto abajo, y el borde que
+              separa la foto del fondo —la foto viene sobre #FFFFFF y --color-fondo es
+              #FAFAF9, 1.01:1 de contraste (SPEC §3.3)—. Sin borde la portada flota.
+            */}
+            <a
+              href={`/categorias/${categoria.id}`}
+              class="border-borde bg-superficie hover:border-acento group flex flex-1 flex-col overflow-hidden rounded border transition-colors"
+            >
+              {/*
+                `alt=""` a proposito: la portada es DECORATIVA. El nombre de la
+                categoria va abajo dentro del mismo enlace, asi que describir la foto
+                le haria leer lo mismo dos veces a un lector de pantalla. Y describirla
+                por lo que ES —un producto suelto— seria peor: nombraria un producto
+                cuando el enlace lleva a la categoria entera.
+
+                `imagen` puede venir `undefined` y esta bien: `ImagenProducto` cae a
+                `<SinFoto compacto>`, que a este tamaño entra sin problema. Hoy no pasa
+                nunca porque los 270 activos tienen imagen.
+              */}
+              <ImagenProducto imagen={portada} alt="" sizes={SIZES_CARD} compacto />
+
+              <div class="flex flex-1 flex-col gap-1 p-3">
+                <h2 class="group-hover:text-primario text-sm leading-snug font-medium">
+                  {categoria.data.nombre}
+                </h2>
+                <span class="text-texto-suave mt-auto pt-1 text-xs">
+                  {cantidad} {cantidad === 1 ? 'producto' : 'productos'}
+                </span>
+              </div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</Base>
