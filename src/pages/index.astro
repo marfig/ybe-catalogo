@@ -11,6 +11,25 @@ const productosDestacados = await destacados();
 // getStaticPaths del listado (SPEC §4.3).
 const navegables = await categoriasNavegables();
 
+/**
+ * La home muestra un ADELANTO, no el indice.
+ *
+ * Con las 24 categorias del archivo la lista completa medía ~750px de alto en un
+ * movil, entre el buscador y los destacados: para llegar a un producto habia que
+ * pasar por el indice entero. El indice completo vive en `/categorias`, que es una
+ * pagina donde la lista ES el contenido.
+ *
+ * OCHO porque es lo que llena cuatro columnas en dos filas justas, y porque el alto
+ * del bloque queda acotado por esta constante y no por cuantas categorias haya.
+ *
+ * Las primeras por `orden`, igual que en el header: `orden` ya es la prioridad de
+ * navegacion que declara `categorias.json`, asi que quien elige que se adelanta es
+ * quien edita ese archivo.
+ */
+const EN_LA_HOME = 8;
+const adelanto = navegables.slice(0, EN_LA_HOME);
+const hayMas = navegables.length > adelanto.length;
+
 const jsonLd = [
   {
     '@context': 'https://schema.org',
@@ -43,10 +62,26 @@ const jsonLd = [
   </p>
 
   <section class="mt-8" aria-labelledby="h-categorias">
-    <h2 id="h-categorias" class="text-lg font-semibold">Categorías</h2>
+    <div class="flex flex-wrap items-baseline justify-between gap-2">
+      <h2 id="h-categorias" class="text-lg font-semibold">Categorías</h2>
+
+      {/*
+        El enlace va ARRIBA, en la misma linea que el titulo, y no al final de la
+        lista: arriba se ve sin scrollear y avisa que hay mas antes de que alguien
+        recorra las ocho creyendo que son todas.
+      */}
+      {
+        hayMas && (
+          <a href="/categorias" class="hover:text-texto text-texto-suave text-sm underline">
+            Ver todas ({navegables.length})
+          </a>
+        )
+      }
+    </div>
+
     <ul class="mt-3 flex flex-wrap gap-2">
       {
-        navegables.map(({ categoria, cantidad }) => (
+        adelanto.map(({ categoria, cantidad }) => (
           <li>
             <a
               href={`/categorias/${categoria.id}`}

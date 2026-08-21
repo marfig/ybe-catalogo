@@ -21,6 +21,20 @@ const telefono = normalizarTelefono(PUBLIC_WHATSAPP);
     {/* Leyenda obligatoria junto a los precios publicados (SPEC §7.3) */}
     <p>{LEYENDA_PRECIO}.</p>
 
+    {/*
+      Navegacion de pie, corta a proposito: dos destinos estables que existen siempre.
+      NO se listan las categorias una por una — el footer se repite en TODAS las
+      paginas del sitio, y dos docenas de enlaces en cada una es ruido para quien lee y
+      enlazado interno diluido para Google. Para eso esta `/categorias`, que las junta
+      en un solo destino.
+    */}
+    <nav aria-label="Secciones">
+      <ul class="flex flex-wrap gap-x-4 gap-y-1">
+        <li><a class="underline" href="/">Inicio</a></li>
+        <li><a class="underline" href="/categorias">Categorías</a></li>
+      </ul>
+    </nav>
+
     {
       REDES.length > 0 && (
         <ul class="flex gap-3">
