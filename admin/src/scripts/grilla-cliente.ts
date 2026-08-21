@@ -19,6 +19,7 @@ import {
   habilitacionDe,
   type Requisito,
 } from '../lib/habilitacion.ts';
+import { estadoDeMarcarTodo } from '../lib/seleccion.ts';
 
 /** Los requisitos se declaran en el HTML: `data-requiere="guardado seleccion"`. */
 const ATRIBUTO = 'data-requiere';
@@ -124,11 +125,48 @@ export function prepararGrilla(): void {
     return false;
   };
 
+  /**
+   * Las casillas de fila. Se consultan en cada repintado y no se cachean: es la misma
+   * razon por la que los eventos van delegados — las filas no cambian sin recargar hoy,
+   * pero una lista guardada es lo que se rompe en silencio el dia que cambien.
+   */
+  const casillas = () => Array.from(form.querySelectorAll<HTMLInputElement>('input[name="id"]'));
+
+  /**
+   * La casilla de «marcar todos» del encabezado.
+   *
+   * Puede no existir: la tabla no se rinde cuando el filtro no devuelve ninguna fila.
+   * Todo lo que sigue la trata como opcional en vez de asumirla.
+   */
+  const marcarTodo = document.querySelector<HTMLInputElement>('#marcar-todo');
+
+  if (marcarTodo) {
+    /**
+     * Escribe sobre las filas y NO avisa a nadie, que es lo que hay que explicar.
+     *
+     * Asignar `.checked` por codigo no dispara `change`, asi que la reaccion parece
+     * faltar. No falta: esta casilla vive DENTRO del formulario, este listener corre en
+     * la fase de destino, y el mismo evento nativo sigue burbujeando hasta el `change`
+     * del formulario —que repinta leyendo el estado ya escrito—. Emitir uno a mano
+     * ademas solo agregaria un segundo repintado identico.
+     */
+    marcarTodo.addEventListener('change', () => {
+      for (const casilla of casillas()) casilla.checked = marcarTodo.checked;
+    });
+  }
+
   const repintar = () => {
-    const seleccionados = form.querySelectorAll<HTMLInputElement>(
-      'input[name="id"]:checked'
-    ).length;
+    const todas = casillas();
+    const seleccionados = todas.filter((c) => c.checked).length;
     const sucio = estaSucio();
+
+    if (marcarTodo) {
+      const { marcada, indeterminada } = estadoDeMarcarTodo(seleccionados, todas.length);
+      marcarTodo.checked = marcada;
+      // `indeterminate` NO tiene atributo HTML: es solo una propiedad del DOM, asi que
+      // este es el unico lugar donde se puede poner.
+      marcarTodo.indeterminate = indeterminada;
+    }
 
     for (const boton of botones) {
       const { habilitado, motivos } = habilitacionDe(requisitosDe(boton), {

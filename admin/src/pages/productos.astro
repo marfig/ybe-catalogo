@@ -595,7 +595,23 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
             <thead>
               <tr>
                 <th scope="col" class="col-elegir">
-                  <span class="oculto">Seleccionar</span>
+                  {/*
+                    Marca y desmarca las filas de ESTA pagina.
+
+                    SIN `name`, a proposito: un control sin nombre no viaja en el POST, asi
+                    que no puede colarse como un producto tildado ni ensuciar el
+                    `estaSucio()` de la grilla —que solo mira campos de fila—. Es un mando
+                    de la pantalla, no un dato.
+
+                    Nace SIN tildar y sin `indeterminate`, que es lo que corresponde al
+                    HTML que rinde el servidor: ninguna fila viene tildada. Del resto se
+                    encarga `grilla-cliente.ts`; si el script no carga, esta casilla no
+                    hace nada y la grilla se sigue usando fila por fila.
+                  */}
+                  <label class="elegir">
+                    <input type="checkbox" id="marcar-todo" />
+                    <span class="oculto">Seleccionar todos los de esta página</span>
+                  </label>
                 </th>
                 <th scope="col">Código</th>
                 <th scope="col">Foto</th>
