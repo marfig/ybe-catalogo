@@ -6,9 +6,24 @@
 -- (SPEC-etapa2 §4.2).
 --
 -- Las categorias NO viven aca: siguen en src/data/categorias.json, escritas a
--- mano y versionadas (SPEC-etapa2 §5.4a). Una tabla de categorias se
--- desincronizaria de reference('categorias'), que es lo que hoy rompe el build
--- ante un slug invalido, y esa red de seguridad no se toca.
+-- mano y versionadas (SPEC-etapa2 §5.4a).
+--
+-- EL MOTIVO ESCRITO ACA ERA FALSO. Decia que una tabla se desincronizaria de
+-- reference('categorias'), «que es lo que hoy rompe el build ante un slug
+-- invalido». reference() NO valida que la categoria exista y NO rompe el build:
+-- solo normaliza la forma del dato. La explicacion completa, con el puntero al
+-- codigo de Astro, esta en src/content.config.ts.
+--
+-- EL MOTIVO QUE SI SE SOSTIENE es mas simple, y no depende de ninguna validacion:
+-- el sitio publico carga las categorias con el loader file() de Astro sobre ese
+-- JSON, asi que el archivo versionado tiene que existir de todas formas. Una tabla
+-- aca seria una SEGUNDA fuente del mismo dato, y dos copias del mismo dato es una
+-- que se puede desincronizar. El admin sigue el mismo criterio: importa EL MISMO
+-- archivo en vez de copiarlo (ver admin/src/lib/categorias.ts).
+--
+-- LO QUE ESTO CUESTA, para que quede dicho: sin tabla no hay foreign key posible
+-- sobre producto_categorias.categoria_slug, asi que sacar una categoria del JSON
+-- deja vinculos apuntando a un slug que ya no existe y nada los limpia.
 
 -- ---------------------------------------------------------------------------
 -- productos — la unidad de curaduria y de publicacion
@@ -114,7 +129,10 @@ CREATE INDEX idx_variante_imagenes_imagen ON variante_imagenes(imagen_id);
 CREATE TABLE producto_categorias (
   producto_id    INTEGER NOT NULL REFERENCES productos(id) ON DELETE CASCADE,
 
-  -- Se valida contra src/data/categorias.json, no contra una tabla (§5.4a).
+  -- Se valida contra src/data/categorias.json, no contra una tabla (§5.4a). QUIEN y
+  -- CUANDO: validarParaAprobar, en el admin, al aprobar. Nada lo verifica en el
+  -- INSERT ni lo vuelve a mirar despues, asi que esta columna puede contener un slug
+  -- que ya no existe en el archivo.
   categoria_slug TEXT    NOT NULL,
 
   orden          INTEGER NOT NULL DEFAULT 0,
