@@ -223,9 +223,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-08-22",
     "categorias": [
-      "billeteras"
+      "billetera-hombre"
     ],
     "descripcion": "De cuero ecológico\r\nDisponible en color negro",
     "id": "billetera-con-cierre-de-hombre",
@@ -573,9 +573,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-08-22",
     "categorias": [
-      "billeteras"
+      "billetera-hombre"
     ],
     "descripcion": "De cuero ecológico\r\nDisponible en color negro",
     "id": "billetera-de-hombre-sin-cierre",
@@ -4143,9 +4143,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-22",
     "categorias": [
-      "loncheras"
+      "lonchera-termica-infantil"
     ],
     "descripcion": "Medidas: alto 26 x largo 24 x ancho 15 cm",
     "id": "lonchera-termica",
@@ -7008,9 +7008,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-21",
+    "actualizado": "2026-08-22",
     "categorias": [
-      "mochilas"
+      "lonchera-termica-infantil"
     ],
     "descripcion": "Medidas: alto 42 x largo 28 x ancho 17 cm\r\nPara libros 📚 y carpetas 📂",
     "id": "mochila-espaldera-grande-de-hot-wheels",
@@ -7671,9 +7671,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-21",
+    "actualizado": "2026-08-22",
     "categorias": [
-      "mochilas"
+      "mochila-infantil"
     ],
     "descripcion": "Medidas: alto 38 x largo 29 x ancho 16 cm\r\nPara 5 a 7 años",
     "id": "mochila-espaldera-mediana-de-shark-2",
@@ -9478,7 +9478,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-21",
+    "actualizado": "2026-08-22",
     "categorias": [
       "mochila-para-notebook"
     ],
@@ -9489,7 +9489,7 @@
       "proveedor": "chenson",
       "ref": "8134029"
     },
-    "precio": 225000,
+    "precio": 235000,
     "variantes": [
       {
         "color": "Negro",
@@ -9805,7 +9805,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-21",
+    "actualizado": "2026-08-22",
     "categorias": [
       "mochila-para-notebook"
     ],
@@ -9816,7 +9816,7 @@
       "proveedor": "chenson",
       "ref": "8132243"
     },
-    "precio": 219000,
+    "precio": 198000,
     "variantes": [
       {
         "color": "Gris",
