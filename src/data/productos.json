@@ -406,9 +406,9 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-08-22",
     "categorias": [
-      "cartucheras"
+      "billeteras"
     ],
     "descripcion": "Medidas aprox. (alto x largo x ancho): 12 x 20 x 4 cm",
     "id": "billetera-dama-5",
@@ -1242,19 +1242,19 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-08-22",
     "categorias": [
-      "carteras"
+      "bandolera-dama"
     ],
     "descripcion": "Cartera pequeña",
     "destacado": true,
     "id": "cartera-de-fiesta",
-    "nombre": "Cartera de fiesta",
+    "nombre": "bandolera",
     "origen": {
       "proveedor": "manual",
       "ref": "CG15303"
     },
-    "precio": 180000,
+    "precio": 185000,
     "variantes": [
       {
         "color": "Negro",
