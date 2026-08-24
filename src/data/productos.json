@@ -7260,6 +7260,158 @@
   {
     "actualizado": "2026-08-24",
     "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 31 x 26 x 13 cm",
+    "id": "mochila-2",
+    "nombre": "mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85484"
+    },
+    "precio": 228000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/64f31f8f7470d56e"
+          }
+        ],
+        "sku": "CG85484-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0f0380e5e8b14062"
+          }
+        ],
+        "sku": "CG85484-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6f06c9ad6ddbb665"
+          }
+        ],
+        "sku": "CG85484-D"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 30 x 26 x 14 cm",
+    "id": "mochila-3",
+    "nombre": "mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85517"
+    },
+    "precio": 225000,
+    "variantes": [
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b00892885783f8d2"
+          }
+        ],
+        "sku": "CG85517-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8697c746fb0be174"
+          }
+        ],
+        "sku": "CG85517-D"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 31 x 24 x 20 cm",
+    "id": "mochila-4",
+    "nombre": "mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85529"
+    },
+    "precio": 228000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/05b910fb614f0cea"
+          }
+        ],
+        "sku": "CG85529-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/afafd91c8111ee28"
+          }
+        ],
+        "sku": "CG85529-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0fc152808a7e26b0"
+          }
+        ],
+        "sku": "CG85529-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
       "mochila-infantil"
     ],
     "descripcion": "Medidas aprox. (alto x largo x ancho): 39 x 29 x 13 cm",
@@ -12555,6 +12707,433 @@
     ]
   },
   {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 38 x 26 x 13 cm",
+    "id": "mochila-mediana-2",
+    "nombre": "mochila mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85372"
+    },
+    "precio": 218000,
+    "variantes": [
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9621ac1ccd55e52d"
+          }
+        ],
+        "sku": "CG85372-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0fe171f20337332f"
+          }
+        ],
+        "sku": "CG85372-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 37 x 30 x 15 cm",
+    "id": "mochila-mediana-3",
+    "nombre": "mochila mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85383"
+    },
+    "precio": 235000,
+    "variantes": [
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a581d68b3448a034"
+          }
+        ],
+        "sku": "CG85383-D"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 35 x 27 x 16 cm",
+    "id": "mochila-mediana-4",
+    "nombre": "mochila mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85460"
+    },
+    "precio": 235000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7718c69a120d1e74"
+          }
+        ],
+        "sku": "CG85460-W"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/aebf66e47880769d"
+          }
+        ],
+        "sku": "CG85460-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/07c503b8ec4c758b"
+          }
+        ],
+        "sku": "CG85460-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e0b55f17331d92cd"
+          }
+        ],
+        "sku": "CG85460-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 31 x 27 x 12 cm.",
+    "id": "mochila-mediana-5",
+    "nombre": "mochila mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85473"
+    },
+    "precio": 235000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/aae5b6a69d21af00"
+          }
+        ],
+        "sku": "CG85473-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/aac7ba7d812567ec"
+          }
+        ],
+        "sku": "CG85473-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1680bdfe2d1e8c14"
+          }
+        ],
+        "sku": "CG85473-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/71a2945a7b57f242"
+          }
+        ],
+        "sku": "CG85473-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 30 x 26 x 9 cm.",
+    "id": "mochila-mediana-6",
+    "nombre": "mochila mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85483"
+    },
+    "precio": 235000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/645eea24f0093756"
+          }
+        ],
+        "sku": "CG85483-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e8a46fa1d02ebb94"
+          }
+        ],
+        "sku": "CG85483-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fcc98be526ad700d"
+          }
+        ],
+        "sku": "CG85483-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3c2fccbb0500a644"
+          }
+        ],
+        "sku": "CG85483-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 35 x 26 x 13 cm",
+    "id": "mochila-mediana-7",
+    "nombre": "mochila mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85493"
+    },
+    "precio": 228000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cade857451de3edd"
+          }
+        ],
+        "sku": "CG85493-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fe561717341069b2"
+          }
+        ],
+        "sku": "CG85493-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9958f75976fc6c88"
+          }
+        ],
+        "sku": "CG85493-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 38 x 32 x 14 cm",
+    "id": "mochila-mediana-8",
+    "nombre": "mochila mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85508"
+    },
+    "precio": 245000,
+    "variantes": [
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/59b1a32e8f2258a7"
+          }
+        ],
+        "sku": "CG85508-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1c5675081be25538"
+          }
+        ],
+        "sku": "CG85508-D"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 32 x 26 x 13 cm",
+    "id": "mochila-mediana-9",
+    "nombre": "mochila mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85523"
+    },
+    "precio": 210000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ff2ac6c0fede119e"
+          }
+        ],
+        "sku": "CG85523-E"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/41a3a6bd72716ff7"
+          }
+        ],
+        "sku": "CG85523-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b7a0503dc2a62c12"
+          }
+        ],
+        "sku": "CG85523-P"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "mochila-infantil"
@@ -12667,6 +13246,48 @@
           }
         ],
         "sku": "5551451-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 36 x 33 x 11 cm",
+    "id": "mochila-mediana-impermeable",
+    "nombre": "mochila mediana impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85542"
+    },
+    "precio": 210000,
+    "variantes": [
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7ae8acb8b7fcc323"
+          }
+        ],
+        "sku": "CG85542-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6dc201d8db6e7cbf"
+          }
+        ],
+        "sku": "CG85542-3"
       }
     ]
   },
