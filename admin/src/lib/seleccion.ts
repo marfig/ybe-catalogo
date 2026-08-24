@@ -31,3 +31,42 @@ export function estadoDeMarcarTodo(marcados: number, total: number): EstadoMarca
     indeterminada: marcados > 0 && marcados < total,
   };
 }
+
+/** Lo mínimo que esto necesita de una casilla. Ni `HTMLInputElement`, ni el DOM. */
+export interface CasillaMinima {
+  checked: boolean;
+}
+
+/** La casilla de encabezado: además escucha. */
+export interface ControlMarcarTodo extends CasillaMinima {
+  addEventListener(tipo: string, oyente: () => void): void;
+}
+
+/**
+ * Hace que la casilla de encabezado escriba sobre las filas de la página.
+ *
+ * ESCUCHA `click` Y NO `change`, y esa palabra es el arreglo de un bug real: «marcar
+ * todos» no marcaba nada, y desde una selección parcial DESMARCABA lo que había.
+ *
+ * El motivo es el orden de la spec. Al activar un checkbox el navegador togglea el
+ * estado y despacha `click`; recién cuando ese `click` terminó de propagarse salen
+ * `input` y después `change`. Y el formulario de la grilla repinta con LOS DOS. Con el
+ * handler colgado de `change`, el repintado del `input` previo corría primero, veía las
+ * filas todavía sin tocar, concluía «no hay nada seleccionado» y le devolvía la casilla
+ * a `false` — así que el handler leía el estado ya deshecho y lo escribía en las 50.
+ *
+ * Con `click` se escribe ANTES de que exista un repintado que pisar, y los dos que
+ * vienen después leen las filas ya sincronizadas. Sigue funcionando con teclado: activar
+ * con la barra espaciadora despacha un `click` igual.
+ *
+ * Y por eso está acá y no suelto en el script: es una regla con un modo de fallar, no
+ * pegamento. Los tests fijan el orden con un doble que modela al navegador.
+ */
+export function conectarMarcarTodo(
+  control: ControlMarcarTodo,
+  casillas: () => CasillaMinima[]
+): void {
+  control.addEventListener('click', () => {
+    for (const casilla of casillas()) casilla.checked = control.checked;
+  });
+}

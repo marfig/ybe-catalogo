@@ -19,7 +19,7 @@ import {
   habilitacionDe,
   type Requisito,
 } from '../lib/habilitacion.ts';
-import { estadoDeMarcarTodo } from '../lib/seleccion.ts';
+import { conectarMarcarTodo, estadoDeMarcarTodo } from '../lib/seleccion.ts';
 
 /** Los requisitos se declaran en el HTML: `data-requiere="guardado seleccion"`. */
 const ATRIBUTO = 'data-requiere';
@@ -140,20 +140,15 @@ export function prepararGrilla(): void {
    */
   const marcarTodo = document.querySelector<HTMLInputElement>('#marcar-todo');
 
-  if (marcarTodo) {
-    /**
-     * Escribe sobre las filas y NO avisa a nadie, que es lo que hay que explicar.
-     *
-     * Asignar `.checked` por codigo no dispara `change`, asi que la reaccion parece
-     * faltar. No falta: esta casilla vive DENTRO del formulario, este listener corre en
-     * la fase de destino, y el mismo evento nativo sigue burbujeando hasta el `change`
-     * del formulario —que repinta leyendo el estado ya escrito—. Emitir uno a mano
-     * ademas solo agregaria un segundo repintado identico.
-     */
-    marcarTodo.addEventListener('change', () => {
-      for (const casilla of casillas()) casilla.checked = marcarTodo.checked;
-    });
-  }
+  /**
+   * La regla vive en `lib/seleccion.ts`, con tests. Aca solo se le pasa el DOM.
+   *
+   * Y no avisa a nadie a proposito: escribir `.checked` por codigo no dispara ningun
+   * evento, pero el `click` que la disparo sigue su curso y despues salen `input` y
+   * `change`, que burbujean al formulario y repintan leyendo las filas ya escritas.
+   * Cual evento se escucha NO es un detalle: ver el comentario de `conectarMarcarTodo`.
+   */
+  if (marcarTodo) conectarMarcarTodo(marcarTodo, casillas);
 
   const repintar = () => {
     const todas = casillas();
