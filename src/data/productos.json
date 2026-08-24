@@ -58,6 +58,48 @@
     ]
   },
   {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 16 x 26 x 7 CM",
+    "id": "bandolera-pequena",
+    "nombre": "bandolera pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85255"
+    },
+    "precio": 168000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fb7bf74830134e0e"
+          }
+        ],
+        "sku": "CG85255-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d7e5d5d208431d62"
+          }
+        ],
+        "sku": "CG85255-P"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "bandolera-dama"
@@ -2650,6 +2692,90 @@
           }
         ],
         "sku": "CG85527-E"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 21 x 30 x 10 cm",
+    "id": "cartera-de-mano",
+    "nombre": "cartera de mano",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85254"
+    },
+    "precio": 178000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e055e30677fa709f"
+          }
+        ],
+        "sku": "CG85254-W"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5364cadac9757088"
+          }
+        ],
+        "sku": "CG85254-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c0f624d4ebd027eb"
+          }
+        ],
+        "sku": "CG85254-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 27 x 16 cm",
+    "id": "cartera-mediana",
+    "nombre": "cartera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85257"
+    },
+    "precio": 179000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/54884f2efc9472eb"
+          }
+        ],
+        "sku": "CG85257-3"
       }
     ]
   },
@@ -7161,6 +7287,234 @@
     ]
   },
   {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 33 x 20 cm",
+    "id": "mochila-con-ruedas-2",
+    "nombre": "mochila con ruedas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734399"
+    },
+    "precio": 398000,
+    "variantes": [
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0b56738b618f80e1"
+          }
+        ],
+        "sku": "8734399-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 36 x 29 x 13 cm",
+    "id": "mochila-con-ruedas-3",
+    "nombre": "mochila con ruedas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734405"
+    },
+    "precio": 228000,
+    "variantes": [
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7abb2071c6ad5b04"
+          }
+        ],
+        "sku": "8734405-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 32 x 20 cm",
+    "id": "mochila-con-ruedas-4",
+    "nombre": "mochila con ruedas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734527"
+    },
+    "precio": 398000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0b43beccb2ecf318"
+          }
+        ],
+        "sku": "8734527-9"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9e94da40f80863e5"
+          }
+        ],
+        "sku": "8734527-R"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 37 x 28 x 13 cm",
+    "id": "mochila-con-ruedas-5",
+    "nombre": "mochila con ruedas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734528"
+    },
+    "precio": 235000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5dd7b65bb611c418"
+          }
+        ],
+        "sku": "8734528-9"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1633b8e08e62104a"
+          }
+        ],
+        "sku": "8734528-R"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 32 x 20 cm",
+    "id": "mochila-con-ruedas-6",
+    "nombre": "mochila con ruedas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734537"
+    },
+    "precio": 398000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6cae572f2dfc1e0e"
+          }
+        ],
+        "sku": "8734537-9X"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 38 x 29 x 14 cm",
+    "id": "mochila-con-ruedas-7",
+    "nombre": "mochila con ruedas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734538"
+    },
+    "precio": 238000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/75d072563f184930"
+          }
+        ],
+        "sku": "8734538-9X"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "id": "mochila-con-ruedas-8",
+    "nombre": "mochila con ruedas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734594"
+    },
+    "precio": 398000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8ef012d46834cc76"
+          }
+        ],
+        "sku": "8734594-P"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "mochila-infantil"
@@ -7984,6 +8338,332 @@
     "categorias": [
       "mochila-infantil"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 42 x 32 x 15 cm",
+    "id": "mochila-espaldera-10",
+    "nombre": "mochila espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734506"
+    },
+    "precio": 155000,
+    "variantes": [
+      {
+        "color": "Naranja",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/19ce917babeddad4"
+          }
+        ],
+        "sku": "8734506-O"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2ba0d2bd6b610502"
+          }
+        ],
+        "sku": "8734506-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 29 x 18 cm",
+    "id": "mochila-espaldera-11",
+    "nombre": "mochila espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734524"
+    },
+    "precio": 195000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9411d2853f0469a7"
+          }
+        ],
+        "sku": "8734524-9"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/eadf4c8b0f48ef1d"
+          }
+        ],
+        "sku": "8734524-R"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 32 x 19 cm",
+    "id": "mochila-espaldera-12",
+    "nombre": "mochila espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734534"
+    },
+    "precio": 210000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/890e88ec0e2f6a86"
+          }
+        ],
+        "sku": "8734534-9X"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 30 x 15 cm",
+    "id": "mochila-espaldera-13",
+    "nombre": "mochila espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734539"
+    },
+    "precio": 210000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6ba2af31595cf52a"
+          }
+        ],
+        "sku": "8734539-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 32 x 18 cm",
+    "id": "mochila-espaldera-14",
+    "nombre": "mochila espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734564"
+    },
+    "precio": 215000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/862cab4eb0a88563"
+          }
+        ],
+        "sku": "8734564-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 32 x 16 cm",
+    "id": "mochila-espaldera-15",
+    "nombre": "mochila espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734586"
+    },
+    "precio": 159000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/acaa55fa1e8d3b9c"
+          }
+        ],
+        "sku": "8734586-9"
+      },
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d34414028e98e584"
+          }
+        ],
+        "sku": "8734586-V"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f54234c3b9519c4b"
+          }
+        ],
+        "sku": "8734586-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c3dd31d8dd34234b"
+          }
+        ],
+        "sku": "8734586-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 32 x 15 cm",
+    "id": "mochila-espaldera-16",
+    "nombre": "mochila espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734587"
+    },
+    "precio": 149000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/77393a7edde1bad3"
+          }
+        ],
+        "sku": "8734587-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 32 x 15 cm",
+    "id": "mochila-espaldera-17",
+    "nombre": "mochila espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734588"
+    },
+    "precio": 149000,
+    "variantes": [
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9f87b6423b070179"
+          }
+        ],
+        "sku": "8734588-F"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 32 x 15 cm",
+    "id": "mochila-espaldera-18",
+    "nombre": "mochila espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734589"
+    },
+    "precio": 149000,
+    "variantes": [
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c0c1ce864881bb0b"
+          }
+        ],
+        "sku": "8734589-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-infantil"
+    ],
     "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 30 x 18 cm",
     "id": "mochila-espaldera-2",
     "nombre": "mochila espaldera",
@@ -8150,6 +8830,76 @@
           }
         ],
         "sku": "8734386-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "id": "mochila-espaldera-8",
+    "nombre": "mochila espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734393"
+    },
+    "precio": 160000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ca1d636176d78817"
+          }
+        ],
+        "sku": "8734393-V"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d21ee294fd4e0e92"
+          }
+        ],
+        "sku": "8734393-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-24",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 30 x 19 cm",
+    "id": "mochila-espaldera-9",
+    "nombre": "mochila espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734396"
+    },
+    "precio": 215000,
+    "variantes": [
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/becf1363bc972180"
+          }
+        ],
+        "sku": "8734396-A"
       }
     ]
   },
