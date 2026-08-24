@@ -65,6 +65,26 @@ export default function Buscador({ r2Base }: Props) {
       <label class="sr-only" for="q">
         Buscar por código o nombre
       </label>
+      {/*
+        La lupa: lo que hace que el campo se lea como buscador de un vistazo, sin depender
+        del color ni del placeholder —que en movil se corta—.
+
+        `aria-hidden` y `pointer-events-none`: es decoracion pura. El nombre accesible ya
+        lo da el `<label>`, y sin apagar los eventos el icono se comeria los clics que
+        caen sobre el, que es justo donde la gente apunta para enfocar.
+      */}
+      <svg
+        class="text-acento pointer-events-none absolute top-1/2 left-2.5 h-4 w-4 -translate-y-1/2"
+        viewBox="0 0 20 20"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        aria-hidden="true"
+      >
+        <circle cx="9" cy="9" r="5.5" />
+        <path d="M13.5 13.5 17.5 17.5" stroke-linecap="round" />
+      </svg>
+
       {/* El `placeholder` va corto porque el campo mide ~160px en móvil. La frase
           entera vive en el `label` de arriba, que es lo que lee un lector de pantalla. */}
       <input
@@ -84,7 +104,11 @@ export default function Buscador({ r2Base }: Props) {
         onKeyDown={(e) => {
           if (e.key === 'Escape') setAbierto(false);
         }}
-        class="border-borde focus:border-acento w-full rounded border bg-white px-3 py-2 text-sm outline-none"
+        /* Destacado a proposito: el buscador es el atajo mas rapido del catalogo y sin
+           esto se leia como un campo mas del header. El anillo permanente lo despega del
+           fondo; al foco se intensifica en vez de aparecer, para que enfocar no mueva
+           nada de sitio. */
+        class="border-acento ring-acento/25 focus:ring-acento/60 w-full rounded border-2 bg-white py-2 pr-3 pl-8 text-sm ring-2 outline-none"
       />
 
       {/*
