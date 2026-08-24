@@ -14,7 +14,7 @@
   { "id": "mochilas", "nombre": "Mochila Básica", "orden": 140 },
   { "id": "mochila-camping", "nombre": "Mochila Camping", "orden": 150 },
   { "id": "mochila-dama", "nombre": "Mochila Dama", "orden": 160 },
-  { "id": "mochila-infantil", "nombre": "Mochila Infantil", "orden": 170 },
+  { "id": "mochila-infantil", "nombre": "Mochila para Colegio", "orden": 170 },
   { "id": "mochila-para-notebook", "nombre": "Mochila para Notebook", "orden": 180 },
   { "id": "mochila-termica", "nombre": "Mochila Térmica", "orden": 190 },
   { "id": "necessaires", "nombre": "Neceser", "orden": 200 },
