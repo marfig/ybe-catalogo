@@ -42,15 +42,13 @@ const jsonLd = [
 ---
 
 <Base titulo={COMERCIO} descripcion={DESCRIPCION_SITIO} jsonLd={jsonLd}>
-  <h1 class="text-lg font-semibold sm:text-2xl">Catálogo</h1>
-
   {/* Una frase por linea, con el corte EXPLICITO y no a merced del ancho.
       El <br> vive aca y no en la constante: es una decision de esta pantalla, y la
       misma constante alimenta la <meta description>, donde el marcado no va.
 
       Sin max-w-prose: ese limite existia para que el ancho no partiera la frase en
       un lugar arbitrario, y con los cortes puestos a mano ya no hace falta. */}
-  <p class="text-texto-suave mt-2">
+  <p class="text-texto-suave text-sm">
     {
       DESCRIPCION_LINEAS.map((linea, i) => (
         <>
@@ -61,7 +59,7 @@ const jsonLd = [
     }
   </p>
 
-  <section class="mt-8" aria-labelledby="h-categorias">
+  <section class="mt-5" aria-labelledby="h-categorias">
     <div class="flex flex-wrap items-baseline justify-between gap-2">
       <h2 id="h-categorias" class="text-lg font-semibold">Categorías</h2>
 
@@ -79,15 +77,27 @@ const jsonLd = [
       }
     </div>
 
-    <ul class="mt-3 flex flex-wrap gap-2">
+    {/*
+      GRILLA Y NO `flex-wrap`, que era lo que estaba: con chips de ancho segun el texto,
+      «Bandolera para Dama» quedaba sola en una fila y la ultima con un chip suelto. El
+      borde derecho quedaba dentado y las filas con huecos distintos.
+
+      Columnas fijas: todas las celdas miden lo mismo, asi que los bordes se alinean
+      vertical y horizontalmente pase lo que pase con los nombres. Dos en movil porque un
+      nombre largo no entra en media pantalla de 375px si se meten tres.
+    */}
+    <ul class="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
       {
         adelanto.map(({ categoria, cantidad }) => (
           <li>
             <a
               href={`/categorias/${categoria.id}`}
-              class="border-borde bg-superficie hover:border-acento flex items-baseline gap-2 rounded border px-3 py-2 text-sm"
+              class="border-borde bg-superficie hover:border-acento flex h-full items-baseline justify-between gap-2 rounded border px-3 py-2 text-sm"
             >
-              {categoria.data.nombre}
+              {/* `justify-between` con la celda ya pareja: el conteo cae contra el borde
+                  derecho de TODAS, asi que se leen como una columna. `h-full` iguala el
+                  alto cuando un nombre largo se parte en dos lineas. */}
+              <span>{categoria.data.nombre}</span>
               <span class="text-texto-suave text-xs">{cantidad}</span>
             </a>
           </li>

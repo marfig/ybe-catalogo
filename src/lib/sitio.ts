@@ -41,9 +41,7 @@ export const MARCA = 'Chenson';
  * La fuente es una: cada destino la arma como le sirve.
  */
 export const DESCRIPCION_LINEAS = [
-  'Mochilas, carteras, bolsos y accesorios Chenson en Asunción.',
-  'Descuentos para mayoristas de 30 a 40%.',
-  'Consultá por WhatsApp.',
+  'Mochilas, carteras, bolsos, maletas, billeteras, escolares y regalos empresariales. Descuentos para mayoristas de 30 a 40%. Consultá por WhatsApp.',
 ] as const;
 
 /** Una linea, sin marcado: la version para metadatos y JSON-LD. */
