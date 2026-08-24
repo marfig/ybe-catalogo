@@ -34,6 +34,15 @@ const tituloCompleto = titulo === COMERCIO ? COMERCIO : `${titulo} — ${COMERCI
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    {/*
+      Sin un `<link rel="icon">` declarado el navegador pide `/favicon.ico` por su cuenta
+      y se come un 404 en cada visita. Los archivos salen del mismo logo, recortados al
+      trazo: el asset trae margen transparente y sin sacarlo la medalla se ve diminuta en
+      una pestana de 16px — la misma correccion que `Logo.astro` hace con `transform`.
+    */}
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
     <title>{tituloCompleto}</title>
     <meta name="description" content={descripcion} />
     <link rel="canonical" href={canonical.href} />
