@@ -138,6 +138,74 @@
     ]
   },
   {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 21 x 29 x 8 cm",
+    "id": "bandolera-4",
+    "nombre": "bandolera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85927"
+    },
+    "precio": 158000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/54143aeb61ec9736"
+          }
+        ],
+        "sku": "CG85927-E"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/495cecc9ee27c978"
+          }
+        ],
+        "sku": "CG85927-B"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/78f2e814894a66e2"
+          }
+        ],
+        "sku": "CG85927-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9535078dc4fe2de3"
+          }
+        ],
+        "sku": "CG85927-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "bandoleras"
@@ -3631,6 +3699,90 @@
     "categorias": [
       "bandolera-dama"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 19 x 27 x 10 cm",
+    "id": "bandolera-pequena-63",
+    "nombre": "bandolera pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85933"
+    },
+    "precio": 168000,
+    "variantes": [
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f8e3b30de1a33d17"
+          }
+        ],
+        "sku": "CG85933-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6e9651b4d7b47770"
+          }
+        ],
+        "sku": "CG85933-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0a95366dd7e1111d"
+          }
+        ],
+        "sku": "CG85933-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 16 x 26 x 9 cm.",
+    "id": "bandolera-pequena-64",
+    "nombre": "bandolera pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG86003"
+    },
+    "precio": 205000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6303f71d407149c5"
+          }
+        ],
+        "sku": "CG86003-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "bandolera-dama"
+    ],
     "descripcion": "Medidas aprox. (alto x largo x ancho): 14 x 26 x 5 cm",
     "id": "bandolera-pequena-7",
     "nombre": "bandolera pequeña",
@@ -3749,6 +3901,61 @@
           }
         ],
         "sku": "CG85435-B"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 14 x 23 x 8 cm",
+    "id": "bandolera-pequena-doble-cierre",
+    "nombre": "bandolera pequeña doble cierre",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG86001"
+    },
+    "precio": 198000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/86d2d18fdf8300a6"
+          }
+        ],
+        "sku": "CG86001-W"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/267c506ab5f30474"
+          }
+        ],
+        "sku": "CG86001-3"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f37d82992e4d81e1"
+          }
+        ],
+        "sku": "CG86001-M"
       }
     ]
   },
@@ -8835,6 +9042,362 @@
     ]
   },
   {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 21 x 29 x 12 cm",
+    "id": "cartera-74",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85911"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/63061afab36338ba"
+          }
+        ],
+        "sku": "CG85911-W"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b1fadf5fd7e30a41"
+          }
+        ],
+        "sku": "CG85911-B"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/05b6cdeb9764f765"
+          }
+        ],
+        "sku": "CG85911-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 26 x 36 x 13 cm",
+    "id": "cartera-75",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85915"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ed9a4376580fdd49"
+          }
+        ],
+        "sku": "CG85915-B"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bd0c3dd7ed76ea20"
+          }
+        ],
+        "sku": "CG85915-T"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6a2d94d4cdb57a63"
+          }
+        ],
+        "sku": "CG85915-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 25 x 32 x 15 cm",
+    "id": "cartera-76",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85920"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/721414b98c8e5a66"
+          }
+        ],
+        "sku": "CG85920-E"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/255f126c75f33e36"
+          }
+        ],
+        "sku": "CG85920-B"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4285c4d13dd0de43"
+          }
+        ],
+        "sku": "CG85920-T"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f7dfd332ab9f32d8"
+          }
+        ],
+        "sku": "CG85920-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 25 x 35 x 11 cm",
+    "id": "cartera-77",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85921"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d821ae62a353ad0b"
+          }
+        ],
+        "sku": "CG85921-E"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/51246e3fe1af494c"
+          }
+        ],
+        "sku": "CG85921-B"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/150ac87d2d91bc8d"
+          }
+        ],
+        "sku": "CG85921-T"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/783b419ec563c690"
+          }
+        ],
+        "sku": "CG85921-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 26 x 35 x 10 cm",
+    "id": "cartera-78",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85923"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6ec332b7229788ee"
+          }
+        ],
+        "sku": "CG85923-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/119e5d61a4c5177a"
+          }
+        ],
+        "sku": "CG85923-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/58cdb4571976f0e7"
+          }
+        ],
+        "sku": "CG85923-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 22 x 30 x 15 cm",
+    "id": "cartera-79",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85929"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1b2059c43b2f5704"
+          }
+        ],
+        "sku": "CG85929-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f509d93c4d3e213e"
+          }
+        ],
+        "sku": "CG85929-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d20f0c7bedc2ec75"
+          }
+        ],
+        "sku": "CG85929-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-22",
     "categorias": [
       "carteras"
@@ -8886,6 +9449,336 @@
           }
         ],
         "sku": "CG85386-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 25 x 35 x 13 cm",
+    "id": "cartera-80",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85930"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/18370bee4fd3cc73"
+          }
+        ],
+        "sku": "CG85930-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8947ebefcf7a9a42"
+          }
+        ],
+        "sku": "CG85930-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d82a30e634d8d82b"
+          }
+        ],
+        "sku": "CG85930-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 26 x 32 x 14 cm",
+    "id": "cartera-81",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85934"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/216aaca7cf00032c"
+          }
+        ],
+        "sku": "CG85934-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5a357f4206f3437f"
+          }
+        ],
+        "sku": "CG85934-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d7a84a7f1047f242"
+          }
+        ],
+        "sku": "CG85934-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 25 x 31 x 13 cm",
+    "id": "cartera-82",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85936"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3967c9e40430400c"
+          }
+        ],
+        "sku": "CG85936-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2531d3730fcbd94c"
+          }
+        ],
+        "sku": "CG85936-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/96e94b6df3f15c7a"
+          }
+        ],
+        "sku": "CG85936-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 26 x 40 x 15 cm",
+    "id": "cartera-83",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85943"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fac421a541bfbd60"
+          }
+        ],
+        "sku": "CG85943-B"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/13134a5024496506"
+          }
+        ],
+        "sku": "CG85943-3"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ad0728db17fc0a0d"
+          }
+        ],
+        "sku": "CG85943-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 25 x 30 x 15 cm",
+    "id": "cartera-84",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85948"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/194502153f8908fb"
+          }
+        ],
+        "sku": "CG85948-E"
+      },
+      {
+        "color": "Khaki",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e76378ebc5d84b9d"
+          }
+        ],
+        "sku": "CG85948-K"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0ec5e1789a28797f"
+          }
+        ],
+        "sku": "CG85948-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 25 x 30 x 11 cm",
+    "id": "cartera-85",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85958"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/28d17485a7ec8ba9"
+          }
+        ],
+        "sku": "CG85958-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/32c616aa99084953"
+          }
+        ],
+        "sku": "CG85958-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d4c8066f3c14af48"
+          }
+        ],
+        "sku": "CG85958-3"
       }
     ]
   },
@@ -10406,6 +11299,349 @@
     "categorias": [
       "carteras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 27 x 43 x 13 cm",
+    "id": "cartera-grande-24",
+    "nombre": "cartera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85916"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bebe7dc52df4c093"
+          }
+        ],
+        "sku": "CG85916-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b3c24c36338aa0e0"
+          }
+        ],
+        "sku": "CG85916-T"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8eb8e0f74ec32155"
+          }
+        ],
+        "sku": "CG85916-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 29 x 35 x 14 cm",
+    "id": "cartera-grande-25",
+    "nombre": "cartera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85917"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b4036b518417a8e2"
+          }
+        ],
+        "sku": "CG85917-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/baaadeedb46f44a0"
+          }
+        ],
+        "sku": "CG85917-T"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/84d9787607d60262"
+          }
+        ],
+        "sku": "CG85917-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 28 x 36 x 11 cm",
+    "id": "cartera-grande-26",
+    "nombre": "cartera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85922"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6d338c1bfff30fd5"
+          }
+        ],
+        "sku": "CG85922-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fd8410200ffcf6fc"
+          }
+        ],
+        "sku": "CG85922-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/971ce7fb1b2ee7bc"
+          }
+        ],
+        "sku": "CG85922-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 27 x 35 x 11 cm",
+    "id": "cartera-grande-27",
+    "nombre": "cartera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85925"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/44ac3e8d4f9addaa"
+          }
+        ],
+        "sku": "CG85925-E"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dc3f826dc10312b1"
+          }
+        ],
+        "sku": "CG85925-B"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9854f69a9dde0533"
+          }
+        ],
+        "sku": "CG85925-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e84a16e410fa4a66"
+          }
+        ],
+        "sku": "CG85925-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 28 x 37 x 11 cm",
+    "id": "cartera-grande-28",
+    "nombre": "cartera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85931"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c05ffa7e3249df72"
+          }
+        ],
+        "sku": "CG85931-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5f9e40b9656ef7e6"
+          }
+        ],
+        "sku": "CG85931-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/356cd6990da74a15"
+          }
+        ],
+        "sku": "CG85931-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 34 x 31 x 13 cm",
+    "id": "cartera-grande-29",
+    "nombre": "cartera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85946"
+    },
+    "precio": 179000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b049ac0a5fb0d147"
+          }
+        ],
+        "sku": "CG85946-E"
+      },
+      {
+        "color": "Khaki",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7a754728aabb669c"
+          }
+        ],
+        "sku": "CG85946-K"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cf16c02883084850"
+          }
+        ],
+        "sku": "CG85946-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
     "descripcion": "Medidas aprox. (alto x largo x ancho): 32 x 40 x 15 cm.",
     "id": "cartera-grande-3",
     "nombre": "cartera grande",
@@ -10466,6 +11702,48 @@
           }
         ],
         "sku": "CG85549-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 28 x 35 x 10 cm.",
+    "id": "cartera-grande-30",
+    "nombre": "cartera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85994"
+    },
+    "precio": 248000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5d4e976f3afd76b5"
+          }
+        ],
+        "sku": "CG85994-3"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a9cf070cf4a6ae99"
+          }
+        ],
+        "sku": "CG85994-M"
       }
     ]
   },
@@ -10919,6 +12197,35 @@
           }
         ],
         "sku": "CG85742-V"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 28 x 38 x 13 cm.",
+    "id": "cartera-impermeable",
+    "nombre": "cartera impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85991"
+    },
+    "precio": 268000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b60f0d5c73f45b03"
+          }
+        ],
+        "sku": "CG85991-P"
       }
     ]
   },
@@ -13633,6 +14940,116 @@
     "categorias": [
       "carteras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 23 x 32 x 11 cm",
+    "id": "cartera-mediana-58",
+    "nombre": "cartera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85912"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9f5f80a4baf820e2"
+          }
+        ],
+        "sku": "CG85912-W"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fe36c580536cf5f2"
+          }
+        ],
+        "sku": "CG85912-B"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e65cf25c18cbb693"
+          }
+        ],
+        "sku": "CG85912-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 25 x 39 x 14 cm",
+    "id": "cartera-mediana-59",
+    "nombre": "cartera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85913"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0318cbce975f3a7b"
+          }
+        ],
+        "sku": "CG85913-B"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ee3e3ef887b1c303"
+          }
+        ],
+        "sku": "CG85913-T"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/311e76bae4466b4a"
+          }
+        ],
+        "sku": "CG85913-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
     "descripcion": "Medidas aprox. (alto x largo x ancho): 25 x 32 x 10 cm",
     "id": "cartera-mediana-6",
     "nombre": "cartera mediana",
@@ -13680,6 +15097,527 @@
           }
         ],
         "sku": "CG85485-D"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 23 x 39 x 13 cm",
+    "id": "cartera-mediana-60",
+    "nombre": "cartera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85919"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/34fe44be43b36e44"
+          }
+        ],
+        "sku": "CG85919-E"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cae00b3d7deb456e"
+          }
+        ],
+        "sku": "CG85919-B"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f437a57074675ff8"
+          }
+        ],
+        "sku": "CG85919-T"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/713fa41dc2148ff0"
+          }
+        ],
+        "sku": "CG85919-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 30 x 9 cm",
+    "id": "cartera-mediana-61",
+    "nombre": "cartera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85924"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fdb56b51a0ac4390"
+          }
+        ],
+        "sku": "CG85924-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9e5928dc613f62c2"
+          }
+        ],
+        "sku": "CG85924-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/edf8cdda233ae102"
+          }
+        ],
+        "sku": "CG85924-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 34 x 13 cm",
+    "id": "cartera-mediana-62",
+    "nombre": "cartera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85926"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9d7673125a10c0af"
+          }
+        ],
+        "sku": "CG85926-E"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/09174a3a705140e0"
+          }
+        ],
+        "sku": "CG85926-B"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/86f20a6c5e056c8c"
+          }
+        ],
+        "sku": "CG85926-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5482c1ec05b34ae6"
+          }
+        ],
+        "sku": "CG85926-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 30 x 12 cm",
+    "id": "cartera-mediana-63",
+    "nombre": "cartera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85932"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ac2878dce3358e00"
+          }
+        ],
+        "sku": "CG85932-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b150d0b9fc7e7a7e"
+          }
+        ],
+        "sku": "CG85932-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cfaee9b666c8a523"
+          }
+        ],
+        "sku": "CG85932-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 35 x 13 cm",
+    "id": "cartera-mediana-64",
+    "nombre": "cartera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85935"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e43b68ba06e697eb"
+          }
+        ],
+        "sku": "CG85935-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b16350c0e4ea9161"
+          }
+        ],
+        "sku": "CG85935-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/39e98b54c3938c7f"
+          }
+        ],
+        "sku": "CG85935-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 32 x 12 cm",
+    "id": "cartera-mediana-65",
+    "nombre": "cartera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85944"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f1ce69c699aa8aed"
+          }
+        ],
+        "sku": "CG85944-B"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9a5bd60bc030a292"
+          }
+        ],
+        "sku": "CG85944-3"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6dbd8ea759198902"
+          }
+        ],
+        "sku": "CG85944-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 23 x 33 x 10 cm",
+    "id": "cartera-mediana-66",
+    "nombre": "cartera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85945"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d38d5741ad4bd851"
+          }
+        ],
+        "sku": "CG85945-B"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5d0a0b10b30ab6ec"
+          }
+        ],
+        "sku": "CG85945-3"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3e4b31da83bc8b56"
+          }
+        ],
+        "sku": "CG85945-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 34 x 14 cm",
+    "id": "cartera-mediana-67",
+    "nombre": "cartera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85947"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bb33d17f2a131516"
+          }
+        ],
+        "sku": "CG85947-E"
+      },
+      {
+        "color": "Khaki",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/db0e8ed0b810b820"
+          }
+        ],
+        "sku": "CG85947-K"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d6566d5c77d9211e"
+          }
+        ],
+        "sku": "CG85947-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 25 x 29 x 9 cm.",
+    "id": "cartera-mediana-68",
+    "nombre": "cartera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG86004"
+    },
+    "precio": 268000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8f63532a8f1806d3"
+          }
+        ],
+        "sku": "CG86004-9"
+      },
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4ad9e06d97453cb7"
+          }
+        ],
+        "sku": "CG86004-W"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b17f450defa71e9a"
+          }
+        ],
+        "sku": "CG86004-3"
       }
     ]
   },
@@ -14380,6 +16318,90 @@
     "categorias": [
       "carteras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 19 x 30 x 14 cm",
+    "id": "cartera-pequena-17",
+    "nombre": "cartera pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85959"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5ccce0f1cac0ecb2"
+          }
+        ],
+        "sku": "CG85959-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/05ded5309f9a844b"
+          }
+        ],
+        "sku": "CG85959-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9342b8dea34bd755"
+          }
+        ],
+        "sku": "CG85959-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 21 x 36 x 11 cm.",
+    "id": "cartera-pequena-18",
+    "nombre": "cartera pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG86010"
+    },
+    "precio": 225000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/13b6cde5a1c115f8"
+          }
+        ],
+        "sku": "CG86010-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
     "descripcion": "Medidas aprox. (alto x largo x ancho): 21 x 32 x 14 cm.",
     "id": "cartera-pequena-2",
     "nombre": "cartera pequeña",
@@ -14862,6 +16884,61 @@
     "categorias": [
       "carteras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 17 x 26 x 11 cm.",
+    "id": "cartera-pequena-de-brazo-2",
+    "nombre": "cartera pequeña de brazo",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85993"
+    },
+    "precio": 235000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e40e3fc2009324ac"
+          }
+        ],
+        "sku": "CG85993-W"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1a1ca629e310ab0f"
+          }
+        ],
+        "sku": "CG85993-3"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/708261567ec44ba1"
+          }
+        ],
+        "sku": "CG85993-R"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
     "descripcion": "Medidas aprox. (alto x largo x ancho): 19 x 28 x 10 cm.",
     "id": "cartera-pequena-de-mano",
     "nombre": "cartera pequeña de mano",
@@ -15032,6 +17109,48 @@
           }
         ],
         "sku": "CG85381-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 20 x 25 x 11 cm.",
+    "id": "cartera-pquena-impermeable",
+    "nombre": "cartera pqueña impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85996"
+    },
+    "precio": 219000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b5af1ee7d246082a"
+          }
+        ],
+        "sku": "CG85996-3"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/26d787d5b313cd3e"
+          }
+        ],
+        "sku": "CG85996-M"
       }
     ]
   },
@@ -25367,6 +27486,61 @@
     ]
   },
   {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 35 x 31 x 15 cm",
+    "id": "mochila-mediana-15",
+    "nombre": "mochila mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85960"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/22a8bbd8a30cbc8c"
+          }
+        ],
+        "sku": "CG85960-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9513aa8b059bacf7"
+          }
+        ],
+        "sku": "CG85960-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/60129155c8b697c2"
+          }
+        ],
+        "sku": "CG85960-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-24",
     "categorias": [
       "mochila-dama"
@@ -25990,6 +28164,119 @@
           }
         ],
         "sku": "CG85741-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 33 x 24 x 14 cm.",
+    "id": "mochila-mediana-impermeable-3",
+    "nombre": "mochila mediana impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85990"
+    },
+    "precio": 265000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5f6c80640372e587"
+          }
+        ],
+        "sku": "CG85990-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/61ad35925efa172a"
+          }
+        ],
+        "sku": "CG85990-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 31 x 25 x 18 cm.",
+    "id": "mochila-mediana-impermeable-4",
+    "nombre": "mochila mediana impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85995"
+    },
+    "precio": 248000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fcb936d774d1262d"
+          }
+        ],
+        "sku": "CG85995-3"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/95a6286968af0661"
+          }
+        ],
+        "sku": "CG85995-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-25",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 30 x 22 x 12 cm.",
+    "id": "mochila-mediana-impermeable-5",
+    "nombre": "mochila mediana impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG86002"
+    },
+    "precio": 265000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8f32ba2f9db3b612"
+          }
+        ],
+        "sku": "CG86002-9"
       }
     ]
   },
