@@ -434,11 +434,17 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
         ))}
       </select>
     </p>
-    <p class="campo">
-      <label for="q">Buscar por código o nombre</label>
-      <input id="q" name="q" type="search" value={busqueda} placeholder="CG85527" />
-    </p>
-    <p class="campo campo--boton"><button type="submit">Filtrar</button></p>
+    {/* El buscador y su boton van ENVUELTOS, no sueltos como los selects. Como items
+        independientes el `flex-wrap` los podia separar: entre 560 y 640 px el boton caia
+        solo a un tercer renglon, a media pantalla de distancia del campo que envia.
+        Envueltos, el wrap los mueve juntos o no los mueve. */}
+    <div class="filtros-buscar">
+      <p class="campo campo--busqueda">
+        <label for="q">Buscar por código o nombre</label>
+        <input id="q" name="q" type="search" value={busqueda} placeholder="CG85527" />
+      </p>
+      <p class="campo campo--boton"><button type="submit">Filtrar</button></p>
+    </div>
   </form>
 
   {/**

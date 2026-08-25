@@ -97,10 +97,35 @@ body {
 /* --------------------------------------------------------------------------
    Filtros
    -------------------------------------------------------------------------- */
+/**
+ * CADA CONTROL A SU ANCHO DE CONTENIDO. El unico que crece es el buscador, y con techo.
+ *
+ * El problema original era que los cuatro campos eran `flex: 1 1 12rem`: repartian el
+ * sobrante en partes iguales, asi que el buscador caia solo a un segundo renglon y se
+ * estiraba a ~800 px para un codigo de siete caracteres.
+ *
+ * TAMPOCO SIRVE UNA GRILLA DE TERCIOS IGUALES, que fue el primer intento. Los tres
+ * selects no miden lo mismo ni de cerca: "Ya no esta en el proveedor (177)" pide unos
+ * 278 px y "Cargados a mano" unos 156 px. Partir en tercios le saca ancho al que mas
+ * necesita y se lo regala al que menos, y abajo de cierto ancho el select nativo recorta
+ * la opcion elegida SIN puntos suspensivos — se lee "Ya no esta en el prov".
+ *
+ * UNA SOLA FILA NO ENTRA, y conviene dejarlo escrito para no volver a intentarlo: los
+ * tres selects a su ancho natural suman ~666 px, mas el boton (~90 px) y cuatro huecos
+ * (48 px) son ~804 px sobre los 902 px utiles del panel. Quedan 98 px para el buscador.
+ *
+ * La respuesta es no repartir nada: `flex: 0 0 auto` deja a cada select en el ancho de su
+ * opcion mas larga —el valor lo da el navegador, no una constante que se desactualice
+ * cuando cambie una etiqueta— y el `flex-wrap` acomoda solo lo que no entra. Por eso no
+ * hay media query: no hay ningun ancho en el que un control quede recortado.
+ */
 .filtros {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--hueco);
+  /* El hueco horizontal separa controles; el vertical solo separa un renglon del
+     siguiente, y ahi el label de abajo ya aporta su propio aire. */
+  column-gap: var(--hueco);
+  row-gap: 0;
   align-items: flex-end;
   background: var(--superficie);
   border: 1px solid var(--borde);
@@ -120,6 +145,108 @@ body {
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--texto-suave);
+}
+
+/**
+ * CADA SELECT EN SU PROPIO ANCHO. Ni crece ni encoge.
+ *
+ * La TARJETA ocupa todo el ancho —tiene que alinear con la grilla que filtra— pero los
+ * CONTROLES no la siguen: el sobrante queda a la derecha en vez de repartirse entre
+ * ellos. Un select estirado no muestra mas de lo que muestra; solo miente sobre cuanto
+ * texto espera.
+ *
+ * `flex-basis: auto` es el ancho de la opcion mas larga, y lo calcula el navegador: no
+ * hay constante que se desactualice el dia que cambie una etiqueta. `shrink: 0` porque
+ * encogerse SI recorta, y el select nativo recorta sin puntos suspensivos.
+ *
+ * Alcanza SOLO a los selects: el buscador y su boton son hijos de `.filtros-buscar`.
+ */
+.filtros > .campo {
+  flex: 0 0 auto;
+}
+
+/**
+ * EL BUSCADOR Y SU BOTON SON UN SOLO ITEM FLEX.
+ *
+ * Sueltos, el `flex-wrap` los podia separar: medido cada 20 px, entre 560 y 640 px el
+ * boton caia solo a un tercer renglon con casi 500 px de aire al lado, a media pantalla
+ * del campo que envia. Envueltos, el wrap los arrastra juntos o no los toca.
+ */
+/**
+ * Los renglones lo mas pegados posible. `row-gap` ya es 0, asi que lo que queda por
+ * recortar esta ADENTRO de cada campo: el interlineado del label y el hueco que lo separa
+ * de su control. El margen negativo se come lo ultimo que sobra.
+ */
+.filtros .campo {
+  gap: 0.0625rem;
+}
+
+.filtros .campo label {
+  line-height: 1.2;
+}
+
+.filtros-buscar {
+  display: flex;
+  /* Ocupa el renglon entero para poder empujar el boton al borde derecho. */
+  flex: 1 1 100%;
+  margin-top: -0.375rem;
+  gap: var(--hueco);
+  align-items: flex-end;
+}
+
+/**
+ * EL BUSCADOR NO CRECE: mide lo que mide un codigo.
+ *
+ * Antes absorbia el sobrante con un techo de 38rem y, medido sobre la pagina real,
+ * quedaba en 512 px para buscar "CG85527". Un campo que ocupa dos tercios del panel
+ * promete que lo que se escribe ahi es largo, y no lo es.
+ *
+ * `24ch` son unos 24 caracteres: sobra para un codigo de siete y alcanza para reconocer
+ * un nombre a medio tipear. Un nombre completo no entra, y no hace falta: el input
+ * scrollea y el nombre no se lee de nuevo despues de escribirlo. En `ch` y no en `px`
+ * porque lo que se declara es cuantos caracteres se ven, no cuantos pixeles mide la
+ * tipografia de hoy.
+ */
+.filtros-buscar .campo--busqueda {
+  flex: 0 0 24ch;
+}
+
+/* Al borde derecho de la tarjeta. No crece: se mueve. */
+.filtros-buscar .campo--boton {
+  flex: 0 0 auto;
+  margin-left: auto;
+}
+
+/**
+ * Abajo de 34rem los anchos de contenido no entran: solo el select de estado pide 270 px.
+ * Un filtro por renglon y los controles al 100 %.
+ *
+ * ACA SI puede recortarse la opcion mas larga —"Ya no esta en el prov"— y se acepta: en
+ * un telefono la alternativa es scroll horizontal, que arrastra tambien la grilla y el
+ * encabezado, y el valor completo se sigue leyendo al abrir el select.
+ *
+ * El buscador y el boton NO se apilan aca: lado a lado a 320 px el campo todavia tiene
+ * ~190 px, que alcanza para un codigo, y un boton "Filtrar" de ancho completo miente
+ * sobre su peso.
+ */
+@media (max-width: 34rem) {
+  .filtros > .campo,
+  .filtros-buscar {
+    flex: 1 1 100%;
+    max-width: none;
+  }
+
+  /* Aca si se estira: es el unico campo de su renglon y no le saca ancho a nadie. */
+  .filtros-buscar .campo--busqueda {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .filtros select,
+  .filtros input[type='search'] {
+    width: 100%;
+    min-width: 0;
+  }
 }
 
 /**
@@ -830,10 +957,6 @@ button {
   border: 0;
   border-top: 1px solid var(--borde);
   margin: var(--hueco) 0;
-}
-
-.campo--boton {
-  flex: 0 0 auto;
 }
 
 /* --------------------------------------------------------------------------
