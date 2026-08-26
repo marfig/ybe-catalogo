@@ -4248,6 +4248,64 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "Medidas: alto 10 x largo 19 x ancho 2 cm\r\nColor disponible: fucsia",
+    "id": "billetera-alargada-con-cierre-y-tarjetero",
+    "nombre": "Billetera alargada con cierre y tarjetero",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "2515227"
+    },
+    "precio": 98000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7dfe4098461662c3"
+          }
+        ],
+        "sku": "2515227"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "Medidas: alto 10 x largo 19 cm\r\nDisponible en color: marrón maderado",
+    "id": "billetera-alargada-con-cierre-y-tarjetero-2",
+    "nombre": "Billetera alargada con cierre y tarjetero",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "2515233"
+    },
+    "precio": 98000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/72e5ed507d25ad72"
+          }
+        ],
+        "sku": "2515233"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-14",
     "categorias": [
       "billeteras"
@@ -4325,6 +4383,49 @@
           }
         ],
         "sku": "2115052-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "Con cuerdas largas, con tarjetero y cierre principal\r\nColores disponibles:\r\nNegro\r\nAzul marino",
+    "id": "billetera-alargada-grande-impermeable",
+    "nombre": "Billetera alargada grande impermeable",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "2715262"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5318ad1faaee158b"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a11fc4af1ae98e4f"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4c948e5ee6ddd9c3"
+          }
+        ],
+        "sku": "2715262"
       }
     ]
   },
@@ -5037,6 +5138,35 @@
           }
         ],
         "sku": "CG70123-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "billetera-hombre"
+    ],
+    "descripcion": "De cuero ecológico\r\nDisponible en color negro",
+    "id": "billetera-sin-cierre-de-hombre",
+    "nombre": "Billetera sin cierre de hombre",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "2510407"
+    },
+    "precio": 98000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/268407c18209b629"
+          }
+        ],
+        "sku": "2510407"
       }
     ]
   },
@@ -18359,6 +18489,121 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "De tres cierres",
+    "id": "cartuchera-de-dinosaurio-rojo",
+    "nombre": "Cartuchera de dinosaurio rojo",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "1734471"
+    },
+    "precio": 48000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5c90acc88043b902"
+          }
+        ],
+        "sku": "1734471"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-de-dinosaurio-tapa-dura",
+    "nombre": "Cartuchera de dinosaurio tapa dura",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "1734433"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/57da8a82ae21699a"
+          }
+        ],
+        "sku": "1734433"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-de-dinosaurio-v-v",
+    "nombre": "Cartuchera de dinosaurio V.V",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "1732570"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/81749fc255e5ceff"
+          }
+        ],
+        "sku": "1732570"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-de-girls-rule",
+    "nombre": "Cartuchera de Girls Rule",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "1732440"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/9444bd6e6fd475fc"
+          }
+        ],
+        "sku": "1732440"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-13",
     "categorias": [
       "cartucheras"
@@ -18738,6 +18983,121 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Colores disponibles:\r\nLila\r\nCeleste",
+    "id": "cartuchera-doble-cierre-2",
+    "nombre": "Cartuchera doble cierre",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "1734307"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a2cc2abc3d499ddc"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e303bb786c6fd701"
+          }
+        ],
+        "sku": "1734307"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Negro",
+    "id": "cartuchera-doble-cierre-3",
+    "nombre": "Cartuchera doble cierre",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "1734563"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/28f3639398b4e8b5"
+          }
+        ],
+        "sku": "1734563"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Colores disponibles\r\nRosa\r\nNegro\r\nGris",
+    "id": "cartuchera-doble-cierre-de-happy-girl",
+    "nombre": "Cartuchera doble cierre de happy girl",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "1734222"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ced40a163f133988"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/04a3d197c7372f0d"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d0906f5d619b859a"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cadbfc84e204fd8e"
+          }
+        ],
+        "sku": "1734222"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-13",
     "categorias": [
       "cartucheras"
@@ -18796,6 +19156,42 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Negro/rosa",
+    "id": "cartuchera-doble-cierre-nena",
+    "nombre": "Cartuchera doble cierre nena",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "1734560"
+    },
+    "precio": 39000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dcfefb12ade25519"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9c410fbe259cdcd3"
+          }
+        ],
+        "sku": "1734560"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-13",
     "categorias": [
       "cartucheras"
@@ -18821,6 +19217,35 @@
           }
         ],
         "sku": "5554101-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "De tres cierres",
+    "id": "cartuchera-dream-paris",
+    "nombre": "Cartuchera Dream París",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "1734071"
+    },
+    "precio": 68000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7b7bae3da5bcaf42"
+          }
+        ],
+        "sku": "1734071"
       }
     ]
   },
@@ -18996,6 +19421,35 @@
           }
         ],
         "sku": "5554190-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-mariposa",
+    "nombre": "Cartuchera mariposa",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "1734111"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5fd175179c2ffb7e"
+          }
+        ],
+        "sku": "1734111"
       }
     ]
   },
@@ -19402,6 +19856,120 @@
           }
         ],
         "sku": "5551501-2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "De tres cierres",
+    "id": "cartuchera-rosa-c",
+    "nombre": "Cartuchera Rosa C.",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "1734438"
+    },
+    "precio": 48000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ab9a3129f04ac25a"
+          }
+        ],
+        "sku": "1734438"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-rosa-de-bossgirl",
+    "nombre": "Cartuchera rosa de Bossgirl",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "1732530"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/a4dff7109a6fad9c"
+          }
+        ],
+        "sku": "1732530"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "De tres cierres, tapa dura",
+    "id": "cartuchera-super-mario-rojo",
+    "nombre": "Cartuchera Super Mario rojo",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5334409"
+    },
+    "precio": 55000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6d5635e3f85490f7"
+          }
+        ],
+        "sku": "5334409"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-tapa-dura-de-won-der-ful-girl",
+    "nombre": "Cartuchera tapa dura de Won Der Ful Girl",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "1732485"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/fda3c6ff072b6d84"
+          }
+        ],
+        "sku": "1732485"
       }
     ]
   },
@@ -21021,6 +21589,35 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas: alto 23 x largo 25 x ancho 15 cm",
+    "id": "lonchera-termica-34",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "4734240"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ab004c2500a60608"
+          }
+        ],
+        "sku": "4734240"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-19",
     "categorias": [
       "lonchera-termica-infantil"
@@ -21220,6 +21817,100 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas: alto 20 x largo 24 x ancho cm",
+    "id": "lonchera-termica-con-asas-largas",
+    "nombre": "Lonchera térmica con asas largas",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "4734306"
+    },
+    "precio": 129000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/70555f381fdc036b"
+          }
+        ],
+        "sku": "4734306"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas: alto 22 x largo 27 x ancho 15 cm\r\nColores disponibles:\r\nNegro/rosa\r\nRosa",
+    "id": "lonchera-termica-con-asas-largas-2",
+    "nombre": "Lonchera térmica con asas largas",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "4734559"
+    },
+    "precio": 138000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d2d004c63b029bbf"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/611454ea6f869986"
+          }
+        ],
+        "sku": "4734559"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas: alto 20 x largo 24 x ancho 19 cm",
+    "id": "lonchera-termica-con-asas-largas-3",
+    "nombre": "Lonchera térmica con asas largas",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "4734997"
+    },
+    "precio": 129000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/12d635b63a1b7a80"
+          }
+        ],
+        "sku": "4734997"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "lonchera-termica-infantil"
@@ -21275,6 +21966,49 @@
           }
         ],
         "sku": "5551305-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas: alto 26 x largo 23 x ancho 14 cm\r\nColores disponibles:\r\nNegro\r\nRosa\r\nGris",
+    "id": "lonchera-termica-de-happy-girl",
+    "nombre": "Lonchera térmica de Happy girl",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "4734671"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a64f3c3aa8168849"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/593a5a046c306e97"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/12a8f238e484aca1"
+          }
+        ],
+        "sku": "4734671"
       }
     ]
   },
@@ -21560,6 +22294,295 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Con asas largas\r\nMedidas: alto 22 x largo 24 x ancho 16 cm",
+    "id": "merendero-con-lentejuelas",
+    "nombre": "Merendero con lentejuelas",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "4732461"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/2e2ff2c951d4ce7c"
+          }
+        ],
+        "sku": "4732461"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Tapa dura con asas largas\r\nMedidas: alto 20 x largo 22 x ancho 15 cm",
+    "id": "merendero-de-dinosaurio",
+    "nombre": "Merendero de Dinosaurio",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "4732946"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/05f20f441193fcdd"
+          }
+        ],
+        "sku": "4732946"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Con asas largas\r\nMedidas: alto 22 x largo 23 x ancho 15 cm",
+    "id": "merendero-de-dinosaurio-2",
+    "nombre": "Merendero de Dinosaurio",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "4734470"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e78c35b2176dfcc1"
+          }
+        ],
+        "sku": "4734470"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas: alto 22 x largo 23 x ancho 15 cm",
+    "id": "merendero-de-dinosaurio-con-asas-largas",
+    "nombre": "Merendero de Dinosaurio con asas largas",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "4734446"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c8eaa737df578926"
+          }
+        ],
+        "sku": "4734446"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Con asas largas\r\nMedidas: alto 20 x largo 24 x ancho 16 cm",
+    "id": "merendero-de-shark",
+    "nombre": "Merendero de Shark",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5055371"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e82af77c79c2e944"
+          }
+        ],
+        "sku": "5055371"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Con asas largas\r\nMedidas: alto 26 x largo 25 x ancho 14 cm",
+    "id": "merendero-termico",
+    "nombre": "Merendero térmico",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "4734056"
+    },
+    "precio": 118000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/377fa1cc95349d66"
+          }
+        ],
+        "sku": "4734056"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas: alto 20 x largo 23 x ancho 15 cm",
+    "id": "merendero-termico-con-asas-largas",
+    "nombre": "Merendero térmico con asas largas",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "4732529"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c24ea67a7093366c"
+          }
+        ],
+        "sku": "4732529"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas: alto 20 x largo 24 x ancho 15 cm",
+    "id": "merendero-termico-con-asas-largas-2",
+    "nombre": "Merendero térmico con asas largas",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "4734066"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f9ec5e2226ee4284"
+          }
+        ],
+        "sku": "4734066"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas: alto 24 x largo 23 x ancho 13 cm",
+    "id": "merendero-termico-con-asas-largas-3",
+    "nombre": "Merendero térmico con asas largas",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "4734459"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8224977c7117b893"
+          }
+        ],
+        "sku": "4734459"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Con asas largas\r\nMedidas: alto 21 x largo 35 x ancho 12 cm",
+    "id": "merendero-termico-de-drean-paris",
+    "nombre": "Merendero térmico de Drean París",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "4734070"
+    },
+    "precio": 119000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/98822cd5ee0701e3"
+          }
+        ],
+        "sku": "4734070"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "lonchera-termica-infantil"
@@ -21585,6 +22608,64 @@
           }
         ],
         "sku": "5555305-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Con asas largas\r\nMedidas: alto 22 x largo 22 x ancho 14 cm",
+    "id": "merendero-termico-girls-rule",
+    "nombre": "Merendero térmico Girls Rule",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "4732439"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7b89abeaa40bca0e"
+          }
+        ],
+        "sku": "4732439"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Con asas largas\r\nMedidas: alto 24 x largo 24 x ancho 15 cm",
+    "id": "merendero-termico-tapa-dura",
+    "nombre": "Merendero térmico tapa dura",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "4732861"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a6fca64d063ad5da"
+          }
+        ],
+        "sku": "4732861"
       }
     ]
   },
@@ -24773,6 +25854,35 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 32 x largo 25 x ancho 12 cm\r\nPara 4 a 6 años",
+    "id": "mochila-espaldera-de-unicornio-con-lentejuelas",
+    "nombre": "Mochila espaldera de unicornio con lentejuelas",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5058925"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d1152de85c2858a7"
+          }
+        ],
+        "sku": "5058925"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-13",
     "categorias": [
       "mochilas"
@@ -24954,6 +26064,35 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Para libros 📚 y carpetas 📂\r\nMedidas: alto 43 x largo 32 x ancho 17 cm",
+    "id": "mochila-espaldera-grande-4",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "4734590"
+    },
+    "precio": 199000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9c25b2558f6eff23"
+          }
+        ],
+        "sku": "4734590"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "mochila-infantil"
@@ -25070,6 +26209,35 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 45 x largo 31x ancho 18 cm\r\nAmplio para libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-flamenco",
+    "nombre": "Mochila espaldera grande de Flamenco",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5059432"
+    },
+    "precio": 138000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/520a70172b2c960a"
+          }
+        ],
+        "sku": "5059432"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-25",
     "categorias": [
       "mochila-infantil"
@@ -25095,6 +26263,35 @@
           }
         ],
         "sku": "5551419-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 41 x largo 31 x ancho 16 cm\r\nAmplio para libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-kitty",
+    "nombre": "Mochila espaldera grande de kitty",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5057253"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c3b6aad58c9daac9"
+          }
+        ],
+        "sku": "5057253"
       }
     ]
   },
@@ -25327,6 +26524,35 @@
           }
         ],
         "sku": "5558932-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 41 x largo 31 x ancho 16 cm\r\nAmplio para libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-unicornio-con-lentejuelas",
+    "nombre": "Mochila espaldera grande de unicornio con lentejuelas",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5058953"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e5469209224bdfb3"
+          }
+        ],
+        "sku": "5058953"
       }
     ]
   },
@@ -25762,6 +26988,35 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 38 x largo 29 x ancho 15 cm\r\nPara 6 a 8 años",
+    "id": "mochila-espaldera-mediana-de-shark-3",
+    "nombre": "Mochila espaldera mediana de Shark",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5055334"
+    },
+    "precio": 109000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7c361250d749504d"
+          }
+        ],
+        "sku": "5055334"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "mochila-infantil"
@@ -25990,6 +27245,35 @@
           }
         ],
         "sku": "5558925-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 32 x largo 25 x ancho 12 cm\r\nPara 4 a 6",
+    "id": "mochila-espaldera-mediana-pequena-de-flamenco",
+    "nombre": "Mochila espaldera mediana pequeña de Flamenco",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5050225"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c05802060ed8c668"
+          }
+        ],
+        "sku": "5050225"
       }
     ]
   },
@@ -27997,6 +29281,64 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 39 x largo 30 x ancho 14 cm\r\nPara 5 a 6 años",
+    "id": "mochila-mediana-con-ruedas-de-flamenco",
+    "nombre": "Mochila mediana con ruedas de Flamenco",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5059479"
+    },
+    "precio": 148000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/615acbc6a443b0bf"
+          }
+        ],
+        "sku": "5059479"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 39 x largo 30 x ancho 14 cm\r\nPara 4 a 5 años",
+    "id": "mochila-mediana-con-ruedas-de-monito-perezoso",
+    "nombre": "Mochila mediana con ruedas de monito perezoso",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5050279"
+    },
+    "precio": 148000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5b74864d7a18fd90"
+          }
+        ],
+        "sku": "5050279"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "mochila-infantil"
@@ -28364,6 +29706,64 @@
           }
         ],
         "sku": "5558109-6"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 34 x largo 24 x ancho 12 cm\r\nPara 2 a 5 años",
+    "id": "mochila-pequena-con-ruedas-de-flamenco",
+    "nombre": "Mochila pequeña con ruedas de Flamenco",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5059409"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/543a8259e91f5acb"
+          }
+        ],
+        "sku": "5059409"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 34 x largo 24x ancho 12 cm\r\nPara 2 a 5 años",
+    "id": "mochila-pequena-con-ruedas-de-monito-perezoso",
+    "nombre": "Mochila pequeña con ruedas de monito perezoso",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5050209"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7821cf00c4b213bb"
+          }
+        ],
+        "sku": "5050209"
       }
     ]
   },
@@ -29076,6 +30476,35 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas: alto 22 x largo 22 x ancho 14 cm",
+    "id": "mochila-termica-de-flamenco",
+    "nombre": "Mochila térmica de Flamenco",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5059406"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7529334f97c93814"
+          }
+        ],
+        "sku": "5059406"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "lonchera-termica-infantil"
@@ -29221,6 +30650,35 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Con espalderas\r\nMedidas: alto 22 x largo 22 x ancho 14 cm",
+    "id": "mochila-termico-de-hippo",
+    "nombre": "Mochila térmico de Hippo",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5059706"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ae9210ff57e49c2a"
+          }
+        ],
+        "sku": "5059706"
+      }
+    ]
+  },
+  {
     "activo": false,
     "actualizado": "2026-08-12",
     "categorias": [
@@ -29287,6 +30745,35 @@
           }
         ],
         "sku": "5551343-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: 23 x largo 17 x ancho 11 cm\r\nPara 0 a 3 años",
+    "id": "mochilita-pequena-espaldera-de-flamenco",
+    "nombre": "Mochilita pequeña espaldera de Flamenco",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5059460"
+    },
+    "precio": 88000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7fe4a0b3cfe9c375"
+          }
+        ],
+        "sku": "5059460"
       }
     ]
   },
@@ -29588,6 +31075,49 @@
           }
         ],
         "sku": "1185605-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "necessaires"
+    ],
+    "descripcion": "De cuero ecológico, doble cierre\r\nMedidas: alto 16 x largo 25 x ancho 10\r\nColores disponibles:\r\nNegro\r\nMarrón\r\nRojo",
+    "id": "neceser-unisex-grande",
+    "nombre": "Neceser unisex grande",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "1584014"
+    },
+    "precio": 120000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e904dbf4695a8ded"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0df278620405bacd"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5bd96d84d1abd23f"
+          }
+        ],
+        "sku": "1584014"
       }
     ]
   },
