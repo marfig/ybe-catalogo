@@ -17384,6 +17384,35 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-bailarina",
+    "nombre": "Cartuchera Bailarina",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5353201"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/281c8511f5c0b481"
+          }
+        ],
+        "sku": "5353201"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-19",
     "categorias": [
       "cartucheras"
@@ -18662,6 +18691,35 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "De tres cierres, tapa dura",
+    "id": "cartuchera-de-mario-kart-azul",
+    "nombre": "Cartuchera de Mario Kart azul",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5334417"
+    },
+    "precio": 55000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8dd883912bfc99e4"
+          }
+        ],
+        "sku": "5334417"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-13",
     "categorias": [
       "cartucheras"
@@ -18687,6 +18745,35 @@
           }
         ],
         "sku": "5551201-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Doble cierre",
+    "id": "cartuchera-de-sirena",
+    "nombre": "Cartuchera de Sirena",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5353104"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b1fc53b44ee03aca"
+          }
+        ],
+        "sku": "5353104"
       }
     ]
   },
@@ -19275,6 +19362,35 @@
           }
         ],
         "sku": "1734536-9X"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "De un cierre, amplio",
+    "id": "cartuchera-libro-de-barbie",
+    "nombre": "Cartuchera libro de Barbie",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5451190"
+    },
+    "precio": 58000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/57fd7c9fa1dc1c2f"
+          }
+        ],
+        "sku": "5451190"
       }
     ]
   },
@@ -22384,6 +22500,35 @@
     "categorias": [
       "lonchera-termica-infantil"
     ],
+    "descripcion": "Con asas largas.\r\nMedidas: alto 20 x largo 14 x ancho 15cm",
+    "id": "merendero-de-dinosaurio-3",
+    "nombre": "Merendero de Dinosaurio",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5358171"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/405d9e56a7ef1e47"
+          }
+        ],
+        "sku": "5358171"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
     "descripcion": "Medidas: alto 22 x largo 23 x ancho 15 cm",
     "id": "merendero-de-dinosaurio-con-asas-largas",
     "nombre": "Merendero de Dinosaurio con asas largas",
@@ -22413,6 +22558,64 @@
     "categorias": [
       "lonchera-termica-infantil"
     ],
+    "descripcion": "Tapa dura con asas largas\r\nMedidas: alto 20 x largo 23 x ancho 15 cm",
+    "id": "merendero-de-mario-bros",
+    "nombre": "Merendero de Mario Bros",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5334449"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/14d81924e78a146b"
+          }
+        ],
+        "sku": "5334449"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Tapa dura con asas largas.\r\nMedidas: alto 20 x largo 23 x ancho 15 cm",
+    "id": "merendero-de-mario-kart",
+    "nombre": "Merendero de Mario Kart",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5334440"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cda6a6df9fc61df2"
+          }
+        ],
+        "sku": "5334440"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
     "descripcion": "Con asas largas\r\nMedidas: alto 20 x largo 24 x ancho 16 cm",
     "id": "merendero-de-shark",
     "nombre": "Merendero de Shark",
@@ -22434,6 +22637,35 @@
           }
         ],
         "sku": "5055371"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Con asas largas\r\nMedidas: alto 22 x largo 22 x ancho 14 cm",
+    "id": "merendero-de-super-mario",
+    "nombre": "Merendero de Super Mario",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5334484"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0fbf84f6e7244b3f"
+          }
+        ],
+        "sku": "5334484"
       }
     ]
   },
@@ -22992,6 +23224,77 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas: alto 38 x largo 27 x ancho 19 cm\r\nColores disponibles:\r\nNegro\r\nRojo\r\nVerde\r\nGris\r\nRosa\r\nTurquesa\r\nBordó",
+    "id": "mochila-bolso-de-tela-mediana-grande",
+    "nombre": "Mochila/bolso de tela mediana grande",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "8731691"
+    },
+    "precio": 158000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8c8e8a495de12a79"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2d6622dbebd81ce9"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6101662946a912de"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c033c22367752668"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a8d2cdd927f8021b"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8310187f3351a7af"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/710a1de39917fb69"
+          }
+        ],
+        "sku": "8731691"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-24",
     "categorias": [
       "mochila-infantil"
@@ -23334,6 +23637,35 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 45 x largo 30 x ancho 17 cm\r\nAmplio para libros 📚 y carpetas 📂",
+    "id": "mochila-con-ruedas-grande-de-barbie",
+    "nombre": "Mochila con ruedas grande de Barbie",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5451172"
+    },
+    "precio": 269000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/10255215181bca5d"
+          }
+        ],
+        "sku": "5451172"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "mochila-infantil"
@@ -23566,6 +23898,93 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 39 x largo 30 x ancho 14 cm\r\nPara 5 a 6 años",
+    "id": "mochila-con-ruedas-mediana-de-auto-speed",
+    "nombre": "Mochila con ruedas mediana de Auto Speed",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5357479"
+    },
+    "precio": 149000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4ac4f784bdd1ba1b"
+          }
+        ],
+        "sku": "5357479"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto.39 x largo 30 x ancho 14 cm\r\nPara 5 a 6 años",
+    "id": "mochila-con-ruedas-mediana-de-bailarina",
+    "nombre": "Mochila con ruedas mediana de bailarina",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5353279"
+    },
+    "precio": 149000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6d9765460ce955b0"
+          }
+        ],
+        "sku": "5353279"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 39 x largo 30 x ancho 14 cm\r\nPara 5 a 6 años",
+    "id": "mochila-con-ruedas-mediana-de-gatito",
+    "nombre": "Mochila con ruedas mediana de gatito",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5357279"
+    },
+    "precio": 149000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c6ca52275888c537"
+          }
+        ],
+        "sku": "5357279"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "mochila-infantil"
@@ -23620,6 +24039,64 @@
           }
         ],
         "sku": "5558979-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 34 x largo 24 x ancho 12 cm\r\nPara 2 a 5 años",
+    "id": "mochila-con-ruedas-pequena-de-auto-speed",
+    "nombre": "Mochila con ruedas pequeña de Auto Speed",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5357409"
+    },
+    "precio": 139000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f988453b3009a5ca"
+          }
+        ],
+        "sku": "5357409"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 34 x largo 24 x ancho 12 cm\r\nPara 2 a 5 años",
+    "id": "mochila-con-ruedas-pequena-de-bailarina",
+    "nombre": "Mochila con ruedas pequeña de bailarina",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5353209"
+    },
+    "precio": 139000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ce9098b0b7be39b9"
+          }
+        ],
+        "sku": "5353209"
       }
     ]
   },
@@ -23856,6 +24333,35 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 34 x largo 24 x ancho 12 cm\r\nPara 2 a 5 años",
+    "id": "mochila-con-ruedas-pequena-de-sirena-2",
+    "nombre": "Mochila con ruedas pequeña de Sirena",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5353109"
+    },
+    "precio": 148000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/597fce3355f396d2"
+          }
+        ],
+        "sku": "5353109"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "mochila-infantil"
@@ -23968,6 +24474,35 @@
           }
         ],
         "sku": "5558909-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 34 x largo 24 x ancho 12 cm\r\nPara 2 a 5 años",
+    "id": "mochila-con-ruedas-pequena-de-unicornio",
+    "nombre": "Mochila con ruedas pequeña de unicornio",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5358909"
+    },
+    "precio": 139000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/203515651b0e9bc8"
+          }
+        ],
+        "sku": "5358909"
       }
     ]
   },
@@ -25826,6 +26361,64 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 32 x largo 25 x ancho 12 cm",
+    "id": "mochila-espaldera-de-auto-speed",
+    "nombre": "Mochila espaldera de Auto Speed",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5357425"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e5ebbbbccda0d33e"
+          }
+        ],
+        "sku": "5357425"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 32 x largo 25 x ancho 12 cm\r\nPara 4 a 6 años",
+    "id": "mochila-espaldera-de-bailarina",
+    "nombre": "Mochila espaldera de bailarina",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5353225"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fa98bf56dceb253b"
+          }
+        ],
+        "sku": "5353225"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "mochila-infantil"
@@ -25850,6 +26443,63 @@
           }
         ],
         "sku": "5551325-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 29 x largo 24 x ancho 10 cm\r\nPara 4 a 6 años",
+    "id": "mochila-espaldera-de-gatito",
+    "nombre": "Mochila espaldera de gatito",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5357259"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/6ef7cf3bb4f20076"
+          }
+        ],
+        "sku": "5357259"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 32 x largo 25 x ancho 12 cm\r\nPara 4 a 6 años",
+    "id": "mochila-espaldera-de-sirena",
+    "nombre": "Mochila espaldera de sirena",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5353125"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f133cc4cf3d2e84e"
+          }
+        ],
+        "sku": "5353125"
       }
     ]
   },
@@ -26093,6 +26743,71 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 46 x largo 31 x ancho 19 cm\r\nAmplio para libros y carpetas\r\nColores disponibles:\r\n\r\nNegro\r\nRosa",
+    "id": "mochila-espaldera-grande-5",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "8732253"
+    },
+    "precio": 138000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d9fb563d3deacb9b"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/757db1c991bfdb7b"
+          }
+        ],
+        "sku": "8732253"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 45 x largo 31 x ancho 18 cm\r\nAmplio para libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-bailarina",
+    "nombre": "Mochila espaldera grande de bailarina",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5353232"
+    },
+    "precio": 139000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d6f07fb8becbf7d3"
+          }
+        ],
+        "sku": "5353232"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "mochila-infantil"
@@ -26147,6 +26862,70 @@
           }
         ],
         "sku": "5551145-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 43 x largo 31 x ancho 17 cm\r\nAmplio para libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-barbie-3",
+    "nombre": "Mochila espaldera grande de Barbie",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5351133"
+    },
+    "precio": 139000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/da2c6f222b941fb7"
+          }
+        ],
+        "sku": "5351133"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 30 x ancho 17 cm\r\nDoble cierre\r\nAmplio Para libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-bossgirl",
+    "nombre": "Mochila espaldera grande de Bossgirl",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "8732528"
+    },
+    "precio": 139000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5f387e607a8e8351"
+          },
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/739469e574973db1"
+          }
+        ],
+        "sku": "8732528"
       }
     ]
   },
@@ -26234,6 +27013,70 @@
           }
         ],
         "sku": "5059432"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 45 x largo 31 x ancho 18 cm\r\nAmplio para 📚 libros y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-fruit",
+    "nombre": "Mochila espaldera grande de fruit",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "8732863"
+    },
+    "precio": 139000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8ebc455671950252"
+          }
+        ],
+        "sku": "8732863"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 45 x largo 31 x ancho 18 cm\r\nDoble cierre\r\nAmplio para libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-girls-rule",
+    "nombre": "Mochila espaldera grande de Girls Rule",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "8732438"
+    },
+    "precio": 139000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3a5e412a259d12bf"
+          },
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/a4c7d265a6755cc0"
+          }
+        ],
+        "sku": "8732438"
       }
     ]
   },
@@ -26354,6 +27197,70 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 30 x ancho 17 cm\r\nTapa dura, amplio para libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-mario-kart-2",
+    "nombre": "Mochila espaldera grande de Mario Kart",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5334414"
+    },
+    "precio": 175000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/aca412f56e9d05ec"
+          }
+        ],
+        "sku": "5334414"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 45 x largo 31 x ancho 18 cm\r\nAmplio para libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-mariposa",
+    "nombre": "Mochila espaldera grande de mariposa 🦋",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "8732452"
+    },
+    "precio": 139000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ee90f0251173164c"
+          },
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/b6ef9494fe3ff23c"
+          }
+        ],
+        "sku": "8732452"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "mochila-infantil"
@@ -26383,6 +27290,35 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 46 x largo 31 x ancho 17 cm\r\nAmplio para libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-robot",
+    "nombre": "Mochila espaldera grande de Robot",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5357632"
+    },
+    "precio": 139000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/96a4c82d16bd3734"
+          }
+        ],
+        "sku": "5357632"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "mochila-infantil"
@@ -26408,6 +27344,35 @@
           }
         ],
         "sku": "5553132-5"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 30 x ancho 17 cm\r\nAmplio para libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-sirena-2",
+    "nombre": "Mochila espaldera grande de Sirena",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5363132"
+    },
+    "precio": 139000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1a79e54e6d73c9c6"
+          }
+        ],
+        "sku": "5363132"
       }
     ]
   },
@@ -26532,6 +27497,35 @@
     "categorias": [
       "mochila-infantil"
     ],
+    "descripcion": "Medidas: alto 44 x largo 30 x ancho 17 cm\r\nAmplio para libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-de-unicornio",
+    "nombre": "Mochila espaldera grande de unicornio",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5358932"
+    },
+    "precio": 139000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6fc21f14215f9b15"
+          }
+        ],
+        "sku": "5358932"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
     "descripcion": "Medidas: alto 41 x largo 31 x ancho 16 cm\r\nAmplio para libros 📚 y carpetas 📂",
     "id": "mochila-espaldera-grande-de-unicornio-con-lentejuelas",
     "nombre": "Mochila espaldera grande de unicornio con lentejuelas",
@@ -26582,6 +27576,42 @@
           }
         ],
         "sku": "CG32227-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 45 x largo 30 x ancho 17 cm\r\nAmplio para libros 📚 y carpetas 📂",
+    "id": "mochila-espaldera-grande-tapa-dura",
+    "nombre": "Mochila espaldera grande tapa dura",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "8732860"
+    },
+    "precio": 149000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d14d33571a14a1a8"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fdc04a723f2d0c63"
+          }
+        ],
+        "sku": "8732860"
       }
     ]
   },
@@ -26814,6 +27844,35 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Mddidas: alto 32 x largo 24 x ancho 11 cm\r\nPara 6 a 7 años",
+    "id": "mochila-espaldera-mediana-de-barbie-3",
+    "nombre": "Mochila espaldera mediana de Barbie",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5351156"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/04c151f2e1f3934f"
+          }
+        ],
+        "sku": "5351156"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "mochila-infantil"
@@ -26868,6 +27927,63 @@
           }
         ],
         "sku": "5558351-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 40 x largo 31 x ancho 20 cm\r\nPara 5 a 7 años\r\nColores disponibles:\r\nRosa\r\nNegro",
+    "id": "mochila-espaldera-mediana-de-happy-girl",
+    "nombre": "Mochila espaldera mediana de happy girl",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "8734217"
+    },
+    "precio": 215000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6b3d43a8b72bc3f7"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f62e0cb1ebb889f2"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8e49a8229496c1ac"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/984aca4856e3fb60"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f0ee4d48d84ee690"
+          }
+        ],
+        "sku": "8734217"
       }
     ]
   },
@@ -27042,6 +28158,35 @@
           }
         ],
         "sku": "5553125-5"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 32 x largo 24 x ancho 11 cm\r\nPara 6 a 7 años",
+    "id": "mochila-espaldera-mediana-de-sirena-2",
+    "nombre": "Mochila espaldera mediana de Sirena",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5353154"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6a9743e9b0df348e"
+          }
+        ],
+        "sku": "5353154"
       }
     ]
   },
@@ -27253,6 +28398,35 @@
     "categorias": [
       "mochila-infantil"
     ],
+    "descripcion": "Medidas: alto 37 x largo 27 x ancho 14 cm\r\nPara 6 a 7 años",
+    "id": "mochila-espaldera-mediana-de-unicornio",
+    "nombre": "Mochila espaldera mediana de unicornio",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5358943"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3cb22e64c0b4aa50"
+          }
+        ],
+        "sku": "5358943"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
     "descripcion": "Medidas: alto 32 x largo 25 x ancho 12 cm\r\nPara 4 a 6",
     "id": "mochila-espaldera-mediana-pequena-de-flamenco",
     "nombre": "Mochila espaldera mediana pequeña de Flamenco",
@@ -27274,6 +28448,35 @@
           }
         ],
         "sku": "5050225"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 32 x largo 25 x ancho 12 cm\r\nPara 4 a 6 años",
+    "id": "mochila-espaldera-mediana-tapa-dura",
+    "nombre": "Mochila espaldera mediana tapa dura",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "8732486"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/82417ddecb8d4c92"
+          }
+        ],
+        "sku": "8732486"
       }
     ]
   },
@@ -27564,6 +28767,35 @@
           }
         ],
         "sku": "5558957-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 32 x largo 25 x ancho 12 cm\r\nPara 4 a 6 años",
+    "id": "mochila-espaldera-tapa-dura-de-mario-kart",
+    "nombre": "Mochila espaldera tapa dura de Mario Kart",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5334419"
+    },
+    "precio": 138000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/794a98c54d607c00"
+          }
+        ],
+        "sku": "5334419"
       }
     ]
   },
@@ -28140,6 +29372,35 @@
           }
         ],
         "sku": "5557474-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 33 x ancho 16 cm\r\nAmplio para libros 📚 y carpetas 📂",
+    "id": "mochila-grande-con-ruedas-de-uto-speed",
+    "nombre": "Mochila grande con ruedas de Uto Speed",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5357474"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8ca460c71a45341e"
+          }
+        ],
+        "sku": "5357474"
       }
     ]
   },
@@ -29681,6 +30942,35 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 34 x largo 24 x ancho 12 cm\r\nPara 2 a 5 años",
+    "id": "mochila-pequena-con-ruedas-de-barbie",
+    "nombre": "Mochila pequeña con ruedas de Barbie",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5351109"
+    },
+    "precio": 148000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9d4a51f4fc48d0ce"
+          }
+        ],
+        "sku": "5351109"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "mochila-infantil"
@@ -29991,6 +31281,42 @@
     ]
   },
   {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas: alto 48 x largo 31 x ancho 20 cm\r\nColores disponibles:\r\nNegro\r\nGris/negro",
+    "id": "mochila-porta-notebook-impermeable",
+    "nombre": "Mochila porta notebook impermeable",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "8732209"
+    },
+    "precio": 165000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ef9158b9fe3dc539"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/da34a8eafa2e1aef"
+          }
+        ],
+        "sku": "8732209"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-22",
     "categorias": [
       "mochila-para-notebook"
@@ -30168,6 +31494,49 @@
           }
         ],
         "sku": "8134338-2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 44 x largo 33 x ancho 16 cm\r\nMochila de Dean París con manija T de aluminio con ruedas siliconadas y con luces",
+    "id": "mochila-reforzada-con-ruedas-grande-3",
+    "nombre": "Mochila reforzada con ruedas Grande",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "8734074"
+    },
+    "precio": 398000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2f1ef512b1fd4233"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ea4b0372faf9c843"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7766c0e92cbaed8a"
+          }
+        ],
+        "sku": "8734074"
       }
     ]
   },
@@ -30356,6 +31725,64 @@
           }
         ],
         "sku": "8132243-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Con espalderas\r\nMedidas: alto 22 x largo 22 x ancho 14 cm",
+    "id": "mochila-termica-de-auto-speed-runner",
+    "nombre": "Mochila térmica de Auto Speed Runner",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5357406"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c365c0bff3381cdc"
+          }
+        ],
+        "sku": "5357406"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Con espalderas\r\nMedidas: alto 22 x largo 21 x ancho 13 cm",
+    "id": "mochila-termica-de-barbie",
+    "nombre": "Mochila térmica de Barbie",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5451106"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0f4b17eda6e2ae35"
+          }
+        ],
+        "sku": "5451106"
       }
     ]
   },
@@ -30655,6 +32082,35 @@
       "lonchera-termica-infantil"
     ],
     "descripcion": "Con espalderas\r\nMedidas: alto 22 x largo 22 x ancho 14 cm",
+    "id": "mochila-termico-de-bailarina",
+    "nombre": "Mochila térmico de Bailarina",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5353206"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c06b3c8f4e15c1e3"
+          }
+        ],
+        "sku": "5353206"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Con espalderas\r\nMedidas: alto 22 x largo 22 x ancho 14 cm",
     "id": "mochila-termico-de-hippo",
     "nombre": "Mochila térmico de Hippo",
     "origen": {
@@ -30745,6 +32201,64 @@
           }
         ],
         "sku": "5551343-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 23 x largo 17 x ancho 11 cm\r\nPara 0 a 4 años",
+    "id": "mochilita-espaldera-pequena-de-bailarina",
+    "nombre": "Mochilita espaldera pequeña de bailarina",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5353260"
+    },
+    "precio": 89000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e5538bae3b5fc585"
+          }
+        ],
+        "sku": "5353260"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas: alto 23 x largo 17 x ancho 11 cm\r\nDe 0 a 4años",
+    "id": "mochilita-espaldera-pequena-de-sirena",
+    "nombre": "Mochilita espaldera pequeña de Sirena",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "5353160"
+    },
+    "precio": 89000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9eeae58049e5b4db"
+          }
+        ],
+        "sku": "5353160"
       }
     ]
   },
@@ -31147,6 +32661,49 @@
           }
         ],
         "sku": "4734095-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-26",
+    "categorias": [
+      "portafolios"
+    ],
+    "descripcion": "Medidas: alto 28 x largo 41 x ancho 8 cm\r\nColor disponible: negro/gris",
+    "id": "porta-notebook-semi-impermeable-unisex",
+    "nombre": "Porta notebook semi impermeable unisex",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "6721779"
+    },
+    "precio": 139000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b200a89b99448ac6"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b7d722f147e6fefa"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c844fc7624cdeaff"
+          }
+        ],
+        "sku": "6721779"
       }
     ]
   },
