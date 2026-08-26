@@ -92,3 +92,85 @@ test('la misma página dos veces da el mismo resultado', () => {
 test('rechaza una URL que no es de listado', () => {
   assert.throws(() => new AcumuladorListado(`${HOST}/producto/71803-cg86003`), /listado/i);
 });
+
+/**
+ * El listado por categoría (medido el 2026-08-26 sobre `/categoria/1-cartera`).
+ *
+ * Doce fichas por página, paginación RELATIVA `?page={N}` y sin `lz`. El encabezado
+ * declara «431 Productos», que es lo único que dice cuántas páginas hay de verdad.
+ */
+
+const CATEGORIA = `${HOST}/categoria/1-cartera`;
+
+test('junta las fichas de una categoría', () => {
+  const a = new AcumuladorListado(CATEGORIA);
+  a.verEnlace('/producto/67540-cg34283');
+  a.verEnlace('/producto/67540-cg34283');
+
+  const r = a.resultado();
+  assert.equal(r.clase, 'categoria');
+  assert.deepEqual(r.fichas, [`${HOST}/producto/67540-cg34283`]);
+});
+
+test('sigue la paginación relativa de la categoría', () => {
+  // El proveedor las escribe asi, sin repetir el pathname: `<a href="?page=2">`.
+  const a = new AcumuladorListado(CATEGORIA);
+  for (const n of [1, 2, 3, 4, 5, 6]) a.verEnlace(`?page=${n}`);
+
+  const r = a.resultado();
+  assert.deepEqual(r.paginas, [1, 2, 3, 4, 5, 6].map((n) => `${CATEGORIA}?page=${n}`));
+});
+
+test('NO sale de la categoría que se pidió', () => {
+  /**
+   * La misma trampa que los lanzamientos anteriores, con otra cara: la pagina enlaza
+   * TODAS las demas categorias en su menu, y sus subcategorias y filtros en la barra
+   * lateral. Seguirlos convertiria «importar carteras» en «importar el catalogo
+   * entero», que es una decision de quien opera y no de este acumulador.
+   */
+  const a = new AcumuladorListado(CATEGORIA);
+  a.verEnlace('/categoria/10-necessaire?page=2');
+  a.verEnlace('/categoria/1-cartera/38-cartera?page=2');
+  a.verEnlace('/categoria/1-cartera?f=collection--109');
+  a.verEnlace('?page=2');
+
+  assert.deepEqual(a.resultado().paginas, [`${CATEGORIA}?page=2`]);
+});
+
+test('la barra lateral de una categoría no aporta páginas', () => {
+  // Los filtros son `?f=...` sin `page`: no son paginacion de nada.
+  const a = new AcumuladorListado(CATEGORIA);
+  for (const f of ['?f=collection--16', '?f=subcategory--102', '/categoria/1-cartera/outlet']) {
+    a.verEnlace(f);
+  }
+  assert.equal(a.resultado().totalPaginas, 1);
+});
+
+test('lee el total de productos que declara la categoría', () => {
+  const a = new AcumuladorListado(CATEGORIA);
+  a.verTotal('431 Productos');
+  assert.equal(a.resultado().totalProductos, 431);
+});
+
+test('sin encabezado no se inventa un total', () => {
+  /**
+   * `/lanzamientos` sirve el MISMO `<p>` vacio, asi que este caso no es defensivo: es el
+   * camino normal de la otra clase de listado. `null` y no 0 — el progreso tiene que
+   * poder distinguir «no lo se» de «no hay ninguno».
+   */
+  const a = new AcumuladorListado(LISTADO);
+  a.verTotal('');
+  assert.equal(a.resultado().totalProductos, null);
+});
+
+test('una categoría se reconoce con y sin barra final', () => {
+  // La paginacion es relativa, asi que el pathname de las paginas hereda la barra de la
+  // URL que se pego. Comparar los strings crudos partiria la categoria en dos.
+  const a = new AcumuladorListado(`${CATEGORIA}/`);
+  a.verEnlace('?page=2');
+  assert.deepEqual(a.resultado().paginas, [`${CATEGORIA}/?page=2`]);
+});
+
+test('la clase del listado viaja en el resultado', () => {
+  assert.equal(new AcumuladorListado(LISTADO).resultado().clase, 'lanzamiento');
+});

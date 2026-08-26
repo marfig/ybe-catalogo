@@ -685,7 +685,7 @@ lanzamientos, que son decenas de productos y termina en minutos.
 
 | Endpoint | Qué hace |
 |---|---|
-| `POST /api/scrape/listado` | Recibe `{ url, scrapeId? }`. Devuelve URLs de fichas y todas las páginas del lanzamiento. Crea la fila en `scrapes` si es la primera página |
+| `POST /api/scrape/listado` | Recibe `{ url, scrapeId? }`. Sirve las dos clases de listado —`/lanzamientos` y `/categoria/…`—. Devuelve URLs de fichas, las páginas que **esta** página enlaza y, si la categoría lo declara, cuántos productos tiene. Crea la fila en `scrapes` si es la primera página |
 | `POST /api/scrape/ficha` | Recibe `{ scrapeId, url }`. Extrae código, colores hermanos y categoría de origen, y **registra en D1**. Devuelve las URLs de las fotos de cada color. **No toca R2** |
 | `POST /api/scrape/imagen` | Recibe `{ sku, url }`. Baja la foto del proveedor y hashea los bytes originales. Si el hash ya existe, la vincula y termina. Si es nueva, **devuelve los bytes crudos** |
 | `POST /api/scrape/vincular` | Recibe `{ sku, hash16 }`. Ata una imagen ya subida a su variante |
@@ -805,6 +805,53 @@ Y hay una trampa de identidad al contar páginas: quien opera pega
 misma como `?lz=2026-07-16&page=1`. Son dos strings distintos y la misma página. Sin
 normalizar —`page` ausente ≡ `page=1`— la primera página se pide **dos veces** y sus
 fichas se cuentan dos veces en el progreso.
+
+#### Importar una categoría: la paginación es una VENTANA DESLIZANTE — medido el 2026-08-26
+
+Un lanzamiento no alcanza para poblar el catálogo: son las novedades de una fecha, y
+el proveedor tiene ramas enteras que nunca pasaron por una tanda importada. La segunda
+puerta de entrada es la categoría —`/categoria/1-cartera`—, que se recorre con el mismo
+bucle, el mismo paso de un pedido por segundo y la misma opción de saltear lo que ya
+está en el catálogo.
+
+Lo que **no** es igual es qué acota el recorrido. Un lanzamiento se acota por su `lz`;
+una categoría se acota por su **ruta**, porque la página enlaza todas las demás
+categorías en el menú y sus subcategorías y filtros (`?f=collection--16`) en la barra
+lateral. Una subcategoría es una categoría más angosta: se recorre si es la que se
+pidió, y no por colgar de la que se pidió.
+
+Y acá está el hallazgo que importa. **La paginación de una categoría no enlaza todas
+sus páginas.** Medido sobre `/categoria/1-cartera`, que tiene 431 productos en 36
+páginas de 12:
+
+| Página pedida | Páginas que enlaza |
+|---|---|
+| 1 | 1 … 6 |
+| 6 | 1 … 11 |
+| 36 | 31 … 36 |
+
+El recorrido llega igual, y no por suerte: la cola del navegador se **resiembra con
+cada respuesta** (§7.1), así que avanza 1→6, 6→11, 11→16 hasta el final. Lo que se
+rompe sin más datos es el **denominador del progreso**: sacado de la primera página
+diría «página 5 de 6» con un séptimo del trabajo hecho, y quien mira cerraría la
+pestaña convencido de que estaba terminando. Un progreso que miente es peor que no
+tener progreso, porque se le cree.
+
+De ahí sale la regla: el encabezado de la categoría declara el total
+(`<p>431 Productos</p>`) y las páginas se **estiman** como `total ÷ tamaño de página`,
+donde el tamaño es el **mayor** visto y no el último —la última página trae 11 y no 12,
+y estimar con ella daría 40 páginas—. La ventana de la paginación queda como **piso**:
+un total mal contado por el proveedor no puede hacer que el progreso diga que terminó
+mientras el sitio sigue enlazando páginas.
+
+Dos trampas más, medidas, que no muerden hoy pero muerden a quien toque esto después:
+
+- Pedir una página **pasada del final** no da error ni vacío: `?page=37` devuelve la 36
+  idéntica. Hoy no llega nadie ahí porque ninguna página real la enlaza — pero un bucle
+  que cuente números en vez de seguir enlaces no termina nunca.
+- `/lanzamientos` sirve el **mismo** encabezado con el `<p>` vacío. Por eso «no declara
+  total» es `null` y no `0`: el denominador tiene que distinguir «no lo sé» de «no hay
+  ninguno» antes de dividir.
 
 #### Las tres clases de imagen — y por qué confundirlas rompe el scrape
 

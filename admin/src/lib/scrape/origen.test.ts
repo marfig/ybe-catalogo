@@ -2,12 +2,15 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import {
+  ORIGEN,
+  claseDeListado,
   codigoDesdeUrl,
   colorDesdeTitulo,
   esFichaDelMismoModelo,
   normalizarUrl,
   separarColor,
   skuDeOrigen,
+  totalDeclarado,
 } from './origen.ts';
 
 /**
@@ -159,4 +162,72 @@ test('normalizarUrl resuelve rutas relativas contra el origen', () => {
 test('normalizarUrl devuelve null ante una URL ilegible', () => {
   assert.equal(normalizarUrl('', 'https://www.chenson.com.py'), null);
   assert.equal(normalizarUrl('http://[', 'https://www.chenson.com.py'), null);
+});
+
+/**
+ * Los dos listados que el proveedor sabe servir (medido el 2026-08-26).
+ *
+ * `/lanzamientos` es una tanda con fecha; `/categoria/{id}-{slug}` es una rama del
+ * catálogo. Se distinguen acá y no en el acumulador porque son convenciones del sitio de
+ * origen, que es lo que este módulo existe para saber.
+ */
+
+test('reconoce el listado de lanzamientos', () => {
+  assert.equal(claseDeListado(`${ORIGEN}/lanzamientos/?lz=2026-07-16`), 'lanzamiento');
+  assert.equal(claseDeListado(`${ORIGEN}/lanzamientos`), 'lanzamiento');
+});
+
+test('reconoce un listado por categoría', () => {
+  assert.equal(claseDeListado(`${ORIGEN}/categoria/1-cartera`), 'categoria');
+  assert.equal(claseDeListado(`${ORIGEN}/categoria/1-cartera?page=3`), 'categoria');
+});
+
+test('una subcategoría también es un listado por categoría', () => {
+  // Se pagina igual y trae las mismas fichas: es la misma clase de página, más angosta.
+  assert.equal(claseDeListado(`${ORIGEN}/categoria/1-cartera/38-cartera`), 'categoria');
+});
+
+test('no son listados la ficha, la portada ni una ruta parecida', () => {
+  for (const url of [
+    `${ORIGEN}/producto/71803-cg86003`,
+    `${ORIGEN}/`,
+    ORIGEN,
+    `${ORIGEN}/carrito`,
+    // `/categoria` sin rama no lista nada, y `/categorias` no es la ruta del proveedor.
+    `${ORIGEN}/categoria`,
+    `${ORIGEN}/categoria/`,
+    `${ORIGEN}/categorias/1-cartera`,
+    // El scrape no sale del origen ni para reconocer un listado.
+    'https://otro-sitio.com/categoria/1-cartera',
+    'no es una url',
+  ]) {
+    assert.equal(claseDeListado(url), null, url);
+  }
+});
+
+/**
+ * Cuántos productos declara la categoría en su encabezado.
+ *
+ * HACE FALTA DE VERDAD, y es el hallazgo del 2026-08-26: la paginación de una categoría
+ * es una VENTANA DESLIZANTE. `/categoria/1-cartera` enlaza sólo las páginas 1 a 6, y la
+ * categoría tiene 36. Sin este número, el progreso diría «página 5 de 6» a un séptimo
+ * del recorrido.
+ */
+test('lee cuántos productos declara la categoría', () => {
+  assert.equal(totalDeclarado('431 Productos'), 431);
+  assert.equal(totalDeclarado('  51 Productos  '), 51);
+  assert.equal(totalDeclarado('1 Producto'), 1);
+});
+
+test('separadores de miles, porque el proveedor los escribe', () => {
+  assert.equal(totalDeclarado('1.234 Productos'), 1234);
+  assert.equal(totalDeclarado('1,234 Productos'), 1234);
+});
+
+test('un encabezado sin número no declara ningún total', () => {
+  // `/lanzamientos` sirve el mismo `<p>` VACIO. Devolver 0 haría una división por cero
+  // en el denominador del progreso; `null` dice lo que pasa: no se sabe.
+  for (const texto of ['', '   ', 'Productos', 'Lanzamientos']) {
+    assert.equal(totalDeclarado(texto), null, JSON.stringify(texto));
+  }
 });

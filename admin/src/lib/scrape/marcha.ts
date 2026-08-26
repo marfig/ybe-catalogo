@@ -117,7 +117,22 @@ export function codigosDe(urls: string[]): string[] {
 /** Lo que lleva hecho la corrida. */
 export interface Marcha {
   paginasHechas: number;
+  /**
+   * El denominador del progreso. Lo mantiene `conListado`, que es el único que lo
+   * escribe: en una categoría no sale de lo que enlaza la página.
+   */
   totalPaginas: number;
+  /**
+   * El mayor número que enlazó la paginación hasta ahora. **Sólo crece.**
+   *
+   * Va aparte de `totalPaginas` porque en una categoría son dos cosas distintas: esto es
+   * lo que se ve, y `totalPaginas` es lo que hay. Ver `conListado`.
+   */
+  ventana: number;
+  /** Cuántos productos declara la categoría, o `null` si no lo declara. */
+  totalProductos: number | null;
+  /** El mayor tamaño de página visto. Es el divisor de la estimación. */
+  porPagina: number;
   /** Fichas que el proveedor sirvió, incluidas las que el servidor omitió. */
   leidas: number;
   /** Productos que no existían. */
@@ -141,6 +156,9 @@ export interface Marcha {
 export const MARCHA_INICIAL: Readonly<Marcha> = Object.freeze({
   paginasHechas: 0,
   totalPaginas: 1,
+  ventana: 1,
+  totalProductos: null,
+  porPagina: 0,
   leidas: 0,
   nuevos: 0,
   repetidos: 0,
@@ -148,6 +166,63 @@ export const MARCHA_INICIAL: Readonly<Marcha> = Object.freeze({
   errores: 0,
   salteados: 0,
 });
+
+/** Lo que trae una respuesta del listado, en lo que le importa al denominador. */
+export interface DatosListado {
+  /** El mayor número que enlazó la paginación de esta página. */
+  totalPaginas?: number;
+  /** Cuántos productos declara la categoría, si lo declara. */
+  totalProductos?: number | null;
+  /** Cuántas fichas trajo esta página, ANTES de filtrar las que ya se tienen. */
+  fichasEnPagina?: number;
+}
+
+/**
+ * Suma lo que dijo una página del listado. Devuelve una marcha nueva.
+ *
+ * EXISTE POR EL HALLAZGO DEL 2026-08-26: la paginación de una categoría es una VENTANA
+ * DESLIZANTE. `/categoria/1-cartera` enlaza sólo las páginas 1 a 6, y la categoría tiene
+ * 36; la página 6 enlaza hasta la 11, la 11 hasta la 16.
+ *
+ * El recorrido llega igual porque la cola se resiembra con cada respuesta (§7.1), así que
+ * esto no arregla ningún agujero: arregla el DENOMINADOR. Sin el total declarado, el
+ * progreso diría «página 5 de 6» a un séptimo del trabajo hecho, y quien mira cerraría
+ * la pestaña convencido de que estaba terminando.
+ *
+ * `/lanzamientos` no declara total y no desliza —emite todas sus páginas de una—, así que
+ * ahí manda la ventana y el comportamiento no cambia.
+ */
+export function conListado(marcha: Marcha, datos: DatosListado): Marcha {
+  const ventana = Math.max(marcha.ventana, datos.totalPaginas ?? 1);
+
+  /**
+   * El total declarado se RECUERDA: viene en cada respuesta, pero que una página no lo
+   * traiga no puede borrar lo que ya se sabía de la categoría.
+   */
+  const totalProductos = datos.totalProductos ?? marcha.totalProductos;
+
+  /**
+   * El tamaño de página es el MAYOR visto y no el último. La última página de una
+   * categoría trae menos fichas —11 en vez de 12—, y estimar con ese número daría 40
+   * páginas para 431 productos en vez de 36: la barra se clavaría en el 90% al terminar.
+   */
+  const porPagina = Math.max(marcha.porPagina, datos.fichasEnPagina ?? 0);
+
+  /**
+   * La ventana es el PISO y no un dato secundario: un total mal contado por el proveedor
+   * no puede hacer que el progreso diga que el recorrido terminó mientras el propio sitio
+   * sigue enlazando páginas.
+   */
+  const estimadas = totalProductos && porPagina > 0 ? Math.ceil(totalProductos / porPagina) : 0;
+
+  return {
+    ...marcha,
+    ventana,
+    totalProductos,
+    porPagina,
+    totalPaginas: Math.max(ventana, estimadas),
+  };
+}
 
 /** Lo que devuelve `/api/scrape/ficha`, en lo que le importa a la contabilidad. */
 export interface RespuestaFicha {

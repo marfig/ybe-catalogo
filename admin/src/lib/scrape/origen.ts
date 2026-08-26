@@ -17,6 +17,73 @@ export const ORIGEN = 'https://www.chenson.com.py';
 /** Ruta de las imágenes del proveedor. */
 export const RUTA_IMAGENES = '/Prelude-images/product/';
 
+/** Ruta del listado de lanzamientos: una tanda con fecha. */
+export const RUTA_LANZAMIENTOS = '/lanzamientos';
+
+/** Ruta de un listado por categoría: `/categoria/{id}-{slug}`, con subcategoría opcional. */
+const RE_CATEGORIA = /^\/categoria\/[^/]+/;
+
+/**
+ * Los dos listados que el proveedor sabe servir.
+ *
+ * Se distinguen porque SE PAGINAN DISTINTO, y esa diferencia es la que decide qué acota
+ * el recorrido. Un lanzamiento se acota por su `lz` —la página enlaza los lanzamientos
+ * anteriores—; una categoría se acota por su ruta —la página enlaza todas las demás
+ * categorías en el menú—. Sin acotar, cualquiera de los dos importa el catálogo entero.
+ */
+export type ClaseDeListado = 'lanzamiento' | 'categoria';
+
+/**
+ * Qué clase de listado es esta URL, o `null` si no es ninguno.
+ *
+ * `null` en vez de lanzar: el acumulador es el que decide si eso es un error, y para el
+ * resto del scrape «esto no es un listado» es una respuesta normal.
+ */
+export function claseDeListado(url: string): ClaseDeListado | null {
+  let ruta: string;
+  try {
+    const u = new URL(url);
+    // El scrape no sale del origen, ni siquiera para clasificar.
+    if (!/^https?:$/.test(u.protocol) || u.host !== new URL(ORIGEN).host) return null;
+    ruta = u.pathname;
+  } catch {
+    return null;
+  }
+
+  if (ruta === RUTA_LANZAMIENTOS || ruta.startsWith(`${RUTA_LANZAMIENTOS}/`)) {
+    return 'lanzamiento';
+  }
+  // `RE_CATEGORIA` exige una rama después de `/categoria/`: `/categoria` sola no lista
+  // nada, y `/categorias/...` no es una ruta del proveedor.
+  if (RE_CATEGORIA.test(ruta)) return 'categoria';
+
+  return null;
+}
+
+/**
+ * Cuántos productos declara el encabezado de una categoría: `431 Productos`.
+ *
+ * ES EL ÚNICO DATO QUE DICE CUÁNTAS PÁGINAS HAY, y hace falta por el hallazgo del
+ * 2026-08-26: la paginación de una categoría es una VENTANA DESLIZANTE.
+ * `/categoria/1-cartera` enlaza sólo las páginas 1 a 6, y la categoría tiene 36. El
+ * recorrido llega igual —la cola se resiembra con cada respuesta— pero el progreso
+ * diría «página 5 de 6» a un séptimo del camino.
+ *
+ * Devuelve `null` y no 0 cuando no hay número: `/lanzamientos` sirve el MISMO `<p>`
+ * vacío, así que ese caso es el camino normal de la otra clase de listado y no una
+ * defensa. Quien estima páginas necesita distinguir «no lo sé» de «no hay ninguno»
+ * antes de dividir.
+ */
+export function totalDeclarado(texto: string): number | null {
+  // Los separadores de miles se descartan antes de parsear: `Number('1.234')` da 1.234,
+  // que redondeado son 1 producto.
+  const m = (texto ?? '').trim().match(/^([\d.,]+)\s+Productos?\b/i);
+  if (!m) return null;
+
+  const n = Number(m[1].replace(/[.,]/g, ''));
+  return Number.isInteger(n) && n > 0 ? n : null;
+}
+
 /**
  * El `alt` con que el sitio etiqueta sus fotos de galería.
  *

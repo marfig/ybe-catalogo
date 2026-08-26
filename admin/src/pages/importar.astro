@@ -51,8 +51,16 @@ if (Astro.request.method === 'POST') {
 const ahora = new Date().toISOString();
 const abierta = await corridaEnCurso(ejecutar, { ahora });
 
-/** Ejemplo con el origen real, para que se vea qué se espera pegar. */
+/**
+ * Ejemplos con el origen real, para que se vea qué se espera pegar.
+ *
+ * SON DOS PORQUE HAY DOS LISTADOS, y la diferencia entre ellos es de tamaño: una tanda de
+ * lanzamientos son decenas de productos, una categoría son cientos. El placeholder muestra
+ * el chico y la nota nombra el otro: quien importa una categoría ya sabe lo que busca, y
+ * quien no, no tiene que encontrarse con el grande por accidente.
+ */
 const EJEMPLO = `${ORIGEN}/lanzamientos/?lz=2026-07-16`;
+const EJEMPLO_CATEGORIA = `${ORIGEN}/categoria/1-cartera`;
 ---
 
 <Panel titulo="Importar desde el proveedor" volver="/">
@@ -80,7 +88,7 @@ const EJEMPLO = `${ORIGEN}/lanzamientos/?lz=2026-07-16`;
 
   <form id="importar">
     <p class="campo">
-      <label for="url">Dirección del listado de lanzamientos</label>
+      <label for="url">Dirección del listado del proveedor</label>
       <input
         type="url"
         id="url"
@@ -90,8 +98,19 @@ const EJEMPLO = `${ORIGEN}/lanzamientos/?lz=2026-07-16`;
         placeholder={EJEMPLO}
       />
       <span class="nota">
-        Pegá la dirección de la página de lanzamientos del proveedor. Se importa
-        <strong> esa tanda</strong> y no el catálogo entero.
+        Una tanda de <strong>lanzamientos</strong> como <code>{EJEMPLO}</code>, o una
+        <strong>categoría</strong> como <code>{EJEMPLO_CATEGORIA}</code>. Se importa
+        <strong>eso y nada más</strong>: ni los lanzamientos anteriores, ni las otras
+        categorías, ni las subcategorías de la que pegues.
+      </span>
+      <span class="nota">
+        {/* No es una advertencia de cortesia: es el dato con el que alguien decide si
+            arranca ahora o mas tarde. Cartera son 431 productos en 36 paginas, y el
+            recorrido va a un pedido por segundo con la pestana abierta. */}
+        Una categoría es <strong>mucho más grande</strong> que una tanda — cientos de
+        productos, decenas de páginas — y la pestaña tiene que quedar abierta todo el
+        recorrido. Si se corta, volvé a importar la misma dirección: lo que ya entró
+        queda, y con la casilla de abajo tildada se saltea solo.
       </span>
     </p>
 

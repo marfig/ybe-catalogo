@@ -20,6 +20,7 @@ import {
   avance,
   clavePagina,
   codigosDe,
+  conListado,
   contarFicha,
   esperaMs,
   paginasPendientes,
@@ -37,6 +38,8 @@ interface RespuestaListado {
   fichas?: string[];
   paginas?: string[];
   totalPaginas?: number;
+  /** Cuantos productos declara la categoria. Ausente en un lanzamiento. */
+  totalProductos?: number | null;
   robotsAusente?: boolean;
   /** Codigos de esta pagina que ya estan en el catalogo. */
   yaTengo?: string[];
@@ -243,7 +246,18 @@ async function correr(
       }
 
       scrapeId = listado.scrapeId;
-      marcha = { ...marcha, totalPaginas: listado.totalPaginas ?? marcha.totalPaginas };
+      /**
+       * EL DENOMINADOR NO SE PISA CON LO QUE DIJO ESTA PAGINA. En una categoria la
+       * paginacion es una ventana deslizante —la pagina 1 enlaza hasta la 6 de 36—, asi
+       * que decidirlo por respuesta haria un progreso que miente todo el camino. La
+       * cuenta vive en `conListado`, que es puro y tiene tests.
+       */
+      marcha = conListado(marcha, {
+        totalPaginas: listado.totalPaginas,
+        totalProductos: listado.totalProductos,
+        // Las fichas CRUDAS, antes de saltear: es el tamano de pagina del proveedor.
+        fichasEnPagina: (listado.fichas ?? []).length,
+      });
 
       for (const nueva of paginasPendientes(listado.paginas ?? [], paginasVistas)) {
         paginasVistas.add(clavePagina(nueva));

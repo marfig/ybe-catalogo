@@ -7,6 +7,7 @@ import {
   avance,
   clavePagina,
   codigosDe,
+  conListado,
   contarFicha,
   esperaMs,
   paginasPendientes,
@@ -297,4 +298,91 @@ test('los salteados NO cuentan como leídas: al proveedor no se le pidió nada',
   // se hicieron 50 pedidos cuando se hicieron 12.
   const m = { ...MARCHA_INICIAL, salteados: 38 };
   assert.equal(m.leidas, 0);
+});
+
+// --------------------------------------------------------------------------
+// Cuántas páginas hay de verdad
+
+/**
+ * `conListado` existe por el hallazgo del 2026-08-26: la paginación de una categoría es
+ * una VENTANA DESLIZANTE. `/categoria/1-cartera` enlaza las páginas 1 a 6 y la categoría
+ * tiene 36; la página 6 enlaza hasta la 11, la 11 hasta la 16.
+ *
+ * El recorrido llega igual —la cola se resiembra con cada respuesta— pero el DENOMINADOR
+ * del progreso mentiría todo el camino: «página 5 de 6» a un séptimo del trabajo. Con el
+ * total declarado, se sabe desde la primera página.
+ */
+
+test('el total declarado manda sobre la ventana de paginación', () => {
+  const m = conListado(MARCHA_INICIAL, {
+    totalPaginas: 6,
+    totalProductos: 431,
+    fichasEnPagina: 12,
+  });
+  assert.equal(m.totalPaginas, 36);
+});
+
+test('sin total declarado, la ventana es todo lo que hay', () => {
+  // Es el caso de `/lanzamientos`, que no declara ninguno. Ahi la ventana no desliza:
+  // el listado emite todas sus paginas de una.
+  const m = conListado(MARCHA_INICIAL, { totalPaginas: 4, totalProductos: null });
+  assert.equal(m.totalPaginas, 4);
+});
+
+test('la ventana nunca retrocede', () => {
+  /**
+   * La ultima pagina de una categoria enlaza MENOS numeros que la anterior. Sin este
+   * piso, el denominador se caeria de 36 a 11 sobre el final y la barra saltaria hacia
+   * adelante justo cuando ya no hay nada que estimar.
+   */
+  let m = conListado(MARCHA_INICIAL, { totalPaginas: 36 });
+  m = conListado(m, { totalPaginas: 11 });
+  assert.equal(m.totalPaginas, 36);
+});
+
+test('la ventana gana si el total declarado se queda corto', () => {
+  // Un total mal contado por el proveedor no puede hacer que el progreso diga que el
+  // recorrido termino cuando quedan paginas que el propio sitio enlaza.
+  const m = conListado(MARCHA_INICIAL, {
+    totalPaginas: 40,
+    totalProductos: 12,
+    fichasEnPagina: 12,
+  });
+  assert.equal(m.totalPaginas, 40);
+});
+
+test('el tamaño de página es el MAYOR visto, no el último', () => {
+  /**
+   * La ultima pagina de cartera trae 11 fichas y no 12. Estimando con 11, las 431
+   * darian 40 paginas en vez de 36 — y la barra se clavaria en el 90% al terminar.
+   */
+  let m = conListado(MARCHA_INICIAL, { totalProductos: 431, fichasEnPagina: 12 });
+  m = conListado(m, { fichasEnPagina: 11 });
+  assert.equal(m.totalPaginas, 36);
+});
+
+test('el total declarado se recuerda entre páginas', () => {
+  // Viene en cada respuesta, pero que una pagina no lo traiga no puede borrar lo que ya
+  // se sabia de la categoria.
+  let m = conListado(MARCHA_INICIAL, { totalProductos: 51, fichasEnPagina: 12 });
+  m = conListado(m, { totalPaginas: 5 });
+  assert.equal(m.totalProductos, 51);
+  assert.equal(m.totalPaginas, 5);
+});
+
+test('una categoría de una sola página cuenta como una', () => {
+  const m = conListado(MARCHA_INICIAL, { totalPaginas: 1, totalProductos: 7, fichasEnPagina: 7 });
+  assert.equal(m.totalPaginas, 1);
+});
+
+test('un total declarado sin fichas todavía no estima nada', () => {
+  // Dividir por cero daria Infinity y la barra desapareceria.
+  const m = conListado(MARCHA_INICIAL, { totalPaginas: 3, totalProductos: 431, fichasEnPagina: 0 });
+  assert.equal(m.totalPaginas, 3);
+});
+
+test('no toca la marcha que recibe', () => {
+  const antes = { ...MARCHA_INICIAL };
+  conListado(MARCHA_INICIAL, { totalPaginas: 9, totalProductos: 431, fichasEnPagina: 12 });
+  assert.deepEqual({ ...MARCHA_INICIAL }, antes);
 });

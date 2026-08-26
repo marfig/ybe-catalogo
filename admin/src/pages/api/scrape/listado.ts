@@ -10,7 +10,11 @@ import { codigosExistentes } from '../../../lib/scrape/registrar.ts';
 import { leerRobots, permiteRuta } from '../../../lib/scrape/robots.ts';
 
 /**
- * Una página del listado de lanzamientos (SPEC-etapa2 §7.2).
+ * Una página del listado del proveedor (SPEC-etapa2 §7.2).
+ *
+ * Sirve las dos clases de listado, `/lanzamientos` y `/categoria/...`, y no se ramifica
+ * por ninguna: qué acota el recorrido lo sabe `lib/scrape/listado.ts`. Acá la única
+ * diferencia visible es `totalProductos`, que una categoría declara y un lanzamiento no.
  *
  * Devuelve las fichas de esta página y el total de páginas del lanzamiento. El bucle
  * lo maneja el navegador (§7.1): este endpoint no encadena nada, porque el presupuesto
@@ -91,9 +95,15 @@ export const POST: APIRoute = async ({ request }) => {
 
   return json({
     scrapeId,
+    clase: listado.clase,
     fichas: listado.fichas,
     paginas: listado.paginas,
     totalPaginas: listado.totalPaginas,
+    /**
+     * Va crudo, sin convertirlo a páginas: cuántas son depende del tamaño de página, que
+     * se aprende recorriendo y es estado del recorrido, no de una respuesta.
+     */
+    totalProductos: listado.totalProductos,
     robotsAusente: robots.ausente,
     yaTengo,
   });
