@@ -23041,6 +23041,235 @@
     ]
   },
   {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "valijas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 57 x 35 x 21 cm",
+    "id": "maleta-de-fibra-dura",
+    "nombre": "maleta de fibra dura",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "9534325"
+    },
+    "precio": 445000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/85ad4a0b601c4cf4"
+          }
+        ],
+        "sku": "9534325-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "valijas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 67 x 41 x 25 cm",
+    "id": "maleta-de-fibra-dura-2",
+    "nombre": "maleta de fibra dura",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "9534326"
+    },
+    "precio": 475000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dce6c41822db9a2d"
+          }
+        ],
+        "sku": "9534326-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "valijas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 63 x 42 x 24 cm",
+    "id": "maleta-de-fibra-dura-3",
+    "nombre": "maleta de fibra dura",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "9534951"
+    },
+    "precio": 515000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dd955ecfed21d311"
+          }
+        ],
+        "sku": "9534951-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/46256e8a191f1e98"
+          }
+        ],
+        "sku": "9534951-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "valijas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 64 x 40 x 26 cm",
+    "id": "maleta-de-tela",
+    "nombre": "maleta de tela",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "9734946"
+    },
+    "precio": 398000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fa9f5ed72670e543"
+          }
+        ],
+        "sku": "9734946-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "valijas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 53 x 34 x 23 cm",
+    "id": "maleta-de-tela-2",
+    "nombre": "maleta de tela",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "9734947"
+    },
+    "precio": 375000,
+    "variantes": [
+      {
+        "color": "Celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f6c0ac1bb065812b"
+          }
+        ],
+        "sku": "9734947-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "valijas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 64 x 40 x 26 cm",
+    "id": "maleta-de-tela-3",
+    "nombre": "maleta de tela",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "9734948"
+    },
+    "precio": 398000,
+    "variantes": [
+      {
+        "color": "Celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8a9dc416fac8d208"
+          }
+        ],
+        "sku": "9734948-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "valijas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 47 x 37 x 18 cm",
+    "id": "maleta-de-tela-4",
+    "nombre": "maleta de tela",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "9734949"
+    },
+    "precio": 465000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b89fecaccc3d2d9e"
+          }
+        ],
+        "sku": "9734949-3"
+      },
+      {
+        "color": "Verde Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a8c2ec3ad16a7029"
+          }
+        ],
+        "sku": "9734949-G"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-26",
     "categorias": [
       "lonchera-termica-infantil"
@@ -35042,6 +35271,220 @@
     ]
   },
   {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "valijas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 32 x 42 x 11 cm",
+    "id": "organizador-de-maleta",
+    "nombre": "Organizador de maleta",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734259"
+    },
+    "precio": 98000,
+    "variantes": [
+      {
+        "color": "Azul Marino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d0ab68999b9e22cf"
+          }
+        ],
+        "sku": "1734259-6"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/19a5bb7a2af946bc"
+          }
+        ],
+        "sku": "1734259-1"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0231c22cc5bd42c0"
+          }
+        ],
+        "sku": "1734259-B"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/61998dda6072cb8b"
+          }
+        ],
+        "sku": "1734259-3"
+      },
+      {
+        "color": "Salmon",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2470548f59925e5b"
+          }
+        ],
+        "sku": "1734259-N"
+      },
+      {
+        "color": "Salmon Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5ce2fe27a721391c"
+          }
+        ],
+        "sku": "1734259-E"
+      },
+      {
+        "color": "Verde Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c483ae5f4f37a58a"
+          }
+        ],
+        "sku": "1734259-5"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "valijas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 32 x 40 x 11 cm",
+    "id": "organizador-de-maleta-2",
+    "nombre": "Organizador de maleta",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734264"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Azul Marino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/34397892d195f2cf"
+          }
+        ],
+        "sku": "1734264-6"
+      },
+      {
+        "color": "Celeste Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ed4c9eb2f6408ff8"
+          }
+        ],
+        "sku": "1734264-9"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9571bca9f7f644df"
+          }
+        ],
+        "sku": "1734264-1"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/74ae6e27b18cd758"
+          }
+        ],
+        "sku": "1734264-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/106c41939e0d1cf6"
+          }
+        ],
+        "sku": "1734264-P"
+      },
+      {
+        "color": "Salmon Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4140cd136f6bfa03"
+          }
+        ],
+        "sku": "1734264-E"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b5fb6b9a22e2bd0a"
+          }
+        ],
+        "sku": "1734264-A"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "mascota"
@@ -35139,6 +35582,122 @@
           }
         ],
         "sku": "4790187-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "valijas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 58.0 x 42.0 x 28.0 cm",
+    "id": "protector-de-maleta",
+    "nombre": "Protector de maleta",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4530833"
+    },
+    "precio": 98000,
+    "variantes": [
+      {
+        "color": "Dp6 Khaki",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6ae5ec485b3454c2"
+          }
+        ],
+        "sku": "4530833-K"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "valijas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 67.0 x 51.0 x 29.0 cm",
+    "id": "protector-de-maleta-2",
+    "nombre": "Protector de maleta",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4530834"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Dp6 Khaki",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/28e2c07f106568dd"
+          }
+        ],
+        "sku": "4530834-K"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "valijas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 64 x 43 x 28 cm",
+    "id": "protector-de-maleta-3",
+    "nombre": "Protector de maleta",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4732921"
+    },
+    "precio": 89000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5925cbfa4f637683"
+          }
+        ],
+        "sku": "4732921-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "valijas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 78 x 48 x 30 cm",
+    "id": "protector-de-maleta-4",
+    "nombre": "Protector de maleta",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4732922"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d4c710d8812715bf"
+          }
+        ],
+        "sku": "4732922-3"
       }
     ]
   },
