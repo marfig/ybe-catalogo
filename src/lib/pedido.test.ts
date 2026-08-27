@@ -1,0 +1,242 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+
+import {
+  FORMAS_PAGO,
+  construirMensajePedido,
+  enlacePedidoWa,
+  leerContextoPedido,
+  urlDeFormulario,
+  validarPedido,
+  type DatosPedido,
+} from './pedido.ts';
+
+const TEL = '595971878090';
+const URL_PROD = 'https://ybe.test/productos/cartera-de-fiesta-con-strass';
+
+const COMPLETO: DatosPedido = {
+  nombre: 'Juan Pérez',
+  telefono: '0981123456',
+  direccion: 'Av. España 1234 c/ Brasil',
+  ciudad: 'Asunción',
+  referencia: 'Portón blanco, al lado de la farmacia',
+  cantidad: 2,
+  pago: 'transferencia',
+  notas: 'Entregar por la tarde',
+};
+
+// --------------------------------------------------------------------------
+// El enlace del boton «Pedi ahora» de la ficha
+// --------------------------------------------------------------------------
+
+test('el enlace del formulario lleva el slug del producto', () => {
+  const u = new URL(urlDeFormulario({ slug: 'cartera-de-fiesta' }), 'https://ybe.test');
+  assert.equal(u.pathname, '/pedir');
+  assert.equal(u.searchParams.get('p'), 'cartera-de-fiesta');
+});
+
+test('con una sola variante no se cuelgan sku ni color en la URL', () => {
+  const u = new URL(urlDeFormulario({ slug: 'mochila' }), 'https://ybe.test');
+  assert.equal(u.searchParams.get('v'), null);
+  assert.equal(u.searchParams.get('c'), null);
+});
+
+test('con variante elegida, sku y color viajan en la URL', () => {
+  const u = new URL(
+    urlDeFormulario({ slug: 'mochila', sku: 'CG85527-AZ', color: 'Azul marino' }),
+    'https://ybe.test'
+  );
+  assert.equal(u.searchParams.get('v'), 'CG85527-AZ');
+  assert.equal(u.searchParams.get('c'), 'Azul marino');
+});
+
+// --------------------------------------------------------------------------
+// Leer el contexto del lado del formulario
+// --------------------------------------------------------------------------
+
+test('el contexto se recupera de la query string', () => {
+  const ctx = leerContextoPedido('?p=mochila&v=CG1-AZ&c=Azul%20marino');
+  assert.deepEqual(ctx, { slug: 'mochila', sku: 'CG1-AZ', color: 'Azul marino' });
+});
+
+test('ida y vuelta: lo que arma la ficha es lo que lee el formulario', () => {
+  const contexto = { slug: 'cartera-de-fiesta', sku: 'CG9-RJ', color: 'Rojo' };
+  const u = new URL(urlDeFormulario(contexto), 'https://ybe.test');
+  assert.deepEqual(leerContextoPedido(u.search), contexto);
+});
+
+test('sin producto en la query el contexto es nulo', () => {
+  assert.equal(leerContextoPedido('?v=CG1-AZ'), null);
+  assert.equal(leerContextoPedido(''), null);
+});
+
+// --------------------------------------------------------------------------
+// Validacion: que campo falta y por que
+// --------------------------------------------------------------------------
+
+test('un pedido completo no tiene errores', () => {
+  assert.deepEqual(validarPedido(COMPLETO), {});
+});
+
+test('sin nombre, telefono, direccion o ciudad hay un error por campo', () => {
+  const errores = validarPedido({
+    ...COMPLETO,
+    nombre: '',
+    telefono: '',
+    direccion: '',
+    ciudad: '',
+  });
+  assert.ok(errores.nombre, 'falta el error de nombre');
+  assert.ok(errores.telefono, 'falta el error de telefono');
+  assert.ok(errores.direccion, 'falta el error de direccion');
+  assert.ok(errores.ciudad, 'falta el error de ciudad');
+});
+
+test('el blanco no cuenta como dato cargado', () => {
+  assert.ok(validarPedido({ ...COMPLETO, nombre: '   ' }).nombre);
+});
+
+test('la referencia y las notas son opcionales', () => {
+  assert.deepEqual(validarPedido({ ...COMPLETO, referencia: '', notas: '' }), {});
+});
+
+test('un telefono con menos digitos que un movil paraguayo se rechaza', () => {
+  assert.ok(validarPedido({ ...COMPLETO, telefono: '12345' }).telefono);
+});
+
+test('el telefono se acepta con espacios, guiones y parentesis', () => {
+  assert.deepEqual(validarPedido({ ...COMPLETO, telefono: '(0981) 123-456' }), {});
+});
+
+test('la cantidad no puede ser cero, negativa ni fraccionada', () => {
+  assert.ok(validarPedido({ ...COMPLETO, cantidad: 0 }).cantidad);
+  assert.ok(validarPedido({ ...COMPLETO, cantidad: -1 }).cantidad);
+  assert.ok(validarPedido({ ...COMPLETO, cantidad: 1.5 }).cantidad);
+});
+
+test('la cantidad vacia del input —NaN— se reporta como error, no explota', () => {
+  assert.ok(validarPedido({ ...COMPLETO, cantidad: Number.NaN }).cantidad);
+});
+
+// --------------------------------------------------------------------------
+// La forma de pago
+// --------------------------------------------------------------------------
+
+test('sin elegir forma de pago hay error: no hay default que adivinar', () => {
+  assert.ok(validarPedido({ ...COMPLETO, pago: null }).pago);
+});
+
+test('las dos formas de pago son validas', () => {
+  assert.deepEqual(validarPedido({ ...COMPLETO, pago: 'efectivo' }), {});
+  assert.deepEqual(validarPedido({ ...COMPLETO, pago: 'transferencia' }), {});
+});
+
+test('la forma de pago va rotulada en el mensaje, en palabra y no en clave', () => {
+  const enEfectivo = construirMensajePedido({
+    producto: PRODUCTO,
+    datos: { ...COMPLETO, pago: 'efectivo' },
+  });
+  assert.ok(enEfectivo.includes('Pago: Efectivo'), enEfectivo);
+
+  const porTransferencia = construirMensajePedido({
+    producto: PRODUCTO,
+    datos: { ...COMPLETO, pago: 'transferencia' },
+  });
+  assert.ok(porTransferencia.includes('Pago: Transferencia'), porTransferencia);
+});
+
+test('sin forma de pago el mensaje no deja el rotulo colgado', () => {
+  const texto = construirMensajePedido({ producto: PRODUCTO, datos: { ...COMPLETO, pago: null } });
+  assert.ok(!texto.includes('Pago:'));
+});
+
+test('las formas de pago que se ofrecen son exactamente dos', () => {
+  assert.deepEqual(
+    FORMAS_PAGO.map((f) => f.valor),
+    ['efectivo', 'transferencia']
+  );
+});
+
+// --------------------------------------------------------------------------
+// El mensaje del pedido
+// --------------------------------------------------------------------------
+
+const PRODUCTO = {
+  nombre: 'Cartera de fiesta con strass',
+  codigo: 'CG85527' as string | undefined,
+  url: URL_PROD,
+  color: 'Rojo' as string | undefined,
+};
+
+test('el mensaje lleva el producto, el codigo y todos los datos del cliente', () => {
+  const texto = construirMensajePedido({ producto: PRODUCTO, datos: COMPLETO });
+
+  for (const esperado of [
+    'Cartera de fiesta con strass',
+    'CG85527',
+    'Juan Pérez',
+    '0981123456',
+    'Av. España 1234 c/ Brasil',
+    'Asunción',
+    'Portón blanco, al lado de la farmacia',
+    'Entregar por la tarde',
+    URL_PROD,
+  ]) {
+    assert.ok(texto.includes(esperado), `falta "${esperado}" en el mensaje`);
+  }
+});
+
+test('la URL canonica queda al final, para que la vista previa no se parta', () => {
+  const texto = construirMensajePedido({ producto: PRODUCTO, datos: COMPLETO });
+  assert.ok(texto.trimEnd().endsWith(URL_PROD));
+});
+
+test('cantidad 1 no se rotula: es el caso normal y solo agrega ruido', () => {
+  const texto = construirMensajePedido({ producto: PRODUCTO, datos: { ...COMPLETO, cantidad: 1 } });
+  assert.ok(!texto.includes('Cantidad'));
+});
+
+test('cantidad mayor a 1 se rotula', () => {
+  const texto = construirMensajePedido({ producto: PRODUCTO, datos: { ...COMPLETO, cantidad: 3 } });
+  assert.ok(/Cantidad: 3/.test(texto));
+});
+
+test('los campos opcionales vacios no dejan rotulos colgados', () => {
+  const texto = construirMensajePedido({
+    producto: PRODUCTO,
+    datos: { ...COMPLETO, referencia: '', notas: '' },
+  });
+  assert.ok(!texto.includes('Referencia:'));
+  assert.ok(!texto.includes('Nota:'));
+});
+
+test('sin codigo el mensaje sigue sirviendo, sin el rotulo vacio', () => {
+  const texto = construirMensajePedido({
+    producto: { ...PRODUCTO, codigo: undefined },
+    datos: COMPLETO,
+  });
+  assert.ok(!texto.includes('Código:'));
+  assert.ok(texto.includes('Cartera de fiesta con strass'));
+});
+
+test('sin color el encabezado no queda con el guion colgado', () => {
+  const texto = construirMensajePedido({
+    producto: { ...PRODUCTO, color: undefined },
+    datos: COMPLETO,
+  });
+  assert.ok(!texto.includes('—'));
+});
+
+// --------------------------------------------------------------------------
+// El enlace de envio
+// --------------------------------------------------------------------------
+
+test('el enlace de envio es un wa.me con el mensaje codificado', () => {
+  const enlace = enlacePedidoWa({ telefono: TEL, producto: PRODUCTO, datos: COMPLETO });
+  const u = new URL(enlace);
+  assert.equal(u.origin + u.pathname, `https://wa.me/${TEL}`);
+  assert.equal(
+    u.searchParams.get('text'),
+    construirMensajePedido({ producto: PRODUCTO, datos: COMPLETO })
+  );
+});

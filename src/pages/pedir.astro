@@ -1,0 +1,52 @@
+---
+import { PUBLIC_R2_BASE, PUBLIC_WHATSAPP } from 'astro:env/client';
+
+import Base from '../layouts/Base.astro';
+import FormularioPedido from '../components/islas/FormularioPedido.tsx';
+import { normalizarTelefono } from '../lib/whatsapp.ts';
+
+/**
+ * El formulario de pedido.
+ *
+ * UNA SOLA PÁGINA PARA TODO EL CATÁLOGO: el producto llega en `?p=<slug>` y la isla lo
+ * resuelve contra `/indice.json`. Ver el comentario de `FormularioPedido`.
+ *
+ * `Astro.site` es la URL del sitio, y acá se usa para armar la URL canónica del
+ * producto que va en el mensaje. Se pasa como cadena porque la isla corre en el
+ * cliente, donde `Astro.site` no existe.
+ */
+const origen = Astro.site?.origin ?? '';
+---
+
+<Base
+  titulo="Hacer un pedido"
+  descripcion="Completá tus datos y te confirmamos el pedido por WhatsApp."
+>
+  {
+    /**
+     * `client:load` y no `client:visible`: el formulario ES la página, así que no hay
+     * un momento en que no se lo esté mirando, y esperar a que entre en viewport sólo
+     * agrega una demora antes de que aparezcan los campos.
+     *
+     * NO se renderiza en el servidor —`client:only` sería lo honesto— pero se deja
+     * hidratar normal a propósito: el HTML del servidor muestra la estructura del
+     * formulario, que es mejor que una pantalla en blanco mientras baja el JS.
+     */
+  }
+  <div class="mx-auto flex max-w-xl flex-col gap-4">
+    <div>
+      <a href="/" class="text-texto-suave text-sm underline">← Seguir viendo el catálogo</a>
+      <h1 class="mt-2 text-xl font-semibold sm:text-2xl">Hacer un pedido</h1>
+      <p class="text-texto-suave mt-1 text-sm">
+        Completá tus datos y te confirmamos el pedido por WhatsApp.
+      </p>
+    </div>
+
+    <FormularioPedido
+      client:load
+      r2Base={PUBLIC_R2_BASE}
+      telefono={normalizarTelefono(PUBLIC_WHATSAPP)}
+      origen={origen}
+    />
+  </div>
+</Base>

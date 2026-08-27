@@ -26,4 +26,33 @@
   /* Borde. 1.37:1 sobre --color-fondo. Decorativo, nunca texto.
      Es lo que separa la foto de producto del fondo. Ver SPEC §3.3. */
   --color-borde: #d8d8d0;
+
+  /* Accion. Es el color del boton que cierra una venta —«Pedi ahora»— y no sale del
+     muestreo del logo, a diferencia de todos los de arriba.
+
+     POR QUE NO ALCANZABA --color-primario: ese es el neutro del logo, y un neutro
+     leido como boton se ve APAGADO. No es cuestion de gusto — un boton primario
+     grisaceo se confunde con uno deshabilitado, que es lo contrario de lo que este
+     boton necesita comunicar.
+
+     AZUL Y NO UN CALIDO DE LA PALETA, por decision del usuario (2026-08-27). Se
+     probo primero un terracota, que pertenecia mejor a una paleta enteramente calida
+     (beige, taupe, marron); el azul se eligio igual porque es el color que la gente
+     ya tiene aprendido como «boton que hace algo». No pertenece a la paleta A
+     PROPOSITO: es lo que lo hace destacar entre tanto neutro.
+
+     Blanco encima da 6.66:1, AAA. */
+  --color-accion: #1d4ed8;
+
+  /* El verde de marca de WhatsApp. NO ES UN COLOR DEL SITIO: no sale del muestreo
+     del logo y no se usa en ningun otro lado. Existe para que el boton de WhatsApp
+     se reconozca antes de leerlo, que es el unico trabajo que tiene.
+
+     CON TEXTO BLANCO, POR DECISION EXPLICITA DEL USUARIO (2026-08-27). Da 1.83:1, que
+     NO cumple AA (SPEC §3.2) — es el mismo par que usa la app de WhatsApp en sus
+     propios botones. Se dejo asi porque el reconocimiento de marca gano sobre el
+     contraste; el par accesible seria un verde mas oscuro, del orden de #0e8040.
+
+     Que quede escrito y no se descubra de nuevo en la proxima auditoria. */
+  --color-whatsapp: #25d366;
 }
