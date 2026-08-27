@@ -17491,6 +17491,100 @@
     ]
   },
   {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 24 x 7 cm",
+    "id": "cartuchera-6",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734673"
+    },
+    "precio": 28000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/87ab49b3594a4425"
+          }
+        ],
+        "sku": "1734673-9"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fe8aed441037e55d"
+          }
+        ],
+        "sku": "1734673-2"
+      },
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/056e01db08a32ab2"
+          }
+        ],
+        "sku": "1734673-V"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6b7ba015bb336311"
+          }
+        ],
+        "sku": "1734673-3"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dce206b574b88c5e"
+          }
+        ],
+        "sku": "1734673-R"
+      },
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/84aa0b400730381c"
+          }
+        ],
+        "sku": "1734673-F"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-26",
     "categorias": [
       "cartucheras"
