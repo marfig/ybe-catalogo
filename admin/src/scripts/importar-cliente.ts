@@ -30,6 +30,7 @@ import {
 } from '../lib/scrape/marcha.ts';
 // Compartidos con el recorrido de la migracion (`migracion-cliente.ts`). La verificacion
 // de hash de las fotos no puede vivir en dos lugares: ver `fotos.ts`.
+import { avisoDeColoresSinNombre } from '../lib/scrape/aviso-colores.ts';
 import { traerFotos } from './fotos.ts';
 import { postJson } from './pedidos.ts';
 
@@ -51,6 +52,8 @@ interface RespuestaFicha {
   creado?: boolean;
   omitida?: boolean;
   avisoDeCambio?: boolean;
+  /** Colores que el proveedor sirvió sin un nombre del que salga un SKU. */
+  coloresSinNombre?: number;
   /** Un item por color del modelo, con el SKU de su variante. */
   colores?: Array<{ sku: string; fotos: string[] }>;
   hermanos?: string[];
@@ -315,6 +318,14 @@ async function correr(
            */
           if (resultado.codigo) codigos.add(resultado.codigo);
           for (const codigo of codigosDe(resultado.hermanos ?? [])) codigos.add(codigo);
+
+          /**
+           * El aviso de que el proveedor sirvió un color del que no sale un SKU. Se avisa
+           * aunque la ficha haya entrado bien: lo que queda es un producto sin esa variante
+           * y sin sus fotos, y hasta hoy eso pasaba callado. Ver `aviso-colores.ts`.
+           */
+          const aviso = avisoDeColoresSinNombre(resultado.coloresSinNombre);
+          if (aviso) anotarProblema(resultado.codigo ?? ficha, aviso);
 
           await traerFotos(resultado, cortesia, anotarProblema);
         }

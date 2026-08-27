@@ -18,6 +18,7 @@
  * Corre en la pestaña por el motivo de siempre (§7.1): un pedido por segundo durante varios
  * minutos no cabe en el presupuesto de CPU de un Worker.
  */
+import { avisoDeColoresSinNombre } from '../lib/scrape/aviso-colores.ts';
 import { esperaMs } from '../lib/scrape/marcha.ts';
 import { traerFotos, type FichaConFotos } from './fotos.ts';
 import { postJson } from './pedidos.ts';
@@ -39,8 +40,11 @@ interface RespuestaLista {
 interface RespuestaFicha extends FichaConFotos {
   productoId?: number;
   omitida?: boolean;
+  /** Colores que el proveedor sirvió sin un nombre del que salga un SKU. */
+  coloresSinNombre?: number;
   error?: string;
 }
+
 
 interface Pantalla {
   empezar: HTMLButtonElement;
@@ -205,6 +209,11 @@ export function prepararFotosFaltantes(): void {
          * lo que corresponde es aprobarlo marcando «permitir sin foto» o cargarle una a
          * mano. Contarlo aparte es lo que permite saber la diferencia sin abrir 40 fichas.
          */
+        // Se avisa aunque la ficha haya entrado bien, porque justamente entra bien: lo que
+        // queda es un producto incompleto, no un error.
+        const aviso = avisoDeColoresSinNombre(ficha.coloresSinNombre);
+        if (aviso) anotarProblema(producto.codigo, aviso);
+
         if (fotosOfrecidas(ficha) === 0) {
           sinNinguna++;
           mostrar(productos.length);

@@ -402,3 +402,92 @@ test('las medidas no rompen el determinismo de la ficha', () => {
   // Misma precondicion de §7.5 que el test de arriba, ahora con el campo nuevo.
   assert.deepEqual(conMedidas('21 x 29 x 14cm').resultado(), conMedidas('21 x 29 x 14cm').resultado());
 });
+
+// --------------------------------------------------------------------------
+// El asterisco del proveedor en el titulo (medido el 2026-08-27)
+// --------------------------------------------------------------------------
+
+/**
+ * EL BUG QUE ESTOS TESTS CIERRAN, y costo 17 productos sin variantes ni fotos.
+ *
+ * Los productos de outlet traen el titulo con un ASTERISCO entre el codigo y el color:
+ * `Producto: 0031688 *(O8) NARANJA/LIL`, contra el `Producto: CG85700 (3) NEGRO` de los
+ * demas. El regex del titulo exigia que despues del codigo viniera el parentesis, asi que
+ * no reconocia ninguno de esos y `colorOrigen` quedaba en null.
+ *
+ * Y a partir de ahi la cascada era silenciosa: sin color no hay SKU, sin SKU
+ * `registrarFicha` no crea la variante, y `fotosPorColor` descarta las fotos de la galeria
+ * porque no hay donde colgarlas. El producto entraba SIN variantes y SIN fotos, y el unico
+ * aviso —`coloresSinNombre`— no lo miraba nadie.
+ */
+
+test('el asterisco entre el codigo y el color no rompe el titulo', () => {
+  const a = new AcumuladorFicha(`${HOST}/producto/65745-0031688`);
+  a.verMeta('og:title', 'Producto: 0031688 *(O8) NARANJA/LIL');
+  a.verImagen({ src: IMG('out1'), alt: 'product-thumb' });
+
+  const r = a.resultado();
+  assert.equal(r.colorOrigen, '(O8) NARANJA/LIL', 'el asterisco no es parte del color');
+  // Sin el `:443`: `normalizarUrl` le saca el puerto por defecto, igual que en los
+  // casos de arriba. El proveedor lo sirve con puerto, nosotros lo guardamos sin.
+  assert.deepEqual(r.fotos, [`${HOST}/Prelude-images/product/out1.jpg`]);
+});
+
+test('con el asterisco, la foto de la galeria llega con su SKU', () => {
+  const a = new AcumuladorFicha(`${HOST}/producto/65745-0031688`);
+  a.verMeta('og:title', 'Producto: 0031688 *(O8) NARANJA/LIL');
+  a.verImagen({ src: IMG('out1'), alt: 'product-thumb' });
+
+  // Es el paso que se perdia: sin color, `fotosPorColor` devolvia [] y nadie pedia la foto.
+  const porColor = fotosPorColor(a.resultado());
+  assert.equal(porColor.length, 1);
+  assert.equal(porColor[0]?.sku, '0031688-O8');
+  assert.deepEqual(porColor[0]?.fotos, [`${HOST}/Prelude-images/product/out1.jpg`]);
+});
+
+test('los codigos de color reales del outlet entran, con guion y con varios digitos', () => {
+  /**
+   * Fichas y titulos medidos el 2026-08-27, los tres de productos que quedaron sin foto.
+   *
+   * La URL va con su codigo REAL y no una generica: `colorDesdeTitulo` exige que el codigo
+   * del titulo coincida con el de la URL —para no colgarle a una variante el color de otro
+   * producto si el proveedor cambia la plantilla— asi que una URL de mentira devuelve null
+   * por el motivo equivocado y el test no probaria nada.
+   */
+  for (const [ficha, titulo, color] of [
+    ['63135-0020894', 'Producto: 0020894 *(1-18) GRIS OSC.', '(1-18) GRIS OSC.'],
+    ['71678-0030074', 'Producto: 0030074 *(V) LILA CLARO', '(V) LILA CLARO'],
+    ['18730-4729607', 'Producto: 4729607 *(3) NEGRO', '(3) NEGRO'],
+  ] as const) {
+    const a = new AcumuladorFicha(`${HOST}/producto/${ficha}`);
+    a.verMeta('og:title', titulo);
+    assert.equal(a.resultado().colorOrigen, color, titulo);
+  }
+});
+
+test('el titulo sin asterisco sigue funcionando igual', () => {
+  const a = new AcumuladorFicha(`${HOST}/producto/71163-cg85700`);
+  a.verMeta('og:title', 'Producto: CG85700 (3) NEGRO');
+  assert.equal(a.resultado().colorOrigen, '(3) NEGRO');
+});
+
+/**
+ * NO se acepta cualquier basura entre el codigo y el parentesis, solo el asterisco.
+ *
+ * Un `[^(]*` habria pasado estos tres y de paso cualquier titulo que el proveedor rediseñe
+ * mañana, dando un color equivocado en vez de un aviso. Lo que no se reconoce tiene que
+ * seguir dando `null`: eso es lo que `coloresSinNombre` cuenta.
+ */
+test('sigue sin reconocer un titulo que no es el del proveedor', () => {
+  for (const titulo of [
+    'Producto: 0031688 SIN PARENTESIS',
+    'Producto: 0031688 -(O8) NARANJA',
+    'Otra cosa: 0031688 *(O8) NARANJA',
+  ]) {
+    // La URL es la buena: lo unico que cambia es el titulo, asi que el `null` sale del
+    // formato y no de la guarda que compara los codigos.
+    const a = new AcumuladorFicha(`${HOST}/producto/65745-0031688`);
+    a.verMeta('og:title', titulo);
+    assert.equal(a.resultado().colorOrigen, null, titulo);
+  }
+});

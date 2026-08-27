@@ -107,11 +107,27 @@ const RE_FICHA_SUELTA = /\/producto\/(\d+)-([a-z0-9]+)/i;
 const RE_PREFIJO_COLOR = /^\(\s*([A-Za-z0-9]+)\s*\)\s*(.*)$/;
 
 /**
- * Título de la ficha: `Producto: {CODIGO} ({X}) {NOMBRE}`.
+ * Título de la ficha: `Producto: {CODIGO} [*]({X}) {NOMBRE}`.
  *
  * Verificado el 2026-08-06 sobre 5 fichas reales, en `og:title` y en `<title>`.
+ *
+ * EL ASTERISCO ES OPCIONAL Y NO ES PARTE DEL COLOR, medido el 2026-08-27. Los productos
+ * de outlet vienen `Producto: 0031688 *(O8) NARANJA/LIL`, contra el
+ * `Producto: CG85700 (3) NEGRO` de los demás. Qué significa la marca es del proveedor y no
+ * hace falta saberlo: lo que importa es que no la interprete como parte del nombre del
+ * color.
+ *
+ * LO QUE COSTÓ NO TENERLO: el regex exigía que después del código viniera el paréntesis, así
+ * que ninguna ficha de outlet daba color. Y sin color la cascada era silenciosa — sin SKU
+ * `registrarFicha` no crea la variante, y `fotosPorColor` descarta las fotos de la galería
+ * porque no hay dónde colgarlas. 17 productos entraron sin variantes y sin fotos.
+ *
+ * SE ACEPTA EL ASTERISCO Y NADA MÁS. Un `[^(]*` habría pasado también cualquier título que
+ * el proveedor rediseñe mañana, dando un color equivocado en vez de un `null`. Un título que
+ * no se reconoce TIENE que seguir dando `null`: eso es lo que `coloresSinNombre` cuenta, y
+ * es el aviso de que el formato del origen cambió.
  */
-const RE_TITULO_FICHA = /^\s*Producto:\s*([A-Za-z0-9_-]+)\s+(\(.+)$/;
+const RE_TITULO_FICHA = /^\s*Producto:\s*([A-Za-z0-9_-]+)\s+\*?\s*(\(.+)$/;
 
 /**
  * El código del modelo, sacado de la URL de la ficha.
