@@ -445,8 +445,20 @@ export default function FormularioPedido({ r2Base, telefono, origen }: Props) {
         <fieldset>
           <legend class="text-sm font-medium">Forma de pago</legend>
 
+          {/**
+           * APILADAS EN MÓVIL, en fila desde `sm`. Misma regla que los dos botones de la
+           * ficha, y acá la aritmética la fuerza: a 320 px el formulario tiene unos 288 px
+           * de ancho útil, así que en tres columnas con el gap cada celda queda en 90 px.
+           * El interior de la píldora —padding, ícono y su separación— se come 58, y
+           * «Transferencia» necesita unos 85 para el texto solo. No entra de ninguna
+           * manera.
+           *
+           * ANTES ERA `flex-wrap`, y ahí estaba el problema: envolvía o no según la
+           * resolución, así que «QR» caía sola en una segunda fila en algunos anchos y en
+           * otros no. Un grid decide lo mismo en todos los anchos del rango.
+           */}
           <div
-            class="mt-1.5 flex flex-wrap gap-2"
+            class="mt-1.5 grid gap-2 sm:grid-cols-3"
             role="radiogroup"
             aria-invalid={errores.pago ? 'true' : undefined}
             aria-describedby={errores.pago ? 'pago-error' : undefined}
