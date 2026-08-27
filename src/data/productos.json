@@ -22768,6 +22768,35 @@
     ]
   },
   {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Con espalderas\r\nMedidas: alto 22 x largo 22 x ancho 14 cm",
+    "id": "lonchera-termica-de-my-little-pony",
+    "nombre": "lonchera térmica de my little pony",
+    "origen": {
+      "proveedor": "catalogo-viejo",
+      "ref": "LP02406"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Único",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6ff0ac1f05b92590"
+          }
+        ],
+        "sku": "LP02406"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "lonchera-termica-infantil"
