@@ -1,0 +1,164 @@
+---
+/**
+ * Recuperar las fotos que faltan.
+ *
+ * POR QUÉ EXISTE. `unaFoto` está escrita para no lanzar nunca (§7.4): si la red se corta en
+ * el medio de una importación, anota el problema y la corrida sigue. Eso es correcto —una
+ * foto caída no puede tumbar una importación de 900 fichas— pero el hueco NO se cierra solo,
+ * y por dos motivos que se suman:
+ *
+ *   1. no hay reintento: la foto que falló, falló
+ *   2. la importación viene con «saltear los que ya tengo» tildada, así que en la próxima
+ *      corrida `sinVisitar` filtra justamente esas fichas porque el producto ya está
+ *
+ * Sin esta pantalla el único camino era reimportar la categoría entera con el salteo
+ * destildado: todas las fichas de nuevo para arreglar tres.
+ *
+ * NO ESCRIBE POR NINGÚN CAMINO NUEVO: llama a `/api/scrape/ficha` y a `traerFotos`, que son
+ * los dos pasos de la importación de todos los días.
+ *
+ * NO ES PANTALLA DE UN SOLO USO, al contrario de `/descripciones`. Esa cerró un bug de regex
+ * que se arregló una vez; una foto que se cae por red va a volver a pasar cada vez que la
+ * conexión titubee. Esta se queda, y por eso SÍ va enlazada desde el inicio.
+ */
+import Panel from '../layouts/Panel.astro';
+import { ejecutorD1 } from '../lib/d1.ts';
+import { sinFotos } from '../lib/scrape/sin-fotos.ts';
+import { env } from 'cloudflare:workers';
+
+/**
+ * Se cuenta EN EL SERVIDOR, al rendir. Así la pantalla dice cuántos son antes de que nadie
+ * apriete nada — que es la diferencia entre «esto va a hacer algo» y «probemos a ver».
+ */
+const pendientes = await sinFotos(ejecutorD1(env.DB));
+const cuantos = pendientes.length;
+
+/**
+ * Cuántos de cada estado, para que se vea de entrada si hay alguno EN LA CALLE sin foto.
+ * Ese es el que urge: es el que un cliente está mirando con el placeholder de «sin imagen».
+ */
+const publicados = pendientes.filter((p) => p.estado === 'publicado').length;
+
+/**
+ * A 1 pedido por segundo, y CON fotos: es un pedido por ficha más uno por foto. Se estima
+ * con 3 fotos por producto, que es el promedio del proveedor — y se dice que es estimado,
+ * porque prometer un número exacto que después no se cumple es peor que no decir nada.
+ */
+const minutos = Math.max(1, Math.round((cuantos * 4) / 60));
+---
+
+<Panel titulo="Recuperar las fotos que faltan" volver="/">
+  <section class="lote">
+    {
+      cuantos === 0 ? (
+        <p class="nota nota--titulo">
+          <strong>No falta ninguna.</strong> Todos los productos del proveedor tienen al menos
+          una foto.
+        </p>
+      ) : (
+        <>
+          <p>
+            Hay <strong>{cuantos} producto{cuantos === 1 ? '' : 's'}</strong> del proveedor
+            sin <strong>ninguna</strong> foto. Se le vuelve a pedir la ficha a cada uno y se
+            suben las que traiga.
+          </p>
+
+          {publicados > 0 && (
+            <p class="nota nota--pendiente">
+              <strong>
+                {publicados} {publicados === 1 ? 'está publicado' : 'están publicados'}.
+              </strong>{' '}
+              Ese es el caso que urge: en el sitio se está mostrando el recuadro de «sin
+              imagen» a quien lo esté mirando ahora mismo.
+            </p>
+          )}
+
+          <p class="nota">
+            <strong>Por qué pasó.</strong> Casi siempre es la red cortándose en el medio de
+            una importación. Una foto que falla no tumba la corrida —así está pensado— pero
+            tampoco se reintenta, y como el producto ya quedó en la base, la próxima
+            importación lo saltea. El hueco no se cierra solo.
+          </p>
+
+          <hr />
+
+          <p class="nota nota--titulo">Lo que va a pasar:</p>
+          {/* `confirmar-lista` es la clase que el panel ya usa para una lista con sangría. */}
+          <ol class="confirmar-lista">
+            <li>
+              Se le pide al proveedor la ficha de cada uno de esos {cuantos}, a
+              <strong> 1 por segundo</strong>, y después cada foto, también a 1 por segundo.
+              Calculá unos {minutos} minuto{minutos === 1 ? '' : 's'}.
+            </li>
+            <li>
+              Las fotos que <strong>ya estaban no se duplican</strong>: se reconocen por el
+              hash de sus bytes y sólo se vuelven a vincular.
+            </li>
+            <li>
+              <strong>Nada más se toca.</strong> Ni el nombre, ni el precio, ni las
+              categorías, ni el estado ni la dirección web.
+            </li>
+          </ol>
+
+          <p class="nota">
+            Incluye los <strong>publicados</strong> y los <strong>aprobados</strong>, no sólo
+            los que esperan aprobación: conseguirle la foto a uno que ya está en la calle es
+            justamente lo más urgente.
+          </p>
+
+          <p class="nota">
+            Si el proveedor sirve alguno <strong>sin ninguna foto</strong>, se cuenta aparte y
+            queda como está: ese no es un fallo que se reintente, y va a volver a aparecer en
+            esta lista siempre. A esos hay que cargarles una foto a mano o aprobarlos marcando
+            «permitir sin foto».
+          </p>
+
+          <hr />
+
+          <button type="button" id="empezar">Recuperar las de los {cuantos}</button>
+          <button type="button" id="cancelar" class="secundario" hidden>Cortar</button>
+
+          <noscript>
+            <p class="nota nota--pendiente">
+              Esta pantalla necesita JavaScript: el recorrido corre en la pestaña, con un
+              pedido por segundo, y por eso no puede correr en el servidor.
+            </p>
+          </noscript>
+
+          <p id="progreso" aria-live="polite"></p>
+
+          <div
+            id="barra"
+            class="barra"
+            role="progressbar"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+            aria-label="Avance de la recuperación de fotos"
+          >
+            <span id="barra-relleno"></span>
+          </div>
+
+          <p class="nota nota--pestana">
+            <strong>No cierres esta pestaña.</strong> El recorrido corre acá: si la cerrás, se
+            interrumpe. Las fotos que ya se subieron quedan, y al volver a empezar sigue por
+            donde iba.
+          </p>
+
+          <details id="problemas" hidden class="ayuda" open>
+            <summary>Los que no se pudieron resolver</summary>
+            <ul id="lista-problemas"></ul>
+          </details>
+
+          <section id="resumen" class="resumen" hidden></section>
+        </>
+      )
+    }
+  </section>
+</Panel>
+
+<script>
+  import { prepararFotosFaltantes } from '../scripts/fotos-faltantes-cliente.ts';
+
+  prepararFotosFaltantes();
+</script>
