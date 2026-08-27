@@ -17420,6 +17420,77 @@
     ]
   },
   {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 23 x 6 cm",
+    "id": "cartuchera-4",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734199"
+    },
+    "precio": 30000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/15747319075f704a"
+          }
+        ],
+        "sku": "1734199-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cadcdfb58d974afe"
+          }
+        ],
+        "sku": "1734199-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 14 x 23 x 6 cm",
+    "id": "cartuchera-5",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734312"
+    },
+    "precio": 30000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cd226728d1e249ed"
+          }
+        ],
+        "sku": "1734312-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-26",
     "categorias": [
       "cartucheras"
@@ -17474,6 +17545,377 @@
           }
         ],
         "sku": "1734566-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 21 x 6 cm",
+    "id": "cartuchera-de-1-cierre-2",
+    "nombre": "cartuchera de 1 cierre",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1732305"
+    },
+    "precio": 19000,
+    "variantes": [
+      {
+        "color": "(25-P) Gris/turq.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fdbc2f83c6b63a91"
+          }
+        ],
+        "sku": "1732305-25-p-gris-turq"
+      },
+      {
+        "color": "(54-P) Verde Cl",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2a951b7d34355e7a"
+          }
+        ],
+        "sku": "1732305-54-p-verde-cl"
+      },
+      {
+        "color": "(79-P) Celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1fd91cba69680ad1"
+          }
+        ],
+        "sku": "1732305-79-p-celeste"
+      },
+      {
+        "color": "(ag-P) Verde/v.li",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/153975111904ee9f"
+          }
+        ],
+        "sku": "1732305-ag-p-verde-v-li"
+      },
+      {
+        "color": "(jp-P) Rosa",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6b7d32ec9a6cce48"
+          }
+        ],
+        "sku": "1732305-jp-p-rosa"
+      },
+      {
+        "color": "(no-P) Salmon",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/64a22cdd5cbb433d"
+          }
+        ],
+        "sku": "1732305-no-p-salmon"
+      },
+      {
+        "color": "(pr-P) Salmon/mar",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4570aeeeaced33ae"
+          }
+        ],
+        "sku": "1732305-pr-p-salmon-mar"
+      },
+      {
+        "color": "(r6-P) Bordo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e348a9495c538624"
+          }
+        ],
+        "sku": "1732305-r6-p-bordo-gris"
+      },
+      {
+        "color": "(ro-P) Rojo/salmo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d9c924caf90f0eaa"
+          }
+        ],
+        "sku": "1732305-ro-p-rojo-salmo"
+      },
+      {
+        "color": "(vu-P) Lila C/lil",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7f0e4f8fa1e9b8c7"
+          }
+        ],
+        "sku": "1732305-vu-p-lila-c-lil"
+      },
+      {
+        "color": "Azul/celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8f024f6f96a0780e"
+          }
+        ],
+        "sku": "1732305-68"
+      },
+      {
+        "color": "Azul/khaki",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1ec81ccbc6ffc8e7"
+          }
+        ],
+        "sku": "1732305-6K"
+      },
+      {
+        "color": "Gris Os/nara",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/46ed2a2a78b01b09"
+          }
+        ],
+        "sku": "1732305-1O"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6b7b6001c4045bbf"
+          }
+        ],
+        "sku": "1732305-3"
+      },
+      {
+        "color": "Negro/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/214ef5c988557b45"
+          }
+        ],
+        "sku": "1732305-32"
+      },
+      {
+        "color": "Rojo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a6f9f92ec4a6177f"
+          }
+        ],
+        "sku": "1732305-R2"
+      },
+      {
+        "color": "Rosa Osc./gr",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/78178460fa162db7"
+          }
+        ],
+        "sku": "1732305-F2"
+      },
+      {
+        "color": "Rosa/verd.cel",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6c9837367c5b7d91"
+          }
+        ],
+        "sku": "1732305-F5"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ec7a105e2eba276a"
+          }
+        ],
+        "sku": "1732305-PF"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-1-cierre-3",
+    "nombre": "cartuchera de 1 cierre",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1732955"
+    },
+    "precio": 19000,
+    "variantes": [
+      {
+        "color": "(j-P) Rosa/dorado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/22cdcb2330ae2b54"
+          }
+        ],
+        "sku": "1732955-j-p-rosa-dorado"
+      },
+      {
+        "color": "(n-P) Nude/dorado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8ef47947ecfdcb5c"
+          }
+        ],
+        "sku": "1732955-n-p-nude-dorado"
+      },
+      {
+        "color": "(r-P) Rojo/dorado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/17834fb2c02d5ca5"
+          }
+        ],
+        "sku": "1732955-r-p-rojo-dorado"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-1-cierre-4",
+    "nombre": "cartuchera de 1 cierre",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1732965"
+    },
+    "precio": 19000,
+    "variantes": [
+      {
+        "color": "(3-P) Negro/plata",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0f0ced2b108b38ff"
+          }
+        ],
+        "sku": "1732965-3-p-negro-plata"
+      },
+      {
+        "color": "(5-P) Verde/plata",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7367eedea2e68890"
+          }
+        ],
+        "sku": "1732965-5-p-verde-plata"
+      },
+      {
+        "color": "(7-P) Celeste/pla",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ff35e6bdb4eca4e9"
+          }
+        ],
+        "sku": "1732965-7-p-celeste-pla"
       }
     ]
   },
@@ -17891,6 +18333,204 @@
     ]
   },
   {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 21 x 6 cm",
+    "id": "cartuchera-de-2-cierres-19",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1732306"
+    },
+    "precio": 25000,
+    "variantes": [
+      {
+        "color": "(25-P) Gris/turq.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/52e1e4adca777f58"
+          }
+        ],
+        "sku": "1732306-25-p-gris-turq"
+      },
+      {
+        "color": "(54-P) Verde Cl",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e1b417664b280576"
+          }
+        ],
+        "sku": "1732306-54-p-verde-cl"
+      },
+      {
+        "color": "(79-P) Celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/96d8da3221c65630"
+          }
+        ],
+        "sku": "1732306-79-p-celeste"
+      },
+      {
+        "color": "(no-P) Salmon",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/01f56bd7bce77080"
+          }
+        ],
+        "sku": "1732306-no-p-salmon"
+      },
+      {
+        "color": "(pr-P) Salmon/mar",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ba1f0271116d9393"
+          }
+        ],
+        "sku": "1732306-pr-p-salmon-mar"
+      },
+      {
+        "color": "(r6-P) Bordo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/97f862c5fed305ee"
+          }
+        ],
+        "sku": "1732306-r6-p-bordo-gris"
+      },
+      {
+        "color": "(ro-P) Rojo/salmo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7496956cacf98efa"
+          }
+        ],
+        "sku": "1732306-ro-p-rojo-salmo"
+      },
+      {
+        "color": "Azul/celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/636424b3a99da8f3"
+          }
+        ],
+        "sku": "1732306-68"
+      },
+      {
+        "color": "Azul/khaki",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fed48b3d23252974"
+          }
+        ],
+        "sku": "1732306-6K"
+      },
+      {
+        "color": "Gris Os/nara",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/478ca8cc063ae6e0"
+          }
+        ],
+        "sku": "1732306-1O"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ef25c0682865e85a"
+          }
+        ],
+        "sku": "1732306-3"
+      },
+      {
+        "color": "Negro/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/eb18c65f99cac2a4"
+          }
+        ],
+        "sku": "1732306-32"
+      },
+      {
+        "color": "Rojo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/934fb4521b5cc962"
+          }
+        ],
+        "sku": "1732306-R2"
+      },
+      {
+        "color": "Rosa Osc/gr.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6750ad793f09a079"
+          }
+        ],
+        "sku": "1732306-F2"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-19",
     "categorias": [
       "cartucheras"
@@ -17916,6 +18556,157 @@
           }
         ],
         "sku": "1734385-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10.0 x 21.0 x 7.0 cm",
+    "id": "cartuchera-de-2-cierres-20",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1732726"
+    },
+    "precio": 25000,
+    "variantes": [
+      {
+        "color": "Gris Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c4f1079719ebebc4"
+          }
+        ],
+        "sku": "1732726-1"
+      },
+      {
+        "color": "Rosa Os/rosa",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6a0818acd9f31a63"
+          }
+        ],
+        "sku": "1732726-FP"
+      },
+      {
+        "color": "Verde Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c43621625142716a"
+          }
+        ],
+        "sku": "1732726-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-21",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1732956"
+    },
+    "precio": 25000,
+    "variantes": [
+      {
+        "color": "(j-P) Rosa/dorado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4d5710ec26c7ca8a"
+          }
+        ],
+        "sku": "1732956-j-p-rosa-dorado"
+      },
+      {
+        "color": "(n-P) Nude/dorado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4a48a963e801911a"
+          }
+        ],
+        "sku": "1732956-n-p-nude-dorado"
+      },
+      {
+        "color": "(r-P) Rojo/dorado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9d3a31ecd2f1ba72"
+          }
+        ],
+        "sku": "1732956-r-p-rojo-dorado"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 21 x 6 cm",
+    "id": "cartuchera-de-2-cierres-22",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1732966"
+    },
+    "precio": 25000,
+    "variantes": [
+      {
+        "color": "(5-P) Verde/plata",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9f4881e77a7d6aaa"
+          }
+        ],
+        "sku": "1732966-5-p-verde-plata"
+      },
+      {
+        "color": "(7-P) Celeste/pla",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/084f8f2470240fa0"
+          }
+        ],
+        "sku": "1732966-7-p-celeste-pla"
       }
     ]
   },
@@ -18434,6 +19225,102 @@
           }
         ],
         "sku": "1735045-I"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-3-cierres-8",
+    "nombre": "cartuchera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1732957"
+    },
+    "precio": 30000,
+    "variantes": [
+      {
+        "color": "(j-P) Rosa/dorado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0e232081e3c77827"
+          }
+        ],
+        "sku": "1732957-j-p-rosa-dorado"
+      },
+      {
+        "color": "(n-P) Nude/dorado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7298266e601344b4"
+          }
+        ],
+        "sku": "1732957-n-p-nude-dorado"
+      },
+      {
+        "color": "(r-P) Rojo/dorado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/50c400cd65c7ddf0"
+          }
+        ],
+        "sku": "1732957-r-p-rojo-dorado"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 21 x 9 cm",
+    "id": "cartuchera-de-3-cierres-9",
+    "nombre": "cartuchera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1732967"
+    },
+    "precio": 30000,
+    "variantes": [
+      {
+        "color": "(5-P) Verde/plata",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/60e4369f7375adca"
+          }
+        ],
+        "sku": "1732967-5-p-verde-plata"
+      },
+      {
+        "color": "(7-P) Celeste/pla",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/854410fa20aa0cda"
+          }
+        ],
+        "sku": "1732967-7-p-celeste-pla"
       }
     ]
   },
@@ -34956,6 +35843,384 @@
     ]
   },
   {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "necessaires"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 19 x 7 cm",
+    "id": "neceser",
+    "nombre": "Neceser",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1130070"
+    },
+    "precio": 48000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/57318cfeace14f2c"
+          }
+        ],
+        "sku": "1130070-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "necessaires"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 12 x 19 x 8",
+    "id": "neceser-2",
+    "nombre": "Neceser",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1181583"
+    },
+    "precio": 55000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a64f4902c1f13a58"
+          }
+        ],
+        "sku": "1181583-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "necessaires"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 23 x 10 cm",
+    "id": "neceser-3",
+    "nombre": "Neceser",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1581415"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4f7625a29457e3ff"
+          }
+        ],
+        "sku": "1581415-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "necessaires"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 12 x 24 x 12 cm",
+    "id": "neceser-4",
+    "nombre": "Neceser",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1584016"
+    },
+    "precio": 120000,
+    "variantes": [
+      {
+        "color": "Lila Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a43b07fa27689959"
+          }
+        ],
+        "sku": "1584016-V"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1b9660d6441eeb7d"
+          }
+        ],
+        "sku": "1584016-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "necessaires"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 13 x 21 x 10 cm",
+    "id": "neceser-5",
+    "nombre": "Neceser",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1584021"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Lila Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/63f3ecc00b669de6"
+          }
+        ],
+        "sku": "1584021-V"
+      },
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ecc5769e595bfc8a"
+          }
+        ],
+        "sku": "1584021-M"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6a1e9fe176bfc645"
+          }
+        ],
+        "sku": "1584021-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "necessaires"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 14 x 23 x 9 cm",
+    "id": "neceser-6",
+    "nombre": "Neceser",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1584022"
+    },
+    "precio": 98000,
+    "variantes": [
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4e0eca2e6a00d582"
+          }
+        ],
+        "sku": "1584022-M"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6765be0d8ed95200"
+          }
+        ],
+        "sku": "1584022-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "necessaires"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 27 x 10 cm",
+    "id": "neceser-7",
+    "nombre": "Neceser",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1584024"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Lila Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f1280a1341ab572a"
+          }
+        ],
+        "sku": "1584024-V"
+      },
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/495db4886a9dfe0c"
+          }
+        ],
+        "sku": "1584024-M"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2335cca51638413d"
+          }
+        ],
+        "sku": "1584024-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "necessaires"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 17 x 24 x 14 cm",
+    "id": "neceser-8",
+    "nombre": "Neceser",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1584916"
+    },
+    "precio": 119000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/02a7725b500c37fa"
+          }
+        ],
+        "sku": "1584916-2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "necessaires"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 21 x 31 x 8",
+    "id": "neceser-9",
+    "nombre": "Neceser",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1720751"
+    },
+    "precio": 85000,
+    "variantes": [
+      {
+        "color": "(13-P) Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/66c1bda8bd1b0de7"
+          }
+        ],
+        "sku": "1720751-13-p-gris"
+      },
+      {
+        "color": "(g3-P) Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/89ecaaab7b18a2d9"
+          }
+        ],
+        "sku": "1720751-g3-p-verde"
+      },
+      {
+        "color": "(r3-P) Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/df07bb0f6049637f"
+          }
+        ],
+        "sku": "1720751-r3-p-rojo"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6384dd488bb31181"
+          }
+        ],
+        "sku": "1720751-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-14",
     "categorias": [
       "necessaires"
@@ -35773,6 +37038,1073 @@
     ]
   },
   {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 18 x 34 x 9 cm",
+    "id": "rinonera-10",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1445210"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/73c736e473ce47fe"
+          }
+        ],
+        "sku": "1445210-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 34 x 6",
+    "id": "rinonera-11",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1445212"
+    },
+    "precio": 88000,
+    "variantes": [
+      {
+        "color": "72 Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bd2525627a31e211"
+          }
+        ],
+        "sku": "1445212-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "id": "rinonera-12",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1534035"
+    },
+    "precio": 88000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d808b16e947e0e03"
+          }
+        ],
+        "sku": "1534035-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 12 x 31 x 5",
+    "id": "rinonera-13",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1711821"
+    },
+    "precio": 85000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6c7b6af6db31e05f"
+          }
+        ],
+        "sku": "1711821-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 33 x 8",
+    "id": "rinonera-14",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1712233"
+    },
+    "precio": 88000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/91baab84448e31a7"
+          }
+        ],
+        "sku": "1712233-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 13 x 32 x 5",
+    "id": "rinonera-15",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1720562"
+    },
+    "precio": 90000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dc97498009d5acda"
+          }
+        ],
+        "sku": "1720562-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 13 x 21 x 10 cm",
+    "id": "rinonera-16",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734034"
+    },
+    "precio": 90000,
+    "variantes": [
+      {
+        "color": "Azul/gris Os",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5ee73a2c95533469"
+          }
+        ],
+        "sku": "1734034-91"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a9aed5c135ad157c"
+          }
+        ],
+        "sku": "1734034-3"
+      },
+      {
+        "color": "Negro/gris O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7985a4c5b3a9f440"
+          }
+        ],
+        "sku": "1734034-31"
+      },
+      {
+        "color": "Rojo/gris Os",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7944dbdf684e11a2"
+          }
+        ],
+        "sku": "1734034-R1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 9 x 73 cm",
+    "id": "rinonera-17",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734270"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Celeste Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3f2db9751c749bab"
+          }
+        ],
+        "sku": "1734270-9"
+      },
+      {
+        "color": "Naranjado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9ac7f44da8271723"
+          }
+        ],
+        "sku": "1734270-O"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4c73f6c5ebb687e8"
+          }
+        ],
+        "sku": "1734270-P"
+      },
+      {
+        "color": "Verde Lima",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/60e8c60e32822879"
+          }
+        ],
+        "sku": "1734270-L"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 12 x 50 cm",
+    "id": "rinonera-18",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734271"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Naranjado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9e11a53ab5be96e5"
+          }
+        ],
+        "sku": "1734271-O"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8f7cebc1100665e7"
+          }
+        ],
+        "sku": "1734271-R"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/43f7d8ec8d73d4d1"
+          }
+        ],
+        "sku": "1734271-P"
+      },
+      {
+        "color": "Verde Lima",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4d6c01298d1ec8f0"
+          }
+        ],
+        "sku": "1734271-L"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 6 x 40 x 5 cm",
+    "id": "rinonera-19",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734272"
+    },
+    "precio": 88000,
+    "variantes": [
+      {
+        "color": "Celeste Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c696fece898abb33"
+          }
+        ],
+        "sku": "1734272-9"
+      },
+      {
+        "color": "Naranja",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/518552aae2cbd02d"
+          }
+        ],
+        "sku": "1734272-O"
+      },
+      {
+        "color": "Verde Lima",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/287e3bf4569d9068"
+          }
+        ],
+        "sku": "1734272-L"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 13 x 29 x 5",
+    "id": "rinonera-2",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1120883"
+    },
+    "precio": 85000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8c610f7a8411a7e5"
+          }
+        ],
+        "sku": "1120883-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 38 cm",
+    "id": "rinonera-20",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734274"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Naranja",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/72220a1be963fea0"
+          }
+        ],
+        "sku": "1734274-O"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 25 cm",
+    "id": "rinonera-21",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734275"
+    },
+    "precio": 85000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/99c9e9ac92b84ab4"
+          }
+        ],
+        "sku": "1734275-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 12 x 37 x 4 cm",
+    "id": "rinonera-22",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734277"
+    },
+    "precio": 98000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/19f9fdeb0dd3babb"
+          }
+        ],
+        "sku": "1734277-6"
+      },
+      {
+        "color": "Gris Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c9db24c6d5afafe0"
+          }
+        ],
+        "sku": "1734277-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ba221d07561f2fea"
+          }
+        ],
+        "sku": "1734277-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 14 x 40 x 3 cm",
+    "id": "rinonera-23",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734278"
+    },
+    "precio": 112000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1051a8fba1d8442e"
+          }
+        ],
+        "sku": "1734278-6"
+      },
+      {
+        "color": "Gris Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2c67c5cf689f390a"
+          }
+        ],
+        "sku": "1734278-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/05ab9083e0d32170"
+          }
+        ],
+        "sku": "1734278-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 40 cm",
+    "id": "rinonera-24",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734279"
+    },
+    "precio": 98000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bcdff61ea6effc93"
+          }
+        ],
+        "sku": "1734279-6"
+      },
+      {
+        "color": "Gris Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3aa3989030d3ba7d"
+          }
+        ],
+        "sku": "1734279-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/95155fdbd26dc18e"
+          }
+        ],
+        "sku": "1734279-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 13 x 33 cm",
+    "id": "rinonera-25",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734280"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Azul Marino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c8b7e095bf2785c8"
+          }
+        ],
+        "sku": "1734280-6"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6596b7b680a27a3b"
+          }
+        ],
+        "sku": "1734280-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/aeb6780b31410d47"
+          }
+        ],
+        "sku": "1734280-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 12 x 30 x 3 cm",
+    "id": "rinonera-26",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734281"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a251f452bcd06560"
+          }
+        ],
+        "sku": "1734281-6"
+      },
+      {
+        "color": "Gris Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9531a9d3a6e7326b"
+          }
+        ],
+        "sku": "1734281-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/215ff3f5ad8df785"
+          }
+        ],
+        "sku": "1734281-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 12 x 34 x 8 cm",
+    "id": "rinonera-27",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734308"
+    },
+    "precio": 85000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8bf6d40fcee340cc"
+          }
+        ],
+        "sku": "1734308-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 26 x 6 cm",
+    "id": "rinonera-28",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734477"
+    },
+    "precio": 85000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/2c0f9165fd244d69"
+          }
+        ],
+        "sku": "1734477-2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 34 x 7 cm",
+    "id": "rinonera-3",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1120885"
+    },
+    "precio": 85000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7d210142639fc185"
+          }
+        ],
+        "sku": "1120885-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 16 x 30 x 6",
+    "id": "rinonera-4",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1121813"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Negro/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5e0e6ea4bb8ae5e6"
+          }
+        ],
+        "sku": "1121813-31"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 13 x 29",
+    "id": "rinonera-5",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1131412"
+    },
+    "precio": 59000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/741b6b52bb893be1"
+          }
+        ],
+        "sku": "1131412-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 12 x 37 x 5",
+    "id": "rinonera-6",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1131433"
+    },
+    "precio": 85000,
+    "variantes": [
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ecb078fbe111acda"
+          }
+        ],
+        "sku": "1131433-33"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 14 x 34 x 5",
+    "id": "rinonera-7",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1131460"
+    },
+    "precio": 85000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/597f38a0c174556d"
+          }
+        ],
+        "sku": "1131460-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 26",
+    "id": "rinonera-8",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1149226"
+    },
+    "precio": 59000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/745a74d359e7eeb6"
+          }
+        ],
+        "sku": "1149226-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 14 x 30 x 9",
+    "id": "rinonera-9",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1181426"
+    },
+    "precio": 98000,
+    "variantes": [
+      {
+        "color": "Azul Marino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c09de6bc0000d470"
+          }
+        ],
+        "sku": "1181426-6"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/248a3a40e4ade0e1"
+          }
+        ],
+        "sku": "1181426-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-19",
     "categorias": [
       "rinoneras"
@@ -35940,6 +38272,34 @@
           }
         ],
         "sku": "CG82910-R"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "rinoneras"
+    ],
+    "id": "rononera-pierna",
+    "nombre": "Roñonera Pierna",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1732951"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f4f30a6a65cb72ee"
+          }
+        ],
+        "sku": "1732951-3"
       }
     ]
   }
