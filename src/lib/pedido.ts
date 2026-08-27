@@ -1,7 +1,7 @@
 import { normalizarTelefono } from './whatsapp.ts';
 
 /** Las formas de pago que el comercio acepta. */
-export type FormaPago = 'efectivo' | 'transferencia';
+export type FormaPago = 'efectivo' | 'transferencia' | 'qr';
 
 /**
  * Las opciones de pago, con la palabra que se muestra y la que va al mensaje.
@@ -18,6 +18,10 @@ export type FormaPago = 'efectivo' | 'transferencia';
 export const FORMAS_PAGO = [
   { valor: 'efectivo', etiqueta: 'Efectivo' },
   { valor: 'transferencia', etiqueta: 'Transferencia' },
+  // «QR» en mayúsculas y no «Qr»: es una sigla, y capitalizarla como palabra la hace
+  // leer como un nombre propio. Por eso la etiqueta se escribe a mano y no se deriva
+  // del valor con un `capitalizar()`.
+  { valor: 'qr', etiqueta: 'QR' },
 ] as const satisfies readonly { valor: FormaPago; etiqueta: string }[];
 
 /**
@@ -45,6 +49,21 @@ export interface DatosPedido {
    * dato cargado.
    */
   pago: FormaPago | null;
+  /**
+   * ¿Quiere factura? `false` SÍ tiene default, al contrario de `pago`, y la asimetría
+   * es deliberada.
+   *
+   * Un default equivocado en `pago` manda un dato FALSO —un pedido por transferencia
+   * que llega como efectivo—. Acá el error posible es distinto: quien quería factura y
+   * no tildó simplemente no la pide, y lo resuelve en el mismo chat con una línea. No
+   * se corrompe nada, y a cambio la mayoría —que no factura— no tiene que contestar
+   * una pregunta más.
+   */
+  factura: boolean;
+  /** RUC. Obligatorio SÓLO con `factura: true`. */
+  ruc: string;
+  /** Razón social. Obligatoria SÓLO con `factura: true`. */
+  razonSocial: string;
   notas?: string | undefined;
 }
 
@@ -133,6 +152,29 @@ export function leerContextoPedido(search: string): ContextoPedido | null {
 }
 
 /**
+ * Un RUC paraguayo: número base y dígito verificador, separados por guión.
+ *
+ * Se acepta un solo guión —el separador— y se toleran puntos y espacios: es cómo la
+ * gente copia un RUC de una factura vieja. El verificador es UN dígito por definición;
+ * dos serían parte del número base y entonces el guión estaría en otro lugar.
+ *
+ * NO se verifica el dígito con el algoritmo de la SET. Se descartó a propósito: un
+ * cálculo mal implementado rechazaría RUCs reales, y el costo de dejar pasar uno con un
+ * tipeo es que la persona que emite la factura lo lea y pregunte. Acá se valida la
+ * FORMA, que es lo que resuelve la ambigüedad; la identidad la valida quien factura.
+ */
+function rucValido(ruc: string): boolean {
+  const partes = ruc.trim().split('-');
+  if (partes.length !== 2) return false;
+
+  const base = (partes[0] ?? '').replace(/[.\s]/g, '');
+  const verificador = (partes[1] ?? '').trim();
+
+  if (!/^\d{6,}$/.test(base)) return false;
+  return /^\d$/.test(verificador);
+}
+
+/**
  * Valida el pedido y devuelve un error por campo.
  *
  * Devuelve TODOS los errores de una vez y no el primero: un formulario que revela
@@ -158,6 +200,31 @@ export function validarPedido(datos: DatosPedido): ErroresPedido {
   // como valido y termina en el mensaje como «Pago: undefined».
   if (!FORMAS_PAGO.some((f) => f.valor === datos.pago)) {
     errores.pago = 'Elegí cómo vas a pagar.';
+  }
+
+  /**
+   * Los datos de factura se exigen SÓLO si se la pidió.
+   *
+   * EL GUIÓN DEL DÍGITO VERIFICADOR ES OBLIGATORIO. No es rigor de más: un RUC sin
+   * separar es ambiguo. En `800123456` no hay forma de saber si el contribuyente es el
+   * 80012345 con verificador 6, o el 800123456 al que le falta el verificador — y quien
+   * emite la factura tiene que saberlo, porque con el número equivocado la factura sale
+   * a nombre de otro y hay que anularla.
+   *
+   * Lo que NO se exige es el formato completo: los puntos de miles y los espacios
+   * alrededor del guión se aceptan, porque `4.567.890-1` y `80012345 - 6` son cómo la
+   * gente copia un RUC de una factura vieja. Se pide el separador, no la prolijidad.
+   *
+   * Seis dígitos es el piso del número base —un RUC de persona física— sin contar el
+   * verificador; por debajo de eso no hay tipeo posible que sea un RUC.
+   */
+  if (datos.factura) {
+    if (!rucValido(datos.ruc)) {
+      errores.ruc = 'Escribilo con el guion del dígito verificador. Ej.: 80012345-6.';
+    }
+    if (datos.razonSocial.trim() === '') {
+      errores.razonSocial = 'Completá este dato.';
+    }
   }
 
   // `Number.isInteger` cubre el NaN que devuelve un `<input type="number">` vacío: sin
@@ -213,6 +280,23 @@ export function construirMensajePedido({
   if ((datos.referencia ?? '').trim() !== '') {
     delCliente.push(`Referencia: ${datos.referencia!.trim()}`);
   }
+  /**
+   * La factura va con el CLIENTE porque es quién es fiscalmente, no cómo se entrega.
+   *
+   * Se consulta `datos.factura` y NO la presencia de `ruc`: la isla conserva lo tipeado
+   * al destildar, para no hacerle perder el dato a quien duda y vuelve. Quien arma el
+   * mensaje es el que tiene que respetar el «no quiero factura».
+   *
+   * No se emite «Factura: No» en los pedidos sin factura, por el mismo motivo que no se
+   * emite «Cantidad: 1»: una línea que dice lo normal en todos los mensajes entrena a
+   * quien atiende a saltearla, y el día que diga otra cosa la va a saltear igual. La
+   * presencia del RUC ES el pedido de factura.
+   */
+  if (datos.factura) {
+    delCliente.push(`RUC: ${datos.ruc.trim()}`);
+    delCliente.push(`Razón social: ${datos.razonSocial.trim()}`);
+  }
+
   if ((datos.notas ?? '').trim() !== '') delCliente.push(`Nota: ${datos.notas!.trim()}`);
 
   return [

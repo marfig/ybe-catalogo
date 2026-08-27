@@ -22,7 +22,18 @@ const COMPLETO: DatosPedido = {
   referencia: 'Portón blanco, al lado de la farmacia',
   cantidad: 2,
   pago: 'transferencia',
+  factura: false,
+  ruc: '',
+  razonSocial: '',
   notas: 'Entregar por la tarde',
+};
+
+/** El mismo pedido, pero con factura. Es el caso que agrega dos campos obligatorios. */
+const CON_FACTURA: DatosPedido = {
+  ...COMPLETO,
+  factura: true,
+  ruc: '80012345-6',
+  razonSocial: 'Comercial Pérez S.A.',
 };
 
 // --------------------------------------------------------------------------
@@ -126,9 +137,10 @@ test('sin elegir forma de pago hay error: no hay default que adivinar', () => {
   assert.ok(validarPedido({ ...COMPLETO, pago: null }).pago);
 });
 
-test('las dos formas de pago son validas', () => {
+test('las tres formas de pago son validas', () => {
   assert.deepEqual(validarPedido({ ...COMPLETO, pago: 'efectivo' }), {});
   assert.deepEqual(validarPedido({ ...COMPLETO, pago: 'transferencia' }), {});
+  assert.deepEqual(validarPedido({ ...COMPLETO, pago: 'qr' }), {});
 });
 
 test('la forma de pago va rotulada en el mensaje, en palabra y no en clave', () => {
@@ -150,11 +162,83 @@ test('sin forma de pago el mensaje no deja el rotulo colgado', () => {
   assert.ok(!texto.includes('Pago:'));
 });
 
-test('las formas de pago que se ofrecen son exactamente dos', () => {
+test('las formas de pago que se ofrecen son exactamente tres', () => {
   assert.deepEqual(
     FORMAS_PAGO.map((f) => f.valor),
-    ['efectivo', 'transferencia']
+    ['efectivo', 'transferencia', 'qr']
   );
+});
+
+test('el QR se rotula en el mensaje como QR y no como «Qr»', () => {
+  const texto = construirMensajePedido({ producto: PRODUCTO, datos: { ...COMPLETO, pago: 'qr' } });
+  assert.ok(texto.includes('Pago: QR'), texto);
+});
+
+// --------------------------------------------------------------------------
+// La factura: dos campos que solo existen si se la pide
+// --------------------------------------------------------------------------
+
+test('sin factura, RUC y razon social vacios no son error', () => {
+  assert.deepEqual(validarPedido({ ...COMPLETO, factura: false, ruc: '', razonSocial: '' }), {});
+});
+
+test('con factura, RUC y razon social pasan a ser obligatorios', () => {
+  const errores = validarPedido({ ...COMPLETO, factura: true, ruc: '', razonSocial: '' });
+  assert.ok(errores.ruc, 'falta el error de ruc');
+  assert.ok(errores.razonSocial, 'falta el error de razonSocial');
+});
+
+test('con factura completa no hay errores', () => {
+  assert.deepEqual(validarPedido(CON_FACTURA), {});
+});
+
+test('el RUC EXIGE el guion del digito verificador', () => {
+  assert.deepEqual(validarPedido({ ...CON_FACTURA, ruc: '80012345-6' }), {});
+  assert.ok(validarPedido({ ...CON_FACTURA, ruc: '800123456' }).ruc, 'sin guion debe fallar');
+});
+
+test('los puntos de miles se aceptan: el guion es lo que se exige, no el formato', () => {
+  assert.deepEqual(validarPedido({ ...CON_FACTURA, ruc: '4.567.890-1' }), {});
+  assert.deepEqual(validarPedido({ ...CON_FACTURA, ruc: ' 80012345 - 6 ' }), {});
+});
+
+test('el digito verificador es UNO solo', () => {
+  assert.ok(validarPedido({ ...CON_FACTURA, ruc: '80012345-' }).ruc, 'guion sin digito');
+  assert.ok(validarPedido({ ...CON_FACTURA, ruc: '80012345-67' }).ruc, 'dos digitos');
+});
+
+test('un RUC sin digitos suficientes se rechaza aunque traiga guion', () => {
+  assert.ok(validarPedido({ ...CON_FACTURA, ruc: '123-4' }).ruc);
+  assert.ok(validarPedido({ ...CON_FACTURA, ruc: 'no-tengo' }).ruc);
+  assert.ok(validarPedido({ ...CON_FACTURA, ruc: '-6' }).ruc);
+});
+
+test('la razon social en blanco no cuenta como cargada', () => {
+  assert.ok(validarPedido({ ...CON_FACTURA, razonSocial: '   ' }).razonSocial);
+});
+
+test('con factura, el mensaje lleva el RUC y la razon social rotulados', () => {
+  const texto = construirMensajePedido({ producto: PRODUCTO, datos: CON_FACTURA });
+  assert.ok(texto.includes('RUC: 80012345-6'), texto);
+  assert.ok(texto.includes('Razón social: Comercial Pérez S.A.'), texto);
+});
+
+test('sin factura, el mensaje no menciona RUC ni razon social', () => {
+  const texto = construirMensajePedido({ producto: PRODUCTO, datos: COMPLETO });
+  assert.ok(!texto.includes('RUC'));
+  assert.ok(!texto.includes('Razón social'));
+});
+
+test('los datos de factura no se filtran si se destildo despues de cargarlos', () => {
+  // El estado de la isla conserva lo tipeado al destildar —para no perderlo si se
+  // vuelve a tildar—, asi que quien arma el mensaje es el que tiene que respetar el
+  // «no quiero factura».
+  const texto = construirMensajePedido({
+    producto: PRODUCTO,
+    datos: { ...CON_FACTURA, factura: false },
+  });
+  assert.ok(!texto.includes('80012345-6'));
+  assert.ok(!texto.includes('Comercial Pérez'));
 });
 
 // --------------------------------------------------------------------------

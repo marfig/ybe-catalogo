@@ -54,6 +54,10 @@ const VACIO: DatosPedido = {
   cantidad: 1,
   // Sin preseleccionar: ver el comentario de `pago` en `DatosPedido`.
   pago: null,
+  // Con default, al contrario de `pago`: la asimetría está justificada en `DatosPedido`.
+  factura: false,
+  ruc: '',
+  razonSocial: '',
   notas: '',
 };
 
@@ -144,10 +148,30 @@ function IconoTransferencia() {
   );
 }
 
+/**
+ * QR: las tres marcas de esquina de un código, sin la trama del medio.
+ *
+ * Lo que hace reconocible un QR son los tres cuadrados de las esquinas —son los que le
+ * dicen al lector dónde está y cómo está girado—, no el ruido del centro. Dibujar la
+ * trama a 18 px daría una mancha gris; con las esquinas y unos pocos módulos sueltos se
+ * lee como QR incluso al tamaño de un favicon.
+ */
+function IconoQr() {
+  return (
+    <svg {...TRAZO}>
+      <rect x="3" y="3" width="6.5" height="6.5" rx="1" />
+      <rect x="14.5" y="3" width="6.5" height="6.5" rx="1" />
+      <rect x="3" y="14.5" width="6.5" height="6.5" rx="1" />
+      <path d="M14.5 14.5h2.5M21 14.5v2.5M17 21h4M14.5 18.5v2.5" />
+    </svg>
+  );
+}
+
 /** Qué ícono le toca a cada forma de pago. */
 const ICONO_PAGO: Record<FormaPago, () => JSX.Element> = {
   efectivo: IconoEfectivo,
   transferencia: IconoTransferencia,
+  qr: IconoQr,
 };
 
 export default function FormularioPedido({ r2Base, telefono, origen }: Props) {
@@ -442,6 +466,59 @@ export default function FormularioPedido({ r2Base, telefono, origen }: Props) {
             </p>
           )}
         </fieldset>
+
+        {/**
+         * La factura: un tilde, y los dos campos aparecen sólo si dice sí.
+         *
+         * UN CHECKBOX Y NO DOS RADIOS «Sí / No». La pregunta tiene una respuesta por
+         * defecto razonable —la mayoría no factura— y un tilde la expresa sin obligar a
+         * contestar. En `pago` fue al revés justamente porque ahí no hay default honesto.
+         *
+         * LOS CAMPOS SE MONTAN Y DESMONTAN, no se deshabilitan: dos inputs grises
+         * ocupando lugar le dicen a la persona «esto es para vos» cuando no lo es. Lo
+         * TIPEADO se conserva en el estado —no se limpia al destildar—, así que quien
+         * duda, destilda y vuelve a tildar no perdió el RUC. Por eso el mensaje consulta
+         * `datos.factura` y no la presencia del RUC.
+         */}
+        <div class="border-borde flex flex-col gap-3 rounded border p-3">
+          <label class="flex cursor-pointer items-start gap-2.5">
+            <input
+              type="checkbox"
+              checked={datos.factura}
+              onChange={(e) => cambiar('factura', (e.target as HTMLInputElement).checked)}
+              class="accent-accion mt-0.5 h-4 w-4 shrink-0"
+            />
+            <span>
+              <span class="text-sm font-medium">Quiero factura</span>
+              <span class="text-texto-suave block text-xs">
+                Si no la pedís, el pedido sale sin factura.
+              </span>
+            </span>
+          </label>
+
+          {datos.factura && (
+            <div class="flex flex-col gap-4 pt-1">
+              <Campo
+                id="ruc"
+                etiqueta="RUC"
+                valor={datos.ruc}
+                error={errores.ruc}
+                alCambiar={(v) => cambiar('ruc', v)}
+                ayuda="Con el guion del dígito verificador. Ej.: 80012345-6."
+              />
+
+              <Campo
+                id="razonSocial"
+                etiqueta="Razón social"
+                valor={datos.razonSocial}
+                error={errores.razonSocial}
+                alCambiar={(v) => cambiar('razonSocial', v)}
+                autocomplete="organization"
+                ayuda="El nombre exacto que tiene que salir en la factura."
+              />
+            </div>
+          )}
+        </div>
 
         <div class="flex flex-col gap-1">
           <label for="notas" class="text-sm font-medium">
