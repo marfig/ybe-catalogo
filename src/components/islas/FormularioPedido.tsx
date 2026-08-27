@@ -14,7 +14,7 @@ import {
   type FormaPago,
 } from '../../lib/pedido.ts';
 import { formatearGs } from '../../lib/precio.ts';
-import { LEYENDA_PRECIO, SIN_PRECIO } from '../../lib/sitio.ts';
+import { CUENTA_BANCARIA, LEYENDA_PRECIO, SIN_PRECIO } from '../../lib/sitio.ts';
 import IconoWhatsApp from '../IconoWhatsApp.tsx';
 
 /**
@@ -189,6 +189,22 @@ export default function FormularioPedido({ r2Base, telefono, origen }: Props) {
    */
   const [enviado, setEnviado] = useState(false);
 
+  /**
+   * Qué se acaba de copiar, y si salió bien.
+   *
+   * Se guarda la CLAVE del dato y no un booleano suelto: con dos botones de copiar, un
+   * `copiado: true` haría que el cartelito apareciera en los dos a la vez.
+   */
+  const [copiado, setCopiado] = useState<{ clave: string; ok: boolean } | null>(null);
+
+  // El cartelito se borra solo. Sin esto queda «¡Copiado!» para siempre al lado de un
+  // dato que la persona copió hace cinco minutos, y deja de significar algo.
+  useEffect(() => {
+    if (!copiado) return;
+    const t = setTimeout(() => setCopiado(null), 2500);
+    return () => clearTimeout(t);
+  }, [copiado]);
+
   useEffect(() => {
     const ctx = leerContextoPedido(window.location.search);
     if (!ctx) {
@@ -223,6 +239,23 @@ export default function FormularioPedido({ r2Base, telefono, origen }: Props) {
 
   function cambiar<C extends keyof DatosPedido>(campo: C, valor: DatosPedido[C]) {
     setDatos((d) => ({ ...d, [campo]: valor }));
+  }
+
+  /**
+   * Copia un dato al portapapeles.
+   *
+   * `navigator.clipboard` EXIGE CONTEXTO SEGURO y puede fallar por permisos, así que el
+   * fallo no es hipotético. No se lo tapa: se avisa «copialo a mano», que es lo que la
+   * persona puede hacer —el dato está a la vista— en vez de quedarse esperando un
+   * cartelito que no llega.
+   */
+  async function copiar(clave: string, valor: string) {
+    try {
+      await navigator.clipboard.writeText(valor);
+      setCopiado({ clave, ok: true });
+    } catch {
+      setCopiado({ clave, ok: false });
+    }
   }
 
   function enviar(e: Event) {
@@ -465,6 +498,93 @@ export default function FormularioPedido({ r2Base, telefono, origen }: Props) {
               {errores.pago}
             </p>
           )}
+
+          {/**
+           * Los datos de la cuenta, SÓLO con transferencia elegida.
+           *
+           * Adentro del mismo `<fieldset>` y pegados a las píldoras a propósito: es la
+           * consecuencia de la opción que se acaba de tocar, y separarlos en otra caja
+           * más abajo obligaría a buscarlos.
+           *
+           * QR no muestra nada acá: ese código se manda por el chat, que es donde se
+           * escanea.
+           */}
+          {datos.pago === 'transferencia' && (
+            <div class="border-borde bg-superficie mt-3 rounded border p-3">
+              {/**
+               * El logo DEBAJO del título, no al costado.
+               *
+               * Al costado tenía que competir por el ancho con el texto, y eso le ponía
+               * un techo de unos 80 px donde la palabra «BANCO» —que en esta marca es un
+               * antetítulo chico— se volvía ilegible. En su propia línea puede usar el
+               * ancho que necesite.
+               *
+               * EL LOGO REEMPLAZA AL TEXTO «Banco Atlas», no lo acompaña: decir la misma
+               * cosa dos veces al lado no informa, sólo llena.
+               *
+               * `w-44` (176 px) es EL TECHO REAL Y NO UNA ELECCIÓN ESTÉTICA: el archivo
+               * se recortó de una captura de 297 px de ancho, así que del logo hay 178 px
+               * de información y nada más. Se guarda a 356 px —el doble— para que en una
+               * pantalla retina salga nítido a este tamaño; pasar de acá empieza a
+               * agrandar píxeles, no a mostrar detalle. Para más grande hace falta otro
+               * archivo de origen.
+               *
+               * `width`/`height` con las medidas reales del archivo: sin eso el navegador
+               * no sabe cuánto lugar reservar y la tarjeta salta cuando el logo carga,
+               * justo cuando la persona está leyendo los dígitos.
+               *
+               * `alt` con el nombre del banco y no vacío: es el único lugar donde se dice
+               * a qué banco se transfiere, así que para un lector de pantalla no es
+               * decoración — es el dato.
+               */}
+              <p class="text-sm font-medium">Transferí a esta cuenta</p>
+              <img
+                src="/banco-atlas.png"
+                width="356"
+                height="72"
+                alt={CUENTA_BANCARIA.banco}
+                class="mt-2 h-auto w-44 max-w-full"
+              />
+
+              {/**
+               * `<dl>` y no una tabla ni párrafos: son pares rótulo/valor, que es
+               * literalmente lo que una lista de definiciones describe. Un lector de
+               * pantalla anuncia «Cuenta, 555021663» en vez de leer dos textos sueltos y
+               * dejar que la persona adivine cuál es de cuál.
+               */}
+              <dl class="mt-3 flex flex-col gap-2">
+                <DatoBancario
+                  rotulo="Cuenta"
+                  valor={CUENTA_BANCARIA.numero}
+                  clave="cuenta"
+                  copiado={copiado}
+                  alCopiar={copiar}
+                />
+                <DatoBancario rotulo="Nombre" valor={CUENTA_BANCARIA.titular} />
+                <DatoBancario rotulo="C.I." valor={CUENTA_BANCARIA.cedula} />
+                <DatoBancario
+                  rotulo="Alias"
+                  valor={CUENTA_BANCARIA.alias}
+                  clave="alias"
+                  copiado={copiado}
+                  alCopiar={copiar}
+                />
+              </dl>
+
+              {/**
+               * El aviso del comprobante VA AL PIE, y el orden es el de los hechos: leer
+               * los datos, transferir, y recién entonces guardar el comprobante. Arriba
+               * era una instrucción para un paso que todavía no había llegado.
+               *
+               * Con una línea divisoria: separa «datos para copiar» de «qué hacer
+               * después», que son dos cosas distintas y se estaban leyendo como una lista
+               * de cinco renglones.
+               */}
+              <p class="border-borde text-texto-suave mt-3 border-t pt-2.5 text-xs">
+                Guardá el comprobante: te lo vamos a pedir por WhatsApp.
+              </p>
+            </div>
+          )}
         </fieldset>
 
         {/**
@@ -564,6 +684,68 @@ export default function FormularioPedido({ r2Base, telefono, origen }: Props) {
         </p>
       </div>
     </form>
+  );
+}
+
+/**
+ * Una fila de la cuenta bancaria: rótulo, valor y —si se puede copiar— su botón.
+ *
+ * EL VALOR VA EN MONOESPACIADO CON CIFRAS TABULARES, y no es decoración. Quien está
+ * mirando esto tiene el formulario del banco abierto al lado y compara dígito por
+ * dígito; con una tipografía proporcional el `1` es angosto y el `0` ancho, así que dos
+ * números distintos se ven del mismo largo. Tabular les da a todos el mismo ancho.
+ *
+ * EL VALOR NO SE AGRUPA NI SE FORMATEA. Un `555 021 663` se lee mejor y se pega roto en
+ * el formulario del banco, que es lo único que importa acá.
+ */
+function DatoBancario({
+  rotulo,
+  valor,
+  clave,
+  copiado,
+  alCopiar,
+}: {
+  rotulo: string;
+  valor: string;
+  clave?: string | undefined;
+  copiado?: { clave: string; ok: boolean } | null;
+  alCopiar?: ((clave: string, valor: string) => void) | undefined;
+}) {
+  const esteCopiado = clave && copiado?.clave === clave ? copiado : null;
+
+  return (
+    <div class="flex items-center gap-2">
+      <dt class="text-texto-suave w-16 shrink-0 text-xs">{rotulo}</dt>
+      <dd class="min-w-0 flex-1 font-mono text-sm tabular-nums">{valor}</dd>
+
+      {clave && alCopiar && (
+        <div class="flex shrink-0 items-center gap-2">
+          {/**
+           * `aria-live="polite"` en un contenedor que SIEMPRE existe, no en el cartelito
+           * que aparece y desaparece. Un `aria-live` que se monta junto con su texto no
+           * se anuncia: la región tiene que estar ahí de antes para que el lector note
+           * que cambió.
+           */}
+          <span aria-live="polite" class="text-xs">
+            {esteCopiado?.ok === true && <span class="text-emerald-700">¡Copiado!</span>}
+            {esteCopiado?.ok === false && (
+              <span class="text-texto-suave">Copialo a mano</span>
+            )}
+          </span>
+
+          <button
+            type="button"
+            onClick={() => alCopiar(clave, valor)}
+            /* El nombre accesible dice QUÉ copia. Cuatro botones que dicen «Copiar» son
+               cuatro botones idénticos para quien navega por lista de controles. */
+            aria-label={`Copiar ${rotulo}`}
+            class="border-borde text-texto-suave hover:border-accion hover:text-accion min-h-8 rounded border px-2 text-xs"
+          >
+            Copiar
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
 

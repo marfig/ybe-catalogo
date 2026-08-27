@@ -53,5 +53,28 @@ export const LEYENDA_PRECIO = 'Precio de referencia — confirmalo por WhatsApp'
 /** Texto cuando el producto no tiene precio cargado. */
 export const SIN_PRECIO = 'Consultar precio';
 
+/**
+ * La cuenta a la que se transfiere.
+ *
+ * VA COMO DATOS Y NO COMO LA IMAGEN QUE LOS TRAE. La diferencia no es de prolijidad:
+ * de una captura no se copia un número de cuenta, y copiarlo a la app del banco es
+ * exactamente lo que el cliente vino a hacer. En texto además se lee con un lector de
+ * pantalla, se agranda con el zoom del sistema y pesa unos cientos de bytes en vez de
+ * 44 KB.
+ *
+ * `numero` y `alias` SIN separadores ni espacios: son los dos campos que se copian, y
+ * un `555 021 663` bonito en pantalla se pega roto en el formulario del banco. Si algún
+ * día se los quiere agrupar visualmente, se agrupa al renderizar y se copia el valor
+ * de acá.
+ */
+export const CUENTA_BANCARIA = {
+  banco: 'Banco Atlas',
+  numero: '555021663',
+  titular: 'Ydalia Benitez',
+  cedula: '5007059',
+  /** El alias del banco, que casualmente es un número de teléfono. */
+  alias: '0981857213',
+} as const;
+
 /** Redes sociales para `sameAs` de Organization y el footer. Pendiente. */
 export const REDES: string[] = [];
