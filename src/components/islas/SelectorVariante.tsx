@@ -9,7 +9,9 @@ import {
   urlImagen,
   type Imagen,
 } from '../../lib/imagenes.ts';
+import { urlDeFormulario } from '../../lib/pedido.ts';
 import { construirEnlaceWa } from '../../lib/whatsapp.ts';
+import IconoWhatsApp from '../IconoWhatsApp.tsx';
 import SinFoto from '../SinFoto.tsx';
 
 export interface VarianteIsla {
@@ -21,6 +23,8 @@ export interface VarianteIsla {
 
 interface Props {
   nombre: string;
+  /** Slug del producto. Identifica la ficha en el enlace al formulario de pedido. */
+  slug: string;
   /** URL canonica absoluta. Va SIEMPRE en el mensaje de WhatsApp (SPEC §9.7). */
   url: string;
   variantes: VarianteIsla[];
@@ -44,6 +48,7 @@ interface Props {
  */
 export default function SelectorVariante({
   nombre,
+  slug,
   url,
   variantes,
   r2Base,
@@ -399,21 +404,67 @@ export default function SelectorVariante({
         </div>
       )}
 
-      <a
-        href={enlaceWa}
-        target="_blank"
-        rel="noopener"
-        class="bg-primario flex items-center justify-center gap-2 rounded px-4 py-3 font-medium text-white"
-      >
-        {/* Fondo --color-primario con texto blanco = 6.95:1, AA. El verde de
-            WhatsApp daria 1.83:1 con blanco encima (SPEC §3.2). */}
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
-          <path
-            d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21 5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.79 14.01c-.24.68-1.4 1.3-1.93 1.35-.53.05-1.03.24-3.47-.72-2.94-1.16-4.79-4.22-4.94-4.42-.14-.19-1.17-1.56-1.17-2.98 0-1.41.74-2.11 1-2.4.26-.29.57-.36.77-.36.19 0 .39 0 .55.01.19.01.43-.07.67.51.24.58.82 2 .89 2.14.07.14.12.31.02.5-.09.19-.19.31-.38.53-.19.22-.3.31-.44.5-.14.19-.28.4-.12.68.16.29.72 1.19 1.55 1.93 1.06.95 1.95 1.25 2.24 1.39.29.14.46.12.63-.07.17-.19.72-.84.91-1.13.19-.29.39-.24.65-.14.26.09 1.66.78 1.95.93.29.14.48.22.55.34.07.12.07.7-.17 1.38z"
-          />
-        </svg>
-        Consultar por WhatsApp
-      </a>
+      {/**
+       * LOS DOS CAMINOS, uno al lado del otro.
+       *
+       * «Pedí ahora» va PRIMERO y con el color de acción porque es la acción que
+       * completa una venta sin que nadie tenga que atender un chat. WhatsApp queda a
+       * la derecha, en su verde, porque sigue siendo el canal donde este negocio
+       * responde: el que duda, el que pregunta por otro color o por mayorista, entra
+       * por ahí — y sacárselo sería cerrarle la puerta al caso más común.
+       *
+       * APILADOS EN MÓVIL, en fila desde `sm`. Se probó primero la fila en todos los
+       * anchos y no aguanta el texto: a 320 px cada botón mide unos 150 px, y
+       * «Consultá por WhatsApp» envuelve a dos líneas mientras «Pedí ahora» ocupa una
+       * — dos botones de la misma altura con distinta cantidad de texto adentro, que
+       * es exactamente lo que se ve desprolijo.
+       *
+       * Apilados cada uno tiene el ancho entero: el texto entra en una línea, el
+       * blanco de tocar es de borde a borde —lo más fácil de acertar con el pulgar— y
+       * el orden vertical dice cuál es el principal sin depender del color.
+       */}
+      <div class="grid gap-2 sm:grid-cols-2">
+        {/* Azul de accion con texto blanco = 6.66:1, AAA. Ver el token en global.css. */}
+        <a
+          href={urlDeFormulario({
+            slug,
+            sku: variante.sku,
+            color: variantes.length > 1 ? variante.color : undefined,
+          })}
+          class="bg-accion flex min-h-12 items-center justify-center gap-2 rounded px-3 py-3 text-center leading-tight font-medium text-white"
+        >
+          {/* El carrito: lo que distingue «pedir» de «preguntar» antes de leer. */}
+          <svg
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            class="shrink-0"
+          >
+            <path d="M3 4h2l2.4 10.5A2 2 0 0 0 9.35 16h7.9a2 2 0 0 0 1.96-1.6L20.5 7H6" />
+            <circle cx="10" cy="20" r="1.4" />
+            <circle cx="17.5" cy="20" r="1.4" />
+          </svg>
+          Pedí ahora
+        </a>
+
+        {/* Verde de marca con texto blanco: el par de la propia app de WhatsApp, que
+            NO cumple AA. Decision explicita, justificada en el token de global.css. */}
+        <a
+          href={enlaceWa}
+          target="_blank"
+          rel="noopener"
+          class="bg-whatsapp flex min-h-12 items-center justify-center gap-2 rounded px-3 py-3 text-center leading-tight font-medium text-white"
+        >
+          <IconoWhatsApp />
+          Consultá por WhatsApp
+        </a>
+      </div>
 
       {/**
        * El visor.

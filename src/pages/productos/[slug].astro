@@ -141,6 +141,7 @@ if (precio !== null && inicial) {
     <SelectorVariante
       client:visible
       nombre={nombre}
+      slug={producto.id}
       url={canonical.href}
       variantes={variantes.map((v) => ({
         sku: v.sku,
