@@ -264,6 +264,33 @@
     ]
   },
   {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "id": "bandolera-impermeable-mediano",
+    "nombre": "bandolera impermeable mediano",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "0030074"
+    },
+    "precio": 139000,
+    "variantes": [
+      {
+        "color": "Lila Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/7feffd5c798fca9b"
+          }
+        ],
+        "sku": "0030074-V"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-25",
     "categorias": [
       "bandolera-dama"
@@ -5167,6 +5194,35 @@
           }
         ],
         "sku": "2510407"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Medidas aprox. ( alto x largo x ancho) cm:\t32 x 56 x 27",
+    "id": "bolso-de-viaje",
+    "nombre": "Bolso de viaje",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "0020894"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "(1-18) Gris Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/35c452941c4d29fb"
+          }
+        ],
+        "sku": "0020894-1-18-gris-osc"
       }
     ]
   },
@@ -24874,6 +24930,35 @@
     ]
   },
   {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas Cm ( alto x largo x ancho):\t45 x 28 x 14",
+    "id": "mochila-10",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "0031480"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Naranja/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8fb9b7f9ac1f590a"
+          }
+        ],
+        "sku": "0031480-O3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-24",
     "categorias": [
       "mochila-dama"
@@ -25051,6 +25136,242 @@
           }
         ],
         "sku": "CG85592-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 32 x 18 cm",
+    "id": "mochila-6",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "0030880"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "*(8) Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3631549189fdf3ac"
+          }
+        ],
+        "sku": "0030880-8-azul"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 32 x 18 cm",
+    "id": "mochila-7",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "0030882"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "*(8) Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e28320d3db6da2bd"
+          }
+        ],
+        "sku": "0030882-8-azul"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 32 x 18 cm",
+    "id": "mochila-8",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "0030884"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "*(2) Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6d08298dbd2ff367"
+          }
+        ],
+        "sku": "0030884-2-gris"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 32 x 18 cm",
+    "id": "mochila-9",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "0031479"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "*(pf-P) Ros/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/acd5bf4baf2b03e4"
+          }
+        ],
+        "sku": "0031479-pf-p-ros-gris"
+      },
+      {
+        "color": "*(r3) Rojo/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9c96c3239ce8d9a4"
+          }
+        ],
+        "sku": "0031479-r3-rojo-negro"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 29 x 15 cm",
+    "id": "mochila-basica",
+    "nombre": "Mochila básica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8720875"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "(2-22) Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c85724c137231fb1"
+          }
+        ],
+        "sku": "8720875-2-22-gris"
+      },
+      {
+        "color": "(3-P) Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/152f70ae2b862be0"
+          }
+        ],
+        "sku": "8720875-3-p-negro"
+      },
+      {
+        "color": "(61-P) Azul Osc",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1b5921afa61ee585"
+          }
+        ],
+        "sku": "8720875-61-p-azul-osc"
+      },
+      {
+        "color": "(9-P) Azul Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ef18bbe22f1b7169"
+          }
+        ],
+        "sku": "8720875-9-p-azul-osc"
+      },
+      {
+        "color": "(d1-P) Marron Osc",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3095aa89de36edc9"
+          }
+        ],
+        "sku": "8720875-d1-p-marron-osc"
+      },
+      {
+        "color": "(g1-P) Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/549377fbf259ac3a"
+          }
+        ],
+        "sku": "8720875-g1-p-verde"
+      },
+      {
+        "color": "#(r-P) Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/60bcc5e8c5aeaf50"
+          }
+        ],
+        "sku": "8720875-r-p-rojo"
       }
     ]
   },
@@ -33127,6 +33448,48 @@
           }
         ],
         "sku": "CG85960-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-27",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 29 x 15 cm",
+    "id": "mochila-mediana-16",
+    "nombre": "Mochila mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "0020875"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "*(7-P) Azul Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8034f5a4f329e947"
+          }
+        ],
+        "sku": "0020875-7-p-azul-claro"
+      },
+      {
+        "color": "*(f-P) Rosa Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b7a03f1762dc7279"
+          }
+        ],
+        "sku": "0020875-f-p-rosa-osc"
       }
     ]
   },
