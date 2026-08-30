@@ -57,6 +57,25 @@ export const SQL = {
      WHERE p.estado IN (${HUECOS})
      ORDER BY v.producto_id, v.orden, v.id`,
 
+  /**
+   * Pedidos especiales (SPEC.md §4.5). No lleva `PARAMS`: no tiene `estado`.
+   *
+   * Se traen TODAS las filas, activas e inactivas, igual que con los productos: el
+   * `activo: false` viaja al JSON y es el sitio el que filtra. Filtrarlo aca haria
+   * que apagar una ficha la borre del archivo comiteado en vez de marcarla, y el
+   * diff no diria que paso.
+   *
+   * El JOIN a `imagenes` es INNER a proposito: `imagen_id` es NOT NULL con foreign
+   * key, asi que una fila sin imagen es corrupcion referencial, no un caso a tolerar.
+   * Si apareciera, `construirPedidosEspeciales` la denuncia por su slug.
+   */
+  pedidosEspeciales: `
+    SELECT pe.slug, pe.nombre, pe.descripcion, pe.orden, pe.activo,
+           i.hash16, i.anchos
+      FROM pedidos_especiales pe
+      JOIN imagenes i ON i.id = pe.imagen_id
+     ORDER BY pe.orden, pe.slug`,
+
   // La imagen llega identificada por VARIANTE, no por su id: es la forma que
   // espera construirProductos(), que agrupa por variante_id.
   imagenes: `
@@ -83,14 +102,16 @@ export const SQL = {
  * @param {(sql: string, params: unknown[]) => Promise<object[]> | object[]} ejecutar
  */
 export async function consultarFilas(ejecutar) {
-  const [productos, variantes, imagenes, categorias] = await Promise.all([
+  const [productos, variantes, imagenes, categorias, pedidosEspeciales] = await Promise.all([
     ejecutar(SQL.productos, PARAMS),
     ejecutar(SQL.variantes, PARAMS),
     ejecutar(SQL.imagenes, PARAMS),
     ejecutar(SQL.categorias, PARAMS),
+    // Sin PARAMS: la consulta no filtra por estado, ver el comentario en SQL.
+    ejecutar(SQL.pedidosEspeciales, []),
   ]);
 
-  return { productos, variantes, imagenes, categorias };
+  return { productos, variantes, imagenes, categorias, pedidosEspeciales };
 }
 
 /** Variables de entorno del volcado. En la Action salen de los secrets. */

@@ -233,6 +233,66 @@ export function construirProductos({ productos = [], variantes = [], imagenes = 
   return salida.sort((a, b) => porTexto(a.id, b.id));
 }
 
+/**
+ * Construye el arreglo de `src/data/pedidos-especiales.json` (SPEC.md §4.5).
+ *
+ * Mucho mas simple que `construirProductos` porque el modelo lo es: una fila, una
+ * imagen, sin variantes ni categorias que resolver. La complejidad de aquella funcion
+ * no es accidental — viene de agrupar tres tablas — y no hay que copiarla por simetria.
+ *
+ * @param {object[]} filas
+ */
+export function construirPedidosEspeciales(filas = []) {
+  const salida = [];
+
+  for (const f of filas) {
+    // El slug ES el segmento de URL y el `id` de la coleccion. Sin el no hay pagina
+    // que generar, asi que se corta aca y no en `astro build`, donde el error de Zod
+    // no diria cual de las filas es.
+    if (!f.slug) {
+      throw new Error(`pedido especial sin slug (nombre: ${JSON.stringify(f.nombre)}).`);
+    }
+    if (!f.nombre) {
+      throw new Error(`${f.slug}: sin nombre.`);
+    }
+
+    // OBLIGATORIA, al reves que en productos: la descripcion ES la ficha (SPEC §4.5).
+    // La columna es NOT NULL, asi que una vacia solo llega por un UPDATE a mano.
+    if (!(f.descripcion ?? '').trim()) {
+      throw new Error(`${f.slug}: sin descripcion. Es obligatoria en esta coleccion.`);
+    }
+
+    if (!RE_HASH16.test(f.hash16 ?? '')) {
+      throw new Error(
+        `${f.slug}: hash16 mal formado: ${JSON.stringify(f.hash16)}. Son 16 hex en minuscula.`
+      );
+    }
+
+    // Se reusa el normalizador de las imagenes de producto: mismo contrato de columna
+    // y mismos anchos validos. Duplicarlo daria dos definiciones de que es un ancho valido.
+    const anchos = normalizarAnchos(f.anchos, f.slug, f.hash16);
+
+    const pedido = {
+      id: f.slug,
+      nombre: f.nombre,
+      descripcion: f.descripcion,
+      imagen: { base: `catalogo/${f.hash16}`, anchos },
+      orden: f.orden ?? 999,
+    };
+
+    // Se omite la clave que iguala su default de Zod, misma regla que en productos
+    // (SPEC §6.5): mantiene el diff de git legible.
+    if (!aBool(f.activo)) pedido.activo = false;
+
+    salida.push(pedido);
+  }
+
+  // Orden estable: por `orden` y con desempate por slug, igual que lo lee
+  // `pedidosEspeciales()` en el sitio. Sin el desempate, dos filas con el mismo
+  // `orden` podrian intercambiarse entre volcados y ensuciar el diff.
+  return salida.sort((a, b) => a.orden - b.orden || porTexto(a.id, b.id));
+}
+
 /** Reconstruye recursivamente con las claves en orden alfabetico. */
 function ordenarClaves(valor) {
   if (Array.isArray(valor)) return valor.map(ordenarClaves);

@@ -3,7 +3,12 @@ import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
 import { readFileSync } from 'node:fs';
 
-import { construirProductos, serializar, PUBLICABLES } from '../construir.mjs';
+import {
+  construirPedidosEspeciales,
+  construirProductos,
+  serializar,
+  PUBLICABLES,
+} from '../construir.mjs';
 import {
   ESTADOS,
   PARAMS,
@@ -28,13 +33,19 @@ import {
  * sea borraria el catalogo publicado. Se inyecta un `buscar` falso.
  */
 
-const MIGRACION = readFileSync('db/migrations/0001_esquema_inicial.sql', 'utf8');
+/**
+ * Las migraciones que el volcado necesita, en orden. `0006` trae
+ * `pedidos_especiales`, que es la segunda salida del volcado.
+ */
+const MIGRACIONES = ['0001_esquema_inicial.sql', '0006_pedidos_especiales.sql'].map((n) =>
+  readFileSync(`db/migrations/${n}`, 'utf8')
+);
 const AHORA = '2026-08-04T12:00:00Z';
 
 function base() {
   const db = new DatabaseSync(':memory:');
   db.exec('PRAGMA foreign_keys = ON;');
-  db.exec(MIGRACION);
+  for (const m of MIGRACIONES) db.exec(m);
   return db;
 }
 
@@ -139,28 +150,46 @@ test('ESTADOS deriva de PUBLICABLES de construir.mjs, no de una copia', () => {
   assert.equal(PARAMS.length, PUBLICABLES.size);
 });
 
-test('cada consulta tiene tantos placeholders como estados publicables', () => {
+test('cada consulta del catalogo tiene tantos placeholders como estados publicables', () => {
   for (const [nombre, sql] of Object.entries(SQL)) {
+    // `pedidosEspeciales` queda afuera A PROPOSITO: es otra tabla, sin columna
+    // `estado`, y no se filtra por publicables. Ver el comentario en `consultar.mjs`.
+    if (nombre === 'pedidosEspeciales') continue;
+
     const huecos = (sql.match(/\?/g) ?? []).length;
     assert.equal(huecos, PUBLICABLES.size, `${nombre} tiene ${huecos} placeholders`);
   }
+});
+
+test('la consulta de pedidos especiales NO lleva placeholders', () => {
+  // Si alguien le agregara un `?` sin sumarlo a la llamada, D1 responderia error de
+  // binding y el volcado cortaria entero — incluido el catalogo, que no tiene la culpa.
+  assert.equal((SQL.pedidosEspeciales.match(/\?/g) ?? []).length, 0);
 });
 
 // --------------------------------------------------------------------------
 // Forma de las filas: es el contrato con construirProductos()
 // --------------------------------------------------------------------------
 
-test('consultarFilas: devuelve las cuatro colecciones que espera construirProductos', async () => {
+test('consultarFilas: devuelve las cinco colecciones de las dos salidas del volcado', async () => {
   const db = base();
   insertarCompleto(db);
 
   const filas = await consultarFilas(ejecutorSqlite(db));
 
-  assert.deepEqual(Object.keys(filas).sort(), ['categorias', 'imagenes', 'productos', 'variantes']);
+  // Las cuatro de `productos.json` mas la de `pedidos-especiales.json`.
+  assert.deepEqual(Object.keys(filas).sort(), [
+    'categorias',
+    'imagenes',
+    'pedidosEspeciales',
+    'productos',
+    'variantes',
+  ]);
   assert.equal(filas.productos.length, 1);
   assert.equal(filas.variantes.length, 1);
   assert.equal(filas.imagenes.length, 1);
   assert.equal(filas.categorias.length, 1);
+  assert.equal(filas.pedidosEspeciales.length, 0);
 });
 
 test('consultarFilas: las columnas son exactamente las que construirProductos lee', async () => {
@@ -229,7 +258,13 @@ test('consultarFilas: tampoco trae las variantes, imagenes ni categorias de un i
   insertarCompleto(db, { estado: 'importado', slug: null });
 
   const filas = await consultarFilas(ejecutorSqlite(db));
-  assert.deepEqual(filas, { productos: [], variantes: [], imagenes: [], categorias: [] });
+  assert.deepEqual(filas, {
+    productos: [],
+    variantes: [],
+    imagenes: [],
+    categorias: [],
+    pedidosEspeciales: [],
+  });
 });
 
 test('consultarFilas: incluye aprobado, publicado y eliminado', async () => {
@@ -445,4 +480,137 @@ test('ejecutorD1: un resultado sin filas devuelve arreglo vacio, no undefined', 
   // error de D1, no la ausencia de filas.
   const { buscar } = buscarFalso({ success: true, result: [{ success: true }] });
   assert.deepEqual(await ejecutorD1(CONFIG, buscar)('SELECT 1'), []);
+});
+
+// --------------------------------------------------------------------------
+// Pedidos especiales: la segunda salida del volcado (SPEC.md 4.5)
+// --------------------------------------------------------------------------
+
+/** Inserta una imagen y devuelve su id. Son la dependencia NOT NULL de la ficha. */
+function imagen(db, hash16, anchos = '[300,600]') {
+  return db
+    .prepare(
+      `INSERT INTO imagenes (hash16, anchos, ancho_origen, alto_origen, bytes_origen, creado_en)
+       VALUES (?, ?, 1200, 1200, 90000, ?) RETURNING id`
+    )
+    .get(hash16, anchos, AHORA).id;
+}
+
+function pedido(db, campos = {}) {
+  const n = unico();
+  const p = {
+    slug: `pedido-${n}`,
+    nombre: `Pedido ${n}`,
+    descripcion: 'Cantidad minima: 12 unidades.',
+    orden: 10,
+    activo: 1,
+    hash16: `${String(n).padStart(2, '0')}00000000000000`,
+    anchos: '[300,600]',
+    ...campos,
+  };
+
+  const imagenId = imagen(db, p.hash16, p.anchos);
+  db.prepare(
+    `INSERT INTO pedidos_especiales
+       (slug, nombre, descripcion, imagen_id, orden, activo, creado_en, actualizado_en)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+  ).run(p.slug, p.nombre, p.descripcion, imagenId, p.orden, p.activo, AHORA, AHORA);
+  return p;
+}
+
+test('consultarFilas trae los pedidos especiales con su imagen resuelta', async () => {
+  const db = base();
+  pedido(db, { slug: 'mochilas-por-cantidad', nombre: 'Mochilas por cantidad' });
+
+  const filas = await consultarFilas(ejecutorSqlite(db));
+
+  assert.equal(filas.pedidosEspeciales.length, 1);
+  const f = filas.pedidosEspeciales[0];
+  assert.equal(f.slug, 'mochilas-por-cantidad');
+  // El hash y los anchos vienen del JOIN: sin ellos no se puede armar la imagen.
+  assert.match(f.hash16, /^[0-9a-f]{16}$/);
+  assert.equal(f.anchos, '[300,600]');
+});
+
+test('el contrato de columnas de pedidos especiales, una por una', async () => {
+  // Mismo criterio que el contrato de productos: si una columna se cae del SELECT,
+  // `construirPedidosEspeciales` no falla — emite un JSON con el campo ausente y el
+  // error aparece recien en `astro build`, o peor, en produccion.
+  const db = base();
+  pedido(db);
+
+  const filas = await consultarFilas(ejecutorSqlite(db));
+  assert.deepEqual(Object.keys(filas.pedidosEspeciales[0]).sort(), [
+    'activo',
+    'anchos',
+    'descripcion',
+    'hash16',
+    'nombre',
+    'orden',
+    'slug',
+  ]);
+});
+
+test('las fichas apagadas SI se traen: el filtro es del sitio, no del volcado', async () => {
+  // Si el SQL las filtrara, apagar una ficha la BORRARIA del archivo comiteado en vez
+  // de marcarla, y el diff de la publicacion no diria que paso.
+  const db = base();
+  pedido(db, { slug: 'apagada', activo: 0 });
+
+  const filas = await consultarFilas(ejecutorSqlite(db));
+  const armado = construirPedidosEspeciales(filas.pedidosEspeciales);
+
+  assert.equal(armado.length, 1);
+  assert.equal(armado[0].activo, false);
+});
+
+test('ida y vuelta: la fila de D1 llega a la forma que espera content.config.ts', async () => {
+  const db = base();
+  pedido(db, {
+    slug: 'loncheras-personalizadas',
+    nombre: 'Loncheras personalizadas',
+    descripcion: `Cantidad minima: 20 unidades.
+Bordado con el logo.`,
+    orden: 20,
+    hash16: 'e5469209224bdfb3',
+  });
+
+  const filas = await consultarFilas(ejecutorSqlite(db));
+  assert.deepEqual(construirPedidosEspeciales(filas.pedidosEspeciales), [
+    {
+      id: 'loncheras-personalizadas',
+      nombre: 'Loncheras personalizadas',
+      // El salto de linea sobrevive el viaje: es lo que `whitespace-pre-line` renderiza.
+      descripcion: `Cantidad minima: 20 unidades.
+Bordado con el logo.`,
+      imagen: { base: 'catalogo/e5469209224bdfb3', anchos: [300, 600] },
+      orden: 20,
+    },
+  ]);
+});
+
+test('el orden sale de la columna `orden`, con el slug de desempate', async () => {
+  const db = base();
+  pedido(db, { slug: 'tercero', orden: 30 });
+  pedido(db, { slug: 'primero', orden: 10 });
+  pedido(db, { slug: 'b-empatado', orden: 20 });
+  pedido(db, { slug: 'a-empatado', orden: 20 });
+
+  const filas = await consultarFilas(ejecutorSqlite(db));
+  assert.deepEqual(
+    construirPedidosEspeciales(filas.pedidosEspeciales).map((p) => p.id),
+    ['primero', 'a-empatado', 'b-empatado', 'tercero']
+  );
+});
+
+test('una descripcion en blanco corta el volcado nombrando el slug', () => {
+  // La columna es NOT NULL, asi que solo llega aca por un UPDATE a mano. Igual se
+  // defiende: la descripcion ES la ficha, y una vacia publica un detalle inutil.
+  assert.throws(
+    () =>
+      construirPedidosEspeciales([
+        { slug: 'sin-texto', nombre: 'X', descripcion: '   ', hash16: 'e5469209224bdfb3', anchos: '[300]' },
+      ]),
+    /sin-texto: sin descripcion/
+  );
 });

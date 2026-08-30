@@ -30,7 +30,14 @@ import {
  * preservacion del CONTENIDO, normalizando solo ese orden del lado esperado.
  */
 
-const MIGRACION = readFileSync('db/migrations/0001_esquema_inicial.sql', 'utf8');
+/**
+ * `0006` no la usa el sembrado, pero SI `consultarFilas`, que ahora consulta
+ * `pedidos_especiales` para la segunda salida del volcado. Sin ella la ida y vuelta
+ * revienta con «no such table» en un test que no habla de pedidos especiales.
+ */
+const MIGRACIONES = ['0001_esquema_inicial.sql', '0006_pedidos_especiales.sql'].map((n) =>
+  readFileSync(`db/migrations/${n}`, 'utf8')
+);
 
 /**
  * EL FIXTURE ESTA CONGELADO, Y NO ES `src/data/productos.json`.
@@ -76,7 +83,7 @@ const AHORA = '2026-08-05';
 function base() {
   const db = new DatabaseSync(':memory:');
   db.exec('PRAGMA foreign_keys = ON;');
-  db.exec(MIGRACION);
+  for (const m of MIGRACIONES) db.exec(m);
   return db;
 }
 
