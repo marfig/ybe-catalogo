@@ -175,7 +175,6 @@ test('consultarFilas: las columnas son exactamente las que construirProductos le
     'actualizado_en',
     'codigo',
     'descripcion',
-    'destacado',
     'estado',
     'id',
     'nombre',

@@ -31,6 +31,56 @@ const imagen = z.object({
   anchos: z.array(z.union([z.literal(300), z.literal(600)])).min(1),
 });
 
+/**
+ * Pedidos especiales: lo que se vende POR CANTIDAD, con precio por caso.
+ *
+ * COLECCION APARTE Y NO UN FLAG SOBRE `productos`, que era el diseño anterior
+ * (`destacado`). El motivo no es de orden sino de forma: un producto exige
+ * `variantes` con `sku` y `color` —min(1) mas abajo, y `construir.mjs` corta el
+ * volcado si faltan—, y un pedido por cantidad no tiene ninguno de los dos. Meterlo
+ * en `productos` obliga a inventar un SKU y un color falsos por cada entrada.
+ *
+ * Tampoco tiene `precio`: es lo que lo define. El precio se negocia por caso, y por
+ * eso la unica salida de estas fichas es la consulta por WhatsApp.
+ *
+ * SE MANTIENE A MANO, igual que `categorias.json` y a diferencia de
+ * `productos.json`, que lo genera el volcado desde D1. Son pocas entradas y las
+ * escribe la misma persona que decide la oferta.
+ */
+const pedidosEspeciales = defineCollection({
+  loader: file('src/data/pedidos-especiales.json'),
+  schema: z.object({
+    nombre: z.string().min(1),
+
+    /**
+     * OBLIGATORIA, al reves que en `productos`, y la asimetria es deliberada.
+     *
+     * Una ficha de producto se sostiene sin descripcion: tiene precio, codigo,
+     * colores, marca y migas. Aca no hay nada de eso — la descripcion ES la pagina de
+     * detalle. Sin ella, entrar a la ficha es un clic hacia la misma foto que ya
+     * estaba en la tarjeta, y el visitante que queria saber la cantidad minima se va
+     * sin la respuesta.
+     *
+     * Que lo corte el build y no la memoria de quien carga: `min(1)` falla en
+     * `astro build` nombrando la entrada, antes de publicar una ficha vacia.
+     *
+     * Texto libre y NO campos estructurados (`cantidadMinima: number` y companía): la
+     * primera entrada real va a decir «12 unidades por color» o «a partir de media
+     * docena», y ningun numero entero aguanta eso. Se estructura despues de cargar
+     * unas cuantas y ver que se repite, no antes.
+     */
+    descripcion: z.string().min(1),
+
+    // UNA sola, y no un arreglo como en `variantes`: no hay colores que mostrar, asi
+    // que la segunda foto no tendria quien la elija.
+    imagen,
+
+    // Mismo criterio que `categorias`: el orden lo decide quien edita el archivo.
+    orden: z.number().int().nonnegative().default(999),
+    activo: z.boolean().default(true),
+  }),
+});
+
 const variante = z.object({
   sku: z.string().min(1),
   color: z.string().min(1),
@@ -84,7 +134,6 @@ const productos = defineCollection({
     variantes: z.array(variante).min(1),
 
     activo: z.boolean().default(true),
-    destacado: z.boolean().default(false),
     // z.iso.date() y no z.string().date(): esta ultima esta deprecada en Zod 4.
     actualizado: z.iso.date(),
 
@@ -108,4 +157,4 @@ const productos = defineCollection({
   }),
 });
 
-export const collections = { productos, categorias };
+export const collections = { productos, categorias, pedidosEspeciales };

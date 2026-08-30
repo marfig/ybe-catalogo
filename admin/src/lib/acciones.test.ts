@@ -114,7 +114,6 @@ const cambio = (c: Partial<CambioFila> & { id: number }): CambioFila => ({
   nombre: 'Cartera de fiesta',
   descripcion: null,
   precio: 195000,
-  destacado: false,
   categoriaPrincipal: 'carteras',
   ...c,
 });

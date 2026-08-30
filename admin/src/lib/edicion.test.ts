@@ -138,7 +138,6 @@ test('el SLUG no cambia aunque cambie el nombre', async () => {
       nombre: 'Cartera renombrada por completo',
       descripcion: null,
       precio: 195000,
-      destacado: false,
       categorias: ['carteras'],
       variantes: [{ id: v, color: 'Negro', hashes: [HASH_A] }],
     },
@@ -163,7 +162,6 @@ test('el ESTADO no cambia: solo se mueve por las transiciones', async () => {
       nombre: 'Otro',
       descripcion: null,
       precio: null,
-      destacado: false,
       categorias: ['carteras'],
       variantes: [{ id: v, color: 'Negro', hashes: [] }],
     },
@@ -183,7 +181,6 @@ test('el CODIGO no cambia: es la identidad', async () => {
       nombre: 'Otro',
       descripcion: null,
       precio: null,
-      destacado: false,
       categorias: ['carteras'],
       variantes: [{ id: v, color: 'Negro', hashes: [] }],
     },
@@ -206,7 +203,6 @@ test('vaciar el nombre de un PUBLICADO se rechaza', async () => {
           nombre: '  ',
           descripcion: null,
           precio: null,
-          destacado: false,
           categorias: ['carteras'],
           variantes: [{ id: v, color: 'Negro', hashes: [] }],
         },
@@ -227,7 +223,6 @@ test('vaciar el nombre de un IMPORTADO se permite', async () => {
       nombre: '',
       descripcion: null,
       precio: null,
-      destacado: false,
       categorias: ['carteras'],
       variantes: [{ id: v, color: 'Negro', hashes: [] }],
     },
@@ -240,7 +235,7 @@ test('vaciar el nombre de un IMPORTADO se permite', async () => {
 // Lo que sí cambia
 // --------------------------------------------------------------------------
 
-test('actualiza descripcion, precio, destacado y categorias', async () => {
+test('actualiza descripcion, precio y categorias', async () => {
   const db = base();
   const { id, varianteId: v } = alta(db);
 
@@ -251,7 +246,6 @@ test('actualiza descripcion, precio, destacado y categorias', async () => {
       nombre: 'Cartera de fiesta',
       descripcion: 'Descripción nueva',
       precio: 250000,
-      destacado: true,
       categorias: ['mochilas', 'dama'],
       variantes: [{ id: v, color: 'Negro', hashes: [HASH_A] }],
     },
@@ -261,7 +255,6 @@ test('actualiza descripcion, precio, destacado y categorias', async () => {
   const p = leer(db);
   assert.equal(p.descripcion, 'Descripción nueva');
   assert.equal(p.precio, 250000);
-  assert.equal(p.destacado, 1);
   assert.equal(p.actualizado_en, AHORA);
 
   const cats = db
@@ -284,7 +277,6 @@ test('agregar una variante nueva no toca el SKU de las que estaban', async () =>
       nombre: 'Cartera de fiesta',
       descripcion: null,
       precio: null,
-      destacado: false,
       categorias: ['carteras'],
       variantes: [
         // La que ya existe viaja con su id; la nueva no.
@@ -316,7 +308,6 @@ test('agrega fotos a una variante existente sin perder las que tenia', async () 
       nombre: 'Cartera de fiesta',
       descripcion: null,
       precio: null,
-      destacado: false,
       categorias: ['carteras'],
       variantes: [{ id: v, color: 'Negro', hashes: [HASH_A, HASH_B] }],
     },
@@ -349,7 +340,6 @@ test('QUITAR una variante que ya existe se RECHAZA', async () => {
           nombre: 'Cartera de fiesta',
           descripcion: null,
           precio: null,
-          destacado: false,
           categorias: ['carteras'],
           variantes: [{ color: 'Rojo', hashes: [] }],
         },
@@ -376,7 +366,6 @@ test('RECHAZA una categoria inexistente sin escribir nada', async () => {
           nombre: 'Otro nombre',
           descripcion: null,
           precio: null,
-          destacado: false,
           categorias: ['inventada'],
           variantes: [{ id: v, color: 'Negro', hashes: [] }],
         },
@@ -397,7 +386,6 @@ test('un producto que no existe se reporta', async () => {
           nombre: 'x',
           descripcion: null,
           precio: null,
-          destacado: false,
           categorias: ['carteras'],
           variantes: [{ color: 'Negro', hashes: [] }],
         },
@@ -428,7 +416,6 @@ test('REGRESION: un sku del proveedor que no deriva del color se edita igual', a
       nombre: 'Cartera de fiesta',
       descripcion: null,
       precio: 195000,
-      destacado: false,
       categorias: ['carteras'],
       variantes: [{ id: v, color: 'Champagne', hashes: [HASH_A] }],
     },
@@ -463,7 +450,6 @@ test('un id de variante ajeno se RECHAZA', async () => {
           nombre: 'X',
           descripcion: null,
           precio: null,
-          destacado: false,
           categorias: ['carteras'],
           variantes: [{ id: 99999, color: 'Negro', hashes: [] }],
         },
@@ -513,7 +499,6 @@ test('reordenar los colores reescribe `orden` y no toca nada mas', async () => {
       nombre: 'Cartera de fiesta',
       descripcion: 'Una cartera',
       precio: 195000,
-      destacado: false,
       categorias: ['carteras'],
       variantes: [
         { id: rojo, color: 'Rojo', hashes: [HASH_B] },
@@ -593,7 +578,6 @@ test('reordenar dos veces vuelve al orden original', async () => {
         nombre: 'Cartera de fiesta',
         descripcion: null,
         precio: null,
-        destacado: false,
         categorias: ['carteras'],
         variantes: ids.map((v) => ({ id: v, color: v === negro ? 'Negro' : 'Rojo', hashes: [] })),
       },

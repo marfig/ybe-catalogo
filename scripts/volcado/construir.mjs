@@ -105,8 +105,13 @@ function construirVariantes(filas, porVariante, codigo) {
    * OJO — esto convierte a `orden` en CURADURIA. Un re-scrape que lo sobreescriba
    * con el orden del proveedor movería los colores por su cuenta, que es justo la
    * inestabilidad que antes se evitaba ordenando solo por color. `orden` entra en
-   * la lista de campos que la importacion NUNCA pisa, con `activo` y `destacado`
+   * la lista de campos que la importacion NUNCA pisa, junto con `activo`
    * (SPEC §6.4).
+
+   * La lista incluia tambien `destacado`. Dejo de emitirse: la portada ya no cura
+   * productos, sino la coleccion `pedidosEspeciales` (`src/content.config.ts`). La
+   * columna sigue en D1 —congelada, sin nadie que la lea ni la escriba— para no
+   * tirar el dato en una migracion irreversible.
    *
    * Los dos desempates no son adorno: sin ellos, dos variantes con el mismo
    * `orden` quedarian en el orden en que las devolvio la base y el volcado dejaria
@@ -215,7 +220,6 @@ export function construirProductos({ productos = [], variantes = [], imagenes = 
     };
 
     if (p.descripcion) producto.descripcion = p.descripcion;
-    if (aBool(p.destacado)) producto.destacado = true;
 
     // Solo `eliminado` apaga el producto. Los demas estados publicables usan el
     // default true del schema y omiten la clave.

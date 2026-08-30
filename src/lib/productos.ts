@@ -58,12 +58,6 @@ export async function categoriasNavegables(): Promise<{ categoria: Categoria; ca
     .filter((c) => c.cantidad > 0);
 }
 
-/** Destacados de la home. */
-export async function destacados(): Promise<Producto[]> {
-  const todos = await activos();
-  return todos.filter((p) => p.data.destacado);
-}
-
 /**
  * Resuelve las referencias de categoria de un producto a sus entradas.
  *

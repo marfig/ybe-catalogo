@@ -195,13 +195,6 @@ export interface FilaGrilla {
   nombre: string | null;
   descripcion: string | null;
   precio: number | null;
-  /**
-   * Si va en la portada (§4.3). BOOLEANO, aunque la columna sea INTEGER.
-   *
-   * La conversión se hace acá y no en la plantilla porque en JSX `checked={0}` es un
-   * valor presente: un 0 crudo saldría tildado en las 50 filas.
-   */
-  destacado: boolean;
   estado: string;
   slug: string | null;
   categoria_origen: string | null;
@@ -383,12 +376,10 @@ export async function listarProductos(
   const c = condicionCategoria(categoria);
   const o = condicionOrigen(origen);
 
-  // `destacado` llega como el 0/1 de la columna y se normaliza al final, junto con las
-  // categorias: por eso el tipo de la consulta no es el de la fila.
-  const filas = await ejecutar<
-    Omit<FilaGrilla, 'categorias' | 'destacado'> & { destacado: number }
-  >(
-    `SELECT p.id, p.codigo, p.nombre, p.descripcion, p.precio, p.destacado,
+  // Las categorias se normalizan al final: por eso el tipo de la consulta no es el de
+  // la fila.
+  const filas = await ejecutar<Omit<FilaGrilla, 'categorias'>>(
+    `SELECT p.id, p.codigo, p.nombre, p.descripcion, p.precio,
             p.estado, p.slug, p.categoria_origen, p.ausente_desde,
             (SELECT COUNT(*) FROM variantes v WHERE v.producto_id = p.id) AS variantes,
             (SELECT COUNT(DISTINCT vi.imagen_id)
@@ -433,7 +424,6 @@ export async function listarProductos(
 
   return filas.map((f) => ({
     ...f,
-    destacado: f.destacado === 1,
     categorias: porProducto.get(f.id) ?? [],
   }));
 }

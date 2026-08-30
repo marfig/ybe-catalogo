@@ -1,0 +1,48 @@
+---
+import Base from '../../layouts/Base.astro';
+import GrillaPedidosEspeciales from '../../components/GrillaPedidosEspeciales.astro';
+import { pedidosEspeciales } from '../../lib/pedidos-especiales.ts';
+import { COMERCIO } from '../../lib/sitio.ts';
+import { urlCanonica } from '../../lib/seo.ts';
+
+const pedidos = await pedidosEspeciales();
+
+const TITULO = 'Pedidos especiales';
+const BAJADA =
+  'Artículos que se preparan por cantidad, para colegios, empresas e instituciones. ' +
+  'El precio se define según el pedido: contanos qué necesitás y te cotizamos.';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: TITULO,
+    description: BAJADA,
+    url: urlCanonica(Astro.url.pathname, Astro.site).href,
+    isPartOf: { '@type': 'WebSite', name: COMERCIO },
+  },
+];
+---
+
+<Base titulo={TITULO} descripcion={BAJADA} jsonLd={jsonLd}>
+  <nav aria-label="Migas de pan" class="text-texto-suave text-sm">
+    <ol class="flex flex-wrap items-center gap-1">
+      <li><a href="/" class="hover:text-texto underline">Inicio</a></li>
+      <li aria-hidden="true">›</li>
+      <li aria-current="page" class="text-texto">{TITULO}</li>
+    </ol>
+  </nav>
+
+  <h1 class="mt-4 text-xl font-semibold sm:text-2xl">{TITULO}</h1>
+
+  {/*
+    La bajada va ARRIBA de la grilla y no debajo del titulo a secas: estas tarjetas no
+    llevan precio, y sin una linea que explique por que, la ausencia se lee como un
+    dato que falta en vez de como la propuesta de la seccion.
+  */}
+  <p class="text-texto-suave mt-2 max-w-prose text-sm leading-relaxed">{BAJADA}</p>
+
+  <div class="mt-6">
+    <GrillaPedidosEspeciales pedidos={pedidos} />
+  </div>
+</Base>

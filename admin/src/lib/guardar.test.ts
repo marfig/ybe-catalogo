@@ -111,7 +111,6 @@ const cambio = (c: Partial<CambioFila> & { id: number }): CambioFila => ({
   nombre: 'Cartera de fiesta',
   descripcion: null,
   precio: 195000,
-  destacado: false,
   categoriaPrincipal: 'carteras',
   ...c,
 });
@@ -160,13 +159,12 @@ test('abrir y guardar la pagina entera sin tocar nada no ensucia ninguna fecha',
     alta(db, { codigo: 'CG1', nombre: 'Uno', precio: 1000, categorias: ['carteras'] }),
     alta(db, { codigo: 'CG2', nombre: 'Dos', precio: null, categorias: ['mochilas'] }),
     alta(db, { codigo: 'CG3', nombre: null, precio: 3000, categorias: ['dama'] }),
-    // Con los dos campos nuevos ya cargados: son los que mas facil se re-escriben de
-    // rebote, porque el formulario los manda en cada guardado.
+    // Con la descripcion ya cargada: es la que mas facil se re-escribe de rebote,
+    // porque el formulario la manda en cada guardado.
     alta(db, {
       codigo: 'CG4',
       nombre: 'Cuatro',
       descripcion: 'Cartera rigida con strass.',
-      destacado: true,
       precio: 4000,
       categorias: ['fiesta'],
     }),
@@ -182,7 +180,6 @@ test('abrir y guardar la pagina entera sin tocar nada no ensucia ninguna fecha',
         id: ids[3],
         nombre: 'Cuatro',
         descripcion: 'Cartera rigida con strass.',
-        destacado: true,
         precio: 4000,
         categoriaPrincipal: 'fiesta',
       }),
@@ -324,40 +321,28 @@ test('la descripcion se puede vaciar tambien en un PUBLICADO', async () => {
 });
 
 // --------------------------------------------------------------------------
-// Destacado
+// Destacado: columna congelada
 // --------------------------------------------------------------------------
 
-test('destacar un producto lo guarda como 1', async () => {
-  const db = base();
-  const id = alta(db, { destacado: false });
-  await guardarFilas(ejecutor(db), [cambio({ id, destacado: true })], con(db));
-  assert.equal(leer(db, id).destacado, 1);
-});
-
-test('destildar el destacado lo APAGA: es el caso que el checkbox no manda', async () => {
-  // Un checkbox sin tildar no viaja en el POST. La pagina lo resuelve con `fila`, que
-  // marca que la fila SI vino, y traduce la ausencia a `false`. Si eso se rompiera, un
-  // producto destacado no se podria sacar nunca de la portada.
-  const db = base();
-  const id = alta(db, { destacado: true });
-  const rs = await guardarFilas(ejecutor(db), [cambio({ id, destacado: false })], con(db));
-  assert.equal(rs[0].cambio, true);
-  assert.equal(leer(db, id).destacado, 0);
-});
-
-test('cambiar SOLO el destacado mueve la fecha', async () => {
-  const db = base();
-  const id = alta(db, { destacado: false });
-  await guardarFilas(ejecutor(db), [cambio({ id, destacado: true })], con(db));
-  assert.equal(leer(db, id).actualizado_en, AHORA);
-});
-
-test('un destacado que ya estaba prendido NO cuenta como cambio', async () => {
+/**
+ * La portada dejo de curar productos y `destacado` salio de esta pantalla, pero la
+ * columna NO se bajo de D1: se decidio conservar el dato en vez de tirarlo en una
+ * migracion irreversible.
+ *
+ * ESTE TEST ES LA RED DE ESA DECISION, y guarda un caso concreto que casi se cuela:
+ * si en vez de sacar el campo de la ruta de escritura se hubiera ocultado el checkbox
+ * en la plantilla, la casilla no viajaria en el POST, la pagina la traduciria a
+ * `false` y el primer guardado de la grilla apagaria en silencio TODO lo marcado. Una
+ * columna solo queda congelada si nadie le escribe.
+ */
+test('el guardado no toca `destacado`: la columna quedo congelada', async () => {
   const db = base();
   const id = alta(db, { destacado: true });
-  const rs = await guardarFilas(ejecutor(db), [cambio({ id, destacado: true })], con(db));
-  assert.equal(rs[0].cambio, false);
-  assert.equal(leer(db, id).actualizado_en, ANTES);
+
+  const rs = await guardarFilas(ejecutor(db), [cambio({ id, nombre: 'Otro nombre' })], con(db));
+
+  assert.equal(rs[0].cambio, true, 'el nombre si se guarda');
+  assert.equal(leer(db, id).destacado, 1, 'el valor viejo sobrevive intacto');
 });
 
 // --------------------------------------------------------------------------
@@ -451,7 +436,7 @@ test('una fila invalida NO impide guardar las demas', async () => {
   assert.equal(leer(db, malo).nombre, 'No me borres');
 });
 
-test('una fila rechazada por el nombre no guarda su descripcion ni su destacado', async () => {
+test('una fila rechazada por el nombre no guarda su descripcion', async () => {
   // El rechazo tiene que dejar la fila ENTERA sin tocar. Guardar la descripcion de una
   // fila que se reporto como fallida es la incoherencia mas dificil de ver: el resumen
   // dice que fallo y la base dice que algo se escribio.
@@ -461,19 +446,17 @@ test('una fila rechazada por el nombre no guarda su descripcion ni su destacado'
     slug: 's',
     nombre: 'No me borres',
     descripcion: 'La de antes',
-    destacado: false,
   });
 
   const rs = await guardarFilas(
     ejecutor(db),
-    [cambio({ id, nombre: '', descripcion: 'La nueva', destacado: true })],
+    [cambio({ id, nombre: '', descripcion: 'La nueva' })],
     con(db)
   );
 
   assert.equal(rs[0].ok, false);
   const fila = leer(db, id);
   assert.equal(fila.descripcion, 'La de antes');
-  assert.equal(fila.destacado, 0);
   assert.equal(fila.actualizado_en, ANTES);
 });
 

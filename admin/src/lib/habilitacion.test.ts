@@ -190,10 +190,16 @@ test('«Aprobar los completos» real: pide guardado Y completos', () => {
 // Que ensucia el formulario
 // --------------------------------------------------------------------------
 
-test('los cinco campos de una fila ensucian', () => {
-  for (const n of ['nombre-12', 'descripcion-12', 'precio-12', 'categoria-12', 'destacado-12']) {
+test('los cuatro campos de una fila ensucian', () => {
+  for (const n of ['nombre-12', 'descripcion-12', 'precio-12', 'categoria-12']) {
     assert.equal(esCampoDeFila(n), true, n);
   }
+});
+
+test('`destacado-12` ya NO es un campo de fila: salio del formulario', () => {
+  // Quedo fuera junto con la curaduria de portada. Si volviera a ensuciar sin tener
+  // control que lo rinda, la grilla se marcaria como pendiente por un campo fantasma.
+  assert.equal(esCampoDeFila('destacado-12'), false);
 });
 
 test('tildar una casilla NO ensucia: elegir no es un cambio pendiente', () => {

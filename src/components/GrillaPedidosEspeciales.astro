@@ -1,0 +1,41 @@
+---
+import type { PedidoEspecial } from '../lib/pedidos-especiales.ts';
+import TarjetaPedidoEspecial from './TarjetaPedidoEspecial.astro';
+
+interface Props {
+  /** Se recibe ya filtrado y ordenado: la grilla no decide que mostrar. */
+  pedidos: PedidoEspecial[];
+  vacio?: string;
+  /**
+   * Mas columnas y tarjetas mas angostas.
+   *
+   * Para la PORTADA, donde este bloque compite por el alto de pantalla con el resto de
+   * la pagina y es un adelanto, no el indice — el mismo criterio con el que la home
+   * muestra ocho categorias y no las 24. La pagina propia va sin esto: ahi estos
+   * articulos SON el contenido y lo que hay que dar es presencia, no densidad.
+   */
+  denso?: boolean;
+}
+
+const { pedidos, vacio = 'Todavía no hay pedidos especiales.', denso = false } = Astro.props;
+
+// Clases completas y no interpoladas: Tailwind escanea el fuente en texto plano y una
+// clase armada por concatenacion no llega al CSS final.
+const columnas = denso
+  ? 'grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-3 lg:grid-cols-6'
+  : 'grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4';
+---
+
+{
+  pedidos.length === 0 ? (
+    <p class="text-texto-suave py-8">{vacio}</p>
+  ) : (
+    <ul class:list={['grid', columnas]}>
+      {pedidos.map((pedido) => (
+        <li class="flex">
+          <TarjetaPedidoEspecial pedido={pedido} denso={denso} />
+        </li>
+      ))}
+    </ul>
+  )
+}

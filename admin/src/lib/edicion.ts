@@ -34,7 +34,6 @@ export interface ProductoCargado {
   nombre: string | null;
   descripcion: string | null;
   precio: number | null;
-  destacado: boolean;
   estado: string;
   slug: string | null;
   categorias: string[];
@@ -62,7 +61,6 @@ export interface CambiosProducto {
   nombre: string | null;
   descripcion: string | null;
   precio: number | null;
-  destacado: boolean;
   categorias: string[];
   variantes: VarianteEditada[];
 }
@@ -81,11 +79,10 @@ export async function cargarProducto(
     nombre: string | null;
     descripcion: string | null;
     precio: number | null;
-    destacado: number;
     estado: string;
     slug: string | null;
   }>(
-    `SELECT id, codigo, nombre, descripcion, precio, destacado, estado, slug
+    `SELECT id, codigo, nombre, descripcion, precio, estado, slug
        FROM productos WHERE id = ?`,
     [referencia.id]
   );
@@ -123,7 +120,6 @@ export async function cargarProducto(
 
   return {
     ...p,
-    destacado: p.destacado === 1,
     categorias,
     variantes: variantes.map((v) => ({
       id: v.id,
@@ -221,9 +217,9 @@ export async function actualizarProducto(
   // `slug`, `estado` y `codigo` NO están en este UPDATE, y es deliberado.
   await ejecutar(
     `UPDATE productos
-        SET nombre = ?, descripcion = ?, precio = ?, destacado = ?, actualizado_en = ?
+        SET nombre = ?, descripcion = ?, precio = ?, actualizado_en = ?
       WHERE id = ?`,
-    [nombre, cambios.descripcion?.trim() || null, cambios.precio, cambios.destacado ? 1 : 0, ahora, id],
+    [nombre, cambios.descripcion?.trim() || null, cambios.precio, ahora, id],
   );
 
   await ejecutar(`DELETE FROM producto_categorias WHERE producto_id = ?`, [id]);

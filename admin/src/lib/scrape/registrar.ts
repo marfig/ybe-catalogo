@@ -94,8 +94,9 @@ export function nombreDeColor(nombre: string): string {
 /**
  * Registra una ficha. Devuelve qué cambió, para el resumen de §10.2.
  *
- * `nombre`, `precio`, `destacado`, `slug` y `estado` NO aparecen en ningún UPDATE de
- * esta función, y es la razón de que exista.
+ * `nombre`, `precio`, `slug` y `estado` NO aparecen en ningún UPDATE de esta función,
+ * y es la razón de que exista. `destacado` tampoco: salió del admin con la curaduría de
+ * portada y la columna quedó congelada en D1, así que un re-scrape no puede tocarla.
  *
  * `descripcion` SÍ APARECE, y con una regla propia: se siembra en el alta, y en el UPDATE
  * se escribe **sólo si está en NULL** (`COALESCE(descripcion, ?)`). Lo que ya está gana

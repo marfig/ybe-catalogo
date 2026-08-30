@@ -196,7 +196,7 @@ CREATE TABLE productos (
   nombre        TEXT,                      -- NULL al importar; obligatorio para aprobar
   descripcion   TEXT,
   precio        INTEGER,                   -- guaranies, sin decimales. NULL = "Consultar"
-  destacado     INTEGER NOT NULL DEFAULT 0,
+  destacado     INTEGER NOT NULL DEFAULT 0,  -- CONGELADA: sin lectores ni escritores (SPEC.md §4.5)
   estado        TEXT    NOT NULL DEFAULT 'importado'
                 CHECK (estado IN ('importado','aprobado','publicado','eliminado')),
   categoria_origen TEXT,                   -- NULL por el camino de lanzamientos: el
@@ -496,7 +496,7 @@ SELECT productos WHERE estado IN ('aprobado','publicado','eliminado')
 | Campo del JSON | De dónde sale |
 |---|---|
 | `id` | `productos.slug` |
-| `nombre`, `descripcion`, `precio`, `destacado` | Columnas homónimas |
+| `nombre`, `descripcion`, `precio` | Columnas homónimas |
 | `categorias` | `producto_categorias` ordenado por `orden` |
 | `variantes` | `variantes` ordenadas por `color` (alfabético, `SPEC.md` §6.6) |
 | `variantes[].imagenes` | `{ base: 'catalogo/'‖hash16, anchos: JSON }` |
@@ -1014,7 +1014,7 @@ Sin `manifest.json` (§5.3), la idempotencia sale de las restricciones de la bas
 **Nunca se pisa curaduría.** Un `UPDATE` sobre un producto en estado `aprobado`,
 `publicado` o `eliminado` toca únicamente los campos de origen —
 `categoria_origen`, `url_origen`, variantes e imágenes nuevas — y **jamás**
-`nombre`, `descripcion`, `precio`, `destacado`, `slug` ni `estado`. Es la regla
+`nombre`, `descripcion`, `precio`, `slug` ni `estado`. Es la regla
 de `SPEC.md` §6.9 (*«`activo` nunca se sube pisando una ocultación manual»*)
 generalizada: **el scrape aporta estructura; las personas aportan decisiones, y
 el scrape no las revierte.**
@@ -1178,7 +1178,6 @@ Formulario de alta que produce exactamente la misma fila que el scrape, en estad
 | Descripción | Opcional |
 | Precio | Opcional. Vacío ⇒ «Consultar precio» |
 | Categorías | Al menos una, del listado de `categorias.json` |
-| Destacado | Opcional |
 | Variantes | Al menos una. Color obligatorio. **El hex no se carga desde el admin**, ver abajo |
 | Fotos | Por variante, con el recorte de §8.3. Cero fotos es válido: se publica con placeholder |
 
@@ -1769,8 +1768,8 @@ determinismo.
 **El costo de la decisión, dicho de frente:** esto convierte a `orden` en curaduría, y
 un re-scrape que la sobreescriba con el orden del proveedor movería los colores por su
 cuenta — que es exactamente la inestabilidad que el alfabético evitaba. Por eso `orden`
-entra en la lista de campos que la importación **nunca** pisa, junto a `activo` y
-`destacado` (`SPEC.md` §6.4 y §6.6).
+entra en la lista de campos que la importación **nunca** pisa, junto a `activo`
+(`SPEC.md` §6.4 y §6.6).
 
 #### Qué cambió el primer volcado real
 
@@ -1872,7 +1871,7 @@ Dos decisiones de determinismo que no son obvias y están cubiertas por test:
    dejaría de ser determinista. Es el mismo riesgo que `SPEC.md` §9.3 evita al
    formatear precios en build. El test usa `Ámbar`/`Azul`/`Zafiro`, donde las dos
    estrategias difieren, para que nadie lo "arregle" con `localeCompare`.
-2. **Se omiten las claves que igualan su default de Zod** (`activo`, `destacado`,
+2. **Se omiten las claves que igualan su default de Zod** (`activo`,
    `variante.activo`) y las opcionales ausentes (`descripcion`, `colorHex`), pero
    **`precio` y los arrays van siempre.** `precio` es `nullable` y no `optional`:
    la clave es obligatoria. Un `imagenes: []` es un estado con significado —

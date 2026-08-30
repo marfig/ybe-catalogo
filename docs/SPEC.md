@@ -28,7 +28,9 @@ Planas, no anidadas por categoría:
 
 | Ruta | Contenido |
 |---|---|
-| `/` | Home: categorías y destacados |
+| `/` | Home: categorías y pedidos especiales |
+| `/pedidos-especiales` | Listado de artículos por cantidad (§4.5) |
+| `/pedidos-especiales/[slug]` | Ficha de pedido especial: foto, descripción y consulta por WhatsApp |
 | `/productos/[slug]` | Ficha de producto |
 | `/categorias/[slug]` | Listado filtrado |
 
@@ -266,7 +268,6 @@ const productos = defineCollection({
     precio: z.number().int().positive().nullable(),
     variantes: z.array(variante).min(1),
     activo: z.boolean().default(true),
-    destacado: z.boolean().default(false),
     actualizado: z.string().date(),
     origen: z.object({
       proveedor: z.string().min(1),
@@ -297,7 +298,6 @@ Regla: si no se usa en ninguna vista, no va.
 | `precio` | int \| null | sí (nullable) | Card, ficha, `offers.price`, orden y filtro por precio. `null` explícito = "Consultar precio" (§7.3). Entero: el guaraní no tiene decimales |
 | `variantes` | Variante[] ≥1 | sí | Selector de color, galería, mensaje de WhatsApp. `min(1)` porque un producto sin variante no tiene imagen ni SKU |
 | `activo` | bool | sí (def. `true`) | Filtro global: oculta sin borrar |
-| `destacado` | bool | sí (def. `false`) | Sección de destacados de la home |
 | `actualizado` | date ISO | sí | Orden "novedades"; el importador lo usa para detectar deriva (§6.5) |
 | `origen` | objeto | sí | **No se renderiza.** Es la clave de idempotencia del importador (§6.7). Único campo no visual de la spec, y su justificación es esa |
 
@@ -398,7 +398,6 @@ Consecuencias:
         ]
       }
     ],
-    "destacado": true,
     "actualizado": "2026-07-31",
     "origen": { "proveedor": "chenson", "ref": "CG85527" }
   },
@@ -459,6 +458,59 @@ Los cuatro casos son intencionales:
 2. **`CG84102`** — un solo color, y 3 categorías por el aplanado de §4.3.
 3. **`CG83550`** — `precio: null`, `imagenes: []` y variante sin `colorHex`: ejercita las tres rutas de fallback (§5.4, §7.3, §4.2).
 4. **`CG85900`** — sin entrada en el overlay: `activo: false`, `nombre` igual al código como marcador. Imágenes ya procesadas y subidas, esperando curaduría (§6.6).
+
+### 4.5 `src/data/pedidos-especiales.json`
+
+Artículos que se venden **por cantidad**, con precio negociado caso por caso: pedidos de colegios, instituciones y empresas.
+
+```json
+[
+  {
+    "id": "mochilas-escolares-por-cantidad",
+    "nombre": "Mochilas escolares por cantidad",
+    "descripcion": "Cantidad mínima: 12 unidades.
+Surtido de modelos y colores a elección.",
+    "imagen": { "base": "catalogo/e5469209224bdfb3", "anchos": [300, 600] },
+    "orden": 10
+  }
+]
+```
+
+| Campo | Obligatorio | Por qué |
+|---|---|---|
+| `nombre` | sí | Título de la tarjeta y de la ficha |
+| `descripcion` | **sí** | Es el contenido de la ficha. Ver la asimetría abajo |
+| `imagen` | sí | Una sola: no hay colores que elegir |
+| `orden` | no (def. `999`) | Curaduría, mismo criterio que `categorias.json` (§4.3) |
+| `activo` | no (def. `true`) | Oculta sin borrar |
+
+#### Por qué es una colección aparte y no un flag sobre `productos`
+
+El diseño anterior era un booleano `destacado` en el producto, y la home mostraba los marcados. Se reemplazó por tres motivos, en orden de peso:
+
+1. **La forma no entra.** Un producto exige `variantes` con `sku` y `color` (`min(1)`, §4.1), y el volcado corta si faltan. Un artículo por cantidad no tiene ninguno de los dos: meterlo en `productos` obliga a inventar un SKU y un color falsos por cada entrada.
+2. **No tiene precio de lista.** Es lo que define a la sección, y `precio` es un campo del producto que la ficha renderiza.
+3. **La curaduría dependía del inventario.** Un `destacado` sobre un producto que se desactiva o que el proveedor deja de publicar desaparece de la portada sin aviso. Se comprobó en producción: 3 de 7 destacados estaban marcados con `activo: false`, o sea marcados e invisibles.
+
+#### `descripcion` es obligatoria acá y opcional en `productos`
+
+La asimetría es deliberada. Una ficha de producto se sostiene sin descripción: tiene precio, código, colores, marca y migas. Acá no hay nada de eso — **la descripción ES la ficha**. Sin ella, entrar al detalle es un clic hacia la misma foto que ya estaba en la tarjeta.
+
+`z.string().min(1)` lo corta en `astro build` nombrando la entrada, en vez de dejarlo a la memoria de quien carga.
+
+#### Texto libre y no campos estructurados
+
+`descripcion` absorbe cantidad mínima, plazos, materiales y condiciones, con saltos de línea (se renderiza con `whitespace-pre-line`, igual que la ficha de producto). **No** hay un `cantidadMinima: number`: la primera entrada real dice «12 unidades por color» o «a partir de media docena», y ningún entero aguanta eso. Se estructura después de cargar unas cuantas y ver qué se repite.
+
+#### Se mantiene a mano
+
+Como `categorias.json` (§4.3) y a diferencia de `productos.json` (§4.4), que lo genera el volcado desde D1. Son pocas entradas y las escribe quien decide la oferta. Las imágenes se suben con el mismo pipeline del admin y se referencian por su clave direccionada por contenido (§5.1).
+
+#### La columna `destacado` de D1 queda congelada
+
+**No se bajó con una migración** — es irreversible y el dato no molesta. Lo que se sacó es la **ruta de escritura** entera: el checkbox de la grilla, el `UPDATE` de `guardar.ts`, el alta manual, el regex de campos de fila y el `SELECT` del volcado.
+
+Sacar la escritura y no sólo el control es lo que la congela de verdad. Ocultar el checkbox dejándolo en el formulario habría hecho lo contrario: un checkbox que no se rinde no viaja en el POST, la página traduce esa ausencia a `false` (es el mecanismo que permitía **bajar** un producto de la portada), y el primer guardado de la grilla habría apagado en silencio todo lo marcado. Hay tests que defienden esto en `guardar.test.ts`, `grilla.test.ts` y `registrar.test.ts`.
 
 ---
 
@@ -692,8 +744,7 @@ Escrito a mano. Es el único archivo que se edita producto por producto, y es la
   "CG85527": {
     "nombre": "Cartera de fiesta con strass",
     "precio": 195000,
-    "descripcion": "Cartera de mano rígida con aplicación de strass y cadena desmontable.",
-    "destacado": true
+    "descripcion": "Cartera de mano rígida con aplicación de strass y cadena desmontable."
   },
   "CG84102": {
     "nombre": "Mochila urbana lisa 18\"",
@@ -712,7 +763,6 @@ La clave es el código de modelo porque **nombre y precio son del modelo, no del
 | `nombre` | **Sí** | Sin él el producto no se publica (ver abajo) |
 | `precio` | No | Ausente ⇒ `precio: null` ⇒ "Consultar precio" y sin bloque `offers` (§7.3) |
 | `descripcion` | No | Ausente ⇒ el campo se omite |
-| `destacado` | No | Default `false`. Curaduría de la home |
 
 #### Regla de publicación
 
@@ -752,7 +802,7 @@ Así el catálogo público solo muestra productos curados, y el trabajo pendient
 - **`sku` = `{codigo}-{codigoColor}`**, tomando el `codigoColor` del prefijo `(X)` del origen: `CG85527-P`, `CG85527-3`, `CG85527-E`. Es estable y semántico. Si un color viene sin prefijo, el `sku` cae a `{codigo}-{slug(color)}`. **Nunca un índice posicional:** si el proveedor agrega un color, los SKU existentes no se mueven.
 - **No se usa el `idColor`** (`71010`) en el `sku`: es un autoincremental de la base del proveedor y puede cambiar si recrean el registro.
 - **El orden de las variantes lo fija una columna `orden` que es curaduría**, no el del sitio, y el `color` normalizado sirve solo de desempate. Lo que la idempotencia (§6.7) necesita es que el orden sea **estable**, y una columna guardada lo es; lo inestable era el orden en que el proveedor devuelve los colores. **Esta regla la reemplazó `SPEC-etapa2.md` §5.5:** antes era alfabético puro, y eso hacía que el color mostrado por defecto en cada ficha lo decidiera el abecedario en vez de una decisión comercial.
-- **`orden` entra en la lista de campos que la importación NUNCA sobreescribe**, con `activo` y `destacado` (§6.4). Si un re-scrape lo pisara con el orden del proveedor, los colores se moverían solos y volvería justo la inestabilidad que la regla alfabética evitaba.
+- **`orden` entra en la lista de campos que la importación NUNCA sobreescribe**, con `activo` (§6.4). Si un re-scrape lo pisara con el orden del proveedor, los colores se moverían solos y volvería justo la inestabilidad que la regla alfabética evitaba.
 - Un `colorOrigen` que no esté en el diccionario genera la variante con el nombre limpiado del prefijo y **sin** `colorHex`: el selector cae a botón con texto (§4.2) y el reporte lo lista. **No inventa un hex.**
 - Un par `padre|hijo` que no esté en `categorias` cae al slug del padre si existe; si tampoco, el modelo queda `activo: false` y se lista en el reporte. Un producto sin categoría es inalcanzable (§4.2), así que no se publica a medias.
 
@@ -786,7 +836,7 @@ El precio **se actualiza sin preguntar**, y queda registrado:
 3. Si la variación supera el **±25 %**, se marca `⚠ REVISAR` y el proceso **termina con exit code 2**. No bloquea la escritura, pero rompe cualquier automatización que lo encadene: a esta escala un salto así suele ser un dígito de más tipeado en el overlay, no un aumento real.
 4. Si el precio desaparece del overlay y antes había uno válido: **se conserva el anterior** y se avisa. Borrar una línea del overlay por accidente no debe vaciar un precio en producción.
 
-Otros campos, todos provenientes del overlay (§6.6): `nombre` y `descripcion` se sobreescriben. `categorias` vienen del mapeo y se sobreescriben **solo si** resuelve todas; si alguna no resuelve, se conservan las anteriores y se avisa. `destacado` se toma del overlay. `activo` **nunca se sube pisando una ocultación manual**: el importador solo lo baja por falta de curaduría (§6.6).
+Otros campos, todos provenientes del overlay (§6.6): `nombre` y `descripcion` se sobreescriben. `categorias` vienen del mapeo y se sobreescriben **solo si** resuelve todas; si alguna no resuelve, se conservan las anteriores y se avisa. `activo` **nunca se sube pisando una ocultación manual**: el importador solo lo baja por falta de curaduría (§6.6).
 
 **Producto huérfano** (ya no está en el catálogo del proveedor): no se borra. Pasa a `activo: false` y se lista en el reporte. Borrar mata la URL y su indexación.
 
@@ -1019,7 +1069,7 @@ YBECatalogo/
 │   └── import/                         ETAPA 2 — transformación determinista (§6.4)
 │       ├── index.mjs                   Orquestador: parsea flags, encadena etapas, escribe reporte, fija exit code
 │       ├── mapear.mjs                  Aplica mapeo/{proveedor}.json: categorías del proveedor → slugs propios
-│       ├── overlay.mjs                 Join por código de modelo: nombre, precio, descripcion, destacado (§6.6)
+│       ├── overlay.mjs                 Join por código de modelo: nombre, precio, descripcion (§6.6)
 │       ├── normalizar.mjs              Limpia prefijos (X) de color, arma sku, slugs, orden alfabético de variantes
 │       ├── imagenes.mjs                Hash SHA-256, dedupe, resize a w300/w600, relleno a 1:1, avisos de resolución
 │       ├── r2.mjs                      Cliente S3 de R2: subida condicional y Cache-Control immutable
@@ -1058,7 +1108,8 @@ YBECatalogo/
     │   ├── precio.ts                   formatearGs() con Intl.NumberFormat('es-PY'); ejecuta en BUILD (§9.3)
     │   ├── whatsapp.ts                 construirEnlaceWa(): arma wa.me con nombre + URL canónica + variante
     │   ├── imagenes.ts                 urlR2(clave, ancho) y srcSetR2(clave); única fuente de las URLs de R2
-    │   ├── productos.ts                Consultas: activos(), porCategoria(), destacados(), resolverCategorias()
+    │   ├── productos.ts                Consultas: activos(), porCategoria(), resolverCategorias()
+    │   ├── pedidos-especiales.ts       Consulta: pedidosEspeciales() sobre la colección homónima (§4.5)
     │   └── seo.ts                      Construye canonical, tags OG y los objetos JSON-LD
     │
     ├── layouts/
@@ -1079,7 +1130,7 @@ YBECatalogo/
     │       └── Buscador.tsx            Preact. Fase 3. Consume /indice.json. client:idle
     │
     └── pages/
-        ├── index.astro                 Home: categorías activas + destacados
+        ├── index.astro                 Home: categorías activas + pedidos especiales
         ├── productos/
         │   └── [slug].astro            Ficha. getStaticPaths desde la colección. Galería, selector, WhatsApp, JSON-LD
         ├── categorias/
@@ -1379,7 +1430,7 @@ Lo mínimo que le sirve a un cliente real: entra, encuentra el producto, ve el p
 - **Etapa 2 (`import`) v1:** join con el overlay, mapear categorías, normalizar colores y SKU, hash y dedupe, resize a `w300`/`w600`, subir a R2, merge idempotente, reporte. Con los tests de `__tests__/`.
 - `Base.astro` con `noindex` (default `INDEXABLE=false`), canonical y los tokens de la paleta.
 - `Header` y `Footer`.
-- `/` con categorías activas y destacados.
+- `/` con categorías activas y pedidos especiales.
 - `/categorias/[slug]/[...page]` con la grilla paginada a 60 por página (§9.5).
 - `/productos/[slug]` con galería, `SelectorVariante`, precio y `BotonWhatsapp`.
 - `ImagenProducto` y `SinFoto` (§5.4), `Precio` con "Consultar precio".

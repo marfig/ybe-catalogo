@@ -9,16 +9,16 @@
  * justifica las categorias en lote ("trabajo de minutos y no de horas") pega mas
  * fuerte todavia en el nombre y el precio, que NO se pueden hacer en lote.
  *
- * `descripcion` y `destacado` tambien se editan aca, y este comentario decia lo
- * contrario. La objecion original era buena pero era al LUGAR, no a la idea: la
- * descripcion son 80-120 caracteres que en una CELDA se truncan a algo inutil o
- * revientan la altura de la fila, y una octava columna le sacaria ancho al nombre, que
- * es el campo que mas se tipea.
+ * `descripcion` tambien se edita aca, y este comentario decia lo contrario. La
+ * objecion original era buena pero era al LUGAR, no a la idea: la descripcion son
+ * 80-120 caracteres que en una CELDA se truncan a algo inutil o revientan la altura de
+ * la fila, y una octava columna le sacaria ancho al nombre, que es el campo que mas se
+ * tipea.
  *
  * Asi que no va en una celda. Cada producto es su propio `<tbody>` con DOS `<tr>`: la
- * fila de campos de siempre, y debajo una fila a todo lo ancho —`colspan`— con el
- * destacado y la descripcion dentro de un `<details>` plegado. La descripcion tiene el
- * ancho completo de la tabla cuando se abre, y cerrada no cuesta ni una linea.
+ * fila de campos de siempre, y debajo una fila a todo lo ancho —`colspan`— con la
+ * descripcion dentro de un `<details>` plegado. La descripcion tiene el ancho completo
+ * de la tabla cuando se abre, y cerrada no cuesta ni una linea.
  *
  * Un `<textarea>` dentro de un `<details>` cerrado IGUAL viaja en el POST: `details`
  * oculta, no deshabilita. Plegar no pierde nada de lo tipeado.
@@ -131,16 +131,6 @@ if (Astro.request.method === 'POST') {
           nombre: String(datos.get(`nombre-${id}`) ?? ''),
           descripcion: String(datos.get(`descripcion-${id}`) ?? ''),
           precio: parsearPrecio(String(datos.get(`precio-${id}`) ?? '')),
-          /**
-           * ACA se traduce "no vino" a `false`, y este es el unico lugar donde se puede
-           * hacer bien.
-           *
-           * Un checkbox sin tildar NO viaja en el POST. La ausencia sola es ambigua
-           * —¿destildado, o la fila no se rindio?— y lo que la desambigua es que se
-           * llego hasta aca recorriendo `fila`, que solo trae las filas que la pagina
-           * rindio. Fila presente + casilla ausente = destildado, sin inputs ocultos.
-           */
-          destacado: datos.get(`destacado-${id}`) === 'si',
           categoriaPrincipal: (datos.get(`categoria-${id}`) as string) || null,
         });
       }
@@ -584,8 +574,7 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
           <table class="grilla">
             <caption class="oculto">
               Productos: código, foto, nombre, categoría principal, precio y estado. Cada
-              producto lleva debajo una segunda fila con su descripción y si va destacado
-              en la portada.
+              producto lleva debajo una segunda fila con su descripción.
             </caption>
             {/* Anchos explicitos: con `table-layout: fixed` manda esto y no el
                 contenido, asi el select no se lleva el ancho del nombre. */}
@@ -750,17 +739,14 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
                 </tr>
 
                 {/* La segunda fila del producto: a todo lo ancho, para que la
-                    descripcion tenga lugar de verdad sin robarle columnas al nombre. */}
+                    descripcion tenga lugar de verdad sin robarle columnas al nombre.
+
+                    Llevaba tambien la casilla «Destacado en la portada». Se saco con la
+                    curaduria de portada: ahora la home muestra `pedidosEspeciales`, que
+                    es una coleccion aparte y se edita en `src/data/pedidos-especiales.json`. */}
                 <tr class="fila-detalle">
                   <td colspan="7">
                     <div class="detalle">
-                      {/* LA DESCRIPCION VA PRIMERO Y EL DESTACADO DESPUES.
-                          Al principio era al revés, con la casilla alineada en la misma
-                          columna que la de seleccionar. Se veía prolijo y estaba mal: dos
-                          casillas en la misma columna vertical se leen como el mismo eje
-                          de control, y no lo son — una elige sobre qué producto operar, la
-                          otra es un DATO del producto. Separadas y de distinto porte se
-                          distinguen solas. */}
                       <details class="descripcion">
                         {/* El resumen ADELANTA el contenido en vez de decir solo
                             "Descripcion": asi se recorren las 50 y se ve cual falta sin
@@ -791,19 +777,6 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
                           >{p.descripcion ?? ''}</textarea
                         >
                       </details>
-
-                      <label class="destacar">
-                        {/* `checked` recibe un BOOLEANO desde `grilla.ts`. Con el 0/1
-                            crudo de la columna saldrian tildadas las 50: en JSX un 0 es
-                            un valor presente. */}
-                        <input
-                          type="checkbox"
-                          name={`destacado-${p.id}`}
-                          value="si"
-                          checked={p.destacado}
-                        />
-                        Destacado en la portada
-                      </label>
                     </div>
                   </td>
                 </tr>

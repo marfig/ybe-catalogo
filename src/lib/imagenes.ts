@@ -24,6 +24,15 @@ export interface Imagen {
  */
 export const SIZES_CARD = '(min-width: 1024px) 280px, (min-width: 640px) 45vw, 90vw';
 
+/**
+ * `sizes` de la card en grilla densa (3/4/6 columnas, ver `GrillaPedidosEspeciales`).
+ *
+ * Va aparte y no calculado: `sizes` describe el hueco REAL que ocupa la imagen, y ese
+ * hueco depende de cuantas columnas tiene la grilla. Con el `sizes` de la grilla normal
+ * el navegador pediria el w600 para un hueco de 180 px.
+ */
+export const SIZES_CARD_DENSO = '(min-width: 1024px) 180px, (min-width: 640px) 25vw, 30vw';
+
 /** `sizes` de la imagen principal de la ficha. Tope 600 px: es el techo del origen. */
 export const SIZES_FICHA = '(min-width: 640px) 600px, 100vw';
 

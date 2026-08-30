@@ -42,7 +42,7 @@ const HUECOS = ESTADOS.map(() => '?').join(', ');
  */
 export const SQL = {
   productos: `
-    SELECT id, codigo, proveedor, slug, nombre, descripcion, precio, destacado,
+    SELECT id, codigo, proveedor, slug, nombre, descripcion, precio,
            estado, actualizado_en
       FROM productos
      WHERE estado IN (${HUECOS})

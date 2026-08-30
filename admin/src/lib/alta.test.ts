@@ -48,7 +48,6 @@ const alta = (extra: Record<string, unknown> = {}) => ({
   nombre: 'Cartera de prueba',
   descripcion: null,
   precio: 195000,
-  destacado: false,
   categorias: ['carteras'],
   variantes: [{ color: 'Negro', hashes: [HASH_A] }],
   ...extra,

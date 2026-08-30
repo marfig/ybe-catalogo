@@ -1,0 +1,138 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { PUBLIC_R2_BASE, PUBLIC_WHATSAPP } from 'astro:env/client';
+
+import Base from '../../layouts/Base.astro';
+import ImagenProducto from '../../components/ImagenProducto.astro';
+import IconoWhatsApp from '../../components/IconoWhatsApp.tsx';
+import { SIZES_FICHA, urlImagenAbsoluta } from '../../lib/imagenes.ts';
+import { urlCanonica } from '../../lib/seo.ts';
+import { COMERCIO } from '../../lib/sitio.ts';
+import { construirEnlaceWa } from '../../lib/whatsapp.ts';
+import { pedidosEspeciales } from '../../lib/pedidos-especiales.ts';
+
+export const getStaticPaths = (async () => {
+  const pedidos = await pedidosEspeciales();
+  return pedidos.map((pedido) => ({ params: { slug: pedido.id }, props: { pedido } }));
+}) satisfies GetStaticPaths;
+
+const { pedido } = Astro.props;
+const { nombre, descripcion, imagen } = pedido.data;
+
+/**
+ * La misma descripcion en una linea, para los metadatos. Mismo criterio que la ficha
+ * de producto: el `<meta description>` y el JSON-LD no tienen donde renderizar un
+ * salto de linea, y aca el texto es multilinea POR DISEÑO —la cantidad minima y los
+ * plazos se escriben en renglones—, asi que el aplanado no es un caso de borde.
+ */
+const descripcionPlana = descripcion.replace(/\s+/g, ' ').trim();
+
+const canonical = urlCanonica(Astro.url.pathname, Astro.site);
+const ogImagen = urlImagenAbsoluta(PUBLIC_R2_BASE, imagen, 600, Astro.site);
+
+/**
+ * El enlace de consulta se arma EN EL SERVIDOR y no en una isla, al reves que en la
+ * ficha de producto.
+ *
+ * Alli el enlace depende del color elegido, que es estado del cliente. Aca no hay
+ * nada que elegir: el mensaje es el mismo para todos, asi que hidratar JavaScript
+ * para pintar un `<a>` fijo seria pagar por nada.
+ *
+ * Sin `codigo`: estas entradas no tienen uno. `construirEnlaceWa` lo tiene opcional
+ * justamente para esto y omite la linea.
+ */
+const enlaceWa = construirEnlaceWa({
+  telefono: PUBLIC_WHATSAPP,
+  nombre,
+  url: canonical.href,
+});
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: nombre,
+    description: descripcionPlana,
+    image: [ogImagen],
+    /*
+      SIN `offers`. Un `Offer` exige `price`, y este articulo no tiene uno: inventar
+      un 0 o un rango lo publicaria en Google Shopping con un precio que no existe.
+      Es preferible una ficha sin oferta estructurada que una con un precio falso.
+    */
+    seller: { '@type': 'Organization', name: COMERCIO },
+  },
+];
+---
+
+<Base
+  titulo={nombre}
+  descripcion={descripcionPlana}
+  ogType="product"
+  ogImagen={ogImagen}
+  jsonLd={jsonLd}
+>
+  <nav aria-label="Migas de pan" class="text-texto-suave text-sm">
+    <ol class="flex flex-wrap items-center gap-1">
+      <li><a href="/" class="hover:text-texto underline">Inicio</a></li>
+      <li aria-hidden="true">›</li>
+      <li>
+        <a href="/pedidos-especiales" class="hover:text-texto underline">Pedidos especiales</a>
+      </li>
+      <li aria-hidden="true">›</li>
+      <li aria-current="page" class="text-texto">{nombre}</li>
+    </ol>
+  </nav>
+
+  <div class="mt-4 grid gap-6 sm:mt-6 lg:grid-cols-2 lg:gap-10">
+    {/* `prioridad`: es la imagen principal de la ficha y esta sobre el pliegue. */}
+    <div class="border-borde overflow-hidden rounded border">
+      <ImagenProducto imagen={imagen} alt={nombre} sizes={SIZES_FICHA} prioridad />
+    </div>
+
+    <div class="flex flex-col gap-4">
+      <h1 class="text-lg font-semibold sm:text-2xl">{nombre}</h1>
+
+      {/*
+        NO hay bloque de precio, y tampoco un «Consultar precio» en su lugar. La
+        descripcion arranca donde en la ficha de producto va el monto: es el dato que
+        esta pagina existe para dar, asi que ocupa el lugar de mayor jerarquia.
+      */}
+
+      {/*
+        `whitespace-pre-line`, igual que en la ficha de producto y por la misma razon:
+        el texto se escribe con saltos de linea —cantidad minima, plazos, condiciones,
+        un renglon cada uno— y HTML colapsa todo blanco consecutivo en un espacio.
+        Sin esto, tres renglones se muestran como un parrafo corrido.
+
+        `pre-line` y no `pre`: preserva los saltos pero deja que el texto se acomode al
+        ancho. Con `pre` la ficha scrollearia de costado en un telefono.
+      */}
+      <p class="max-w-prose leading-relaxed whitespace-pre-line">{descripcion}</p>
+
+      {/*
+        UN SOLO BOTON, y no el par «Pedí ahora» + «Consultá por WhatsApp» de la ficha
+        de producto. Aquel formulario arma un pedido con cantidad y forma de pago sobre
+        un precio conocido, y aca no hay precio todavia: mandar a alguien a elegir como
+        paga algo que no fue cotizado es pedirle un dato que no puede tener.
+
+        Ancho completo en movil y acotado desde `sm`: un boton de borde a borde en
+        escritorio se lee como una barra, no como un boton.
+      */}
+      <div class="mt-2">
+        <a
+          href={enlaceWa}
+          target="_blank"
+          rel="noopener"
+          class="bg-whatsapp flex min-h-12 w-full items-center justify-center gap-2 rounded px-4 py-3 text-center leading-tight font-medium text-white sm:w-auto sm:px-6"
+        >
+          <IconoWhatsApp />
+          Consultá por WhatsApp
+        </a>
+      </div>
+
+      <p class="text-texto-suave text-sm">
+        Te respondemos con el presupuesto según la cantidad que necesites.
+      </p>
+    </div>
+  </div>
+</Base>

@@ -181,10 +181,12 @@ test('el orden de las imagenes dentro de una variante se preserva', async () => 
   );
 });
 
-test('destacado:true sobrevive; su ausencia no se convierte en true', async () => {
+test('destacado no viaja en ninguna direccion: quedo fuera del contrato', async () => {
+  // La columna sigue existiendo en D1 —congelada a proposito, sin migracion que la
+  // baje— pero ni el sembrado la escribe ni el volcado la lee. Este test es la red:
+  // si alguna de las dos puntas la volviera a tocar, el JSON de vuelta la traeria.
   const vuelta = await idaYVuelta(JSON_COMITEADO);
-  assert.equal(vuelta.find((p) => p.id === 'mochila-urbana-lisa-18').destacado, true);
-  assert.ok(!('destacado' in vuelta.find((p) => p.id === 'billetera-de-dama')));
+  assert.ok(vuelta.every((p) => !('destacado' in p)));
 });
 
 test('descripcion ausente no se convierte en cadena vacia', async () => {

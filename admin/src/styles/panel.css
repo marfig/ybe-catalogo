@@ -740,7 +740,7 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   La segunda fila del producto: destacado y descripcion
+   La segunda fila del producto: la descripcion
    --------------------------------------------------------------------------
 
    Va a todo lo ancho con `colspan` en vez de ser una octava columna. Una columna de
@@ -756,34 +756,8 @@ button {
   display: flex;
   align-items: flex-start;
   gap: 1rem;
-  /* En telefono el destacado baja y la descripcion se queda con todo el ancho. */
+  /* La fila envuelve en pantalla angosta y la descripcion se queda con todo el ancho. */
   flex-wrap: wrap;
-}
-
-/**
- * El destacado va DESPUES de la descripcion y a la derecha de la fila.
- *
- * Hubo una version con la casilla alineada en la misma columna vertical que la de
- * seleccionar, en una caja de 44px como `.elegir`. Se veia prolijo y estaba mal: dos
- * casillas en la misma columna se leen como el mismo eje de control, y no lo son —
- * `.elegir` decide sobre que producto se opera, esta es un dato del producto.
- *
- * Chica y a la derecha: la distancia y el porte distinto son lo que las diferencia.
- * `flex: none` para que no la comprima el `flex` de la descripcion.
- */
-.destacar {
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-  /* Area de toque: la casilla sola son 13px y esta en una fila de 50. */
-  min-height: 32px;
-  font-size: 0.8125rem;
-  white-space: nowrap;
-  cursor: pointer;
-  flex: none;
-  /* Al final de la fila, lejos de la de seleccionar. Cuando la fila envuelve en pantalla
-     angosta el margen no hace nada y la casilla igual queda ultima. */
-  margin-left: auto;
 }
 
 /* La descripcion se lleva todo lo que sobra. `min-width: 0` para que el resumen pueda

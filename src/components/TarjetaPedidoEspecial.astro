@@ -1,0 +1,47 @@
+---
+import { SIZES_CARD, SIZES_CARD_DENSO } from '../lib/imagenes.ts';
+import type { PedidoEspecial } from '../lib/pedidos-especiales.ts';
+import ImagenProducto from './ImagenProducto.astro';
+
+interface Props {
+  pedido: PedidoEspecial;
+  /** Lo decide la grilla: la tarjeta se adapta al ancho de columna que le toca. */
+  denso?: boolean;
+}
+
+const { pedido, denso = false } = Astro.props;
+
+// A tres columnas la tarjeta mide ~110 px en un movil de 375: con p-3 el nombre se
+// queda con 86 px y parte cada palabra. El padding cede antes que el texto.
+const relleno = denso ? 'p-2' : 'p-3';
+---
+
+{/*
+  Misma caja que `TarjetaProducto` —borde, fondo y hover— a proposito: conviven en la
+  portada y dos lenguajes visuales distintos se leerian como dos sitios pegados.
+
+  Lo que NO lleva es la fila de precio y colores. No es que falte el dato: no existe,
+  y ese es justamente el sentido de esta seccion. Un «Consultar precio» en la tarjeta
+  ocuparia la linea sin decir nada que el rotulo de la seccion no diga ya.
+*/}
+<a
+  href={`/pedidos-especiales/${pedido.id}`}
+  class="border-borde bg-superficie hover:border-acento group flex flex-col overflow-hidden rounded border transition-colors"
+>
+  <ImagenProducto
+    imagen={pedido.data.imagen}
+    alt={pedido.data.nombre}
+    sizes={denso ? SIZES_CARD_DENSO : SIZES_CARD}
+    compacto
+  />
+
+  {/*
+    `flex-1` con el `li` en `flex` de la grilla iguala el alto de las tarjetas de una
+    fila cuando un nombre se parte en dos lineas.
+  */}
+  <div class:list={['flex flex-1 flex-col', relleno]}>
+    <h3 class="group-hover:text-primario text-sm leading-snug font-medium">
+      {pedido.data.nombre}
+    </h3>
+  </div>
+</a>

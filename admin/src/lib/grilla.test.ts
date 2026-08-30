@@ -249,16 +249,15 @@ test('la fila trae la descripcion, que se edita en la grilla', async () => {
   assert.equal(filas.find((f) => f.codigo === 'CG908')?.descripcion, null);
 });
 
-test('la fila trae destacado como BOOLEANO, no como el 0/1 de la columna', async () => {
-  // La columna es INTEGER. Que el 0/1 llegue crudo a la plantilla hace que `checked`
-  // reciba un 0, que en JSX es un valor presente: todas las casillas saldrian tildadas.
+test('la fila no trae `destacado`: la columna quedo congelada y fuera de la grilla', async () => {
+  // Sigue existiendo en D1 con su valor viejo. Que no llegue hasta aca es lo que la
+  // mantiene congelada: sin campo en la fila no hay casilla, y sin casilla no hay
+  // POST que la pueda apagar de rebote.
   const db = base();
   alta(db, { codigo: 'CG909', destacado: true });
-  alta(db, { codigo: 'CG910', destacado: false });
 
   const filas = await listarProductos(ejecutor(db), { estado: 'todos' });
-  assert.equal(filas.find((f) => f.codigo === 'CG909')?.destacado, true);
-  assert.equal(filas.find((f) => f.codigo === 'CG910')?.destacado, false);
+  assert.ok(!('destacado' in filas.find((f) => f.codigo === 'CG909')!));
 });
 
 test('el conteo de bajas no se suma al de estados', async () => {

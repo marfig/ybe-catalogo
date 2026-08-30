@@ -125,6 +125,24 @@ const enLaFila = categorias.slice(0, EN_LA_FILA);
         }
       </ul>
 
+      {/*
+        FUERA del `<ul>` de categorias y fuera del desplegable: no es una categoria.
+        Meterlo entre ellas lo haria buscar a alguien que quiere comprar una mochila
+        suelta, y esconderlo en el panel de «Ver todas» lo dejaria invisible para el
+        unico visitante que lo busca — el que compra por cantidad y no navega el
+        catalogo.
+
+        VISIBLE TAMBIEN EN MOVIL, al reves que las tres categorias de la fila. Aquellas
+        se esconden porque son un atajo a algo que el desplegable ya ofrece; esto no
+        tiene otra puerta.
+      */}
+      <a
+        href="/pedidos-especiales"
+        class="hover:bg-fondo hover:text-texto text-texto-suave order-last block rounded px-2 py-1 sm:order-none"
+      >
+        Pedidos especiales
+      </a>
+
       <details class="group" data-menu-categorias>
         {/*
           Enlace y no boton: sin borde ni relleno de caja, el mismo color y tamaño que

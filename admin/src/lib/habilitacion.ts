@@ -119,7 +119,7 @@ export function habilitacionDe(
  * reconocen por su forma. Si alguien los renombra, el servidor deja de parsearlos en el
  * mismo commit: no hay forma de que esto quede desincronizado en silencio.
  */
-const CAMPOS_DE_FILA = /^(nombre|descripcion|precio|categoria|destacado)-\d+$/;
+const CAMPOS_DE_FILA = /^(nombre|descripcion|precio|categoria)-\d+$/;
 
 export function esCampoDeFila(nombre: string): boolean {
   return CAMPOS_DE_FILA.test(nombre);

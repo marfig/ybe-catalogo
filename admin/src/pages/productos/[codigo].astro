@@ -45,7 +45,6 @@ if (Astro.request.method === 'POST') {
         nombre: texto('nombre') || null,
         descripcion: texto('descripcion') || null,
         precio: parsearPrecio(texto('precio')),
-        destacado: datos.get('destacado') === 'si',
         categorias: datos.getAll('categorias').map(String).filter(Boolean),
         variantes: colores
           .map((color, i) => ({
@@ -138,12 +137,6 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
         <span class="nota">La primera define la navegación del producto.</span>
       </p>
 
-      <p class="lote-check-fila">
-        <label class="lote-check">
-          <input type="checkbox" name="destacado" value="si" checked={producto.destacado} />
-          Destacado en la portada
-        </label>
-      </p>
     </fieldset>
 
     <fieldset class="lote" id="variantes">

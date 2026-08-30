@@ -5,11 +5,16 @@
  * exactamente las validaciones de §5.2 — así que se editan en la propia lista y no en
  * una pantalla aparte. Lo pesado (fotos y colores) vive en §10.4.
  *
- * `descripcion` y `destacado` se sumaron después: son los dos campos que se cargan
- * PRODUCTO POR PRODUCTO al armar la portada, y mandar a abrir y cerrar una ficha por
- * cada uno es el viaje que esta pantalla existe para evitar. No entran en las
- * validaciones de §5.2 — un producto sin descripción se publica igual — así que no
- * pueden hacer fallar una fila; sólo se guardan.
+ * `descripcion` se sumó después: es un campo que se carga PRODUCTO POR PRODUCTO, y
+ * mandar a abrir y cerrar una ficha por cada uno es el viaje que esta pantalla existe
+ * para evitar. No entra en las validaciones de §5.2 — un producto sin descripción se
+ * publica igual — así que no puede hacer fallar una fila; sólo se guarda.
+ *
+ * `destacado` viajaba acá y se sacó: la portada ya no cura productos (ver la colección
+ * `pedidosEspeciales` en `src/content.config.ts`). La columna sigue en D1 y queda
+ * CONGELADA justamente porque nada la escribe. Ojo si se piensa revivirla dejando sólo
+ * el checkbox oculto: un checkbox que no se rinde no viaja en el POST, la página lo
+ * traduce a `false`, y el primer guardado bajaría de la portada a todo lo marcado.
  *
  * Dos invariantes sostienen todo lo demás:
  *
@@ -37,15 +42,6 @@ export interface CambioFila {
   descripcion: string | null;
   /** Ya parseado por `parsearPrecio`. `null` es "Consultar precio". */
   precio: number | null;
-  /**
-   * Si va en la portada (§4.3).
-   *
-   * OBLIGATORIO y no opcional, aunque un checkbox sin tildar no viaje en el POST: la
-   * traducción de "no vino" a `false` es de la página, que tiene el `fila` para saber
-   * que la fila sí se rindió. Si acá fuera opcional, `undefined` se confundiría con
-   * "destildado" y un producto destacado no se podría bajar nunca de la portada.
-   */
-  destacado: boolean;
   /** Categoría principal elegida, o `null` si el select quedó sin elegir. */
   categoriaPrincipal: string | null;
 }
@@ -84,8 +80,6 @@ interface FilaActual {
   nombre: string | null;
   descripcion: string | null;
   precio: number | null;
-  /** Columna INTEGER del esquema, no un booleano: 0 o 1. */
-  destacado: number;
   estado: string;
 }
 
@@ -103,7 +97,7 @@ export async function guardarFilas(
   const actuales = new Map(
     (
       await ejecutar<FilaActual>(
-        `SELECT id, codigo, nombre, descripcion, precio, destacado, estado
+        `SELECT id, codigo, nombre, descripcion, precio, estado
            FROM productos WHERE id IN (${huecos(ids.length)})`,
         ids
       )
@@ -190,14 +184,11 @@ export async function guardarFilas(
     const cambiaNombre = nombre !== actual.nombre;
     const cambiaDescripcion = descripcion !== actual.descripcion;
     const cambiaPrecio = cambio.precio !== actual.precio;
-    // `destacado` es INTEGER en el esquema: se normaliza a booleano para comparar y no
-    // al revés. Comparar `true !== 1` sería siempre distinto y reescribiría cada fila.
-    const cambiaDestacado = cambio.destacado !== (actual.destacado === 1);
     // Un select sin elegir NO se lee como "sacale la categoría": borrar curaduría
     // tiene que ser explícito, y este formulario no tiene forma de pedirlo.
     const cambiaCategoria = principal !== null && yaTiene[0] !== principal;
 
-    const cambiaColumna = cambiaNombre || cambiaDescripcion || cambiaPrecio || cambiaDestacado;
+    const cambiaColumna = cambiaNombre || cambiaDescripcion || cambiaPrecio;
 
     if (!cambiaColumna && !cambiaCategoria) {
       resultados.push({ id: cambio.id, codigo: actual.codigo, ok: true, cambio: false });
@@ -206,11 +197,11 @@ export async function guardarFilas(
 
     if (cambiaColumna) {
       /**
-       * Las cuatro columnas van en UN SOLO UPDATE aunque haya cambiado una.
+       * Las tres columnas van en UN SOLO UPDATE aunque haya cambiado una.
        *
        * Reescribir una columna con el valor que ya tenía no es un cambio para nadie: lo
        * que el invariante 1 protege es `actualizado_en`, y esa fecha se mueve igual
-       * porque algo de la fila cambió. Armar el SET dinámicamente daría cuatro caminos
+       * porque algo de la fila cambió. Armar el SET dinámicamente daría tres caminos
        * de SQL para ahorrar nada.
        *
        * El `slug` NO está acá, y es deliberado: cambiar el nombre de un producto
@@ -218,9 +209,9 @@ export async function guardarFilas(
        */
       sentencias.push({
         sql: `UPDATE productos
-                 SET nombre = ?, descripcion = ?, precio = ?, destacado = ?, actualizado_en = ?
+                 SET nombre = ?, descripcion = ?, precio = ?, actualizado_en = ?
                WHERE id = ?`,
-        params: [nombre, descripcion, cambio.precio, cambio.destacado ? 1 : 0, ahora, cambio.id],
+        params: [nombre, descripcion, cambio.precio, ahora, cambio.id],
       });
     }
 

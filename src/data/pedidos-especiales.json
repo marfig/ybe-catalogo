@@ -1,0 +1,23 @@
+[
+  {
+    "id": "mochilas-escolares-por-cantidad",
+    "nombre": "Mochilas escolares por cantidad",
+    "descripcion": "Cantidad mínima: 12 unidades.\nSurtido de modelos y colores a elección.\nIdeal para colegios, cooperativas y kits escolares.\n\nEl precio se define según la cantidad y los modelos elegidos. Escribinos y te pasamos el presupuesto.",
+    "imagen": { "base": "catalogo/e5469209224bdfb3", "anchos": [300, 600] },
+    "orden": 10
+  },
+  {
+    "id": "loncheras-personalizadas",
+    "nombre": "Loncheras personalizadas",
+    "descripcion": "Cantidad mínima: 20 unidades.\nBordado o estampado con el logo de tu institución.\nTiempo de entrega: 15 a 20 días desde la aprobación del arte.\n\nMandanos tu logo por WhatsApp y te cotizamos.",
+    "imagen": { "base": "catalogo/0589a199d184ad9d", "anchos": [300, 600] },
+    "orden": 20
+  },
+  {
+    "id": "regalos-empresariales",
+    "nombre": "Regalos empresariales",
+    "descripcion": "Cantidad mínima: 25 unidades.\nCarteras, bolsos, portafolios y billeteras.\nSe puede combinar más de un artículo en el mismo pedido.\n\nContanos el presupuesto por persona y armamos las opciones.",
+    "imagen": { "base": "catalogo/667f3676ca74bc3e", "anchos": [300, 600] },
+    "orden": 30
+  }
+]

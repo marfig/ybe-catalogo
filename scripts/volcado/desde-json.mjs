@@ -83,7 +83,8 @@ export function aFilas(catalogo, metadatos, { ahora }) {
       nombre: p.nombre,
       descripcion: p.descripcion ?? null,
       precio: p.precio ?? null,
-      destacado: p.destacado === true ? 1 : 0,
+      // `destacado` no va: salio del JSON con la portada. La columna es
+      // NOT NULL DEFAULT 0 en D1, asi que omitirla del INSERT es suficiente.
       estado,
       creado_en: fecha,
       actualizado_en: fecha,

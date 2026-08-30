@@ -48,7 +48,6 @@ if (Astro.request.method === 'POST') {
         nombre: texto('nombre') || null,
         descripcion: texto('descripcion') || null,
         precio: parsearPrecio(texto('precio')),
-        destacado: datos.get('destacado') === 'si',
         categorias: datos.getAll('categorias').map(String).filter(Boolean),
         variantes,
       },
@@ -119,12 +118,6 @@ if (Astro.request.method === 'POST') {
         <span class="nota">La primera que elijas define la navegación del producto.</span>
       </p>
 
-      <p class="lote-check-fila">
-        <label class="lote-check">
-          <input type="checkbox" name="destacado" value="si" />
-          Destacado en la portada
-        </label>
-      </p>
     </fieldset>
 
     <fieldset class="lote" id="variantes">

@@ -31,7 +31,6 @@ export interface ProductoNuevo {
   nombre: string | null;
   descripcion: string | null;
   precio: number | null;
-  destacado: boolean;
   categorias: string[];
   variantes: VarianteNueva[];
 }
@@ -112,15 +111,14 @@ export async function crearProducto(
 
   const [fila] = await ejecutar<{ id: number }>(
     `INSERT INTO productos
-       (codigo, proveedor, nombre, descripcion, precio, destacado, estado, creado_en, actualizado_en)
-     VALUES (?, 'manual', ?, ?, ?, ?, 'importado', ?, ?)
+       (codigo, proveedor, nombre, descripcion, precio, estado, creado_en, actualizado_en)
+     VALUES (?, 'manual', ?, ?, ?, 'importado', ?, ?)
      RETURNING id`,
     [
       codigo,
       producto.nombre?.trim() || null,
       producto.descripcion?.trim() || null,
       producto.precio,
-      producto.destacado ? 1 : 0,
       ahora,
       ahora,
     ]

@@ -30,7 +30,6 @@ function base() {
         nombre: 'Cartera de fiesta con strass',
         descripcion: 'Cartera de mano rigida con aplicacion de strass.',
         precio: 195000,
-        destacado: 1,
         estado: 'publicado',
         actualizado_en: '2026-07-31T14:02:11Z',
       },
@@ -130,13 +129,13 @@ test('eliminado entra con activo false, no se borra del JSON', () => {
 // Omision de defaults — mantiene el diff de git legible (SPEC §6.5)
 // --------------------------------------------------------------------------
 
-test('destacado se omite cuando es false y se emite cuando es true', () => {
-  const conDestacado = base();
-  assert.equal(uno(conDestacado).destacado, true);
-
-  const sinDestacado = base();
-  sinDestacado.productos[0].destacado = 0;
-  assert.ok(!('destacado' in uno(sinDestacado)), 'false es el default: se omite');
+test('destacado NO se emite: la columna quedo congelada en D1', () => {
+  // La portada dejo de curar productos (ver `pedidosEspeciales` en content.config.ts).
+  // La columna sigue en la base, asi que este test defiende que un valor viejo ahi
+  // adentro no se cuele igual al JSON publicado.
+  const f = base();
+  f.productos[0].destacado = 1;
+  assert.ok(!('destacado' in uno(f)));
 });
 
 test('descripcion se omite cuando es null', () => {

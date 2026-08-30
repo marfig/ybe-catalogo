@@ -1,11 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
-import GrillaProductos from '../components/GrillaProductos.astro';
-import { categoriasNavegables, destacados } from '../lib/productos.ts';
+import GrillaPedidosEspeciales from '../components/GrillaPedidosEspeciales.astro';
+import { categoriasNavegables } from '../lib/productos.ts';
+import { pedidosEspeciales } from '../lib/pedidos-especiales.ts';
 import { COMERCIO, DESCRIPCION_LINEAS, DESCRIPCION_SITIO, REDES } from '../lib/sitio.ts';
 import { urlCanonica } from '../lib/seo.ts';
 
-const productosDestacados = await destacados();
+const pedidos = await pedidosEspeciales();
 
 // Solo categorias con algo publicado, misma fuente que el header y que
 // getStaticPaths del listado (SPEC §4.3).
@@ -15,7 +16,7 @@ const navegables = await categoriasNavegables();
  * La home muestra un ADELANTO, no el indice.
  *
  * Con las 24 categorias del archivo la lista completa medía ~750px de alto en un
- * movil, entre el buscador y los destacados: para llegar a un producto habia que
+ * movil, entre el buscador y los pedidos especiales: para llegar a un producto habia
  * pasar por el indice entero. El indice completo vive en `/categorias`, que es una
  * pagina donde la lista ES el contenido.
  *
@@ -106,13 +107,46 @@ const jsonLd = [
     </ul>
   </section>
 
-  <section class="mt-10" aria-labelledby="h-destacados">
-    <h2 id="h-destacados" class="text-lg font-semibold">Destacados</h2>
-    <div class="mt-3">
-      <GrillaProductos
-        productos={productosDestacados}
-        vacio="Todavía no hay productos destacados."
-      />
-    </div>
-  </section>
+  {/*
+    Reemplaza al bloque de «Destacados», que era una curaduría sobre `productos` con un
+    flag `destacado`. Se cambió porque estos artículos NO son productos del catálogo:
+    no tienen SKU, ni color, ni precio de lista. Ver `content.config.ts`.
+
+    LA SECCIÓN SE OCULTA ENTERA SI NO HAY NADA, y por eso no se le pasa un `vacio`.
+    Es la diferencia con un listado: `/categorias/x` vacío tiene que explicar por qué
+    no hay nada, porque el visitante pidió esa página. Acá nadie la pidió — un «todavía
+    no hay» en la portada anuncia un hueco que el visitante no sabía que existía.
+  */}
+  {
+    pedidos.length > 0 && (
+      <section class="mt-10" aria-labelledby="h-pedidos-especiales">
+        <div class="flex flex-wrap items-baseline justify-between gap-2">
+          <h2 id="h-pedidos-especiales" class="text-lg font-semibold">
+            Pedidos especiales
+          </h2>
+
+          {/* Mismo patrón que «Ver todas» de categorías: arriba y en la línea del
+              título, donde se ve sin scrollear la grilla entera. */}
+          <a
+            href="/pedidos-especiales"
+            class="hover:text-texto text-texto-suave text-sm underline"
+          >
+            Ver todos
+          </a>
+        </div>
+
+        {/* La bajada NO es decorativa: estas tarjetas no llevan precio, y sin una línea
+            que lo explique la ausencia se lee como un dato que falta. */}
+        <p class="text-texto-suave mt-1 text-sm">
+          Por cantidad, para colegios y empresas. Cotizamos según tu pedido.
+        </p>
+
+        {/* `denso`: la portada es un ADELANTO, igual que el bloque de categorias de
+            arriba. Con la grilla de la pagina propia este bloque se come la pantalla. */}
+        <div class="mt-3">
+          <GrillaPedidosEspeciales pedidos={pedidos} denso />
+        </div>
+      </section>
+    )
+  }
 </Base>
