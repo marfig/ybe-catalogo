@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { enUnaLinea, filasDeSalida } from '../ejecutor-wrangler.mjs';
+import { argumentosWrangler, enUnaLinea, filasDeSalida } from '../ejecutor-wrangler.mjs';
 
 /**
  * Tests del ejecutor local basado en wrangler.
@@ -82,4 +82,54 @@ test('enUnaLinea: revienta si sobran o faltan parametros', () => {
   // Un desajuste silencioso produciria SQL valido pero con el filtro equivocado.
   assert.throws(() => enUnaLinea('SELECT ?, ?', ['uno']), /2 placeholders.*1 parametro/);
   assert.throws(() => enUnaLinea('SELECT ?', ['uno', 'dos']), /1 placeholder.*2 parametros/);
+});
+
+// --------------------------------------------------------------------------
+// Contra QUE base se corre. Es la decision mas cara de este archivo.
+// --------------------------------------------------------------------------
+
+const args = (opciones) => argumentosWrangler({ base: 'ybe-catalogo', config: 'db/wrangler.jsonc', ...opciones });
+
+test('por defecto va contra REMOTO: el volcado publica lo que hay en produccion', () => {
+  // Es el comportamiento historico y el que usa la GitHub Action. Cambiarlo por
+  // descuido volcaria una base vacia sobre el catalogo publicado.
+  const a = args({});
+  assert.ok(a.includes('--remote'));
+  assert.equal(a.includes('--local'), false);
+});
+
+test('con local, NUNCA aparece --remote', () => {
+  /**
+   * La invariante que importa. `--local` y `--remote` juntos no son un error de
+   * sintaxis: wrangler elige uno, y cual elige no es algo que convenga averiguar
+   * mirando un catalogo publicado.
+   */
+  const a = args({ local: true });
+  assert.ok(a.includes('--local'));
+  assert.equal(a.includes('--remote'), false);
+});
+
+test('local apunta al estado de miniflare del admin, no a uno nuevo', () => {
+  // Sin `--persist-to`, wrangler crea un estado en la raiz del repo y volcaria una
+  // base vacia: la D1 con la que trabaja `astro dev` vive bajo admin/.
+  const a = args({ local: true });
+  const i = a.indexOf('--persist-to');
+  assert.notEqual(i, -1, 'falta --persist-to');
+  assert.equal(a[i + 1], 'admin/.wrangler/state');
+});
+
+test('siempre --command y nunca --file', () => {
+  // `--file --json` devuelve un RESUMEN en vez de las filas, y el volcado saldria
+  // truncado sin ningun error. Ya paso una vez.
+  for (const opciones of [{}, { local: true }]) {
+    const a = args(opciones);
+    assert.ok(a.includes('--command'), JSON.stringify(opciones));
+    assert.equal(a.includes('--file'), false, JSON.stringify(opciones));
+  }
+});
+
+test('la base y el config viajan tal cual', () => {
+  const a = args({});
+  assert.equal(a[a.indexOf('execute') + 1], 'ybe-catalogo');
+  assert.equal(a[a.indexOf('--config') + 1], 'db/wrangler.jsonc');
 });

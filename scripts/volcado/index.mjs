@@ -39,8 +39,34 @@ const CONFIG_D1 = 'db/wrangler.jsonc';
 
 const ENSAYO = process.argv.includes('--dry-run');
 
+/**
+ * `--local`: volcar desde la D1 de miniflare en vez de produccion.
+ *
+ * EL HUECO QUE CIERRA. El volcado siempre leyo de remoto, asi que lo que se cargaba en
+ * el admin local no habia forma de verlo en el sitio local: se subia una foto, se
+ * volcaba, y venia el catalogo de produccion. La unica manera de mirar un cambio propio
+ * era publicarlo, o sea probar en produccion.
+ *
+ * ES SOLO PARA MIRAR. Deja `src/data/*.json` con el contenido de la base local, que no
+ * es el catalogo — hay que revertirlo con git antes de commitear. Por eso el aviso al
+ * final es tan ruidoso.
+ */
+const LOCAL = process.argv.includes('--local');
+
 /** Devuelve el ejecutor y el nombre del transporte, para poder decirlo en el log. */
 function elegirTransporte(env) {
+  /**
+   * `--local` GANA SOBRE LAS CREDENCIALES. Si estan en el entorno y no se mirara la
+   * bandera, pedir un volcado local leeria produccion en silencio: exactamente lo
+   * contrario de lo que se pidio, y sin ninguna señal.
+   */
+  if (LOCAL) {
+    return {
+      nombre: 'wrangler (D1 LOCAL de miniflare)',
+      ejecutar: ejecutorWrangler({ base: BASE, config: CONFIG_D1, local: true }),
+    };
+  }
+
   const completas = ['CLOUDFLARE_ACCOUNT_ID', 'D1_DATABASE_ID', 'CLOUDFLARE_API_TOKEN'].every(
     (k) => (env[k] ?? '').trim() !== ''
   );
@@ -49,7 +75,7 @@ function elegirTransporte(env) {
     return { nombre: 'API HTTP de D1', ejecutar: ejecutorD1(leerConfigD1(env)) };
   }
   return {
-    nombre: 'wrangler (sesion local)',
+    nombre: 'wrangler (sesion local, base REMOTA)',
     ejecutar: ejecutorWrangler({ base: BASE, config: CONFIG_D1 }),
   };
 }
@@ -153,4 +179,20 @@ for (const s of salidas) {
   }
   await writeFile(s.ruta, s.contenido);
   console.log(`${s.ruta} actualizado (${s.contenido.length} bytes).`);
+}
+
+if (LOCAL) {
+  /**
+   * Ruidoso a proposito. Estos dos archivos estan versionados y son el catalogo que se
+   * publica: commitear un volcado local reemplazaria el catalogo entero por lo que
+   * tenga la base de una maquina.
+   */
+  console.log(
+    [
+      '',
+      'OJO: esto salio de la D1 LOCAL, no del catalogo.',
+      'Los dos JSON quedaron con datos de tu maquina. Para dejarlos como estaban:',
+      '  git checkout -- src/data/productos.json src/data/pedidos-especiales.json',
+    ].join('\n')
+  );
 }

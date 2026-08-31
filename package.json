@@ -14,7 +14,8 @@
     "test": "node --experimental-strip-types --experimental-sqlite --test",
     "deploy": "wrangler deploy",
     "subir-existentes": "node --env-file=.env scripts/import/subir-existentes.mjs",
-    "volcar": "node scripts/volcado/index.mjs"
+    "volcar": "node scripts/volcado/index.mjs",
+    "volcar:local": "node scripts/volcado/index.mjs --local"
   },
   "dependencies": {
     "@astrojs/preact": "^6.0.2",

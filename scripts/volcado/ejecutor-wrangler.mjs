@@ -92,26 +92,60 @@ export function filasDeSalida(texto) {
 /**
  * Ejecutor listo para `consultarFilas()`.
  *
- * @param {{base: string, config: string, cwd?: string}} opciones
+ * Donde vive la D1 de miniflare con la que trabaja `astro dev` del admin.
+ *
+ * Sin `--persist-to`, wrangler crea un estado nuevo en la raiz del repo y el volcado
+ * saldria de una base vacia: la que se llena al usar el admin en local esta bajo
+ * `admin/`, porque es ahi donde corre su dev server.
  */
-export function ejecutorWrangler({ base, config, cwd = process.cwd() }) {
+const ESTADO_LOCAL = 'admin/.wrangler/state';
+
+/**
+ * Los argumentos de `wrangler d1 execute`. Pieza pura, con tests.
+ *
+ * SEPARADA DEL `execFileSync` A PROPOSITO: acá se decide contra QUE BASE se corre, que
+ * es la decision mas cara de este archivo. Enterrada en la llamada, la unica forma de
+ * verificarla es correrla — y equivocarse significa leer produccion cuando se queria
+ * leer local, o peor, volcar una base local sobre el catalogo publicado.
+ *
+ * `--command` y NUNCA `--file`: con `--file --json` wrangler devuelve un RESUMEN en vez
+ * de las filas, y el volcado saldria truncado sin ningun error. Ya paso una vez.
+ *
+ * @param {{base: string, config: string, local?: boolean}} opciones
+ */
+export function argumentosWrangler({ base, config, local = false }) {
+  return [
+    WRANGLER,
+    'd1',
+    'execute',
+    base,
+    // Uno o el otro, nunca los dos: juntos no dan error de sintaxis, wrangler elige
+    // uno, y cual elige no es algo que convenga averiguar mirando un catalogo publicado.
+    ...(local ? ['--local', '--persist-to', ESTADO_LOCAL] : ['--remote']),
+    '--config',
+    config,
+    '--command',
+    '',
+    '--json',
+  ];
+}
+
+/**
+ * @param {{base: string, config: string, cwd?: string, local?: boolean}} opciones
+ */
+export function ejecutorWrangler({ base, config, cwd = process.cwd(), local = false }) {
+  const plantilla = argumentosWrangler({ base, config, local });
+  const iComando = plantilla.indexOf('--command') + 1;
+
   return (sql, params = []) => {
-    const salida = execFileSync(
-      process.execPath,
-      [
-        WRANGLER,
-        'd1',
-        'execute',
-        base,
-        '--remote',
-        '--config',
-        config,
-        '--command',
-        enUnaLinea(sql, params),
-        '--json',
-      ],
-      { cwd, encoding: 'utf8', maxBuffer: 128 * 1024 * 1024 }
-    );
+    const args = [...plantilla];
+    args[iComando] = enUnaLinea(sql, params);
+
+    const salida = execFileSync(process.execPath, args, {
+      cwd,
+      encoding: 'utf8',
+      maxBuffer: 128 * 1024 * 1024,
+    });
     return filasDeSalida(salida);
   };
 }
