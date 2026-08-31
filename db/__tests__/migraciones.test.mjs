@@ -84,7 +84,7 @@ test('la carpeta entera aplica en orden sin error', () => {
   assert.doesNotThrow(() => aplicar());
 });
 
-test('aplicar la cadena deja las 9 tablas del esquema acumulado', () => {
+test('aplicar la cadena deja las 10 tablas del esquema acumulado', () => {
   const db = aplicar();
   const tablas = db
     .prepare(`SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name`)
@@ -101,6 +101,7 @@ test('aplicar la cadena deja las 9 tablas del esquema acumulado', () => {
     'scrapes',
     'variante_imagenes',
     'variantes',
+    'videos',
   ]);
 });
 
@@ -246,4 +247,111 @@ test('0006: el orden por defecto manda la ficha al final', () => {
   const db = aplicar();
   const id = insertarPedido(db, { imagen_id: insertarImagen(db) });
   assert.equal(db.prepare(`SELECT orden FROM pedidos_especiales WHERE id=?`).get(id).orden, 999);
+});
+
+// --------------------------------------------------------------------------
+// 0007 — un video opcional por producto
+// --------------------------------------------------------------------------
+
+function insertarVideo(db, campos = {}) {
+  const v = {
+    hash16: 'bbbbbbbbbbbbbbbb',
+    ancho: 720,
+    alto: 1280,
+    bytes: 3_000_000,
+    ...campos,
+  };
+  return db
+    .prepare(
+      `INSERT INTO videos (hash16, ancho, alto, bytes, creado_en)
+       VALUES (?, ?, ?, ?, ?) RETURNING id`
+    )
+    .get(v.hash16, v.ancho, v.alto, v.bytes, AHORA).id;
+}
+
+function insertarProducto(db, campos = {}) {
+  const p = { codigo: 'CG85527', slug: 'cartera-de-fiesta', video_id: null, ...campos };
+  return db
+    .prepare(
+      `INSERT INTO productos (codigo, proveedor, slug, nombre, estado, video_id, creado_en, actualizado_en)
+       VALUES (?, 'chenson', ?, 'Cartera', 'publicado', ?, ?, ?) RETURNING id`
+    )
+    .get(p.codigo, p.slug, p.video_id, AHORA, AHORA).id;
+}
+
+test('0007: el hash16 de un video es unico, igual que el de una imagen', () => {
+  // Es el dedupe: el mismo archivo subido dos veces es una sola fila y un solo
+  // objeto en R2. Sin esta restriccion el segundo `put` pisa al primero y la
+  // fila vieja queda apuntando a un objeto que ya no es el suyo.
+  const db = aplicar();
+  insertarVideo(db);
+  assert.throws(() => insertarVideo(db, { ancho: 1080 }), /UNIQUE|constraint/i);
+});
+
+test('0007: ancho, alto y bytes son obligatorios', () => {
+  // ancho/alto no son anti-upscaling como en `imagenes` —no hay derivadas—:
+  // sostienen el aspect-ratio del <video> para que la ficha no salte al cargar.
+  const db = aplicar();
+  for (const campo of ['ancho', 'alto', 'bytes']) {
+    assert.throws(() => insertarVideo(db, { [campo]: null }), /NOT NULL|constraint/i, campo);
+  }
+});
+
+test('0007: un producto nace sin video', () => {
+  // La columna es opcional y no hay backfill: el catalogo entero sigue igual
+  // despues de la migracion.
+  const db = aplicar();
+  const id = insertarProducto(db);
+  assert.equal(db.prepare(`SELECT video_id FROM productos WHERE id=?`).get(id).video_id, null);
+});
+
+test('0007: un producto no puede apuntar a un video inexistente', () => {
+  const db = aplicar();
+  assert.throws(() => insertarProducto(db, { video_id: 404 }), /FOREIGN KEY|constraint/i);
+});
+
+test('0007: borrar un video en uso falla, no deja la ficha sin video en silencio', () => {
+  // Mismo criterio que `pedidos_especiales.imagen_id`: sin ON DELETE CASCADE ni
+  // SET NULL. Quitar el video de un producto es un UPDATE explicito del admin;
+  // recien despues la fila queda huerfana y la papelera puede llevarse el
+  // objeto de R2.
+  const db = aplicar();
+  const video = insertarVideo(db);
+  insertarProducto(db, { video_id: video });
+  assert.throws(() => db.prepare(`DELETE FROM videos WHERE id=?`).run(video), /FOREIGN KEY|constraint/i);
+});
+
+test('0007: borrar el producto NO borra el video', () => {
+  // A proposito: la fila sobrevive como huerfana. El objeto de R2 pesa 10 MB y
+  // tiene que salir por la recoleccion de huerfanas, que es donde se borran los
+  // dos —fila y objeto— juntos. Un CASCADE aca haria desaparecer la fila y
+  // dejaria el objeto en R2 para siempre, invisible.
+  const db = aplicar();
+  const video = insertarVideo(db);
+  const producto = insertarProducto(db, { video_id: video });
+
+  db.prepare(`DELETE FROM productos WHERE id=?`).run(producto);
+
+  assert.equal(db.prepare(`SELECT COUNT(*) c FROM videos`).get().c, 1);
+});
+
+test('0007: dos productos pueden compartir el mismo video', () => {
+  // Consecuencia del dedupe por hash16, igual que `variante_imagenes` con las
+  // fotos repetidas del proveedor. `video_id` NO es UNIQUE.
+  const db = aplicar();
+  const video = insertarVideo(db);
+  insertarProducto(db, { codigo: 'A1', slug: 's1', video_id: video });
+  insertarProducto(db, { codigo: 'A2', slug: 's2', video_id: video });
+  assert.equal(db.prepare(`SELECT COUNT(*) c FROM productos WHERE video_id=?`).get(video).c, 2);
+});
+
+test('0007: el indice de video es parcial', () => {
+  // Misma convencion que 0003 y 0005: los productos con video van a ser una
+  // minoria, y el indice solo tiene que conocer a esos.
+  const db = aplicar();
+  const sql = db
+    .prepare(`SELECT sql FROM sqlite_master WHERE type='index' AND name='idx_productos_video'`)
+    .get();
+  assert.ok(sql, 'falta el indice idx_productos_video');
+  assert.match(sql.sql, /WHERE\s+video_id\s+IS\s+NOT\s+NULL/i);
 });
