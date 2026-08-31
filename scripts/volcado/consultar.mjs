@@ -41,12 +41,25 @@ const HUECOS = ESTADOS.map(() => '?').join(', ');
  * el plan de consulta use los indices del esquema.
  */
 export const SQL = {
+  /**
+   * El video viaja en ESTA consulta y no en una propia, al reves que las imagenes.
+   *
+   * Las imagenes necesitan su consulta porque son muchas por producto y cuelgan de la
+   * variante. El video es 0..1 y cuelga del producto: son tres columnas mas en una fila
+   * que ya se trae. Una quinta consulta para traer como maximo una fila por producto
+   * agregaria un viaje a D1 sin ganar nada.
+   *
+   * LEFT y no INNER: la enorme mayoria de los productos no tiene video, y un INNER los
+   * dejaria a todos afuera del volcado.
+   */
   productos: `
-    SELECT id, codigo, proveedor, slug, nombre, descripcion, precio,
-           estado, actualizado_en
-      FROM productos
-     WHERE estado IN (${HUECOS})
-     ORDER BY id`,
+    SELECT p.id, p.codigo, p.proveedor, p.slug, p.nombre, p.descripcion, p.precio,
+           p.estado, p.actualizado_en,
+           v.hash16 AS video_hash16, v.ancho AS video_ancho, v.alto AS video_alto
+      FROM productos p
+      LEFT JOIN videos v ON v.id = p.video_id
+     WHERE p.estado IN (${HUECOS})
+     ORDER BY p.id`,
 
   // `orden` es imprescindible, no informativo: construirProductos() ordena las
   // variantes por esa columna y de ahi sale que color se ve al abrir la ficha.

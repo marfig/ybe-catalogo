@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 
 import { construirProductos } from '../construir.mjs';
 import { consultarFilas } from '../consultar.mjs';
@@ -31,13 +31,21 @@ import {
  */
 
 /**
- * `0006` no la usa el sembrado, pero SI `consultarFilas`, que ahora consulta
- * `pedidos_especiales` para la segunda salida del volcado. Sin ella la ida y vuelta
- * revienta con «no such table» en un test que no habla de pedidos especiales.
+ * La carpeta entera, en orden, que es lo que corre wrangler.
+ *
+ * ANTES ERA UNA LISTA A MANO Y YA HABIA FALLADO DOS VECES POR ESO. La primera cuando
+ * `consultarFilas` empezo a consultar `pedidos_especiales`: la ida y vuelta reventaba
+ * con «no such table» en un test que no habla de pedidos especiales. Se agrego la
+ * `0006` a la lista y el problema volvio identico con `videos`.
+ *
+ * El sembrado sigue sin usar la mayoria de estas migraciones. Da igual: lo que decide
+ * que tablas hacen falta no es lo que este test siembra, sino lo que consulta el codigo
+ * que prueba — y eso cambia sin avisarle a la lista.
  */
-const MIGRACIONES = ['0001_esquema_inicial.sql', '0006_pedidos_especiales.sql'].map((n) =>
-  readFileSync(`db/migrations/${n}`, 'utf8')
-);
+const MIGRACIONES = readdirSync('db/migrations')
+  .filter((n) => n.endsWith('.sql'))
+  .sort()
+  .map((n) => readFileSync(`db/migrations/${n}`, 'utf8'));
 
 /**
  * EL FIXTURE ESTA CONGELADO, Y NO ES `src/data/productos.json`.

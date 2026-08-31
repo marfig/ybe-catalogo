@@ -94,6 +94,49 @@ function construirImagenes(filas, codigo) {
     });
 }
 
+/**
+ * El video de un producto, o `undefined`.
+ *
+ * Las tres columnas llegan del LEFT JOIN a `videos`: cuando el producto no tiene, las
+ * tres son NULL y no hay nada que construir.
+ *
+ * SE VALIDA ACA Y NO EN EL BUILD, mismo criterio que las imagenes: un error de Zod en
+ * `astro build` dice que el schema no valida, pero no cual de 1.500 productos es. Este
+ * dice el codigo.
+ *
+ * EL PREFIJO ES `videos/` Y NO `catalogo/`. No es cosmetica: `src/pages/indice.json.ts`
+ * arma la miniatura del buscador con `base.replace('catalogo/', '')` y ese replace no
+ * valida nada. Un video bajo `catalogo/` pasaria por ahi y saldria como una miniatura
+ * rota, sin error y sin log.
+ */
+function construirVideo(p, codigo) {
+  if (p.video_hash16 == null) return undefined;
+
+  if (!RE_HASH16.test(p.video_hash16)) {
+    throw new Error(
+      `${codigo}: hash de video mal formado: ${JSON.stringify(p.video_hash16)}. ` +
+        `Se esperan 16 caracteres hex minusculos.`
+    );
+  }
+
+  /**
+   * Ancho y alto son OBLIGATORIOS cuando hay video, y no por simetria con `imagenes`:
+   * el `<video>` los usa para reservar su lugar en la ficha. Sin ellos el contenido
+   * salta cuando el archivo carga, que es justo lo que `ImagenProducto` evita
+   * declarando width y height.
+   */
+  for (const [campo, valor] of [
+    ['ancho', p.video_ancho],
+    ['alto', p.video_alto],
+  ]) {
+    if (!Number.isInteger(valor) || valor <= 0) {
+      throw new Error(`${codigo}: el video no tiene ${campo} valido: ${JSON.stringify(valor)}.`);
+    }
+  }
+
+  return { base: `videos/${p.video_hash16}`, ancho: p.video_ancho, alto: p.video_alto };
+}
+
 function construirVariantes(filas, porVariante, codigo) {
   /**
    * Por la columna `orden`, con el color y despues el sku como desempates.
@@ -220,6 +263,17 @@ export function construirProductos({ productos = [], variantes = [], imagenes = 
     };
 
     if (p.descripcion) producto.descripcion = p.descripcion;
+
+    /**
+     * El video, si tiene. Clave AUSENTE cuando no, igual que `descripcion`: emitir
+     * `video: null` en las ~900 fichas sin video seria peso en cada linea del JSON
+     * para no decir nada.
+     *
+     * No hay lista que ordenar ni desempates que resolver —es 0..1— asi que el
+     * determinismo de la salida (SPEC §6.5) no se toca.
+     */
+    const video = construirVideo(p, codigo);
+    if (video) producto.video = video;
 
     // Solo `eliminado` apaga el producto. Los demas estados publicables usan el
     // default true del schema y omiten la clave.

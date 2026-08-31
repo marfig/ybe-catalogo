@@ -7,6 +7,7 @@ import Precio from '../../components/Precio.astro';
 import SelectorVariante from '../../components/islas/SelectorVariante.tsx';
 import { urlImagenAbsoluta } from '../../lib/imagenes.ts';
 import { urlCanonica } from '../../lib/seo.ts';
+import { urlPoster, urlVideo } from '../../lib/video.ts';
 import { LEYENDA_PRECIO, COMERCIO, MARCA } from '../../lib/sitio.ts';
 import { normalizarTelefono } from '../../lib/whatsapp.ts';
 import {
@@ -23,7 +24,7 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const { producto } = Astro.props;
-const { nombre, descripcion, precio } = producto.data;
+const { nombre, descripcion, precio, video } = producto.data;
 
 /**
  * La misma descripción en una línea, para los metadatos.
@@ -193,6 +194,54 @@ if (precio !== null && inicial) {
           <dd class="text-texto">{MARCA}</dd>
         </div>
       </dl>
+
+      {
+        /**
+         * EL VIDEO VA ACA, FUERA DE LA ISLA, y esa ubicación es la decisión de diseño
+         * entera hecha visible: el video es del PRODUCTO y no de la variante, así que
+         * no cambia cuando se elige otro color. Adentro del selector habría que
+         * redibujarlo en cada clic —y volver a bajarlo— para mostrar siempre lo mismo.
+         *
+         * Como está afuera, tampoco lo alcanza la lupa: esa vive dentro de
+         * `SelectorVariante`, atada a la foto. No hubo nada que apagar.
+         */
+        video && (
+          <div class="mt-2 flex flex-col gap-1">
+            {/*
+              `preload="metadata"` y NUNCA autoplay.
+
+              Son hasta 10 MB. Bajarlos en cada visita a una ficha que quizá nadie mire
+              es gasto de datos de quien entra, y en este negocio se entra desde un
+              enlace de WhatsApp en un teléfono. Con `metadata` el navegador trae lo
+              justo para saber cuánto dura; los bytes llegan recién si alguien le da
+              play.
+
+              `poster` es lo que se ve mientras tanto, así que el bloque no es un
+              rectángulo negro esperando.
+
+              `playsinline` para que iOS reproduzca en la ficha en vez de abrir su
+              reproductor a pantalla completa, que saca a la persona del catálogo.
+            */}
+            <video
+              src={urlVideo(PUBLIC_R2_BASE, video)}
+              poster={urlPoster(PUBLIC_R2_BASE, video)}
+              width={video.ancho}
+              height={video.alto}
+              preload="metadata"
+              controls
+              playsinline
+              class="border-borde max-h-[70vh] w-full rounded border object-contain"
+            >
+              {/*
+                Sin `<source>`: un solo archivo, un solo tipo. El texto es para el
+                navegador que no puede reproducirlo, no para un lector de pantalla.
+              */}
+              Tu navegador no puede reproducir este video.
+            </video>
+            <p class="text-texto-suave text-xs">Video del producto</p>
+          </div>
+        )
+      }
 
       {
         categorias.length > 0 && (

@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 
 import {
   construirPedidosEspeciales,
@@ -34,12 +34,16 @@ import {
  */
 
 /**
- * Las migraciones que el volcado necesita, en orden. `0006` trae
- * `pedidos_especiales`, que es la segunda salida del volcado.
+ * La carpeta entera, en orden, que es lo que corre wrangler.
+ *
+ * Antes era una lista a mano con la `0001` y la `0006`, salteando todo lo del medio.
+ * Funcionaba mientras el volcado no leyera nada de las salteadas, y se quedaba vieja en
+ * silencio en cuanto lo hiciera.
  */
-const MIGRACIONES = ['0001_esquema_inicial.sql', '0006_pedidos_especiales.sql'].map((n) =>
-  readFileSync(`db/migrations/${n}`, 'utf8')
-);
+const MIGRACIONES = readdirSync('db/migrations')
+  .filter((n) => n.endsWith('.sql'))
+  .sort()
+  .map((n) => readFileSync(`db/migrations/${n}`, 'utf8'));
 const AHORA = '2026-08-04T12:00:00Z';
 
 function base() {
@@ -210,6 +214,11 @@ test('consultarFilas: las columnas son exactamente las que construirProductos le
     'precio',
     'proveedor',
     'slug',
+    // Las tres del LEFT JOIN a `videos`. Vienen en NULL cuando el producto no tiene:
+    // la clave esta igual, y `construirVideo` decide por el hash.
+    'video_alto',
+    'video_ancho',
+    'video_hash16',
   ]);
   assert.deepEqual(Object.keys(filas.variantes[0]).sort(), [
     'activo',

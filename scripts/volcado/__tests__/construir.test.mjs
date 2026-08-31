@@ -411,3 +411,83 @@ test('contarEnElCatalogo sobre la salida real de construirProductos', () => {
   f.productos[0].estado = 'eliminado';
   assert.equal(contarEnElCatalogo(construirProductos(f)), 0);
 });
+
+// --------------------------------------------------------------------------
+// El video: opcional, y por producto
+// --------------------------------------------------------------------------
+
+/** Las tres columnas que agrega el LEFT JOIN a `videos` en la consulta de productos. */
+function conVideo(filas, extra = {}) {
+  Object.assign(filas.productos[0], {
+    video_hash16: 'bbbbbbbbbbbbbbbb',
+    video_ancho: 720,
+    video_alto: 1280,
+    ...extra,
+  });
+  return filas;
+}
+
+test('un producto sin video NO lleva la clave', () => {
+  // Igual que `descripcion`: la clave ausente es "no tiene". Emitir `video: null`
+  // agregaria peso a las ~900 fichas que no tienen ninguno.
+  assert.equal('video' in uno(base()), false);
+});
+
+test('el video sale con su prefijo propio, nunca bajo catalogo/', () => {
+  /**
+   * `indice.json.ts` hace `base.replace('catalogo/', '')` sobre la miniatura sin
+   * validar nada. Un video bajo `catalogo/` pasaria por ahi y saldria como una
+   * miniatura rota en el buscador, sin error y sin log.
+   */
+  const v = uno(conVideo(base())).video;
+  assert.deepEqual(v, { base: 'videos/bbbbbbbbbbbbbbbb', ancho: 720, alto: 1280 });
+});
+
+test('el video NO entra en las variantes ni toca la foto de portada', () => {
+  // La invariante que sostiene toda la decision de colgarlo del producto: og:image,
+  // JSON-LD, la miniatura de la grilla y el buscador leen variantes[0].imagenes[0].
+  const p = uno(conVideo(base()));
+  assert.equal(p.variantes[0].imagenes[0].base, 'catalogo/9dadecbc3b4c69f4');
+  for (const v of p.variantes) {
+    assert.equal('video' in v, false);
+  }
+});
+
+test('un hash de video mal formado corta el volcado', () => {
+  // Mismo criterio que las imagenes: se corta aca y no en `astro build`, donde el
+  // error de Zod no diria cual de las filas es.
+  for (const malo of ['', 'BBBBBBBBBBBBBBBB', 'bbbb', '../etc']) {
+    assert.throws(
+      () => construirProductos(conVideo(base(), { video_hash16: malo })),
+      /CG85527.*video/i,
+      JSON.stringify(malo)
+    );
+  }
+});
+
+test('un video sin medidas corta el volcado', () => {
+  // Sin ancho y alto el <video> no puede reservar su lugar y la ficha salta al cargar.
+  for (const campo of ['video_ancho', 'video_alto']) {
+    for (const malo of [null, 0, -3, 1.5]) {
+      assert.throws(
+        () => construirProductos(conVideo(base(), { [campo]: malo })),
+        /CG85527.*video/i,
+        `${campo}=${malo}`
+      );
+    }
+  }
+});
+
+test('las medidas del video viajan como enteros, no como texto', () => {
+  // D1 devuelve enteros, pero un `'720'` colandose romperia el schema en el build.
+  const v = uno(conVideo(base(), { video_ancho: 1080, video_alto: 1080 })).video;
+  assert.equal(typeof v.ancho, 'number');
+  assert.equal(typeof v.alto, 'number');
+});
+
+test('el video no cambia el orden ni el determinismo de la salida', () => {
+  // No hay lista que ordenar: es 0..1. Dos volcados de las mismas filas dan lo mismo.
+  const a = serializar(construirProductos(conVideo(base())));
+  const b = serializar(construirProductos(conVideo(base())));
+  assert.equal(a, b);
+});

@@ -32,6 +32,26 @@ const imagen = z.object({
 });
 
 /**
+ * El video opcional de un producto.
+ *
+ * SU PROPIO PREFIJO, y no es simetria con `imagen`: `indice.json.ts` arma la miniatura
+ * del buscador con `base.replace('catalogo/', '')` sin validar nada. Una clave de video
+ * bajo `catalogo/` pasaria por ese replace y saldria como una miniatura rota, sin error.
+ * El regex de aca es lo que hace imposible que eso llegue al build.
+ *
+ * SIN `anchos`, al reves que una imagen: no hay derivadas. El navegador no puede
+ * transcodificar, asi que el archivo es uno solo y entra tal cual se subio.
+ *
+ * `ancho` y `alto` NO son informativos: el `<video>` los necesita para reservar su
+ * lugar, o la ficha salta cuando el archivo carga.
+ */
+const video = z.object({
+  base: z.string().regex(/^videos\/[0-9a-f]{16}$/, 'clave de video mal formada'),
+  ancho: z.number().int().positive(),
+  alto: z.number().int().positive(),
+});
+
+/**
  * Pedidos especiales: lo que se vende POR CANTIDAD, con precio por caso.
  *
  * COLECCION APARTE Y NO UN FLAG SOBRE `productos`, que era el diseño anterior
@@ -137,6 +157,16 @@ const productos = defineCollection({
 
     // min(1): un producto sin variante no tiene imagen ni SKU.
     variantes: z.array(variante).min(1),
+
+    /**
+     * UN video opcional POR PRODUCTO, no por variante.
+     *
+     * Colgarlo del producto hace IMPOSIBLE por construccion romper la invariante de la
+     * foto de portada: og:image, el JSON-LD, la miniatura de la grilla y el indice de
+     * busqueda leen todos `variantes[0].imagenes[0]`, y el video no entra en ese arbol.
+     * Como variante habria sido una regla que vigilar; asi es una rama donde no vive.
+     */
+    video: video.optional(),
 
     activo: z.boolean().default(true),
     // z.iso.date() y no z.string().date(): esta ultima esta deprecada en Zod 4.
