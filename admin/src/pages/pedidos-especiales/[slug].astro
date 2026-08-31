@@ -63,7 +63,7 @@ if (!pedido) {
 const miniatura = urlMiniatura(R2, pedido.hash16, 300);
 ---
 
-<Panel titulo={pedido.nombre} volver="/pedidos-especiales" volverTexto="Pedidos especiales">
+<Panel titulo={pedido.nombre} volver="/pedidos-especiales">
   {/* Sin `<h1>` propio: el nombre ya lo rinde el encabezado del panel. */}
   {/* La ruta ROTULADA y no suelta: sin el rotulo es una linea de texto tecnico que no
       se sabe para que esta. Con el, es el dato que se copia para mandar por WhatsApp. */}

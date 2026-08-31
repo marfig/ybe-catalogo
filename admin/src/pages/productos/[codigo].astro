@@ -187,59 +187,80 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
       </div>
     </fieldset>
 
+    <fieldset class="lote">
+      <legend>Video</legend>
+      {
+        producto.video ? (
+          <>
+            {/* `preload="metadata"`: bajar 10 MB para una ficha que quiza nadie mire es
+                gasto de datos de quien carga. `controls` sin `autoplay`, siempre. */}
+            <video
+              src={urlVideo(R2, producto.video.hash16)}
+              poster={urlPoster(R2, producto.video.hash16)}
+              width={producto.video.ancho}
+              height={producto.video.alto}
+              preload="metadata"
+              controls
+              playsinline
+            />
+            <p class="campo">
+              {/*
+                `form` APUNTANDO AFUERA, y no es un rodeo: es lo que hace que este boton
+                sea seguro aca adentro.
+
+                Un <form> no puede contener otro, asi que la unica forma de tener el
+                video junto al resto de los campos era que «Quitar» fuera un boton del
+                formulario grande. Pero el envio implicito —Enter en cualquier campo de
+                texto— dispara el PRIMER boton de envio del formulario, y este esta
+                antes de «Guardar cambios»: tipear el nombre y apretar Enter le sacaria
+                el video al producto.
+
+                Con `form="quitar-video"` el boton pertenece a ESE formulario y no al
+                que lo contiene, asi que deja de ser candidato al envio implicito de
+                este. Enter sigue cayendo en «Guardar cambios».
+              */}
+              <button type="submit" form="quitar-video" name="accion" value="quitar-video" class="peligro">
+                Quitar el video
+              </button>
+              <span class="nota">
+                Lo saca de la ficha. El archivo se borra cuando se vacia la papelera.
+              </span>
+            </p>
+          </>
+        ) : (
+          <p class="nota">Este producto no tiene video.</p>
+        )
+      }
+
+      <p class="campo">
+        <label for="video-archivo">
+          {producto.video ? 'Reemplazar por otro' : 'Subir un video'}
+        </label>
+        {/*
+          Sin `name`: este archivo NO viaja con «Guardar cambios». Se sube solo al
+          elegirlo, por su propio endpoint, porque antes hay que sacarle el poster con
+          el canvas del navegador.
+        */}
+        <input type="file" id="video-archivo" accept="video/mp4" data-codigo={producto.codigo} />
+        {/* El limite se dice ANTES de que elija el archivo, con el camino incluido. Un
+            rechazo despues de subir 40 MB por celular llega tarde. */}
+        <span class="nota">
+          MP4 de hasta 10 MB. Si pesa mas, mandatelo por WhatsApp y subi el que te llega.
+        </span>
+      </p>
+      <p class="nota" id="video-aviso" role="status" />
+    </fieldset>
+
     <p class="pie-guardar">
       <button type="submit">Guardar cambios</button>
     </p>
   </form>
 
-  {/* FUERA del formulario de arriba, y no es un descuido de anidado: un <form> no puede
-      contener otro. Subir el video no pasa por «Guardar cambios» —va por su endpoint
-      apenas se elige el archivo— y quitarlo es su propio POST. */}
-  <section class="video">
-    <h2>Video</h2>
-    {
-      producto.video ? (
-        <>
-          {/* `preload="metadata"`: bajar 10 MB para una ficha que quiza nadie mire es
-              gasto de datos de quien carga. `controls` sin `autoplay`, siempre. */}
-          <video
-            src={urlVideo(R2, producto.video.hash16)}
-            poster={urlPoster(R2, producto.video.hash16)}
-            width={producto.video.ancho}
-            height={producto.video.alto}
-            preload="metadata"
-            controls
-            playsinline
-          />
-          <form method="post" action={Astro.url.pathname}>
-            <input type="hidden" name="accion" value="quitar-video" />
-            <button type="submit" class="peligro">Quitar el video</button>
-            <span class="nota">
-              Lo saca de la ficha. El archivo se borra cuando se vacia la papelera.
-            </span>
-          </form>
-        </>
-      ) : (
-        <p class="nota">Este producto no tiene video.</p>
-      )
-    }
-
-    <p class="campo">
-      <label for="video-archivo">{producto.video ? 'Reemplazar por otro' : 'Subir un video'}</label>
-      <input
-        type="file"
-        id="video-archivo"
-        accept="video/mp4"
-        data-codigo={producto.codigo}
-      />
-      {/* El limite se dice ANTES de que elija el archivo, con el camino incluido. Un
-          rechazo despues de subir 40 MB por celular llega tarde. */}
-      <span class="nota">
-        MP4 de hasta 10 MB. Si pesa mas, mandatelo por WhatsApp y subi el que te llega.
-      </span>
-    </p>
-    <p class="nota" id="video-aviso" role="status" />
-  </section>
+  {/*
+    El formulario vacio al que apunta «Quitar el video». Vive afuera porque un <form> no
+    puede anidarse, y no lleva campos: el name/value del boton que lo envia alcanza.
+  */}
+  <form method="post" action={Astro.url.pathname} id="quitar-video" hidden></form>
 
   <template id="plantilla-variante">
     <div class="variante">

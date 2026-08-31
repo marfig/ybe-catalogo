@@ -7,19 +7,28 @@
  * pagina nueva, y un layout es lo que impide olvidarlas.
  */
 import '../styles/panel.css';
+import { rotuloDeVuelta } from '../lib/navegacion.ts';
 
 interface Props {
   titulo: string;
   /** Ruta de vuelta. Sin esto, de una pantalla interna sólo se sale con el navegador. */
   volver?: string;
   /**
-   * A dónde dice que vuelve. Default «Inicio», que es a donde volvía todo cuando el
-   * panel tenía un solo nivel.
+   * A dónde dice que vuelve. Por default se DERIVA de `volver`, así que no hay que
+   * pasarlo casi nunca.
    *
-   * ES UN PARAMETRO PORQUE EL ROTULO ESTABA MINTIENDO. El `href` siempre fue `volver`,
-   * pero el texto decía «Inicio» fijo: desde una pantalla que vuelve a una lista
-   * intermedia —editar un pedido especial vuelve a su listado, no a la portada— el
-   * enlace anunciaba un destino y llevaba a otro.
+   * ESTE PARAMETRO YA ARREGLO ESTE BUG UNA VEZ, Y NO ALCANZO. El texto era «Inicio»
+   * fijo mientras el `href` era el que le pasaran, así que una pantalla que vuelve a
+   * una lista intermedia anunciaba un destino y llevaba a otro. Se agregó el parámetro…
+   * con «Inicio» de default, o sea que la mentira siguió disponible por omisión: editar
+   * un producto y eliminar productos vuelven a `/productos` y las dos decían «Inicio».
+   *
+   * Por eso ahora el default sale de `rotuloDeVuelta(volver)`, que tiene tests y una
+   * invariante: sólo la raíz dice «Inicio». Confiar en que cada pantalla nueva se
+   * acuerde de pasar el rótulo no era un arreglo, era el mismo bug con un parámetro más.
+   *
+   * Sigue existiendo como OVERRIDE para cuando el destino se llame distinto de lo que
+   * la ruta sugiere.
    */
   volverTexto?: string;
   /**
@@ -42,7 +51,8 @@ interface Props {
   refrescarCada?: number;
 }
 
-const { titulo, volver, volverTexto = 'Inicio', refrescarCada } = Astro.props;
+const { titulo, volver, volverTexto, refrescarCada } = Astro.props;
+const rotuloVolver = volverTexto ?? rotuloDeVuelta(volver ?? '/');
 const { identidad } = Astro.locals;
 ---
 
@@ -60,7 +70,7 @@ const { identidad } = Astro.locals;
     <header class="panel-cabecera">
       <div class="contenedor">
         <div>
-          {volver ? <a class="volver" href={volver}>← {volverTexto}</a> : null}
+          {volver ? <a class="volver" href={volver}>← {rotuloVolver}</a> : null}
           {/**
            * El titulo y lo que la pantalla quiera poner a su lado.
            *
