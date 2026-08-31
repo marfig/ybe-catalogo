@@ -2,21 +2,32 @@
 /**
  * Lista de pedidos especiales (SPEC.md §4.5, SPEC-etapa2 §10.6).
  *
- * SOLO LISTA. El alta y la edicion viven en sus propias pantallas: un formulario
- * plantado debajo de la lista compite con ella por la atencion, y con la lista vacia la
- * pantalla se lee como un formulario suelto — que es exactamente como se leyo la
- * primera version.
+ * La lista ES la pantalla de trabajo: el orden y el borrado se resuelven acá, sin
+ * abrir cada ficha. Es el mismo criterio de la grilla de productos (§10.3) — «trabajo
+ * de minutos y no de horas» — y pesa igual con diez fichas: reordenar tres es abrir y
+ * cerrar tres pantallas si el campo vive sólo en el formulario.
  *
- * Misma forma que productos, que tiene grilla (§10.3) y ficha (§10.4) separadas.
+ * Lo que SI necesita abrir la ficha es el nombre, la descripcion y la foto: son
+ * campos largos que en una celda se truncan a algo inutil.
+ *
+ * UN SOLO `<form>` PARA TODA LA LISTA, con varios botones de submit que se distinguen
+ * por `name="accion"`. Es el patron de `productos.astro` y lo que permite que esto
+ * funcione sin JavaScript. Un formulario por fila seria imposible: los `<form>` no se
+ * pueden anidar, asi que el campo de orden y el boton de borrar de una misma fila no
+ * podrian convivir.
  */
 import { env } from 'cloudflare:workers';
 
 import Panel from '../layouts/Panel.astro';
 import { ejecutorD1 } from '../lib/d1.ts';
 import { baseDeImagenes, urlMiniatura } from '../lib/imagenes.ts';
-import { listarPedidosEspeciales } from '../lib/pedidos-especiales.ts';
+import {
+  eliminarPedidoEspecial,
+  listarPedidosEspeciales,
+  moverPedido,
+} from '../lib/pedidos-especiales.ts';
 
-const pedidos = await listarPedidosEspeciales(ejecutorD1(env.DB));
+const ejecutar = ejecutorD1(env.DB);
 
 /**
  * De donde salen las miniaturas. En dev, del R2 LOCAL de miniflare via el endpoint
@@ -24,13 +35,62 @@ const pedidos = await listarPedidosEspeciales(ejecutorD1(env.DB));
  *
  * NO se arma con `PUBLIC_R2_BASE` a mano: en `astro dev` el binding `IMAGENES` es
  * local, asi que apuntar al bucket publico da 404 en todo lo recien subido — se
- * escribe en un lado y se lee del otro. Es el bug que `baseDeImagenes` existe para no
- * repetir, y esta pantalla lo repitio igual por no usarla.
+ * escribe en un lado y se lee del otro.
  */
 const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV });
 
-/** Lo que dejo la pantalla anterior, para confirmar que la accion se hizo. */
-const hecho = Astro.url.searchParams.get('hecho');
+let error: string | null = null;
+let hecho: string | null = Astro.url.searchParams.get('hecho');
+
+/**
+ * Las filas ANTES de operar. Hacen falta para resolver el POST: el formulario manda
+ * `orden-{id}` por fila, y sin saber que ids se rindieron no hay a que aplicarlos.
+ */
+const pedidosPrevios = await listarPedidosEspeciales(ejecutar);
+
+if (Astro.request.method === 'POST') {
+  const datos = await Astro.request.formData();
+  const accion = String(datos.get('accion') ?? '');
+
+  try {
+    /**
+     * El id viaja EN EL VALOR del boton (`eliminar-12`) y no en un campo aparte.
+     *
+     * Con un `<input type="hidden" name="id">` por fila, el POST mandaria los diez y
+     * el servidor no tendria forma de saber cual boton se apreto. El valor del submit
+     * es el unico dato del formulario que identifica al que se uso.
+     */
+    if (accion.startsWith('eliminar-')) {
+      const id = Number(accion.slice('eliminar-'.length));
+      const ficha = pedidosPrevios.find((p) => p.id === id);
+      await eliminarPedidoEspecial(ejecutar, id);
+      hecho = ficha
+        ? `«${ficha.nombre}» eliminada. Al publicar, su dirección queda en 404.`
+        : 'Ficha eliminada.';
+    } else if (accion.startsWith('subir-') || accion.startsWith('bajar-')) {
+      const [direccion, crudo] = accion.split('-');
+      await moverPedido(ejecutar, Number(crudo), direccion as 'subir' | 'bajar', {
+        ahora: new Date().toISOString(),
+      });
+      /*
+        SIN mensaje de confirmacion: el resultado del movimiento es la lista misma, que
+        se rinde de nuevo con la ficha en su lugar nuevo. Un cartel que diga «se movio»
+        arriba de una lista donde se ve que se movio es ruido, y ademas empuja las filas
+        para abajo justo cuando se esta comparando posiciones.
+      */
+    }
+  } catch (e) {
+    error = e instanceof Error ? e.message : String(e);
+  }
+}
+
+/**
+ * Se relee DESPUES de operar: si un guardado falló, lo que se muestra tiene que ser el
+ * estado real de la base y no lo que se intentó escribir. En un GET son dos consultas
+ * a una tabla de diez filas — el costo es nada al lado de mostrar un dato mentiroso.
+ */
+const pedidos =
+  Astro.request.method === 'POST' ? await listarPedidosEspeciales(ejecutar) : pedidosPrevios;
 
 /** Primera linea de la descripcion: alcanza para reconocer la ficha en la lista. */
 const adelanto = (descripcion: string) => descripcion.split('\n')[0] ?? '';
@@ -38,16 +98,13 @@ const adelanto = (descripcion: string) => descripcion.split('\n')[0] ?? '';
 
 <Panel titulo="Pedidos especiales" volver="/">
   <section class="pe-intro">
-    <h1>Pedidos especiales</h1>
-    <p class="nota">
-      Los artículos que se venden por cantidad, con precio a convenir. No llevan precio ni
-      colores: la descripción es todo lo que el cliente lee antes de escribir por WhatsApp.
-    </p>
-
+    {/* Sin `<h1>` ni bajada: el titulo ya lo rinde el encabezado del panel, y lo que
+        es esta seccion se entiende con ver la lista. */}
+    {error ? <p class="resumen resumen--error" role="status">{error}</p> : null}
     {hecho ? <p class="resumen" role="status">{hecho}</p> : null}
 
-    {/* El alta es la accion principal de esta pantalla y va ARRIBA, donde la vista cae
-        primero, no al final de una lista que puede tener diez filas. */}
+    {/* El alta es la accion principal y va ARRIBA, donde la vista cae primero, no al
+        final de una lista que puede tener diez filas. */}
     <p class="pie-guardar">
       <a class="boton-enlace" href="/pedidos-especiales/nuevo">Agregar ficha</a>
     </p>
@@ -60,32 +117,74 @@ const adelanto = (descripcion: string) => descripcion.split('\n')[0] ?? '';
       pedidos.length === 0 ? (
         <p class="nota">
           Todavía no cargaste ninguna. Las que cargues aparecen acá, con su foto y su
-          dirección, y desde esta misma lista entrás a editarlas o eliminarlas.
+          dirección, y desde esta misma lista las ordenás, las editás o las eliminás.
         </p>
       ) : (
-        <ul class="fichas">
-          {pedidos.map((p) => (
-            <li class="ficha">
-              <a class="ficha-fila" href={`/pedidos-especiales/${p.slug}`}>
-                <img src={urlMiniatura(R2, p.hash16, 300)} alt="" width="56" height="56" loading="lazy" />
+        <form method="post">
+          <ul class="fichas">
+            {pedidos.map((p, i) => (
+              <li class="ficha">
+                {/* El enlace cubre la foto y el nombre, que es donde se hace clic cuando
+                    se quiere abrir algo. Los controles quedan afuera: un `<input>` o un
+                    `<button>` no pueden vivir dentro de un `<a>`. */}
+                <a class="ficha-fila" href={`/pedidos-especiales/${p.slug}`}>
+                  <img
+                    src={urlMiniatura(R2, p.hash16, 300)}
+                    alt=""
+                    width="56"
+                    height="56"
+                    loading="lazy"
+                  />
 
-                <span class="ficha-datos">
-                  <strong>{p.nombre}</strong>
-                  {/* La primera linea de la descripcion y no el slug: al recorrer diez
-                      fichas lo que se busca es cual es cual, y «Cantidad minima: 12
-                      unidades» distingue mucho mas que la direccion. */}
-                  <span class="nota">{adelanto(p.descripcion)}</span>
-                  <span class="nota">orden {p.orden}</span>
-                </span>
+                  <span class="ficha-datos">
+                    <strong>{p.nombre}</strong>
+                    {/* La primera linea de la descripcion y no el slug: al recorrer diez
+                        fichas lo que se busca es cual es cual, y «Cantidad minima: 12
+                        unidades» distingue mucho mas que la direccion. */}
+                    <span class="nota">{adelanto(p.descripcion)}</span>
+                  </span>
+                </a>
 
-                {/* TODA LA FILA ES EL ENLACE, y este texto sólo dice a dónde lleva. Un
-                    botón «Editar» al costado dejaría el resto de la fila muerto, que es
-                    justo donde se hace clic cuando se quiere abrir algo. */}
-                <span class="ficha-ir" aria-hidden="true">Editar →</span>
-              </a>
-            </li>
-          ))}
-        </ul>
+                <div class="ficha-controles">
+                  {/*
+                    `disabled` en las puntas y no oculto: un boton que desaparece corre
+                    a los de al lado, y despues de mover una ficha la flecha queda en
+                    otro lugar del que se acaba de apretar.
+
+                    `aria-label` porque la flecha sola no dice nada a un lector de
+                    pantalla, y el nombre de la ficha es lo que distingue un boton de
+                    los otros nueve iguales.
+                  */}
+                  <span class="ficha-mover">
+                    <button
+                      name="accion"
+                      value={`subir-${p.id}`}
+                      disabled={i === 0}
+                      aria-label={`Subir ${p.nombre}`}
+                      title="Subir"
+                    >
+                      ↑
+                    </button>
+                    <button
+                      name="accion"
+                      value={`bajar-${p.id}`}
+                      disabled={i === pedidos.length - 1}
+                      aria-label={`Bajar ${p.nombre}`}
+                      title="Bajar"
+                    >
+                      ↓
+                    </button>
+                  </span>
+
+                  <button class="boton-fantasma" name="accion" value={`eliminar-${p.id}`}>
+                    Eliminar
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+        </form>
       )
     }
   </section>

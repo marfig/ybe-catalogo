@@ -26,7 +26,7 @@ let error: string | null = null;
  * Sin esto, un error de validacion vacia el formulario y se pierde la descripcion
  * entera, que es el campo que mas cuesta escribir de esta ficha.
  */
-let previo = { nombre: '', descripcion: '', orden: '999', hash16: '' };
+let previo = { nombre: '', descripcion: '', hash16: '' };
 
 if (Astro.request.method === 'POST') {
   const datos = await Astro.request.formData();
@@ -35,20 +35,15 @@ if (Astro.request.method === 'POST') {
   previo = {
     nombre: texto('nombre'),
     descripcion: texto('descripcion'),
-    orden: texto('orden'),
     hash16: texto('hash16'),
   };
 
   try {
     const { slug } = await crearPedidoEspecial(
       ejecutar,
-      {
-        nombre: previo.nombre,
-        descripcion: previo.descripcion,
-        // Un campo vacio cae al default de la columna, no a NaN.
-        orden: previo.orden === '' ? 999 : Number(previo.orden),
-        hash16: previo.hash16,
-      },
+      // Sin `orden`: la ficha nueva va al final de la lista, y desde ahi se mueve
+      // con las flechas. Ver `crearPedidoEspecial`.
+      { nombre: previo.nombre, descripcion: previo.descripcion, hash16: previo.hash16 },
       { ahora: new Date().toISOString() }
     );
 
@@ -67,8 +62,7 @@ if (Astro.request.method === 'POST') {
 }
 ---
 
-<Panel titulo="Agregar pedido especial" volver="/pedidos-especiales">
-  <h1>Agregar ficha</h1>
+<Panel titulo="Agregar ficha" volver="/pedidos-especiales" volverTexto="Pedidos especiales">
 
   {error ? <p class="resumen resumen--error" role="status">{error}</p> : null}
 
@@ -104,11 +98,6 @@ if (Astro.request.method === 'POST') {
         </span>
       </p>
 
-      <p class="campo">
-        <label for="orden">Orden</label>
-        <input id="orden" name="orden" type="number" min="0" value={previo.orden} />
-        <span class="nota">Más chico, más arriba.</span>
-      </p>
     </fieldset>
 
     <fieldset class="lote" data-foto-pedido>
@@ -125,7 +114,6 @@ if (Astro.request.method === 'POST') {
 
     <p class="pie-guardar">
       <button type="submit">Crear ficha</button>
-      <span class="nota">Después hay que publicar para que salga al sitio.</span>
     </p>
   </form>
 </Panel>

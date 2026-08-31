@@ -30,7 +30,6 @@ export interface DatosPedidoEspecial {
   descripcion: string;
   /** hash16 de la imagen ya subida. */
   hash16: string;
-  orden: number;
 }
 
 export type Errores = Partial<Record<keyof DatosPedidoEspecial, string>>;
@@ -63,10 +62,6 @@ export function validar(datos: DatosPedidoEspecial): Errores {
   // Sin foto no hay tarjeta: la grilla del sitio no tiene placeholder para esta
   // coleccion, al reves que la de productos (SPEC.md §5.4).
   if (!RE_HASH16.test(datos.hash16)) errores.hash16 = 'Falta la foto.';
-
-  if (!Number.isInteger(datos.orden) || datos.orden < 0) {
-    errores.orden = 'Tiene que ser un número de 0 en adelante.';
-  }
 
   return errores;
 }
@@ -156,23 +151,42 @@ export async function crearPedidoEspecial(
    */
   const slug = slugUnico(slugificar(datos.nombre), await slugsTomados(ejecutar));
 
+  /**
+   * Va al FINAL de la lista, no al principio.
+   *
+   * El orden es curaduria y se decide mirando el conjunto, no en el momento del alta:
+   * quien carga una ficha esta pensando en su contenido. Meterla arriba obligaria a
+   * reacomodar el resto para deshacer una decision que nadie tomo.
+   *
+   * El salto de 10 no es superstición: deja lugar para insertar a mano en la base si
+   * algun dia hace falta, sin tener que renumerar todo.
+   */
+  const [ultimo] = await ejecutar<{ maximo: number | null }>(
+    `SELECT MAX(orden) AS maximo FROM pedidos_especiales`
+  );
+  const orden = (ultimo?.maximo ?? 0) + 10;
+
   const [fila] = await ejecutar<{ id: number }>(
     `INSERT INTO pedidos_especiales
        (slug, nombre, descripcion, imagen_id, orden, creado_en, actualizado_en)
      VALUES (?, ?, ?, ?, ?, ?, ?)
      RETURNING id`,
-    [slug, datos.nombre.trim(), datos.descripcion.trim(), imagenId, datos.orden, ahora, ahora]
+    [slug, datos.nombre.trim(), datos.descripcion.trim(), imagenId, orden, ahora, ahora]
   );
 
   return { id: fila!.id, slug };
 }
 
 /**
- * Actualiza una ficha. El `slug` NO está en el UPDATE, y es deliberado.
+ * Actualiza el CONTENIDO de una ficha: nombre, descripción y foto.
  *
- * Cambiarle el nombre a una ficha publicada cambia el nombre, nunca la URL. Es la
- * misma regla que protege a los productos en `edicion.ts`, y acá pesa igual: estas
- * fichas se comparten por WhatsApp, que es literalmente el único canal de venta.
+ * El `slug` NO está en el UPDATE, y es deliberado: cambiarle el nombre a una ficha
+ * publicada cambia el nombre, nunca la URL. Es la misma regla que protege a los
+ * productos en `edicion.ts`, y acá pesa igual — estas fichas se comparten por WhatsApp,
+ * que es literalmente el único canal de venta.
+ *
+ * El `orden` tampoco: se mueve desde la lista con `moverPedido`, que es donde se ve el
+ * conjunto. Un numero suelto en un formulario no dice donde va a quedar la ficha.
  */
 export async function actualizarPedidoEspecial(
   ejecutar: Ejecutar,
@@ -189,10 +203,59 @@ export async function actualizarPedidoEspecial(
 
   await ejecutar(
     `UPDATE pedidos_especiales
-        SET nombre = ?, descripcion = ?, imagen_id = ?, orden = ?, actualizado_en = ?
+        SET nombre = ?, descripcion = ?, imagen_id = ?, actualizado_en = ?
       WHERE id = ?`,
-    [datos.nombre.trim(), datos.descripcion.trim(), imagenId, datos.orden, ahora, id]
+    [datos.nombre.trim(), datos.descripcion.trim(), imagenId, ahora, id]
   );
+}
+
+/**
+ * Sube o baja una ficha un lugar. Devuelve `false` si ya estaba en la punta.
+ *
+ * BOTONES Y NO UN CAMPO DE NUMERO. Escribir «20» no dice dónde va a quedar la ficha:
+ * hay que mirar los números de las otras, calcular, y recién ahí saber si sube o baja.
+ * Con dos flechas la pregunta es la que la persona realmente se hace — «esta va antes
+ * que aquella» — y la respuesta se ve en la misma pantalla.
+ *
+ * RENUMERA LA LISTA ENTERA de 10 en 10 en vez de intercambiar dos valores. Intercambiar
+ * parece más barato y no funciona: si dos fichas comparten `orden` —el default 999, o
+ * una carga a mano en la base— el intercambio no mueve nada y el botón queda muerto sin
+ * decir por qué. Renumerar deja siempre la lista en un estado del que sí se puede mover.
+ *
+ * Solo se ESCRIBEN las filas cuyo número cambió, mismo invariante que `guardarFilas` de
+ * la grilla de productos: `actualizado_en` termina siendo el `actualizado` del JSON
+ * publicado, y tocar las diez en cada movimiento daría un diff enorme por mover una.
+ */
+export async function moverPedido(
+  ejecutar: Ejecutar,
+  id: number,
+  direccion: 'subir' | 'bajar',
+  { ahora }: { ahora: string }
+): Promise<boolean> {
+  const filas = await listarPedidosEspeciales(ejecutar);
+
+  const desde = filas.findIndex((f) => f.id === id);
+  if (desde === -1) return false;
+
+  const hasta = direccion === 'subir' ? desde - 1 : desde + 1;
+  // Ya está arriba de todo o abajo de todo: no es un error, no hay nada que hacer.
+  if (hasta < 0 || hasta >= filas.length) return false;
+
+  const movidas = [...filas];
+  [movidas[desde], movidas[hasta]] = [movidas[hasta]!, movidas[desde]!];
+
+  for (const [i, fila] of movidas.entries()) {
+    const orden = (i + 1) * 10;
+    if (fila!.orden === orden) continue;
+
+    await ejecutar(`UPDATE pedidos_especiales SET orden = ?, actualizado_en = ? WHERE id = ?`, [
+      orden,
+      ahora,
+      fila!.id,
+    ]);
+  }
+
+  return true;
 }
 
 /**

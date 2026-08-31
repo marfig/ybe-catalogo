@@ -7,6 +7,7 @@ import {
   actualizarPedidoEspecial,
   crearPedidoEspecial,
   eliminarPedidoEspecial,
+  moverPedido,
   hayErrores,
   listarPedidosEspeciales,
   validar,
@@ -58,7 +59,6 @@ const datos = (extra: Partial<DatosPedidoEspecial> = {}): DatosPedidoEspecial =>
   nombre: 'Mochilas escolares por cantidad',
   descripcion: 'Cantidad mínima: 12 unidades.',
   hash16: HASH_A,
-  orden: 10,
   ...extra,
 });
 
@@ -79,8 +79,8 @@ test('la descripcion es obligatoria: es la diferencia con un producto', () => {
 
 test('devuelve TODOS los errores de una vez, no el primero', () => {
   // Un formulario que revela un problema por intento se abandona en el tercero.
-  const errores = validar({ nombre: '', descripcion: '', hash16: 'x', orden: -1 });
-  assert.deepEqual(Object.keys(errores).sort(), ['descripcion', 'hash16', 'nombre', 'orden']);
+  const errores = validar({ nombre: '', descripcion: '', hash16: 'x' });
+  assert.deepEqual(Object.keys(errores).sort(), ['descripcion', 'hash16', 'nombre']);
 });
 
 test('sin foto no pasa: esta grilla no tiene placeholder', () => {
@@ -163,20 +163,19 @@ test('renombrar cambia el nombre y NUNCA el slug', async () => {
   assert.equal(fila.slug, slug, 'la URL no se movió');
 });
 
-test('actualizar cambia la foto, el orden y la descripcion', async () => {
+test('actualizar cambia la foto y la descripcion', async () => {
   const db = base();
   const { id } = await crearPedidoEspecial(ejecutor(db), datos(), { ahora: ANTES });
 
   await actualizarPedidoEspecial(
     ejecutor(db),
     id,
-    datos({ hash16: HASH_B, orden: 99, descripcion: 'Cantidad mínima: 24 unidades.' }),
+    datos({ hash16: HASH_B, descripcion: 'Cantidad mínima: 24 unidades.' }),
     { ahora: AHORA }
   );
 
   const [fila] = await listarPedidosEspeciales(ejecutor(db));
   assert.equal(fila!.hash16, HASH_B);
-  assert.equal(fila!.orden, 99);
   assert.equal(fila!.descripcion, 'Cantidad mínima: 24 unidades.');
 });
 
@@ -184,12 +183,22 @@ test('actualizar cambia la foto, el orden y la descripcion', async () => {
 // Listado y borrado
 // --------------------------------------------------------------------------
 
-test('el listado ordena por `orden` con el slug de desempate', async () => {
+test('el listado sale en el orden de la columna, con el slug de desempate', async () => {
+  // El desempate no es cosmetico: sin el, dos fichas que empatan podrian intercambiarse
+  // entre lecturas y el orden publicado cambiaria solo.
   const db = base();
-  await crearPedidoEspecial(ejecutor(db), datos({ nombre: 'Zeta', orden: 30 }), { ahora: AHORA });
-  await crearPedidoEspecial(ejecutor(db), datos({ nombre: 'Alfa', orden: 10 }), { ahora: AHORA });
-  await crearPedidoEspecial(ejecutor(db), datos({ nombre: 'Beta', orden: 10 }), { ahora: AHORA });
+  await crearPedidoEspecial(ejecutor(db), datos({ nombre: 'Zeta' }), { ahora: AHORA });
+  await crearPedidoEspecial(ejecutor(db), datos({ nombre: 'Alfa' }), { ahora: AHORA });
+  await crearPedidoEspecial(ejecutor(db), datos({ nombre: 'Beta' }), { ahora: AHORA });
 
+  // Cada una entra al final, asi que sale en el orden en que se cargaron.
+  assert.deepEqual(
+    (await listarPedidosEspeciales(ejecutor(db))).map((p) => p.nombre),
+    ['Zeta', 'Alfa', 'Beta']
+  );
+
+  // Empatadas, manda el slug.
+  db.prepare('UPDATE pedidos_especiales SET orden = 10').run();
   assert.deepEqual(
     (await listarPedidosEspeciales(ejecutor(db))).map((p) => p.nombre),
     ['Alfa', 'Beta', 'Zeta']
@@ -231,4 +240,94 @@ test('borrar la ficha NO borra su imagen', async () => {
     (db.prepare('SELECT count(*) c FROM imagenes WHERE hash16 = ?').get(HASH_A) as { c: number }).c,
     1
   );
+});
+
+// --------------------------------------------------------------------------
+// Orden: se mueve con flechas, no se escribe
+// --------------------------------------------------------------------------
+
+/** Crea N fichas en orden y devuelve sus ids, en el orden en que quedaron. */
+async function tres(db: DatabaseSync) {
+  const nombres = ['Alfa', 'Beta', 'Gama'];
+  const ids: number[] = [];
+  for (const nombre of nombres) {
+    const { id } = await crearPedidoEspecial(ejecutor(db), datos({ nombre }), { ahora: ANTES });
+    ids.push(id);
+  }
+  return ids;
+}
+
+const nombres = async (db: DatabaseSync) =>
+  (await listarPedidosEspeciales(ejecutor(db))).map((p) => p.nombre);
+
+test('una ficha nueva va al FINAL de la lista', async () => {
+  // El orden es curaduría y se decide mirando el conjunto: meterla arriba obligaría a
+  // reacomodar el resto para deshacer una decisión que nadie tomó.
+  const db = base();
+  await tres(db);
+  await crearPedidoEspecial(ejecutor(db), datos({ nombre: 'Última' }), { ahora: AHORA });
+
+  assert.deepEqual(await nombres(db), ['Alfa', 'Beta', 'Gama', 'Última']);
+});
+
+test('subir mueve la ficha un lugar hacia arriba', async () => {
+  const db = base();
+  const [, beta] = await tres(db);
+
+  assert.equal(await moverPedido(ejecutor(db), beta!, 'subir', { ahora: AHORA }), true);
+  assert.deepEqual(await nombres(db), ['Beta', 'Alfa', 'Gama']);
+});
+
+test('bajar mueve la ficha un lugar hacia abajo', async () => {
+  const db = base();
+  const [alfa] = await tres(db);
+
+  assert.equal(await moverPedido(ejecutor(db), alfa!, 'bajar', { ahora: AHORA }), true);
+  assert.deepEqual(await nombres(db), ['Beta', 'Alfa', 'Gama']);
+});
+
+test('en las puntas no hace nada y lo dice', async () => {
+  // No es un error: es el estado normal de la primera y la última. La pantalla lo
+  // resuelve deshabilitando la flecha, y esto es la red por si igual llega el POST.
+  const db = base();
+  const [alfa, , gama] = await tres(db);
+
+  assert.equal(await moverPedido(ejecutor(db), alfa!, 'subir', { ahora: AHORA }), false);
+  assert.equal(await moverPedido(ejecutor(db), gama!, 'bajar', { ahora: AHORA }), false);
+  assert.deepEqual(await nombres(db), ['Alfa', 'Beta', 'Gama']);
+});
+
+test('mover funciona aunque dos fichas compartan el mismo `orden`', async () => {
+  /**
+   * El caso que hace que renumerar sea mejor que intercambiar dos valores. Con el
+   * default de la columna, o con una carga a mano en la base, dos filas pueden empatar:
+   * intercambiar sus números no movería nada y la flecha quedaría muerta sin decir por
+   * qué. Renumerar deja siempre la lista en un estado del que sí se puede mover.
+   */
+  const db = base();
+  const [alfa, beta] = await tres(db);
+  db.prepare('UPDATE pedidos_especiales SET orden = 999').run();
+
+  assert.equal(await moverPedido(ejecutor(db), beta!, 'subir', { ahora: AHORA }), true);
+  assert.deepEqual((await nombres(db)).slice(0, 2), ['Beta', 'Alfa']);
+  assert.ok(alfa !== beta);
+});
+
+test('mover escribe SOLO las filas que se corrieron', async () => {
+  // `actualizado_en` termina siendo el `actualizado` del JSON publicado: tocar las diez
+  // en cada movimiento daría un diff enorme por mover una.
+  const db = base();
+  const [alfa, beta, gama] = await tres(db);
+
+  await moverPedido(ejecutor(db), beta!, 'subir', { ahora: AHORA });
+
+  assert.equal(leer(db, alfa!).actualizado_en, AHORA, 'se corrió');
+  assert.equal(leer(db, beta!).actualizado_en, AHORA, 'se corrió');
+  assert.equal(leer(db, gama!).actualizado_en, ANTES, 'no se movió: conserva su fecha');
+});
+
+test('mover un id que no existe no rompe', async () => {
+  const db = base();
+  await tres(db);
+  assert.equal(await moverPedido(ejecutor(db), 9999, 'subir', { ahora: AHORA }), false);
 });

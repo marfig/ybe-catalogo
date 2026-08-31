@@ -1357,6 +1357,9 @@ button.peligro {
   background: var(--superficie);
   font-weight: 600;
   text-decoration: none;
+  /* Color de TEXTO y no de enlace: tiene caja, borde y fondo — se lee como un control,
+     y pintarlo del color de los enlaces lo hace competir con la navegacion. */
+  color: var(--texto);
 }
 
 .boton-enlace.peligro {
@@ -1389,10 +1392,22 @@ button.peligro {
   gap: 0.75rem;
 }
 
+/**
+ * La fila: el enlace a la izquierda y los controles a la derecha.
+ *
+ * Los controles NO pueden ir dentro del `<a>` —un `<input>` o un `<button>` adentro de
+ * un enlace es marcado invalido y el clic queda ambiguo—, asi que son hermanos y el
+ * `li` es el que los alinea.
+ */
 .ficha {
+  display: flex;
+  align-items: center;
+  gap: var(--hueco);
   background: var(--superficie);
   border: 1px solid var(--borde);
   border-radius: var(--radio);
+  padding-right: var(--hueco);
+  flex-wrap: wrap;
 }
 
 /**
@@ -1410,6 +1425,9 @@ button.peligro {
   color: inherit;
   text-decoration: none;
   border-radius: var(--radio);
+  /* Se lleva todo el ancho sobrante: los controles miden lo que miden. */
+  flex: 1 1 16rem;
+  min-width: 0;
 }
 
 .ficha-fila:hover {
@@ -1440,12 +1458,58 @@ button.peligro {
   white-space: nowrap;
 }
 
-.ficha-ir {
-  margin-left: auto;
+/* Los controles de la fila: el orden y el borrado. */
+.ficha-controles {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--hueco);
   flex: none;
-  font-size: 0.8125rem;
+}
+
+/**
+ * Las dos flechas, pegadas entre si.
+ *
+ * Juntas y sin hueco se leen como UN control de dos direcciones y no como dos acciones
+ * sueltas. El hueco del contenedor las separa de «Eliminar», que si es otra cosa.
+ */
+.ficha-mover {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.ficha-mover button {
+  /* Cuadrado: la flecha no tiene texto que acompanar, y el ancho de un boton normal
+     la deja flotando en el medio de nada. 44px es el area de toque minima. */
+  min-width: 44px;
+  padding-inline: 0;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/**
+ * La flecha de la punta se deshabilita, no se esconde.
+ *
+ * Ocultarla correria las de al lado, y despues de mover una ficha el boton quedaria en
+ * otro lugar del que se acaba de apretar — con diez filas eso es apretar la equivocada.
+ */
+.ficha-mover button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/**
+ * El borrado en la fila: sin relleno de color.
+ *
+ * En una lista de diez, diez botones rojos solidos se leen como diez alertas. El rojo
+ * queda en el texto y el borde, que alcanza para distinguirlo de las flechas sin
+ * gritar.
+ */
+.boton-fantasma {
+  background: var(--superficie);
+  border: 1px solid var(--peligro);
+  color: var(--peligro);
   font-weight: 600;
-  color: var(--texto-suave);
+  padding-inline: 0.875rem;
 }
 
 .vista-previa {
@@ -1463,23 +1527,4 @@ button.peligro {
   border-radius: var(--radio);
   object-fit: contain;
   background: #fff;
-}
-
-/**
- * El borrado, separado del formulario y en rojo.
- *
- * `pe-` en el nombre A PROPOSITO: `.peligro` ya existe como modificador de
- * `.boton-enlace`, y una regla suelta con ese nombre le impondria un margen y un
- * borde superior a cada uso que ya hay en el panel.
- */
-.pe-peligro {
-  margin-top: 2rem;
-  border-top: 1px solid var(--borde);
-  padding-top: var(--hueco);
-}
-
-.pe-peligro button {
-  background: var(--superficie);
-  border-color: var(--peligro);
-  color: var(--peligro);
 }

@@ -1,25 +1,20 @@
 ---
 /**
- * Editar o eliminar un pedido especial (SPEC.md §4.5, SPEC-etapa2 §10.6).
+ * Editar un pedido especial (SPEC.md §4.5, SPEC-etapa2 §10.6).
  *
  * POR SLUG y no por id: la dirección de esta pantalla dice qué se está editando, y es
  * el mismo identificador que ve el cliente en el sitio.
  *
- * EL BORRADO VIVE ACA Y NO EN LA LISTA, y no hay pantalla de confirmación como la de
- * productos (§12.2). Son unas pocas fichas manejadas a mano: pedir una confirmación
- * para cada una es ceremonia. Pero tampoco va en la lista, donde borrar sería errarle a
- * una fila entre diez; acá ya se está mirando la ficha que se borra.
+ * EL BORRADO NO ESTA ACA: vive en la lista, junto al orden, porque las dos son
+ * decisiones que se toman mirando el conjunto y no una ficha sola. Esta pantalla es
+ * para el contenido —nombre, descripcion y foto—, que es lo que no entra en una fila.
  */
 import { env } from 'cloudflare:workers';
 
 import Panel from '../../layouts/Panel.astro';
 import { ejecutorD1 } from '../../lib/d1.ts';
 import { baseDeImagenes, urlMiniatura } from '../../lib/imagenes.ts';
-import {
-  actualizarPedidoEspecial,
-  buscarPorSlug,
-  eliminarPedidoEspecial,
-} from '../../lib/pedidos-especiales.ts';
+import { actualizarPedidoEspecial, buscarPorSlug } from '../../lib/pedidos-especiales.ts';
 
 const ejecutar = ejecutorD1(env.DB);
 
@@ -35,25 +30,11 @@ if (Astro.request.method === 'POST') {
   const id = Number(texto('id'));
 
   try {
-    if (texto('accion') === 'eliminar') {
-      await eliminarPedidoEspecial(ejecutar, id);
-      return Astro.redirect(
-        `/pedidos-especiales?hecho=${encodeURIComponent(
-          `Ficha eliminada. Su dirección /pedidos-especiales/${slug} queda en 404 al publicar.`
-        )}`,
-        303
-      );
-    }
-
     await actualizarPedidoEspecial(
       ejecutar,
       id,
-      {
-        nombre: texto('nombre'),
-        descripcion: texto('descripcion'),
-        orden: texto('orden') === '' ? 999 : Number(texto('orden')),
-        hash16: texto('hash16'),
-      },
+      // Sin `orden`: se mueve desde la lista, con las flechas.
+      { nombre: texto('nombre'), descripcion: texto('descripcion'), hash16: texto('hash16') },
       { ahora: new Date().toISOString() }
     );
 
@@ -82,8 +63,8 @@ if (!pedido) {
 const miniatura = urlMiniatura(R2, pedido.hash16, 300);
 ---
 
-<Panel titulo={pedido.nombre} volver="/pedidos-especiales">
-  <h1>{pedido.nombre}</h1>
+<Panel titulo={pedido.nombre} volver="/pedidos-especiales" volverTexto="Pedidos especiales">
+  {/* Sin `<h1>` propio: el nombre ya lo rinde el encabezado del panel. */}
   <p class="nota">/pedidos-especiales/{pedido.slug}</p>
 
   {error ? <p class="resumen resumen--error" role="status">{error}</p> : null}
@@ -115,11 +96,6 @@ const miniatura = urlMiniatura(R2, pedido.hash16, 300);
         </span>
       </p>
 
-      <p class="campo">
-        <label for="orden">Orden</label>
-        <input id="orden" name="orden" type="number" min="0" value={pedido.orden} />
-        <span class="nota">Más chico, más arriba.</span>
-      </p>
     </fieldset>
 
     <fieldset class="lote" data-foto-pedido>
@@ -136,24 +112,9 @@ const miniatura = urlMiniatura(R2, pedido.hash16, 300);
 
     <p class="pie-guardar">
       <button type="submit">Guardar cambios</button>
-      <span class="nota">Después hay que publicar para que salgan al sitio.</span>
     </p>
   </form>
 
-  {/*
-    FUERA del formulario de edición: dos botones de submit en el mismo `<form>` se
-    aprietan por error, y uno de los dos no tiene vuelta.
-  */}
-  <form method="post" class="pe-peligro">
-    <input type="hidden" name="id" value={pedido.id} />
-    <p class="pie-guardar">
-      <button name="accion" value="eliminar">Eliminar esta ficha</button>
-      <span class="nota">
-        Sin vuelta. Al publicar, /pedidos-especiales/{pedido.slug} queda en 404 para quien la
-        tenga guardada.
-      </span>
-    </p>
-  </form>
 </Panel>
 
 <script>

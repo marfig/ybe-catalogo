@@ -13,6 +13,16 @@ interface Props {
   /** Ruta de vuelta. Sin esto, de una pantalla interna sólo se sale con el navegador. */
   volver?: string;
   /**
+   * A dónde dice que vuelve. Default «Inicio», que es a donde volvía todo cuando el
+   * panel tenía un solo nivel.
+   *
+   * ES UN PARAMETRO PORQUE EL ROTULO ESTABA MINTIENDO. El `href` siempre fue `volver`,
+   * pero el texto decía «Inicio» fijo: desde una pantalla que vuelve a una lista
+   * intermedia —editar un pedido especial vuelve a su listado, no a la portada— el
+   * enlace anunciaba un destino y llevaba a otro.
+   */
+  volverTexto?: string;
+  /**
    * Segundos para recargar sola la pantalla. Ausente = no se recarga.
    *
    * Es para el ÚNICO caso en que el estado cambia sin que nadie toque nada: mientras
@@ -32,7 +42,7 @@ interface Props {
   refrescarCada?: number;
 }
 
-const { titulo, volver, refrescarCada } = Astro.props;
+const { titulo, volver, volverTexto = 'Inicio', refrescarCada } = Astro.props;
 const { identidad } = Astro.locals;
 ---
 
@@ -50,7 +60,7 @@ const { identidad } = Astro.locals;
     <header class="panel-cabecera">
       <div class="contenedor">
         <div>
-          {volver ? <a class="volver" href={volver}>← Inicio</a> : null}
+          {volver ? <a class="volver" href={volver}>← {volverTexto}</a> : null}
           {/**
            * El titulo y lo que la pantalla quiera poner a su lado.
            *
