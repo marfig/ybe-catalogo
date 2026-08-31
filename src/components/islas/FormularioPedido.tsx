@@ -177,6 +177,16 @@ const ICONO_PAGO: Record<FormaPago, () => JSX.Element> = {
 export default function FormularioPedido({ r2Base, telefono, origen }: Props) {
   const [contexto, setContexto] = useState<ContextoPedido | null>(null);
   const [entrada, setEntrada] = useState<EntradaIndice | null>(null);
+
+  /**
+   * Cuando la foto de la URL no carga, se cae a la del indice.
+   *
+   * El hash viene de un enlace que puede ser viejo: si esa variante ya no existe, el
+   * objeto no esta en R2 y el <img> quedaria roto justo en el bloque que confirma que
+   * se esta pidiendo lo correcto. La del indice sale del volcado actual, asi que
+   * siempre existe — puede ser de otro color, pero es una foto.
+   */
+  const [fotoRota, setFotoRota] = useState(false);
   const [estado, setEstado] = useState<Estado>('cargando');
   const [datos, setDatos] = useState<DatosPedido>(VACIO);
 
@@ -297,17 +307,27 @@ export default function FormularioPedido({ r2Base, telefono, origen }: Props) {
        * pantalla ancha queda a la derecha, fija al costado de los campos.
        */}
       <div class="bg-superficie border-borde flex items-center gap-3 rounded border p-3">
-        {entrada?.t ? (
-          <img
-            src={urlImagen(r2Base, imagenDeIndice(entrada.t), ANCHO_MINIATURA)}
-            width={ANCHO_MINIATURA}
-            height={ANCHO_MINIATURA}
-            alt=""
-            class="h-16 w-16 shrink-0 rounded object-contain"
-          />
-        ) : (
-          <div class="bg-fondo border-borde h-16 w-16 shrink-0 rounded border" aria-hidden="true" />
-        )}
+        {(() => {
+          /**
+           * LA DE LA VARIANTE ELEGIDA GANA. `/indice.json` lleva una sola miniatura por
+           * producto —la de `variantes[0]`, porque ese indice existe para el buscador—,
+           * asi que sin el hash que manda la ficha, elegir el negro mostraba la foto del
+           * primer color.
+           */
+          const hash = (!fotoRota && contexto?.imagen) || entrada?.t;
+          return hash ? (
+            <img
+              src={urlImagen(r2Base, imagenDeIndice(hash), ANCHO_MINIATURA)}
+              width={ANCHO_MINIATURA}
+              height={ANCHO_MINIATURA}
+              alt=""
+              class="h-16 w-16 shrink-0 rounded object-contain"
+              onError={() => setFotoRota(true)}
+            />
+          ) : (
+            <div class="bg-fondo border-borde h-16 w-16 shrink-0 rounded border" aria-hidden="true" />
+          );
+        })()}
 
         <div class="min-w-0 flex-1">
           {estado === 'cargando' ? (

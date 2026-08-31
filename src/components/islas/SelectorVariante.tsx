@@ -430,6 +430,16 @@ export default function SelectorVariante({
             slug,
             sku: variante.sku,
             color: variantes.length > 1 ? variante.color : undefined,
+            /*
+              La foto de ESTA variante, no la del producto. `/pedir` resuelve el
+              producto contra `/indice.json`, que lleva una sola miniatura por producto
+              —la de `variantes[0]`—, asi que sin esto elegir el negro y tocar el boton
+              mostraba la foto del primer color.
+
+              `base` viene como `catalogo/{hash}`: se manda solo el hash, igual que el
+              indice, porque la URL la arma el otro lado con la misma convencion.
+            */
+            imagen: variante.imagenes[0]?.base.replace('catalogo/', ''),
           })}
           class="bg-accion flex min-h-12 items-center justify-center gap-2 rounded px-3 py-3 text-center leading-tight font-medium text-white"
         >

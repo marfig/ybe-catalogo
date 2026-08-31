@@ -324,3 +324,51 @@ test('el enlace de envio es un wa.me con el mensaje codificado', () => {
     construirMensajePedido({ producto: PRODUCTO, datos: COMPLETO })
   );
 });
+
+// --------------------------------------------------------------------------
+// La miniatura de la variante elegida
+// --------------------------------------------------------------------------
+
+test('la foto de la variante elegida viaja en la URL', () => {
+  /**
+   * MISMO MOTIVO QUE EL COLOR, y es un bug que ya se reporto: `/pedir` resuelve el
+   * producto contra `/indice.json`, que lleva UNA sola miniatura por producto —la de
+   * `variantes[0]`, para el buscador—. Sin este parametro, elegir el negro y tocar
+   * «Pedi ahora» mostraba la foto del primer color.
+   */
+  const u = new URL(
+    urlDeFormulario({ slug: 'mochila', sku: 'CG1-N', color: 'Negro', imagen: 'a1b2c3d4e5f60718' }),
+    'https://ybe.test'
+  );
+  assert.equal(u.searchParams.get('t'), 'a1b2c3d4e5f60718');
+});
+
+test('sin foto no se cuelga el parametro', () => {
+  // Una variante puede no tener ninguna: el placeholder de §5.4 es un caso normal.
+  const u = new URL(urlDeFormulario({ slug: 'mochila', sku: 'CG1-N' }), 'https://ybe.test');
+  assert.equal(u.searchParams.get('t'), null);
+});
+
+test('la foto se recupera del contexto', () => {
+  const ctx = leerContextoPedido('?p=mochila&v=CG1-N&t=a1b2c3d4e5f60718');
+  assert.equal(ctx?.imagen, 'a1b2c3d4e5f60718');
+});
+
+test('un hash que no es un hash se IGNORA, no viaja al <img>', () => {
+  /**
+   * La URL la puede editar cualquiera y con este valor se arma una clave de R2. Un
+   * hash con barras apuntaria fuera del prefijo `catalogo/`. Se descarta y el
+   * formulario cae en la miniatura del indice, que es la que estaba antes de esto.
+   */
+  for (const malo of ['../otro', 'A1B2C3D4E5F60718', 'abc', 'a1b2c3d4e5f60718/x', '']) {
+    const ctx = leerContextoPedido(`?p=mochila&t=${encodeURIComponent(malo)}`);
+    assert.equal(ctx?.imagen, undefined, JSON.stringify(malo));
+  }
+});
+
+test('un hash invalido no tira abajo el resto del contexto', () => {
+  // El pedido se puede seguir haciendo sin foto. Descartar el producto entero por una
+  // miniatura seria cambiar un defecto visual por una pantalla vacia.
+  const ctx = leerContextoPedido('?p=mochila&v=CG1-N&c=Negro&t=../otro');
+  assert.deepEqual(ctx, { slug: 'mochila', sku: 'CG1-N', color: 'Negro' });
+});

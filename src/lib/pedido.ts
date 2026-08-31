@@ -105,6 +105,21 @@ export interface ContextoPedido {
    * lleva variantes: sin esto el formulario no podría mostrar «Azul marino».
    */
   color?: string | undefined;
+  /**
+   * El hash16 de la foto de la variante elegida.
+   *
+   * VIAJA POR EL MISMO MOTIVO QUE EL COLOR, y cierra un defecto real: `/pedir` resuelve
+   * el producto contra `/indice.json`, que lleva UNA sola miniatura por producto —la de
+   * `variantes[0]`, porque ese índice existe para el buscador—. Sin esto, elegir el
+   * negro y tocar «Pedí ahora» mostraba la foto del primer color.
+   *
+   * La alternativa era meter las fotos de todas las variantes en el índice, pero eso
+   * engorda un archivo que baja TODO el que abre el buscador, para un dato que sólo
+   * necesita quien ya eligió. La ficha ya sabe cuál es: que la lleve.
+   *
+   * Opcional de verdad: una variante puede no tener foto (§5.4).
+   */
+  imagen?: string | undefined;
 }
 
 /**
@@ -112,19 +127,28 @@ export interface ContextoPedido {
  * ve y que puede terminar pegada en un chat. `?p=mochila&v=CG1-AZ` se lee de un
  * golpe; `?producto=...&variante=...` la parte en dos renglones en un teléfono.
  */
-const PARAM = { slug: 'p', sku: 'v', color: 'c' } as const;
+const PARAM = { slug: 'p', sku: 'v', color: 'c', imagen: 't' } as const;
+
+/**
+ * El hash de la foto, tal como lo emite el volcado.
+ *
+ * SE VALIDA AL LEER porque la URL la puede editar cualquiera y con este valor se arma
+ * una clave de R2. Un hash con barras o puntos apuntaría fuera del prefijo `catalogo/`.
+ */
+const RE_HASH16 = /^[0-9a-f]{16}$/;
 
 /** La ruta del formulario. Una sola constante para el botón y para el test. */
 export const RUTA_PEDIDO = '/pedir';
 
 /** Arma el `href` del botón «Pedí ahora» de la ficha. */
-export function urlDeFormulario({ slug, sku, color }: ContextoPedido): string {
+export function urlDeFormulario({ slug, sku, color, imagen }: ContextoPedido): string {
   const params = new URLSearchParams({ [PARAM.slug]: slug });
 
   // Un `?v=` vacío es peor que ninguno: el formulario tendría que distinguir «sin
   // variante» de «variante en blanco», y son lo mismo.
   if ((sku ?? '').trim() !== '') params.set(PARAM.sku, sku!.trim());
   if ((color ?? '').trim() !== '') params.set(PARAM.color, color!.trim());
+  if ((imagen ?? '').trim() !== '') params.set(PARAM.imagen, imagen!.trim());
 
   return `${RUTA_PEDIDO}?${params}`;
 }
@@ -144,10 +168,20 @@ export function leerContextoPedido(search: string): ContextoPedido | null {
   const sku = params.get(PARAM.sku)?.trim();
   const color = params.get(PARAM.color)?.trim();
 
+  /**
+   * Un hash mal formado se DESCARTA y no tira abajo el contexto entero: el pedido se
+   * puede hacer sin foto, y descartar el producto por una miniatura cambiaría un
+   * defecto visual por una pantalla vacía. Sin él, el formulario cae en la miniatura
+   * del índice, que es exactamente lo que mostraba antes de que esto existiera.
+   */
+  const crudo = params.get(PARAM.imagen)?.trim() ?? '';
+  const imagen = RE_HASH16.test(crudo) ? crudo : undefined;
+
   return {
     slug,
     ...(sku ? { sku } : {}),
     ...(color ? { color } : {}),
+    ...(imagen ? { imagen } : {}),
   };
 }
 
