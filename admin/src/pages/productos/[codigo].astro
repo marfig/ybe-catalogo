@@ -19,6 +19,8 @@ import { actualizarProducto, cargarProducto } from '../../lib/edicion.ts';
 import { estadoLegible } from '../../lib/grilla.ts';
 import { baseDeImagenes, urlMiniatura } from '../../lib/imagenes.ts';
 import { formatearPrecio, parsearPrecio } from '../../lib/precio.ts';
+import { quitarVideo } from '../../lib/subida-video.ts';
+import { urlPoster, urlVideo } from '../../lib/video.ts';
 
 const ejecutar = ejecutorD1(env.DB);
 const { codigo } = Astro.params;
@@ -31,6 +33,20 @@ if (Astro.request.method === 'POST') {
   const producto = await cargarProducto(ejecutar, codigo ?? '');
 
   if (!producto) return new Response('No existe ese producto.', { status: 404 });
+
+  /**
+   * Sacar el video va por el formulario y no por `fetch`, al reves que subirlo.
+   * Subir necesita el navegador —hay que sacar el poster con el canvas— pero quitar es
+   * un UPDATE: pedirle JavaScript seria pedirlo para nada.
+   *
+   * No borra ni la fila ni el objeto de R2: el video queda huerfano y la papelera
+   * decide cuando se borra de verdad, con su confirmacion. Sacarlo de una ficha es un
+   * clic; destruir el archivo no deberia serlo.
+   */
+  if (datos.get('accion') === 'quitar-video') {
+    await quitarVideo(ejecutar, { productoId: producto.id, ahora: new Date().toISOString() });
+    return Astro.redirect(`${Astro.url.pathname}?guardado=1`, 303);
+  }
 
   try {
     const colores = datos.getAll('color').map(String);
@@ -176,6 +192,55 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
     </p>
   </form>
 
+  {/* FUERA del formulario de arriba, y no es un descuido de anidado: un <form> no puede
+      contener otro. Subir el video no pasa por «Guardar cambios» —va por su endpoint
+      apenas se elige el archivo— y quitarlo es su propio POST. */}
+  <section class="video">
+    <h2>Video</h2>
+    {
+      producto.video ? (
+        <>
+          {/* `preload="metadata"`: bajar 10 MB para una ficha que quiza nadie mire es
+              gasto de datos de quien carga. `controls` sin `autoplay`, siempre. */}
+          <video
+            src={urlVideo(R2, producto.video.hash16)}
+            poster={urlPoster(R2, producto.video.hash16)}
+            width={producto.video.ancho}
+            height={producto.video.alto}
+            preload="metadata"
+            controls
+            playsinline
+          />
+          <form method="post" action={Astro.url.pathname}>
+            <input type="hidden" name="accion" value="quitar-video" />
+            <button type="submit" class="peligro">Quitar el video</button>
+            <span class="nota">
+              Lo saca de la ficha. El archivo se borra cuando se vacia la papelera.
+            </span>
+          </form>
+        </>
+      ) : (
+        <p class="nota">Este producto no tiene video.</p>
+      )
+    }
+
+    <p class="campo">
+      <label for="video-archivo">{producto.video ? 'Reemplazar por otro' : 'Subir un video'}</label>
+      <input
+        type="file"
+        id="video-archivo"
+        accept="video/mp4"
+        data-codigo={producto.codigo}
+      />
+      {/* El limite se dice ANTES de que elija el archivo, con el camino incluido. Un
+          rechazo despues de subir 40 MB por celular llega tarde. */}
+      <span class="nota">
+        MP4 de hasta 10 MB. Si pesa mas, mandatelo por WhatsApp y subi el que te llega.
+      </span>
+    </p>
+    <p class="nota" id="video-aviso" role="status" />
+  </section>
+
   <template id="plantilla-variante">
     <div class="variante">
       <p class="campo">
@@ -193,6 +258,8 @@ const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV
 
 <script>
   import { prepararAlta } from '../../scripts/alta-cliente.ts';
+  import { prepararVideo } from '../../scripts/video-cliente.ts';
 
   prepararAlta();
+  prepararVideo();
 </script>

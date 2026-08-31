@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 
 import { actualizarProducto, cargarProducto } from './edicion.ts';
 import type { Ejecutar } from './grilla.ts';
@@ -14,9 +14,13 @@ import type { Ejecutar } from './grilla.ts';
  * que sólo se mueve por las transiciones de la máquina de estados.
  */
 
-const MIGRACIONES = ['0001_esquema_inicial.sql', '0002_codigo_insensible_a_mayusculas.sql'].map(
-  (n) => readFileSync(new URL(`../../../db/migrations/${n}`, import.meta.url), 'utf8')
-);
+/** La carpeta entera, en orden, que es lo que corre wrangler. Una lista a mano se
+ *  queda vieja en silencio: esta llegaba hasta la 0002. */
+const CARPETA = new URL('../../../db/migrations/', import.meta.url);
+const MIGRACIONES = readdirSync(CARPETA)
+  .filter((n) => n.endsWith('.sql'))
+  .sort()
+  .map((n) => readFileSync(new URL(n, CARPETA), 'utf8'));
 const ANTES = '2026-08-01T10:00:00Z';
 const AHORA = '2026-08-06T18:00:00Z';
 const CATEGORIAS = new Set(['carteras', 'mochilas', 'fiesta', 'dama']);
@@ -594,4 +598,35 @@ test('reordenar dos veces vuelve al orden original', async () => {
     vs.map((v) => v.sku),
     ['CG85527-negro', 'CG85527-rojo']
   );
+});
+
+// --------------------------------------------------------------------------
+// El video
+// --------------------------------------------------------------------------
+
+test('cargarProducto trae el video con sus medidas', async () => {
+  // La ficha necesita ancho y alto para reservarle el lugar al <video>: sin eso el
+  // formulario salta cuando carga la vista previa.
+  const db = base();
+  const ejecutar = ejecutor(db);
+  const { id } = db
+    .prepare(
+      `INSERT INTO videos (hash16, ancho, alto, bytes, creado_en)
+       VALUES ('cccccccccccccccc', 720, 1280, 2000000, ?) RETURNING id`
+    )
+    .get(ANTES) as { id: number };
+  const { id: productoId } = alta(db);
+  db.prepare(`UPDATE productos SET video_id = ? WHERE id = ?`).run(id, productoId);
+
+  const cargado = await cargarProducto(ejecutar, 'CG85527');
+
+  assert.deepEqual(cargado?.video, { hash16: 'cccccccccccccccc', ancho: 720, alto: 1280 });
+});
+
+test('cargarProducto devuelve video null cuando no tiene', async () => {
+  // `null` y no `undefined`: la plantilla distingue «no tiene» de «no se consultó».
+  const db = base();
+  alta(db);
+  const cargado = await cargarProducto(ejecutor(db), 'CG85527');
+  assert.equal(cargado?.video, null);
 });

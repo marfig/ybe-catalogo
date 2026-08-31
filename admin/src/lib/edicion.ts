@@ -38,6 +38,14 @@ export interface ProductoCargado {
   slug: string | null;
   categorias: string[];
   variantes: VarianteCargada[];
+  /**
+   * El video del producto, o `null`.
+   *
+   * `null` y no `undefined`: la plantilla tiene que poder distinguir «no tiene video»
+   * de «no se consultó». Las medidas viajan porque la vista previa las necesita para
+   * reservarle el lugar al `<video>` — sin ellas el formulario salta cuando carga.
+   */
+  video: { hash16: string; ancho: number; alto: number } | null;
 }
 
 /**
@@ -87,6 +95,22 @@ export async function cargarProducto(
     [referencia.id]
   );
 
+  /**
+   * El video sale en su propia consulta y no con un LEFT JOIN en la de arriba.
+   *
+   * El JOIN habría sido una consulta menos, pero mezcla dos cosas con formas distintas:
+   * las columnas del producto siempre están, y las del video son todas NULL cuando no
+   * tiene. Separado, «no hay video» es una lista vacía en vez de una fila con tres
+   * campos en NULL que hay que interpretar.
+   */
+  const [v] = await ejecutar<{ hash16: string; ancho: number; alto: number }>(
+    `SELECT v.hash16, v.ancho, v.alto
+       FROM videos v
+       JOIN productos p ON p.video_id = v.id
+      WHERE p.id = ?`,
+    [referencia.id]
+  );
+
   const categorias = (
     await ejecutar<{ categoria_slug: string }>(
       `SELECT categoria_slug FROM producto_categorias
@@ -121,12 +145,15 @@ export async function cargarProducto(
   return {
     ...p,
     categorias,
-    variantes: variantes.map((v) => ({
-      id: v.id,
-      sku: v.sku,
-      color: v.color,
-      colorHex: v.color_hex,
-      hashes: fotos.filter((f) => f.variante_id === v.id).map((f) => f.hash16),
+    // Se copia en vez de devolver la fila tal cual: el driver la entrega con prototipo
+    // nulo, y eso es un detalle suyo que no tiene por qué salir en el tipo público.
+    video: v ? { hash16: v.hash16, ancho: v.ancho, alto: v.alto } : null,
+    variantes: variantes.map((x) => ({
+      id: x.id,
+      sku: x.sku,
+      color: x.color,
+      colorHex: x.color_hex,
+      hashes: fotos.filter((f) => f.variante_id === x.id).map((f) => f.hash16),
     })),
   };
 }
