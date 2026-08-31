@@ -206,6 +206,90 @@
     ]
   },
   {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 17 x 28 cm",
+    "id": "bandolera-5",
+    "nombre": "Bandolera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1131694"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Azul Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/20f1bcae8ac521a2"
+          }
+        ],
+        "sku": "1131694-8"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1fa67b3439dfdfab"
+          }
+        ],
+        "sku": "1131694-3"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/15dd2ba3a92eceda"
+          }
+        ],
+        "sku": "1131694-R"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 20 x 24 x 13",
+    "id": "bandolera-6",
+    "nombre": "Bandolera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1181429"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Azul Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a5cc91a13e3d7267"
+          }
+        ],
+        "sku": "1181429-8"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "bandoleras"
@@ -4275,6 +4359,299 @@
     ]
   },
   {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "billetera-hombre"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 12",
+    "id": "billetera",
+    "nombre": "Billetera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2510414"
+    },
+    "precio": 98000,
+    "variantes": [
+      {
+        "color": "Marron Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/66974e07be3c5681"
+          }
+        ],
+        "sku": "2510414-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7583fb8803146ee1"
+          }
+        ],
+        "sku": "2510414-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "billetera-hombre"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 9 x 12",
+    "id": "billetera-2",
+    "nombre": "Billetera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2510416"
+    },
+    "precio": 98000,
+    "variantes": [
+      {
+        "color": "Marron Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/49aaad9fe53b9dd7"
+          }
+        ],
+        "sku": "2510416-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2ee62d3d6db23f50"
+          }
+        ],
+        "sku": "2510416-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 17 x 2 cm",
+    "id": "billetera-3",
+    "nombre": "Billetera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2515222"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7a223231bf3d62b3"
+          }
+        ],
+        "sku": "2515222-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 16 x 3 cm",
+    "id": "billetera-4",
+    "nombre": "Billetera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2515247"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f8de1954137cb738"
+          }
+        ],
+        "sku": "2515247-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4efb3c79b28a10c4"
+          }
+        ],
+        "sku": "2515247-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 9 x 13 x 3 cm",
+    "id": "billetera-5",
+    "nombre": "Billetera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2515248"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/ea82959b99d85b36"
+          }
+        ],
+        "sku": "2515248-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 19,5 x 3 cm",
+    "id": "billetera-6",
+    "nombre": "Billetera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2515250"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7ddb2b5e35509d34"
+          }
+        ],
+        "sku": "2515250-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 21 cm",
+    "id": "billetera-7",
+    "nombre": "Billetera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2515257"
+    },
+    "precio": 99000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/159115648f7d1007"
+          }
+        ],
+        "sku": "2515257-W"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2b11059c9dae45ae"
+          }
+        ],
+        "sku": "2515257-T"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2f7f95b0adbc3ae1"
+          }
+        ],
+        "sku": "2515257-3"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8b3cebe352faf391"
+          }
+        ],
+        "sku": "2515257-R"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b411af2fa7102a2a"
+          }
+        ],
+        "sku": "2515257-P"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-26",
     "categorias": [
       "billeteras"
@@ -4849,6 +5226,35 @@
     ]
   },
   {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 20 x 4 cm",
+    "id": "billetera-doble-cierre",
+    "nombre": "Billetera doble cierre",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2515285"
+    },
+    "precio": 146000,
+    "variantes": [
+      {
+        "color": "Amarillo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6a17401bbd18a433"
+          }
+        ],
+        "sku": "2515285-L"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-19",
     "categorias": [
       "billeteras"
@@ -4936,6 +5342,116 @@
     ]
   },
   {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 19 x 3 cm",
+    "id": "billetera-impermeable",
+    "nombre": "Billetera impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2115051"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ea132e6daf8ef12f"
+          }
+        ],
+        "sku": "2115051-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 19 x 3 cm",
+    "id": "billetera-impermeable-2",
+    "nombre": "Billetera impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2170142"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7c9938fdf1ecebad"
+          }
+        ],
+        "sku": "2170142-9"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6499dc6861d6c1b7"
+          }
+        ],
+        "sku": "2170142-2"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a155dd3de4378e93"
+          }
+        ],
+        "sku": "2170142-B"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e2132298c1ec3c76"
+          }
+        ],
+        "sku": "2170142-3"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d4764ceba082e11b"
+          }
+        ],
+        "sku": "2170142-G"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-19",
     "categorias": [
       "billeteras"
@@ -4990,6 +5506,48 @@
           }
         ],
         "sku": "2715301-V"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 15 cm",
+    "id": "billetera-pequena-3",
+    "nombre": "Billetera pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2515258"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/db8ca381a11f21d1"
+          }
+        ],
+        "sku": "2515258-W"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/edaeeac8d9400252"
+          }
+        ],
+        "sku": "2515258-P"
       }
     ]
   },
@@ -5436,6 +5994,48 @@
           }
         ],
         "sku": "4730886-R2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 18 x 10 x 2 cm",
+    "id": "brazalete-porta-celular",
+    "nombre": "Brazalete porta celular",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734276"
+    },
+    "precio": 98000,
+    "variantes": [
+      {
+        "color": "Naranja",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9527dc39f0102853"
+          }
+        ],
+        "sku": "1734276-O"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/15f1ca2ce72cf0c7"
+          }
+        ],
+        "sku": "1734276-3"
       }
     ]
   },
@@ -17491,6 +18091,812 @@
     ]
   },
   {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 8 x 20 x 4",
+    "id": "cartuchera-10",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1731466"
+    },
+    "precio": 12000,
+    "variantes": [
+      {
+        "color": "*(1o) Gris/naranj",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5e00bfae861e8f48"
+          }
+        ],
+        "sku": "1731466-1o-gris-naranj"
+      },
+      {
+        "color": "*(3) Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ecd18088e982e50d"
+          }
+        ],
+        "sku": "1731466-3-negro"
+      },
+      {
+        "color": "*(53) Ver.cel/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3787a04b69982f4f"
+          }
+        ],
+        "sku": "1731466-53-ver-cel-neg"
+      },
+      {
+        "color": "*(68) Azul/celest",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0dfb46f08a60502c"
+          }
+        ],
+        "sku": "1731466-68-azul-celest"
+      },
+      {
+        "color": "*(6k) Azul/khaki",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fa493cb21be4c06b"
+          }
+        ],
+        "sku": "1731466-6k-azul-khaki"
+      },
+      {
+        "color": "*(6o) Azul/naranj",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4ecb612420f7097b"
+          }
+        ],
+        "sku": "1731466-6o-azul-naranj"
+      },
+      {
+        "color": "*(9r) Azul/rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/346ca579ca4c65c4"
+          }
+        ],
+        "sku": "1731466-9r-azul-rojo"
+      },
+      {
+        "color": "*(f5) Rosa/ver.ce",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/26201bfd2922d9ed"
+          }
+        ],
+        "sku": "1731466-f5-rosa-ver-ce"
+      },
+      {
+        "color": "*(fo) Rosa/naranj",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b4b665d2aa74d01c"
+          }
+        ],
+        "sku": "1731466-fo-rosa-naranj"
+      },
+      {
+        "color": "*(o6) Naranj/azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/79ee23b7f60421cd"
+          }
+        ],
+        "sku": "1731466-o6-naranj-azul"
+      },
+      {
+        "color": "*(pf) Rosa/rosa O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8109ca3e11c61172"
+          }
+        ],
+        "sku": "1731466-pf-rosa-rosa-o"
+      },
+      {
+        "color": "*(pg) Rosa/verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/46de5a63f656c0e4"
+          }
+        ],
+        "sku": "1731466-pg-rosa-verde"
+      },
+      {
+        "color": "*(qg) Lila/verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/43d12170f1b4c030"
+          }
+        ],
+        "sku": "1731466-qg-lila-verde"
+      },
+      {
+        "color": "*(qi) Lila O/rosa",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a0d0210a5f66f351"
+          }
+        ],
+        "sku": "1731466-qi-lila-o-rosa"
+      },
+      {
+        "color": "*(r6) Rojo/azul O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/70b0dac1b008ae6e"
+          }
+        ],
+        "sku": "1731466-r6-rojo-azul-o"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 25 x 6",
+    "id": "cartuchera-11",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1731467"
+    },
+    "precio": 15000,
+    "variantes": [
+      {
+        "color": "*(1o) Gris/naranj",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7db302e6a39ec951"
+          }
+        ],
+        "sku": "1731467-1o-gris-naranj"
+      },
+      {
+        "color": "*(3) Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b2eb69ef02901cc8"
+          }
+        ],
+        "sku": "1731467-3-negro"
+      },
+      {
+        "color": "*(32) Negro/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/334f48462f3652cd"
+          }
+        ],
+        "sku": "1731467-32-negro-gris"
+      },
+      {
+        "color": "*(68) Azul/celest",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5b960f0cedcce55a"
+          }
+        ],
+        "sku": "1731467-68-azul-celest"
+      },
+      {
+        "color": "*(6k) Azul/khaki",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3f8b78c0178ff46c"
+          }
+        ],
+        "sku": "1731467-6k-azul-khaki"
+      },
+      {
+        "color": "*(6o) Azul/naranj",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/14637a159b6da4af"
+          }
+        ],
+        "sku": "1731467-6o-azul-naranj"
+      },
+      {
+        "color": "*(9r) Azul/rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9bd226bf87869449"
+          }
+        ],
+        "sku": "1731467-9r-azul-rojo"
+      },
+      {
+        "color": "*(f2) Rosa/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/86609ac0330f9d41"
+          }
+        ],
+        "sku": "1731467-f2-rosa-gris"
+      },
+      {
+        "color": "*(f5) Rosa/ver.ce",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f259c3c30a368a92"
+          }
+        ],
+        "sku": "1731467-f5-rosa-ver-ce"
+      },
+      {
+        "color": "*(fo) Rosa/naranj",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d615bfed411eb891"
+          }
+        ],
+        "sku": "1731467-fo-rosa-naranj"
+      },
+      {
+        "color": "*(o6) Naranj/azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7673eb5f7e4f5336"
+          }
+        ],
+        "sku": "1731467-o6-naranj-azul"
+      },
+      {
+        "color": "*(pf) Rosa/rosa O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a2d48ebbe88942d1"
+          }
+        ],
+        "sku": "1731467-pf-rosa-rosa-o"
+      },
+      {
+        "color": "*(pg) Rosa/verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0fa30b4869e13e6e"
+          }
+        ],
+        "sku": "1731467-pg-rosa-verde"
+      },
+      {
+        "color": "*(qg) Lila /verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e5a33cca81e3b8ae"
+          }
+        ],
+        "sku": "1731467-qg-lila-verde"
+      },
+      {
+        "color": "*(r6) Rojo/azul O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0cf6bf2b8a3dec41"
+          }
+        ],
+        "sku": "1731467-r6-rojo-azul-o"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 21,5 x 5,5 cm",
+    "id": "cartuchera-12",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734064"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1faf5a6d7259bf00"
+          }
+        ],
+        "sku": "1734064-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 13 x 23 x 7 cm",
+    "id": "cartuchera-13",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734741"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Caqui",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/87c843f7c523a6ec"
+          }
+        ],
+        "sku": "1734741-K"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 24 x 8 cm",
+    "id": "cartuchera-14",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734755"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e613181fb732c8a6"
+          }
+        ],
+        "sku": "1734755-9"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f498bea2f1da5cad"
+          }
+        ],
+        "sku": "1734755-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/20fda56ff97e9e07"
+          }
+        ],
+        "sku": "1734755-3"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cf1ec2f6aa6ce936"
+          }
+        ],
+        "sku": "1734755-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 14 x 23 x 9 cm",
+    "id": "cartuchera-15",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734773"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/826f12a682311147"
+          }
+        ],
+        "sku": "1734773-G"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4b9a35ea6a3d069b"
+          }
+        ],
+        "sku": "1734773-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 16 x 25 x 10 cm",
+    "id": "cartuchera-16",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734776"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1c509d5449fef963"
+          }
+        ],
+        "sku": "1734776-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/23e83da3771d33e9"
+          }
+        ],
+        "sku": "1734776-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 24 x 11 cm",
+    "id": "cartuchera-17",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1735001"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d82068f8e9b789a0"
+          }
+        ],
+        "sku": "1735001-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-18",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1736721"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "(2-P) Negro/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/72572188f49ced62"
+          }
+        ],
+        "sku": "1736721-2-p-negro-gris"
+      },
+      {
+        "color": "(5-P) Negr/ver Os",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/09930d117495d74e"
+          }
+        ],
+        "sku": "1736721-5-p-negr-ver-os"
+      },
+      {
+        "color": "(7-P) Negr/celest",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e5a25c16cb10684a"
+          }
+        ],
+        "sku": "1736721-7-p-negr-celest"
+      },
+      {
+        "color": "(l-P) Negro/amari",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b999c37c2936cb97"
+          }
+        ],
+        "sku": "1736721-l-p-negro-amari"
+      },
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9630764814b34a44"
+          }
+        ],
+        "sku": "1736721-9"
+      },
+      {
+        "color": "Gris Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0ed3d24ad398e8d6"
+          }
+        ],
+        "sku": "1736721-1"
+      },
+      {
+        "color": "Lila Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2441dcf009f6f90e"
+          }
+        ],
+        "sku": "1736721-Q"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2a6003d74b7c6602"
+          }
+        ],
+        "sku": "1736721-R"
+      },
+      {
+        "color": "Rosa Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e0b35725e5d02cbe"
+          }
+        ],
+        "sku": "1736721-F"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/61288071a7d912ac"
+          }
+        ],
+        "sku": "1736721-G"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-19",
     "categorias": [
       "cartucheras"
@@ -17722,6 +19128,366 @@
           }
         ],
         "sku": "1734673-F"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 23 x 6",
+    "id": "cartuchera-7",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1181420"
+    },
+    "precio": 30000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d0014ddd24ace849"
+          }
+        ],
+        "sku": "1181420-B"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 20 x 5",
+    "id": "cartuchera-8",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1181431"
+    },
+    "precio": 15000,
+    "variantes": [
+      {
+        "color": "Azul Marino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/22bd4edf946174dd"
+          }
+        ],
+        "sku": "1181431-6"
+      },
+      {
+        "color": "Azul Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/882dcea6bb8d6a81"
+          }
+        ],
+        "sku": "1181431-8"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0c1e3d61a8caceec"
+          }
+        ],
+        "sku": "1181431-B"
+      },
+      {
+        "color": "Marron Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/453cffe6b7dc4238"
+          }
+        ],
+        "sku": "1181431-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d096c1586fff5ce3"
+          }
+        ],
+        "sku": "1181431-3"
+      },
+      {
+        "color": "Rosa Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8edcabe0ccbef9ad"
+          }
+        ],
+        "sku": "1181431-F"
+      },
+      {
+        "color": "Verde Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/127a01df690b1026"
+          }
+        ],
+        "sku": "1181431-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 20 x 6 cm",
+    "id": "cartuchera-9",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1731465"
+    },
+    "precio": 18000,
+    "variantes": [
+      {
+        "color": "*(1o) Gris/naranj",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a5d3cfeb23e976b1"
+          }
+        ],
+        "sku": "1731465-1o-gris-naranj"
+      },
+      {
+        "color": "*(3) Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9b9cce608164845f"
+          }
+        ],
+        "sku": "1731465-3-negro"
+      },
+      {
+        "color": "*(32) Negro/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b09bf8e36263010b"
+          }
+        ],
+        "sku": "1731465-32-negro-gris"
+      },
+      {
+        "color": "*(53) Ver Cel/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d56b6d95df9da403"
+          }
+        ],
+        "sku": "1731465-53-ver-cel-neg"
+      },
+      {
+        "color": "*(54-P) Verde Cl",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9da239722859116b"
+          }
+        ],
+        "sku": "1731465-54-p-verde-cl"
+      },
+      {
+        "color": "*(6k) Azul/khaki",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0a3f097669c496f1"
+          }
+        ],
+        "sku": "1731465-6k-azul-khaki"
+      },
+      {
+        "color": "*(6o) Azul/naranj",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3ff89c161b2c73ae"
+          }
+        ],
+        "sku": "1731465-6o-azul-naranj"
+      },
+      {
+        "color": "*(79-P) Celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f5491176358c435e"
+          }
+        ],
+        "sku": "1731465-79-p-celeste"
+      },
+      {
+        "color": "*(f2) Rosa O/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7f2c043c403e85da"
+          }
+        ],
+        "sku": "1731465-f2-rosa-o-gris"
+      },
+      {
+        "color": "*(fo) Rosa/naranj",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/516a10742dd5faee"
+          }
+        ],
+        "sku": "1731465-fo-rosa-naranj"
+      },
+      {
+        "color": "*(no-P) Salmon",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e58572b74a85becc"
+          }
+        ],
+        "sku": "1731465-no-p-salmon"
+      },
+      {
+        "color": "*(o6) Naranj/azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7abc46021535c8e8"
+          }
+        ],
+        "sku": "1731465-o6-naranj-azul"
+      },
+      {
+        "color": "*(pg) Rosa/verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/73b54ae5c9634711"
+          }
+        ],
+        "sku": "1731465-pg-rosa-verde"
+      },
+      {
+        "color": "*(qg) Lila/verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b1469993884f770d"
+          }
+        ],
+        "sku": "1731465-qg-lila-verde"
+      },
+      {
+        "color": "*(ro-P) Rojo/salm",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/25a8d4a3e2bfe3ef"
+          }
+        ],
+        "sku": "1731465-ro-p-rojo-salm"
+      },
+      {
+        "color": "*(vu-P) Lila C/li",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6ec056d510b3fdd2"
+          }
+        ],
+        "sku": "1731465-vu-p-lila-c-li"
       }
     ]
   },
@@ -36582,6 +38348,35 @@
     ]
   },
   {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 22 x 7 cm",
+    "id": "monedero-pequeno",
+    "nombre": "monedero pequeño",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1784602"
+    },
+    "precio": 89000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2ad75b10b08a853a"
+          }
+        ],
+        "sku": "1784602-9"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-27",
     "categorias": [
       "mochila-infantil"
@@ -36650,6 +38445,121 @@
           }
         ],
         "sku": "1130070-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "necessaires"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 13 x 20 x 9 cm",
+    "id": "neceser-10",
+    "nombre": "Neceser",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1584015"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8bd419eab254cee3"
+          }
+        ],
+        "sku": "1584015-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "necessaires"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 12 x 23 x 8 cm",
+    "id": "neceser-11",
+    "nombre": "Neceser",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1584018"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b2ae24160567e189"
+          }
+        ],
+        "sku": "1584018-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "necessaires"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 24 x 4 cm",
+    "id": "neceser-12",
+    "nombre": "neceser",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734574"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/877d96faab2d1ce6"
+          }
+        ],
+        "sku": "1734574-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "necessaires"
+    ],
+    "id": "neceser-13",
+    "nombre": "neceser",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2131397"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b807340be52f01f0"
+          }
+        ],
+        "sku": "2131397-3"
       }
     ]
   },
@@ -38671,6 +40581,35 @@
     ]
   },
   {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 13 x 34 x 4",
+    "id": "rinonera-29",
+    "nombre": "riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1380329"
+    },
+    "precio": 98000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/55214f726f6d6ddc"
+          }
+        ],
+        "sku": "1380329-9"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-27",
     "categorias": [
       "rinoneras"
@@ -38696,6 +40635,122 @@
           }
         ],
         "sku": "1120885-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 12 x 37 x 5 cm",
+    "id": "rinonera-30",
+    "nombre": "riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1733127"
+    },
+    "precio": 85000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4960f0ba56136496"
+          }
+        ],
+        "sku": "1733127-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 17 x 22 x 7 cm",
+    "id": "rinonera-31",
+    "nombre": "riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734570"
+    },
+    "precio": 85000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9a00ba51bd40e17c"
+          }
+        ],
+        "sku": "1734570-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 23 x 17 x 7",
+    "id": "rinonera-32",
+    "nombre": "Riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1743512"
+    },
+    "precio": 98000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/29a775a885877b79"
+          }
+        ],
+        "sku": "1743512-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 13 x 36 x 6",
+    "id": "rinonera-33",
+    "nombre": "riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1790191"
+    },
+    "precio": 88000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7c7bc4ca37432def"
+          }
+        ],
+        "sku": "1790191-3"
       }
     ]
   },
