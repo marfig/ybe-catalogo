@@ -25,6 +25,7 @@ import {
   restaurar,
 } from '../lib/papelera.ts';
 import { haceCuanto } from '../lib/publicaciones.ts';
+import { clavesDeVideo } from '../lib/video.ts';
 
 const ejecutar = ejecutorD1(env.DB);
 
@@ -40,16 +41,19 @@ if (Astro.request.method === 'POST') {
     destino.searchParams.set('restaurados', String(hechos));
   } else if (accion === 'vaciar') {
     const antesDe = fechaDeCorte(new Date().toISOString());
-    const { codigos, huerfanas } = await purgar(ejecutar, { antesDe });
+    const { codigos, huerfanas, videosHuerfanos } = await purgar(ejecutar, { antesDe });
 
     /**
      * R2 después de la base, y sin abortar si falla: mismo criterio que en
      * `/eliminar`. Un objeto sin dueño es invisible; una fila sin objeto es una foto
      * rota.
      */
-    if (huerfanas.length > 0) {
+    if (huerfanas.length > 0 || videosHuerfanos.length > 0) {
       try {
-        await env.IMAGENES.delete(huerfanas.flatMap(clavesDeImagen));
+        await env.IMAGENES.delete([
+          ...huerfanas.flatMap(clavesDeImagen),
+          ...videosHuerfanos.flatMap(clavesDeVideo),
+        ]);
       } catch {
         // No hay nada que la persona pueda hacer con este error.
       }
@@ -57,6 +61,9 @@ if (Astro.request.method === 'POST') {
 
     destino.searchParams.set('purgados', String(codigos.length));
     destino.searchParams.set('fotos', String(huerfanas.length));
+    if (videosHuerfanos.length > 0) {
+      destino.searchParams.set('videos', String(videosHuerfanos.length));
+    }
   }
 
   return Astro.redirect(`${destino.pathname}${destino.search}`, 303);
@@ -74,6 +81,7 @@ const confirmandoVaciado = Astro.url.searchParams.get('vaciar') === '1';
 const restaurados = Number(Astro.url.searchParams.get('restaurados') ?? '0');
 const purgados = Astro.url.searchParams.get('purgados');
 const fotosPurgadas = Astro.url.searchParams.get('fotos');
+const videosPurgados = Number(Astro.url.searchParams.get('videos') ?? '0');
 
 const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV });
 
@@ -100,7 +108,8 @@ const plural = (n: number, singular: string, muchos: string) =>
     purgados !== null ? (
       <p class="resumen">
         Se vaciaron {plural(Number(purgados), 'producto', 'productos')} y{' '}
-        {plural(Number(fotosPurgadas ?? '0'), 'foto', 'fotos')}.
+        {plural(Number(fotosPurgadas ?? '0'), 'foto', 'fotos')}
+        {videosPurgados > 0 ? <>, más {plural(videosPurgados, 'video', 'videos')}</> : null}.
       </p>
     ) : null
   }
@@ -206,6 +215,9 @@ const plural = (n: number, singular: string, muchos: string) =>
             Se van a borrar <strong>{plural(purga.productos, 'producto', 'productos')}</strong>
             {purga.imagenes > 0 ? (
               <> y <strong>{plural(purga.imagenes, 'foto', 'fotos')}</strong></>
+            ) : null}
+            {purga.videos > 0 ? (
+              <> y <strong>{plural(purga.videos, 'video', 'videos')}</strong></>
             ) : null}, definitivamente.
           </p>
           <p>
@@ -239,6 +251,10 @@ const plural = (n: number, singular: string, muchos: string) =>
             {purga.imagenes > 0 ? (
               <>, con <strong>{purga.imagenes}</strong>{' '}
               {purga.imagenes === 1 ? 'foto' : 'fotos'} que no usa nadie más</>
+            ) : null}
+            {purga.videos > 0 ? (
+              <> y <strong>{purga.videos}</strong>{' '}
+              {purga.videos === 1 ? 'video' : 'videos'}</>
             ) : null}.
           </p>
           <p class="nota">

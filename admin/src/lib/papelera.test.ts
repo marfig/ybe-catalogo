@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { DatabaseSync } from 'node:sqlite';
 import { test } from 'node:test';
 
@@ -14,12 +14,18 @@ import {
   restaurar,
 } from './papelera.ts';
 
-const MIGRACIONES = [
-  '0001_esquema_inicial.sql',
-  '0002_codigo_insensible_a_mayusculas.sql',
-  '0003_aviso_cambio_en_origen.sql',
-  '0004_papelera.sql',
-].map((n) => readFileSync(new URL(`../../../db/migrations/${n}`, import.meta.url), 'utf8'));
+/**
+ * La carpeta entera, en orden, que es lo que corre wrangler.
+ *
+ * Antes era una lista escrita a mano que llegaba hasta la 0004. Funcionaba, pero se
+ * quedaba vieja en silencio: cada migración nueva había que acordarse de agregarla acá,
+ * y una tabla que este módulo consulta podía no existir en el test.
+ */
+const CARPETA = new URL('../../../db/migrations/', import.meta.url);
+const MIGRACIONES = readdirSync(CARPETA)
+  .filter((n) => n.endsWith('.sql'))
+  .sort()
+  .map((n) => readFileSync(new URL(n, CARPETA), 'utf8'));
 
 const AHORA = '2026-08-07T15:00:00Z';
 const QUIEN = 'ana@ybe.com.py';
@@ -281,6 +287,7 @@ test('eliminar: sin ids no toca la base', async () => {
   assert.deepEqual(await eliminar(ejecutor(db), [], { ahora: AHORA, porQuien: QUIEN }), {
     resultados: [],
     huerfanas: [],
+    videosHuerfanos: [],
   });
   assert.equal(cuantos(db, 'productos'), 1);
 });
@@ -527,4 +534,138 @@ test('purgar: no deja huérfana una imagen que comparte con un producto vivo', a
 
   assert.deepEqual(r.huerfanas, []);
   assert.equal(cuantos(db, 'imagenes'), 1, 'la fila queda: la referencia el producto vivo');
+});
+
+// --------------------------------------------------------------------------
+// El video: el medio que NO cuelga de una variante
+// --------------------------------------------------------------------------
+
+/**
+ * Le pone un video al producto, reusando la fila si el hash ya existe.
+ *
+ * El dedupe por hash es lo que permite que dos productos compartan un video, igual
+ * que comparten una foto repetida del proveedor.
+ */
+function ponerVideo(db: DatabaseSync, productoId: number, hash: string): number {
+  let fila = db.prepare(`SELECT id FROM videos WHERE hash16 = ?`).get(hash) as
+    | { id: number }
+    | undefined;
+  if (!fila) {
+    fila = db
+      .prepare(
+        `INSERT INTO videos (hash16, ancho, alto, bytes, creado_en)
+         VALUES (?, 720, 1280, 2000000, ?) RETURNING id`
+      )
+      .get(hash, AHORA) as { id: number };
+  }
+  db.prepare(`UPDATE productos SET video_id = ? WHERE id = ?`).run(fila.id, productoId);
+  return fila.id;
+}
+
+test('planearEliminacion: avisa que el video se va con el borrado fisico', async () => {
+  const db = base();
+  const i = producto(db, { codigo: 'CG1', fotos: ['a'.repeat(16)] });
+  ponerVideo(db, i, 'v'.repeat(16));
+
+  const plan = await planearEliminacion(ejecutor(db), [i]);
+
+  assert.equal(plan.fisicos[0].video, true);
+});
+
+test('planearEliminacion: un video compartido con un producto que sobrevive no se cuenta', async () => {
+  const db = base();
+  const compartido = 'v'.repeat(16);
+  const i = producto(db, { codigo: 'CG1' });
+  const vivo = producto(db, { codigo: 'CG2', estado: 'publicado', slug: 'cg2' });
+  ponerVideo(db, i, compartido);
+  ponerVideo(db, vivo, compartido);
+
+  const plan = await planearEliminacion(ejecutor(db), [i]);
+
+  assert.equal(plan.fisicos[0].video, false);
+});
+
+test('planearEliminacion: sin video, el plan lo dice', async () => {
+  const db = base();
+  const i = producto(db, { codigo: 'CG1' });
+  const plan = await planearEliminacion(ejecutor(db), [i]);
+  assert.equal(plan.fisicos[0].video, false);
+});
+
+test('eliminar: el video huerfano se borra de la base y se reporta para R2', async () => {
+  const db = base();
+  const i = producto(db, { codigo: 'CG1' });
+  ponerVideo(db, i, 'v'.repeat(16));
+
+  const r = await eliminar(ejecutor(db), [i], { ahora: AHORA, porQuien: QUIEN });
+
+  assert.deepEqual(r.videosHuerfanos, ['v'.repeat(16)]);
+  assert.equal(cuantos(db, 'videos'), 0, 'la fila tambien se va');
+});
+
+test('eliminar: un video compartido con un producto vivo NO se borra', async () => {
+  // El mismo NOT EXISTS que protege a las fotos compartidas. Sin el, borrar un
+  // producto le arrancaria el video a otro que sigue publicado.
+  const db = base();
+  const compartido = 'v'.repeat(16);
+  const i = producto(db, { codigo: 'CG1' });
+  const vivo = producto(db, { codigo: 'CG2', estado: 'publicado', slug: 'cg2' });
+  ponerVideo(db, i, compartido);
+  ponerVideo(db, vivo, compartido);
+
+  const r = await eliminar(ejecutor(db), [i], { ahora: AHORA, porQuien: QUIEN });
+
+  assert.deepEqual(r.videosHuerfanos, []);
+  assert.equal(cuantos(db, 'videos'), 1);
+});
+
+test('eliminar: dos productos del mismo lote que comparten video lo liberan', async () => {
+  // Igual que con las fotos: las huerfanas se calculan para el LOTE, no de a un
+  // producto. Contandolas de a uno, cada mitad creeria que el otro lo sostiene.
+  const db = base();
+  const compartido = 'v'.repeat(16);
+  const a = producto(db, { codigo: 'CG1' });
+  const b = producto(db, { codigo: 'CG2' });
+  ponerVideo(db, a, compartido);
+  ponerVideo(db, b, compartido);
+
+  const r = await eliminar(ejecutor(db), [a, b], { ahora: AHORA, porQuien: QUIEN });
+
+  assert.deepEqual(r.videosHuerfanos, [compartido]);
+  assert.equal(cuantos(db, 'videos'), 0);
+});
+
+test('eliminar: sacar del catalogo un publicado no le toca el video', async () => {
+  // Borrado LOGICO: el producto puede volver, asi que su video tiene que seguir ahi.
+  const db = base();
+  const p = producto(db, { codigo: 'CG1', estado: 'publicado', slug: 'cg1' });
+  ponerVideo(db, p, 'v'.repeat(16));
+
+  const r = await eliminar(ejecutor(db), [p], { ahora: AHORA, porQuien: QUIEN });
+
+  assert.deepEqual(r.videosHuerfanos, []);
+  assert.equal(cuantos(db, 'videos'), 1);
+});
+
+test('contarPurga: cuenta los videos que se va a llevar', async () => {
+  const db = base();
+  const p = producto(db, { codigo: 'CG1', estado: 'publicado', slug: 'cg1' });
+  ponerVideo(db, p, 'v'.repeat(16));
+  await eliminar(ejecutor(db), [p], { ahora: '2026-01-01T00:00:00Z', porQuien: QUIEN });
+
+  const cuenta = await contarPurga(ejecutor(db), { antesDe: '2026-02-07T15:00:00Z' });
+
+  assert.equal(cuenta.videos, 1);
+});
+
+test('purgar: se lleva el video huerfano', async () => {
+  const db = base();
+  const p = producto(db, { codigo: 'CG1', estado: 'publicado', slug: 'cg1' });
+  ponerVideo(db, p, 'v'.repeat(16));
+  await eliminar(ejecutor(db), [p], { ahora: '2026-01-01T00:00:00Z', porQuien: QUIEN });
+
+  const r = await purgar(ejecutor(db), { antesDe: '2026-02-07T15:00:00Z' });
+
+  assert.deepEqual(r.videosHuerfanos, ['v'.repeat(16)]);
+  assert.equal(cuantos(db, 'videos'), 0);
 });

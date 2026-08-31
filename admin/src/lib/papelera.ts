@@ -74,6 +74,46 @@ async function huerfanasDe(
   );
 }
 
+/**
+ * Los hashes de los videos que quedarían sin dueño si estos productos desaparecieran.
+ *
+ * ES LA CONTRAPARTE DE `huerfanasDe`, Y TIENE QUE EXISTIR APARTE. Aquella arranca desde
+ * `variante_imagenes`, así que sólo ve medios colgados de una variante. El video cuelga
+ * del PRODUCTO —es 0..1, no necesita tabla de unión— y por eso es literalmente invisible
+ * para esa consulta. Sin esta función, borrar un producto dejaría su `videos/{hash}/`
+ * en R2 para siempre, sin nadie que supiera que existe.
+ *
+ * Y acá el descuido se paga distinto: una foto huérfana pesa 40 KB y no se nota nunca;
+ * un video son hasta 10 MB.
+ *
+ * Es MÁS SIMPLE que la de imágenes —dos joins menos, porque no hay tabla de unión— pero
+ * conserva el `NOT EXISTS`, que sigue haciendo falta por el mismo motivo: el dedupe por
+ * hash permite que dos productos compartan el mismo video, y no hay que arrancárselo a
+ * uno que sobrevive.
+ */
+async function videosHuerfanosDe(
+  ejecutar: Ejecutar,
+  ids: number[]
+): Promise<{ id: number; hash16: string }[]> {
+  if (ids.length === 0) return [];
+  const m = marcas(ids.length);
+
+  return ejecutar<{ id: number; hash16: string }>(
+    `SELECT DISTINCT v.id, v.hash16
+       FROM videos v
+       JOIN productos p ON p.video_id = v.id
+      WHERE p.id IN (${m})
+        AND NOT EXISTS (
+          SELECT 1
+            FROM productos p2
+           WHERE p2.video_id = v.id
+             AND p2.id NOT IN (${m})
+        )
+      ORDER BY v.hash16`,
+    [...ids, ...ids]
+  );
+}
+
 async function traerProductos(ejecutar: Ejecutar, ids: number[]): Promise<FilaProducto[]> {
   if (ids.length === 0) return [];
   return ejecutar<FilaProducto>(
@@ -92,6 +132,13 @@ export interface PlanFisico {
   codigo: string;
   /** Fotos que se van con él. Sólo las que no comparte con un producto que sobrevive. */
   fotos: number;
+  /**
+   * Si el video se va con él. Booleano y no número porque la relación es 0..1.
+   *
+   * `false` también cuando el producto TIENE video pero lo comparte con uno que
+   * sobrevive: lo que se responde no es «¿tiene video?» sino «¿lo perdés?».
+   */
+  video: boolean;
 }
 
 export interface PlanLogico {
@@ -143,11 +190,14 @@ export async function planearEliminacion(
    * Contarlas de a un producto diría que una foto sobrevive porque la usa otro producto
    * que también se está borrando.
    */
-  const huerfanas = await huerfanasDe(
-    ejecutar,
-    fisicos.map((p) => p.id)
-  );
+  const idsFisicos = fisicos.map((p) => p.id);
+  const huerfanas = await huerfanasDe(ejecutar, idsFisicos);
   const idsHuerfanas = new Set(huerfanas.map((h) => h.id));
+
+  // Mismo razonamiento para el video: se calcula sobre el LOTE. De a un producto,
+  // dos que se borran juntos y comparten video creerían cada uno que el otro lo sostiene.
+  const videos = await videosHuerfanosDe(ejecutar, idsFisicos);
+  const idsVideos = new Set(videos.map((v) => v.id));
 
   for (const p of fisicos) {
     const suyas = await ejecutar<{ imagen_id: number }>(
@@ -157,10 +207,16 @@ export async function planearEliminacion(
         WHERE v.producto_id = ?`,
       [p.id]
     );
+    const suyo = await ejecutar<{ video_id: number | null }>(
+      `SELECT video_id FROM productos WHERE id = ?`,
+      [p.id]
+    );
+    const videoId = suyo[0]?.video_id ?? null;
     plan.fisicos.push({
       id: p.id,
       codigo: p.codigo,
       fotos: suyas.filter((f) => idsHuerfanas.has(f.imagen_id)).length,
+      video: videoId !== null && idsVideos.has(videoId),
     });
   }
 
@@ -226,6 +282,15 @@ export interface ResultadoEliminacion {
    * y el espacio nunca fue el problema (§12.1).
    */
   huerfanas: string[];
+  /**
+   * hash16 de los videos que se borraron de la base y hay que borrar de R2.
+   *
+   * Lista aparte y no mezclada con `huerfanas` porque las claves de R2 no se arman
+   * igual: una imagen son sus derivadas `catalogo/{hash}/w{n}.webp` y un video es
+   * `videos/{hash}/video.mp4` más su poster. Un solo arreglo obligaría a quien llama a
+   * adivinar de qué medio es cada hash.
+   */
+  videosHuerfanos: string[];
 }
 
 /** Elimina cada producto según §12.2: físico si nunca fue público, lógico si lo fue. */
@@ -234,7 +299,7 @@ export async function eliminar(
   ids: number[],
   { ahora, porQuien }: { ahora: string; porQuien: string }
 ): Promise<ResultadoEliminacion> {
-  if (ids.length === 0) return { resultados: [], huerfanas: [] };
+  if (ids.length === 0) return { resultados: [], huerfanas: [], videosHuerfanos: [] };
 
   const plan = await planearEliminacion(ejecutar, ids);
   const resultados: ResultadoItem[] = [];
@@ -245,16 +310,26 @@ export async function eliminar(
 
   const idsFisicos = plan.fisicos.map((p) => p.id);
   const huerfanas = await huerfanasDe(ejecutar, idsFisicos);
+  const videos = await videosHuerfanosDe(ejecutar, idsFisicos);
 
   if (idsFisicos.length > 0) {
     // El producto primero: arrastra `variantes` y con ellas `variante_imagenes`, las dos
     // por ON DELETE CASCADE. Recién con esas referencias fuera se pueden borrar las
     // filas de `imagenes`, que NO tienen cascade.
+    //
+    // El video sigue el mismo orden y por el mismo motivo, pero la referencia que hay
+    // que sacar de encima no es una cascade sino la columna `productos.video_id`, que
+    // se va con la fila del producto. Por eso `videos` también se calcula ANTES.
     await ejecutar(`DELETE FROM productos WHERE id IN (${marcas(idsFisicos.length)})`, idsFisicos);
 
     if (huerfanas.length > 0) {
       const idsImg = huerfanas.map((h) => h.id);
       await ejecutar(`DELETE FROM imagenes WHERE id IN (${marcas(idsImg.length)})`, idsImg);
+    }
+
+    if (videos.length > 0) {
+      const idsVid = videos.map((v) => v.id);
+      await ejecutar(`DELETE FROM videos WHERE id IN (${marcas(idsVid.length)})`, idsVid);
     }
 
     for (const p of plan.fisicos) {
@@ -282,7 +357,11 @@ export async function eliminar(
     });
   }
 
-  return { resultados, huerfanas: huerfanas.map((h) => h.hash16) };
+  return {
+    resultados,
+    huerfanas: huerfanas.map((h) => h.hash16),
+    videosHuerfanos: videos.map((v) => v.hash16),
+  };
 }
 
 /**
@@ -391,16 +470,16 @@ async function purgablesDe(ejecutar: Ejecutar, antesDe: string): Promise<FilaPro
 export async function contarPurga(
   ejecutar: Ejecutar,
   { antesDe }: { antesDe: string }
-): Promise<{ productos: number; imagenes: number; codigos: string[] }> {
+): Promise<{ productos: number; imagenes: number; videos: number; codigos: string[] }> {
   const purgables = await purgablesDe(ejecutar, antesDe);
-  const huerfanas = await huerfanasDe(
-    ejecutar,
-    purgables.map((p) => p.id)
-  );
+  const ids = purgables.map((p) => p.id);
+  const huerfanas = await huerfanasDe(ejecutar, ids);
+  const videos = await videosHuerfanosDe(ejecutar, ids);
 
   return {
     productos: purgables.length,
     imagenes: huerfanas.length,
+    videos: videos.length,
     codigos: purgables.map((p) => p.codigo),
   };
 }
@@ -415,12 +494,13 @@ export async function contarPurga(
 export async function purgar(
   ejecutar: Ejecutar,
   { antesDe }: { antesDe: string }
-): Promise<{ codigos: string[]; huerfanas: string[] }> {
+): Promise<{ codigos: string[]; huerfanas: string[]; videosHuerfanos: string[] }> {
   const purgables = await purgablesDe(ejecutar, antesDe);
-  if (purgables.length === 0) return { codigos: [], huerfanas: [] };
+  if (purgables.length === 0) return { codigos: [], huerfanas: [], videosHuerfanos: [] };
 
   const ids = purgables.map((p) => p.id);
   const huerfanas = await huerfanasDe(ejecutar, ids);
+  const videos = await videosHuerfanosDe(ejecutar, ids);
 
   await ejecutar(`DELETE FROM productos WHERE id IN (${marcas(ids.length)})`, ids);
 
@@ -429,5 +509,14 @@ export async function purgar(
     await ejecutar(`DELETE FROM imagenes WHERE id IN (${marcas(idsImg.length)})`, idsImg);
   }
 
-  return { codigos: purgables.map((p) => p.codigo), huerfanas: huerfanas.map((h) => h.hash16) };
+  if (videos.length > 0) {
+    const idsVid = videos.map((v) => v.id);
+    await ejecutar(`DELETE FROM videos WHERE id IN (${marcas(idsVid.length)})`, idsVid);
+  }
+
+  return {
+    codigos: purgables.map((p) => p.codigo),
+    huerfanas: huerfanas.map((h) => h.hash16),
+    videosHuerfanos: videos.map((v) => v.hash16),
+  };
 }

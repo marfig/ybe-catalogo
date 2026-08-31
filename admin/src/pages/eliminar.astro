@@ -22,6 +22,7 @@ import Panel from '../layouts/Panel.astro';
 import { ejecutorD1 } from '../lib/d1.ts';
 import { clavesDeImagen } from '../lib/imagenes.ts';
 import { eliminar, planearEliminacion, type PlanEliminacion } from '../lib/papelera.ts';
+import { clavesDeVideo } from '../lib/video.ts';
 
 const ejecutar = ejecutorD1(env.DB);
 const { identidad } = Astro.locals;
@@ -57,7 +58,7 @@ if (ids.length === 0) {
 let plan: PlanEliminacion | null = null;
 
 if (datos.get('confirmado') === 'si') {
-  const { resultados, huerfanas } = await eliminar(ejecutar, ids, {
+  const { resultados, huerfanas, videosHuerfanos } = await eliminar(ejecutar, ids, {
     ahora: new Date().toISOString(),
     porQuien: identidad.email,
   });
@@ -69,9 +70,15 @@ if (datos.get('confirmado') === 'si') {
    * invisibles y sin costo real (§12.1). Al revés —R2 primero— un fallo dejaría filas
    * apuntando a objetos borrados, que es una foto rota en el catálogo.
    */
-  if (huerfanas.length > 0) {
+  if (huerfanas.length > 0 || videosHuerfanos.length > 0) {
     try {
-      await env.IMAGENES.delete(huerfanas.flatMap(clavesDeImagen));
+      // Un solo `delete`: las claves de los dos medios viven en el mismo balde, y
+      // agrupar ahorra una llamada. Se arman distinto —`catalogo/` con derivadas,
+      // `videos/` con su poster— y por eso cada lista pasa por su propia función.
+      await env.IMAGENES.delete([
+        ...huerfanas.flatMap(clavesDeImagen),
+        ...videosHuerfanos.flatMap(clavesDeVideo),
+      ]);
     } catch {
       // Silencio deliberado: no hay nada que la persona pueda hacer con este error, y
       // el trabajo que pidió ya se hizo.
@@ -95,6 +102,7 @@ plan = await planearEliminacion(ejecutar, ids);
 
 const nada = plan.fisicos.length === 0 && plan.logicos.length === 0;
 const fotosQueSeVan = plan.fisicos.reduce((n, p) => n + p.fotos, 0);
+const videosQueSeVan = plan.fisicos.filter((p) => p.video).length;
 ---
 
 <Panel titulo="Eliminar productos" volver="/productos">
@@ -137,9 +145,10 @@ const fotosQueSeVan = plan.fisicos.reduce((n, p) => n + p.fotos, 0);
                   {p.fotos > 0 ? (
                     <span class="nota">
                       {p.fotos === 1 ? 'con su foto' : `con sus ${p.fotos} fotos`}
+                      {p.video && ' y su video'}
                     </span>
                   ) : (
-                    <span class="nota">sin fotos</span>
+                    <span class="nota">{p.video ? 'con su video' : 'sin fotos'}</span>
                   )}
                 </li>
               ))}
@@ -150,6 +159,13 @@ const fotosQueSeVan = plan.fisicos.reduce((n, p) => n + p.fotos, 0);
                   ? 'Se borra 1 foto del almacenamiento.'
                   : `Se borran ${fotosQueSeVan} fotos del almacenamiento.`}{' '}
                 Las que otro producto siga usando no se tocan.
+              </p>
+            )}
+            {videosQueSeVan > 0 && (
+              <p class="nota">
+                {videosQueSeVan === 1
+                  ? 'Se borra 1 video del almacenamiento.'
+                  : `Se borran ${videosQueSeVan} videos del almacenamiento.`}
               </p>
             )}
           </section>
