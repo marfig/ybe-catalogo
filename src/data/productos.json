@@ -23314,7 +23314,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-26",
+    "actualizado": "2026-08-31",
     "categorias": [
       "cartucheras"
     ],
@@ -23328,7 +23328,7 @@
     "precio": 45000,
     "variantes": [
       {
-        "color": "Único",
+        "color": "Rosa",
         "imagenes": [
           {
             "anchos": [
@@ -23343,14 +23343,26 @@
               600
             ],
             "base": "catalogo/04a3d197c7372f0d"
-          },
+          }
+        ],
+        "sku": "1734222-rosa"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
           {
             "anchos": [
               300,
               600
             ],
             "base": "catalogo/d0906f5d619b859a"
-          },
+          }
+        ],
+        "sku": "1734222-negro"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
           {
             "anchos": [
               300,
@@ -23359,7 +23371,7 @@
             "base": "catalogo/cadbfc84e204fd8e"
           }
         ],
-        "sku": "1734222"
+        "sku": "1734222-gris"
       }
     ]
   },
@@ -26837,7 +26849,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-08-31",
     "categorias": [
       "lonchera-termica-infantil"
     ],
@@ -26851,7 +26863,7 @@
     "precio": 118000,
     "variantes": [
       {
-        "color": "Único",
+        "color": "Negro",
         "imagenes": [
           {
             "anchos": [
@@ -26859,21 +26871,39 @@
               600
             ],
             "base": "catalogo/1aa4fea03b553359"
-          },
+          }
+        ],
+        "sku": "CG34336-negro"
+      },
+      {
+        "color": "Celeste",
+        "imagenes": [
           {
             "anchos": [
               300,
               600
             ],
             "base": "catalogo/3acc3f16531a293e"
-          },
+          }
+        ],
+        "sku": "CG34336-celeste"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
           {
             "anchos": [
               300,
               600
             ],
             "base": "catalogo/6b5baeb4f7a80b78"
-          },
+          }
+        ],
+        "sku": "CG34336-gris"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
           {
             "anchos": [
               300,
@@ -26882,7 +26912,7 @@
             "base": "catalogo/bbd764a7aed71afb"
           }
         ],
-        "sku": "CG34336"
+        "sku": "CG34336-verde"
       }
     ]
   },
@@ -28621,7 +28651,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-26",
+    "actualizado": "2026-08-31",
     "categorias": [
       "mochila-dama"
     ],
@@ -28635,7 +28665,7 @@
     "precio": 158000,
     "variantes": [
       {
-        "color": "Único",
+        "color": "Rojo",
         "imagenes": [
           {
             "anchos": [
@@ -28643,42 +28673,78 @@
               600
             ],
             "base": "catalogo/8c8e8a495de12a79"
-          },
+          }
+        ],
+        "sku": "8731691-rojo"
+      },
+      {
+        "color": "Bordó",
+        "imagenes": [
           {
             "anchos": [
               300,
               600
             ],
             "base": "catalogo/2d6622dbebd81ce9"
-          },
+          }
+        ],
+        "sku": "8731691-bordo"
+      },
+      {
+        "color": "Turquesa",
+        "imagenes": [
           {
             "anchos": [
               300,
               600
             ],
             "base": "catalogo/6101662946a912de"
-          },
+          }
+        ],
+        "sku": "8731691-turquesa"
+      },
+      {
+        "color": "Rosa",
+        "imagenes": [
           {
             "anchos": [
               300,
               600
             ],
             "base": "catalogo/c033c22367752668"
-          },
+          }
+        ],
+        "sku": "8731691-rosa"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
           {
             "anchos": [
               300,
               600
             ],
             "base": "catalogo/a8d2cdd927f8021b"
-          },
+          }
+        ],
+        "sku": "8731691-gris"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
           {
             "anchos": [
               300,
               600
             ],
             "base": "catalogo/8310187f3351a7af"
-          },
+          }
+        ],
+        "sku": "8731691-verde"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
           {
             "anchos": [
               300,
@@ -28687,7 +28753,7 @@
             "base": "catalogo/710a1de39917fb69"
           }
         ],
-        "sku": "8731691"
+        "sku": "8731691-negro"
       }
     ]
   },
@@ -34416,7 +34482,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-26",
+    "actualizado": "2026-08-31",
     "categorias": [
       "mochila-infantil"
     ],
@@ -34430,7 +34496,7 @@
     "precio": 215000,
     "variantes": [
       {
-        "color": "Único",
+        "color": "Rosa",
         "imagenes": [
           {
             "anchos": [
@@ -34438,7 +34504,13 @@
               600
             ],
             "base": "catalogo/6b3d43a8b72bc3f7"
-          },
+          }
+        ],
+        "sku": "8734217-rosa"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
           {
             "anchos": [
               300,
@@ -34468,7 +34540,7 @@
             "base": "catalogo/f0ee4d48d84ee690"
           }
         ],
-        "sku": "8734217"
+        "sku": "8734217-negro"
       }
     ]
   },
@@ -37872,7 +37944,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-22",
+    "actualizado": "2026-08-31",
     "categorias": [
       "mochila-para-notebook"
     ],
@@ -37898,7 +37970,12 @@
         ],
         "sku": "8134029-3"
       }
-    ]
+    ],
+    "video": {
+      "alto": 1280,
+      "ancho": 720,
+      "base": "videos/b3e148d5de61a96b"
+    }
   },
   {
     "actualizado": "2026-08-21",
@@ -38132,7 +38209,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-08-31",
     "categorias": [
       "mochila-infantil"
     ],
@@ -38146,7 +38223,7 @@
     "precio": 398000,
     "variantes": [
       {
-        "color": "Único",
+        "color": "Verde",
         "imagenes": [
           {
             "anchos": [
@@ -38168,41 +38245,64 @@
               600
             ],
             "base": "catalogo/05aee0c33a68c408"
-          },
+          }
+        ],
+        "sku": "CG34337-verde"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
           {
             "anchos": [
               300
             ],
             "base": "catalogo/f829f0cd7a9ef432"
-          },
+          }
+        ],
+        "sku": "CG34337-gris"
+      },
+      {
+        "color": "Celeste",
+        "imagenes": [
           {
             "anchos": [
               300,
               600
             ],
             "base": "catalogo/94456188c8e68b5d"
-          },
+          }
+        ],
+        "sku": "CG34337-celeste"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
           {
             "anchos": [
               300,
               600
             ],
             "base": "catalogo/0f814a2f6112b260"
-          },
-          {
-            "anchos": [
-              300,
-              600
-            ],
-            "base": "catalogo/f85b5ef93e03786a"
-          },
+          }
+        ],
+        "sku": "CG34337-negro"
+      },
+      {
+        "color": "Fucsia",
+        "imagenes": [
           {
             "anchos": [
               300,
               600
             ],
             "base": "catalogo/a5c140f05ac993af"
-          },
+          }
+        ],
+        "sku": "CG34337-fucsia"
+      },
+      {
+        "color": "Lila",
+        "imagenes": [
           {
             "anchos": [
               300,
@@ -38211,12 +38311,12 @@
             "base": "catalogo/eaad738cd91db568"
           }
         ],
-        "sku": "CG34337"
+        "sku": "CG34337-lila"
       }
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-08-31",
     "categorias": [
       "mochila-infantil"
     ],
@@ -38230,7 +38330,7 @@
     "precio": 365000,
     "variantes": [
       {
-        "color": "Único",
+        "color": "Celeste",
         "imagenes": [
           {
             "anchos": [
@@ -38238,7 +38338,13 @@
               600
             ],
             "base": "catalogo/482b5fae347d13e5"
-          },
+          }
+        ],
+        "sku": "CG34338-celeste"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
           {
             "anchos": [
               300,
@@ -38252,35 +38358,65 @@
               600
             ],
             "base": "catalogo/99edbeaff75bb310"
-          },
+          }
+        ],
+        "sku": "CG34338-negro"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
           {
             "anchos": [
               300,
               600
             ],
             "base": "catalogo/919a60427713fe41"
-          },
+          }
+        ],
+        "sku": "CG34338-gris"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
           {
             "anchos": [
               300,
               600
             ],
             "base": "catalogo/9a14a17de2b08aa4"
-          },
+          }
+        ],
+        "sku": "CG34338-verde"
+      },
+      {
+        "color": "Salmón",
+        "imagenes": [
           {
             "anchos": [
               300,
               600
             ],
             "base": "catalogo/56153110a6db5a32"
-          },
+          }
+        ],
+        "sku": "CG34338-salmon"
+      },
+      {
+        "color": "Lila",
+        "imagenes": [
           {
             "anchos": [
               300,
               600
             ],
             "base": "catalogo/a7c1978e46855edb"
-          },
+          }
+        ],
+        "sku": "CG34338-lila"
+      },
+      {
+        "color": "Fucsia",
+        "imagenes": [
           {
             "anchos": [
               300,
@@ -38289,7 +38425,7 @@
             "base": "catalogo/a53f8d5acc5a6733"
           }
         ],
-        "sku": "CG34338"
+        "sku": "CG34338-fucsia"
       }
     ]
   },
@@ -39316,7 +39452,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-08-31",
     "categorias": [
       "mochila-infantil"
     ],
@@ -39330,7 +39466,7 @@
     "precio": 128000,
     "variantes": [
       {
-        "color": "Único",
+        "color": "Rosa",
         "imagenes": [
           {
             "anchos": [
@@ -39359,7 +39495,13 @@
               600
             ],
             "base": "catalogo/7b2c6dcf4f900c54"
-          },
+          }
+        ],
+        "sku": "8734218-rosa"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
           {
             "anchos": [
               300,
@@ -39368,7 +39510,7 @@
             "base": "catalogo/452263aac6df2d84"
           }
         ],
-        "sku": "8734218"
+        "sku": "8734218-negro"
       }
     ]
   },
