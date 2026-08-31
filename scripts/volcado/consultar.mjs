@@ -58,19 +58,15 @@ export const SQL = {
      ORDER BY v.producto_id, v.orden, v.id`,
 
   /**
-   * Pedidos especiales (SPEC.md §4.5). No lleva `PARAMS`: no tiene `estado`.
-   *
-   * Se traen TODAS las filas, activas e inactivas, igual que con los productos: el
-   * `activo: false` viaja al JSON y es el sitio el que filtra. Filtrarlo aca haria
-   * que apagar una ficha la borre del archivo comiteado en vez de marcarla, y el
-   * diff no diria que paso.
+   * Pedidos especiales (SPEC.md §4.5). No lleva `PARAMS`: la tabla no tiene `estado`
+   * ni `activo` — lo que esta cargado esta publicado, y la ficha que no va se borra.
    *
    * El JOIN a `imagenes` es INNER a proposito: `imagen_id` es NOT NULL con foreign
    * key, asi que una fila sin imagen es corrupcion referencial, no un caso a tolerar.
    * Si apareciera, `construirPedidosEspeciales` la denuncia por su slug.
    */
   pedidosEspeciales: `
-    SELECT pe.slug, pe.nombre, pe.descripcion, pe.orden, pe.activo,
+    SELECT pe.slug, pe.nombre, pe.descripcion, pe.orden,
            i.hash16, i.anchos
       FROM pedidos_especiales pe
       JOIN imagenes i ON i.id = pe.imagen_id

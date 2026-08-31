@@ -482,7 +482,8 @@ Surtido de modelos y colores a elección.",
 | `descripcion` | **sí** | Es el contenido de la ficha. Ver la asimetría abajo |
 | `imagen` | sí | Una sola: no hay colores que elegir |
 | `orden` | no (def. `999`) | Curaduría, mismo criterio que `categorias.json` (§4.3) |
-| `activo` | no (def. `true`) | Oculta sin borrar |
+
+**No hay `activo`, al revés que en un producto.** Lo que está cargado está publicado. Son unas pocas fichas manejadas a mano y la que no va se borra: no hay volumen que justifique una papelera ni un estado intermedio, y un flag para un caso que no existe es una condición que arrastran todas las consultas y todas las pantallas.
 
 #### Por qué es una colección aparte y no un flag sobre `productos`
 

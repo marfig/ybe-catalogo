@@ -1,0 +1,139 @@
+---
+/**
+ * Alta de un pedido especial (SPEC.md §4.5, SPEC-etapa2 §10.6).
+ *
+ * Pantalla propia y no un formulario al pie de la lista: con la lista vacia esa version
+ * se leia como un formulario suelto, sin forma de saber que arriba habia una lista de
+ * trabajo. Misma separacion que `/nuevo` respecto de `/productos`.
+ *
+ * El GUARDADO es un POST de formulario comun. El unico JavaScript es el de la foto —
+ * derivar w300/w600 en el canvas y subirlas—, que es lo unico que un formulario no
+ * puede hacer solo.
+ */
+import { env } from 'cloudflare:workers';
+
+import Panel from '../../layouts/Panel.astro';
+import { ejecutorD1 } from '../../lib/d1.ts';
+import { crearPedidoEspecial } from '../../lib/pedidos-especiales.ts';
+
+const ejecutar = ejecutorD1(env.DB);
+
+let error: string | null = null;
+
+/**
+ * Lo tipeado vuelve a la pantalla cuando el guardado falla.
+ *
+ * Sin esto, un error de validacion vacia el formulario y se pierde la descripcion
+ * entera, que es el campo que mas cuesta escribir de esta ficha.
+ */
+let previo = { nombre: '', descripcion: '', orden: '999', hash16: '' };
+
+if (Astro.request.method === 'POST') {
+  const datos = await Astro.request.formData();
+  const texto = (c: string) => String(datos.get(c) ?? '').trim();
+
+  previo = {
+    nombre: texto('nombre'),
+    descripcion: texto('descripcion'),
+    orden: texto('orden'),
+    hash16: texto('hash16'),
+  };
+
+  try {
+    const { slug } = await crearPedidoEspecial(
+      ejecutar,
+      {
+        nombre: previo.nombre,
+        descripcion: previo.descripcion,
+        // Un campo vacio cae al default de la columna, no a NaN.
+        orden: previo.orden === '' ? 999 : Number(previo.orden),
+        hash16: previo.hash16,
+      },
+      { ahora: new Date().toISOString() }
+    );
+
+    // A la lista, que es donde se ve el resultado del alta.
+    return Astro.redirect(
+      `/pedidos-especiales?hecho=${encodeURIComponent(
+        `Ficha creada en /pedidos-especiales/${slug}. Publicá para que salga al sitio.`
+      )}`,
+      303
+    );
+  } catch (e) {
+    // El mensaje va a pantalla tal cual: los de `pedidos-especiales.ts` estan escritos
+    // en castellano para que los lea quien opera, no un programador.
+    error = e instanceof Error ? e.message : String(e);
+  }
+}
+---
+
+<Panel titulo="Agregar pedido especial" volver="/pedidos-especiales">
+  <h1>Agregar ficha</h1>
+
+  {error ? <p class="resumen resumen--error" role="status">{error}</p> : null}
+
+  <form method="post" class="alta" data-formulario-pedido>
+    <fieldset class="lote">
+      <legend>Datos</legend>
+
+      <p class="campo">
+        <label for="nombre">Nombre *</label>
+        <input
+          id="nombre"
+          name="nombre"
+          required
+          value={previo.nombre}
+          placeholder="Mochilas escolares por cantidad"
+        />
+        <span class="nota">De acá sale la dirección, y una vez creada no cambia más.</span>
+      </p>
+
+      <p class="campo">
+        <label for="descripcion">Descripción *</label>
+        <textarea
+          id="descripcion"
+          name="descripcion"
+          rows="7"
+          required
+          placeholder={'Cantidad mínima: 12 unidades.\nSurtido de modelos y colores a elección.\nEntrega: 15 días.'}
+          >{previo.descripcion}</textarea
+        >
+        <span class="nota">
+          Es TODO lo que se ve al entrar a la ficha. Un renglón por dato: cantidad mínima,
+          materiales, plazos. Los saltos de línea se respetan en el sitio.
+        </span>
+      </p>
+
+      <p class="campo">
+        <label for="orden">Orden</label>
+        <input id="orden" name="orden" type="number" min="0" value={previo.orden} />
+        <span class="nota">Más chico, más arriba.</span>
+      </p>
+    </fieldset>
+
+    <fieldset class="lote" data-foto-pedido>
+      <legend>Foto *</legend>
+      <input type="hidden" name="hash16" value={previo.hash16} data-hash />
+      <p class="vista-previa" data-vista></p>
+      <p class="campo">
+        <input type="file" accept="image/*" data-archivo />
+        <span class="nota" data-estado>
+          Se recorta a un cuadrado centrado, igual que las de producto.
+        </span>
+      </p>
+    </fieldset>
+
+    <p class="pie-guardar">
+      <button type="submit">Crear ficha</button>
+      <span class="nota">Después hay que publicar para que salga al sitio.</span>
+    </p>
+  </form>
+</Panel>
+
+<script>
+  import { montarFotoDePedido } from '../../scripts/pedidos-especiales-cliente.ts';
+
+  for (const caja of document.querySelectorAll<HTMLElement>('[data-foto-pedido]')) {
+    montarFotoDePedido(caja);
+  }
+</script>

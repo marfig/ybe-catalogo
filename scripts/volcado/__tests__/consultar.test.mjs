@@ -503,7 +503,6 @@ function pedido(db, campos = {}) {
     nombre: `Pedido ${n}`,
     descripcion: 'Cantidad minima: 12 unidades.',
     orden: 10,
-    activo: 1,
     hash16: `${String(n).padStart(2, '0')}00000000000000`,
     anchos: '[300,600]',
     ...campos,
@@ -512,9 +511,9 @@ function pedido(db, campos = {}) {
   const imagenId = imagen(db, p.hash16, p.anchos);
   db.prepare(
     `INSERT INTO pedidos_especiales
-       (slug, nombre, descripcion, imagen_id, orden, activo, creado_en, actualizado_en)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
-  ).run(p.slug, p.nombre, p.descripcion, imagenId, p.orden, p.activo, AHORA, AHORA);
+       (slug, nombre, descripcion, imagen_id, orden, creado_en, actualizado_en)
+     VALUES (?, ?, ?, ?, ?, ?, ?)`
+  ).run(p.slug, p.nombre, p.descripcion, imagenId, p.orden, AHORA, AHORA);
   return p;
 }
 
@@ -541,7 +540,6 @@ test('el contrato de columnas de pedidos especiales, una por una', async () => {
 
   const filas = await consultarFilas(ejecutorSqlite(db));
   assert.deepEqual(Object.keys(filas.pedidosEspeciales[0]).sort(), [
-    'activo',
     'anchos',
     'descripcion',
     'hash16',
@@ -551,17 +549,18 @@ test('el contrato de columnas de pedidos especiales, una por una', async () => {
   ]);
 });
 
-test('las fichas apagadas SI se traen: el filtro es del sitio, no del volcado', async () => {
-  // Si el SQL las filtrara, apagar una ficha la BORRARIA del archivo comiteado en vez
-  // de marcarla, y el diff de la publicacion no diria que paso.
+test('la coleccion no tiene `activo`: lo cargado esta publicado', async () => {
+  // Decision de diseno, no un olvido: son unas pocas fichas manejadas a mano y la que
+  // no va se borra. Sin la columna, el volcado no puede publicar una ficha apagada por
+  // error ni omitir una que estaba prendida.
   const db = base();
-  pedido(db, { slug: 'apagada', activo: 0 });
+  pedido(db, { slug: 'una' });
 
   const filas = await consultarFilas(ejecutorSqlite(db));
   const armado = construirPedidosEspeciales(filas.pedidosEspeciales);
 
   assert.equal(armado.length, 1);
-  assert.equal(armado[0].activo, false);
+  assert.ok(!('activo' in armado[0]));
 });
 
 test('ida y vuelta: la fila de D1 llega a la forma que espera content.config.ts', async () => {

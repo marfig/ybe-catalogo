@@ -46,9 +46,10 @@ CREATE TABLE pedidos_especiales (
   -- Curaduria, mismo criterio que `categorias.json`: quien carga decide el orden.
   orden          INTEGER NOT NULL DEFAULT 999,
 
-  -- Oculta sin borrar, igual que `productos.activo`.
-  activo         INTEGER NOT NULL DEFAULT 1,
-
+  -- SIN `activo`, al reves que `productos`. No es un olvido: estas fichas siempre
+  -- estan publicadas. Son unas pocas, curadas a mano, y la que no va se borra — no
+  -- hay volumen que justifique una papelera ni un estado intermedio. Una columna
+  -- para un caso que no existe es una condicion mas que toda consulta arrastra.
   creado_en      TEXT    NOT NULL,
   actualizado_en TEXT    NOT NULL
 );

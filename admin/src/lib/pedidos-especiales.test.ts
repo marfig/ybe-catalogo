@@ -5,7 +5,6 @@ import { readFileSync } from 'node:fs';
 
 import {
   actualizarPedidoEspecial,
-  alternarActivo,
   crearPedidoEspecial,
   eliminarPedidoEspecial,
   hayErrores,
@@ -60,7 +59,6 @@ const datos = (extra: Partial<DatosPedidoEspecial> = {}): DatosPedidoEspecial =>
   descripcion: 'Cantidad mínima: 12 unidades.',
   hash16: HASH_A,
   orden: 10,
-  activo: true,
   ...extra,
 });
 
@@ -81,7 +79,7 @@ test('la descripcion es obligatoria: es la diferencia con un producto', () => {
 
 test('devuelve TODOS los errores de una vez, no el primero', () => {
   // Un formulario que revela un problema por intento se abandona en el tercero.
-  const errores = validar({ nombre: '', descripcion: '', hash16: 'x', orden: -1, activo: true });
+  const errores = validar({ nombre: '', descripcion: '', hash16: 'x', orden: -1 });
   assert.deepEqual(Object.keys(errores).sort(), ['descripcion', 'hash16', 'nombre', 'orden']);
 });
 
@@ -106,7 +104,6 @@ test('crear deriva el slug del nombre y guarda la ficha', async () => {
   const fila = leer(db, id);
   assert.equal(fila.nombre, 'Mochilas escolares por cantidad');
   assert.equal(fila.descripcion, 'Cantidad mínima: 12 unidades.');
-  assert.equal(fila.activo, 1);
   assert.equal(fila.actualizado_en, AHORA);
 });
 
@@ -184,7 +181,7 @@ test('actualizar cambia la foto, el orden y la descripcion', async () => {
 });
 
 // --------------------------------------------------------------------------
-// Listado, apagado y borrado
+// Listado y borrado
 // --------------------------------------------------------------------------
 
 test('el listado ordena por `orden` con el slug de desempate', async () => {
@@ -199,25 +196,23 @@ test('el listado ordena por `orden` con el slug de desempate', async () => {
   );
 });
 
-test('el listado trae `activo` como BOOLEANO, no como el 0/1 de la columna', async () => {
-  // En JSX un 0 crudo es un valor presente: `checked={0}` sale tildado.
+test('no hay `activo`: lo que está cargado está publicado', async () => {
+  /**
+   * La tabla NO tiene la columna, y es una decisión y no un olvido: son unas pocas
+   * fichas manejadas a mano, y la que no va se borra. Un flag para un caso que no
+   * existe es una condición que arrastran todas las consultas y todas las pantallas.
+   */
   const db = base();
-  await crearPedidoEspecial(ejecutor(db), datos({ activo: false }), { ahora: AHORA });
+  await crearPedidoEspecial(ejecutor(db), datos(), { ahora: AHORA });
 
   const [fila] = await listarPedidosEspeciales(ejecutor(db));
-  assert.equal(fila!.activo, false);
-});
+  assert.ok(!('activo' in fila!));
 
-test('apagar y volver a prender conserva la MISMA url', async () => {
-  const db = base();
-  const { id, slug } = await crearPedidoEspecial(ejecutor(db), datos(), { ahora: ANTES });
-
-  await alternarActivo(ejecutor(db), id, false, { ahora: AHORA });
-  assert.equal(leer(db, id).activo, 0);
-
-  await alternarActivo(ejecutor(db), id, true, { ahora: AHORA });
-  assert.equal(leer(db, id).activo, 1);
-  assert.equal(leer(db, id).slug, slug);
+  const columnas = db
+    .prepare('PRAGMA table_info(pedidos_especiales)')
+    .all()
+    .map((c) => (c as { name: string }).name);
+  assert.ok(!columnas.includes('activo'));
 });
 
 test('borrar la ficha NO borra su imagen', async () => {

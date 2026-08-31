@@ -77,7 +77,12 @@ const pedidosEspeciales = defineCollection({
 
     // Mismo criterio que `categorias`: el orden lo decide quien edita el archivo.
     orden: z.number().int().nonnegative().default(999),
-    activo: z.boolean().default(true),
+
+    /*
+      SIN `activo`, al reves que `productos`. Estas fichas siempre estan publicadas:
+      son unas pocas, curadas a mano, y la que no va se borra. Un flag para un caso
+      que no existe es una condicion mas que arrastra cada consulta y cada pantalla.
+    */
   }),
 });
 

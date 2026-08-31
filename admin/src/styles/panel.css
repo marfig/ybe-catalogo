@@ -1372,10 +1372,10 @@ button.peligro {
    Pedidos especiales (SPEC.md 4.5)
 
    Una lista de tarjetas y no una tabla como la grilla de productos, y no es
-   preferencia: son una decena de filas con una foto, un titulo y un parrafo
-   largo. Una tabla con una celda de descripcion de 200 caracteres se trunca a
-   algo inutil o revienta el alto de la fila — el mismo problema que la grilla
-   de productos resolvio sacando la descripcion de la celda.
+   preferencia: son una decena de filas con una foto, un titulo y la primera
+   linea de un parrafo largo. Una tabla con una celda de descripcion se trunca a
+   algo inutil o revienta el alto de la fila — el mismo problema que la grilla de
+   productos resolvio sacando la descripcion de la celda.
    -------------------------------------------------------------------------- */
 .pe-intro {
   margin-bottom: 1.5rem;
@@ -1393,23 +1393,27 @@ button.peligro {
   background: var(--superficie);
   border: 1px solid var(--borde);
   border-radius: var(--radio);
-  padding: var(--hueco);
 }
 
 /**
- * Una ficha oculta se ve APAGADA, no tachada ni roja.
+ * LA FILA ENTERA ES EL ENLACE a la pantalla de edicion.
  *
- * No es un error ni una baja: es una decision deliberada de quien carga. El gris
- * dice "no esta en el sitio" sin dar a entender que hay algo que arreglar.
+ * Con un boton «Editar» al costado, el resto de la fila —la foto y el nombre, que
+ * es donde se hace clic cuando se quiere abrir algo— queda muerto. `padding` en
+ * el enlace y no en el `li` para que el area de click llegue hasta el borde.
  */
-.ficha--apagada {
-  opacity: 0.55;
-}
-
 .ficha-fila {
   display: flex;
   align-items: center;
   gap: var(--hueco);
+  padding: var(--hueco);
+  color: inherit;
+  text-decoration: none;
+  border-radius: var(--radio);
+}
+
+.ficha-fila:hover {
+  background: var(--fondo);
 }
 
 .ficha-fila img {
@@ -1421,28 +1425,37 @@ button.peligro {
 }
 
 /* `min-width: 0` para que un nombre largo pueda encogerse en vez de empujar el
-   boton fuera de la fila. */
+   indicador fuera de la fila. */
 .ficha-datos {
   display: flex;
   flex-direction: column;
   min-width: 0;
 }
 
-/* Contra el borde derecho, lejos del contenido que describe. */
-.ficha-acciones {
+/* La primera linea de la descripcion se recorta: es para reconocer la ficha, no
+   para leerla. */
+.ficha-datos .nota {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ficha-ir {
   margin-left: auto;
   flex: none;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--texto-suave);
 }
 
-.ficha-editar {
-  margin-top: 0.75rem;
-  border-top: 1px solid var(--borde);
-  padding-top: 0.75rem;
+.vista-previa {
+  margin: 0 0 var(--hueco);
 }
 
-.ficha-editar > summary {
-  cursor: pointer;
-  font-size: 0.875rem;
+/* En el alta la vista previa arranca vacia: sin esto deja un hueco de margen
+   arriba del selector de archivo que se lee como un elemento que no cargo. */
+.vista-previa:empty {
+  display: none;
 }
 
 .vista-previa img {
@@ -1453,19 +1466,20 @@ button.peligro {
 }
 
 /**
- * El borrado, separado del resto y en rojo.
+ * El borrado, separado del formulario y en rojo.
  *
- * Ocultar es reversible y devuelve la misma URL; esto deja la direccion en 404
- * para quien la tenga guardada en un chat. El color y la distancia son lo que
- * evita que se aprieten los dos como si fueran alternativas del mismo peso.
+ * `pe-` en el nombre A PROPOSITO: `.peligro` ya existe como modificador de
+ * `.boton-enlace`, y una regla suelta con ese nombre le impondria un margen y un
+ * borde superior a cada uso que ya hay en el panel.
  */
-.peligro {
-  margin-top: 1.5rem;
+.pe-peligro {
+  margin-top: 2rem;
   border-top: 1px solid var(--borde);
-  padding-top: 0.75rem;
+  padding-top: var(--hueco);
 }
 
-.peligro button {
+.pe-peligro button {
+  background: var(--superficie);
   border-color: var(--peligro);
   color: var(--peligro);
 }

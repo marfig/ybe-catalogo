@@ -1366,13 +1366,22 @@ Para cargarla desde el panel el dato tiene que vivir en D1: el admin corre en
 Cloudflare y **no tiene filesystem**, así que no hay forma de que edite un
 archivo del repo. La tabla es `pedidos_especiales` (migración `0006`).
 
-**Una sola pantalla**, a diferencia de productos, que tiene grilla (§10.3) y
-ficha (§10.4) por separado. Son una decena de entradas: mandar a abrir y cerrar
-una página por edición es el viaje que no se justifica con ese volumen. Cada
-ficha lleva su formulario dentro de un `<details>` plegado.
+**Tres pantallas**, igual que productos: la lista en `/pedidos-especiales`, el
+alta en `/pedidos-especiales/nuevo` y la edición en `/pedidos-especiales/[slug]`.
 
-**Lista arriba, alta abajo**, al revés que la mayoría de los ABM. Lo que se hace
-seguido es revisar y corregir lo cargado; dar de alta pasa cada varios meses.
+La primera versión metía los dos formularios dentro de la lista, y se probó que
+estaba mal: con la lista vacía la pantalla se leía como un formulario suelto, sin
+forma de saber que arriba había una lista de trabajo. Un formulario plantado
+debajo de una lista compite con ella por la atención.
+
+**La edición se direcciona por `slug` y no por `id`.** La URL del admin dice qué
+se está editando, y es el mismo identificador que ve el cliente en el sitio; con
+el autoincremental, un enlace guardado apuntaría a otra ficha si la base se
+recrea.
+
+**Toda la fila de la lista es el enlace** a la edición. Con un botón «Editar» al
+costado, la foto y el nombre —que es donde se hace clic cuando se quiere abrir
+algo— quedan muertos.
 
 | Campo | Regla |
 |---|---|
@@ -1380,16 +1389,21 @@ seguido es revisar y corregir lo cargado; dar de alta pasa cada varios meses.
 | Descripción | **Obligatoria.** Es todo el contenido de la ficha (`SPEC.md` §4.5) |
 | Foto | Obligatoria, una sola. Mismo recorte cuadrado y mismo pipeline que §8.3 |
 | Orden | Curaduría. Más chico, más arriba |
-| Visible | Oculta sin borrar |
 
 **El slug es inmutable**, igual que el de un producto (`SPEC.md` §6.7) y por la
 misma razón: estas fichas se comparten por WhatsApp, que es el único canal de
 venta. Renombrar cambia el nombre, nunca la URL. La pantalla muestra el slug
 junto al nombre para que eso se entienda sin leer documentación.
 
-**Ocultar y eliminar no son alternativas del mismo peso.** Ocultar es reversible
-y devuelve la misma URL; eliminar la deja en 404 para quien la tenga guardada en
-un chat. Por eso el borrado va separado, al final del formulario y en rojo.
+**No hay ocultar: eliminar elimina.** No existe la columna `activo`, ni papelera,
+ni confirmación aparte como la de productos (§12.2). Son unas pocas fichas
+manejadas a mano y pedir una confirmación por cada una es ceremonia.
+
+Lo que sí hay es **fricción por ubicación**: el borrado vive en la pantalla de
+edición y no en la lista. Ahí ya se está mirando la ficha que se borra, en vez de
+errarle a una fila entre diez. Va fuera del `<form>` de edición —dos botones de
+submit en el mismo formulario se aprietan por error, y uno de los dos no tiene
+vuelta— separado, al final y en rojo.
 
 **La imagen no se borra con la ficha.** Puede estar compartida con un producto
 —el dedupe de `guardarImagen` es por contenido—, así que borrarla dejaría un

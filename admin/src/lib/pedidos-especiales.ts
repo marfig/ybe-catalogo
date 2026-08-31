@@ -22,8 +22,6 @@ export interface PedidoEspecial {
   /** hash16 de la imagen, ya subida por `/api/imagenes`. */
   hash16: string;
   orden: number;
-  /** BOOLEANO, aunque la columna sea INTEGER: en JSX un 0 crudo es un valor presente. */
-  activo: boolean;
   actualizado_en: string;
 }
 
@@ -33,7 +31,6 @@ export interface DatosPedidoEspecial {
   /** hash16 de la imagen ya subida. */
   hash16: string;
   orden: number;
-  activo: boolean;
 }
 
 export type Errores = Partial<Record<keyof DatosPedidoEspecial, string>>;
@@ -80,15 +77,39 @@ export function hayErrores(errores: Errores): boolean {
 
 /** Filas para la pantalla del admin, en el mismo orden en que se ven en el sitio. */
 export async function listarPedidosEspeciales(ejecutar: Ejecutar): Promise<PedidoEspecial[]> {
-  const filas = await ejecutar<Omit<PedidoEspecial, 'activo'> & { activo: number }>(
-    `SELECT pe.id, pe.slug, pe.nombre, pe.descripcion, pe.orden, pe.activo,
+  return ejecutar<PedidoEspecial>(
+    `SELECT pe.id, pe.slug, pe.nombre, pe.descripcion, pe.orden,
             pe.actualizado_en, i.hash16
        FROM pedidos_especiales pe
        JOIN imagenes i ON i.id = pe.imagen_id
       ORDER BY pe.orden, pe.slug`
   );
+}
 
-  return filas.map((f) => ({ ...f, activo: f.activo === 1 }));
+/**
+ * Una ficha por su slug. `null` si no existe.
+ *
+ * POR SLUG Y NO POR ID: es lo que va en la URL de la pantalla de edición, y es el
+ * mismo identificador que ve el cliente en el sitio. Con el `id` autoincremental, la
+ * dirección del admin no diría nada de qué se está editando, y un enlace guardado
+ * apuntaría a otra ficha si la base se recrea.
+ *
+ * Devuelve `null` en vez de lanzar: un slug inexistente es una URL vieja o mal tipeada
+ * —un caso normal— y la pantalla lo resuelve con un 404 propio, no con un error.
+ */
+export async function buscarPorSlug(
+  ejecutar: Ejecutar,
+  slug: string
+): Promise<PedidoEspecial | null> {
+  const [fila] = await ejecutar<PedidoEspecial>(
+    `SELECT pe.id, pe.slug, pe.nombre, pe.descripcion, pe.orden,
+            pe.actualizado_en, i.hash16
+       FROM pedidos_especiales pe
+       JOIN imagenes i ON i.id = pe.imagen_id
+      WHERE pe.slug = ?`,
+    [slug]
+  );
+  return fila ?? null;
 }
 
 /**
@@ -137,19 +158,10 @@ export async function crearPedidoEspecial(
 
   const [fila] = await ejecutar<{ id: number }>(
     `INSERT INTO pedidos_especiales
-       (slug, nombre, descripcion, imagen_id, orden, activo, creado_en, actualizado_en)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+       (slug, nombre, descripcion, imagen_id, orden, creado_en, actualizado_en)
+     VALUES (?, ?, ?, ?, ?, ?, ?)
      RETURNING id`,
-    [
-      slug,
-      datos.nombre.trim(),
-      datos.descripcion.trim(),
-      imagenId,
-      datos.orden,
-      datos.activo ? 1 : 0,
-      ahora,
-      ahora,
-    ]
+    [slug, datos.nombre.trim(), datos.descripcion.trim(), imagenId, datos.orden, ahora, ahora]
   );
 
   return { id: fila!.id, slug };
@@ -177,36 +189,9 @@ export async function actualizarPedidoEspecial(
 
   await ejecutar(
     `UPDATE pedidos_especiales
-        SET nombre = ?, descripcion = ?, imagen_id = ?, orden = ?, activo = ?, actualizado_en = ?
+        SET nombre = ?, descripcion = ?, imagen_id = ?, orden = ?, actualizado_en = ?
       WHERE id = ?`,
-    [
-      datos.nombre.trim(),
-      datos.descripcion.trim(),
-      imagenId,
-      datos.orden,
-      datos.activo ? 1 : 0,
-      ahora,
-      id,
-    ]
-  );
-}
-
-/**
- * Prende o apaga una ficha sin abrir el formulario.
- *
- * Apagar es la salida NO destructiva: la fila queda, el slug queda, y volver a
- * prenderla restituye la misma URL. Es lo que hay que ofrecer primero — borrar deja la
- * URL en 404 y no tiene vuelta.
- */
-export async function alternarActivo(
-  ejecutar: Ejecutar,
-  id: number,
-  activo: boolean,
-  { ahora }: { ahora: string }
-): Promise<void> {
-  await ejecutar(
-    `UPDATE pedidos_especiales SET activo = ?, actualizado_en = ? WHERE id = ?`,
-    [activo ? 1 : 0, ahora, id]
+    [datos.nombre.trim(), datos.descripcion.trim(), imagenId, datos.orden, ahora, id]
   );
 }
 

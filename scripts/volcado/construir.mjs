@@ -280,10 +280,6 @@ export function construirPedidosEspeciales(filas = []) {
       orden: f.orden ?? 999,
     };
 
-    // Se omite la clave que iguala su default de Zod, misma regla que en productos
-    // (SPEC §6.5): mantiene el diff de git legible.
-    if (!aBool(f.activo)) pedido.activo = false;
-
     salida.push(pedido);
   }
 
