@@ -5227,6 +5227,93 @@
     ]
   },
   {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Medidas aprox (alto x largo x ancho):\t25 x 40 x 20 cm",
+    "id": "bolso-de-viaje-2",
+    "nombre": "bolso de viaje",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "0031685"
+    },
+    "precio": 129000,
+    "variantes": [
+      {
+        "color": "*(o1) Nara/gris O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d8c8b8744d3699ff"
+          }
+        ],
+        "sku": "0031685-o1-nara-gris-o"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 20 x 41 x 21 cm",
+    "id": "bolso-de-viaje-3",
+    "nombre": "bolso de viaje",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "0035612"
+    },
+    "precio": 108000,
+    "variantes": [
+      {
+        "color": "(1-18) Gris Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c83b954af2fec038"
+          }
+        ],
+        "sku": "0035612-1-18-gris-osc"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 47 x 20 cm",
+    "id": "bolso-de-viaje-4",
+    "nombre": "Bolso de viaje",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "0060017"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Naranj/lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/73aa4c621c3e9445"
+          }
+        ],
+        "sku": "0060017-O8"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-13",
     "categorias": [
       "bolsos"
@@ -24951,6 +25038,251 @@
           }
         ],
         "sku": "0031480-O3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho):\t43 x 33 x 22 cm",
+    "id": "mochila-11",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "0031686"
+    },
+    "precio": 129000,
+    "variantes": [
+      {
+        "color": "Lila/naranj",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5d8c790b78adac52"
+          }
+        ],
+        "sku": "0031686-8O"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 47 x 30 x 20 cm",
+    "id": "mochila-12",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "0031688"
+    },
+    "precio": 126000,
+    "variantes": [
+      {
+        "color": "Naranja/lil",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a87db73de89f2ed3"
+          }
+        ],
+        "sku": "0031688-O8"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45 x 32 x 16 cm",
+    "id": "mochila-13",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "0031689"
+    },
+    "precio": 126000,
+    "variantes": [
+      {
+        "color": "*(7o) Turquesa/na",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e3bb09a382c96692"
+          }
+        ],
+        "sku": "0031689-7o-turquesa-na"
+      },
+      {
+        "color": "*(o8) Naranja/lil",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4104d595e32d4ca2"
+          }
+        ],
+        "sku": "0031689-o8-naranja-lil"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45 x 32 x 16 cm",
+    "id": "mochila-14",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "0031690"
+    },
+    "precio": 126000,
+    "variantes": [
+      {
+        "color": "*(o8) Naranja/lil",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4959d777f1da847f"
+          }
+        ],
+        "sku": "0031690-o8-naranja-lil"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 32 x 15 cm",
+    "id": "mochila-15",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "0031714"
+    },
+    "precio": 126000,
+    "variantes": [
+      {
+        "color": "*(3o) Negro/naran",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6ba508235797ee93"
+          }
+        ],
+        "sku": "0031714-3o-negro-naran"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45 x 31 x 15 cm",
+    "id": "mochila-16",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "0031715"
+    },
+    "precio": 126000,
+    "variantes": [
+      {
+        "color": "*(3o) Negro/naran",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/269a4faf3269dce2"
+          }
+        ],
+        "sku": "0031715-3o-negro-naran"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 46 x 32 x 15 cm",
+    "id": "mochila-17",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "0031716"
+    },
+    "precio": 126000,
+    "variantes": [
+      {
+        "color": "*(3o) Negro/naran",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bf520c5592bea072"
+          }
+        ],
+        "sku": "0031716-3o-negro-naran"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-08-31",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45 x 31 x 15 cm",
+    "id": "mochila-18",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "0031717"
+    },
+    "precio": 126000,
+    "variantes": [
+      {
+        "color": "*(3o) Negro/naran",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/706d9d7fbcf4e735"
+          }
+        ],
+        "sku": "0031717-3o-negro-naran"
       }
     ]
   },
