@@ -39,7 +39,7 @@ if (Astro.request.method === 'POST') {
   };
 
   try {
-    const { slug } = await crearPedidoEspecial(
+    await crearPedidoEspecial(
       ejecutar,
       // Sin `orden`: la ficha nueva va al final de la lista, y desde ahi se mueve
       // con las flechas. Ver `crearPedidoEspecial`.
@@ -47,10 +47,14 @@ if (Astro.request.method === 'POST') {
       { ahora: new Date().toISOString() }
     );
 
-    // A la lista, que es donde se ve el resultado del alta.
+    /*
+      A la lista, que es donde se ve el resultado del alta. El mensaje nombra la ficha y
+      NO su ruta: quien carga acaba de escribir ese nombre y lo reconoce, y la ruta no
+      le dice nada en el momento de crearla.
+    */
     return Astro.redirect(
       `/pedidos-especiales?hecho=${encodeURIComponent(
-        `Ficha creada en /pedidos-especiales/${slug}. Publicá para que salga al sitio.`
+        `«${previo.nombre}» creada. Publicá para que salga al sitio.`
       )}`,
       303
     );
@@ -79,7 +83,10 @@ if (Astro.request.method === 'POST') {
           value={previo.nombre}
           placeholder="Mochilas escolares por cantidad"
         />
-        <span class="nota">De acá sale la dirección, y una vez creada no cambia más.</span>
+        <span class="nota">
+          De acá sale el enlace de la ficha, y una vez creada no cambia más — así lo que
+          compartas por WhatsApp sigue funcionando aunque después le cambies el nombre.
+        </span>
       </p>
 
       <p class="campo">

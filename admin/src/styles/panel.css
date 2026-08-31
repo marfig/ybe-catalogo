@@ -1528,3 +1528,46 @@ button.peligro {
   object-fit: contain;
   background: #fff;
 }
+
+/**
+ * El dialogo de confirmacion de borrado.
+ *
+ * Misma forma que `.ayuda-modal` —el otro `<dialog>` del panel— pero angosto: acá no
+ * hay contenido que leer, hay una decision que tomar. Un modal ancho para una pregunta
+ * de dos botones hace buscar los botones.
+ */
+.dialogo {
+  width: min(92vw, 26rem);
+  background: var(--superficie);
+  color: var(--texto);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 1.25rem;
+}
+
+/* El fondo lo pinta el pseudo-elemento del <dialog>, no un div propio. */
+.dialogo::backdrop {
+  background: rgb(0 0 0 / 45%);
+}
+
+.dialogo h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.dialogo p {
+  margin: 0 0 0.5rem;
+}
+
+/**
+ * Los botones a la DERECHA y con el destructivo al final.
+ *
+ * El ultimo lugar es el mas lejos del recorrido de lectura, y `Cancelar` se lleva el
+ * foco inicial: quien apreta Enter sin leer cancela, que es lo que se quiere que pase.
+ */
+.dialogo-acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin: 1.25rem 0 0;
+}

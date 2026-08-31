@@ -65,7 +65,9 @@ const miniatura = urlMiniatura(R2, pedido.hash16, 300);
 
 <Panel titulo={pedido.nombre} volver="/pedidos-especiales" volverTexto="Pedidos especiales">
   {/* Sin `<h1>` propio: el nombre ya lo rinde el encabezado del panel. */}
-  <p class="nota">/pedidos-especiales/{pedido.slug}</p>
+  {/* La ruta ROTULADA y no suelta: sin el rotulo es una linea de texto tecnico que no
+      se sabe para que esta. Con el, es el dato que se copia para mandar por WhatsApp. */}
+  <p class="nota">Enlace de la ficha: /pedidos-especiales/{pedido.slug}</p>
 
   {error ? <p class="resumen resumen--error" role="status">{error}</p> : null}
 
@@ -81,7 +83,8 @@ const miniatura = urlMiniatura(R2, pedido.hash16, 300);
         {/* La regla dicha donde se puede desobedecer: acá es donde alguien esperaría
             que renombrar mueva la URL (SPEC.md §6.7). */}
         <span class="nota">
-          Cambiarlo NO cambia la dirección: sigue siendo /pedidos-especiales/{pedido.slug}.
+          Podés cambiarlo cuando quieras. El enlace de la ficha no se mueve, así que lo que
+          ya compartiste por WhatsApp sigue funcionando.
         </span>
       </p>
 

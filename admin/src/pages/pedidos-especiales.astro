@@ -65,7 +65,7 @@ if (Astro.request.method === 'POST') {
       const ficha = pedidosPrevios.find((p) => p.id === id);
       await eliminarPedidoEspecial(ejecutar, id);
       hecho = ficha
-        ? `«${ficha.nombre}» eliminada. Al publicar, su dirección queda en 404.`
+        ? `«${ficha.nombre}» eliminada. Cuando publiques, su enlace deja de abrir.`
         : 'Ficha eliminada.';
     } else if (accion.startsWith('subir-') || accion.startsWith('bajar-')) {
       const [direccion, crudo] = accion.split('-');
@@ -116,8 +116,8 @@ const adelanto = (descripcion: string) => descripcion.split('\n')[0] ?? '';
     {
       pedidos.length === 0 ? (
         <p class="nota">
-          Todavía no cargaste ninguna. Las que cargues aparecen acá, con su foto y su
-          dirección, y desde esta misma lista las ordenás, las editás o las eliminás.
+          Todavía no cargaste ninguna. Las que cargues aparecen acá con su foto, y desde
+          esta misma lista las ordenás, las editás o las eliminás.
         </p>
       ) : (
         <form method="post">
@@ -176,7 +176,17 @@ const adelanto = (descripcion: string) => descripcion.split('\n')[0] ?? '';
                     </button>
                   </span>
 
-                  <button class="boton-fantasma" name="accion" value={`eliminar-${p.id}`}>
+                  {/*
+                    `data-eliminar` lleva el nombre para que la confirmacion pueda
+                    NOMBRAR la ficha. Un «¿estás seguro?» pelado es la advertencia que
+                    todo el mundo aprendio a aceptar sin leer.
+                  */}
+                  <button
+                    class="boton-fantasma"
+                    name="accion"
+                    value={`eliminar-${p.id}`}
+                    data-eliminar={p.nombre}
+                  >
                     Eliminar
                   </button>
                 </div>
@@ -188,4 +198,98 @@ const adelanto = (descripcion: string) => descripcion.split('\n')[0] ?? '';
       )
     }
   </section>
+
+  {/*
+    UN SOLO dialogo para toda la lista, no uno por fila: lo unico que cambia entre una
+    ficha y otra es el nombre, y diez dialogos serian diez copias del mismo marcado
+    esperando a que se abra uno.
+
+    `<dialog>` nativo y no un div con `position: fixed`: trae gratis el foco atrapado
+    adentro, el cierre con Escape, el backdrop y el rol de dialogo modal para lectores
+    de pantalla. Reimplementar eso a mano se hace mal casi siempre.
+
+    Se rinde SIEMPRE y cerrado —un `<dialog>` sin `open` no ocupa lugar ni se ve— para
+    que el script no tenga que crear marcado.
+  */}
+  <dialog class="dialogo" data-dialogo-eliminar>
+    <form method="dialog">
+      <h2>¿Eliminar esta ficha?</h2>
+      <p><strong data-nombre></strong></p>
+      {/*
+        SIN «404» NI «URL»: esto lo lee quien vende, no quien programa. Lo que tiene que
+        entender es la consecuencia concreta —el enlace que mandó por WhatsApp deja de
+        abrir—, y eso se dice con las palabras de su trabajo.
+      */}
+      <p class="nota">
+        Esto no se puede deshacer. Si compartiste el enlace de esta ficha por WhatsApp,
+        cuando publiques va a dejar de abrir.
+      </p>
+      <p class="dialogo-acciones">
+        {/*
+          CANCELAR PRIMERO y con `autofocus`: es la salida segura, y el `<dialog>` abre
+          con el foco en el primer control. Quien apreta Enter sin leer cancela, que es
+          lo que se quiere que pase.
+
+          `value` de cada boton: `method="dialog"` lo deja en `dialog.returnValue`, que
+          es como el script sabe cual se apreto sin escuchar dos clicks distintos.
+        */}
+        <button value="cancelar" autofocus>Cancelar</button>
+        <button class="boton-fantasma" value="eliminar">Sí, eliminar</button>
+      </p>
+    </form>
+  </dialog>
 </Panel>
+
+<script>
+  /**
+   * Confirmar antes de borrar, con el `<dialog>` de la pagina.
+   *
+   * NO `confirm()`: es una caja del navegador que no se puede estilar, que en algunos
+   * navegadores trae el nombre del sitio adelante y que bloquea el hilo. Un `<dialog>`
+   * se ve como el resto del panel y nombra la ficha con el mismo tipo de letra.
+   *
+   * El listener va en el `<form>` de la lista con delegacion y no uno por boton: la
+   * lista se rinde entera en cada request, asi que no hay nada que reenganchar.
+   *
+   * SI EL SCRIPT NO CARGA el formulario sigue funcionando y borra sin preguntar. La
+   * confirmacion es una red contra el clic errado, no el mecanismo del borrado.
+   */
+  const dialogo = document.querySelector<HTMLDialogElement>('[data-dialogo-eliminar]');
+  const lista = document.querySelector<HTMLFormElement>('form:not([method="dialog"])');
+
+  if (dialogo && lista) {
+    /** El boton que disparo el dialogo. Se guarda para poder reenviarlo al confirmar. */
+    let pedido: HTMLButtonElement | null = null;
+
+    lista.addEventListener('click', (evento) => {
+      const boton = (evento.target as HTMLElement)?.closest<HTMLButtonElement>('[data-eliminar]');
+      if (!boton) return;
+
+      // Se frena SIEMPRE: el envio lo decide el dialogo.
+      evento.preventDefault();
+      pedido = boton;
+
+      const nombre = dialogo.querySelector('[data-nombre]');
+      if (nombre) nombre.textContent = boton.dataset.eliminar ?? '';
+      dialogo.showModal();
+    });
+
+    /**
+     * `close` y no un `click` en el boton: lo dispara tambien Escape y el click en el
+     * backdrop, asi que el estado se limpia por todos los caminos de salida y no solo
+     * por el que se penso.
+     */
+    dialogo.addEventListener('close', () => {
+      const boton = pedido;
+      pedido = null;
+      if (dialogo.returnValue !== 'eliminar' || !boton) return;
+
+      /*
+        `requestSubmit(boton)` y no `lista.submit()`: el segundo NO manda el `name` y el
+        `value` del boton, que es justamente donde viaja que ficha se borra. Ademas
+        `requestSubmit` no vuelve a disparar el click, asi que no hay bucle.
+      */
+      boton.form?.requestSubmit(boton);
+    });
+  }
+</script>
