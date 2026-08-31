@@ -10,6 +10,7 @@ import {
   type Imagen,
 } from '../../lib/imagenes.ts';
 import { urlDeFormulario } from '../../lib/pedido.ts';
+import { urlPoster, urlVideo, type Video } from '../../lib/video.ts';
 import { construirEnlaceWa } from '../../lib/whatsapp.ts';
 import IconoWhatsApp from '../IconoWhatsApp.tsx';
 import SinFoto from '../SinFoto.tsx';
@@ -23,6 +24,17 @@ export interface VarianteIsla {
 
 interface Props {
   nombre: string;
+  /**
+   * El video del producto, si tiene. Entra a la galeria como un item mas.
+   *
+   * PROP APARTE Y NO DENTRO DE `variantes`, y eso es lo que sostiene la invariante de
+   * la foto de portada: og:image, el JSON-LD, la miniatura de la grilla y el indice de
+   * busqueda leen `variantes[0].imagenes[0]`. El video se ve JUNTO a las fotos pero no
+   * vive entre ellas, asi que no hay forma de que se cuele en ese arbol.
+   *
+   * Es del PRODUCTO, no de la variante: se ve igual con cualquier color.
+   */
+  video?: Video | undefined;
   /** Slug del producto. Identifica la ficha en el enlace al formulario de pedido. */
   slug: string;
   /** URL canonica absoluta. Va SIEMPRE en el mensaje de WhatsApp (SPEC §9.7). */
@@ -48,6 +60,7 @@ interface Props {
  */
 export default function SelectorVariante({
   nombre,
+  video,
   slug,
   url,
   variantes,
@@ -154,11 +167,22 @@ export default function SelectorVariante({
   if (!variante) return null;
 
   const imagenes = variante.imagenes;
-  const imagen = imagenes[iImagen] ?? imagenes[0];
 
-  /** Moverse entre las fotos de ESTE color. Da la vuelta en los extremos. */
+  /**
+   * La galeria son las fotos de este color MAS el video, si hay. El video va ultimo y
+   * ocupa el indice `imagenes.length`.
+   *
+   * Un solo indice para las dos cosas —y no un estado `viendoVideo` aparte— porque son
+   * una sola seleccion: elegir el video es dejar de ver una foto. Con dos estados habria
+   * combinaciones imposibles que alguien tendria que mantener sincronizadas.
+   */
+  const cuantos = imagenes.length + (video ? 1 : 0);
+  const viendoVideo = video != null && iImagen === imagenes.length;
+  const imagen = viendoVideo ? undefined : (imagenes[iImagen] ?? imagenes[0]);
+
+  /** Moverse entre los items de ESTE color. Da la vuelta en los extremos. */
   function mover(paso: 1 | -1) {
-    setIImagen((i) => fotoVecina(i, imagenes.length, paso));
+    setIImagen((i) => fotoVecina(i, cuantos, paso));
   }
 
   /**
@@ -237,7 +261,32 @@ export default function SelectorVariante({
 
   return (
     <div class="flex flex-col gap-4">
-      {imagen ? (
+      {viendoVideo && video ? (
+        /**
+         * SIN LUPA Y SIN VISOR SOBRE EL VIDEO, a proposito.
+         *
+         * La lupa amplia pixeles de una foto quieta; sobre un video que ademas tiene sus
+         * propios controles, seria un vidrio persiguiendo al cursor por encima del boton
+         * de play. Y el visor a pantalla completa ya lo da el reproductor del navegador.
+         *
+         * Mientras el video se renderizaba fuera de esta isla no habia nada que apagar.
+         * Entrando al carrusel, si.
+         */
+        <div class="bg-superficie border-borde overflow-hidden rounded border">
+          <video
+            src={urlVideo(r2Base, video)}
+            poster={urlPoster(r2Base, video)}
+            width={video.ancho}
+            height={video.alto}
+            preload="metadata"
+            controls
+            playsinline
+            class="max-h-[70vh] w-full object-contain"
+          >
+            Tu navegador no puede reproducir este video.
+          </video>
+        </div>
+      ) : imagen ? (
         <div
           ref={caja}
           class={`bg-superficie border-borde relative overflow-hidden rounded border ${
@@ -342,14 +391,19 @@ export default function SelectorVariante({
         <SinFoto />
       )}
 
-      {imagenes.length > 1 && (
+      {/*
+        La tira aparece con DOS items, no con dos fotos. El 98,3% de las variantes del
+        catalogo tiene una sola foto, asi que hasta ahora casi nunca se veia; con un
+        video, esa mayoria pasa a tener exactamente dos: la foto y el video.
+      */}
+      {cuantos > 1 && (
         <ul class="flex gap-2">
           {imagenes.map((img, i) => (
             <li key={img.base}>
               <button
                 type="button"
                 onClick={() => setIImagen(i)}
-                aria-label={`Ver imagen ${i + 1} de ${imagenes.length}`}
+                aria-label={`Ver imagen ${i + 1} de ${cuantos}`}
                 aria-current={i === iImagen}
                 class={`bg-superficie h-16 w-16 overflow-hidden rounded border ${
                   i === iImagen ? 'border-primario' : 'border-borde'
@@ -366,6 +420,43 @@ export default function SelectorVariante({
               </button>
             </li>
           ))}
+
+          {video && (
+            <li key="video">
+              <button
+                type="button"
+                onClick={() => setIImagen(imagenes.length)}
+                aria-label="Ver el video del producto"
+                aria-current={viendoVideo}
+                class={`bg-superficie relative h-16 w-16 overflow-hidden rounded border ${
+                  viendoVideo ? 'border-primario' : 'border-borde'
+                }`}
+              >
+                {/* El poster, que es un cuadro del propio video: la miniatura muestra lo
+                    que se va a ver y no un icono generico. */}
+                <img
+                  src={urlPoster(r2Base, video)}
+                  width={300}
+                  height={300}
+                  alt=""
+                  loading="lazy"
+                  class="h-full w-full object-contain"
+                />
+                {/* El triangulo es lo unico que distingue esta miniatura de una foto.
+                    Sin el, la del video se lee como una foto mas y nadie la toca. */}
+                <span
+                  class="absolute inset-0 flex items-center justify-center"
+                  aria-hidden="true"
+                >
+                  <span class="bg-superficie/90 border-borde text-texto rounded-full border p-1.5">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </span>
+                </span>
+              </button>
+            </li>
+          )}
         </ul>
       )}
 

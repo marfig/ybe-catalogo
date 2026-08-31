@@ -7,7 +7,6 @@ import Precio from '../../components/Precio.astro';
 import SelectorVariante from '../../components/islas/SelectorVariante.tsx';
 import { urlImagenAbsoluta } from '../../lib/imagenes.ts';
 import { urlCanonica } from '../../lib/seo.ts';
-import { urlPoster, urlVideo } from '../../lib/video.ts';
 import { LEYENDA_PRECIO, COMERCIO, MARCA } from '../../lib/sitio.ts';
 import { normalizarTelefono } from '../../lib/whatsapp.ts';
 import {
@@ -138,6 +137,15 @@ if (precio !== null && inicial) {
     {/*
       client:visible: la ficha es funcional sin JS porque la isla se renderiza
       en el servidor con la primera variante (SPEC §9.6).
+
+      EL VIDEO VA EN LA GALERIA Y NO EN UN BLOQUE APARTE. Suelto debajo de la
+      descripcion se leia como un apendice, y partia en dos el lugar donde se mira el
+      producto: las fotos arriba y el video abajo del precio.
+
+      Viaja como PROP y no dentro de `variantes`, y eso es lo que sostiene la invariante
+      de la foto de portada: og:image, el JSON-LD, la miniatura de la grilla y el indice
+      de busqueda leen `variantes[0].imagenes[0]`. El video se ve junto a las fotos pero
+      no vive entre ellas, asi que no hay forma de que se cuele en ese arbol.
     */}
     <SelectorVariante
       client:visible
@@ -153,6 +161,7 @@ if (precio !== null && inicial) {
       r2Base={PUBLIC_R2_BASE}
       telefono={normalizarTelefono(PUBLIC_WHATSAPP)}
       codigo={producto.data.origen.ref}
+      video={video}
     />
 
     <div class="flex flex-col gap-4">
@@ -194,54 +203,6 @@ if (precio !== null && inicial) {
           <dd class="text-texto">{MARCA}</dd>
         </div>
       </dl>
-
-      {
-        /**
-         * EL VIDEO VA ACA, FUERA DE LA ISLA, y esa ubicación es la decisión de diseño
-         * entera hecha visible: el video es del PRODUCTO y no de la variante, así que
-         * no cambia cuando se elige otro color. Adentro del selector habría que
-         * redibujarlo en cada clic —y volver a bajarlo— para mostrar siempre lo mismo.
-         *
-         * Como está afuera, tampoco lo alcanza la lupa: esa vive dentro de
-         * `SelectorVariante`, atada a la foto. No hubo nada que apagar.
-         */
-        video && (
-          <div class="mt-2 flex flex-col gap-1">
-            {/*
-              `preload="metadata"` y NUNCA autoplay.
-
-              Son hasta 10 MB. Bajarlos en cada visita a una ficha que quizá nadie mire
-              es gasto de datos de quien entra, y en este negocio se entra desde un
-              enlace de WhatsApp en un teléfono. Con `metadata` el navegador trae lo
-              justo para saber cuánto dura; los bytes llegan recién si alguien le da
-              play.
-
-              `poster` es lo que se ve mientras tanto, así que el bloque no es un
-              rectángulo negro esperando.
-
-              `playsinline` para que iOS reproduzca en la ficha en vez de abrir su
-              reproductor a pantalla completa, que saca a la persona del catálogo.
-            */}
-            <video
-              src={urlVideo(PUBLIC_R2_BASE, video)}
-              poster={urlPoster(PUBLIC_R2_BASE, video)}
-              width={video.ancho}
-              height={video.alto}
-              preload="metadata"
-              controls
-              playsinline
-              class="border-borde max-h-[70vh] w-full rounded border object-contain"
-            >
-              {/*
-                Sin `<source>`: un solo archivo, un solo tipo. El texto es para el
-                navegador que no puede reproducirlo, no para un lector de pantalla.
-              */}
-              Tu navegador no puede reproducir este video.
-            </video>
-            <p class="text-texto-suave text-xs">Video del producto</p>
-          </div>
-        )
-      }
 
       {
         categorias.length > 0 && (
