@@ -13,16 +13,24 @@ import { env } from 'cloudflare:workers';
 
 import Panel from '../layouts/Panel.astro';
 import { ejecutorD1 } from '../lib/d1.ts';
+import { baseDeImagenes, urlMiniatura } from '../lib/imagenes.ts';
 import { listarPedidosEspeciales } from '../lib/pedidos-especiales.ts';
 
-const { PUBLIC_R2_BASE } = import.meta.env;
 const pedidos = await listarPedidosEspeciales(ejecutorD1(env.DB));
+
+/**
+ * De donde salen las miniaturas. En dev, del R2 LOCAL de miniflare via el endpoint
+ * `/img-dev`; en produccion, del bucket publico.
+ *
+ * NO se arma con `PUBLIC_R2_BASE` a mano: en `astro dev` el binding `IMAGENES` es
+ * local, asi que apuntar al bucket publico da 404 en todo lo recien subido — se
+ * escribe en un lado y se lee del otro. Es el bug que `baseDeImagenes` existe para no
+ * repetir, y esta pantalla lo repitio igual por no usarla.
+ */
+const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV });
 
 /** Lo que dejo la pantalla anterior, para confirmar que la accion se hizo. */
 const hecho = Astro.url.searchParams.get('hecho');
-
-const miniatura = (hash16: string) =>
-  `${(PUBLIC_R2_BASE ?? '').replace(/\/+$/, '')}/catalogo/${hash16}/w300.webp`;
 
 /** Primera linea de la descripcion: alcanza para reconocer la ficha en la lista. */
 const adelanto = (descripcion: string) => descripcion.split('\n')[0] ?? '';
@@ -59,7 +67,7 @@ const adelanto = (descripcion: string) => descripcion.split('\n')[0] ?? '';
           {pedidos.map((p) => (
             <li class="ficha">
               <a class="ficha-fila" href={`/pedidos-especiales/${p.slug}`}>
-                <img src={miniatura(p.hash16)} alt="" width="56" height="56" />
+                <img src={urlMiniatura(R2, p.hash16, 300)} alt="" width="56" height="56" loading="lazy" />
 
                 <span class="ficha-datos">
                   <strong>{p.nombre}</strong>

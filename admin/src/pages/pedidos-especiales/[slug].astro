@@ -14,14 +14,17 @@ import { env } from 'cloudflare:workers';
 
 import Panel from '../../layouts/Panel.astro';
 import { ejecutorD1 } from '../../lib/d1.ts';
+import { baseDeImagenes, urlMiniatura } from '../../lib/imagenes.ts';
 import {
   actualizarPedidoEspecial,
   buscarPorSlug,
   eliminarPedidoEspecial,
 } from '../../lib/pedidos-especiales.ts';
 
-const { PUBLIC_R2_BASE } = import.meta.env;
 const ejecutar = ejecutorD1(env.DB);
+
+// En dev, el R2 LOCAL via `/img-dev`; en produccion, el bucket. Ver `baseDeImagenes`.
+const R2 = baseDeImagenes({ baseR2: env.PUBLIC_R2_BASE, dev: import.meta.env.DEV });
 const { slug } = Astro.params;
 
 let error: string | null = null;
@@ -76,7 +79,7 @@ if (!pedido) {
   return new Response('No existe esa ficha.', { status: 404 });
 }
 
-const miniatura = `${(PUBLIC_R2_BASE ?? '').replace(/\/+$/, '')}/catalogo/${pedido.hash16}/w300.webp`;
+const miniatura = urlMiniatura(R2, pedido.hash16, 300);
 ---
 
 <Panel titulo={pedido.nombre} volver="/pedidos-especiales">
