@@ -3,6 +3,7 @@ import Logo from './Logo.astro';
 import Buscador from './islas/Buscador.tsx';
 import { COMERCIO, NOMBRE_CORTO } from '../lib/sitio.ts';
 import { categoriasNavegables } from '../lib/productos.ts';
+import { pedidosEspeciales } from '../lib/pedidos-especiales.ts';
 
 const { PUBLIC_R2_BASE } = import.meta.env;
 
@@ -23,6 +24,17 @@ const categorias = (await categoriasNavegables()).map((c) => c.categoria);
  */
 const EN_LA_FILA = 3;
 const enLaFila = categorias.slice(0, EN_LA_FILA);
+
+/**
+ * Solo se enlaza si hay algo que mostrar, misma regla que las categorias de arriba:
+ * el header no puede enlazar a una pagina vacia.
+ *
+ * IMPORTA EN EL ESTRENO. Entre que se despliega esta version y que se cargue la primera
+ * ficha desde el admin, la coleccion esta vacia — y sin esta guarda el header ofreceria
+ * una seccion que lleva a «todavia no hay nada». Un enlace que no cumple es peor que no
+ * tener el enlace.
+ */
+const hayPedidosEspeciales = (await pedidosEspeciales()).length > 0;
 ---
 
 {/*
@@ -136,12 +148,16 @@ const enLaFila = categorias.slice(0, EN_LA_FILA);
         se esconden porque son un atajo a algo que el desplegable ya ofrece; esto no
         tiene otra puerta.
       */}
-      <a
-        href="/pedidos-especiales"
-        class="hover:bg-fondo hover:text-texto text-texto-suave order-last block rounded px-2 py-1 sm:order-none"
-      >
-        Pedidos especiales
-      </a>
+      {
+        hayPedidosEspeciales && (
+          <a
+            href="/pedidos-especiales"
+            class="hover:bg-fondo hover:text-texto text-texto-suave order-last block rounded px-2 py-1 sm:order-none"
+          >
+            Pedidos especiales
+          </a>
+        )
+      }
 
       <details class="group" data-menu-categorias>
         {/*
