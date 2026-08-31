@@ -1,0 +1,233 @@
+[
+  {
+    "codigo": "CG34337",
+    "variantes": [
+      {
+        "color": "Verde",
+        "fotos": [
+          "4af6d099aea1cefe",
+          "065bc4325188e916",
+          "05aee0c33a68c408"
+        ]
+      },
+      {
+        "color": "Gris",
+        "fotos": [
+          "f829f0cd7a9ef432"
+        ]
+      },
+      {
+        "color": "Celeste",
+        "fotos": [
+          "94456188c8e68b5d"
+        ]
+      },
+      {
+        "color": "Negro",
+        "fotos": [
+          "0f814a2f6112b260"
+        ]
+      },
+      {
+        "color": "Fucsia",
+        "fotos": [
+          "a5c140f05ac993af"
+        ]
+      },
+      {
+        "color": "Lila",
+        "fotos": [
+          "eaad738cd91db568"
+        ]
+      }
+    ]
+  },
+  {
+    "codigo": "1734222",
+    "variantes": [
+      {
+        "color": "Rosa",
+        "fotos": [
+          "ced40a163f133988",
+          "04a3d197c7372f0d"
+        ]
+      },
+      {
+        "color": "Negro",
+        "fotos": [
+          "d0906f5d619b859a"
+        ]
+      },
+      {
+        "color": "Gris",
+        "fotos": [
+          "cadbfc84e204fd8e"
+        ]
+      }
+    ]
+  },
+  {
+    "codigo": "CG34336",
+    "variantes": [
+      {
+        "color": "Negro",
+        "fotos": [
+          "1aa4fea03b553359"
+        ]
+      },
+      {
+        "color": "Celeste",
+        "fotos": [
+          "3acc3f16531a293e"
+        ]
+      },
+      {
+        "color": "Gris",
+        "fotos": [
+          "6b5baeb4f7a80b78"
+        ]
+      },
+      {
+        "color": "Verde",
+        "fotos": [
+          "bbd764a7aed71afb"
+        ]
+      }
+    ]
+  },
+  {
+    "codigo": "8731691",
+    "variantes": [
+      {
+        "color": "Rojo",
+        "fotos": [
+          "8c8e8a495de12a79"
+        ]
+      },
+      {
+        "color": "Bordó",
+        "fotos": [
+          "2d6622dbebd81ce9"
+        ]
+      },
+      {
+        "color": "Turquesa",
+        "fotos": [
+          "6101662946a912de"
+        ]
+      },
+      {
+        "color": "Rosa",
+        "fotos": [
+          "c033c22367752668"
+        ]
+      },
+      {
+        "color": "Gris",
+        "fotos": [
+          "a8d2cdd927f8021b"
+        ]
+      },
+      {
+        "color": "Verde",
+        "fotos": [
+          "8310187f3351a7af"
+        ]
+      },
+      {
+        "color": "Negro",
+        "fotos": [
+          "710a1de39917fb69"
+        ]
+      }
+    ]
+  },
+  {
+    "codigo": "8734217",
+    "variantes": [
+      {
+        "color": "Rosa",
+        "fotos": [
+          "6b3d43a8b72bc3f7"
+        ]
+      },
+      {
+        "color": "Negro",
+        "fotos": [
+          "f62e0cb1ebb889f2",
+          "8e49a8229496c1ac",
+          "984aca4856e3fb60",
+          "f0ee4d48d84ee690"
+        ]
+      }
+    ]
+  },
+  {
+    "codigo": "CG34338",
+    "variantes": [
+      {
+        "color": "Celeste",
+        "fotos": [
+          "482b5fae347d13e5"
+        ]
+      },
+      {
+        "color": "Negro",
+        "fotos": [
+          "2d18e4cd099d5494",
+          "99edbeaff75bb310"
+        ]
+      },
+      {
+        "color": "Gris",
+        "fotos": [
+          "919a60427713fe41"
+        ]
+      },
+      {
+        "color": "Verde",
+        "fotos": [
+          "9a14a17de2b08aa4"
+        ]
+      },
+      {
+        "color": "Salmón",
+        "fotos": [
+          "56153110a6db5a32"
+        ]
+      },
+      {
+        "color": "Lila",
+        "fotos": [
+          "a7c1978e46855edb"
+        ]
+      },
+      {
+        "color": "Fucsia",
+        "fotos": [
+          "a53f8d5acc5a6733"
+        ]
+      }
+    ]
+  },
+  {
+    "codigo": "8734218",
+    "variantes": [
+      {
+        "color": "Rosa",
+        "fotos": [
+          "2c9e8dc2f5d22376",
+          "9cdb12b049674efc",
+          "3ddc026bd816f601",
+          "7b2c6dcf4f900c54"
+        ]
+      },
+      {
+        "color": "Negro",
+        "fotos": [
+          "452263aac6df2d84"
+        ]
+      }
+    ]
+  }
+]

@@ -397,9 +397,21 @@ export default function SelectorVariante({
         video, esa mayoria pasa a tener exactamente dos: la foto y el video.
       */}
       {cuantos > 1 && (
-        <ul class="flex gap-2">
+        /*
+          SCROLL HORIZONTAL SOLO CUANDO HACE FALTA, y sin una linea de JS: `overflow-x`
+          en `auto` muestra la barra unicamente si el contenido desborda. Nada que medir
+          ni que escuchar al redimensionar.
+
+          `shrink-0` EN CADA ITEM ES LA MITAD QUE IMPORTA. Sin el, flex no desborda:
+          APRIETA. Las miniaturas se achican por debajo de sus 64px hasta entrar todas, y
+          con ocho fotos quedan estampillas ilegibles — que es lo que se veia. El
+          desborde no era el sintoma; era la salida que faltaba habilitar.
+
+          `pb-1` para que la barra no tape el borde de la miniatura seleccionada.
+        */
+        <ul class="flex gap-2 overflow-x-auto pb-1">
           {imagenes.map((img, i) => (
-            <li key={img.base}>
+            <li key={img.base} class="shrink-0">
               <button
                 type="button"
                 onClick={() => setIImagen(i)}
@@ -422,7 +434,7 @@ export default function SelectorVariante({
           ))}
 
           {video && (
-            <li key="video">
+            <li key="video" class="shrink-0">
               <button
                 type="button"
                 onClick={() => setIImagen(imagenes.length)}
