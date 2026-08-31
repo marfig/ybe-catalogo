@@ -1,0 +1,264 @@
+---
+/**
+ * ABM de pedidos especiales (SPEC.md §4.5).
+ *
+ * UNA SOLA PANTALLA, a diferencia de productos, que tiene grilla y ficha aparte. Son
+ * una decena de entradas curadas a mano: mandar a abrir y cerrar una pagina por cada
+ * edicion es el viaje que no se justifica con ese volumen. Cada ficha lleva su propio
+ * formulario dentro de un `<details>` plegado, igual que la descripcion en la grilla
+ * de productos.
+ *
+ * El GUARDADO es un POST de formulario comun, no un `fetch`, por la misma razon que el
+ * alta de productos: si el JavaScript falla se pierde la foto —que se vuelve a elegir
+ * en veinte segundos— y no la descripcion entera, que es lo que mas se tipea aca.
+ */
+import { env } from 'cloudflare:workers';
+
+import Panel from '../layouts/Panel.astro';
+import { ejecutorD1 } from '../lib/d1.ts';
+import {
+  actualizarPedidoEspecial,
+  alternarActivo,
+  crearPedidoEspecial,
+  eliminarPedidoEspecial,
+  listarPedidosEspeciales,
+  type DatosPedidoEspecial,
+} from '../lib/pedidos-especiales.ts';
+
+const { PUBLIC_R2_BASE } = import.meta.env;
+const ejecutar = ejecutorD1(env.DB);
+
+let error: string | null = null;
+let hecho: string | null = null;
+
+if (Astro.request.method === 'POST') {
+  const datos = await Astro.request.formData();
+  const texto = (c: string) => String(datos.get(c) ?? '').trim();
+  const accion = texto('accion');
+  const id = Number(texto('id'));
+  const ahora = new Date().toISOString();
+
+  /** Lo que comparten el alta y la edicion: los mismos campos, el mismo formulario. */
+  const delFormulario = (): DatosPedidoEspecial => ({
+    nombre: texto('nombre'),
+    descripcion: texto('descripcion'),
+    hash16: texto('hash16'),
+    // Un campo vacio cae al default de la columna, no a NaN.
+    orden: texto('orden') === '' ? 999 : Number(texto('orden')),
+    activo: datos.get('activo') === 'si',
+  });
+
+  try {
+    if (accion === 'crear') {
+      const { slug } = await crearPedidoEspecial(ejecutar, delFormulario(), { ahora });
+      hecho = `Ficha creada en /pedidos-especiales/${slug}. Publicá para que salga al sitio.`;
+    } else if (accion === 'actualizar') {
+      await actualizarPedidoEspecial(ejecutar, id, delFormulario(), { ahora });
+      hecho = 'Cambios guardados. Publicá para que salgan al sitio.';
+    } else if (accion === 'apagar' || accion === 'prender') {
+      await alternarActivo(ejecutar, id, accion === 'prender', { ahora });
+      hecho = accion === 'prender' ? 'Ficha visible de nuevo.' : 'Ficha oculta del sitio.';
+    } else if (accion === 'eliminar') {
+      await eliminarPedidoEspecial(ejecutar, id);
+      hecho = 'Ficha eliminada. Su dirección queda en 404.';
+    }
+  } catch (e) {
+    // El mensaje va a pantalla tal cual: los de `pedidos-especiales.ts` estan escritos
+    // en castellano para que los lea quien opera, no un programador.
+    error = e instanceof Error ? e.message : String(e);
+  }
+}
+
+const pedidos = await listarPedidosEspeciales(ejecutar);
+
+/** La miniatura de una foto ya subida, para ver cual es sin abrir nada. */
+const miniatura = (hash16: string) =>
+  `${(PUBLIC_R2_BASE ?? '').replace(/\/+$/, '')}/catalogo/${hash16}/w300.webp`;
+---
+
+<Panel titulo="Pedidos especiales" volver="/">
+  <section class="pe-intro">
+    <h1>Pedidos especiales</h1>
+    <p class="nota">
+      Los artículos que se venden por cantidad, con precio a convenir. No llevan precio ni
+      colores: la descripción es todo lo que el cliente lee antes de escribir por WhatsApp.
+    </p>
+
+    {error ? <p class="resumen resumen--error" role="status">{error}</p> : null}
+    {hecho ? <p class="resumen" role="status">{hecho}</p> : null}
+  </section>
+
+  {/*
+    LA LISTA VA PRIMERO Y EL ALTA ABAJO, al reves que en la mayoria de los ABM. Lo que
+    se hace todos los dias aca es revisar y corregir lo que ya esta cargado; dar de alta
+    una ficha nueva pasa cada varios meses. Lo frecuente arriba.
+  */}
+  <section>
+    <h2>Fichas cargadas ({pedidos.length})</h2>
+
+    {
+      pedidos.length === 0 ? (
+        <p class="nota">Todavía no hay ninguna. Cargá la primera con el formulario de abajo.</p>
+      ) : (
+        <ul class="fichas">
+          {pedidos.map((p) => (
+            <li class={p.activo ? 'ficha' : 'ficha ficha--apagada'}>
+              <div class="ficha-fila">
+                <img src={miniatura(p.hash16)} alt="" width="56" height="56" />
+
+                <div class="ficha-datos">
+                  <strong>{p.nombre}</strong>
+                  {/* El slug SE MUESTRA y no se puede editar: es la URL que el cliente
+                      tiene guardada, y verla explica por que renombrar no la cambia. */}
+                  <span class="nota">/pedidos-especiales/{p.slug} · orden {p.orden}</span>
+                </div>
+
+                {/* Cada accion es su propio formulario: un POST por boton, sin JS. */}
+                <form method="post" class="ficha-acciones">
+                  <input type="hidden" name="id" value={p.id} />
+                  <button name="accion" value={p.activo ? 'apagar' : 'prender'}>
+                    {p.activo ? 'Ocultar' : 'Mostrar'}
+                  </button>
+                </form>
+              </div>
+
+              <details class="ficha-editar">
+                <summary>Editar</summary>
+
+                <form method="post" data-formulario-pedido>
+                  <input type="hidden" name="accion" value="actualizar" />
+                  <input type="hidden" name="id" value={p.id} />
+
+                  <p>
+                    <label for={`nombre-${p.id}`}>Nombre</label>
+                    <input id={`nombre-${p.id}`} name="nombre" value={p.nombre} required />
+                    <span class="nota">
+                      Cambiarlo NO cambia la dirección: sigue siendo /pedidos-especiales/{p.slug}.
+                    </span>
+                  </p>
+
+                  <p>
+                    <label for={`descripcion-${p.id}`}>Descripción</label>
+                    <textarea id={`descripcion-${p.id}`} name="descripcion" rows="6" required
+                      >{p.descripcion}</textarea
+                    >
+                    <span class="nota">
+                      Un renglón por dato: cantidad mínima, materiales, plazos. Los saltos de
+                      línea se respetan en el sitio.
+                    </span>
+                  </p>
+
+                  <p>
+                    <label for={`orden-${p.id}`}>Orden</label>
+                    <input id={`orden-${p.id}`} name="orden" type="number" min="0" value={p.orden} />
+                    <span class="nota">Más chico, más arriba.</span>
+                  </p>
+
+                  <p class="lote-check-fila">
+                    <label class="lote-check">
+                      <input type="checkbox" name="activo" value="si" checked={p.activo} />
+                      Visible en el sitio
+                    </label>
+                  </p>
+
+                  <fieldset class="lote" data-foto-pedido>
+                    <legend>Foto</legend>
+                    <input type="hidden" name="hash16" value={p.hash16} data-hash />
+                    <p class="vista-previa" data-vista>
+                      <img src={miniatura(p.hash16)} alt="" width="120" height="120" />
+                    </p>
+                    <p>
+                      <input type="file" accept="image/*" data-archivo />
+                      <span class="nota" data-estado>Elegí un archivo sólo si querés reemplazarla.</span>
+                    </p>
+                  </fieldset>
+
+                  <p><button type="submit">Guardar cambios</button></p>
+                </form>
+
+                {/*
+                  BORRAR VA APARTE del formulario de edicion y al final, con su aviso.
+                  Ocultar es reversible y devuelve la misma URL; esto no.
+                */}
+                <form method="post" class="peligro">
+                  <input type="hidden" name="id" value={p.id} />
+                  <button name="accion" value="eliminar">Eliminar</button>
+                  <span class="nota">
+                    Sin vuelta. La dirección queda en 404 para quien la tenga guardada. Si sólo
+                    querés sacarla de la vista, usá «Ocultar».
+                  </span>
+                </form>
+              </details>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+
+  <section>
+    <h2>Cargar una ficha nueva</h2>
+
+    <form method="post" data-formulario-pedido>
+      <input type="hidden" name="accion" value="crear" />
+
+      <p>
+        <label for="nombre-nuevo">Nombre</label>
+        <input id="nombre-nuevo" name="nombre" required placeholder="Mochilas escolares por cantidad" />
+        <span class="nota">De acá sale la dirección, y una vez creada no cambia más.</span>
+      </p>
+
+      <p>
+        <label for="descripcion-nueva">Descripción</label>
+        <textarea
+          id="descripcion-nueva"
+          name="descripcion"
+          rows="6"
+          required
+          placeholder={'Cantidad mínima: 12 unidades.\nSurtido de modelos y colores a elección.\nEntrega: 15 días.'}
+        ></textarea>
+        <span class="nota">
+          Obligatoria: es TODO lo que se ve al entrar a la ficha. Si no está la cantidad mínima,
+          el cliente escribe para preguntarla.
+        </span>
+      </p>
+
+      <p>
+        <label for="orden-nuevo">Orden</label>
+        <input id="orden-nuevo" name="orden" type="number" min="0" value="999" />
+        <span class="nota">Más chico, más arriba.</span>
+      </p>
+
+      <p class="lote-check-fila">
+        <label class="lote-check">
+          <input type="checkbox" name="activo" value="si" checked />
+          Visible en el sitio
+        </label>
+      </p>
+
+      <fieldset class="lote" data-foto-pedido>
+        <legend>Foto *</legend>
+        <input type="hidden" name="hash16" value="" data-hash />
+        <p class="vista-previa" data-vista></p>
+        <p>
+          <input type="file" accept="image/*" data-archivo />
+          <span class="nota" data-estado>Se recorta a un cuadrado centrado, igual que las de producto.</span>
+        </p>
+      </fieldset>
+
+      <p><button type="submit">Crear ficha</button></p>
+    </form>
+  </section>
+</Panel>
+
+<script>
+  import { montarFotoDePedido } from '../scripts/pedidos-especiales-cliente.ts';
+
+  /**
+   * Un montaje por formulario: la pantalla tiene el alta mas una edicion por ficha, y
+   * todos comparten la misma estructura de campos.
+   */
+  for (const caja of document.querySelectorAll<HTMLElement>('[data-foto-pedido]')) {
+    montarFotoDePedido(caja);
+  }
+</script>

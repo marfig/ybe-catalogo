@@ -1355,6 +1355,53 @@ Detalles que importan:
 La papelera. Lista de lo sacado del catálogo, con fecha, quién lo hizo, y dos
 acciones: **Restaurar** y **Vaciar papelera** (§12.3).
 
+### 10.6 Pedidos especiales
+
+ABM de la colección de `SPEC.md` §4.5: los artículos que se venden por cantidad,
+con precio a convenir. Ruta `/pedidos-especiales`.
+
+**Por qué hay tabla en D1 y no un JSON a mano.** La colección nació como
+`src/data/pedidos-especiales.json`, mantenido a mano igual que `categorias.json`.
+Para cargarla desde el panel el dato tiene que vivir en D1: el admin corre en
+Cloudflare y **no tiene filesystem**, así que no hay forma de que edite un
+archivo del repo. La tabla es `pedidos_especiales` (migración `0006`).
+
+**Una sola pantalla**, a diferencia de productos, que tiene grilla (§10.3) y
+ficha (§10.4) por separado. Son una decena de entradas: mandar a abrir y cerrar
+una página por edición es el viaje que no se justifica con ese volumen. Cada
+ficha lleva su formulario dentro de un `<details>` plegado.
+
+**Lista arriba, alta abajo**, al revés que la mayoría de los ABM. Lo que se hace
+seguido es revisar y corregir lo cargado; dar de alta pasa cada varios meses.
+
+| Campo | Regla |
+|---|---|
+| Nombre | Obligatorio. De acá sale el slug, **una sola vez** |
+| Descripción | **Obligatoria.** Es todo el contenido de la ficha (`SPEC.md` §4.5) |
+| Foto | Obligatoria, una sola. Mismo recorte cuadrado y mismo pipeline que §8.3 |
+| Orden | Curaduría. Más chico, más arriba |
+| Visible | Oculta sin borrar |
+
+**El slug es inmutable**, igual que el de un producto (`SPEC.md` §6.7) y por la
+misma razón: estas fichas se comparten por WhatsApp, que es el único canal de
+venta. Renombrar cambia el nombre, nunca la URL. La pantalla muestra el slug
+junto al nombre para que eso se entienda sin leer documentación.
+
+**Ocultar y eliminar no son alternativas del mismo peso.** Ocultar es reversible
+y devuelve la misma URL; eliminar la deja en 404 para quien la tenga guardada en
+un chat. Por eso el borrado va separado, al final del formulario y en rojo.
+
+**La imagen no se borra con la ficha.** Puede estar compartida con un producto
+—el dedupe de `guardarImagen` es por contenido—, así que borrarla dejaría un
+`<img>` roto en el catálogo. Quien decide si un objeto ya no lo referencia nadie
+es la recolección de huérfanas (§12.3), y el índice
+`idx_pedidos_especiales_imagen` existe para eso.
+
+**Se publica por el mismo botón que el catálogo.** El volcado (§5.5) escribe
+**dos archivos** en la misma corrida, `productos.json` y
+`pedidos-especiales.json`, y los dos entran en el mismo commit. Dos scripts
+serían dos Actions, dos commits y una ventana con el sitio a medio actualizar.
+
 ---
 
 ## 11. Publicación

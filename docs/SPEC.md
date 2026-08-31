@@ -502,9 +502,9 @@ La asimetría es deliberada. Una ficha de producto se sostiene sin descripción:
 
 `descripcion` absorbe cantidad mínima, plazos, materiales y condiciones, con saltos de línea (se renderiza con `whitespace-pre-line`, igual que la ficha de producto). **No** hay un `cantidadMinima: number`: la primera entrada real dice «12 unidades por color» o «a partir de media docena», y ningún entero aguanta eso. Se estructura después de cargar unas cuantas y ver qué se repite.
 
-#### Se mantiene a mano
+#### Se carga desde el admin
 
-Como `categorias.json` (§4.3) y a diferencia de `productos.json` (§4.4), que lo genera el volcado desde D1. Son pocas entradas y las escribe quien decide la oferta. Las imágenes se suben con el mismo pipeline del admin y se referencian por su clave direccionada por contenido (§5.1).
+Nació mantenido a mano como `categorias.json` (§4.3), y desde la migración `0006` sale del volcado igual que `productos.json` (§4.4): vive en la tabla `pedidos_especiales` de D1 y se edita en `/pedidos-especiales` del admin (SPEC-etapa2 §10.6). El motivo del cambio es que el admin corre en Cloudflare y no tiene filesystem, así que no puede editar un archivo del repo. Las imágenes usan el mismo pipeline que las de producto y se referencian por su clave direccionada por contenido (§5.1).
 
 #### La columna `destacado` de D1 queda congelada
 
