@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { DatabaseSync } from 'node:sqlite';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 
 import {
   cambiosSinPublicar,
@@ -21,15 +21,19 @@ import type { Ejecutar } from './grilla.ts';
  * prueba es lo que ESA persona ve, no lo que pasó por dentro.
  */
 
-const MIGRACION = readFileSync(
-  new URL('../../../db/migrations/0001_esquema_inicial.sql', import.meta.url),
-  'utf8'
-);
+/** La carpeta entera, en orden, que es lo que corre wrangler. Una lista a mano se queda
+ *  vieja en silencio: esta leia solo la 0001, asi que `pedidos_especiales` —que sale en
+ *  el mismo volcado que los productos— ni siquiera existia en estos tests. */
+const CARPETA = new URL('../../../db/migrations/', import.meta.url);
+const MIGRACIONES = readdirSync(CARPETA)
+  .filter((n) => n.endsWith('.sql'))
+  .sort()
+  .map((n) => readFileSync(new URL(n, CARPETA), 'utf8'));
 
 function base() {
   const db = new DatabaseSync(':memory:');
   db.exec('PRAGMA foreign_keys = ON;');
-  db.exec(MIGRACION);
+  for (const m of MIGRACIONES) db.exec(m);
   return db;
 }
 
@@ -401,4 +405,86 @@ test('se compara contra la ultima publicacion EXITOSA, no contra la ultima', asy
 
 test('un catalogo vacio no tiene cambios pendientes', async () => {
   assert.equal(await cambiosSinPublicar(ejecutor(base())), 0);
+});
+
+// --------------------------------------------------------------------------
+// Los pedidos especiales tambien salen en el volcado
+// --------------------------------------------------------------------------
+
+/** Un pedido especial con su imagen, que la tabla exige. */
+function pedidoEspecial(
+  db: DatabaseSync,
+  { slug, actualizado }: { slug: string; actualizado: string }
+): number {
+  const { id: imagenId } = db
+    .prepare(
+      `INSERT INTO imagenes (hash16, anchos, ancho_origen, alto_origen, bytes_origen, creado_en)
+       VALUES (?, '[300,600]', 600, 600, 1000, ?) RETURNING id`
+    )
+    .get(slug.padEnd(16, '0').slice(0, 16), actualizado) as { id: number };
+
+  return (
+    db
+      .prepare(
+        `INSERT INTO pedidos_especiales
+           (slug, nombre, descripcion, imagen_id, creado_en, actualizado_en)
+         VALUES (?, ?, 'Por cantidad', ?, ?, ?) RETURNING id`
+      )
+      .get(slug, slug, imagenId, actualizado, actualizado) as { id: number }
+  ).id;
+}
+
+test('cargar un pedido especial cuenta como cambio sin publicar', async () => {
+  /**
+   * EL HUECO QUE ESTO CIERRA. El contador solo miraba `productos`, pero los pedidos
+   * especiales salen en el MISMO volcado y se ven en la portada. Cargar uno dejaba el
+   * Inicio callado: la persona lo daba de alta, veia la pantalla llena, y el sitio no
+   * lo mostraba sin que nada lo dijera. Es exactamente el mismo modo de falla que
+   * cerraba el conteo de productos editados.
+   */
+  const db = base();
+  publicadoEn(db, '2026-08-10T10:00:00Z');
+  pedidoEspecial(db, { slug: 'bolsas', actualizado: '2026-08-10T11:00:00Z' });
+
+  assert.equal(await cambiosSinPublicar(ejecutor(db)), 1);
+});
+
+test('un pedido especial sin tocar desde la ultima publicacion no cuenta', async () => {
+  const db = base();
+  pedidoEspecial(db, { slug: 'bolsas', actualizado: '2026-08-10T09:00:00Z' });
+  publicadoEn(db, '2026-08-10T10:00:00Z');
+
+  assert.equal(await cambiosSinPublicar(ejecutor(db)), 0);
+});
+
+test('los cambios de las dos tablas se suman en un solo numero', async () => {
+  // Quien mira el boton no distingue de que tabla salio cada cambio: lo que necesita
+  // saber es cuanto separa a la base del sitio.
+  const db = base();
+  publicadoEn(db, '2026-08-10T10:00:00Z');
+  producto(db, { codigo: 'CG1', estado: 'publicado', actualizado: '2026-08-10T11:00:00Z' });
+  pedidoEspecial(db, { slug: 'bolsas', actualizado: '2026-08-10T11:30:00Z' });
+
+  assert.equal(await cambiosSinPublicar(ejecutor(db)), 2);
+});
+
+test('sin ninguna publicacion, los pedidos especiales tambien estan pendientes', async () => {
+  const db = base();
+  pedidoEspecial(db, { slug: 'bolsas', actualizado: '2026-08-10T09:00:00Z' });
+
+  assert.equal(await cambiosSinPublicar(ejecutor(db)), 1);
+});
+
+test('reordenar un pedido especial cuenta: cambia la portada', async () => {
+  // `orden` decide en que posicion se ve en la portada, asi que moverlo es un cambio
+  // que el sitio no refleja hasta publicar.
+  const db = base();
+  const id = pedidoEspecial(db, { slug: 'bolsas', actualizado: '2026-08-10T09:00:00Z' });
+  publicadoEn(db, '2026-08-10T10:00:00Z');
+  db.prepare(`UPDATE pedidos_especiales SET orden = 1, actualizado_en = ? WHERE id = ?`).run(
+    '2026-08-10T11:00:00Z',
+    id
+  );
+
+  assert.equal(await cambiosSinPublicar(ejecutor(db)), 1);
 });

@@ -213,6 +213,18 @@ export async function crearPublicacion(
  * Los `importado` no cuentan: no salen en `productos.json` (§5.2), así que no son un
  * cambio pendiente de publicar sino trabajo pendiente de terminar. Los `eliminado` sí,
  * porque hasta que se publique el producto se sigue viendo en el sitio.
+ *
+ * CUENTA LAS DOS TABLAS QUE SALEN EN EL VOLCADO, no sólo `productos`. Los pedidos
+ * especiales viajan en la misma corrida y se ven en la portada, así que cargar uno o
+ * moverlo de lugar deja al sitio viejo igual que editar un producto. Mientras el
+ * contador sólo miraba `productos`, dar de alta un pedido especial dejaba el Inicio
+ * callado: la pantalla se veía llena y el sitio no lo mostraba, sin que nada lo dijera.
+ *
+ * LO QUE ESTE CONTADOR NO PUEDE VER: BORRAR un pedido especial. La fila se elimina de
+ * verdad —no hay papelera para esta colección, es deliberado— así que no queda ningún
+ * `actualizado_en` que mirar. Un producto borrado sí se detecta porque el borrado de
+ * algo publicado es un UPDATE a `eliminado`. Para cerrarlo haría falta registrar
+ * cuántos se publicaron la última vez, y hoy `publicaciones` no lo guarda.
  */
 export async function cambiosSinPublicar(ejecutar: Ejecutar): Promise<number> {
   const [ultimaOk] = await ejecutar<{ terminada_en: string | null }>(
@@ -225,10 +237,19 @@ export async function cambiosSinPublicar(ejecutar: Ejecutar): Promise<number> {
   // Sin ninguna publicación exitosa, todo lo publicable está pendiente por definición.
   const corte = ultimaOk?.terminada_en ?? '';
 
+  /**
+   * Una consulta y no dos: es un solo número para quien mira el botón, y así el total
+   * no puede quedar a medias si una de las dos fallara.
+   */
   const [fila] = await ejecutar<{ n: number }>(
-    `SELECT COUNT(*) AS n FROM productos
-      WHERE estado <> 'importado' AND actualizado_en > ?`,
-    [corte]
+    `SELECT (
+       SELECT COUNT(*) FROM productos
+        WHERE estado <> 'importado' AND actualizado_en > ?
+     ) + (
+       SELECT COUNT(*) FROM pedidos_especiales
+        WHERE actualizado_en > ?
+     ) AS n`,
+    [corte, corte]
   );
 
   return fila?.n ?? 0;
