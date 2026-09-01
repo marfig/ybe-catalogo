@@ -6196,6 +6196,369 @@
     ]
   },
   {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 33 x 64 x 21 cm",
+    "id": "bolso-de-viaje-16",
+    "nombre": "bolso de viaje",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4738738"
+    },
+    "precio": 138000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4b021c8c4f5035d2"
+          }
+        ],
+        "sku": "4738738-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 25.0 x 46.5 x 21.0 cm",
+    "id": "bolso-de-viaje-17",
+    "nombre": "bolso de viaje",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4743600"
+    },
+    "precio": 148000,
+    "variantes": [
+      {
+        "color": "Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7b4185304d422e6f"
+          }
+        ],
+        "sku": "4743600-62"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d3f45327368be1f5"
+          }
+        ],
+        "sku": "4743600-3"
+      },
+      {
+        "color": "Negro/gris O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/80dc3e4c8f63a0ec"
+          }
+        ],
+        "sku": "4743600-31"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cebe2a594937c6b2"
+          }
+        ],
+        "sku": "4743600-33"
+      },
+      {
+        "color": "Negro/rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9559b41d55bc1477"
+          }
+        ],
+        "sku": "4743600-3R"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7363f845b884db99"
+          }
+        ],
+        "sku": "4743600-R"
+      },
+      {
+        "color": "Verde/khaki",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a6ace7bad4b07424"
+          }
+        ],
+        "sku": "4743600-AK"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 28.5 x 54.5 x 23.5 cm",
+    "id": "bolso-de-viaje-18",
+    "nombre": "bolso de viaje",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4743601"
+    },
+    "precio": 159000,
+    "variantes": [
+      {
+        "color": "Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/16eb63b235c35686"
+          }
+        ],
+        "sku": "4743601-62"
+      },
+      {
+        "color": "Azul/khaki",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d78f80cf1c7e9850"
+          }
+        ],
+        "sku": "4743601-6K"
+      },
+      {
+        "color": "Negr/gris Os",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/56c622ca8001a70d"
+          }
+        ],
+        "sku": "4743601-31"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/babf499cfd99e45b"
+          }
+        ],
+        "sku": "4743601-3"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1faee7df49f9b3d6"
+          }
+        ],
+        "sku": "4743601-33"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0a692e82b40fcec1"
+          }
+        ],
+        "sku": "4743601-R"
+      },
+      {
+        "color": "Verde/khaki",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2e4f578ca550e648"
+          }
+        ],
+        "sku": "4743601-AK"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 32.0 x 62.5 x 26.5 cm",
+    "id": "bolso-de-viaje-19",
+    "nombre": "bolso de viaje",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4743602"
+    },
+    "precio": 168000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f44977b6de02ebd1"
+          }
+        ],
+        "sku": "4743602-9"
+      },
+      {
+        "color": "Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f9510e66676fd2aa"
+          }
+        ],
+        "sku": "4743602-62"
+      },
+      {
+        "color": "Azul/khaki",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0bb12e43bc687bc7"
+          }
+        ],
+        "sku": "4743602-6K"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4e0f74eea1ef41dc"
+          }
+        ],
+        "sku": "4743602-3"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5d5294e823726eb6"
+          }
+        ],
+        "sku": "4743602-33"
+      },
+      {
+        "color": "Negro/rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8e447b07cc8802fc"
+          }
+        ],
+        "sku": "4743602-3R"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/083ccb34318b24f3"
+          }
+        ],
+        "sku": "4743602-R"
+      },
+      {
+        "color": "Verde/khaki",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6e58d568491e2210"
+          }
+        ],
+        "sku": "4743602-AK"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-31",
     "categorias": [
       "bolsos"
@@ -6221,6 +6584,103 @@
           }
         ],
         "sku": "0031685-o1-nara-gris-o"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 34.0 x 76.0 x 36.5 cm",
+    "id": "bolso-de-viaje-20",
+    "nombre": "bolso de viaje",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4743614"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Azul/khaki",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f395c698083e5852"
+          }
+        ],
+        "sku": "4743614-6K"
+      },
+      {
+        "color": "Verde/khaki",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3f5433418b9b9161"
+          }
+        ],
+        "sku": "4743614-AK"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 40.0 x 85.0 x 39.0 cm",
+    "id": "bolso-de-viaje-21",
+    "nombre": "Bolso de viaje",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4743626"
+    },
+    "precio": 198000,
+    "variantes": [
+      {
+        "color": "Azul/kakhi",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fa70450e7c974057"
+          }
+        ],
+        "sku": "4743626-6K"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a24fbbb9c3d24dd1"
+          }
+        ],
+        "sku": "4743626-33"
+      },
+      {
+        "color": "Verde/kakhi",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1b25e656bf8397c7"
+          }
+        ],
+        "sku": "4743626-AK"
       }
     ]
   },
@@ -6428,6 +6888,64 @@
     ]
   },
   {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 33 x 56 x 28 cm",
+    "id": "bolso-de-viaje-con-ruedas",
+    "nombre": "bolso de viaje con ruedas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734952"
+    },
+    "precio": 238000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d76b754f0676ffd9"
+          }
+        ],
+        "sku": "4734952-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 33 x 56 x 28 cm",
+    "id": "bolso-de-viaje-con-ruedas-2",
+    "nombre": "bolso de viaje con ruedas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734953"
+    },
+    "precio": 228000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6047ef908e31bc85"
+          }
+        ],
+        "sku": "4734953-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-13",
     "categorias": [
       "bolsos"
@@ -6605,6 +7123,64 @@
           }
         ],
         "sku": "4730886-R2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 30 x 52 x 26 cm",
+    "id": "bolso-impermeable",
+    "nombre": "bolso impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4735034"
+    },
+    "precio": 215000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6dc83d156774ce2d"
+          }
+        ],
+        "sku": "4735034-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 26 x 49 x 24 cm",
+    "id": "bolso-impermeable-2",
+    "nombre": "bolso impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4735035"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/774994527c56e0d3"
+          }
+        ],
+        "sku": "4735035-3"
       }
     ]
   },
@@ -7508,6 +8084,87 @@
     ]
   },
   {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Medidas aprox. ( alto x largo x ancho ):\t20x41x21cm",
+    "id": "bolso-pequeno-2",
+    "nombre": "bolso pequeño",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4735612"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Azul Os/cele",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bd7835415401adb3"
+          }
+        ],
+        "sku": "4735612-67"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/952d3d64e9ad5f17"
+          }
+        ],
+        "sku": "4735612-3"
+      },
+      {
+        "color": "Negro/gris O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/106bad2037991362"
+          }
+        ],
+        "sku": "4735612-31"
+      },
+      {
+        "color": "Rojo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/afbe6f2376e9e82e"
+          }
+        ],
+        "sku": "4735612-R2"
+      },
+      {
+        "color": "Rosa Os/rosa",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8d16d6d23111df49"
+          }
+        ],
+        "sku": "4735612-FP"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-31",
     "categorias": [
       "loncheras"
@@ -7737,6 +8394,77 @@
           }
         ],
         "sku": "4720504-3R"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "porta-tenis"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 36 x 22 x 15",
+    "id": "botinera-3",
+    "nombre": "Botinera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4735615"
+    },
+    "precio": 88000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/de024a3b6aa1a1a0"
+          }
+        ],
+        "sku": "4735615-3"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b2d000d73ebb3711"
+          }
+        ],
+        "sku": "4735615-R"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "porta-tenis"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 36 x 18 x 13",
+    "id": "botinera-4",
+    "nombre": "Botinera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4736470"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/98d9f65be9fedf78"
+          }
+        ],
+        "sku": "4736470-3"
       }
     ]
   },
@@ -20640,6 +21368,35 @@
     ]
   },
   {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 9 x 21 x 8 cm",
+    "id": "cartuchera-19",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5453101"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c6ca68f7ba717333"
+          }
+        ],
+        "sku": "5453101-G"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-19",
     "categorias": [
       "cartucheras"
@@ -29986,6 +30743,35 @@
     ]
   },
   {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 32 x 15 cm",
+    "id": "mochila-con-ruedas-grande",
+    "nombre": "mochila con ruedas grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5355174"
+    },
+    "precio": 198000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cd27b92b301eed60"
+          }
+        ],
+        "sku": "5355174-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-26",
     "categorias": [
       "mochila-infantil"
@@ -30503,6 +31289,64 @@
           }
         ],
         "sku": "8734456"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 35 x 25 x 12 cm",
+    "id": "mochila-con-ruedas-pequena",
+    "nombre": "mochila con ruedas pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5355109"
+    },
+    "precio": 165000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7693e2eb00153314"
+          }
+        ],
+        "sku": "5355109-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 34 x 23 x 12 cm",
+    "id": "mochila-con-ruedas-pequena-2",
+    "nombre": "mochila con ruedas pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5453109"
+    },
+    "precio": 165000,
+    "variantes": [
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1c8643d19e057265"
+          }
+        ],
+        "sku": "5453109-G"
       }
     ]
   },
@@ -36905,6 +37749,64 @@
     ]
   },
   {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 30 x 18 cm",
+    "id": "mochila-grande-espaldera",
+    "nombre": "mochila grande espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5355132"
+    },
+    "precio": 158000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c4c0b4dbc6599bd8"
+          }
+        ],
+        "sku": "5355132-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 31 x 17 cm",
+    "id": "mochila-grande-espaldera-2",
+    "nombre": "mochila grande espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5453132"
+    },
+    "precio": 158000,
+    "variantes": [
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b9a1ba74b66c5230"
+          }
+        ],
+        "sku": "5453132-G"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-25",
     "categorias": [
       "mochila-infantil"
@@ -38167,6 +39069,35 @@
           }
         ],
         "sku": "5551234-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 37 x 28 x 15 cm",
+    "id": "mochila-mediana-espaldera",
+    "nombre": "mochila mediana espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5355154"
+    },
+    "precio": 139000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3c22b3fdda8f7f18"
+          }
+        ],
+        "sku": "5355154-3"
       }
     ]
   },
