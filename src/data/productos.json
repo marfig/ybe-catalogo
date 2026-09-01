@@ -6609,6 +6609,724 @@
     ]
   },
   {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolso-mochila-maternal"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 30 x 47 x 14 cm",
+    "id": "bolso-maternal",
+    "nombre": "Bolso maternal",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4631661"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bffb9d8cab994c75"
+          }
+        ],
+        "sku": "4631661-7"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8e115cd5a7ac0145"
+          }
+        ],
+        "sku": "4631661-C"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/22739b9ff59f7521"
+          }
+        ],
+        "sku": "4631661-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2dfa4f3cefc7bcb3"
+          }
+        ],
+        "sku": "4631661-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolso-mochila-maternal"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 28 x 25 x 20 cm",
+    "id": "bolso-maternal-10",
+    "nombre": "Bolso maternal",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734331"
+    },
+    "precio": 159000,
+    "variantes": [
+      {
+        "color": "Azul Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1bddee3fb64c5f8d"
+          }
+        ],
+        "sku": "4734331-7"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/544dbb2ab0f1d928"
+          }
+        ],
+        "sku": "4734331-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/207b0f496618df6f"
+          }
+        ],
+        "sku": "4734331-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolso-mochila-maternal"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 31 x 35 x 15 cm",
+    "id": "bolso-maternal-11",
+    "nombre": "Bolso maternal",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734332"
+    },
+    "precio": 169000,
+    "variantes": [
+      {
+        "color": "Azul Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f2f58ce13d7ae11a"
+          }
+        ],
+        "sku": "4734332-7"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8bfef43b1cb7a6d9"
+          }
+        ],
+        "sku": "4734332-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f819f8583cc8997e"
+          }
+        ],
+        "sku": "4734332-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolso-mochila-maternal"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 30 x 39 x 13 cm",
+    "id": "bolso-maternal-12",
+    "nombre": "Bolso maternal",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734333"
+    },
+    "precio": 175000,
+    "variantes": [
+      {
+        "color": "Azul Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/11c1336bd4729d3c"
+          }
+        ],
+        "sku": "4734333-7"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/94c1c6c4234092fa"
+          }
+        ],
+        "sku": "4734333-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4856686ec22b5425"
+          }
+        ],
+        "sku": "4734333-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolso-mochila-maternal"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 30 x 38 x 15 cm",
+    "id": "bolso-maternal-13",
+    "nombre": "Bolso maternal",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734334"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Azul Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7aa6e8ddd8220395"
+          }
+        ],
+        "sku": "4734334-7"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/834e2094bd7b568c"
+          }
+        ],
+        "sku": "4734334-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8b5e6cb59ee85915"
+          }
+        ],
+        "sku": "4734334-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolso-mochila-maternal"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 25 x 30 x 14 cm",
+    "id": "bolso-maternal-14",
+    "nombre": "Bolso maternal",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734335"
+    },
+    "precio": 159000,
+    "variantes": [
+      {
+        "color": "Azul Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e42b4c21e5991947"
+          }
+        ],
+        "sku": "4734335-7"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/704edda2a13682f9"
+          }
+        ],
+        "sku": "4734335-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/38bd560841eac248"
+          }
+        ],
+        "sku": "4734335-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolso-mochila-maternal"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 27 x 24 x 20 cm",
+    "id": "bolso-maternal-2",
+    "nombre": "Bolso maternal",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4631662"
+    },
+    "precio": 175000,
+    "variantes": [
+      {
+        "color": "Celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/632147ab2bb3fccd"
+          }
+        ],
+        "sku": "4631662-7"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/066578e2b05d9bb1"
+          }
+        ],
+        "sku": "4631662-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2f7e904095daf8fa"
+          }
+        ],
+        "sku": "4631662-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolso-mochila-maternal"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 31 x 36 x 15 cm",
+    "id": "bolso-maternal-3",
+    "nombre": "Bolso maternal",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4631663"
+    },
+    "precio": 165000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/01f449d0f84c4104"
+          }
+        ],
+        "sku": "4631663-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolso-mochila-maternal"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 29 x 39 x 14 cm",
+    "id": "bolso-maternal-4",
+    "nombre": "Bolso maternal",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4631664"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a1702d7903babf2a"
+          }
+        ],
+        "sku": "4631664-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolso-mochila-maternal"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 30 x 37 x 15 cm",
+    "id": "bolso-maternal-5",
+    "nombre": "Bolso maternal",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4631666"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/90b92c0b8ac6c16e"
+          }
+        ],
+        "sku": "4631666-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolso-mochila-maternal"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 29 x 14 cm",
+    "id": "bolso-maternal-6",
+    "nombre": "Bolso maternal",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4631667"
+    },
+    "precio": 159000,
+    "variantes": [
+      {
+        "color": "Celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8b1f37a906eef105"
+          }
+        ],
+        "sku": "4631667-7"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/37f3ed662ab770cc"
+          }
+        ],
+        "sku": "4631667-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ceaa2159c77287b0"
+          }
+        ],
+        "sku": "4631667-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolso-mochila-maternal"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 35 x 32 x 12 cm",
+    "id": "bolso-maternal-7",
+    "nombre": "Bolso maternal",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4632969"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/97b21d10c21eb1ef"
+          }
+        ],
+        "sku": "4632969-7"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e60f096a2c4237d8"
+          }
+        ],
+        "sku": "4632969-C"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5763f2e2b33bcd76"
+          }
+        ],
+        "sku": "4632969-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/32d163cdccb1d901"
+          }
+        ],
+        "sku": "4632969-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolso-mochila-maternal"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 32 x 31 x 12 cm",
+    "id": "bolso-maternal-8",
+    "nombre": "Bolso maternal",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734328"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Azul Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/08849953842ea1ac"
+          }
+        ],
+        "sku": "4734328-7"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c4268158fdb50434"
+          }
+        ],
+        "sku": "4734328-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bc65f465fb48b47f"
+          }
+        ],
+        "sku": "4734328-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolso-mochila-maternal"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 30 x 42 x 15 cm",
+    "id": "bolso-maternal-9",
+    "nombre": "Bolso maternal",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734330"
+    },
+    "precio": 168000,
+    "variantes": [
+      {
+        "color": "Azul Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/01326eaf39fd3869"
+          }
+        ],
+        "sku": "4734330-7"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/29ec3988676b63a5"
+          }
+        ],
+        "sku": "4734330-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/21375a46e05e8351"
+          }
+        ],
+        "sku": "4734330-P"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-31",
     "categorias": [
       "bolsos"
@@ -6964,6 +7682,61 @@
           }
         ],
         "sku": "4734036-R1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "porta-tenis"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 16 x 34 x 15 cm",
+    "id": "botinera-2",
+    "nombre": "Botinera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4720504"
+    },
+    "precio": 98000,
+    "variantes": [
+      {
+        "color": "Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/10224932b02def51"
+          }
+        ],
+        "sku": "4720504-62"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/97e74077fe534432"
+          }
+        ],
+        "sku": "4720504-3"
+      },
+      {
+        "color": "Negro/rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6c369c913bf66a10"
+          }
+        ],
+        "sku": "4720504-3R"
       }
     ]
   },
@@ -26181,6 +26954,77 @@
     ]
   },
   {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 25 x 35 x 16 cm",
+    "id": "lonchera-termica-36",
+    "nombre": "lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734633"
+    },
+    "precio": 120000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/135b24a2d019266e"
+          }
+        ],
+        "sku": "4734633-V"
+      },
+      {
+        "color": "Turquesa",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/938a7396aba8310e"
+          }
+        ],
+        "sku": "4734633-T"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 21 x 24 x 14 cm",
+    "id": "lonchera-termica-37",
+    "nombre": "lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4735024"
+    },
+    "precio": 120000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/142527f1933c8791"
+          }
+        ],
+        "sku": "4735024-9"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-19",
     "categorias": [
       "lonchera-termica-infantil"
@@ -27036,6 +27880,48 @@
           }
         ],
         "sku": "4720855-R1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "loncheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 21 x 20 x 15 cm",
+    "id": "lonchera-termica-pequena",
+    "nombre": "lonchera térmica pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734573"
+    },
+    "precio": 120000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2cbd43d861138de0"
+          }
+        ],
+        "sku": "4734573-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b6795ea8b940544f"
+          }
+        ],
+        "sku": "4734573-3"
       }
     ]
   },
