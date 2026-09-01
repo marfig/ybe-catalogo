@@ -34523,6 +34523,35 @@
     ]
   },
   {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45 x 32 x 16 cm",
+    "id": "mochila-79",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734045"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8d54e851dae4d593"
+          }
+        ],
+        "sku": "8734045-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-27",
     "categorias": [
       "mochilas"
@@ -34548,6 +34577,194 @@
           }
         ],
         "sku": "0030884-2-gris"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45 x 31 x 16 cm",
+    "id": "mochila-80",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734083"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/18cc96f924a83b53"
+          }
+        ],
+        "sku": "8734083-63"
+      },
+      {
+        "color": "Azul Marino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6faaaf0c4b775bda"
+          }
+        ],
+        "sku": "8734083-93"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0388b4368c4c809b"
+          }
+        ],
+        "sku": "8734083-13"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/127a3e1683d025c3"
+          }
+        ],
+        "sku": "8734083-33"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/70e00774d001ea43"
+          }
+        ],
+        "sku": "8734083-R3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/41fe180bb1a60aaa"
+          }
+        ],
+        "sku": "8734083-P3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 46 x 31 x 15 cm",
+    "id": "mochila-81",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734085"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8d0186c420b007fd"
+          }
+        ],
+        "sku": "8734085-63"
+      },
+      {
+        "color": "Azul Marino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/076091bae7ee8059"
+          }
+        ],
+        "sku": "8734085-93"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4628dfe3c265e373"
+          }
+        ],
+        "sku": "8734085-13"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/39728523f0c08347"
+          }
+        ],
+        "sku": "8734085-33"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/07aed54b19fc0c50"
+          }
+        ],
+        "sku": "8734085-R3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/36079859e8013c37"
+          }
+        ],
+        "sku": "8734085-P3"
       }
     ]
   },
