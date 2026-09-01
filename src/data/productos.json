@@ -31351,6 +31351,167 @@
     ]
   },
   {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45 x 31 x 16 cm",
+    "id": "mochila-38",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8720432"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "*(37-P) Negro/cel",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f855c1a6ab78f060"
+          }
+        ],
+        "sku": "8720432-37-p-negro-cel"
+      },
+      {
+        "color": "*(39-P) Negr/azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/48bf4e53d109b28b"
+          }
+        ],
+        "sku": "8720432-39-p-negr-azul"
+      },
+      {
+        "color": "*(3a-P) Negro/ver",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ee43f6749435b78e"
+          }
+        ],
+        "sku": "8720432-3a-p-negro-ver"
+      },
+      {
+        "color": "*(3r-P) Negr/rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2c88efa605b2e840"
+          }
+        ],
+        "sku": "8720432-3r-p-negr-rojo"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochilas"
+    ],
+    "id": "mochila-39",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8720433"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "*(37-P) Negro/cel",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/729dfd42df0b9938"
+          }
+        ],
+        "sku": "8720433-37-p-negro-cel"
+      },
+      {
+        "color": "*(39-P) Negro/azu",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/220efebc510cceea"
+          }
+        ],
+        "sku": "8720433-39-p-negro-azu"
+      },
+      {
+        "color": "*(3a-P) Negro/ver",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/aa128896efd35a5d"
+          }
+        ],
+        "sku": "8720433-3a-p-negro-ver"
+      },
+      {
+        "color": "*(3r-P) Negro/roj",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/255ab17e108fef69"
+          }
+        ],
+        "sku": "8720433-3r-p-negro-roj"
+      },
+      {
+        "color": "*(92) Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6fe688f3e78f0cb2"
+          }
+        ],
+        "sku": "8720433-92-azul-gris"
+      },
+      {
+        "color": "*(p2) Rosado/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ba0c3ac25a667396"
+          }
+        ],
+        "sku": "8720433-p2-rosado-gris"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-24",
     "categorias": [
       "mochila-dama"
@@ -31402,6 +31563,971 @@
           }
         ],
         "sku": "CG85529-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochilas"
+    ],
+    "id": "mochila-40",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8720434"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "*(37-P) Negr/azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6e10374d11ca41ef"
+          }
+        ],
+        "sku": "8720434-37-p-negr-azul"
+      },
+      {
+        "color": "*(39-P) Negr/azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3d2d54a353b91ffb"
+          }
+        ],
+        "sku": "8720434-39-p-negr-azul"
+      },
+      {
+        "color": "*(3a-P) Negr/verd",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b4ac6094346b303d"
+          }
+        ],
+        "sku": "8720434-3a-p-negr-verd"
+      },
+      {
+        "color": "*(3r-P) Negr/rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0927aaaf8e56dee5"
+          }
+        ],
+        "sku": "8720434-3r-p-negr-rojo"
+      },
+      {
+        "color": "*(92) Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/767f0340a54c5ed7"
+          }
+        ],
+        "sku": "8720434-92-azul-gris"
+      },
+      {
+        "color": "*(p2) Rosado/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4d32927df90c66c8"
+          }
+        ],
+        "sku": "8720434-p2-rosado-gris"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45.0 x 31.0 x 15.0 cm",
+    "id": "mochila-41",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8720779"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Azul M/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9567e61fb073431f"
+          }
+        ],
+        "sku": "8720779-61"
+      },
+      {
+        "color": "Dp6 Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2d46cde69a5be17c"
+          }
+        ],
+        "sku": "8720779-R"
+      },
+      {
+        "color": "Dp6 Rojo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/32be2532b7a79da2"
+          }
+        ],
+        "sku": "8720779-R1"
+      },
+      {
+        "color": "Dp6 Verd/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2c0b49911edc0eb0"
+          }
+        ],
+        "sku": "8720779-G1"
+      },
+      {
+        "color": "Marron/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cf82c57000cfc404"
+          }
+        ],
+        "sku": "8720779-C1"
+      },
+      {
+        "color": "Naranja/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/54a261e0f7995ea8"
+          }
+        ],
+        "sku": "8720779-O1"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0edd177c8e11f8a6"
+          }
+        ],
+        "sku": "8720779-3"
+      },
+      {
+        "color": "Negro/azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/927df66a2bc55073"
+          }
+        ],
+        "sku": "8720779-36"
+      },
+      {
+        "color": "Negro/rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cf073039f1a95835"
+          }
+        ],
+        "sku": "8720779-3R"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45 x 32 x 15 cm",
+    "id": "mochila-42",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8720780"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Azul M/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/658b85ce278606b0"
+          }
+        ],
+        "sku": "8720780-61"
+      },
+      {
+        "color": "Dp6",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cf19f2048b84c965"
+          }
+        ],
+        "sku": "8720780-3"
+      },
+      {
+        "color": "Dp6 Negr/azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/75160383facb601a"
+          }
+        ],
+        "sku": "8720780-36"
+      },
+      {
+        "color": "Dp6 Rojo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/44ff62fbd80fe1d0"
+          }
+        ],
+        "sku": "8720780-R1"
+      },
+      {
+        "color": "Marron /gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3ec84db096b1e231"
+          }
+        ],
+        "sku": "8720780-C1"
+      },
+      {
+        "color": "Naranja/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4a6cdfa9051c2855"
+          }
+        ],
+        "sku": "8720780-O1"
+      },
+      {
+        "color": "Negro/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b5b9b2364d2ff1a3"
+          }
+        ],
+        "sku": "8720780-31"
+      },
+      {
+        "color": "Negro/rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e7d41501411415c3"
+          }
+        ],
+        "sku": "8720780-3R"
+      },
+      {
+        "color": "Verd/gris Os",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cf8d149d8c789bea"
+          }
+        ],
+        "sku": "8720780-G1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45.0 x 31.0 x 14.0 cm",
+    "id": "mochila-43",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8720805"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Azul M/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/16cdcc2e65f4c37d"
+          }
+        ],
+        "sku": "8720805-61"
+      },
+      {
+        "color": "Gris/rosa Os",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d71227bdcdbbb82d"
+          }
+        ],
+        "sku": "8720805-2F"
+      },
+      {
+        "color": "Marron/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/930cba1fda56439e"
+          }
+        ],
+        "sku": "8720805-C1"
+      },
+      {
+        "color": "Naranja/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/73e0d400e019eb6f"
+          }
+        ],
+        "sku": "8720805-O1"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/26615e16f69e9fb4"
+          }
+        ],
+        "sku": "8720805-3"
+      },
+      {
+        "color": "Negro/azul Cl",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/aca7379e8425f9ba"
+          }
+        ],
+        "sku": "8720805-36"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e816d2abe22acad3"
+          }
+        ],
+        "sku": "8720805-R"
+      },
+      {
+        "color": "Rojo/gris Os",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2c79ae320b22cc63"
+          }
+        ],
+        "sku": "8720805-R1"
+      },
+      {
+        "color": "Verd/gris Os",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0722a5f5b6759ff4"
+          }
+        ],
+        "sku": "8720805-G1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 42 x 28 x 18 cm",
+    "id": "mochila-44",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8720806"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Azul M/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3f51ad23f05202d9"
+          }
+        ],
+        "sku": "8720806-61"
+      },
+      {
+        "color": "Dp6 Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ca790c4b67f21f36"
+          }
+        ],
+        "sku": "8720806-R"
+      },
+      {
+        "color": "Dp6 Rojo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6b9015e35a19ac4f"
+          }
+        ],
+        "sku": "8720806-R1"
+      },
+      {
+        "color": "Marron/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6ec1046aecd7d0f8"
+          }
+        ],
+        "sku": "8720806-C1"
+      },
+      {
+        "color": "Naranja/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b656e82958c03a45"
+          }
+        ],
+        "sku": "8720806-O1"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a50e9dde0d269b17"
+          }
+        ],
+        "sku": "8720806-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45.0 x 33.0 x 15.0 cm",
+    "id": "mochila-45",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8720892"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bffe93c6f2623e88"
+          }
+        ],
+        "sku": "8720892-3"
+      },
+      {
+        "color": "Rojo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/77a29daff8846909"
+          }
+        ],
+        "sku": "8720892-R1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 46 x 34 x 15",
+    "id": "mochila-46",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8729672"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/55f1239ce5660bb9"
+          }
+        ],
+        "sku": "8729672-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 48 x 32 x 16",
+    "id": "mochila-47",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8729798"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "*(13) Gris O/negr",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/52ea9947018d942c"
+          }
+        ],
+        "sku": "8729798-13-gris-o-negr"
+      },
+      {
+        "color": "*(63) Azul M /neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6d37350e5295b535"
+          }
+        ],
+        "sku": "8729798-63-azul-m-neg"
+      },
+      {
+        "color": "*(c3) Marron/negr",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3f437e97cfa3efc5"
+          }
+        ],
+        "sku": "8729798-c3-marron-negr"
+      },
+      {
+        "color": "*(f3) Rosa Os/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a691d939fa21fa71"
+          }
+        ],
+        "sku": "8729798-f3-rosa-os-neg"
+      },
+      {
+        "color": "*(o3) Naranja/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/41ce91e8e96b1e16"
+          }
+        ],
+        "sku": "8729798-o3-naranja-neg"
+      },
+      {
+        "color": "*(r3) Rojo/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3e94ec7e7e98b061"
+          }
+        ],
+        "sku": "8729798-r3-rojo-negro"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/543d31a6bdf29391"
+          }
+        ],
+        "sku": "8729798-3"
+      },
+      {
+        "color": "Negro/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/05442968b191576b"
+          }
+        ],
+        "sku": "8729798-31"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 32 x 15 cm",
+    "id": "mochila-48",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8730000"
+    },
+    "precio": 119000,
+    "variantes": [
+      {
+        "color": "*(2-23) Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c3cb7e0996f658a1"
+          }
+        ],
+        "sku": "8730000-2-23-gris"
+      },
+      {
+        "color": "*(9-23) Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b664b9bac172e681"
+          }
+        ],
+        "sku": "8730000-9-23-azul"
+      },
+      {
+        "color": "*(a-23) Verde Os",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1a0a8a2511f2d743"
+          }
+        ],
+        "sku": "8730000-a-23-verde-os"
+      },
+      {
+        "color": "*(d-23) Marron Os",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/27f10f31ac24a93f"
+          }
+        ],
+        "sku": "8730000-d-23-marron-os"
+      },
+      {
+        "color": "*(f-23) Rosa Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/176cf603fd0cc879"
+          }
+        ],
+        "sku": "8730000-f-23-rosa-osc"
+      },
+      {
+        "color": "*(r-23) Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3178105839caea39"
+          }
+        ],
+        "sku": "8730000-r-23-rojo"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 48 x 34 x 21 cm",
+    "id": "mochila-49",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8730880"
+    },
+    "precio": 118000,
+    "variantes": [
+      {
+        "color": "(93-P) Azul/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/97d9df95eaba79a3"
+          }
+        ],
+        "sku": "8730880-93-p-azul-negro"
+      },
+      {
+        "color": "(a3-P) Verde/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b97d2d77196cf9d0"
+          }
+        ],
+        "sku": "8730880-a3-p-verde-neg"
+      },
+      {
+        "color": "(c3-P) Marron/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d900711fc4a79990"
+          }
+        ],
+        "sku": "8730880-c3-p-marron-neg"
+      },
+      {
+        "color": "(d3-P) Marron/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/202c16adf488bb93"
+          }
+        ],
+        "sku": "8730880-d3-p-marron-neg"
+      },
+      {
+        "color": "(m3-P) Vino/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7707b7758794a933"
+          }
+        ],
+        "sku": "8730880-m3-p-vino-negro"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8e880f18df883298"
+          }
+        ],
+        "sku": "8730880-33"
       }
     ]
   },
