@@ -29,6 +29,122 @@
     ]
   },
   {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 31 x 22 x 8 cm",
+    "id": "bandolera-10",
+    "nombre": "bandolera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6734048"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d5f0997b567b2054"
+          }
+        ],
+        "sku": "6734048-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 25 x 18 x 9 cm",
+    "id": "bandolera-11",
+    "nombre": "bandolera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6734492"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/77d164a4fe0a56c4"
+          }
+        ],
+        "sku": "6734492-33"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 21 x 18 x 6 cm",
+    "id": "bandolera-12",
+    "nombre": "bandolera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6734493"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6b624416eff87566"
+          }
+        ],
+        "sku": "6734493-33"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 20 x 9 cm",
+    "id": "bandolera-13",
+    "nombre": "bandolera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6734494"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dc05788e43756479"
+          }
+        ],
+        "sku": "6734494-33"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-25",
     "categorias": [
       "bandolera-dama"
@@ -290,6 +406,93 @@
     ]
   },
   {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 22 x 19 x 6 cm",
+    "id": "bandolera-7",
+    "nombre": "bandolera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6182041"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bb93274c2d997954"
+          }
+        ],
+        "sku": "6182041-33"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 31 x 21 x 8 cm",
+    "id": "bandolera-8",
+    "nombre": "bandolera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6734046"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f86298fa44d2c80e"
+          }
+        ],
+        "sku": "6734046-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 31 x 21 x 8 cm",
+    "id": "bandolera-9",
+    "nombre": "bandolera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6734047"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1e2c49a1fccfdfa0"
+          }
+        ],
+        "sku": "6734047-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "bandoleras"
@@ -315,6 +518,180 @@
           }
         ],
         "sku": "6182039-33"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 30 x 17 x 5 cm",
+    "id": "bandolera-cruzada-2",
+    "nombre": "bandolera cruzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6182034"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/14d0610a398dc3d5"
+          }
+        ],
+        "sku": "6182034-33"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 31 x 17 x 6 cm",
+    "id": "bandolera-cruzada-3",
+    "nombre": "bandolera cruzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6182035"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1aac3c4d63f72e4f"
+          }
+        ],
+        "sku": "6182035-33"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 31 x 17 x 6 cm",
+    "id": "bandolera-cruzada-4",
+    "nombre": "bandolera cruzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6182036"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/28a7a170987f2525"
+          }
+        ],
+        "sku": "6182036-33"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 31 x 18 x 6 cm",
+    "id": "bandolera-cruzada-5",
+    "nombre": "bandolera cruzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6182037"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ca6787ece07176df"
+          }
+        ],
+        "sku": "6182037-33"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 30 x 17 x 6 cm",
+    "id": "bandolera-cruzada-6",
+    "nombre": "bandolera cruzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6182038"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/eb30574a41dcf60e"
+          }
+        ],
+        "sku": "6182038-33"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 32 x 17 x 6 cm",
+    "id": "bandolera-cruzada-7",
+    "nombre": "bandolera cruzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6182040"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/860935f07da6ec45"
+          }
+        ],
+        "sku": "6182040-33"
       }
     ]
   },
@@ -3890,6 +4267,64 @@
     ]
   },
   {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 20 x 16 x 8 cm",
+    "id": "bandolera-pequena-65",
+    "nombre": "bandolera pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6734569"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1ace0be58fbbae20"
+          }
+        ],
+        "sku": "6734569-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 22 x 7 cm",
+    "id": "bandolera-pequena-66",
+    "nombre": "bandolera pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6734571"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4c1d56686fc387f0"
+          }
+        ],
+        "sku": "6734571-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-25",
     "categorias": [
       "bandolera-dama"
@@ -4304,6 +4739,122 @@
     ]
   },
   {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 19 x 12 x 4 cm",
+    "id": "bandolera-pequena-impermeable-4",
+    "nombre": "bandolera pequeña impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6734282"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/74a733038f0d9504"
+          }
+        ],
+        "sku": "6734282-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 20 x 15 x 6 cm",
+    "id": "bandolera-pequena-impermeable-5",
+    "nombre": "bandolera pequeña impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6734568"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a77cf35ddd4de18b"
+          }
+        ],
+        "sku": "6734568-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 17 x 26 x 5 cm",
+    "id": "bandolera-pequena-impermeable-6",
+    "nombre": "bandolera pequeña impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6735037"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e9c12ccbeb22082d"
+          }
+        ],
+        "sku": "6735037-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 17 x 12 x 5 cm",
+    "id": "bandolera-pequena-impermeable-7",
+    "nombre": "bandolera pequeña impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6735039"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/89511bb9ddb512e3"
+          }
+        ],
+        "sku": "6735039-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "bandolera-dama"
@@ -4355,6 +4906,64 @@
           }
         ],
         "sku": "CG84304-R"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 20 x 18 x 12 cm",
+    "id": "banodolera-de-tela",
+    "nombre": "banodolera de tela",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6134096"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/18409690d167f3d8"
+          }
+        ],
+        "sku": "6134096-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bandoleras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 21 x 15 x 8 cm",
+    "id": "banodolera-de-tela-2",
+    "nombre": "banodolera de tela",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6134097"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f548884b86967998"
+          }
+        ],
+        "sku": "6134097-3"
       }
     ]
   },
@@ -26042,6 +26651,74 @@
     ]
   },
   {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "portafolios"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 21 x 29 x 2 cm",
+    "id": "forro-p-notebook",
+    "nombre": "forro p/ notebook",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6839830"
+    },
+    "precio": 68000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5dbb0bca768c6c40"
+          }
+        ],
+        "sku": "6839830-U"
+      },
+      {
+        "color": "Lila Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f7e1a47cf2ca4094"
+          }
+        ],
+        "sku": "6839830-Q"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/163b813023718df8"
+          }
+        ],
+        "sku": "6839830-R"
+      },
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e6bee7558634bb48"
+          }
+        ],
+        "sku": "6839830-F"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-14",
     "categorias": [
       "loncheras"
@@ -29780,6 +30457,35 @@
     ]
   },
   {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45.0 x 33.0 x 13.0 cm",
+    "id": "mochila-19",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8120517"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/620bea64a90a0a7c"
+          }
+        ],
+        "sku": "8120517-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-24",
     "categorias": [
       "mochila-dama"
@@ -29835,6 +30541,348 @@
     ]
   },
   {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45 x 34 x 17",
+    "id": "mochila-20",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8120849"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/52da82380d8b759e"
+          }
+        ],
+        "sku": "8120849-9"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/51a66b0cd2c6cd73"
+          }
+        ],
+        "sku": "8120849-33"
+      },
+      {
+        "color": "Negro/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5ba629250dbde174"
+          }
+        ],
+        "sku": "8120849-32"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/edf3286557e1735c"
+          }
+        ],
+        "sku": "8120849-R"
+      },
+      {
+        "color": "Verde Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b2fd9e60dcfcf882"
+          }
+        ],
+        "sku": "8120849-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 50.0 x 36.0 x 19.0 cm",
+    "id": "mochila-21",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8120861"
+    },
+    "precio": 155000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1450eb90c73c311d"
+          }
+        ],
+        "sku": "8120861-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 49.0 x 33.0 x 15.0 cm",
+    "id": "mochila-22",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8125208"
+    },
+    "precio": 155000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2a4277ca398e4cd5"
+          }
+        ],
+        "sku": "8125208-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 49.0 x 34.0 x 14.0 cm",
+    "id": "mochila-23",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8130193"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2993309d218117f0"
+          }
+        ],
+        "sku": "8130193-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 49.0 x 36.0 x 19.0 cm",
+    "id": "mochila-24",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8130194"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b8cebf6fc960ba42"
+          }
+        ],
+        "sku": "8130194-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 50.0 x 35.0 x 21.0 cm",
+    "id": "mochila-25",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8130195"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6488b121e78c09c1"
+          }
+        ],
+        "sku": "8130195-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 49 x 32 x 17 cm",
+    "id": "mochila-26",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8130222"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4735da01a393cd61"
+          }
+        ],
+        "sku": "8130222-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45.0 x 31.0 x 15.0 cm",
+    "id": "mochila-27",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8130688"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e501024383526bd8"
+          }
+        ],
+        "sku": "8130688-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45.0 x 30.0 x 14.0 cm",
+    "id": "mochila-28",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8130690"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6ad2bad42eb00069"
+          }
+        ],
+        "sku": "8130690-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 41 x 30 x 18 cm",
+    "id": "mochila-29",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8131278"
+    },
+    "precio": 178000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/982a95b487eef8c2"
+          }
+        ],
+        "sku": "8131278-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-24",
     "categorias": [
       "mochila-dama"
@@ -29873,6 +30921,432 @@
           }
         ],
         "sku": "CG85517-D"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45 x 31 x 13,5 cm",
+    "id": "mochila-30",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8131279"
+    },
+    "precio": 178000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/17c1187146f37155"
+          }
+        ],
+        "sku": "8131279-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 30 x 12 cm",
+    "id": "mochila-31",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8131280"
+    },
+    "precio": 178000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/661418687c9e2944"
+          }
+        ],
+        "sku": "8131280-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochilas"
+    ],
+    "id": "mochila-32",
+    "nombre": "mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8131484"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "(a3-P) Verde/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/60680522b59b1845"
+          }
+        ],
+        "sku": "8131484-a3-p-verde-neg"
+      },
+      {
+        "color": "(c3-P) Marron/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/73d0851121ad6fff"
+          }
+        ],
+        "sku": "8131484-c3-p-marron-neg"
+      },
+      {
+        "color": "(d3-P) Marron O/n",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1af04e61d19f9593"
+          }
+        ],
+        "sku": "8131484-d3-p-marron-o-n"
+      },
+      {
+        "color": "(m3-P) Vino/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c5831a76a478b127"
+          }
+        ],
+        "sku": "8131484-m3-p-vino-negro"
+      },
+      {
+        "color": "Azul M/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f4509ab8f4ae62fe"
+          }
+        ],
+        "sku": "8131484-63"
+      },
+      {
+        "color": "Gris O/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/140660055057a543"
+          }
+        ],
+        "sku": "8131484-13"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5303a38c0283dd48"
+          }
+        ],
+        "sku": "8131484-33"
+      },
+      {
+        "color": "Rojo/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8189d2e1363818f6"
+          }
+        ],
+        "sku": "8131484-R3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 32 x 13 cm",
+    "id": "mochila-33",
+    "nombre": "mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8131485"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "(c3-P) Marron/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0a6a824bdc3ff569"
+          }
+        ],
+        "sku": "8131485-c3-p-marron-neg"
+      },
+      {
+        "color": "(d3-P) Marron O/n",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/50abefbeb35c7e14"
+          }
+        ],
+        "sku": "8131485-d3-p-marron-o-n"
+      },
+      {
+        "color": "(m3-P) Vino/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c2779786b5c3c52c"
+          }
+        ],
+        "sku": "8131485-m3-p-vino-negro"
+      },
+      {
+        "color": "Azul M/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b99ab0a96b1eb1a4"
+          }
+        ],
+        "sku": "8131485-63"
+      },
+      {
+        "color": "Gris O/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/266e94951436de56"
+          }
+        ],
+        "sku": "8131485-13"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/56e1817d6e31010a"
+          }
+        ],
+        "sku": "8131485-33"
+      },
+      {
+        "color": "Rojo/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/11e32a7c62a660c2"
+          }
+        ],
+        "sku": "8131485-R3"
+      },
+      {
+        "color": "Rosado/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/31d3f3b6b81745ba"
+          }
+        ],
+        "sku": "8131485-P3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 48 x 32 x 19 cm",
+    "id": "mochila-34",
+    "nombre": "mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8132933"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9050c03db793e961"
+          }
+        ],
+        "sku": "8132933-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 49 x 33 x 20 cm",
+    "id": "mochila-35",
+    "nombre": "mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8138613"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Dp6 Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4c0ecd39084579ad"
+          }
+        ],
+        "sku": "8138613-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45 x 33 x 17 cm",
+    "id": "mochila-36",
+    "nombre": "mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8139810"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c7792f1d475a3694"
+          }
+        ],
+        "sku": "8139810-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "bolso-mochila-maternal"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 42 x 31 x 14 cm",
+    "id": "mochila-37",
+    "nombre": "mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8632970"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/96488d1f014844fd"
+          }
+        ],
+        "sku": "8632970-7"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d101a6d324644e68"
+          }
+        ],
+        "sku": "8632970-P"
       }
     ]
   },
@@ -32043,6 +33517,48 @@
           }
         ],
         "sku": "8132929-R"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 38.0 x 21.0 x 9.0 cm",
+    "id": "mochila-de-hidratacion",
+    "nombre": "mochila de hidratación",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8120897"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ad374c015a95522f"
+          }
+        ],
+        "sku": "8120897-81"
+      },
+      {
+        "color": "Rojo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e9bd6fbf72ea9b32"
+          }
+        ],
+        "sku": "8120897-R1"
       }
     ]
   },
@@ -39102,6 +40618,599 @@
     ]
   },
   {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 35.0 x 25.0 x 10.0 cm",
+    "id": "mochila-mediana-espaldera-2",
+    "nombre": "mochila mediana espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8120887"
+    },
+    "precio": 116000,
+    "variantes": [
+      {
+        "color": "Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/624919a53b8ef115"
+          }
+        ],
+        "sku": "8120887-62"
+      },
+      {
+        "color": "Azul/gris O.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/61e246ac90fcb806"
+          }
+        ],
+        "sku": "8120887-91"
+      },
+      {
+        "color": "Negro/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/99f3bca53f583993"
+          }
+        ],
+        "sku": "8120887-31"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e20cfc77c8f4cc69"
+          }
+        ],
+        "sku": "8120887-33"
+      },
+      {
+        "color": "Rojo/gris O.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/df8c77f1cf94aae2"
+          }
+        ],
+        "sku": "8120887-R1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 35.0 x 25.0 x 12.0 cm",
+    "id": "mochila-mediana-espaldera-3",
+    "nombre": "mochila mediana espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8120888"
+    },
+    "precio": 116000,
+    "variantes": [
+      {
+        "color": "Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/637995e50db42d9c"
+          }
+        ],
+        "sku": "8120888-62"
+      },
+      {
+        "color": "Lila/gris O.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ceef15911f2a53ba"
+          }
+        ],
+        "sku": "8120888-91"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/256333d0f23b4cef"
+          }
+        ],
+        "sku": "8120888-33"
+      },
+      {
+        "color": "Rojo/gris O.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0839c94b171b668d"
+          }
+        ],
+        "sku": "8120888-R1"
+      },
+      {
+        "color": "Rosa Os/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c4087679f7791843"
+          }
+        ],
+        "sku": "8120888-F2"
+      },
+      {
+        "color": "Rosado/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8ecc45aea67fec0a"
+          }
+        ],
+        "sku": "8120888-P2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 35.0 x 25.0 x 12.0 cm",
+    "id": "mochila-mediana-espaldera-4",
+    "nombre": "mochila mediana espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8120889"
+    },
+    "precio": 116000,
+    "variantes": [
+      {
+        "color": "Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3c71ec75b5ac23ad"
+          }
+        ],
+        "sku": "8120889-62"
+      },
+      {
+        "color": "Azul/gris O.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/415a8f7355c97ed8"
+          }
+        ],
+        "sku": "8120889-91"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/85c7904d3b3f5b39"
+          }
+        ],
+        "sku": "8120889-33"
+      },
+      {
+        "color": "Rojo/gris O.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fdb1f81aadc90699"
+          }
+        ],
+        "sku": "8120889-R1"
+      },
+      {
+        "color": "Rosa Os/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6cbe952a377bac74"
+          }
+        ],
+        "sku": "8120889-F2"
+      },
+      {
+        "color": "Rosado/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/886bc1ab8b2e32de"
+          }
+        ],
+        "sku": "8120889-P2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 35.0 x 25.0 x 12.0 cm",
+    "id": "mochila-mediana-espaldera-5",
+    "nombre": "mochila mediana espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8120890"
+    },
+    "precio": 116000,
+    "variantes": [
+      {
+        "color": "Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/df24133adeb64675"
+          }
+        ],
+        "sku": "8120890-91"
+      },
+      {
+        "color": "Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/389c30fb619db3b9"
+          }
+        ],
+        "sku": "8120890-62"
+      },
+      {
+        "color": "Negro/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f09bf6c3c0292d4f"
+          }
+        ],
+        "sku": "8120890-31"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/96d932f69564d215"
+          }
+        ],
+        "sku": "8120890-33"
+      },
+      {
+        "color": "Rojo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5b2510dd73486555"
+          }
+        ],
+        "sku": "8120890-R1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 37 x 26 x 15",
+    "id": "mochila-mediana-espaldera-6",
+    "nombre": "mochila mediana espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8131457"
+    },
+    "precio": 116000,
+    "variantes": [
+      {
+        "color": "Azul Os/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0a1faa7cafea157e"
+          }
+        ],
+        "sku": "8131457-91"
+      },
+      {
+        "color": "Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0c4d6caeb649a947"
+          }
+        ],
+        "sku": "8131457-62"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/61d99f0d1630f853"
+          }
+        ],
+        "sku": "8131457-33"
+      },
+      {
+        "color": "Rojo/gris Os",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d3af1d3e57b99290"
+          }
+        ],
+        "sku": "8131457-R1"
+      },
+      {
+        "color": "Rosa /gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a2720def944495af"
+          }
+        ],
+        "sku": "8131457-P2"
+      },
+      {
+        "color": "Rosa Os/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/01d08902e79c116b"
+          }
+        ],
+        "sku": "8131457-F2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 33 x 25 x 12",
+    "id": "mochila-mediana-espaldera-7",
+    "nombre": "mochila mediana espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8131458"
+    },
+    "precio": 116000,
+    "variantes": [
+      {
+        "color": "Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4e0154b5cbddbd7e"
+          }
+        ],
+        "sku": "8131458-62"
+      },
+      {
+        "color": "Negro/gris O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/be6b51a5b5a62b73"
+          }
+        ],
+        "sku": "8131458-31"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f02629ffba33cac6"
+          }
+        ],
+        "sku": "8131458-33"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 37 x 25 x 11",
+    "id": "mochila-mediana-espaldera-8",
+    "nombre": "mochila mediana espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8131459"
+    },
+    "precio": 116000,
+    "variantes": [
+      {
+        "color": "Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4894fb508a42a35f"
+          }
+        ],
+        "sku": "8131459-62"
+      },
+      {
+        "color": "Azul/gris Os",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/413de4752788057c"
+          }
+        ],
+        "sku": "8131459-91"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6b6ed79ef0850495"
+          }
+        ],
+        "sku": "8131459-33"
+      },
+      {
+        "color": "Rojo/gris O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ae3feabd58e7937c"
+          }
+        ],
+        "sku": "8131459-R1"
+      },
+      {
+        "color": "Rosa Os/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e0756a7ee90fed93"
+          }
+        ],
+        "sku": "8131459-F2"
+      },
+      {
+        "color": "Rosado/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9a1b7f557ca93c94"
+          }
+        ],
+        "sku": "8131459-P2"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "mochila-infantil"
@@ -39795,6 +41904,329 @@
     }
   },
   {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 48 x 32 x 15 cm",
+    "id": "mochila-reforzada",
+    "nombre": "mochila reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8132239"
+    },
+    "precio": 198000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ce94c9ba0e7e9164"
+          }
+        ],
+        "sku": "8132239-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e823d623d37ef2dc"
+          }
+        ],
+        "sku": "8132239-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 48 x 32 x 15 cm",
+    "id": "mochila-reforzada-2",
+    "nombre": "mochila reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8132240"
+    },
+    "precio": 198000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/de38691930e0a5b1"
+          }
+        ],
+        "sku": "8132240-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9f4da948aa262c99"
+          }
+        ],
+        "sku": "8132240-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 48 x 32 x 15 cm",
+    "id": "mochila-reforzada-3",
+    "nombre": "mochila reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8132241"
+    },
+    "precio": 198000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4bd94fde016591eb"
+          }
+        ],
+        "sku": "8132241-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/383ed00f1f636ad2"
+          }
+        ],
+        "sku": "8132241-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 48 x 33 x 14 cm",
+    "id": "mochila-reforzada-4",
+    "nombre": "mochila reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8132242"
+    },
+    "precio": 198000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/743f52f7d24ef21e"
+          }
+        ],
+        "sku": "8132242-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/aa1331ab8d10509c"
+          }
+        ],
+        "sku": "8132242-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 48 x 33 x 20 cm",
+    "id": "mochila-reforzada-5",
+    "nombre": "mochila reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8132935"
+    },
+    "precio": 198000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f9011f1217278240"
+          }
+        ],
+        "sku": "8132935-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45 x 32 x 15 cm",
+    "id": "mochila-reforzada-6",
+    "nombre": "mochila reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8134030"
+    },
+    "precio": 198000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/827b450067873915"
+          }
+        ],
+        "sku": "8134030-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/499380c5b3e7cb76"
+          }
+        ],
+        "sku": "8134030-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 46 x 32 x 15 cm",
+    "id": "mochila-reforzada-7",
+    "nombre": "mochila reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8134031"
+    },
+    "precio": 198000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6400dd6265c3d49c"
+          }
+        ],
+        "sku": "8134031-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/56863bf25c5a1761"
+          }
+        ],
+        "sku": "8134031-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45 x 32 x 15 cm",
+    "id": "mochila-reforzada-8",
+    "nombre": "mochila reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8134032"
+    },
+    "precio": 198000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a0550618567c5456"
+          }
+        ],
+        "sku": "8134032-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1aeb13a9a98af814"
+          }
+        ],
+        "sku": "8134032-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "mochila-infantil"
@@ -40430,6 +42862,77 @@
           }
         ],
         "sku": "8132243-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 48 x 33 x 13 cm",
+    "id": "mochila-tapa-dura",
+    "nombre": "Mochila tapa dura",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8130476"
+    },
+    "precio": 195000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/000e6eff7486aa41"
+          }
+        ],
+        "sku": "8130476-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/44c226881eec6b83"
+          }
+        ],
+        "sku": "8130476-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 47 x 32 x 17 cm",
+    "id": "mochila-tapa-dura-2",
+    "nombre": "mochila tapa dura",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8134028"
+    },
+    "precio": 228000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/26d7e87dca3fe158"
+          }
+        ],
+        "sku": "8134028-3"
       }
     ]
   },
@@ -42270,6 +44773,113 @@
     ]
   },
   {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 35.0 x 25.0 x 12.0 cm",
+    "id": "ochila-mediana-espaldera",
+    "nombre": "ochila mediana espaldera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8120891"
+    },
+    "precio": 116000,
+    "variantes": [
+      {
+        "color": "Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/feb9a9995cbd2f43"
+          }
+        ],
+        "sku": "8120891-62"
+      },
+      {
+        "color": "Azul/gris O.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5d81522eb1364053"
+          }
+        ],
+        "sku": "8120891-91"
+      },
+      {
+        "color": "Dp6 Rojo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/065bac614899c5ad"
+          }
+        ],
+        "sku": "8120891-R1"
+      },
+      {
+        "color": "Negro/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ef02b655f1c6798c"
+          }
+        ],
+        "sku": "8120891-31"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0e97187f6a72952c"
+          }
+        ],
+        "sku": "8120891-33"
+      },
+      {
+        "color": "Rosa Os/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e12e7641cf9062a8"
+          }
+        ],
+        "sku": "8120891-F2"
+      },
+      {
+        "color": "Rosado/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7776c91cb1b6b72a"
+          }
+        ],
+        "sku": "8120891-P2"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-27",
     "categorias": [
       "valijas"
@@ -42552,6 +45162,345 @@
           }
         ],
         "sku": "6721779"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "portafolios"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 30.0 x 40.0 x 11 cm",
+    "id": "portafolio",
+    "nombre": "Portafolio",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6121892"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3e17f69dab875a58"
+          }
+        ],
+        "sku": "6121892-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "portafolios"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 30.0 x 40.0 x 8.0 cm",
+    "id": "portafolio-2",
+    "nombre": "Portafolio",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6130599"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/51d6552499e41bc6"
+          }
+        ],
+        "sku": "6130599-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "portafolios"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 29 x 36 x 9",
+    "id": "portafolio-3",
+    "nombre": "Portafolio",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6749124"
+    },
+    "precio": 96000,
+    "variantes": [
+      {
+        "color": "Rojo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f60c112ff68d578f"
+          }
+        ],
+        "sku": "6749124-R2"
+      },
+      {
+        "color": "Rosa O/rosa",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6b0c9e07b10dcc3a"
+          }
+        ],
+        "sku": "6749124-FP"
+      },
+      {
+        "color": "Verde/khaki",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7f61f46253cafdd9"
+          }
+        ],
+        "sku": "6749124-AK"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "portafolios"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 29 x 36 x 9",
+    "id": "portafolio-4",
+    "nombre": "Portafolio",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6749125"
+    },
+    "precio": 96000,
+    "variantes": [
+      {
+        "color": "Azul O/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/27d8c22b4c03389e"
+          }
+        ],
+        "sku": "6749125-92"
+      },
+      {
+        "color": "Rojo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9266142b72d1b8d5"
+          }
+        ],
+        "sku": "6749125-R2"
+      },
+      {
+        "color": "Rosa Osc/rosa",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/25b2a95174d6d611"
+          }
+        ],
+        "sku": "6749125-FP"
+      },
+      {
+        "color": "Verde/khaki",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/44f59cb6e0de6e5c"
+          }
+        ],
+        "sku": "6749125-AK"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "portafolios"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 29 x 42 x 11",
+    "id": "portafolio-con-asas-largas",
+    "nombre": "Portafolio con asas largas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6712534"
+    },
+    "precio": 138000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/860a75d8d9eb7dc5"
+          }
+        ],
+        "sku": "6712534-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "portafolios"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 29 x 36 x 11",
+    "id": "portafolio-con-asas-largas-2",
+    "nombre": "Portafolio con asas largas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6712538"
+    },
+    "precio": 138000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/926750c4db8a2d75"
+          }
+        ],
+        "sku": "6712538-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "portafolios"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 29 x 36 x 13",
+    "id": "portafolio-con-asas-largas-3",
+    "nombre": "Portafolio con asas largas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6720871"
+    },
+    "precio": 138000,
+    "variantes": [
+      {
+        "color": "Rosa/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5062d4fbe8045bdb"
+          }
+        ],
+        "sku": "6720871-F1"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "portafolios"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 18 x 31 x 11",
+    "id": "portafolio-con-asas-largas-4",
+    "nombre": "Portafolio con asas largas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6720873"
+    },
+    "precio": 138000,
+    "variantes": [
+      {
+        "color": "Negro/gris O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/65fedf6075fff858"
+          }
+        ],
+        "sku": "6720873-31"
+      },
+      {
+        "color": "Rojo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/408756c9d39c11ff"
+          }
+        ],
+        "sku": "6720873-R2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-01",
+    "categorias": [
+      "portafolios"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 28 x 41 x 7 cm",
+    "id": "portafolio-impermeable",
+    "nombre": "Portafolio impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6735033"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7d345b3a91d84fa5"
+          }
+        ],
+        "sku": "6735033-3"
       }
     ]
   },
