@@ -9487,19 +9487,6 @@
     "precio": 98000,
     "variantes": [
       {
-        "color": "Naranja",
-        "imagenes": [
-          {
-            "anchos": [
-              300,
-              600
-            ],
-            "base": "catalogo/9527dc39f0102853"
-          }
-        ],
-        "sku": "1734276-O"
-      },
-      {
         "color": "Negro",
         "imagenes": [
           {
@@ -9539,6 +9526,19 @@
           }
         ],
         "sku": "1734276-3"
+      },
+      {
+        "color": "Naranja",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9527dc39f0102853"
+          }
+        ],
+        "sku": "1734276-O"
       }
     ]
   },
