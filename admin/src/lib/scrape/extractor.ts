@@ -14,10 +14,10 @@
  */
 import {
   ALT_GALERIA,
-  RUTA_IMAGENES,
   codigoDesdeUrl,
   colorDesdeTitulo,
   esFichaDelMismoModelo,
+  esRutaDeImagen,
   normalizarUrl,
   skuDeOrigen,
 } from './origen.ts';
@@ -252,7 +252,8 @@ export class AcumuladorFicha {
 
   /** `<img src>`. Decide si es foto del producto, miniatura de color, o ruido. */
   verImagen({ src, alt, title }: AtributosImagen): void {
-    if (!src || !src.includes(RUTA_IMAGENES)) return;
+    // Las DOS rutas de la galería: la principal y las adicionales. Ver `RUTAS_IMAGENES`.
+    if (!src || !esRutaDeImagen(src)) return;
     const absoluta = normalizarUrl(src);
     if (!absoluta) return;
 

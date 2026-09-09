@@ -7,6 +7,7 @@ import {
   codigoDesdeUrl,
   colorDesdeTitulo,
   esFichaDelMismoModelo,
+  esRutaDeImagen,
   normalizarUrl,
   separarColor,
   skuDeOrigen,
@@ -162,6 +163,38 @@ test('normalizarUrl resuelve rutas relativas contra el origen', () => {
 test('normalizarUrl devuelve null ante una URL ilegible', () => {
   assert.equal(normalizarUrl('', 'https://www.chenson.com.py'), null);
   assert.equal(normalizarUrl('http://[', 'https://www.chenson.com.py'), null);
+});
+
+// --- Las fotos de la galería vienen en DOS rutas, no en una ---
+
+test('esRutaDeImagen reconoce la ruta de la foto principal', () => {
+  assert.ok(esRutaDeImagen('https://www.chenson.com.py:443/Prelude-images/product/abc.jpg'));
+});
+
+test('esRutaDeImagen reconoce la ruta de las fotos adicionales', () => {
+  /**
+   * EL BUG QUE ESTE TEST CIERRA, medido el 2026-09-09 sobre cuatro fichas reales
+   * (`/producto/66217-8735032`, `66181-8735036`, `64874-8134028`, `64875-8134029`).
+   *
+   * La galería sirve la foto principal en `/Prelude-images/product/` y las ADICIONALES
+   * en `/Prelude-images/productimage/`. El filtro era un `includes` de la primera ruta
+   * CON su barra final, así que `productimage/` no lo pasaba: después de `product` viene
+   * `image`, no la barra. Las cinco fotos extra de 8735032 se descartaban en silencio y
+   * el color entraba al catálogo con una sola.
+   */
+  assert.ok(esRutaDeImagen('https://www.chenson.com.py:443/Prelude-images/productimage/abc.jpg'));
+});
+
+test('esRutaDeImagen rechaza lo que no está bajo ninguna de las dos rutas', () => {
+  // La barra final de las dos rutas es lo que exige un archivo y no un prefijo suelto.
+  for (const mala of [
+    'https://www.chenson.com.py/assets/images/logo.png',
+    'https://www.chenson.com.py/Prelude-images/banner/abc.jpg',
+    'https://www.chenson.com.py/Prelude-images/product',
+    '',
+  ]) {
+    assert.equal(esRutaDeImagen(mala), false, JSON.stringify(mala));
+  }
 });
 
 /**

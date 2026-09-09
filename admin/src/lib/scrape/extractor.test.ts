@@ -15,6 +15,15 @@ const HOST = 'https://www.chenson.com.py';
 /** Los `src` del origen traen el puerto explícito. Se replica tal cual. */
 const IMG = (hash: string) => `${HOST}:443/Prelude-images/product/${hash}.jpg`;
 
+/**
+ * Las fotos ADICIONALES de la galería, que cuelgan de OTRA ruta.
+ *
+ * Medido el 2026-09-09: una ficha sirve la principal en `/Prelude-images/product/` y las
+ * demás en `/Prelude-images/productimage/`. Las dos son JPEG de 600×600 — no son
+ * miniaturas de baja resolución, se bajaron las dos y se compararon.
+ */
+const IMG_EXTRA = (hash: string) => `${HOST}:443/Prelude-images/productimage/${hash}.jpg`;
+
 // --- CG85700: 3 colores, 1 foto. El caso completo. ---
 
 /** Reproduce el orden real de eventos de `/producto/71163-cg85700`. */
@@ -158,6 +167,93 @@ test('un enlace a otro producto no es un color hermano', () => {
   // Y su imagen tampoco entra como foto, aunque venga con el alt de galeria:
   // esta dentro de un <a> a otro producto.
   assert.deepEqual(r.fotos, []);
+});
+
+// --- 8735032: un color con SEIS fotos, servidas en dos rutas ---
+
+/**
+ * Reproduce el orden real de eventos de `/producto/66217-8735032`, bajado el 2026-09-09.
+ *
+ * Seis fotos de un solo color: una en `/Prelude-images/product/` y cinco en
+ * `/Prelude-images/productimage/`. Después la galería repite las seis con
+ * `class="magniflier"`, igual que en CG85700.
+ */
+function m8735032(): AcumuladorFicha {
+  const a = new AcumuladorFicha(`${HOST}/producto/66217-8735032`);
+  a.verMeta('og:title', 'Producto: 8735032 (3) NEGRO');
+
+  const galeria = [IMG('696085d0'), ...['6f8803f2', '01e21115', '98a85f1c', 'f7ee423e', '4dbf44e7'].map(IMG_EXTRA)];
+  for (const src of galeria) a.verImagen({ src, alt: 'product-thumb' });
+  for (const src of galeria) a.verImagen({ src, alt: 'product-thumb' });
+
+  return a;
+}
+
+test('las fotos adicionales de la galería entran, aunque vengan de otra ruta', () => {
+  /**
+   * EL BUG QUE ESTE TEST CIERRA. `verImagen` filtraba con un `includes` de
+   * `/Prelude-images/product/` —con barra final— y las adicionales cuelgan de
+   * `/Prelude-images/productimage/`, que no lo contiene: después de `product` viene
+   * `image`, no la barra. Se descartaban en silencio, sin error y sin aviso.
+   *
+   * El síntoma llegaba hasta el cliente: un color con seis fotos en el proveedor entraba
+   * al catálogo con una. Reportado sobre 8735032, 8735036, 8134028 y 8134029.
+   */
+  assert.equal(m8735032().resultado().fotos.length, 6);
+});
+
+test('la foto principal queda PRIMERA, que es la portada de la variante', () => {
+  /**
+   * El orden es el del documento y la principal va antes que las adicionales. No es
+   * cosmético: `vincularImagen` guarda `orden`, y el índice 0 es la foto que la grilla y
+   * la miniatura del pedido muestran.
+   */
+  assert.equal(m8735032().resultado().fotos[0], `${HOST}/Prelude-images/product/696085d0.jpg`);
+});
+
+test('las adicionales repetidas por el zoom tampoco se duplican', () => {
+  // La galería emite las seis dos veces, normal y con `class="magniflier"`.
+  const { fotos } = m8735032().resultado();
+  assert.equal(new Set(fotos).size, fotos.length);
+});
+
+test('las adicionales también se normalizan: sin el puerto 443', () => {
+  // Sin normalizar, la misma imagen entraría dos veces a R2.
+  for (const f of m8735032().resultado().fotos) assert.ok(!f.includes(':443'), f);
+});
+
+test('las seis fotos van al color de la ficha, no repartidas entre colores', () => {
+  // 8735032 no tiene hermanos: las seis son del mismo color.
+  assert.deepEqual(fotosPorColor(m8735032().resultado()), [
+    {
+      sku: '8735032-3',
+      fotos: [
+        `${HOST}/Prelude-images/product/696085d0.jpg`,
+        `${HOST}/Prelude-images/productimage/6f8803f2.jpg`,
+        `${HOST}/Prelude-images/productimage/01e21115.jpg`,
+        `${HOST}/Prelude-images/productimage/98a85f1c.jpg`,
+        `${HOST}/Prelude-images/productimage/f7ee423e.jpg`,
+        `${HOST}/Prelude-images/productimage/4dbf44e7.jpg`,
+      ],
+    },
+  ]);
+});
+
+test('una adicional dentro del enlace a otro producto sigue sin entrar', () => {
+  /**
+   * Ampliar la ruta no puede ampliar QUÉ imágenes son nuestras. Medido el 2026-09-09:
+   * `productimage/` aparece únicamente dentro de `alt="product-thumb"` y el carrusel de
+   * recomendados usa `product/` con el código del otro producto como `alt`. Igual se
+   * verifica: si el proveedor rediseñara, la regla del `alt` y la del enlace ajeno tienen
+   * que seguir mandando sobre la ruta.
+   */
+  const a = new AcumuladorFicha(`${HOST}/producto/66217-8735032`);
+  a.abrirEnlace('/producto/70871-cg85524');
+  a.verImagen({ src: IMG_EXTRA('ajena'), alt: 'product-thumb' });
+  a.cerrarEnlace();
+  a.verImagen({ src: IMG_EXTRA('recomendada'), alt: '8734089' });
+
+  assert.deepEqual(a.resultado().fotos, []);
 });
 
 // --- Reglas transversales ---

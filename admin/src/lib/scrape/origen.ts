@@ -14,8 +14,40 @@ import { slugificar } from '../slug.ts';
 /** Origen permitido. El scrape no sigue enlaces fuera de acá. */
 export const ORIGEN = 'https://www.chenson.com.py';
 
-/** Ruta de las imágenes del proveedor. */
-export const RUTA_IMAGENES = '/Prelude-images/product/';
+/**
+ * Las rutas donde el proveedor sirve las fotos de la galería. **SON DOS.**
+ *
+ * HALLAZGO DEL 2026-09-09, y costó fotos. Una ficha sirve la foto PRINCIPAL en
+ * `/Prelude-images/product/` y las ADICIONALES en `/Prelude-images/productimage/`.
+ * Medido sobre `/producto/66217-8735032`: 1 en la primera ruta y 5 en la segunda.
+ *
+ * Acá había una sola ruta y el filtro era un `includes` de ella. `productimage/` NO la
+ * contiene —después de `product` viene `image`, no la barra— así que las adicionales se
+ * descartaban en silencio: sin error, sin aviso, sin nada que mirar. El síntoma llegaba
+ * hasta el cliente, con un color que en el proveedor tiene seis fotos entrando al
+ * catálogo con una.
+ *
+ * NO SON MINIATURAS. Se bajó una de cada ruta y las dos son JPEG de 600×600: el mismo
+ * contrato de origen de `SPEC.md` §5.2, que es lo que hace que las adicionales se puedan
+ * tratar exactamente igual que la principal.
+ *
+ * LA BARRA FINAL SE CONSERVA en las dos, y no es un detalle: es lo que exige un archivo
+ * bajo la ruta en vez de un prefijo suelto. Y ampliar esto NO amplía qué imágenes son
+ * nuestras: eso lo siguen decidiendo el `alt` de `ALT_GALERIA` y el corte por enlace
+ * ajeno, que son reglas de contenido y no de ruta.
+ */
+export const RUTAS_IMAGENES = ['/Prelude-images/product/', '/Prelude-images/productimage/'];
+
+/**
+ * ¿Este `src` apunta a una imagen del catálogo del proveedor?
+ *
+ * Mira sólo la RUTA. El host lo verifica `esDelOrigen` y la pertenencia al producto la
+ * decide el `alt`: son tres preguntas distintas y conviene que se lean por separado.
+ */
+export function esRutaDeImagen(src: string): boolean {
+  const limpio = src ?? '';
+  return RUTAS_IMAGENES.some((ruta) => limpio.includes(ruta));
+}
 
 /** Ruta del listado de lanzamientos: una tanda con fecha. */
 export const RUTA_LANZAMIENTOS = '/lanzamientos';

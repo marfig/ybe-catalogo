@@ -726,7 +726,7 @@ hermanos se marcan como visitadas y no se vuelven a pedir.
 | Código | Card del listado y encabezado de la ficha | `CG86003`. Identidad (§5.3) |
 | URL de ficha | `/producto/{idColor}-{codigo}` | Ej. `/producto/71803-cg86003` |
 | Colores hermanos | Sección «Colores Disponibles» de la ficha | Link y nombre con prefijo `(X)`. **Presente también en fichas alcanzadas desde lanzamientos** (verificado sobre `/producto/71803-cg86003`) |
-| Imágenes | `/Prelude-images/product/{80hex}.jpg` | Los `src` traen **puerto explícito** `:443`. Hay que normalizar con `new URL()`; comparar strings crudos duplicaría cada imagen |
+| Imágenes | **DOS rutas:** `/Prelude-images/product/{80hex}.jpg` (la principal) y `/Prelude-images/productimage/{80hex}.jpg` (las adicionales) | Los `src` traen **puerto explícito** `:443`. Hay que normalizar con `new URL()`; comparar strings crudos duplicaría cada imagen. Ver «Las fotos adicionales cuelgan de otra ruta» |
 | Nombre del color | **`title` de la miniatura** del hermano | `img title="(A) VERDE OSCURO"`. El `<a>` trae `title="Ver en este color"` |
 | **Color de la ficha abierta** | **`og:title` y `<title>`** | `Producto: {CODIGO} ({X}) {NOMBRE}`. **NO está en el bloque de colores.** Ver abajo |
 | **Foto de cada color hermano** | El `src` de esa misma miniatura | **600 × 600, el mismo archivo que sirve su propia ficha.** Ver abajo |
@@ -893,7 +893,56 @@ dentro de un enlace de producto.
 La misma imagen aparece dos veces en la galería (normal y con
 `class="magniflier"` para el zoom), así que la colección debe ser un `Set`.
 
-`CG86003` tiene **una sola** foto de producto. El diseño no puede asumir varias.
+`CG86003` tiene **una sola** foto de producto. El diseño no puede asumir varias —
+pero tampoco puede asumir que siempre sea una: ver el hallazgo que sigue.
+
+#### Las fotos adicionales cuelgan de otra ruta
+
+**Hallazgo del 2026-09-09, y costó fotos.** El bloque de arriba habla de «las tres
+clases de imagen» dentro de `/Prelude-images/product/`. Falta una cuarta cosa, que no
+es una clase de imagen sino **una segunda ruta**:
+
+| Ruta | Qué sirve | Cuántas |
+|---|---|---|
+| `/Prelude-images/product/` | La foto **principal** de la variante | 1 |
+| `/Prelude-images/productimage/` | Las fotos **adicionales** de la galería | 0..N |
+
+Medido sobre cuatro fichas reales:
+
+| Ficha | `product/` | `productimage/` |
+|---|---|---|
+| `/producto/66217-8735032` | 1 | **5** |
+| `/producto/66181-8735036` | 1 | **5** |
+| `/producto/64874-8134028` | 1 | **1** |
+| `/producto/64875-8134029` | 1 | **1** |
+
+El filtro de `verImagen` era `src.includes('/Prelude-images/product/')`, **con la barra
+final**. `productimage/` no lo contiene — después de `product` viene `image`, no la
+barra — así que las adicionales se descartaban **en silencio**: ningún error, ningún
+log. El síntoma llegaba hasta el cliente, con un color que en el proveedor tiene seis
+fotos entrando al catálogo con una.
+
+Tres cosas que se midieron antes de ampliar la ruta, porque son las que deciden si es
+seguro:
+
+1. **No son miniaturas.** Se bajó una de cada ruta: las dos son **JPEG de 600 × 600**,
+   el mismo contrato de origen de `SPEC.md` §5.2. Las adicionales se procesan igual que
+   la principal.
+2. **Ampliar la ruta no arrastra recomendados.** `productimage/` aparece **únicamente**
+   dentro de `alt="product-thumb"`; el carrusel de recomendados usa `product/` con el
+   código del otro producto como `alt`. La regla del `alt` sigue siendo la que manda —
+   la ruta nunca decidió de quién es una foto.
+3. **El orden se conserva.** En el documento la de `product/` va primera y las
+   adicionales después, así que el `Set` deja la principal en el índice 0, que es la
+   portada que muestran la grilla y la miniatura del pedido.
+
+> **Regla: la pertenencia se decide por contenido (`alt` y enlace ajeno), la
+> elegibilidad por ruta.** Son dos preguntas distintas y viven separadas:
+> `esRutaDeImagen` para la segunda, `ALT_GALERIA` para la primera.
+
+**Lo que esto NO arregla:** un color **hermano** sigue recibiendo una sola foto —la del
+bloque de colores— porque su ficha no se visita. Es una limitación aparte, documentada
+en `fotosPorColor`, y cuesta un pedido por color extra.
 
 #### Los colores hermanos se detectan por URL, no por markup
 
