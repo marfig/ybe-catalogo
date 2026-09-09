@@ -59480,6 +59480,151 @@
     ]
   },
   {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 23 x 17 x 11 cm",
+    "id": "mochila-pequena",
+    "nombre": "mochila pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5453160"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/36716ac4b7c6a0af"
+          }
+        ],
+        "sku": "5453160-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 23 x 17 x 11 cm",
+    "id": "mochila-pequena-2",
+    "nombre": "mochila pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5453360"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/361ef7d8f3379208"
+          }
+        ],
+        "sku": "5453360-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 22 x 18 x 12 cm",
+    "id": "mochila-pequena-3",
+    "nombre": "mochila pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5454226"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3e223bbb4256111e"
+          }
+        ],
+        "sku": "5454226-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 17,5 x 12 cm",
+    "id": "mochila-pequena-4",
+    "nombre": "mochila pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5457657"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2334b7ff2a52e15a"
+          }
+        ],
+        "sku": "5457657-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 23 x 17 x 11 cm",
+    "id": "mochila-pequena-5",
+    "nombre": "mochila pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5457757"
+    },
+    "precio": 105000,
+    "variantes": [
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d8e238817d993682"
+          }
+        ],
+        "sku": "5457757-G"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "mochila-infantil"
