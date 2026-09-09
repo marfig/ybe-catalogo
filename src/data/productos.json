@@ -14900,6 +14900,35 @@
     ]
   },
   {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 22 x 6 cm",
+    "id": "cartcuhera-libro",
+    "nombre": "cartcuhera libro",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5455297"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fb9f4e4b9fa689f8"
+          }
+        ],
+        "sku": "5455297-9"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-22",
     "categorias": [
       "carteras"
@@ -31486,6 +31515,35 @@
     "categorias": [
       "cartucheras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 13 x 23 x 7 cm",
+    "id": "cartucartucherachera",
+    "nombre": "cartucartucherachera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5458230"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/56b91f1cb8e9f576"
+          }
+        ],
+        "sku": "5458230-U"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
     "descripcion": "Medidas aprox. (alto x largo x ancho): 13 x 24 x 7 cm",
     "id": "cartuchera",
     "nombre": "cartuchera",
@@ -32440,6 +32498,296 @@
     "categorias": [
       "cartucheras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 13 x 21 x 6 cm",
+    "id": "cartuchera-20",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5453190"
+    },
+    "precio": 39000,
+    "variantes": [
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f34c93795f978aba"
+          }
+        ],
+        "sku": "5453190-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 9 x 21 x 8 cm",
+    "id": "cartuchera-21",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5453301"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e24ee738ca655b94"
+          }
+        ],
+        "sku": "5453301-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 13 x 21 x 6 cm",
+    "id": "cartuchera-22",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5453390"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7002293070e4f49d"
+          }
+        ],
+        "sku": "5453390-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 23 x 9 cm",
+    "id": "cartuchera-23",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5454101"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0396f9ac73bf78fe"
+          }
+        ],
+        "sku": "5454101-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 22 x 6 cm",
+    "id": "cartuchera-24",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5454198"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9ce3bf121ead3ee5"
+          }
+        ],
+        "sku": "5454198-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 22 x 6 cm",
+    "id": "cartuchera-25",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5455298"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fc8bea04f2f2a042"
+          }
+        ],
+        "sku": "5455298-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 23 x 9 cm",
+    "id": "cartuchera-26",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5455301"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/760c61fe534abc3c"
+          }
+        ],
+        "sku": "5455301-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 9 x 22 x 7 cm",
+    "id": "cartuchera-27",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5457401"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/47ef3d360e403a35"
+          }
+        ],
+        "sku": "5457401-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 23 x 8 cm",
+    "id": "cartuchera-28",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5457601"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/14980b4df3502821"
+          }
+        ],
+        "sku": "5457601-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 9 x 21 x 7 cm",
+    "id": "cartuchera-29",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5457701"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4bf2ad86d5137539"
+          }
+        ],
+        "sku": "5457701-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
     "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 25 x 8 cm",
     "id": "cartuchera-3",
     "nombre": "cartuchera",
@@ -32474,6 +32822,151 @@
           }
         ],
         "sku": "1735274-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 24 x 7 cm",
+    "id": "cartuchera-30",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5458199"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e3cd7e5af7ad8cac"
+          }
+        ],
+        "sku": "5458199-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10,5 x 22 x 6 cm",
+    "id": "cartuchera-31",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5458217"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/97075e4e8132d632"
+          }
+        ],
+        "sku": "5458217-U"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 16 x 16 x 8 cm",
+    "id": "cartuchera-32",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5458289"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4fa91623c5c6153b"
+          }
+        ],
+        "sku": "5458289-U"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 14 x 23 x 6 cm",
+    "id": "cartuchera-33",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5458290"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/46e8128daf6d6a01"
+          }
+        ],
+        "sku": "5458290-U"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 16 x 16 x 8 cm",
+    "id": "cartuchera-34",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5458889"
+    },
+    "precio": 39000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/76018f45e891e2e2"
+          }
+        ],
+        "sku": "5458889-P"
       }
     ]
   },
@@ -33476,6 +33969,93 @@
     "categorias": [
       "cartucheras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 8 x 20 x 4 cm",
+    "id": "cartuchera-de-1-cierre-5",
+    "nombre": "cartuchera de 1 cierre",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5457403"
+    },
+    "precio": 28000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2fb9885a64dfd07c"
+          }
+        ],
+        "sku": "5457403-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 9 x 21 x 5,5 cm",
+    "id": "cartuchera-de-1-cierre-6",
+    "nombre": "cartuchera de 1 cierre",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5457603"
+    },
+    "precio": 29000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9fe41b1f83e533f7"
+          }
+        ],
+        "sku": "5457603-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 21 x 5 cm",
+    "id": "cartuchera-de-1-cierre-7",
+    "nombre": "cartuchera de 1 cierre",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5458102"
+    },
+    "precio": 29000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8dde8adcc9b9c809"
+          }
+        ],
+        "sku": "5458102-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
     "descripcion": "Medidas aprox. (alto x largo x ancho): 14 x 24 x 8 cm",
     "id": "cartuchera-de-2-cierres",
     "nombre": "cartuchera de 2 cierres",
@@ -34286,6 +34866,122 @@
     "categorias": [
       "cartucheras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 12 x 24 x 7 cm",
+    "id": "cartuchera-de-2-cierres-23",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66165"
+    },
+    "precio": 39000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d2fad676d1bfe6ff"
+          }
+        ],
+        "sku": "MB66165-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 24 x 8 cm",
+    "id": "cartuchera-de-2-cierres-24",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66247"
+    },
+    "precio": 39000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/66c3bcf8446f7c2e"
+          }
+        ],
+        "sku": "MB66247-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 24 x 7 cm",
+    "id": "cartuchera-de-2-cierres-25",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66343"
+    },
+    "precio": 39000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d7f5b420c7b7dbce"
+          }
+        ],
+        "sku": "MB66343-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 12 x 25 x 7 cm",
+    "id": "cartuchera-de-2-cierres-26",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66414"
+    },
+    "precio": 39000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4ed11c9ad2ccffe6"
+          }
+        ],
+        "sku": "MB66414-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
     "descripcion": "Medidas aprox. (alto x largo x ancho): 14 x 25 x 7 cm",
     "id": "cartuchera-de-2-cierres-3",
     "nombre": "cartuchera de 2 cierres",
@@ -34601,6 +35297,208 @@
           }
         ],
         "sku": "1734150-U"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 24 x 10 cm",
+    "id": "cartuchera-de-3-cierres-10",
+    "nombre": "cartuchera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB65962"
+    },
+    "precio": 48000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7ee635d5262e54ea"
+          }
+        ],
+        "sku": "MB65962-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-3-cierres-11",
+    "nombre": "cartuchera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB65969"
+    },
+    "precio": 48000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8f980e13740c3500"
+          }
+        ],
+        "sku": "MB65969-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 24 x 10 cm",
+    "id": "cartuchera-de-3-cierres-12",
+    "nombre": "cartuchera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66282"
+    },
+    "precio": 48000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cde7f5b20ac582d4"
+          }
+        ],
+        "sku": "MB66282-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 24 x 11 cm",
+    "id": "cartuchera-de-3-cierres-13",
+    "nombre": "cartuchera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66308"
+    },
+    "precio": 48000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b1baecc678ef627d"
+          }
+        ],
+        "sku": "MB66308-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 24 x 11 cm",
+    "id": "cartuchera-de-3-cierres-14",
+    "nombre": "cartuchera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66576"
+    },
+    "precio": 48000,
+    "variantes": [
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/95427b6a2a855cf2"
+          }
+        ],
+        "sku": "MB66576-R"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 24 x 11 cm",
+    "id": "cartuchera-de-3-cierres-15",
+    "nombre": "cartuchera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66583"
+    },
+    "precio": 48000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f95730060da61f8f"
+          }
+        ],
+        "sku": "MB66583-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 11 x 24 x 10 cm",
+    "id": "cartuchera-de-3-cierres-16",
+    "nombre": "cartuchera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66592"
+    },
+    "precio": 48000,
+    "variantes": [
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/00a6c66aa007467c"
+          }
+        ],
+        "sku": "MB66592-A"
       }
     ]
   },
@@ -35919,6 +36817,35 @@
     ]
   },
   {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 13 x 33 x 7 cm",
+    "id": "cartuchera-doble-cierre-4",
+    "nombre": "cartuchera doble cierre",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66077"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/60731f00e84a7995"
+          }
+        ],
+        "sku": "MB66077-9"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-31",
     "categorias": [
       "cartucheras"
@@ -36245,6 +37172,209 @@
           }
         ],
         "sku": "1734536-9X"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 16 x 23 x 3 cm",
+    "id": "cartuchera-libro-2",
+    "nombre": "cartuchera libro",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5455397"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/892de7586da2f225"
+          }
+        ],
+        "sku": "5455397-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 22 x 15 x 3 cm",
+    "id": "cartuchera-libro-3",
+    "nombre": "cartuchera libro",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5457497"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e9ecdc372a604360"
+          }
+        ],
+        "sku": "5457497-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 16 x 24 x 2,5 cm",
+    "id": "cartuchera-libro-4",
+    "nombre": "cartuchera libro",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5457697"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/77006e20d22f4bec"
+          }
+        ],
+        "sku": "5457697-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 22 x 15 x 5 cm",
+    "id": "cartuchera-libro-5",
+    "nombre": "cartuchera libro",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5458197"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5b050634663d06fb"
+          }
+        ],
+        "sku": "5458197-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 23 x 2,5 cm",
+    "id": "cartuchera-libro-6",
+    "nombre": "cartuchera libro",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5458897"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dcdf0e8270764fa5"
+          }
+        ],
+        "sku": "5458897-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 22 x 6 cm",
+    "id": "cartuchera-libro-7",
+    "nombre": "cartuchera libro",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5458997"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8b17030490811fd6"
+          }
+        ],
+        "sku": "5458997-J"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 22 x 15 x 5 cm",
+    "id": "cartuchera-libro-8",
+    "nombre": "cartuchera libro",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5458397"
+    },
+    "precio": 48000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ddc66c613445d5e9"
+          }
+        ],
+        "sku": "5458397-9"
       }
     ]
   },
@@ -63911,6 +65041,35 @@
           }
         ],
         "sku": "1790191-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "rinoneras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 32 x 10 cm",
+    "id": "rinonera-34",
+    "nombre": "riñonera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5458288"
+    },
+    "precio": 65000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dc5bbec65e165e2e"
+          }
+        ],
+        "sku": "5458288-U"
       }
     ]
   },
