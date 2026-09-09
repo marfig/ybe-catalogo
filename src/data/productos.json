@@ -322,7 +322,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "bandolera-dama"
     ],
@@ -377,7 +377,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "bandolera-dama"
     ],
@@ -696,6 +696,277 @@
     ]
   },
   {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "(alto x largo x ancho):\t13 x 20 x 8cm",
+    "id": "bandolera-de-tela",
+    "nombre": "bandolera de tela",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG30072"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/62c139bc696be930"
+          }
+        ],
+        "sku": "CG30072-9"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4d8b74fea48763ce"
+          }
+        ],
+        "sku": "CG30072-2"
+      },
+      {
+        "color": "Lila Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/e3d94efea268fdb7"
+          }
+        ],
+        "sku": "CG30072-V"
+      },
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/59eb064f1acebd4d"
+          }
+        ],
+        "sku": "CG30072-F"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 21 x 4 cm",
+    "id": "bandolera-de-tela-2",
+    "nombre": "bandolera de tela",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG30073"
+    },
+    "precio": 108000,
+    "variantes": [
+      {
+        "color": "Celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8d8431c32141c1bf"
+          }
+        ],
+        "sku": "CG30073-9"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/219baaac0496b229"
+          }
+        ],
+        "sku": "CG30073-2"
+      },
+      {
+        "color": "Lila Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c24015613d542da7"
+          }
+        ],
+        "sku": "CG30073-V"
+      },
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a76c6d9aa97c27cf"
+          }
+        ],
+        "sku": "CG30073-F"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2b0cf4c3a1926f0a"
+          }
+        ],
+        "sku": "CG30073-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 17 x 30 x 17 cm",
+    "id": "bandolera-de-tela-3",
+    "nombre": "bandolera de tela",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG30074"
+    },
+    "precio": 139000,
+    "variantes": [
+      {
+        "color": "Celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/39514a85cb4d56d8"
+          }
+        ],
+        "sku": "CG30074-9"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/18186b5d26ea1549"
+          }
+        ],
+        "sku": "CG30074-2"
+      },
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a61059c10ebe789b"
+          }
+        ],
+        "sku": "CG30074-F"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/127552212e1bc4bf"
+          }
+        ],
+        "sku": "CG30074-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 19 x 9,5 cm",
+    "id": "bandolera-de-tela-4",
+    "nombre": "bandolera de tela",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG32231"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b0e5b75bd97f5be3"
+          }
+        ],
+        "sku": "CG32231-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 20 x 16 x 5 cm",
+    "id": "bandolera-de-tela-5",
+    "nombre": "bandolera de tela",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG32238"
+    },
+    "precio": 99000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/13c0f6c29a8d97c6"
+          }
+        ],
+        "sku": "CG32238-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-25",
     "categorias": [
       "bandolera-dama"
@@ -725,7 +996,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "bandolera-dama"
     ],
@@ -4325,6 +4596,34 @@
     ]
   },
   {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "id": "bandolera-pequena-67",
+    "nombre": "bandolera pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG30071"
+    },
+    "precio": 78000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d422163e80c07612"
+          }
+        ],
+        "sku": "CG30071-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-25",
     "categorias": [
       "bandolera-dama"
@@ -4968,7 +5267,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billetera-hombre"
     ],
@@ -5010,7 +5309,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billetera-hombre"
     ],
@@ -5052,7 +5351,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -5081,7 +5380,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -5123,7 +5422,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -5151,7 +5450,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -5173,6 +5472,13 @@
               600
             ],
             "base": "catalogo/7ddb2b5e35509d34"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0a575de4f6733ee8"
           }
         ],
         "sku": "2515250-3"
@@ -5180,7 +5486,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -5319,7 +5625,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -5443,7 +5749,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-22",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billetera-hombre"
     ],
@@ -5485,7 +5791,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -5539,7 +5845,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -5568,7 +5874,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -5597,7 +5903,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -5626,7 +5932,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-22",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -5655,7 +5961,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -5684,7 +5990,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -5713,7 +6019,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -5742,7 +6048,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -5793,7 +6099,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-22",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billetera-hombre"
     ],
@@ -5835,7 +6141,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -5864,7 +6170,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -5893,7 +6199,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -5922,7 +6228,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -5951,7 +6257,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -5980,7 +6286,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -6041,6 +6347,20 @@
               600
             ],
             "base": "catalogo/e2132298c1ec3c76"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2c12c257a9aaa9c4"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2ca4de5b0745b079"
           }
         ],
         "sku": "2170142-3"
@@ -6061,7 +6381,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -6090,7 +6410,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -6112,6 +6432,13 @@
               600
             ],
             "base": "catalogo/06ce9b0c16165563"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/765481c0827ff2cd"
           }
         ],
         "sku": "2715301-V"
@@ -6119,7 +6446,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -6161,7 +6488,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -6449,7 +6776,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "bolsos"
     ],
@@ -7223,7 +7550,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "bolsos"
     ],
@@ -7248,6 +7575,19 @@
           }
         ],
         "sku": "0031685-o1-nara-gris-o"
+      },
+      {
+        "color": "(q3-P) Lila Os/n",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f5717b060ddf8c57"
+          }
+        ],
+        "sku": "0031685-q3-p-lila-os-n"
       }
     ]
   },
@@ -7349,7 +7689,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "bolsos"
     ],
@@ -7378,7 +7718,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "bolsos"
     ],
@@ -7407,7 +7747,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "bolsos"
     ],
@@ -7849,7 +8189,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-01",
+    "actualizado": "2026-09-09",
     "categorias": [
       "bolso-mochila-maternal"
     ],
@@ -8192,7 +8532,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-01",
+    "actualizado": "2026-09-09",
     "categorias": [
       "bolso-mochila-maternal"
     ],
@@ -8247,7 +8587,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-01",
+    "actualizado": "2026-09-09",
     "categorias": [
       "bolso-mochila-maternal"
     ],
@@ -8276,7 +8616,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-01",
+    "actualizado": "2026-09-09",
     "categorias": [
       "bolso-mochila-maternal"
     ],
@@ -8305,7 +8645,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-01",
+    "actualizado": "2026-09-09",
     "categorias": [
       "bolso-mochila-maternal"
     ],
@@ -8334,7 +8674,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-01",
+    "actualizado": "2026-09-09",
     "categorias": [
       "bolso-mochila-maternal"
     ],
@@ -8389,7 +8729,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-01",
+    "actualizado": "2026-09-09",
     "categorias": [
       "bolso-mochila-maternal"
     ],
@@ -8567,7 +8907,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "bolsos"
     ],
@@ -8680,7 +9020,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "bolsos"
     ],
@@ -9007,7 +9347,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-01",
+    "actualizado": "2026-09-09",
     "categorias": [
       "porta-tenis"
     ],
@@ -9133,7 +9473,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "bandoleras"
     ],
@@ -9168,6 +9508,34 @@
               600
             ],
             "base": "catalogo/15f1ca2ce72cf0c7"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5bfc33ac9f680660"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a8c19f6c3c2f1dd7"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ff3338a6f425b580"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/96b36ea5749fd13b"
           }
         ],
         "sku": "1734276-3"
@@ -14531,6 +14899,374 @@
           }
         ],
         "sku": "CG85254-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 30 x 40 x 21 cm",
+    "id": "cartera-de-tela",
+    "nombre": "cartera de tela",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG30076"
+    },
+    "precio": 160000,
+    "variantes": [
+      {
+        "color": "Celeste",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2f4e9ea2904185ad"
+          }
+        ],
+        "sku": "CG30076-9"
+      },
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/490a8413f8cc4e98"
+          }
+        ],
+        "sku": "CG30076-F"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 31 x 38 x 14 cm",
+    "id": "cartera-de-tela-2",
+    "nombre": "cartera de tela",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG32230"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2b4cd514af379e2f"
+          }
+        ],
+        "sku": "CG32230-F"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/88ba7a2c08a51b0c"
+          }
+        ],
+        "sku": "CG32230-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 22 x 33 x 15 cm",
+    "id": "cartera-de-tela-3",
+    "nombre": "cartera de tela",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG32236"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/de5af003e1185e62"
+          }
+        ],
+        "sku": "CG32236-9"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/29c47aae4057046b"
+          }
+        ],
+        "sku": "CG32236-2"
+      },
+      {
+        "color": "Lila Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1e0489d0ef7e6a1c"
+          }
+        ],
+        "sku": "CG32236-V"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7c1a0040d4ed1205"
+          }
+        ],
+        "sku": "CG32236-3"
+      },
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b8c8d5b738ee181c"
+          }
+        ],
+        "sku": "CG32236-F"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cf96f99a45805135"
+          }
+        ],
+        "sku": "CG32236-P"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/37edf5c2b5e29ac5"
+          }
+        ],
+        "sku": "CG32236-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 16 x 29 x 9 cm",
+    "id": "cartera-de-tela-4",
+    "nombre": "cartera de tela",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG34249"
+    },
+    "precio": 99000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0170f82f59b90184"
+          }
+        ],
+        "sku": "CG34249-3"
+      },
+      {
+        "color": "Turquesa",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f91468fd8b4d0b93"
+          }
+        ],
+        "sku": "CG34249-T"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 17 x 24 x 5 cm",
+    "id": "cartera-de-tela-5",
+    "nombre": "cartera de tela",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG34283"
+    },
+    "precio": 110000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b10f66dbb4c9e651"
+          }
+        ],
+        "sku": "CG34283-V"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/57c9e115a7cad6b0"
+          }
+        ],
+        "sku": "CG34283-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/632bb8c70fdb474d"
+          }
+        ],
+        "sku": "CG34283-P"
+      },
+      {
+        "color": "Turquesa",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/31f133ff1dd9872b"
+          }
+        ],
+        "sku": "CG34283-T"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e9ad853a70901b00"
+          }
+        ],
+        "sku": "CG34283-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-de-tela-6",
+    "nombre": "cartera de tela",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG35994"
+    },
+    "precio": 119000,
+    "variantes": [
+      {
+        "color": "Lila/rosa Cl",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/138e0f58c7bed665"
+          }
+        ],
+        "sku": "CG35994-UI"
+      },
+      {
+        "color": "Rojo/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e8099ae749a15cd0"
+          }
+        ],
+        "sku": "CG35994-R2"
+      },
+      {
+        "color": "Rosa Os/rosa",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b8150dc6a930166e"
+          }
+        ],
+        "sku": "CG35994-FJ"
       }
     ]
   },
@@ -21197,7 +21933,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -21226,7 +21962,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -21433,11 +22169,31 @@
           }
         ],
         "sku": "1731466-r6-rojo-azul-o"
+      },
+      {
+        "color": "Rosa/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/22ac6aa1dab484c9"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0e70b91638547fc9"
+          }
+        ],
+        "sku": "1731466-F2"
       }
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -21644,11 +22400,31 @@
           }
         ],
         "sku": "1731467-r6-rojo-azul-o"
+      },
+      {
+        "color": "Lila O/rosa",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/86ca1831069f7dce"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2a15b72d431baecb"
+          }
+        ],
+        "sku": "1731467-QI"
       }
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -21670,6 +22446,27 @@
               600
             ],
             "base": "catalogo/1faf5a6d7259bf00"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f92aebc34192cc28"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2554512d9912edd7"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0c5c6cfe3df66bf8"
           }
         ],
         "sku": "1734064-3"
@@ -21677,7 +22474,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -21706,7 +22503,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -21774,7 +22571,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -21816,7 +22613,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -21858,7 +22655,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -21887,7 +22684,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -22061,7 +22858,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -22090,10 +22887,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 25 x 8 cm",
     "id": "cartuchera-3",
     "nombre": "cartuchera",
     "origen": {
@@ -22131,7 +22929,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -22173,7 +22971,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -22195,6 +22993,13 @@
               600
             ],
             "base": "catalogo/cd226728d1e249ed"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5aaabb9ae8de301b"
           }
         ],
         "sku": "1734312-3"
@@ -22202,7 +23007,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -22296,7 +23101,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -22325,7 +23130,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -22432,7 +23237,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -22652,6 +23457,39 @@
           }
         ],
         "sku": "1731465-vu-p-lila-c-li"
+      },
+      {
+        "color": "Azul/celest",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9b8d041661305901"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a33f7ff36413ee81"
+          }
+        ],
+        "sku": "1731465-68"
+      },
+      {
+        "color": "*(jp-P) Rosa",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8d12b1167e216f23"
+          }
+        ],
+        "sku": "1731465-jp-p-rosa"
       }
     ]
   },
@@ -22685,7 +23523,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -22714,7 +23552,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -22977,7 +23815,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -23031,7 +23869,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -23085,7 +23923,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -23114,10 +23952,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 13 x 26 x 8 cm",
     "id": "cartuchera-de-2-cierres-10",
     "nombre": "cartuchera de 2 cierres",
     "origen": {
@@ -23155,10 +23994,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 12 x 24 x 6 cm",
     "id": "cartuchera-de-2-cierres-11",
     "nombre": "cartuchera de 2 cierres",
     "origen": {
@@ -23235,10 +24075,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 16 x 24 x 8 cm",
     "id": "cartuchera-de-2-cierres-12",
     "nombre": "cartuchera de 2 cierres",
     "origen": {
@@ -23276,10 +24117,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 23 x 7 cm",
     "id": "cartuchera-de-2-cierres-13",
     "nombre": "cartuchera de 2 cierres",
     "origen": {
@@ -23304,10 +24146,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 23 x 8 cm",
     "id": "cartuchera-de-2-cierres-14",
     "nombre": "cartuchera de 2 cierres",
     "origen": {
@@ -23332,10 +24175,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 25 x 7 cm",
     "id": "cartuchera-de-2-cierres-15",
     "nombre": "cartuchera de 2 cierres",
     "origen": {
@@ -23360,10 +24204,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 12 x 25 x 8 cm",
     "id": "cartuchera-de-2-cierres-16",
     "nombre": "cartuchera de 2 cierres",
     "origen": {
@@ -23427,7 +24272,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -23469,7 +24314,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -23498,7 +24343,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -23696,7 +24541,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -23725,7 +24570,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -23773,6 +24618,18 @@
               600
             ],
             "base": "catalogo/c43621625142716a"
+          },
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/e5f88b1de2bf6226"
+          },
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/35622a30dad57c71"
           }
         ],
         "sku": "1732726-A"
@@ -23780,7 +24637,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -23834,7 +24691,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -23876,10 +24733,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 14 x 25 x 7 cm",
     "id": "cartuchera-de-2-cierres-3",
     "nombre": "cartuchera de 2 cierres",
     "origen": {
@@ -23917,7 +24775,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -23946,7 +24804,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -23988,7 +24846,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -24017,10 +24875,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 14 x 26 x 7 cm",
     "id": "cartuchera-de-2-cierres-7",
     "nombre": "cartuchera de 2 cierres",
     "origen": {
@@ -24058,10 +24917,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 23 x 10 cm",
     "id": "cartuchera-de-2-cierres-8",
     "nombre": "cartuchera de 2 cierres",
     "origen": {
@@ -24099,10 +24959,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 25 x 7 cm",
     "id": "cartuchera-de-2-cierres-9",
     "nombre": "cartuchera de 2 cierres",
     "origen": {
@@ -24166,7 +25027,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -24195,7 +25056,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -24224,7 +25085,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -24253,7 +25114,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -24295,7 +25156,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -24324,10 +25185,11 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 12 x 24 x 9 cm",
     "id": "cartuchera-de-3-cierres-6",
     "nombre": "cartuchera de 3 cierres",
     "origen": {
@@ -24365,7 +25227,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -24394,7 +25256,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -24448,7 +25310,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -25123,7 +25985,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -25401,7 +26263,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -25628,7 +26490,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -25809,7 +26671,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -25925,7 +26787,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -25947,6 +26809,13 @@
               600
             ],
             "base": "catalogo/395be6c800b3f198"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/53f9a7c8b43244ea"
           }
         ],
         "sku": "1132233-3"
@@ -25983,7 +26852,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
     ],
@@ -26884,7 +27753,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-09-09",
     "categorias": [
       "loncheras"
     ],
@@ -27030,7 +27899,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-09-09",
     "categorias": [
       "loncheras"
     ],
@@ -27091,6 +27960,20 @@
               600
             ],
             "base": "catalogo/2da1156290a77652"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0653682d668dbb89"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/80259e79809a9ee1"
           }
         ],
         "sku": "4132936-R1X"
@@ -27098,7 +27981,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "loncheras"
     ],
@@ -27133,6 +28016,20 @@
               600
             ],
             "base": "catalogo/3a5f22377e062d20"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/459d13a5ff6fa10b"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6404dad430fa1133"
           }
         ],
         "sku": "4130008-33"
@@ -27140,7 +28037,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-09-09",
     "categorias": [
       "loncheras"
     ],
@@ -27162,6 +28059,20 @@
               600
             ],
             "base": "catalogo/7e61bf5c1054686d"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/70f67b563a9f4e8d"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0c2f0a6c4c94ac22"
           }
         ],
         "sku": "4120856-62"
@@ -27208,7 +28119,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-09-09",
     "categorias": [
       "loncheras"
     ],
@@ -27282,6 +28193,20 @@
               600
             ],
             "base": "catalogo/b937c62736b75234"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e3a160356e91a5bf"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/72664985080d844a"
           }
         ],
         "sku": "4131461-F1"
@@ -29140,7 +30065,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-21",
+    "actualizado": "2026-09-09",
     "categorias": [
       "lonchera-termica-infantil"
     ],
@@ -29250,7 +30175,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-13",
+    "actualizado": "2026-09-09",
     "categorias": [
       "loncheras"
     ],
@@ -29285,6 +30210,20 @@
               600
             ],
             "base": "catalogo/e7256724bf36854f"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1f52ade085982674"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/77783521cace22a6"
           }
         ],
         "sku": "4120858-32"
@@ -30238,7 +31177,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "mochilas"
     ],
@@ -30267,7 +31206,743 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 32 x 12",
+    "id": "mochila-100",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8739816"
+    },
+    "precio": 165000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/51dc3f99a69c26f8"
+          }
+        ],
+        "sku": "8739816-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 42 x 32 x 15 cm",
+    "id": "mochila-101",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8741136"
+    },
+    "precio": 116000,
+    "variantes": [
+      {
+        "color": "*(1-4-19) Gris Cl",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f22562bd6d66360d"
+          }
+        ],
+        "sku": "8741136-1-4-19-gris-cl"
+      },
+      {
+        "color": "*(1-6-19) Gris Os",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/650d4a25685c84a4"
+          }
+        ],
+        "sku": "8741136-1-6-19-gris-os"
+      },
+      {
+        "color": "*(3-22) Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c481b3f66dcde063"
+          }
+        ],
+        "sku": "8741136-3-22-negro"
+      },
+      {
+        "color": "*(6-18)azul Osc",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/edf8718ede5ce590"
+          }
+        ],
+        "sku": "8741136-6-18-azul-osc"
+      },
+      {
+        "color": "*(7-P) Azul Osc",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c60319c4a55c1bb2"
+          }
+        ],
+        "sku": "8741136-7-p-azul-osc"
+      },
+      {
+        "color": "*(9-P) Azul Marin",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7d66aa840506a379"
+          }
+        ],
+        "sku": "8741136-9-p-azul-marin"
+      },
+      {
+        "color": "*(a-P) Verde Osc",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0962a29f8c56c9af"
+          }
+        ],
+        "sku": "8741136-a-p-verde-osc"
+      },
+      {
+        "color": "*(f-P) Rosa Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a6eb7c9ffb748023"
+          }
+        ],
+        "sku": "8741136-f-p-rosa-osc"
+      },
+      {
+        "color": "*(o-P) Naranja",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8114b0e4ffedcdaf"
+          }
+        ],
+        "sku": "8741136-o-p-naranja"
+      },
+      {
+        "color": "*(r-P) Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/da357041693e3160"
+          }
+        ],
+        "sku": "8741136-r-p-rojo"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 33 x 16",
+    "id": "mochila-102",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8743436"
+    },
+    "precio": 145000,
+    "variantes": [
+      {
+        "color": "Negro/amari.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/25ec06afba6c8317"
+          }
+        ],
+        "sku": "8743436-3L"
+      },
+      {
+        "color": "Negro/azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/eb9b6b4e82a373c8"
+          }
+        ],
+        "sku": "8743436-39"
+      },
+      {
+        "color": "Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/134f8b4afa754cec"
+          }
+        ],
+        "sku": "8743436-33"
+      },
+      {
+        "color": "Negro/rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4548932fc05e3b13"
+          }
+        ],
+        "sku": "8743436-3R"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochilas"
+    ],
+    "id": "mochila-103",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8743457"
+    },
+    "precio": 145000,
+    "variantes": [
+      {
+        "color": "*(3) Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/975135c9da50ced9"
+          }
+        ],
+        "sku": "8743457-3-negro"
+      },
+      {
+        "color": "*(33) Negro/negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0bdeba5a661eb177"
+          }
+        ],
+        "sku": "8743457-33-negro-negro"
+      },
+      {
+        "color": "*(3o) Negro/naran",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3dc542e797c0f147"
+          }
+        ],
+        "sku": "8743457-3o-negro-naran"
+      },
+      {
+        "color": "*(9)dp6 Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d20f5f0662493499"
+          }
+        ],
+        "sku": "8743457-9-dp6-azul"
+      },
+      {
+        "color": "*(g) Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f562163f19e5f431"
+          }
+        ],
+        "sku": "8743457-g-verde"
+      },
+      {
+        "color": "*(r) Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/47ff120d48ffb4cd"
+          }
+        ],
+        "sku": "8743457-r-rojo"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 47 x 31 x 21 cm",
+    "id": "mochila-104",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8782030"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "(2-23) Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/70b3b22a5abb81d3"
+          }
+        ],
+        "sku": "8782030-2-23-gris"
+      },
+      {
+        "color": "(3-23) Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5a6b70536625888c"
+          }
+        ],
+        "sku": "8782030-3-23-negro"
+      },
+      {
+        "color": "(6-23) Azul Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/367f592836f6c0b9"
+          }
+        ],
+        "sku": "8782030-6-23-azul-claro"
+      },
+      {
+        "color": "(9-23) Azul Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/897cf48fc92886bb"
+          }
+        ],
+        "sku": "8782030-9-23-azul-osc"
+      },
+      {
+        "color": "(p-23) Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8c125b40c3f0231b"
+          }
+        ],
+        "sku": "8782030-p-23-rosado"
+      },
+      {
+        "color": "(r-23) Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/509213f7c2975d80"
+          }
+        ],
+        "sku": "8782030-r-23-rojo"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45 x 28 x 19 cm",
+    "id": "mochila-105",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8782032"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "(2-23) Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1407e938d9eb3ab3"
+          }
+        ],
+        "sku": "8782032-2-23-gris"
+      },
+      {
+        "color": "(3-23) Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b8ca715098ae5d81"
+          }
+        ],
+        "sku": "8782032-3-23-negro"
+      },
+      {
+        "color": "(6-23) Azul Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/abfb5cee30230f4f"
+          }
+        ],
+        "sku": "8782032-6-23-azul-claro"
+      },
+      {
+        "color": "(9-23) Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7f3c6e082d3dfd68"
+          }
+        ],
+        "sku": "8782032-9-23-azul"
+      },
+      {
+        "color": "(p-23) Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/88f1ec82c12f9260"
+          }
+        ],
+        "sku": "8782032-p-23-rosado"
+      },
+      {
+        "color": "(r-23) Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6b729429d2648402"
+          }
+        ],
+        "sku": "8782032-r-23-rojo"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45 x 28 x 19 cm",
+    "id": "mochila-106",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8782033"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "(2-23) Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2503fcc8275c0b65"
+          }
+        ],
+        "sku": "8782033-2-23-gris"
+      },
+      {
+        "color": "(3-23) Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d555f7997c29d7be"
+          }
+        ],
+        "sku": "8782033-3-23-negro"
+      },
+      {
+        "color": "(6-23) Azul Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6fe0e2f36ab9cdda"
+          }
+        ],
+        "sku": "8782033-6-23-azul-osc"
+      },
+      {
+        "color": "(9-23) Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7faf04df18463b79"
+          }
+        ],
+        "sku": "8782033-9-23-azul"
+      },
+      {
+        "color": "(p-23) Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9b6931734ab7a5e0"
+          }
+        ],
+        "sku": "8782033-p-23-rosado"
+      },
+      {
+        "color": "(r-23) Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/13005131a7f71e2c"
+          }
+        ],
+        "sku": "8782033-r-23-rojo"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochilas"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 46 x 30 x 20",
+    "id": "mochila-107",
+    "nombre": "Mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8790186"
+    },
+    "precio": 138000,
+    "variantes": [
+      {
+        "color": "*(3) Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8059d8214f29b7bf"
+          }
+        ],
+        "sku": "8790186-3-negro"
+      },
+      {
+        "color": "*(41) Verd.os/gri",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/80faaf1bfd485481"
+          }
+        ],
+        "sku": "8790186-41-verd-os-gri"
+      },
+      {
+        "color": "*(51)turquez/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9c752e2b08a91968"
+          }
+        ],
+        "sku": "8790186-51-turquez-gris"
+      },
+      {
+        "color": "*(61) Azul/gris O",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/662760e1654b9e9a"
+          }
+        ],
+        "sku": "8790186-61-azul-gris-o"
+      },
+      {
+        "color": "*(71) Celeste/gri",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7b055aead22b9d26"
+          }
+        ],
+        "sku": "8790186-71-celeste-gri"
+      },
+      {
+        "color": "*(91) Azul/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6ce52f8d80705392"
+          }
+        ],
+        "sku": "8790186-91-azul-gris"
+      },
+      {
+        "color": "*(f1) Rosa/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/058e1c8f3c11cabc"
+          }
+        ],
+        "sku": "8790186-f1-rosa-gris"
+      },
+      {
+        "color": "*(o1)naranja/gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9b8772d9543d16e7"
+          }
+        ],
+        "sku": "8790186-o1-naranja-gris"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
     "categorias": [
       "mochilas"
     ],
@@ -30296,7 +31971,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "mochilas"
     ],
@@ -30325,7 +32000,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "mochilas"
     ],
@@ -30363,11 +32038,24 @@
           }
         ],
         "sku": "0031689-o8-naranja-lil"
+      },
+      {
+        "color": "Azul/naranj",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/80a502caf80a4e7f"
+          }
+        ],
+        "sku": "0031689-6O"
       }
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "mochilas"
     ],
@@ -30392,11 +32080,24 @@
           }
         ],
         "sku": "0031690-o8-naranja-lil"
+      },
+      {
+        "color": "Azul/naranj",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/50a51291cb998223"
+          }
+        ],
+        "sku": "0031690-6O"
       }
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "mochilas"
     ],
@@ -30421,11 +32122,24 @@
           }
         ],
         "sku": "0031714-3o-negro-naran"
+      },
+      {
+        "color": "Azul/naranj",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/19a112911af4da87"
+          }
+        ],
+        "sku": "0031714-6O"
       }
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "mochilas"
     ],
@@ -30450,11 +32164,24 @@
           }
         ],
         "sku": "0031715-3o-negro-naran"
+      },
+      {
+        "color": "Azul/naranj",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/87bba79a2305f0c4"
+          }
+        ],
+        "sku": "0031715-6O"
       }
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "mochilas"
     ],
@@ -30479,11 +32206,24 @@
           }
         ],
         "sku": "0031716-3o-negro-naran"
+      },
+      {
+        "color": "Azul/naranj",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/841fc5955dbdb314"
+          }
+        ],
+        "sku": "0031716-6O"
       }
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "mochilas"
     ],
@@ -30508,6 +32248,19 @@
           }
         ],
         "sku": "0031717-3o-negro-naran"
+      },
+      {
+        "color": "Azul/naranj",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/953f5a1be64cdc22"
+          }
+        ],
+        "sku": "0031717-6O"
       }
     ]
   },
@@ -33265,7 +35018,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "mochilas"
     ],
@@ -33290,6 +35043,19 @@
           }
         ],
         "sku": "0030880-8-azul"
+      },
+      {
+        "color": "Lila/naranj",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9d295eff178633db"
+          }
+        ],
+        "sku": "0030880-8O"
       }
     ]
   },
@@ -34206,7 +35972,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "mochilas"
     ],
@@ -34231,6 +35997,19 @@
           }
         ],
         "sku": "0030882-8-azul"
+      },
+      {
+        "color": "Lila/naranj",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3ea6f005e44714b8"
+          }
+        ],
+        "sku": "0030882-8O"
       }
     ]
   },
@@ -34607,7 +36386,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "mochilas"
     ],
@@ -34632,6 +36411,19 @@
           }
         ],
         "sku": "0030884-2-gris"
+      },
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6e05a5101af6b140"
+          }
+        ],
+        "sku": "0030884-8"
       }
     ]
   },
@@ -35173,7 +36965,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "mochilas"
     ],
@@ -35211,6 +37003,19 @@
           }
         ],
         "sku": "0031479-r3-rojo-negro"
+      },
+      {
+        "color": "Naranja/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bb70a297d5c1d019"
+          }
+        ],
+        "sku": "0031479-O3"
       }
     ]
   },
@@ -43247,6 +45052,264 @@
     ]
   },
   {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 29 x 18 cm",
+    "id": "mochila-grande",
+    "nombre": "Mochila Grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734549"
+    },
+    "precio": 195000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0b1c20533483f24a"
+          }
+        ],
+        "sku": "8734549-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 32 x 17 cm",
+    "id": "mochila-grande-2",
+    "nombre": "Mochila Grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734590"
+    },
+    "precio": 178000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/910b4a110532459c"
+          }
+        ],
+        "sku": "8734590-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 33 x 22 cm",
+    "id": "mochila-grande-3",
+    "nombre": "Mochila Grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734743"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3a6b3b220eca0da1"
+          }
+        ],
+        "sku": "8734743-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 31 x 22 cm",
+    "id": "mochila-grande-4",
+    "nombre": "Mochila Grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734745"
+    },
+    "precio": 178000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/eb6a2c51f032d711"
+          }
+        ],
+        "sku": "8734745-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 34 x 20 cm",
+    "id": "mochila-grande-5",
+    "nombre": "Mochila Grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734747"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ef5295bd800fae95"
+          }
+        ],
+        "sku": "8734747-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 42 x 30 x 23 cm",
+    "id": "mochila-grande-6",
+    "nombre": "Mochila Grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734772"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/03e87ab9be6b745a"
+          }
+        ],
+        "sku": "8734772-G"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/46fb761335a9ee9b"
+          }
+        ],
+        "sku": "8734772-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 30 x 13 cm",
+    "id": "mochila-grande-7",
+    "nombre": "Mochila Grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734954"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4fc3304192295759"
+          }
+        ],
+        "sku": "8734954-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b7adf2545214d8af"
+          }
+        ],
+        "sku": "8734954-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 31 x 17 cm",
+    "id": "mochila-grande-8",
+    "nombre": "Mochila Grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734999"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d34aa20c6aca53c2"
+          }
+        ],
+        "sku": "8734999-M"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-21",
     "categorias": [
       "mochila-infantil"
@@ -43474,6 +45537,35 @@
           }
         ],
         "sku": "5453132-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 33 x 20 cm",
+    "id": "mochila-grande-reforzada",
+    "nombre": "Mochila Grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8735002"
+    },
+    "precio": 398000,
+    "variantes": [
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1d51c7153ea7b023"
+          }
+        ],
+        "sku": "8735002-M"
       }
     ]
   },
@@ -44252,7 +46344,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "mochilas"
     ],
@@ -44290,6 +46382,19 @@
           }
         ],
         "sku": "0020875-f-p-rosa-osc"
+      },
+      {
+        "color": "(o-P) Naranjado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c847fc6829c59c3d"
+          }
+        ],
+        "sku": "0020875-o-p-naranjado"
       }
     ]
   },
@@ -48294,7 +50399,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
     ],
@@ -48366,7 +50471,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "necessaires"
     ],
@@ -48395,7 +50500,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "necessaires"
     ],
@@ -48424,7 +50529,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "necessaires"
     ],
@@ -48453,7 +50558,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "necessaires"
     ],
@@ -48482,7 +50587,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "necessaires"
     ],
@@ -48510,7 +50615,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "necessaires"
     ],
@@ -48539,7 +50644,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "necessaires"
     ],
@@ -48568,7 +50673,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "necessaires"
     ],
@@ -48610,7 +50715,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "necessaires"
     ],
@@ -48665,7 +50770,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "necessaires"
     ],
@@ -48707,7 +50812,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "necessaires"
     ],
@@ -48762,7 +50867,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "necessaires"
     ],
@@ -48791,7 +50896,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "necessaires"
     ],
@@ -48859,7 +50964,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-09-09",
     "categorias": [
       "necessaires"
     ],
@@ -48927,7 +51032,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-09-09",
     "categorias": [
       "necessaires"
     ],
@@ -48995,7 +51100,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-09-09",
     "categorias": [
       "necessaires"
     ],
@@ -49024,7 +51129,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-09-09",
     "categorias": [
       "necessaires"
     ],
@@ -49092,7 +51197,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "necessaires"
     ],
@@ -49310,7 +51415,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "valijas"
     ],
@@ -49417,7 +51522,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "valijas"
     ],
@@ -49964,7 +52069,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "valijas"
     ],
@@ -49986,6 +52091,20 @@
               600
             ],
             "base": "catalogo/6ae5ec485b3454c2"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/864a1069ed5cc140"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7eaf2d6a222fd7a6"
           }
         ],
         "sku": "4530833-K"
@@ -49993,7 +52112,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "valijas"
     ],
@@ -50015,6 +52134,20 @@
               600
             ],
             "base": "catalogo/28e2c07f106568dd"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/864a1069ed5cc140"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7eaf2d6a222fd7a6"
           }
         ],
         "sku": "4530834-K"
@@ -50080,7 +52213,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50122,7 +52255,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50151,7 +52284,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50180,7 +52313,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50208,7 +52341,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50230,6 +52363,20 @@
               600
             ],
             "base": "catalogo/6c7b6af6db31e05f"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5a0ed0a46d2c5c60"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c7042ccc032f05f8"
           }
         ],
         "sku": "1711821-3"
@@ -50237,7 +52384,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50266,7 +52413,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50295,7 +52442,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50363,7 +52510,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50431,7 +52578,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50499,7 +52646,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50554,7 +52701,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50583,7 +52730,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50612,7 +52759,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50634,6 +52781,13 @@
               600
             ],
             "base": "catalogo/99c9e9ac92b84ab4"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e2b737d91900c584"
           }
         ],
         "sku": "1734275-3"
@@ -50641,7 +52795,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50696,7 +52850,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50751,7 +52905,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50806,7 +52960,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50861,7 +53015,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50916,7 +53070,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50945,7 +53099,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -50973,7 +53127,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -51002,7 +53156,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -51031,7 +53185,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -51053,6 +53207,13 @@
               600
             ],
             "base": "catalogo/4960f0ba56136496"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/759233308a7239a2"
           }
         ],
         "sku": "1733127-3"
@@ -51060,7 +53221,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -51089,7 +53250,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -51118,7 +53279,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -51140,6 +53301,20 @@
               600
             ],
             "base": "catalogo/7c7bc4ca37432def"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a63abc77fd5ffdf6"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3ada8c4d0a7eb768"
           }
         ],
         "sku": "1790191-3"
@@ -51147,7 +53322,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -51176,7 +53351,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -51205,7 +53380,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -51234,7 +53409,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -51263,7 +53438,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -51292,7 +53467,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -51314,6 +53489,13 @@
               600
             ],
             "base": "catalogo/c09de6bc0000d470"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e211cd4ace6e6dc7"
           }
         ],
         "sku": "1181426-6"
@@ -51334,7 +53516,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -51401,7 +53583,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-14",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -51423,6 +53605,13 @@
               600
             ],
             "base": "catalogo/5e831cdf55079bd2"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/59b67e20ca9e32f8"
           }
         ],
         "sku": "1134098-3"
@@ -51505,7 +53694,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-27",
+    "actualizado": "2026-09-09",
     "categorias": [
       "rinoneras"
     ],
@@ -51526,6 +53715,13 @@
               600
             ],
             "base": "catalogo/f4f30a6a65cb72ee"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/909c0022f6a6b406"
           }
         ],
         "sku": "1732951-3"
