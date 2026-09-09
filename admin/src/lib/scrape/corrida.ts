@@ -55,9 +55,26 @@ export interface Resumen extends Corrida {
  * `ahora` entra por parámetro: una corrida vieja que quedó abierta porque se cerró la
  * pestaña no puede bloquear el admin para siempre.
  */
+/**
+ * Cuánto se le tolera a una corrida abierta antes de darla por muerta.
+ *
+ * SE EXPORTA PORQUE HAY QUIEN TIENE QUE CABER ADENTRO. Un recorrido que dura MÁS que esto
+ * se queda sin guarda a mitad de camino: pasado el límite, `corridaEnCurso` lo declara
+ * muerto aunque siga vivo, y una segunda pestaña puede abrir otro recorrido en paralelo.
+ * `revision-fotos.ts` recorre el catálogo entero —unos 60 minutos— y por eso se parte en
+ * tajadas calculadas a partir de esta constante, en vez de duplicar el número.
+ *
+ * No se sube: el otro lado del mismo valor es cuánto bloquea el admin una corrida que
+ * quedó abierta porque alguien cerró la pestaña.
+ */
+export const TOLERANCIA_MINUTOS = 30;
+
 export async function corridaEnCurso(
   ejecutar: Ejecutar,
-  { ahora, toleranciaMinutos = 30 }: { ahora: string; toleranciaMinutos?: number }
+  {
+    ahora,
+    toleranciaMinutos = TOLERANCIA_MINUTOS,
+  }: { ahora: string; toleranciaMinutos?: number }
 ): Promise<Corrida | null> {
   const [fila] = await ejecutar<Corrida>(
     `SELECT * FROM scrapes WHERE estado = 'corriendo' ORDER BY id DESC LIMIT 1`

@@ -10,6 +10,22 @@
 import { postJson } from './pedidos.ts';
 import { subirFotoDelOrigen } from './recorte.ts';
 
+/**
+ * Cuántas fotos se pidieron y cuántas quedaron vinculadas POR PRIMERA VEZ.
+ *
+ * EXISTE PARA LA PASADA DE REVISIÓN DE GALERÍAS (`revision-fotos.ts`). Esa pasada visita el
+ * catálogo entero porque no hay forma de saber a quién le faltan fotos sin abrir la ficha,
+ * así que sin este recuento la pantalla sólo podría decir «revisados 950» — y quien la corre
+ * no tendría ni idea de si encontró algo. `vinculadas` es exactamente lo que apareció.
+ *
+ * Los demás clientes lo ignoran, que es correcto: en una importación normal todas las fotos
+ * son nuevas por definición y el dato no agrega nada.
+ */
+export interface Recuento {
+  pedidas: number;
+  vinculadas: number;
+}
+
 /** Lo unico que `traerFotos` necesita de una ficha, venga de donde venga. */
 export interface FichaConFotos {
   codigo?: string;
@@ -43,7 +59,9 @@ export async function traerFotos(
   cortesia: () => Promise<void>,
   anotarProblema: (que: string, motivo: string) => void,
   puente: string = PUENTE_DEL_PROVEEDOR
-): Promise<void> {
+): Promise<Recuento> {
+  const recuento: Recuento = { pedidas: 0, vinculadas: 0 };
+
   /**
    * TODOS los colores del modelo, no sólo el de la ficha visitada. Las fichas de los
    * hermanos nunca se piden —las saltea el corte por código de §7.4— así que si sus
@@ -51,12 +69,29 @@ export async function traerFotos(
    */
   for (const { sku, fotos } of ficha.colores ?? []) {
     for (const url of fotos) {
-      await unaFoto({ sku, url, codigo: ficha.codigo, cortesia, anotarProblema, puente });
+      recuento.pedidas += 1;
+      const vinculada = await unaFoto({
+        sku,
+        url,
+        codigo: ficha.codigo,
+        cortesia,
+        anotarProblema,
+        puente,
+      });
+      if (vinculada) recuento.vinculadas += 1;
     }
   }
+
+  return recuento;
 }
 
-/** Una foto: puente, canvas, subida y vínculo. Nunca lanza. */
+/**
+ * Una foto: puente, canvas, subida y vínculo. Nunca lanza.
+ *
+ * Devuelve `true` sólo si el vínculo es NUEVO. Los dos endpoints que vinculan —el puente
+ * cuando ya conoce los bytes, y `/api/scrape/vincular` cuando acaban de subirse— informan
+ * `vinculada: false` sobre algo que ya estaba, porque los dos son idempotentes.
+ */
 async function unaFoto({
   sku,
   url,
@@ -71,7 +106,7 @@ async function unaFoto({
   cortesia: () => Promise<void>;
   anotarProblema: (que: string, motivo: string) => void;
   puente: string;
-}): Promise<void> {
+}): Promise<boolean> {
   // El SKU va en el aviso: en un modelo de tres colores, «falló una foto de CG85700» no
   // alcanza para saber cuál variante quedó sin imagen.
   const quien = `Foto de ${codigo ?? sku} (${sku})`;
@@ -88,9 +123,12 @@ async function unaFoto({
 
     if (!tipo.startsWith('image/')) {
       // JSON: o ya estaba y quedó vinculada, o algo falló. Los bytes no viajaron.
-      const cuerpo = (await respuesta.json().catch(() => ({}))) as { error?: string };
+      const cuerpo = (await respuesta.json().catch(() => ({}))) as {
+        error?: string;
+        vinculada?: boolean;
+      };
       if (cuerpo.error) anotarProblema(quien, cuerpo.error);
-      return;
+      return cuerpo.vinculada === true;
     }
 
     const delWorker = respuesta.headers.get('X-Hash16');
@@ -110,15 +148,17 @@ async function unaFoto({
         quien,
         'La imagen llegó incompleta y no se guardó. Volvé a importar este producto.'
       );
-      return;
+      return false;
     }
 
-    const vinculo = await postJson<{ error?: string }>('/api/scrape/vincular', {
-      sku,
-      hash16: subida.hash16,
-    });
+    const vinculo = await postJson<{ error?: string; vinculada?: boolean }>(
+      '/api/scrape/vincular',
+      { sku, hash16: subida.hash16 }
+    );
     if (vinculo.error) anotarProblema(quien, vinculo.error);
+    return vinculo.vinculada === true;
   } catch (error) {
     anotarProblema(quien, error instanceof Error ? error.message : String(error));
+    return false;
   }
 }

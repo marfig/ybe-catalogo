@@ -1,0 +1,212 @@
+---
+/**
+ * Revisión de galerías: conseguir las fotos adicionales que el filtro viejo descartaba.
+ *
+ * POR QUÉ EXISTE. El proveedor sirve la galería en DOS rutas —`/Prelude-images/product/` la
+ * principal y `/Prelude-images/productimage/` las adicionales— y `verImagen` sólo reconocía
+ * la primera (ver `RUTAS_IMAGENES`). Todo lo importado hasta el arreglo quedó con la foto
+ * principal y sin las demás. Medido: `8735032` tiene seis fotos en el proveedor y entró con
+ * una.
+ *
+ * NO ESCRIBE POR NINGÚN CAMINO NUEVO: llama a `/api/scrape/ficha` y a `traerFotos`, que son
+ * los dos pasos de la importación de todos los días.
+ *
+ * DOS BOTONES, UN SOLO RECORRIDO. «Probar» corre sobre un puñado de códigos escritos a mano;
+ * «Revisar el catálogo entero» corre la pasada completa con su marcador. Es el MISMO bucle
+ * del cliente: si la prueba fuera por otro camino, probaría otra cosa. La prueba está arriba
+ * porque es el orden en que conviene usarla — ver qué encuentra sobre cuatro códigos, contra
+ * los datos de verdad, antes de largar los cuarenta minutos.
+ *
+ * ES PANTALLA DE UN SOLO USO, igual que `/descripciones` y al revés que `/fotos-faltantes`.
+ * Esa cierra un hueco que se vuelve a abrir cada vez que la red titubea; esta cierra un bug
+ * que se arregló una vez. Por eso NO va enlazada desde el inicio: se llega escribiendo la
+ * dirección, y cuando la pasada termine se borra junto con su consulta y su endpoint.
+ */
+import Panel from '../layouts/Panel.astro';
+import { ejecutorD1 } from '../lib/d1.ts';
+import { FICHAS_POR_CORRIDA, contarParaRevisar } from '../lib/scrape/revision-fotos.ts';
+import { env } from 'cloudflare:workers';
+
+/**
+ * Se cuenta EN EL SERVIDOR, al rendir. Así la pantalla dice cuántas fichas son antes de que
+ * nadie apriete nada — que es la diferencia entre «esto va a hacer algo» y «probemos a ver».
+ *
+ * Es la lista COMPLETA, sin el marcador: el marcador vive en la pestaña y el servidor no lo
+ * conoce. Lo que queda por revisar lo dice la barra de progreso al arrancar.
+ */
+const cuantos = await contarParaRevisar(ejecutorD1(env.DB));
+
+/** En cuántas tandas entra. Ver `FICHAS_POR_CORRIDA`: cada una es una corrida propia. */
+const tandas = Math.ceil(cuantos / FICHAS_POR_CORRIDA);
+
+/**
+ * A 1 pedido por segundo: uno por ficha MÁS uno por cada foto que ofrezca, porque las que ya
+ * están se piden igual —el puente las reconoce por hash y no viajan los bytes, pero el pedido
+ * cuenta—. Se estima con 3 fotos por ficha, que es el promedio del proveedor, y se dice que
+ * es estimado: prometer un número exacto que después no se cumple es peor que no decir nada.
+ */
+const minutos = Math.max(1, Math.round((cuantos * 4) / 60));
+---
+
+<Panel titulo="Revisar las galerías del proveedor" volver="/">
+  <section class="lote">
+    {
+      cuantos === 0 ? (
+        <p class="nota nota--titulo">
+          <strong>No hay ninguna ficha que revisar.</strong> Ningún producto del proveedor
+          tiene una dirección de origen a la que volver.
+        </p>
+      ) : (
+        <>
+          <p>
+            Se le vuelve a pedir la ficha a <strong>los {cuantos} productos del proveedor</strong>{' '}
+            y se suben las fotos que aparezcan. No es una lista de productos con problema: es
+            el catálogo entero.
+          </p>
+
+          <p class="nota nota--titulo">
+            <strong>Por qué el catálogo entero y no una lista corta.</strong> El proveedor
+            sirve la galería en <strong>dos direcciones distintas</strong>: la foto principal
+            en una y las adicionales en otra. El importador sólo miraba la primera, así que
+            todo lo que entró hasta ahora se quedó con la principal. Medido sobre{' '}
+            <strong>8735032</strong>: seis fotos en el proveedor, una en el catálogo.
+          </p>
+
+          <p class="nota">
+            Y no hay forma de saber a quién le faltan sin abrir la ficha. Un producto con una
+            sola foto puede ser uno al que le perdimos cinco, o uno que de verdad tiene una:
+            en la base se ven idénticos. Por eso se revisan todos.
+          </p>
+
+          <hr />
+
+          <p class="nota nota--titulo">Lo que va a pasar:</p>
+          {/* `confirmar-lista` es la clase que el panel ya usa para una lista con sangría. */}
+          <ol class="confirmar-lista">
+            <li>
+              Se le pide al proveedor cada ficha y cada foto, a{' '}
+              <strong>1 pedido por segundo</strong>. Calculá unos{' '}
+              <strong>{minutos} minuto{minutos === 1 ? '' : 's'}</strong>. Es largo porque es
+              todo el catálogo.
+            </li>
+            <li>
+              Va en <strong>{tandas} tanda{tandas === 1 ? '' : 's'}</strong> de hasta{' '}
+              {FICHAS_POR_CORRIDA} fichas, que <strong>se encadenan solas</strong>: no hay
+              nada que apretar en el medio. Es para que ningún recorrido pase de media hora —
+              más que eso, el admin lo da por abandonado y dejaría de impedir que se abra un
+              segundo recorrido en paralelo.
+            </li>
+            <li>
+              Las fotos que <strong>ya estaban no se duplican</strong>: se reconocen por el
+              hash de sus bytes y sólo se vuelven a vincular. Las nuevas se agregan{' '}
+              <strong>al final</strong>, así que la foto de portada de cada color no se mueve.
+            </li>
+            <li>
+              Puede aparecer <strong>algún color que no estaba</strong>. Entra como variante
+              nueva y el producto queda marcado con aviso de cambio, para que alguien lo mire.
+            </li>
+            <li>
+              <strong>Nada de la curaduría se toca.</strong> Ni el nombre, ni el precio, ni
+              las categorías, ni el estado, ni la dirección web, ni el orden de los colores.
+            </li>
+          </ol>
+
+          <p class="nota nota--pendiente">
+            <strong>Al terminar, el contador de «cambios sin publicar» va a marcar todo el
+            catálogo.</strong> Es esperado: volver a pasar por una ficha le mueve la fecha de
+            actualización aunque no haya cambiado nada. No es un daño —publicar reconstruye el
+            sitio completo igual— pero por esta vez el contador deja de decirte qué cambió.
+            Los productos que <em>sí</em> ganaron algo quedan listados acá abajo.
+          </p>
+
+          <hr />
+
+          <p class="nota nota--titulo">
+            <strong>Probá primero con unos códigos.</strong> Corre exactamente el mismo
+            recorrido, sólo sobre los que escribas: podés ver qué encuentra —contra los datos
+            de verdad— antes de largar los {minutos} minutos. Los cuatro donde se midió el
+            problema ya están puestos.
+          </p>
+
+          <div class="campo revision-codigos">
+            <label for="codigos">Códigos a probar</label>
+            <textarea
+              id="codigos"
+              name="codigos"
+              rows="2"
+              spellcheck="false"
+              autocapitalize="characters"
+              autocomplete="off"
+              placeholder="8735032, 8735036…">8735032 8735036 8134028 8134029</textarea>
+          </div>
+          <p class="nota">
+            Separados por comas, espacios o saltos de línea — como te quede más cómodo
+            pegarlos. Una prueba <strong>no cuenta como avance</strong> de la pasada larga.
+          </p>
+
+          <button type="button" id="probar">Probar con estos códigos</button>
+
+          <hr />
+
+          <p id="retomar" class="nota nota--titulo" hidden>
+            <strong>Hay una pasada empezada.</strong> El último código revisado fue{' '}
+            <strong><span id="retomar-codigo"></span></strong>, y al seguir arranca desde el
+            siguiente.
+          </p>
+
+          <button type="button" id="empezar">Revisar el catálogo entero</button>
+          <button type="button" id="cancelar" class="secundario" hidden>Cortar</button>
+          <button type="button" id="desde-cero" class="secundario" hidden>
+            Olvidar dónde iba y empezar de cero
+          </button>
+
+          <noscript>
+            <p class="nota nota--pendiente">
+              Esta pantalla necesita JavaScript: el recorrido corre en la pestaña, con un
+              pedido por segundo, y por eso no puede correr en el servidor.
+            </p>
+          </noscript>
+
+          <p id="progreso" aria-live="polite"></p>
+
+          <div
+            id="barra"
+            class="barra"
+            role="progressbar"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+            aria-label="Avance de la revisión de galerías"
+          >
+            <span id="barra-relleno"></span>
+          </div>
+
+          <p class="nota nota--pestana">
+            <strong>No cierres esta pestaña.</strong> El recorrido corre acá: si la cerrás, se
+            interrumpe. Lo que ya se subió queda, y al volver a entrar sigue desde el último
+            código revisado — a diferencia de las otras pantallas, esta lista no se vacía
+            sola, así que el lugar donde iba se recuerda en el navegador.
+          </p>
+
+          <details id="hallazgos" hidden class="ayuda" open>
+            <summary>Lo que apareció</summary>
+            <ul id="lista-hallazgos"></ul>
+          </details>
+
+          <details id="problemas" hidden class="ayuda" open>
+            <summary>Los que no se pudieron revisar</summary>
+            <ul id="lista-problemas"></ul>
+          </details>
+
+          <section id="resumen" class="resumen" hidden></section>
+        </>
+      )
+    }
+  </section>
+</Panel>
+
+<script>
+  import { prepararRevisionFotos } from '../scripts/revision-fotos-cliente.ts';
+
+  prepararRevisionFotos();
+</script>
