@@ -49906,6 +49906,586 @@
     ]
   },
   {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 33 x 17 cm",
+    "id": "mochila-con-ruedas-grande-reforzada",
+    "nombre": "mochila con ruedas grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5453167"
+    },
+    "precio": 395000,
+    "variantes": [
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0e1d0985939058a9"
+          }
+        ],
+        "sku": "5453167-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 33 x 16 cm",
+    "id": "mochila-con-ruedas-grande-reforzada-10",
+    "nombre": "mochila con ruedas grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734238"
+    },
+    "precio": 398000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/30ecef57e9cd089c"
+          }
+        ],
+        "sku": "8734238-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 32 x 20 cm",
+    "id": "mochila-con-ruedas-grande-reforzada-11",
+    "nombre": "mochila con ruedas grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734979"
+    },
+    "precio": 398000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/302bab340a78c347"
+          }
+        ],
+        "sku": "8734979-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 33 x 20 cm",
+    "id": "mochila-con-ruedas-grande-reforzada-12",
+    "nombre": "mochila con ruedas grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB65983"
+    },
+    "precio": 435000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/aedec5f24e2a5465"
+          }
+        ],
+        "sku": "MB65983-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 33 x 20 cm",
+    "id": "mochila-con-ruedas-grande-reforzada-13",
+    "nombre": "mochila con ruedas grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66092"
+    },
+    "precio": 435000,
+    "variantes": [
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/26f6293b8f71d78e"
+          }
+        ],
+        "sku": "MB66092-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 33 x 20 cm",
+    "id": "mochila-con-ruedas-grande-reforzada-14",
+    "nombre": "mochila con ruedas grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66278"
+    },
+    "precio": 435000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e4cbc05a9fde6eeb"
+          }
+        ],
+        "sku": "MB66278-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 c 30 x 20 cm",
+    "id": "mochila-con-ruedas-grande-reforzada-15",
+    "nombre": "mochila con ruedas grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66283"
+    },
+    "precio": 435000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e6721309cb432750"
+          }
+        ],
+        "sku": "MB66283-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45 x 33 x 20 cm",
+    "id": "mochila-con-ruedas-grande-reforzada-16",
+    "nombre": "mochila con ruedas grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66310"
+    },
+    "precio": 435000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/16ad341e9f0ee66b"
+          }
+        ],
+        "sku": "MB66310-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 32 x 20 cm",
+    "id": "mochila-con-ruedas-grande-reforzada-17",
+    "nombre": "mochila con ruedas grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66320"
+    },
+    "precio": 435000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d549e280c86bda05"
+          }
+        ],
+        "sku": "MB66320-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 34 x 20 cm",
+    "id": "mochila-con-ruedas-grande-reforzada-18",
+    "nombre": "mochila con ruedas grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66578"
+    },
+    "precio": 435000,
+    "variantes": [
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/151af1bec667b7f7"
+          }
+        ],
+        "sku": "MB66578-R"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 32 x 20 cm",
+    "id": "mochila-con-ruedas-grande-reforzada-19",
+    "nombre": "mochila con ruedas grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66584"
+    },
+    "precio": 435000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/944292742720d8fc"
+          }
+        ],
+        "sku": "MB66584-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 33 x 20 cm",
+    "id": "mochila-con-ruedas-grande-reforzada-2",
+    "nombre": "mochila con ruedas grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5455367"
+    },
+    "precio": 398000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bab5c5a2ac92aef9"
+          }
+        ],
+        "sku": "5455367-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 30 x 20 cm",
+    "id": "mochila-con-ruedas-grande-reforzada-20",
+    "nombre": "mochila con ruedas grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66594"
+    },
+    "precio": 435000,
+    "variantes": [
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/28880cda7edcf2eb"
+          }
+        ],
+        "sku": "MB66594-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 33 x 20 cm",
+    "id": "mochila-con-ruedas-grande-reforzada-3",
+    "nombre": "mochila con ruedas grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5457467"
+    },
+    "precio": 398000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/231c6b8148b6169c"
+          }
+        ],
+        "sku": "5457467-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 30 x 18 cm",
+    "id": "mochila-con-ruedas-grande-reforzada-4",
+    "nombre": "mochila con ruedas grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5457667"
+    },
+    "precio": 398000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/79ed5dbe0c82ebec"
+          }
+        ],
+        "sku": "5457667-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 43 x 33 x 15 cm",
+    "id": "mochila-con-ruedas-grande-reforzada-5",
+    "nombre": "mochila con ruedas grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5458167"
+    },
+    "precio": 398000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0147ca5ce47540e9"
+          }
+        ],
+        "sku": "5458167-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45 x 33 x 20 cm",
+    "id": "mochila-con-ruedas-grande-reforzada-6",
+    "nombre": "mochila con ruedas grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5458967"
+    },
+    "precio": 398000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2db5eb30ce3150d1"
+          }
+        ],
+        "sku": "5458967-J"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 32 x 16 cm",
+    "id": "mochila-con-ruedas-grande-reforzada-7",
+    "nombre": "mochila con ruedas grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734120"
+    },
+    "precio": 398000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8bd0f284eeae14da"
+          }
+        ],
+        "sku": "8734120-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45 x 33 x 20 cm",
+    "id": "mochila-con-ruedas-grande-reforzada-8",
+    "nombre": "mochila con ruedas grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734165"
+    },
+    "precio": 398000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3f7b982e357b921d"
+          }
+        ],
+        "sku": "8734165-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-09",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 33 x 16 cm",
+    "id": "mochila-con-ruedas-grande-reforzada-9",
+    "nombre": "mochila con ruedas grande reforzada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734230"
+    },
+    "precio": 398000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a723cf1e5eac1d2e"
+          }
+        ],
+        "sku": "8734230-U"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-26",
     "categorias": [
       "mochila-infantil"
