@@ -43549,7 +43549,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-01",
+    "actualizado": "2026-09-09",
     "categorias": [
       "mochila-para-notebook"
     ],
@@ -43571,6 +43571,41 @@
               600
             ],
             "base": "catalogo/f4ba0384eef1ca15"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3159221d2067c220"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cfb97f2bb916ce89"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/724c7af7c9b039f8"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/27a120b8b60c2a62"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0db821f49fd463e2"
           }
         ],
         "sku": "8735036-3"
@@ -46112,7 +46147,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-01",
+    "actualizado": "2026-09-09",
     "categorias": [
       "mochila-para-notebook"
     ],
@@ -46134,9 +46169,29 @@
               600
             ],
             "base": "catalogo/4c90d0917c7ffa5d"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e360e38ab7c23d24"
           }
         ],
         "sku": "8134029-3"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ed3b5e1e057802c5"
+          }
+        ],
+        "sku": "8134029-2"
       }
     ],
     "video": {
@@ -47150,7 +47205,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-01",
+    "actualizado": "2026-09-09",
     "categorias": [
       "mochila-para-notebook"
     ],
@@ -47172,9 +47227,29 @@
               600
             ],
             "base": "catalogo/26d7e87dca3fe158"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/60f3e6c9a9a14ef9"
           }
         ],
         "sku": "8134028-3"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c0bd59eebe5ca565"
+          }
+        ],
+        "sku": "8134028-2"
       }
     ]
   },
@@ -47901,7 +47976,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-01",
+    "actualizado": "2026-09-09",
     "categorias": [
       "mochila-para-notebook"
     ],
@@ -47930,6 +48005,41 @@
               600
             ],
             "base": "catalogo/3b3182c950b049ce"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3a7b0edc810ba657"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cadb6dd9a3f26ac6"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fbe417dea281052f"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/aee677925c2eb089"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1f5dd94e04313277"
           }
         ],
         "sku": "8735032-3"
