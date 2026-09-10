@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import {
   AVANCE_INICIAL,
   interpretarPostDeBarrido,
+  continuarDespuesDe,
   porcentaje,
   restoDelBarrido,
   revisados,
@@ -79,7 +80,7 @@ test('la grilla manda una selección, no un cierre de corrida', () => {
    * La decisión era `Number.isInteger(Number(form.get('scrapeId')))`, y `Number(null)`
    * es `0`, QUE ES UN ENTERO. Así que todo POST de la grilla —que no manda `scrapeId`—
    * se leía como «cerrá la corrida 0», redirigía, y la selección se perdía. La pantalla
-   * caía a la cola automática y «Verificar en el proveedor» nunca revisó lo tildado.
+   * caía a la cola automática y «Preguntar al proveedor» nunca revisó lo tildado.
    */
   assert.deepEqual(interpretarPostDeBarrido(null, ['7', '9']), {
     tipo: 'seleccion',
@@ -187,4 +188,56 @@ test('el resto nunca es negativo aunque los conteos lleguen desfasados', () => {
   const resto = restoDelBarrido({ aMano: false, pendientes: 296, enLaCorrida: 300 });
 
   assert.deepEqual(resto, { tipo: 'ultima' });
+});
+
+/**
+ * SEGUIR DESPUES DE UNA CORRIDA.
+ *
+ * El bug de usabilidad que esto cierra, reportado el 2026-09-10 con «una vez termine los
+ * 300 como continuo?»: no habia respuesta en la pantalla. `correr()` deshabilita el boton
+ * al empezar y `cerrar()` no lo vuelve a habilitar —solo `terminar()`, que es el camino de
+ * error—, asi que al terminar bien la unica salida era recargar a mano.
+ *
+ * `automatico` NO ES DECORACION, y la primera version se equivoco feo. Decia en un
+ * comentario que una seleccion tildada «no mueve la vuelta», y es falso: no la ABRE, pero
+ * si hay una abierta y el producto tildado estaba pendiente, `marcar()` le escribe
+ * `revisado_en_origen` y la cuenta baja igual. O sea que un chequeo puntual de tres
+ * productos podia terminar anunciando «con esto se completo la vuelta».
+ *
+ * Que la cuenta baje esta BIEN —a esos productos se les pregunto de verdad— pero
+ * atribuirle el final de la vuelta a quien tildo tres filas, no. Quien hace un chequeo
+ * puntual no pidio barrer el catalogo y no tiene por que recibir su contabilidad.
+ */
+test('quedando pendientes, se ofrece seguir y se dice cuantos', () => {
+  assert.deepEqual(continuarDespuesDe(857, { automatico: true }), {
+    tipo: 'seguir',
+    cuantos: 857,
+  });
+});
+
+test('la vuelta completa se anuncia, no se ofrece seguir', () => {
+  assert.deepEqual(continuarDespuesDe(0, { automatico: true }), { tipo: 'vuelta-completa' });
+});
+
+test('UNA SELECCION TILDADA NUNCA RECIBE LA CONTABILIDAD DE LA VUELTA', () => {
+  /**
+   * Ni con pendientes ni con la vuelta recien completada. El servidor manda el numero
+   * igual —es un dato de la vuelta, no de la corrida— y es aca donde se decide que no le
+   * corresponde a esta pantalla.
+   */
+  assert.deepEqual(continuarDespuesDe(857, { automatico: false }), { tipo: 'nada' });
+  assert.deepEqual(continuarDespuesDe(0, { automatico: false }), { tipo: 'nada' });
+});
+
+test('sin vuelta abierta no hay nada que ofrecer', () => {
+  assert.deepEqual(continuarDespuesDe(null, { automatico: true }), { tipo: 'nada' });
+});
+
+test('un pendiente que no es un numero no inventa un boton', () => {
+  // El servidor puede responder un 500 con forma de JSON, o una version vieja del worker.
+  // Tambien llega `null` cuando el cierre salio bien pero el conteo fallo: ver `cerrar.ts`.
+  assert.deepEqual(continuarDespuesDe(undefined, { automatico: true }), { tipo: 'nada' });
+  assert.deepEqual(continuarDespuesDe('857' as unknown as number, { automatico: true }), {
+    tipo: 'nada',
+  });
 });

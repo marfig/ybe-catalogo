@@ -73,7 +73,7 @@ export interface OpcionesTransicion {
    *    producto en particular, así que si le falta algo es un **omitido**: no era
    *    candidato y no hay nada que corregir.
    *
-   * Sin esta distinción, «Aprobar los completos» sobre una página de 50 con 12 listos
+   * Sin esta distinción, «Aprobar completos» sobre una página de 50 con 12 listos
    * reportaría 38 fallos que nadie provocó, y ahogaría el único dato que se esperaba.
    */
   saltearIncompletos?: boolean;
@@ -87,6 +87,8 @@ interface FilaProducto {
   precio: number | null;
   estado: string;
   slug: string | null;
+  /** La marca del barrido. Es ORTOGONAL a `estado`: un publicado puede estar de baja. */
+  ausente_desde: string | null;
   variantes: number;
   imagenes: number;
 }
@@ -96,7 +98,7 @@ const huecos = (n: number) => Array.from({ length: n }, () => '?').join(', ');
 /** Los productos del lote, con los agregados que la validación necesita. */
 async function traerProductos(ejecutar: Ejecutar, ids: number[]): Promise<FilaProducto[]> {
   return ejecutar<FilaProducto>(
-    `SELECT p.id, p.codigo, p.nombre, p.precio, p.estado, p.slug,
+    `SELECT p.id, p.codigo, p.nombre, p.precio, p.estado, p.slug, p.ausente_desde,
             (SELECT COUNT(*) FROM variantes v WHERE v.producto_id = p.id) AS variantes,
             (SELECT COUNT(DISTINCT vi.imagen_id)
                FROM variantes v
@@ -202,6 +204,37 @@ export async function aprobar(
           p.estado === 'aprobado'
             ? 'ya estaba listo para publicar'
             : `ya está ${p.estado === 'publicado' ? 'en el catálogo' : 'en la papelera'}`,
+      });
+      continue;
+    }
+
+    /**
+     * NO SE CURA LO QUE EL PROVEEDOR YA NO VENDE.
+     *
+     * Aprobar es el paso hacia la publicación, y hacerlo sobre algo que el proveedor
+     * discontinuó empuja al catálogo un producto que no se puede vender. Termina en un
+     * cliente pidiendo por WhatsApp algo que no existe, que es exactamente lo que el
+     * barrido de §12.2 vino a evitar.
+     *
+     * VA DESPUÉS del chequeo de estado a propósito: un `publicado` dado de baja se omite
+     * por estar ya en el catálogo, que es la razón útil para quien pregunta por qué no se
+     * aprobó. Cada producto recibe el motivo que le corresponde.
+     *
+     * Y VA ACÁ Y NO EN EL BOTÓN de la grilla, que fue lo primero que se pensó cuando se
+     * reportó desde el filtro «Ya no está en el proveedor». El agujero no es de esa
+     * pantalla: el mismo producto seleccionado desde «Por aprobar» o «Todos» tiene el
+     * botón habilitado igual. En la transición se cierra una vez y vale para todas las
+     * puertas — presentes y las que se agreguen.
+     *
+     * La salida existe y no es esta función: «No es baja» saca la marca, o el barrido
+     * la saca solo si el proveedor repuso el modelo. Después, aprobar funciona normal.
+     */
+    if (p.ausente_desde !== null) {
+      resultados.push({
+        id: p.id,
+        codigo: p.codigo,
+        desenlace: 'omitido',
+        motivo: 'el proveedor ya no lo publica',
       });
       continue;
     }

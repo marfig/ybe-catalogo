@@ -171,3 +171,54 @@ export function textoDeBarrido(avance: Avance): string {
 
   return partes.join(' · ');
 }
+
+/**
+ * Qué se ofrece cuando la corrida termina.
+ *
+ * `vuelta-completa` NO es `nada`: haber cubierto el catálogo entero es el final del
+ * trabajo y merece decirse ahí mismo, sin obligar a recargar para enterarse.
+ */
+export type Continuar =
+  | { tipo: 'nada' }
+  | { tipo: 'seguir'; cuantos: number }
+  | { tipo: 'vuelta-completa' };
+
+/**
+ * Cuánto falta después de esta corrida, según lo que devolvió `/api/scrape/cerrar`.
+ *
+ * EL AGUJERO QUE ESTO TAPA: `correr()` deshabilita «Empezar a revisar» al arrancar y
+ * `cerrar()` no lo vuelve a habilitar —sólo lo hace `terminar()`, que es el camino de
+ * error—. Al terminar bien, la pantalla se quedaba sin ninguna salida y había que
+ * recargar a mano para seguir. Una vuelta de cinco corridas obligaba a adivinar eso cinco
+ * veces, sobre una pantalla que justo abajo te decía que quedaban 1157.
+ *
+ * `automatico` DECIDE ANTES QUE EL NÚMERO, y la primera versión se equivocó feo. Un
+ * comentario acá afirmaba que una selección tildada en la grilla «no mueve la vuelta», y
+ * es FALSO: no la abre, pero si hay una abierta y el producto tildado estaba pendiente,
+ * `marcar()` le escribe `revisado_en_origen` y la cuenta baja igual. Un chequeo puntual de
+ * tres productos podía terminar anunciando «con esto se completó la vuelta».
+ *
+ * Que la cuenta baje está BIEN —a esos productos se les preguntó de verdad—; atribuirle el
+ * final de la vuelta a quien tildó tres filas, no. El servidor manda el número siempre,
+ * porque es un dato de la vuelta y no de la corrida; acá se decide a quién le corresponde.
+ *
+ * `null` llega cuando no hay vuelta abierta, y también cuando el cierre salió bien pero el
+ * conteo falló (ver el `try` propio de `api/scrape/cerrar.ts`). Los dos casos quieren lo
+ * mismo: no ofrecer nada. La salida de la pantalla la da el «volver» del panel.
+ *
+ * Cualquier cosa que no sea un entero se trata igual, a propósito: el servidor puede
+ * contestar un error con forma de JSON, y un botón que promete «seguir con 857» sobre un
+ * dato inventado es peor que no ofrecer nada.
+ */
+export function continuarDespuesDe(
+  pendientes: number | null | undefined,
+  { automatico }: { automatico: boolean }
+): Continuar {
+  if (!automatico) return { tipo: 'nada' };
+  if (!Number.isInteger(pendientes)) return { tipo: 'nada' };
+
+  const cuantos = pendientes as number;
+  if (cuantos <= 0) return { tipo: 'vuelta-completa' };
+
+  return { tipo: 'seguir', cuantos };
+}

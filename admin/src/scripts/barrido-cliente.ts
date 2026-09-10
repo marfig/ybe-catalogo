@@ -14,6 +14,8 @@
  */
 import {
   AVANCE_INICIAL,
+  continuarDespuesDe,
+  type Continuar,
   porcentaje,
   revisados,
   sumar,
@@ -36,6 +38,8 @@ interface Resumen {
   hallados?: number;
   errores?: number;
   error?: string;
+  /** Lo que le falta a la vuelta después de esta corrida. `null` si no hay vuelta. */
+  pendientes?: number | null;
 }
 
 /** Un producto de la cola, tal cual lo rinde la página. */
@@ -238,14 +242,22 @@ async function correr(p: Pantalla, cola: Candidato[], automatico: boolean): Prom
       ? ({} as Resumen)
       : await postJson<Resumen>('/api/scrape/cerrar', { scrapeId, abortado: cancelado });
 
-  cerrar(p, avance, { cancelado, error: resumen.error });
+  cerrar(p, avance, {
+    cancelado,
+    error: resumen.error,
+    continuar: continuarDespuesDe(resumen.pendientes, { automatico }),
+  });
 }
 
 /** El final del recorrido, con el camino a lo que hay que hacer después. */
 function cerrar(
   p: Pantalla,
   avance: Avance,
-  { cancelado, error }: { cancelado: boolean; error?: string }
+  {
+    cancelado,
+    error,
+    continuar,
+  }: { cancelado: boolean; error?: string; continuar: Continuar }
 ): void {
   p.marcha.hidden = true;
   p.resumen.hidden = false;
@@ -289,10 +301,44 @@ function cerrar(
   if (avance.indeterminados > 0) {
     const nota = document.createElement('p');
     nota.className = 'nota';
+    // «No es una baja» acá es PROSA, no el botón de la grilla —que se llama «No es baja»—.
+    // Son cosas distintas y esta frase no se acorta con él: es una oración, no una etiqueta.
     nota.textContent =
       avance.indeterminados === 1
         ? '1 producto no se pudo revisar. No es una baja: le vuelve a tocar en el próximo barrido.'
         : `${avance.indeterminados} productos no se pudieron revisar. No son bajas: les vuelve a tocar en el próximo barrido.`;
+    p.resumen.appendChild(nota);
+  }
+
+  /**
+   * LA SALIDA. Sin esto, terminar bien una corrida dejaba la pantalla sin ningún camino:
+   * el botón de empezar queda deshabilitado desde `correr()` y nadie lo vuelve a habilitar.
+   *
+   * Es un enlace y no un botón que reinicie el bucle en la misma página: la corrida
+   * siguiente necesita una cola nueva, y la cola viaja rendida en el HTML (ver el
+   * comentario de cabecera de `barrido.astro`). Recargar es lo que la trae — y además
+   * refresca el conteo de la vuelta con lo que se acaba de anotar.
+   */
+  if (continuar.tipo === 'seguir') {
+    const pie = document.createElement('p');
+    pie.className = 'pie-guardar';
+
+    const seguir = document.createElement('a');
+    seguir.href = '/barrido';
+    // `boton-enlace` y no un `<button>`: apretarlo no revisa nada, recarga la pantalla
+    // de confirmación con la cola nueva. Es el mismo criterio que la papelera.
+    seguir.className = 'boton-enlace';
+    seguir.textContent =
+      continuar.cuantos === 1
+        ? 'Seguir con el que falta'
+        : `Seguir con los ${continuar.cuantos} que faltan`;
+    pie.appendChild(seguir);
+    p.resumen.appendChild(pie);
+  } else if (continuar.tipo === 'vuelta-completa') {
+    const nota = document.createElement('p');
+    nota.className = 'nota';
+    nota.textContent =
+      'Con esto se completó la vuelta: se le preguntó al proveedor por todo el catálogo.';
     p.resumen.appendChild(nota);
   }
 }

@@ -153,6 +153,13 @@ export function prepararGrilla(): void {
   const repintar = () => {
     const todas = casillas();
     const seleccionados = todas.filter((c) => c.checked).length;
+    /**
+     * De lo tildado, lo que NO está dado de baja en el proveedor.
+     *
+     * `data-baja` lo pone la fila al rendirse. Se cuenta acá y no en el servidor porque
+     * depende de la selección, que cambia sin recargar.
+     */
+    const aprobables = todas.filter((c) => c.checked && c.dataset.baja !== 'si').length;
     const sucio = estaSucio();
 
     if (marcarTodo) {
@@ -168,6 +175,7 @@ export function prepararGrilla(): void {
         sucio,
         seleccionados,
         completos,
+        aprobables,
       });
       boton.disabled = !habilitado;
 

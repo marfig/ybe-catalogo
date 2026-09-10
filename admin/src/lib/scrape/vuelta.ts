@@ -165,3 +165,39 @@ export function planDeVuelta({
     completada: false,
   };
 }
+
+/**
+ * Qué tan al día está el barrido. Es lo que el Inicio necesita para avisar.
+ *
+ * `en-curso` NO es lo mismo que `completada`, y esa distinción es lo que hace útil el
+ * aviso: una vuelta abierta hace tres semanas es trabajo a medio hacer. Tratarla como
+ * «catálogo revisado» dejaría que apretar una vez y abandonar apagara el aviso para
+ * siempre.
+ */
+export type Frescura =
+  | { tipo: 'nunca' }
+  | { tipo: 'en-curso'; desde: string }
+  | { tipo: 'completada'; cuando: string };
+
+/**
+ * Cuándo se revisó el catálogo entero por última vez.
+ *
+ * EL AGUJERO QUE CIERRA: el barrido no arranca solo —no hay cadencia, se corre cuando se
+ * lo pide— y hasta ahora NADA lo recordaba. El único aviso del Inicio era «hay N
+ * productos que el proveedor ya no publica», y ese aviso es CIRCULAR: las bajas aparecen
+ * sólo si se barre. Dejando de barrer, el Inicio se queda callado y el silencio se lee
+ * como buenas noticias.
+ *
+ * Es el pecado inverso al que denuncia `BARRIBLES` en `cola.ts`: allá un aviso siempre
+ * falso enseña a ignorar el lugar; acá un silencio enseña que no hay nada que hacer.
+ *
+ * SIN UMBRAL, y no por simplificar: un «se pone en rojo a los 30 días» sería volver a
+ * meter por la ventana la cadencia que se descartó. Lo que se informa es un hecho —hace
+ * cuánto—, y «hace 4 meses» ya alarma sin ayuda.
+ */
+export function frescuraDelBarrido(vuelta: Vuelta | null): Frescura {
+  if (vuelta === null) return { tipo: 'nunca' };
+  if (vuelta.terminada_en === null) return { tipo: 'en-curso', desde: vuelta.iniciada_en };
+
+  return { tipo: 'completada', cuando: vuelta.terminada_en };
+}

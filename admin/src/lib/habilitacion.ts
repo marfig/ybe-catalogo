@@ -47,7 +47,20 @@ export type Requisito =
    * `guardado`, así que mientras el número no sea confiable el botón ya está apagado por
    * el otro motivo. Los dos requisitos juntos hacen que el contador nunca mienta.
    */
-  | 'completos';
+  | 'completos'
+  /**
+   * Al menos un producto tildado que se pueda aprobar: no dado de baja en el proveedor.
+   *
+   * LA GUARDA DE VERDAD NO ES ÉSTA, y la distinción importa. Está en `aprobar()`, que
+   * omite esos productos venga la selección de la pantalla que venga — el navegador no
+   * guarda nada. Esto es cortesía: un botón que se deja apretar para no hacer nada cuesta
+   * un clic y devuelve un resumen lleno de «omitido» que hay que ir a leer.
+   *
+   * Alcanza con UNO aprobable. Con una selección mixta las bajas las omite el servidor
+   * con su motivo, pero la fila que sí se puede aprobar tiene que poder aprobarse: apagar
+   * el botón por la peor fila del lote obligaría a destildar de a una.
+   */
+  | 'aprobables';
 
 export interface EstadoGrilla {
   /** Si hay cambios tipeados sin guardar. */
@@ -56,6 +69,8 @@ export interface EstadoGrilla {
   seleccionados: number;
   /** Cuántos productos de la página están listos para aprobarse, según el servidor. */
   completos: number;
+  /** Cuántas de las filas tildadas NO están dadas de baja en el proveedor. */
+  aprobables: number;
 }
 
 export interface Habilitacion {
@@ -89,6 +104,8 @@ const MOTIVOS: Record<Requisito, (estado: EstadoGrilla) => string | null> = {
   cambios: ({ sucio }) => (sucio ? null : 'No hay nada para guardar.'),
   completos: ({ completos }) =>
     completos === 0 ? 'Ninguno de esta página está completo todavía.' : null,
+  aprobables: ({ aprobables }) =>
+    aprobables === 0 ? 'El proveedor ya no publica lo que tildaste: no se aprueba.' : null,
 };
 
 /**

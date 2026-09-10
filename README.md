@@ -140,14 +140,20 @@ siempre, con su pantalla de confirmación.
   catálogo entero, y la pantalla te dice cuántos faltan para completarla. Ese número
   **baja en cada corrida** hasta llegar a cero, y ahí la vuelta se da por terminada.
   La última corrida es corta: pide sólo lo que falta, no 300 al pepe.
+- Al terminar una corrida, el resumen te ofrece **«Seguir con los N que faltan»**: no
+  hace falta recargar ni acordarse de volver.
 - Cuando una vuelta se completa, la pantalla lo dice y apretar empieza otra. No hay
   plazo ni calendario: el catálogo se revisa cuando vos lo pedís.
+- **Y el Inicio te lo recuerda.** La puerta de «Revisar bajas del proveedor» dice hace
+  cuánto se revisó el catálogo entero — o si quedó una vuelta empezada sin terminar. No
+  se pone en rojo a los tantos días, porque no hay un plazo que incumplir: es un dato,
+  y «hace 4 meses» habla solo.
 - Los cargados a mano no se revisan: el proveedor no los conoce.
 - **«No se pudo revisar» no es una baja.** Si el proveedor no contesta lo que se
   espera, el producto queda como estaba y le vuelve a tocar en el próximo barrido. Es
   lo que evita que un mal día del sitio marque el catálogo entero como dado de baja.
 
-Para chequear unos pocos sin barrer todo: tildalos en la grilla y **Verificar en el
+Para chequear unos pocos sin barrer todo: tildalos en la grilla y **Preguntar al
 proveedor**.
 
 ### Eliminar

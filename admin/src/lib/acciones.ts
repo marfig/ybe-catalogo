@@ -117,7 +117,7 @@ export async function ejecutarAccion(
   }
 
   /**
-   * «No es una baja»: saca la marca que dejó el barrido, sin preguntarle al proveedor.
+   * «No es baja»: saca la marca que dejó el barrido, sin preguntarle al proveedor.
    *
    * NO es una transición de estado y por eso la función vive con `marcar()` en
    * `scrape/cola.ts`: `ausente_desde` es un eje ortogonal a `estado`. Acá sólo se la
@@ -129,7 +129,7 @@ export async function ejecutarAccion(
   }
 
   /**
-   * «Aprobar los completos»: sin selección, sobre TODA la página.
+   * «Aprobar completos»: sin selección, sobre TODA la página.
    *
    * Los candidatos son las filas que la página rindió —`cambios`, no `seleccionados`—
    * porque el punto de la acción es no tener que tildar nada. Y como corre DESPUÉS del

@@ -18,10 +18,20 @@ import type { Ejecutar } from './grilla.ts';
  * regenera nunca**. Vive en conversaciones de WhatsApp que nadie va a corregir.
  */
 
-const MIGRACION = readFileSync(
-  new URL('../../../db/migrations/0001_esquema_inicial.sql', import.meta.url),
-  'utf8'
-);
+/**
+ * Hasta `0005` y no solo `0001`: `aprobar()` mira `ausente_desde`, que nace ahi. Con el
+ * esquema inicial pelado, la guarda que impide curar un producto discontinuado no se
+ * podria probar — y una guarda sin test es una guarda que alguien borra en seis meses.
+ */
+const MIGRACION = [
+  '0001_esquema_inicial.sql',
+  '0002_codigo_insensible_a_mayusculas.sql',
+  '0003_aviso_cambio_en_origen.sql',
+  '0004_papelera.sql',
+  '0005_barrido_de_bajas.sql',
+]
+  .map((n) => readFileSync(new URL(`../../../db/migrations/${n}`, import.meta.url), 'utf8'))
+  .join('\n');
 const AHORA = '2026-08-05T15:00:00Z';
 const CATEGORIAS = new Set(['carteras', 'mochilas', 'fiesta', 'dama', 'escolar']);
 
@@ -482,4 +492,58 @@ test('asignar una categoria que ya tenian no gasta ni un viaje', async () => {
   await asignarCategorias(ejecutor(db), [id], ['carteras'], { ...opciones, lote });
 
   assert.equal(llamadas.length, 0);
+});
+
+// --------------------------------------------------------------------------
+// No se cura lo que el proveedor ya no vende
+// --------------------------------------------------------------------------
+
+test('NO se aprueba un producto marcado como baja del proveedor', async () => {
+  /**
+   * Reportado el 2026-09-10 desde el filtro «Ya no está en el proveedor»: ahi «Aprobar»
+   * quedaba habilitado. Aprobar es curar hacia la publicacion, y hacerlo sobre algo que
+   * el proveedor discontinuo empuja al catalogo un producto que no se puede vender.
+   *
+   * LA GUARDA VA ACA Y NO EN EL BOTON, que fue lo primero que se penso. El agujero no es
+   * de esa pantalla: el mismo producto seleccionado desde «Por aprobar» o desde «Todos»
+   * tiene el boton habilitado y el problema es identico. En la transicion se arregla una
+   * vez y vale para todas las puertas.
+   */
+  const db = base();
+  const id = alta(db, { nombre: 'Cartera discontinuada' });
+  db.prepare(`UPDATE productos SET ausente_desde = ? WHERE id = ?`).run(AHORA, id);
+
+  const [r] = await aprobar(ejecutor(db), [id], con(db));
+
+  assert.equal(r.desenlace, 'omitido', 'omitido y no fallo: no hay nada que corregir');
+  assert.match(r.motivo ?? '', /proveedor/i);
+  assert.equal(leer(db, id).estado, 'importado', 'no se movio');
+});
+
+test('la baja NO tapa el motivo de uno que ya paso la etapa', async () => {
+  /**
+   * Un publicado dado de baja se omite por estar YA en el catalogo, que es la razon util:
+   * decirle «el proveedor ya no lo publica» a alguien que pregunta por que no se aprobo
+   * un publicado seria contestar otra cosa.
+   */
+  const db = base();
+  const id = alta(db, { estado: 'publicado', slug: 'ya-esta-en-la-calle' });
+  db.prepare(`UPDATE productos SET ausente_desde = ? WHERE id = ?`).run(AHORA, id);
+
+  const [r] = await aprobar(ejecutor(db), [id], con(db));
+
+  assert.equal(r.desenlace, 'omitido');
+  assert.match(r.motivo ?? '', /catálogo|catalogo/i);
+});
+
+test('sacada la marca de baja, el producto se aprueba normal', async () => {
+  // La guarda es sobre la marca, no sobre el producto: el proveedor repone modelos.
+  const db = base();
+  const id = alta(db, { nombre: 'Cartera repuesta' });
+  db.prepare(`UPDATE productos SET ausente_desde = ? WHERE id = ?`).run(AHORA, id);
+  db.prepare(`UPDATE productos SET ausente_desde = NULL WHERE id = ?`).run(id);
+
+  const [r] = await aprobar(ejecutor(db), [id], con(db));
+
+  assert.equal(r.desenlace, 'hecho');
 });

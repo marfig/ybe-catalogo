@@ -16,10 +16,12 @@ import Panel from '../layouts/Panel.astro';
 import { ejecutorD1 } from '../lib/d1.ts';
 import { despacharPublicacion, leerConfigDespacho } from '../lib/despacho.ts';
 import { contarPorEstado, ESTADOS_LEGIBLES } from '../lib/grilla.ts';
+import { frescuraDelBarrido, vueltaActual } from '../lib/scrape/vuelta.ts';
 import {
   cambiosSinPublicar,
   crearPublicacion,
   describirPublicacion,
+  haceCuanto,
   hayPublicacionEnCurso,
   ultimaPublicacion,
 } from '../lib/publicaciones.ts';
@@ -65,11 +67,27 @@ if (Astro.request.method === 'POST') {
 }
 
 const ahora = new Date().toISOString();
-const [conteo, ultima, pendientes] = await Promise.all([
+const [conteo, ultima, pendientes, vuelta] = await Promise.all([
   contarPorEstado(ejecutar),
   ultimaPublicacion(ejecutar),
   cambiosSinPublicar(ejecutar),
+  /**
+   * ÚNICA DE LAS CUATRO QUE NO PUEDE VOLTEAR LA PANTALLA, y por eso lleva `catch`.
+   *
+   * Las otras tres traen el Inicio: sin ellas no hay nada que rendir y fallar es lo
+   * correcto. Ésta trae un renglón informativo. Dejarla en el `Promise.all` pelado le
+   * daría a un aviso cosmético el poder de tumbar la portada del admin —los contadores,
+   * el botón de publicar, todo— y eso es regalar alcance de daño a cambio de nada.
+   *
+   * `undefined` NO es lo mismo que `null`: `null` es «nunca se barrió», que es un hecho
+   * y se dice. `undefined` es «no se pudo averiguar», y ahí el renglón no se rinde. Un
+   * aviso que miente en silencio es peor que uno ausente.
+   */
+  vueltaActual(ejecutar).catch(() => undefined),
 ]);
+
+/** Hace cuánto que nadie le pregunta al proveedor. Ver `frescuraDelBarrido`. */
+const frescura = vuelta === undefined ? null : frescuraDelBarrido(vuelta);
 const publicacion = describirPublicacion(ultima, ahora);
 const enCurso = await hayPublicacionEnCurso(ejecutar, ahora);
 
@@ -198,6 +216,26 @@ const tarjetas = [
     <a class="puerta" href="/barrido">
       <strong>Revisar bajas del proveedor</strong>
       <span>Preguntarle al proveedor qué de lo que tenemos ya no publica.</span>
+      {/**
+       * HACE CUÁNTO, al lado de la acción que lo resuelve.
+       *
+       * El barrido no arranca solo, y hasta acá nada lo recordaba: el único aviso era
+       * «hay N productos que el proveedor ya no publica», que es CIRCULAR —las bajas
+       * aparecen sólo si se barre—. Dejando de barrer, el Inicio se callaba y el silencio
+       * se leía como que todo estaba bien.
+       *
+       * Una vuelta a medio hacer NO cuenta como revisado: si contara, apretar una vez y
+       * abandonar apagaría este aviso para siempre.
+       */}
+      {frescura === null ? null : (
+        <span class="puerta-frescura">
+          {frescura.tipo === 'nunca'
+            ? 'Nunca se revisó el catálogo.'
+            : frescura.tipo === 'en-curso'
+              ? `Hay una vuelta empezada ${haceCuanto(frescura.desde, ahora)}, sin terminar.`
+              : `Catálogo revisado ${haceCuanto(frescura.cuando, ahora)}.`}
+        </span>
+      )}
     </a>
     <a class="puerta" href="/pedidos-especiales">
       <strong>Pedidos especiales</strong>

@@ -1,11 +1,18 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { esCampoDeFila, esRequisito, habilitacionDe } from './habilitacion.ts';
+import { esCampoDeFila, esRequisito, habilitacionDe, type EstadoGrilla } from './habilitacion.ts';
 
-/** Estado base: sin tocar nada, nada tildado, nada completo. */
-const limpio = { sucio: false, seleccionados: 0, completos: 0 };
-const con = (cambios: Partial<typeof limpio>) => ({ ...limpio, ...cambios });
+/**
+ * Estado base: sin tocar nada, nada tildado, nada completo, nada aprobable.
+ *
+ * ANOTADO COMO `EstadoGrilla` a proposito. Sin el tipo, un campo nuevo en el estado deja
+ * a todos estos tests corriendo con `undefined` adentro —en runtime pasan igual— y la
+ * suite queda probando un estado que no existe. Con la anotacion, agregar un requisito
+ * rompe acá y obliga a decidir que vale en cada caso.
+ */
+const limpio: EstadoGrilla = { sucio: false, seleccionados: 0, completos: 0, aprobables: 0 };
+const con = (cambios: Partial<EstadoGrilla>): EstadoGrilla => ({ ...limpio, ...cambios });
 
 // --------------------------------------------------------------------------
 // esRequisito: la puerta entre el DOM y la decision
@@ -17,13 +24,13 @@ test('esRequisito acepta TODOS los requisitos que existen', () => {
    *
    * `grilla-cliente.ts` filtraba los `data-requiere` con un `r === 'seleccion' ||
    * r === 'guardado'` escrito a mano. Al agregar `cambios` y `completos`, esa lista quedo
-   * vieja y los dos botones que solo pedian los requisitos nuevos —«Guardar cambios» y
-   * «Aprobar los completos»— quedaron habilitados SIEMPRE. Sin error, sin test rojo.
+   * vieja y los dos botones que solo pedian los requisitos nuevos —«Guardar» y
+   * «Aprobar completos»— quedaron habilitados SIEMPRE. Sin error, sin test rojo.
    *
    * La lista de abajo es la que hay que actualizar al agregar un requisito, y el test
    * falla si `esRequisito` no lo reconoce. No es una duplicacion: es el candado.
    */
-  for (const r of ['seleccion', 'guardado', 'cambios', 'completos']) {
+  for (const r of ['seleccion', 'guardado', 'cambios', 'completos', 'aprobables']) {
     assert.equal(esRequisito(r), true, r);
   }
 });
@@ -61,7 +68,7 @@ test('seleccion: bloquea con cero tildados y habilita con uno', () => {
 });
 
 test('seleccion no le importa que haya cosas sin guardar', () => {
-  // «Eliminar» y «Verificar en el proveedor» no dependen de lo tipeado.
+  // «Eliminar» y «Preguntar al proveedor» no dependen de lo tipeado.
   assert.equal(
     habilitacionDe(['seleccion'], con({ sucio: true, seleccionados: 3 })).habilitado,
     true
@@ -78,7 +85,7 @@ test('guardado: bloquea con cambios sin guardar', () => {
   assert.match(sucio.motivos[0], /sin guardar/i);
 });
 
-test('guardado no pide seleccion: es el caso de «Aprobar los completos»', () => {
+test('guardado no pide seleccion: es el caso de «Aprobar completos»', () => {
   // El boton existe para no tener que tildar nada, asi que cero tildados es su estado
   // NORMAL y no puede bloquearlo.
   assert.equal(
@@ -117,7 +124,7 @@ test('cumplir uno solo no alcanza', () => {
 });
 
 // --------------------------------------------------------------------------
-// cambios: el inverso de guardado, para «Guardar cambios»
+// cambios: el inverso de guardado, para «Guardar»
 // --------------------------------------------------------------------------
 
 test('cambios: bloquea cuando NO hay nada para guardar', () => {
@@ -148,13 +155,14 @@ test('cambios no le importa la seleccion ni los completos', () => {
   // algo que guardar. Si dependiera, un estado raro dejaria lo tipeado sin forma de
   // persistirse.
   assert.equal(
-    habilitacionDe(['cambios'], { sucio: true, seleccionados: 0, completos: 0 }).habilitado,
+    habilitacionDe(['cambios'], { sucio: true, seleccionados: 0, completos: 0, aprobables: 0 })
+      .habilitado,
     true
   );
 });
 
 // --------------------------------------------------------------------------
-// completos: para «Aprobar los completos»
+// completos: para «Aprobar completos»
 // --------------------------------------------------------------------------
 
 test('completos: bloquea cuando no hay ninguno listo', () => {
@@ -167,7 +175,7 @@ test('completos: habilita con al menos uno', () => {
   assert.equal(habilitacionDe(['completos'], con({ completos: 1 })).habilitado, true);
 });
 
-test('«Aprobar los completos» real: pide guardado Y completos', () => {
+test('«Aprobar completos» real: pide guardado Y completos', () => {
   const requisitos = ['guardado', 'completos'] as const;
 
   // El caso util: guardado y con algo listo.
@@ -222,4 +230,55 @@ test('un nombre PARECIDO no cuenta: el id tiene que ser un numero', () => {
   assert.equal(esCampoDeFila('nombre'), false);
   assert.equal(esCampoDeFila('sobrenombre-12'), false);
   assert.equal(esCampoDeFila('precio-12-extra'), false);
+});
+
+// --------------------------------------------------------------------------
+// `aprobables`: no se cura lo que el proveedor ya no vende
+// --------------------------------------------------------------------------
+
+test('aprobar se apaga si TODO lo tildado esta dado de baja', () => {
+  /**
+   * Reportado el 2026-09-10 desde el filtro «Ya no está en el proveedor». La guarda de
+   * verdad esta en `aprobar()` —el servidor omite esos productos venga la seleccion de
+   * donde venga—, pero un boton que se deja apretar para no hacer nada hace perder un
+   * clic y devuelve un resumen lleno de «omitido» que hay que ir a leer.
+   */
+  const estado = { sucio: false, seleccionados: 3, completos: 0, aprobables: 0 };
+  const { habilitado, motivos } = habilitacionDe(['guardado', 'seleccion', 'aprobables'], estado);
+
+  assert.equal(habilitado, false);
+  assert.match(motivos.join(' '), /proveedor/i);
+});
+
+test('con una sola fila aprobable, el boton sigue vivo', () => {
+  /**
+   * Seleccion mixta: las bajas las va a omitir el servidor con su motivo, pero la que si
+   * se puede aprobar tiene que poder aprobarse. Apagar el boton por la peor fila del lote
+   * obligaria a destildar de a una.
+   */
+  const estado = { sucio: false, seleccionados: 3, completos: 0, aprobables: 1 };
+
+  assert.equal(habilitacionDe(['guardado', 'seleccion', 'aprobables'], estado).habilitado, true);
+});
+
+test('aprobables es un requisito conocido y no se descarta', () => {
+  // El bug que documenta este archivo: un requisito nuevo que la lista no conoce deja el
+  // boton habilitado SIEMPRE, sin error y sin test rojo.
+  assert.equal(esRequisito('aprobables'), true);
+});
+
+test('«Aprobar» real: la terna que viaja al DOM, con nada tildado', () => {
+  /**
+   * `data-requiere="guardado seleccion aprobables"` es lo que rinde `productos.astro`, y
+   * el caso de cero tildados no estaba probado con la terna completa. Importa el MENSAJE:
+   * con nada tildado, decir «el proveedor ya no publica lo que tildaste» seria contestar
+   * sobre una seleccion que no existe.
+   */
+  const r = habilitacionDe(['guardado', 'seleccion', 'aprobables'], limpio);
+
+  assert.equal(r.habilitado, false);
+  assert.ok(
+    r.motivos.some((m) => /tildado/i.test(m)),
+    'tiene que decir que no hay nada tildado'
+  );
 });

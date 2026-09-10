@@ -582,7 +582,7 @@ test('no-es-baja saca la marca de los tildados', async () => {
 test('no-es-baja guarda PRIMERO lo tipeado, como toda accion que escribe', async () => {
   /*
    * La regla del modulo. Alguien corrige el nombre en la grilla, tilda el producto y
-   * aprieta «No es una baja»: sin el guardado previo, el redirect 303 recarga desde la
+   * aprieta «No es baja»: sin el guardado previo, el redirect 303 recarga desde la
    * base y lo tipeado se pierde sin aviso — el bug que justifica este archivo.
    */
   const db = base();

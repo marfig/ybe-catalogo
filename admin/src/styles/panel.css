@@ -332,7 +332,7 @@ button {
  * Dos columnas: el control y su explicación.
  *
  * ERA UN FLEX QUE ENVOLVÍA, y con botones de anchos muy distintos —«Aprobar» contra
- * «Verificar en el proveedor»— la nota arrancaba en una x diferente en cada fila. Los
+ * «Preguntar al proveedor»— la nota arrancaba en una x diferente en cada fila. Los
  * bordes izquierdos alineaban igual, así que el bloque no se veía roto: se veía
  * desordenado, que es peor de diagnosticar.
  *
@@ -344,10 +344,13 @@ button {
  * propia grilla, así que un `max-content` le daría a cada fila el ancho de SU botón y
  * volveríamos al zigzag que esto viene a arreglar.
  *
- * 17rem sale de medir la etiqueta más larga: «Verificar en el proveedor», 25 caracteres
- * a 16px semibold —el `font: inherit` de la línea 133— son unos 200 px, más 2,5rem de
- * `padding-inline` y el borde, ~242 px. Una etiqueta más larga que ésta parte el botón
- * en dos líneas, así que si aparece una, este número sube con ella.
+ * 17rem se midió sobre la etiqueta más larga de entonces, «Verificar en el proveedor»:
+ * 25 caracteres a 16px semibold —el `font: inherit` de la línea 133— son unos 200 px, más
+ * 2,5rem de `padding-inline` y el borde, ~242 px. Esa etiqueta se acortó a «Preguntar al
+ * proveedor» para que la barra de acciones entrara en una línea, así que hoy 17rem sobra.
+ * NO SE BAJA: el número es un piso, y bajarlo obligaría a re-medir cada vez que alguien
+ * toca un texto. Lo que sí sigue en pie es el techo — una etiqueta más larga que ~25
+ * caracteres parte el botón en dos líneas, y entonces este número sube con ella.
  */
 .lote-fila {
   display: grid;
@@ -581,13 +584,22 @@ button {
 /**
  * «Eliminar» se separa del resto.
  *
- * Es la unica accion que no se deshace, y en una barra de cinco botones pegados la mano
- * llega a el con la misma facilidad que a «Guardar cambios». El `margin-left: auto` lo
- * manda al extremo opuesto; cuando la barra envuelve en pantalla angosta el margen no
- * hace nada y el boton igual queda ultimo, que es la otra forma de decir lo mismo.
+ * Es la unica accion que no se deshace, y en una barra de botones pegados la mano llega a
+ * el con la misma facilidad que a «Guardar».
+ *
+ * ERA `margin-left: auto` Y ESO SE ROMPIA. La afirmacion del comentario viejo —«cuando la
+ * barra envuelve, el margen no hace nada»— es falsa: un margen automatico ABSORBE el
+ * espacio libre de SU renglon, asi que al envolver el boton se iba solo al extremo derecho
+ * de una segunda fila vacia. Se veia con el filtro «Ya no está en el proveedor», donde
+ * aparece el sexto boton —«No es baja»— y la barra deja de entrar en una linea.
+ *
+ * Ahora la separacion es una DISTANCIA FIJA, el doble del `gap` de la barra: se lee igual
+ * de claro, sobrevive al envoltorio y el boton fluye con sus vecinos en vez de fabricar un
+ * renglon propio. El aviso fuerte no lo da la posicion sino `button.peligro`, que ya lo
+ * pinta con color y borde de peligro.
  */
 .barra-acciones .peligro {
-  margin-left: auto;
+  margin-inline-start: 1.5rem;
 }
 
 /* La fila de la categoria en lote, ahora que esta sola arriba. */
@@ -1126,6 +1138,23 @@ button[disabled] {
 .puerta span {
   font-size: 0.8125rem;
   color: var(--texto-suave);
+}
+
+/**
+ * Hace cuanto que no se revisa el catalogo del proveedor.
+ *
+ * VA DENTRO DE LA PUERTA Y NO COMO AVISO ARRIBA, y no es una alarma. El barrido no tiene
+ * cadencia —se corre cuando se lo pide—, asi que pintar esto de rojo a partir de algun
+ * dia seria inventar el plazo que no existe. Es un dato al lado de la accion que lo
+ * resuelve, y «hace 4 meses» alarma solo.
+ *
+ * El color pisa el de `.puerta span`: es un hecho del estado del catalogo, no la
+ * descripcion de la puerta, asi que no se apaga junto con ella.
+ */
+.puerta span.puerta-frescura {
+  display: block;
+  margin-block-start: 0.375rem;
+  color: var(--texto);
 }
 
 /* --------------------------------------------------------------------------

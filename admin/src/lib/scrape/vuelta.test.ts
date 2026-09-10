@@ -4,7 +4,13 @@ import { DatabaseSync } from 'node:sqlite';
 import { test } from 'node:test';
 
 import type { Ejecutar } from '../grilla.ts';
-import { abrirVuelta, cerrarVuelta, planDeVuelta, vueltaActual } from './vuelta.ts';
+import {
+  abrirVuelta,
+  cerrarVuelta,
+  frescuraDelBarrido,
+  planDeVuelta,
+  vueltaActual,
+} from './vuelta.ts';
 
 const MIGRACIONES = ['0001_esquema_inicial.sql', '0009_vueltas_de_barrido.sql'].map((n) =>
   readFileSync(new URL(`../../../../db/migrations/${n}`, import.meta.url), 'utf8')
@@ -227,4 +233,41 @@ test('un catalogo vacio no deja una vuelta abierta para siempre', () => {
 
   assert.equal(plan.cerrar, 1);
   assert.equal(plan.pendientes, 0);
+});
+
+/**
+ * LA FRESCURA DEL BARRIDO, que es lo que el Inicio necesita saber.
+ *
+ * EL AGUJERO QUE CIERRA, senalado el 2026-09-10 con «y cuando vuelve a revisar el
+ * catalogo entero?»: nunca solo, y hasta ahora NADA lo recordaba. El unico aviso del
+ * Inicio era «hay N productos que el proveedor ya no publica», y ese aviso es CIRCULAR:
+ * las bajas aparecen solo si se barre. Dejando de barrer, el Inicio se queda callado y
+ * se lee como que todo esta bien — cuando hace tres meses que nadie le pregunta nada al
+ * proveedor.
+ *
+ * SIN UMBRAL A PROPOSITO. Un «se pone rojo a los 30 dias» seria volver a meter la
+ * cadencia que se descarto: no hay cada-cuanto, el barrido se corre cuando se lo pide.
+ * Lo que se informa es un hecho —hace cuanto—, y «hace 4 meses» ya alarma solo.
+ */
+test('sin ninguna vuelta, se dice que nunca se reviso', () => {
+  assert.deepEqual(frescuraDelBarrido(null), { tipo: 'nunca' });
+});
+
+test('vuelta completada: se informa cuando, para que el Inicio diga hace cuanto', () => {
+  assert.deepEqual(frescuraDelBarrido({ id: 1, iniciada_en: AYER, terminada_en: HOY }), {
+    tipo: 'completada',
+    cuando: HOY,
+  });
+});
+
+test('una vuelta empezada y sin terminar NO cuenta como catalogo revisado', () => {
+  /**
+   * Es la distincion que hace util este aviso. Una vuelta abierta hace tres semanas es
+   * trabajo a medio hacer, y tratarla como «revisado» seria peor que no avisar: alcanzaria
+   * con apretar una vez y abandonar para que el Inicio diga que todo esta al dia.
+   */
+  assert.deepEqual(frescuraDelBarrido({ id: 1, iniciada_en: AYER, terminada_en: null }), {
+    tipo: 'en-curso',
+    desde: AYER,
+  });
 });
