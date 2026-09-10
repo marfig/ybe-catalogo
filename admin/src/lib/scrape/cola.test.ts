@@ -9,6 +9,7 @@ import {
   candidatosPorIds,
   contarAusentes,
   contarBarribles,
+  contarNuncaRevisados,
   desmarcarBaja,
   listarAusentes,
   marcar,
@@ -316,6 +317,78 @@ test('el total a barrer no cuenta lo que no se barre', async () => {
   ]);
 
   assert.equal(await contarBarribles(ejecutor(db)), 2);
+});
+
+test('los que nunca se revisaron se cuentan aparte del total', async () => {
+  const db = base();
+  sembrar(db, [
+    { codigo: 'CG001' },
+    { codigo: 'CG002', revisado: AYER },
+    { codigo: 'CG003' },
+  ]);
+
+  assert.equal(await contarBarribles(ejecutor(db)), 3);
+  assert.equal(await contarNuncaRevisados(ejecutor(db)), 2);
+});
+
+test('el conteo de nunca revisados aplica las mismas reglas que la cola', async () => {
+  const db = base();
+  sembrar(db, [
+    { codigo: 'CG001' },
+    { codigo: 'CG002', estado: 'eliminado' },
+    { codigo: 'CG003', proveedor: 'manual' },
+    { codigo: 'CG004', proveedor: 'catalogo-viejo' },
+  ]);
+
+  // Sólo CG001. Los otros tres no se barren, así que no son trabajo pendiente.
+  assert.equal(await contarNuncaRevisados(ejecutor(db)), 1);
+});
+
+test('revisar un producto lo saca del conteo de nunca revisados', async () => {
+  /**
+   * Es la propiedad que hace que el resto BAJE de una corrida a la otra, que es lo que
+   * el cálculo viejo —`total - cola.length`, dos constantes— no hacía.
+   */
+  const db = base();
+  sembrar(db, [{ codigo: 'CG001' }, { codigo: 'CG002' }]);
+  const ejecutar = ejecutor(db);
+  const [{ id }] = await ejecutar<{ id: number }>('SELECT id FROM productos ORDER BY codigo');
+
+  assert.equal(await contarNuncaRevisados(ejecutar), 2);
+  await marcar(ejecutar, id, { presencia: 'presente', codigo: 'CG001', ahora: HOY, url: null });
+  assert.equal(await contarNuncaRevisados(ejecutar), 1);
+});
+
+test('marcar una BAJA tambien saca al producto del conteo', async () => {
+  /**
+   * `presente` y `ausente` son dos UPDATE separados en `marcar()`, y los dos tienen que
+   * escribir `revisado_en_origen`. Si el de la baja lo perdiera, el contador se
+   * congelaria justo para los productos que esta pantalla existe para encontrar.
+   */
+  const db = base();
+  sembrar(db, [{ codigo: 'CG001' }, { codigo: 'CG002' }]);
+  const ejecutar = ejecutor(db);
+  const [{ id }] = await ejecutar<{ id: number }>('SELECT id FROM productos ORDER BY codigo');
+
+  await marcar(ejecutar, id, { presencia: 'ausente', codigo: 'CG001', ahora: HOY, url: null });
+
+  assert.equal(await contarNuncaRevisados(ejecutar), 1);
+});
+
+test('un INDETERMINADO no saca al producto del conteo: no se lo reviso', async () => {
+  const db = base();
+  sembrar(db, [{ codigo: 'CG001' }]);
+  const ejecutar = ejecutor(db);
+  const [{ id }] = await ejecutar<{ id: number }>('SELECT id FROM productos');
+
+  await marcar(ejecutar, id, {
+    presencia: 'indeterminado',
+    codigo: 'CG001',
+    ahora: HOY,
+    url: null,
+  });
+
+  assert.equal(await contarNuncaRevisados(ejecutar), 1);
 });
 
 test('presente: se anota la revisión y se refresca la ficha del origen', async () => {

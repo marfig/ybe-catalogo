@@ -5,6 +5,7 @@ import {
   AVANCE_INICIAL,
   interpretarPostDeBarrido,
   porcentaje,
+  restoDelBarrido,
   revisados,
   sumar,
   textoDeBarrido,
@@ -110,4 +111,132 @@ test('los ids que no son ids se descartan', () => {
     tipo: 'seleccion',
     ids: [3, 8],
   });
+});
+
+/**
+ * EL RESTO DE LA CORRIDA.
+ *
+ * El bug que estos tests cierran, reportado el 2026-09-10 con el sintoma «dice que
+ * quedan 1157 y en la segunda corrida dice lo mismo»: el resto se calculaba como
+ * `contarBarribles() - cola.length`, o sea `1457 - 300`, y los dos terminos son
+ * constantes. El numero no se movia nunca aunque el barrido avanzara perfecto.
+ */
+test('el resto son los que nunca se revisaron y no entraron en la corrida', () => {
+  const resto = restoDelBarrido({
+    aMano: false,
+    total: 1457,
+    enLaCorrida: 300,
+    sinRevisarNunca: 1457,
+    sinRevisarEnLaCorrida: 300,
+  });
+
+  assert.deepEqual(resto, { tipo: 'sin-revisar', cuantos: 1157 });
+});
+
+test('EL RESTO BAJA DE UNA CORRIDA A LA OTRA', () => {
+  // Es el test del bug. Misma base, mismo tope, pero 300 ya revisados.
+  const primera = restoDelBarrido({
+    aMano: false,
+    total: 1457,
+    enLaCorrida: 300,
+    sinRevisarNunca: 1457,
+    sinRevisarEnLaCorrida: 300,
+  });
+  const segunda = restoDelBarrido({
+    aMano: false,
+    total: 1457,
+    enLaCorrida: 300,
+    sinRevisarNunca: 1157,
+    sinRevisarEnLaCorrida: 300,
+  });
+
+  assert.deepEqual(primera, { tipo: 'sin-revisar', cuantos: 1157 });
+  assert.deepEqual(segunda, { tipo: 'sin-revisar', cuantos: 857 });
+});
+
+test('cuando ya se revisaron todos alguna vez, el tope NO se calla', () => {
+  /**
+   * Que no queden virgenes no significa que no quede trabajo: el barrido es una
+   * rotacion. Un tope silencioso se lee como «ya se reviso todo», que es justo lo que
+   * el mensaje viejo trataba de evitar.
+   */
+  const resto = restoDelBarrido({
+    aMano: false,
+    total: 1457,
+    enLaCorrida: 300,
+    sinRevisarNunca: 0,
+    sinRevisarEnLaCorrida: 0,
+  });
+
+  assert.deepEqual(resto, { tipo: 'rotacion', enLaCorrida: 300, total: 1457 });
+});
+
+test('si el catalogo entero entra en una corrida no hay resto que anunciar', () => {
+  const resto = restoDelBarrido({
+    aMano: false,
+    total: 42,
+    enLaCorrida: 42,
+    sinRevisarNunca: 42,
+    sinRevisarEnLaCorrida: 42,
+  });
+
+  assert.deepEqual(resto, { tipo: 'nada' });
+});
+
+test('una seleccion a mano no anuncia resto: quien tildo ya eligio', () => {
+  const resto = restoDelBarrido({
+    aMano: true,
+    total: 1457,
+    enLaCorrida: 3,
+    sinRevisarNunca: 1457,
+    sinRevisarEnLaCorrida: 3,
+  });
+
+  assert.deepEqual(resto, { tipo: 'nada' });
+});
+
+test('el resto nunca es negativo aunque los conteos lleguen desfasados', () => {
+  /**
+   * Los dos conteos y la cola salen de tres consultas distintas: entre una y otra puede
+   * entrar un alta o una baja desde otra pestaña. Un resto negativo rendiria «quedan -4».
+   */
+  const resto = restoDelBarrido({
+    aMano: false,
+    total: 300,
+    enLaCorrida: 300,
+    sinRevisarNunca: 296,
+    sinRevisarEnLaCorrida: 300,
+  });
+
+  assert.deepEqual(resto, { tipo: 'nada' });
+});
+
+test('un desfasaje NO puede rendir «ya se revisaron todos»', () => {
+  /**
+   * El clampeo a cero cambiaba una mentira por otra mas sutil: con `total` mayor que la
+   * corrida, un resto clampeado caia en `rotacion` y la pantalla anunciaba «ya se
+   * revisaron todos alguna vez» habiendo 296 sin revisar. `rotacion` significa que NO
+   * queda ninguno virgen, y eso lo dice `sinRevisarNunca`, no una resta.
+   */
+  const resto = restoDelBarrido({
+    aMano: false,
+    total: 1457,
+    enLaCorrida: 300,
+    sinRevisarNunca: 296,
+    sinRevisarEnLaCorrida: 300,
+  });
+
+  assert.deepEqual(resto, { tipo: 'nada' });
+});
+
+test('un catalogo sin nada que barrer no anuncia nada', () => {
+  const resto = restoDelBarrido({
+    aMano: false,
+    total: 0,
+    enLaCorrida: 0,
+    sinRevisarNunca: 0,
+    sinRevisarEnLaCorrida: 0,
+  });
+
+  assert.deepEqual(resto, { tipo: 'nada' });
 });

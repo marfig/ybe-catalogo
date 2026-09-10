@@ -49,6 +49,79 @@ export function interpretarPostDeBarrido(
   };
 }
 
+/**
+ * Qué queda para después de esta corrida.
+ *
+ * `rotacion` NO es lo mismo que `nada`: cuando ya no quedan productos vírgenes sigue
+ * habiendo trabajo, porque el barrido es una rotación y lo revisado hace meses vuelve a
+ * ser lo más viejo. Callarse ahí se leería como «ya está todo revisado».
+ */
+export type Resto =
+  | { tipo: 'nada' }
+  | { tipo: 'sin-revisar'; cuantos: number }
+  | { tipo: 'rotacion'; enLaCorrida: number; total: number };
+
+export interface DatosDelResto {
+  /** Una selección tildada en la grilla, en vez de la cola automática. */
+  aMano: boolean;
+  /** Todos los barribles del catálogo. */
+  total: number;
+  /** Cuántos entran en esta corrida. */
+  enLaCorrida: number;
+  /** Barribles que no se revisaron nunca, en todo el catálogo. */
+  sinRevisarNunca: number;
+  /** De esos, cuántos entran en esta corrida. */
+  sinRevisarEnLaCorrida: number;
+}
+
+/**
+ * El renglón que anuncia lo que no entró en la corrida.
+ *
+ * EL BUG QUE ESTA FUNCIÓN CIERRA, reportado el 2026-09-10 con el síntoma «dice que
+ * quedan 1157 y en la segunda corrida dice lo mismo». El cálculo vivía suelto en
+ * `barrido.astro` y era `contarBarribles() - cola.length`: **los dos términos son
+ * constantes**. El total no baja cuando se revisa —un producto revisado sigue siendo
+ * barrible— y el tope de la corrida es fijo, así que el número decía 1157 para siempre.
+ * El barrido avanzaba perfecto y la pantalla insistía en que no.
+ *
+ * Se mide contra lo que NUNCA se revisó, que es el único conteo que baja al trabajar.
+ *
+ * VIVE ACÁ Y NO EN LA PÁGINA por lo mismo que el resto de este archivo: la aritmética
+ * que nadie puede testear es la que se equivoca callada durante meses.
+ */
+export function restoDelBarrido({
+  aMano,
+  total,
+  enLaCorrida,
+  sinRevisarNunca,
+  sinRevisarEnLaCorrida,
+}: DatosDelResto): Resto {
+  // Quien tildó en la grilla ya eligió: no hay resto que anunciarle.
+  if (aMano) return { tipo: 'nada' };
+
+  /**
+   * `Math.max` porque los conteos y la cola salen de tres consultas distintas: entre una
+   * y otra puede entrar un alta o una baja desde otra pestaña, y «quedan -4» es peor que
+   * no decir nada.
+   */
+  const cuantos = Math.max(0, sinRevisarNunca - sinRevisarEnLaCorrida);
+  if (cuantos > 0) return { tipo: 'sin-revisar', cuantos };
+
+  /**
+   * `sinRevisarNunca === 0` y NO el resultado de la resta, aunque acá los dos valgan
+   * cero. La diferencia aparece cuando los conteos llegan desfasados: la resta clampeada
+   * también da cero, y caer en `rotacion` desde ahí anunciaría «ya se revisaron todos
+   * alguna vez» habiendo productos vírgenes. Cambiar una mentira por otra más sutil no
+   * es arreglar nada. `rotacion` significa que no queda ninguno sin revisar, y eso lo
+   * dice el conteo, no una resta entre consultas que no son simultáneas.
+   */
+  if (sinRevisarNunca === 0 && total > enLaCorrida) {
+    return { tipo: 'rotacion', enLaCorrida, total };
+  }
+
+  return { tipo: 'nada' };
+}
+
 export interface Avance {
   /** Cuántos productos entraron a esta corrida. */
   total: number;

@@ -18,12 +18,13 @@ import { env } from 'cloudflare:workers';
 import Panel from '../layouts/Panel.astro';
 import { ejecutorD1 } from '../lib/d1.ts';
 import { haceCuanto } from '../lib/publicaciones.ts';
-import { interpretarPostDeBarrido } from '../lib/scrape/barrido.ts';
+import { interpretarPostDeBarrido, restoDelBarrido } from '../lib/scrape/barrido.ts';
 import {
   LIMITE_BARRIDO,
   candidatosPorIds,
   contarAusentes,
   contarBarribles,
+  contarNuncaRevisados,
   proximosABarrer,
   type Candidato,
 } from '../lib/scrape/cola.ts';
@@ -71,9 +72,10 @@ if (Astro.request.method === 'POST') {
 const ahora = new Date().toISOString();
 const abierta = await corridaEnCurso(ejecutar, { ahora });
 
-const [automatica, total, yaDeBaja] = await Promise.all([
+const [automatica, total, sinRevisarNunca, yaDeBaja] = await Promise.all([
   proximosABarrer(ejecutar, { limite: LIMITE_BARRIDO }),
   contarBarribles(ejecutar),
+  contarNuncaRevisados(ejecutar),
   contarAusentes(ejecutar),
 ]);
 
@@ -81,12 +83,16 @@ const [automatica, total, yaDeBaja] = await Promise.all([
 const aMano = seleccionados !== null;
 const cola = seleccionados ?? automatica;
 
-/**
- * Los que no entran en esta corrida. Quedan primeros en la próxima.
- *
- * En una selección a mano no hay pendientes que anunciar: quien tildó ya eligió.
- */
-const pendientes = aMano ? 0 : Math.max(0, total - cola.length);
+const nuncaRevisados = cola.filter((c) => c.revisado_en_origen === null).length;
+
+/** Los que no entran en esta corrida. Quedan primeros en la próxima. */
+const resto = restoDelBarrido({
+  aMano,
+  total,
+  enLaCorrida: cola.length,
+  sinRevisarNunca,
+  sinRevisarEnLaCorrida: nuncaRevisados,
+});
 
 /** Cuánto va a tardar, a un pedido por segundo. Redondeado hacia arriba. */
 const minutos = Math.ceil((cola.length * PASO_MS) / 60_000);
@@ -94,8 +100,6 @@ const duracion = cola.length === 0 ? '' : minutos <= 1 ? 'menos de un minuto' : 
 
 /** Sólo lo que el navegador necesita: el id para pedir, el código para mostrar. */
 const paraElNavegador = JSON.stringify(cola.map((c) => ({ id: c.id, codigo: c.codigo })));
-
-const nuncaRevisados = cola.filter((c) => c.revisado_en_origen === null).length;
 ---
 
 <Panel titulo="Revisar bajas del proveedor" volver="/">
@@ -187,12 +191,19 @@ const nuncaRevisados = cola.filter((c) => c.revisado_en_origen === null).length;
               Se empieza por los que hace más tiempo que nadie revisa.
             </p>
           )}
-          {pendientes > 0 ? (
+          {/* Lo que no entra NO se esconde: un tope silencioso se lee como "ya se
+              reviso todo" cuando no fue asi. */}
+          {resto.tipo === 'sin-revisar' ? (
             <p class="nota">
-              {/* Lo que no entra NO se esconde: un tope silencioso se lee como "ya se
-                  reviso todo" cuando no fue asi. */}
-              Quedan <strong>{pendientes}</strong> para después. No se pierden: son los
-              más viejos de la próxima corrida, así que apretás de nuevo y sigue por ahí.
+              Quedan <strong>{resto.cuantos}</strong> sin revisar nunca. No se pierden:
+              son los primeros de la próxima corrida, así que apretás de nuevo y sigue
+              por ahí. Este número baja en cada corrida.
+            </p>
+          ) : resto.tipo === 'rotacion' ? (
+            <p class="nota">
+              Ya se revisaron todos alguna vez. Cada corrida vuelve sobre los{' '}
+              <strong>{resto.enLaCorrida}</strong> más viejos de {resto.total}, así que
+              apretás de nuevo y sigue por ahí.
             </p>
           ) : null}
 

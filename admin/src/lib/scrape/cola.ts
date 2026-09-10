@@ -152,6 +152,27 @@ export async function contarBarribles(ejecutar: Ejecutar): Promise<number> {
   return fila?.cantidad ?? 0;
 }
 
+/**
+ * Cuántos barribles no se revisaron NUNCA.
+ *
+ * Es el único conteo del barrido que BAJA cuando el barrido trabaja, y por eso existe:
+ * `contarBarribles()` no se mueve nunca —un producto revisado sigue siendo barrible—,
+ * así que restarle el tamaño de la corrida daba un resto constante que decía «quedan
+ * 1157» en la primera corrida y en la quinta. Ver `restoDelBarrido()` en `barrido.ts`.
+ *
+ * `revisado_en_origen IS NULL` y no una ventana de frescura: no hay que elegir cada
+ * cuánto se considera viejo un producto, que sería una decisión inventada. Lo que el
+ * dato dice sin ambigüedad es si a alguien ya se le preguntó al proveedor por él.
+ */
+export async function contarNuncaRevisados(ejecutar: Ejecutar): Promise<number> {
+  const [fila] = await ejecutar<{ cantidad: number }>(
+    `SELECT COUNT(*) AS cantidad
+       FROM productos p
+      WHERE ${BARRIBLES} AND p.revisado_en_origen IS NULL`
+  );
+  return fila?.cantidad ?? 0;
+}
+
 export interface MarcaBarrido {
   presencia: Presencia;
   /** El código, sólo para el mensaje de error. */
