@@ -857,22 +857,6 @@ button {
   font-size: 0.875rem;
 }
 
-/**
- * El campo de codigos de `/revision-fotos`.
- *
- * SE BORRA CON LA PANTALLA. Es una pasada de reparacion de una sola vez (ver
- * `revision-fotos.ts`): cuando el catalogo quede revisado, la pantalla y esta regla se van
- * juntas. Queda anotado aca porque una regla huerfana en la hoja compartida no se nota.
- *
- * `monospace` a proposito: son codigos, y en monoespaciada un digito de mas se ve.
- */
-.revision-codigos textarea {
-  width: 100%;
-  /* Vertical y no `both`: horizontal desborda el marco de la tarjeta. */
-  resize: vertical;
-  font-family: ui-monospace, monospace;
-}
-
 /* El estado va primero y con peso: es el dato que se busca al recorrer la lista. */
 .estado-actual {
   margin: 0 0 0.25rem;

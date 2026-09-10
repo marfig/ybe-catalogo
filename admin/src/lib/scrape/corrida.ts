@@ -58,16 +58,16 @@ export interface Resumen extends Corrida {
 /**
  * Cuánto se le tolera a una corrida abierta antes de darla por muerta.
  *
- * SE EXPORTA PORQUE HAY QUIEN TIENE QUE CABER ADENTRO. Un recorrido que dura MÁS que esto
- * se queda sin guarda a mitad de camino: pasado el límite, `corridaEnCurso` lo declara
- * muerto aunque siga vivo, y una segunda pestaña puede abrir otro recorrido en paralelo.
- * `revision-fotos.ts` recorre el catálogo entero —unos 60 minutos— y por eso se parte en
- * tajadas calculadas a partir de esta constante, en vez de duplicar el número.
+ * QUIEN RECORRA MÁS LARGO QUE ESTO TIENE QUE CABER ADENTRO. Un recorrido que dura MÁS que
+ * esta tolerancia se queda sin guarda a mitad de camino: pasado el límite, `corridaEnCurso`
+ * lo declara muerto aunque siga vivo, y una segunda pestaña puede abrir otro recorrido en
+ * paralelo. Un recorrido largo se parte en tajadas calculadas a partir de esta constante
+ * —exportándola si hace falta— en vez de duplicar el número o subir la tolerancia.
  *
  * No se sube: el otro lado del mismo valor es cuánto bloquea el admin una corrida que
  * quedó abierta porque alguien cerró la pestaña.
  */
-export const TOLERANCIA_MINUTOS = 30;
+const TOLERANCIA_MINUTOS = 30;
 
 export async function corridaEnCurso(
   ejecutar: Ejecutar,

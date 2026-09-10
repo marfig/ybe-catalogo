@@ -13,13 +13,13 @@ import { subirFotoDelOrigen } from './recorte.ts';
 /**
  * Cuántas fotos se pidieron y cuántas quedaron vinculadas POR PRIMERA VEZ.
  *
- * EXISTE PARA LA PASADA DE REVISIÓN DE GALERÍAS (`revision-fotos.ts`). Esa pasada visita el
- * catálogo entero porque no hay forma de saber a quién le faltan fotos sin abrir la ficha,
- * así que sin este recuento la pantalla sólo podría decir «revisados 950» — y quien la corre
- * no tendría ni idea de si encontró algo. `vinculadas` es exactamente lo que apareció.
+ * NACIÓ PARA UNA PASADA DE REPARACIÓN QUE YA SE BORRÓ, y sobrevive porque distingue las dos
+ * cosas que `traerFotos` hace y que de afuera se confunden: pedir y vincular. Cualquier
+ * recorrido que abra fichas para ver si les falta algo necesita `vinculadas` — sin eso sólo
+ * puede decir «revisados 950», que no dice si encontró nada.
  *
- * Los demás clientes lo ignoran, que es correcto: en una importación normal todas las fotos
- * son nuevas por definición y el dato no agrega nada.
+ * Los clientes de importación lo ignoran, que es correcto: ahí todas las fotos son nuevas
+ * por definición y el dato no agrega nada. El contrato está fijado en `fotos.test.ts`.
  */
 export interface Recuento {
   pedidas: number;
