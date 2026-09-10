@@ -7181,6 +7181,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "bandolera-dama"
@@ -8519,6 +8520,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "bandolera-dama"
@@ -9004,6 +9006,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "bandolera-dama"
@@ -10433,6 +10436,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "bandolera-dama"
@@ -12379,7 +12383,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-09",
+    "activo": false,
+    "actualizado": "2026-09-10",
     "categorias": [
       "billeteras"
     ],
@@ -12831,7 +12836,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-09",
+    "activo": false,
+    "actualizado": "2026-09-10",
     "categorias": [
       "billeteras"
     ],
@@ -31150,6 +31156,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "carteras"
@@ -33307,6 +33314,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "carteras"
@@ -35172,6 +35180,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "carteras"
@@ -40130,6 +40139,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "cartucheras"
@@ -40159,6 +40169,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "cartucheras"
@@ -40417,6 +40428,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "cartucheras"
@@ -40446,6 +40458,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "cartucheras"
@@ -40533,6 +40546,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "cartucheras"
@@ -41824,6 +41838,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "cartucheras"
@@ -42317,6 +42332,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "cartucheras"
@@ -42654,6 +42670,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "cartucheras"
@@ -45245,6 +45262,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "lonchera-termica-infantil"
@@ -45347,6 +45365,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "lonchera-termica-infantil"
@@ -54180,6 +54199,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -54488,6 +54508,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-dama"
@@ -55437,6 +55458,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -56858,6 +56880,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -57322,6 +57345,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -59985,6 +60009,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -61696,6 +61721,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -61725,6 +61751,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -62063,6 +62090,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -62784,6 +62812,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-dama"
@@ -63511,6 +63540,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -63540,6 +63570,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -64066,6 +64097,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -64095,6 +64127,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -64298,6 +64331,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -65679,6 +65713,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-para-notebook"
@@ -65773,6 +65808,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -65889,6 +65925,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -66714,6 +66751,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-dama"
@@ -67412,6 +67450,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -67658,6 +67697,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -67687,6 +67727,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -68388,6 +68429,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -68821,6 +68863,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -69338,6 +69381,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -69367,6 +69411,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -70385,6 +70430,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -70414,6 +70460,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -70443,6 +70490,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -70807,6 +70855,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "lonchera-termica-infantil"
@@ -70872,6 +70921,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "lonchera-termica-infantil"
@@ -71045,6 +71095,7 @@
     ]
   },
   {
+    "activo": false,
     "actualizado": "2026-09-10",
     "categorias": [
       "lonchera-termica-infantil"
@@ -71907,7 +71958,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-09",
+    "activo": false,
+    "actualizado": "2026-09-10",
     "categorias": [
       "necessaires"
     ],
@@ -72482,7 +72534,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-09",
+    "activo": false,
+    "actualizado": "2026-09-10",
     "categorias": [
       "necessaires"
     ],
