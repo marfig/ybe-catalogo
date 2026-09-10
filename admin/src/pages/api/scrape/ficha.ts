@@ -4,7 +4,7 @@ import { env } from 'cloudflare:workers';
 import { ejecutorD1 } from '../../../lib/d1.ts';
 import { cuerpoJson, json, soloPost } from '../../../lib/http.ts';
 import { anotarError, codigoYaVisto, contarFicha } from '../../../lib/scrape/corrida.ts';
-import { fotosPorColor } from '../../../lib/scrape/extractor.ts';
+import { cuantasFotosDeColor, fotosPorColor } from '../../../lib/scrape/extractor.ts';
 import { extraerFicha } from '../../../lib/scrape/ficha.ts';
 import { registrarFicha } from '../../../lib/scrape/registrar.ts';
 
@@ -51,6 +51,18 @@ export const POST: APIRoute = async ({ request }) => {
       return json({ codigo: ficha.codigo, omitida: true, motivo: 'ya visitada en esta corrida' });
     }
 
+    /**
+     * El reparto de fotos por color se calcula ANTES de registrar y se usa dos veces:
+     * acá, para que `registrarFicha` ordene los colores del alta por cantidad de
+     * fotos, y abajo, como respuesta para que el navegador las suba.
+     *
+     * SE CUENTA SOBRE EL MISMO REPARTO QUE SE DEVUELVE, y no volviendo a mirar
+     * `ficha.fotos` y `hermano.foto` por separado. Contar dos veces lo mismo por dos
+     * caminos distintos es la clase de duplicación que se desincroniza sin dar error:
+     * el orden diría una cosa y las fotos que llegan serían otras.
+     */
+    const porColor = fotosPorColor(ficha);
+
     const registro = await registrarFicha(
       ejecutar,
       {
@@ -59,8 +71,16 @@ export const POST: APIRoute = async ({ request }) => {
         // El origen no expone la categoría por el camino de lanzamientos (§5.4b).
         categoriaOrigen: null,
         colores: [
-          { colorOrigen: ficha.colorOrigen, url: ficha.url },
-          ...ficha.hermanos.map((h) => ({ colorOrigen: h.colorOrigen, url: h.url })),
+          {
+            colorOrigen: ficha.colorOrigen,
+            url: ficha.url,
+            cantidadDeFotos: cuantasFotosDeColor(ficha, porColor, ficha.colorOrigen),
+          },
+          ...ficha.hermanos.map((h) => ({
+            colorOrigen: h.colorOrigen,
+            url: h.url,
+            cantidadDeFotos: cuantasFotosDeColor(ficha, porColor, h.colorOrigen),
+          })),
         ],
         // Sólo se usa si el producto es nuevo: `registrarFicha` no la pone en el UPDATE.
         medidas: ficha.medidas,
@@ -85,7 +105,7 @@ export const POST: APIRoute = async ({ request }) => {
       variantesNuevas: registro.variantesNuevas,
       avisoDeCambio: registro.avisoDeCambio,
       coloresSinNombre: registro.coloresSinNombre,
-      colores: fotosPorColor(ficha),
+      colores: porColor,
       // Para que el navegador las marque como visitadas y no las vuelva a pedir.
       hermanos: ficha.hermanos.map((h) => h.url),
     });

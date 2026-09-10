@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
-import { AcumuladorFicha, fotosPorColor } from './extractor.ts';
+import { AcumuladorFicha, cuantasFotosDeColor, fotosPorColor } from './extractor.ts';
 import { skuDeOrigen } from './origen.ts';
 
 /**
@@ -355,6 +355,99 @@ test('fotosPorColor no inventa una entrada para un color sin fotos', () => {
   a.cerrarEnlace();
   // El propio tampoco tiene galeria en este HTML: la lista queda vacia.
   assert.deepEqual(fotosPorColor(a.resultado()), []);
+});
+
+// --- Cuántas fotos le tocaron a cada color ---
+
+/**
+ * POR QUÉ ESTOS TESTS EXISTEN, y por qué la función que prueban vive acá.
+ *
+ * La cuenta de fotos por color es la que decide con qué color NACE un producto
+ * (`registrarFicha` ordena las variantes del alta por ella). Vivía como una clausura
+ * dentro del `POST` de `/api/scrape/ficha`, o sea sin un solo test que la tocara: los de
+ * `registrar.test.ts` inyectan `cantidadDeFotos` a mano y nunca llegan al cálculo.
+ *
+ * Y la falla que eso dejaba pasar era silenciosa. Si el SKU con el que se busca no
+ * coincidiera con el que armó `fotosPorColor`, todos los colores contarían 0, empatarían,
+ * y el orden caería de nuevo al alfabeto — exactamente el comportamiento que esta función
+ * existe para reemplazar — sin que nada se pusiera en rojo.
+ */
+
+/**
+ * El color propio con SEIS fotos y un hermano con UNA.
+ *
+ * Las cuentas tienen que ser DISTINTAS entre colores: si todos tuvieran la misma, una
+ * implementación que devolviera siempre la primera entrada del reparto pasaría igual.
+ */
+function m8735032ConHermano(): AcumuladorFicha {
+  const a = m8735032();
+  a.abrirEnlace('/producto/66300-8735032');
+  a.verImagen({ src: IMG('hermana'), title: '(T) MARRON CLARO' });
+  a.cerrarEnlace();
+  return a;
+}
+
+test('cada color cuenta SUS fotos, no las del primero del reparto', () => {
+  const ficha = m8735032ConHermano().resultado();
+  const porColor = fotosPorColor(ficha);
+
+  assert.equal(cuantasFotosDeColor(ficha, porColor, ficha.colorOrigen), 6);
+  assert.equal(cuantasFotosDeColor(ficha, porColor, ficha.hermanos[0].colorOrigen), 1);
+});
+
+test('la cuenta usa el MISMO SKU con el que se reparten las fotos', () => {
+  /**
+   * Es la precondición de todo lo demás. Se compara contra el reparto y no contra un
+   * literal a propósito: un SKU que se calculara por otro camino podría dejar de
+   * coincidir sin que ningún otro test lo notara.
+   */
+  const ficha = m8735032ConHermano().resultado();
+  const porColor = fotosPorColor(ficha);
+
+  for (const entrada of porColor) {
+    const color = [ficha.colorOrigen, ...ficha.hermanos.map((h) => h.colorOrigen)].find(
+      (c) => c && skuDeOrigen(ficha.codigo, c) === entrada.sku
+    );
+    assert.equal(cuantasFotosDeColor(ficha, porColor, color ?? null), entrada.fotos.length, entrada.sku);
+  }
+});
+
+test('un color que no está en el reparto cuenta cero', () => {
+  // Un hermano que el proveedor lista con el nombre pero sin miniatura: `fotosPorColor`
+  // no le abre entrada porque no hay foto que colgarle, y contarlo tiene que dar 0 y no
+  // reventar buscando una entrada que no existe.
+  const a = new AcumuladorFicha(`${HOST}/producto/71163-cg85700`);
+  a.verMeta('og:title', 'Producto: CG85700 (3) NEGRO');
+  a.verImagen({ src: IMG('aaa1'), alt: 'product-thumb' });
+  a.abrirEnlace('/producto/71301-cg85700');
+  a.verTexto('(T) MARRON CLARO');
+  a.cerrarEnlace();
+
+  const ficha = a.resultado();
+  const porColor = fotosPorColor(ficha);
+  assert.equal(cuantasFotosDeColor(ficha, porColor, '(T) MARRON CLARO'), 0);
+  // El propio sí está: así se ve que el 0 es del color y no de la función entera.
+  assert.equal(cuantasFotosDeColor(ficha, porColor, ficha.colorOrigen), 1);
+});
+
+test('un color nulo cuenta cero', () => {
+  // Sin color no hay SKU, así que `registrarFicha` tampoco crea la variante: lo cuenta
+  // en `coloresSinNombre`. No hay nada que ordenar y no hay nada que buscar.
+  const ficha = cg85700().resultado();
+  assert.equal(cuantasFotosDeColor(ficha, fotosPorColor(ficha), null), 0);
+});
+
+test('un color del que no sale SKU cuenta cero, sin lanzar', () => {
+  /**
+   * `skuDeOrigen` lanza cuando del color no queda nada slugificable. Es el camino que la
+   * clausura vieja tapaba con un `catch` mudo, y el único que puede llegar acá con un
+   * error: si en vez de devolver 0 propagara, la ficha entera se iría a `scrape_errores`
+   * por un color roto, cuando el producto igual se puede registrar sin él.
+   */
+  const ficha = cg85700().resultado();
+  const porColor = fotosPorColor(ficha);
+  assert.doesNotThrow(() => cuantasFotosDeColor(ficha, porColor, '...'));
+  assert.equal(cuantasFotosDeColor(ficha, porColor, '...'), 0);
 });
 
 test('correr la misma ficha dos veces da exactamente lo mismo', () => {

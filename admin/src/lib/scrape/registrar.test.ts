@@ -70,6 +70,110 @@ test('un modelo nuevo entra con sus tres variantes y los SKU del proveedor', () 
   });
 });
 
+// --- El orden de los colores: primero el que tiene mas fotos ---
+
+/**
+ * La ficha con la cantidad de fotos que le toca a cada color, en el orden en que los
+ * lista el origen: primero `(3) NEGRO`, que es el color propio, despues los hermanos.
+ */
+function conFotos(...cuantas: number[]) {
+  return {
+    ...CG85700,
+    colores: CG85700.colores.map((c, i) => ({ ...c, cantidadDeFotos: cuantas[i] })),
+  };
+}
+
+test('un modelo nuevo pone primero al color con mas fotos', async () => {
+  /**
+   * LA DECISION DE PRODUCTO. El primer color es el que se muestra en la tarjeta, en
+   * el buscador, en el mensaje de WhatsApp y en el `og:image`, y el alfabeto no tiene
+   * ninguna relacion con cual de ellos esta mejor fotografiado. Ordenar por cantidad
+   * de fotos es lo mas cerca de «cuanto material hay para mostrarlo» que sabemos.
+   *
+   * Alfabeticamente el orden seria Marron, Marron Claro, Negro — o sea el contrario.
+   */
+  const db = base();
+  await registrarFicha(ejecutor(db), conFotos(1, 6, 3), opciones);
+
+  const vs = db.prepare('SELECT sku, orden FROM variantes ORDER BY orden').all().map(plano);
+  assert.deepEqual(vs, [
+    { sku: 'CG85700-T', orden: 0 }, // Marron Claro, 6 fotos
+    { sku: 'CG85700-B', orden: 1 }, // Marron, 3
+    { sku: 'CG85700-3', orden: 2 }, // Negro, 1
+  ]);
+});
+
+test('con la misma cantidad de fotos desempata el alfabeto', async () => {
+  // El desempate tiene que ser el mismo que usa la migracion 0008 sobre el catalogo
+  // viejo: sin el, dos colores empatados quedarian en el orden en que el proveedor
+  // los liste, que cambia cuando le mueve los colores a la ficha.
+  const db = base();
+  await registrarFicha(ejecutor(db), conFotos(5, 2, 2), opciones);
+
+  const vs = db.prepare('SELECT sku, orden FROM variantes ORDER BY orden').all().map(plano);
+  assert.deepEqual(vs, [
+    { sku: 'CG85700-3', orden: 0 }, // Negro, 5 fotos
+    { sku: 'CG85700-B', orden: 1 }, // Marron, 2 — empatado, y antes por alfabeto
+    { sku: 'CG85700-T', orden: 2 }, // Marron Claro, 2
+  ]);
+});
+
+test('un color con cero fotos queda ultimo, no primero', async () => {
+  /**
+   * EL CERO MEZCLADO CON HERMANOS QUE SI TIENEN FOTOS. Los otros casos informan fotos
+   * para todos o para ninguno; este es el real: el proveedor lista un color en el bloque
+   * pero sin miniatura, asi que ese color entra como variante con 0 y los demas con lo
+   * suyo. Un 0 tratado como «sin dato» lo dejaria primero por alfabeto —Marron es el
+   * primero de los tres— y la tarjeta naceria mostrando el unico color sin foto.
+   */
+  const db = base();
+  await registrarFicha(ejecutor(db), conFotos(0, 5, 2), opciones);
+
+  const vs = db.prepare('SELECT sku, orden FROM variantes ORDER BY orden').all().map(plano);
+  assert.deepEqual(vs, [
+    { sku: 'CG85700-T', orden: 0 }, // Marron Claro, 5 fotos
+    { sku: 'CG85700-B', orden: 1 }, // Marron, 2
+    { sku: 'CG85700-3', orden: 2 }, // Negro, 0 — sin fotos, al final
+  ]);
+});
+
+test('una ficha que no informa fotos sigue entrando por alfabeto', async () => {
+  // `cantidadDeFotos` es opcional: hay otros caminos que arman una `FichaParaRegistrar`
+  // y ninguno tiene por que conocer las fotos. Sin el dato todos empatan en 0 y queda
+  // el orden alfabetico de siempre, que es el comportamiento que estos tests ya tenian.
+  const db = base();
+  await registrarFicha(ejecutor(db), CG85700, opciones);
+
+  const vs = db.prepare('SELECT sku FROM variantes ORDER BY orden').all().map(plano);
+  assert.deepEqual(vs, [{ sku: 'CG85700-B' }, { sku: 'CG85700-T' }, { sku: 'CG85700-3' }]);
+});
+
+test('sobre un producto que ya existe, un color con muchas fotos igual va al final', async () => {
+  /**
+   * EL LIMITE DEL CRITERIO NUEVO. Ordenar por fotos vale para decidir con que color
+   * NACE un producto; una vez nacido, el orden es curaduria y el scrape no la
+   * revierte (§7.5). Un hermano que aparece con diez fotos no puede saltar a la
+   * portada de un producto que alguien ya reordeno a mano.
+   */
+  const db = base();
+  const e = ejecutor(db);
+  await registrarFicha(e, conFotos(1, 1, 1), opciones);
+  db.prepare(`UPDATE productos SET estado = 'publicado', slug = 'x', nombre = 'X'`).run();
+
+  const r = await registrarFicha(
+    e,
+    {
+      ...CG85700,
+      colores: [...CG85700.colores, { colorOrigen: '(9) AZUL', url: 'u', cantidadDeFotos: 99 }],
+    },
+    { scrapeId: null, ahora: DESPUES }
+  );
+
+  assert.deepEqual(r.variantesNuevas, ['CG85700-9']);
+  const vs = db.prepare('SELECT sku, orden FROM variantes ORDER BY orden').all().map(plano);
+  assert.deepEqual(vs.at(-1), { sku: 'CG85700-9', orden: 3 });
+});
+
 test('un modelo nuevo nace en importado y sin curaduría', () => {
   const db = base();
   return registrarFicha(ejecutor(db), CG85700, opciones).then(() => {

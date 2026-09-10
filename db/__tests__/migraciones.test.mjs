@@ -355,3 +355,153 @@ test('0007: el indice de video es parcial', () => {
   assert.ok(sql, 'falta el indice idx_productos_video');
   assert.match(sql.sql, /WHERE\s+video_id\s+IS\s+NOT\s+NULL/i);
 });
+
+// --------------------------------------------------------------------------
+// 0008 — los colores con mas fotos primero
+// --------------------------------------------------------------------------
+
+let sembradas = 0;
+
+/**
+ * Una variante con `fotos` imagenes colgadas. Devuelve su id.
+ *
+ * Cada foto es una fila propia de `imagenes` porque `hash16` es UNIQUE: reusar una
+ * sola no dejaria armar conteos distintos entre variantes, que es lo unico que este
+ * bloque necesita construir.
+ */
+function sembrarVariante(db, { productoId, sku, color, orden, fotos = 0 }) {
+  const { id } = db
+    .prepare(
+      `INSERT INTO variantes (producto_id, sku, color, orden)
+       VALUES (?, ?, ?, ?) RETURNING id`
+    )
+    .get(productoId, sku, color, orden);
+
+  for (let i = 0; i < fotos; i++) {
+    const imagenId = insertarImagen(db, String(++sembradas).padStart(16, '0'));
+    db.prepare(
+      `INSERT INTO variante_imagenes (variante_id, imagen_id, orden) VALUES (?, ?, ?)`
+    ).run(id, imagenId, i);
+  }
+  return id;
+}
+
+/** Los SKU del producto, en el `orden` en que quedaron. */
+function ordenDe(db, codigo) {
+  return db
+    .prepare(
+      `SELECT v.sku, v.orden
+         FROM variantes v JOIN productos p ON p.id = v.producto_id
+        WHERE p.codigo = ? ORDER BY v.orden`
+    )
+    .all(codigo)
+    .map((f) => f.sku);
+}
+
+test('0008: dentro de un producto, el color con mas fotos queda primero', () => {
+  // Es el unico caso de esta carpeta —junto al backfill de 0005— donde el ORDEN de
+  // aplicacion cambia el resultado: la migracion reescribe filas que ya estaban.
+  const db = aplicar(7); // hasta 0007, o sea con el catalogo cargado y sin reordenar
+  const producto = insertarProducto(db, { codigo: 'CG85700', slug: 'cartera' });
+
+  // Alfabetico, que es como los deja el alta de `registrarFicha`.
+  sembrarVariante(db, { productoId: producto, sku: 'CG85700-A', color: 'Azul', orden: 0, fotos: 1 });
+  sembrarVariante(db, { productoId: producto, sku: 'CG85700-B', color: 'Blanco', orden: 1, fotos: 3 });
+  sembrarVariante(db, { productoId: producto, sku: 'CG85700-C', color: 'Celeste', orden: 2, fotos: 2 });
+
+  db.exec(readFileSync(`${DIRECTORIO}/${MIGRACIONES[7]}`, 'utf8'));
+
+  assert.deepEqual(ordenDe(db, 'CG85700'), ['CG85700-B', 'CG85700-C', 'CG85700-A']);
+});
+
+test('0008: con las mismas fotos se conserva el orden que ya tenian', () => {
+  // EL EMPATE ES EL CASO QUE DECIDE SI LA MIGRACION ES DETERMINISTA. Sin el
+  // desempate por el `orden` actual, dos variantes con la misma cantidad de fotos
+  // quedarian en el orden que se le antoje al planificador, y una reimportacion del
+  // mismo catalogo daria un color principal distinto cada vez.
+  const db = aplicar(7);
+  const producto = insertarProducto(db, { codigo: 'CG85527', slug: 'mochila' });
+
+  sembrarVariante(db, { productoId: producto, sku: 'CG85527-A', color: 'Azul', orden: 0, fotos: 1 });
+  sembrarVariante(db, { productoId: producto, sku: 'CG85527-B', color: 'Blanco', orden: 1, fotos: 2 });
+  sembrarVariante(db, { productoId: producto, sku: 'CG85527-C', color: 'Celeste', orden: 2, fotos: 1 });
+  sembrarVariante(db, { productoId: producto, sku: 'CG85527-D', color: 'Dorado', orden: 3, fotos: 2 });
+
+  db.exec(readFileSync(`${DIRECTORIO}/${MIGRACIONES[7]}`, 'utf8'));
+
+  // Blanco y Dorado empatan en 2 y siguen en ese orden; Azul y Celeste, en 1.
+  assert.deepEqual(ordenDe(db, 'CG85527'), [
+    'CG85527-B',
+    'CG85527-D',
+    'CG85527-A',
+    'CG85527-C',
+  ]);
+});
+
+test('0008: una variante sin fotos queda ultima, no se saltea', () => {
+  // El conteo tiene que ser 0 y no NULL: un color sin ninguna foto existe igual en la
+  // ficha —el catalogo le dibuja el placeholder de §5.4— y necesita su lugar en la
+  // secuencia. Un INNER JOIN contra `variante_imagenes` lo dejaria sin `orden` nuevo.
+  const db = aplicar(7);
+  const producto = insertarProducto(db, { codigo: 'CG86003', slug: 'billetera' });
+
+  sembrarVariante(db, { productoId: producto, sku: 'CG86003-A', color: 'Azul', orden: 0, fotos: 0 });
+  sembrarVariante(db, { productoId: producto, sku: 'CG86003-B', color: 'Blanco', orden: 1, fotos: 1 });
+
+  db.exec(readFileSync(`${DIRECTORIO}/${MIGRACIONES[7]}`, 'utf8'));
+
+  assert.deepEqual(ordenDe(db, 'CG86003'), ['CG86003-B', 'CG86003-A']);
+});
+
+test('0008: cada producto arranca su propia secuencia en 0', () => {
+  // `PARTITION BY producto_id`. Sin la particion la numeracion seria global y el
+  // `orden` de un producto dependeria de cuantas variantes tiene el catalogo entero.
+  const db = aplicar(7);
+  const uno = insertarProducto(db, { codigo: 'CG1', slug: 'uno' });
+  const dos = insertarProducto(db, { codigo: 'CG2', slug: 'dos' });
+
+  sembrarVariante(db, { productoId: uno, sku: 'CG1-A', color: 'Azul', orden: 0, fotos: 1 });
+  sembrarVariante(db, { productoId: uno, sku: 'CG1-B', color: 'Blanco', orden: 1, fotos: 4 });
+  sembrarVariante(db, { productoId: dos, sku: 'CG2-A', color: 'Azul', orden: 0, fotos: 2 });
+  sembrarVariante(db, { productoId: dos, sku: 'CG2-B', color: 'Blanco', orden: 1, fotos: 5 });
+
+  db.exec(readFileSync(`${DIRECTORIO}/${MIGRACIONES[7]}`, 'utf8'));
+
+  const filas = db
+    .prepare(
+      `SELECT p.codigo, v.sku, v.orden
+         FROM variantes v JOIN productos p ON p.id = v.producto_id
+        ORDER BY p.codigo, v.orden`
+    )
+    .all()
+    .map((f) => ({ ...f }));
+
+  assert.deepEqual(filas, [
+    { codigo: 'CG1', sku: 'CG1-B', orden: 0 },
+    { codigo: 'CG1', sku: 'CG1-A', orden: 1 },
+    { codigo: 'CG2', sku: 'CG2-B', orden: 0 },
+    { codigo: 'CG2', sku: 'CG2-A', orden: 1 },
+  ]);
+});
+
+test('0008: la secuencia queda densa desde 0, sin huecos heredados', () => {
+  // El catalogo real trae `orden` con saltos: los colores nuevos entran con
+  // `max(orden)+1` y el reordenamiento a mano del admin deja huecos. La migracion
+  // renumera de cero para que `variantes.orden` vuelva a ser una posicion y no un
+  // historial.
+  const db = aplicar(7);
+  const producto = insertarProducto(db, { codigo: 'CG9', slug: 'nueve' });
+
+  sembrarVariante(db, { productoId: producto, sku: 'CG9-A', color: 'Azul', orden: 7, fotos: 2 });
+  sembrarVariante(db, { productoId: producto, sku: 'CG9-B', color: 'Blanco', orden: 40, fotos: 9 });
+
+  db.exec(readFileSync(`${DIRECTORIO}/${MIGRACIONES[7]}`, 'utf8'));
+
+  assert.deepEqual(
+    db.prepare(`SELECT sku, orden FROM variantes ORDER BY orden`).all().map((f) => ({ ...f })),
+    [
+      { sku: 'CG9-B', orden: 0 },
+      { sku: 'CG9-A', orden: 1 },
+    ]
+  );
+});

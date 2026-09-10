@@ -18,6 +18,20 @@ export interface ColorDeFicha {
   colorOrigen: string | null;
   /** Ficha de la que salió. Auditoría. */
   url: string;
+  /**
+   * Cuántas fotos trajo este color en la ficha, para decidir el orden del alta.
+   *
+   * ES EL ÚNICO DATO DE ESTA INTERFAZ QUE NO SE GUARDA EN NINGUNA COLUMNA: se usa
+   * para ordenar y se descarta. Las fotos en sí no pasan por acá — las sube el
+   * navegador una por una y las vincula `vincularImagen`, así que en el momento en que
+   * corre `registrarFicha` todavía no hay ninguna fila en `variante_imagenes` que
+   * contar. De ahí que el número tenga que venir de afuera.
+   *
+   * OPCIONAL A PROPÓSITO. `/api/scrape/ficha` es el único camino que lo conoce; los
+   * tests y cualquier otro armador de una `FichaParaRegistrar` no tienen por qué. Sin
+   * el dato todos los colores empatan en 0 y queda el orden alfabético de antes.
+   */
+  cantidadDeFotos?: number;
 }
 
 export interface FichaParaRegistrar {
@@ -195,9 +209,21 @@ export async function registrarFicha(
   /**
    * Orden de las variantes.
    *
-   * En un producto NUEVO se ordena alfabéticamente por color. En uno que ya existe,
-   * las nuevas se agregan AL FINAL: el orden de las que ya estaban es curaduría —
-   * alguien decidió qué color se muestra primero— y el scrape no la revierte.
+   * En un producto NUEVO manda la CANTIDAD DE FOTOS, de mayor a menor. `orden` es la
+   * única fuente de verdad del orden de los colores y el primero es el que sale en la
+   * tarjeta, en el buscador, en el mensaje de WhatsApp y en el `og:image` — así que
+   * elegirlo por alfabeto, como se hacía antes, era elegirlo al azar. Cuántas fotos
+   * tiene un color es lo más cercano a «cuánto material hay para mostrarlo» que la
+   * ficha nos dice.
+   *
+   * El alfabeto queda como DESEMPATE, y es lo que mantiene el alta determinista: sin
+   * él, dos colores con las mismas fotos quedarían en el orden en que el proveedor los
+   * liste, que cambia cuando le mueve los colores a la ficha. Es el mismo criterio con
+   * el que la migración 0008 reordenó el catálogo que ya estaba cargado.
+   *
+   * En uno que YA EXISTE nada de esto se aplica: las nuevas se agregan AL FINAL. El
+   * orden de las que ya estaban es curaduría —alguien decidió qué color se muestra
+   * primero— y el scrape no la revierte, ni siquiera por un hermano con diez fotos.
    */
   let siguienteOrden = existentes.length === 0 ? 0 : Math.max(...existentes.map((v) => v.orden)) + 1;
 
@@ -205,10 +231,17 @@ export async function registrarFicha(
     .filter((c) => (c.colorOrigen ?? '').trim() !== '')
     .map((c) => {
       const { nombre } = separarColor(c.colorOrigen!);
-      return { sku: skuDeOrigen(codigo, c.colorOrigen!), colorOrigen: c.colorOrigen!.trim(), nombre };
+      return {
+        sku: skuDeOrigen(codigo, c.colorOrigen!),
+        colorOrigen: c.colorOrigen!.trim(),
+        nombre,
+        // `?? 0` y no un error: el dato es opcional (ver `ColorDeFicha`). Una ficha que
+        // no lo informa deja a todos empatados y cae entera en el desempate alfabético.
+        fotos: c.cantidadDeFotos ?? 0,
+      };
     });
 
-  if (creado) candidatos.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
+  if (creado) candidatos.sort((a, b) => b.fotos - a.fotos || a.nombre.localeCompare(b.nombre, 'es'));
 
   const variantesNuevas: string[] = [];
   for (const c of candidatos) {

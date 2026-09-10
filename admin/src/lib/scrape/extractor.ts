@@ -346,3 +346,43 @@ export function fotosPorColor(ficha: FichaExtraida): FotosDeColor[] {
 
   return salida;
 }
+
+/**
+ * Cuántas fotos le tocaron a un color, para que `registrarFicha` ordene el alta por eso.
+ *
+ * POR QUÉ RECIBE EL REPARTO YA HECHO Y NO LA FICHA SOLA. Esta cuenta es la que decide con
+ * qué color NACE un producto, y el número tiene que ser el de las fotos que de verdad se
+ * van a subir. Volver a mirar `ficha.fotos` y `hermano.foto` por separado sería contar dos
+ * veces lo mismo por dos caminos distintos: el día que uno de los dos cambie —como cambió
+ * `verImagen` cuando aparecieron las fotos de la segunda ruta— el orden diría una cosa y
+ * las fotos que llegan serían otras, sin ningún error de por medio.
+ *
+ * POR QUÉ RECIBE LA FICHA Y NO EL CÓDIGO. El SKU se arma con `skuDeOrigen(ficha.codigo, …)`,
+ * la MISMA expresión que usa `fotosPorColor` sobre la misma ficha. Pasando el código suelto,
+ * quien llama podría darle uno que no es el del reparto: la búsqueda no encontraría nada,
+ * todos los colores contarían 0, empatarían, y el orden caería de nuevo al alfabeto — que es
+ * justo el comportamiento que esta cuenta existe para reemplazar, y encima en silencio.
+ *
+ * Cuenta 0 —y no lanza— cuando el color es nulo, cuando de su nombre no sale SKU, y cuando
+ * no está en el reparto porque no tenía fotos. Son los tres casos que `fotosPorColor` ya
+ * saltea, y acá valen lo mismo: un color sin material que mostrar va al final, y una ficha
+ * no se pierde entera por un color roto.
+ */
+export function cuantasFotosDeColor(
+  ficha: FichaExtraida,
+  porColor: FotosDeColor[],
+  colorOrigen: string | null
+): number {
+  if (!colorOrigen) return 0;
+
+  let sku: string;
+  try {
+    sku = skuDeOrigen(ficha.codigo, colorOrigen);
+  } catch {
+    // Sin SKU no hay variante que ordenar: `registrarFicha` lo cuenta en
+    // `coloresSinNombre` y lo saltea, igual que `fotosPorColor`.
+    return 0;
+  }
+
+  return porColor.find((c) => c.sku === sku)?.fotos.length ?? 0;
+}
