@@ -84,7 +84,7 @@ test('la carpeta entera aplica en orden sin error', () => {
   assert.doesNotThrow(() => aplicar());
 });
 
-test('aplicar la cadena deja las 10 tablas del esquema acumulado', () => {
+test('aplicar la cadena deja las 11 tablas del esquema acumulado', () => {
   const db = aplicar();
   const tablas = db
     .prepare(`SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name`)
@@ -92,6 +92,7 @@ test('aplicar la cadena deja las 10 tablas del esquema acumulado', () => {
     .map((r) => r.name);
 
   assert.deepEqual(tablas, [
+    'barrido_vueltas',
     'imagenes',
     'pedidos_especiales',
     'producto_categorias',

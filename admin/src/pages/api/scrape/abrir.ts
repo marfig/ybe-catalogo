@@ -4,6 +4,7 @@ import { env } from 'cloudflare:workers';
 import { ejecutorD1 } from '../../../lib/d1.ts';
 import { cuerpoJson, json, soloPost } from '../../../lib/http.ts';
 import { corridaEnCurso, iniciarCorrida } from '../../../lib/scrape/corrida.ts';
+import { abrirVuelta } from '../../../lib/scrape/vuelta.ts';
 
 /**
  * Abre la corrida del barrido.
@@ -21,6 +22,14 @@ import { corridaEnCurso, iniciarCorrida } from '../../../lib/scrape/corrida.ts';
 interface Peticion {
   /** Cuántos productos entran a esta corrida. Sólo para el registro. */
   total?: number;
+  /**
+   * Si es la cola automática. Una selección tildada en la grilla manda `false`.
+   *
+   * DECIDE SI SE ABRE UNA VUELTA, y por eso lo manda la pestaña en vez de deducirse acá:
+   * verificar tres productos tildados no es empezar a barrer el catálogo, y arrancar una
+   * vuelta desde ahí pondría el catálogo entero como pendiente por un chequeo puntual.
+   */
+  automatico?: boolean;
 }
 
 export const POST: APIRoute = async ({ request }) => {
@@ -40,6 +49,15 @@ export const POST: APIRoute = async ({ request }) => {
       409
     );
   }
+
+  /**
+   * La vuelta se abre ACÁ y no al rendir la pantalla: mirar el barrido no es empezarlo.
+   * Si el render abriera vuelta, entrar a `/barrido` para ver cuánto falta arrancaría una
+   * vuelta nueva y pondría el catálogo entero como pendiente sin revisar un solo producto.
+   *
+   * `abrirVuelta` es idempotente: la corrida 2 de una vuelta la continúa, no la reinicia.
+   */
+  if (datos?.automatico) await abrirVuelta(ejecutar, { ahora });
 
   const scrapeId = await iniciarCorrida(ejecutar, {
     // La corrida guarda una URL, y el barrido no recorre una: se deja dicho qué fue.

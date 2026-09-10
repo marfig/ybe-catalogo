@@ -136,6 +136,12 @@ siempre, con su pantalla de confirmación.
 - Revisa hasta 300 por corrida, empezando por los que hace más tiempo que nadie mira.
   Lo que no entró queda primero en la próxima: apretás de nuevo y sigue por ahí. No
   hace falta acordarse de nada ni elegir un filtro.
+- **Se trabaja por vueltas.** La primera vez que apretás arranca una vuelta por el
+  catálogo entero, y la pantalla te dice cuántos faltan para completarla. Ese número
+  **baja en cada corrida** hasta llegar a cero, y ahí la vuelta se da por terminada.
+  La última corrida es corta: pide sólo lo que falta, no 300 al pepe.
+- Cuando una vuelta se completa, la pantalla lo dice y apretar empieza otra. No hay
+  plazo ni calendario: el catálogo se revisa cuando vos lo pedís.
 - Los cargados a mano no se revisan: el proveedor no los conoce.
 - **«No se pudo revisar» no es una baja.** Si el proveedor no contesta lo que se
   espera, el producto queda como estaba y le vuelve a tocar en el próximo barrido. Es

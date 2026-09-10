@@ -77,18 +77,39 @@ const ORDEN = `p.revisado_en_origen IS NULL DESC,
  */
 export const LIMITE_BARRIDO = 300;
 
-/** Los próximos `limite` productos a revisar. */
+/**
+ * Lo que todavía debe esta vuelta: nunca revisado, o revisado ANTES de que empezara.
+ *
+ * `desde` es el `iniciada_en` de la vuelta (ver `vuelta.ts`). Sin él no hay pendiente que
+ * calcular, porque la rotación no tiene memoria.
+ */
+const PENDIENTE = `(p.revisado_en_origen IS NULL OR p.revisado_en_origen < ?)`;
+
+/**
+ * Los próximos `limite` productos a revisar.
+ *
+ * `desde` FILTRA LA COLA, no sólo el conteo. Sin eso, la última corrida de una vuelta
+ * —donde quedan 23 pendientes— se llevaría igual 300 productos y gastaría 277 pedidos
+ * preguntando de nuevo por lo que acaba de revisar. Con el filtro, esa corrida dura 23
+ * segundos en vez de cinco minutos y le pide al proveedor exactamente lo que falta.
+ *
+ * Sin `desde` no hay vuelta abierta y todo el catálogo está pendiente, que es lo correcto:
+ * apretar arranca una vuelta nueva.
+ */
 export async function proximosABarrer(
   ejecutar: Ejecutar,
-  { limite = LIMITE_BARRIDO }: { limite?: number } = {}
+  { limite = LIMITE_BARRIDO, desde }: { limite?: number; desde?: string } = {}
 ): Promise<Candidato[]> {
+  const filtro = desde === undefined ? BARRIBLES : `${BARRIBLES} AND ${PENDIENTE}`;
+  const params = desde === undefined ? [limite] : [desde, limite];
+
   return ejecutar<Candidato>(
     `SELECT p.id, p.codigo, p.estado, p.revisado_en_origen, p.ausente_desde
        FROM productos p
-      WHERE ${BARRIBLES}
+      WHERE ${filtro}
       ORDER BY ${ORDEN}
       LIMIT ?`,
-    [limite]
+    params
   );
 }
 
@@ -153,22 +174,22 @@ export async function contarBarribles(ejecutar: Ejecutar): Promise<number> {
 }
 
 /**
- * Cuántos barribles no se revisaron NUNCA.
+ * Cuánto le falta a la vuelta en curso. Es el número de la cuenta regresiva.
  *
- * Es el único conteo del barrido que BAJA cuando el barrido trabaja, y por eso existe:
- * `contarBarribles()` no se mueve nunca —un producto revisado sigue siendo barrible—,
- * así que restarle el tamaño de la corrida daba un resto constante que decía «quedan
- * 1157» en la primera corrida y en la quinta. Ver `restoDelBarrido()` en `barrido.ts`.
- *
- * `revisado_en_origen IS NULL` y no una ventana de frescura: no hay que elegir cada
- * cuánto se considera viejo un producto, que sería una decisión inventada. Lo que el
- * dato dice sin ambigüedad es si a alguien ya se le preguntó al proveedor por él.
+ * BAJA EN CADA CORRIDA Y VUELVE A SUBIR CUANDO EMPIEZA LA VUELTA SIGUIENTE, que es lo que
+ * ninguna de las dos versiones anteriores lograba: `contarBarribles() - 300` eran dos
+ * constantes, y `revisado_en_origen IS NULL` llegaba a cero una sola vez en la vida del
+ * catálogo y no volvía nunca. La historia completa está en la migración `0009`.
  */
-export async function contarNuncaRevisados(ejecutar: Ejecutar): Promise<number> {
+export async function contarPendientes(
+  ejecutar: Ejecutar,
+  { desde }: { desde: string }
+): Promise<number> {
   const [fila] = await ejecutar<{ cantidad: number }>(
     `SELECT COUNT(*) AS cantidad
        FROM productos p
-      WHERE ${BARRIBLES} AND p.revisado_en_origen IS NULL`
+      WHERE ${BARRIBLES} AND ${PENDIENTE}`,
+    [desde]
   );
   return fila?.cantidad ?? 0;
 }

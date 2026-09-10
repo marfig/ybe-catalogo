@@ -52,74 +52,55 @@ export function interpretarPostDeBarrido(
 /**
  * Qué queda para después de esta corrida.
  *
- * `rotacion` NO es lo mismo que `nada`: cuando ya no quedan productos vírgenes sigue
- * habiendo trabajo, porque el barrido es una rotación y lo revisado hace meses vuelve a
- * ser lo más viejo. Callarse ahí se leería como «ya está todo revisado».
+ * `ultima` NO es lo mismo que `nada`: la corrida que cierra la vuelta merece anunciarse,
+ * porque es la que convierte el barrido en algo que se termina en vez de una rueda que
+ * gira para siempre.
  */
 export type Resto =
   | { tipo: 'nada' }
-  | { tipo: 'sin-revisar'; cuantos: number }
-  | { tipo: 'rotacion'; enLaCorrida: number; total: number };
+  | { tipo: 'resto'; cuantos: number }
+  | { tipo: 'ultima' };
 
 export interface DatosDelResto {
   /** Una selección tildada en la grilla, en vez de la cola automática. */
   aMano: boolean;
-  /** Todos los barribles del catálogo. */
-  total: number;
+  /** Lo que le falta a la vuelta en curso, ya contado contra su `iniciada_en`. */
+  pendientes: number;
   /** Cuántos entran en esta corrida. */
   enLaCorrida: number;
-  /** Barribles que no se revisaron nunca, en todo el catálogo. */
-  sinRevisarNunca: number;
-  /** De esos, cuántos entran en esta corrida. */
-  sinRevisarEnLaCorrida: number;
 }
 
 /**
  * El renglón que anuncia lo que no entró en la corrida.
  *
- * EL BUG QUE ESTA FUNCIÓN CIERRA, reportado el 2026-09-10 con el síntoma «dice que
- * quedan 1157 y en la segunda corrida dice lo mismo». El cálculo vivía suelto en
- * `barrido.astro` y era `contarBarribles() - cola.length`: **los dos términos son
- * constantes**. El total no baja cuando se revisa —un producto revisado sigue siendo
- * barrible— y el tope de la corrida es fijo, así que el número decía 1157 para siempre.
- * El barrido avanzaba perfecto y la pantalla insistía en que no.
+ * TERCERA VERSIÓN, y las dos anteriores fallaron por la misma razón de fondo: las dos
+ * intentaban derivar «cuánto falta» del estado de `productos`, y de ahí no se puede.
+ * El barrido es una ROTACIÓN — se revisan los 300 más viejos, esos pasan a ser los más
+ * nuevos, y el catálogo queda tan barrible como estaba. El estado después de una corrida
+ * es equivalente al de antes, así que toda cuenta derivada de él da lo mismo siempre.
  *
- * Se mide contra lo que NUNCA se revisó, que es el único conteo que baja al trabajar.
+ *   1. `contarBarribles() - cola.length`: dos constantes. Decía 1157 en la primera
+ *      corrida y 1157 en la quinta, con el barrido avanzando perfecto.
+ *   2. `revisado_en_origen IS NULL`: baja de verdad, pero UNA SOLA VEZ en la vida del
+ *      catálogo. Llega a cero y no vuelve a subir. Mide el arranque en frío, no el trabajo.
  *
- * VIVE ACÁ Y NO EN LA PÁGINA por lo mismo que el resto de este archivo: la aritmética
- * que nadie puede testear es la que se equivoca callada durante meses.
+ * Lo que faltaba era el ANCLA, y no estaba en los productos: está en cuándo se decidió
+ * empezar la vuelta (`vuelta.ts`, migración `0009`). Con eso, `pendientes` llega ya
+ * calculado y esta función sólo decide qué se dice.
  */
-export function restoDelBarrido({
-  aMano,
-  total,
-  enLaCorrida,
-  sinRevisarNunca,
-  sinRevisarEnLaCorrida,
-}: DatosDelResto): Resto {
+export function restoDelBarrido({ aMano, pendientes, enLaCorrida }: DatosDelResto): Resto {
   // Quien tildó en la grilla ya eligió: no hay resto que anunciarle.
   if (aMano) return { tipo: 'nada' };
 
   /**
-   * `Math.max` porque los conteos y la cola salen de tres consultas distintas: entre una
-   * y otra puede entrar un alta o una baja desde otra pestaña, y «quedan -4» es peor que
-   * no decir nada.
+   * `Math.max` porque el pendiente y la cola son dos consultas distintas: entre una y otra
+   * puede entrar un alta o una baja desde otra pestaña, y «quedan -4» es peor que nada.
    */
-  const cuantos = Math.max(0, sinRevisarNunca - sinRevisarEnLaCorrida);
-  if (cuantos > 0) return { tipo: 'sin-revisar', cuantos };
+  const cuantos = Math.max(0, pendientes - enLaCorrida);
+  if (cuantos > 0) return { tipo: 'resto', cuantos };
 
-  /**
-   * `sinRevisarNunca === 0` y NO el resultado de la resta, aunque acá los dos valgan
-   * cero. La diferencia aparece cuando los conteos llegan desfasados: la resta clampeada
-   * también da cero, y caer en `rotacion` desde ahí anunciaría «ya se revisaron todos
-   * alguna vez» habiendo productos vírgenes. Cambiar una mentira por otra más sutil no
-   * es arreglar nada. `rotacion` significa que no queda ninguno sin revisar, y eso lo
-   * dice el conteo, no una resta entre consultas que no son simultáneas.
-   */
-  if (sinRevisarNunca === 0 && total > enLaCorrida) {
-    return { tipo: 'rotacion', enLaCorrida, total };
-  }
-
-  return { tipo: 'nada' };
+  // Si hay algo para revisar y no queda resto, esta corrida cierra la vuelta.
+  return enLaCorrida > 0 ? { tipo: 'ultima' } : { tipo: 'nada' };
 }
 
 export interface Avance {

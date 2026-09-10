@@ -9,7 +9,7 @@ import {
   candidatosPorIds,
   contarAusentes,
   contarBarribles,
-  contarNuncaRevisados,
+  contarPendientes,
   desmarcarBaja,
   listarAusentes,
   marcar,
@@ -27,6 +27,7 @@ const MIGRACIONES = [
   '0003_aviso_cambio_en_origen.sql',
   '0004_papelera.sql',
   '0005_barrido_de_bajas.sql',
+  '0009_vueltas_de_barrido.sql',
 ].map((n) => readFileSync(new URL(`../../../../db/migrations/${n}`, import.meta.url), 'utf8'));
 
 const AYER = '2026-08-10T09:00:00Z';
@@ -319,19 +320,19 @@ test('el total a barrer no cuenta lo que no se barre', async () => {
   assert.equal(await contarBarribles(ejecutor(db)), 2);
 });
 
-test('los que nunca se revisaron se cuentan aparte del total', async () => {
+test('pendiente de la vuelta es lo nunca revisado y lo revisado ANTES de empezarla', async () => {
   const db = base();
   sembrar(db, [
-    { codigo: 'CG001' },
-    { codigo: 'CG002', revisado: AYER },
-    { codigo: 'CG003' },
+    { codigo: 'CG001' }, // nunca
+    { codigo: 'CG002', revisado: AYER }, // antes de la vuelta
+    { codigo: 'CG003', revisado: MANANA }, // ya revisado en esta vuelta
   ]);
 
   assert.equal(await contarBarribles(ejecutor(db)), 3);
-  assert.equal(await contarNuncaRevisados(ejecutor(db)), 2);
+  assert.equal(await contarPendientes(ejecutor(db), { desde: HOY }), 2);
 });
 
-test('el conteo de nunca revisados aplica las mismas reglas que la cola', async () => {
+test('el pendiente de la vuelta aplica las mismas reglas que la cola', async () => {
   const db = base();
   sembrar(db, [
     { codigo: 'CG001' },
@@ -341,41 +342,42 @@ test('el conteo de nunca revisados aplica las mismas reglas que la cola', async 
   ]);
 
   // Sólo CG001. Los otros tres no se barren, así que no son trabajo pendiente.
-  assert.equal(await contarNuncaRevisados(ejecutor(db)), 1);
+  assert.equal(await contarPendientes(ejecutor(db), { desde: HOY }), 1);
 });
 
-test('revisar un producto lo saca del conteo de nunca revisados', async () => {
+test('REVISAR BAJA EL PENDIENTE DE LA VUELTA', async () => {
   /**
-   * Es la propiedad que hace que el resto BAJE de una corrida a la otra, que es lo que
-   * el cálculo viejo —`total - cola.length`, dos constantes— no hacía.
+   * Es la propiedad que las dos versiones anteriores no tenían: `total - 300` eran dos
+   * constantes, y `revisado_en_origen IS NULL` bajaba una sola vez en la vida del
+   * catálogo. Esta baja en cada corrida y vuelve a subir cuando empieza la vuelta que sigue.
    */
   const db = base();
   sembrar(db, [{ codigo: 'CG001' }, { codigo: 'CG002' }]);
   const ejecutar = ejecutor(db);
   const [{ id }] = await ejecutar<{ id: number }>('SELECT id FROM productos ORDER BY codigo');
 
-  assert.equal(await contarNuncaRevisados(ejecutar), 2);
-  await marcar(ejecutar, id, { presencia: 'presente', codigo: 'CG001', ahora: HOY, url: null });
-  assert.equal(await contarNuncaRevisados(ejecutar), 1);
+  assert.equal(await contarPendientes(ejecutar, { desde: HOY }), 2);
+  await marcar(ejecutar, id, { presencia: 'presente', codigo: 'CG001', ahora: MANANA, url: null });
+  assert.equal(await contarPendientes(ejecutar, { desde: HOY }), 1);
 });
 
-test('marcar una BAJA tambien saca al producto del conteo', async () => {
+test('marcar una BAJA tambien baja el pendiente', async () => {
   /**
    * `presente` y `ausente` son dos UPDATE separados en `marcar()`, y los dos tienen que
-   * escribir `revisado_en_origen`. Si el de la baja lo perdiera, el contador se
-   * congelaria justo para los productos que esta pantalla existe para encontrar.
+   * escribir `revisado_en_origen`. Si el de la baja lo perdiera, la cuenta se congelaría
+   * justo para los productos que esta pantalla existe para encontrar.
    */
   const db = base();
   sembrar(db, [{ codigo: 'CG001' }, { codigo: 'CG002' }]);
   const ejecutar = ejecutor(db);
   const [{ id }] = await ejecutar<{ id: number }>('SELECT id FROM productos ORDER BY codigo');
 
-  await marcar(ejecutar, id, { presencia: 'ausente', codigo: 'CG001', ahora: HOY, url: null });
+  await marcar(ejecutar, id, { presencia: 'ausente', codigo: 'CG001', ahora: MANANA, url: null });
 
-  assert.equal(await contarNuncaRevisados(ejecutar), 1);
+  assert.equal(await contarPendientes(ejecutar, { desde: HOY }), 1);
 });
 
-test('un INDETERMINADO no saca al producto del conteo: no se lo reviso', async () => {
+test('un INDETERMINADO no baja el pendiente: no se lo reviso', async () => {
   const db = base();
   sembrar(db, [{ codigo: 'CG001' }]);
   const ejecutar = ejecutor(db);
@@ -384,11 +386,69 @@ test('un INDETERMINADO no saca al producto del conteo: no se lo reviso', async (
   await marcar(ejecutar, id, {
     presencia: 'indeterminado',
     codigo: 'CG001',
-    ahora: HOY,
+    ahora: MANANA,
     url: null,
   });
 
-  assert.equal(await contarNuncaRevisados(ejecutar), 1);
+  assert.equal(await contarPendientes(ejecutar, { desde: HOY }), 1);
+});
+
+test('LA COLA NO REPITE lo ya revisado en esta vuelta', async () => {
+  /**
+   * Sin este filtro, la última corrida de una vuelta —donde quedan 23 pendientes— se
+   * llevaría igual 300 productos y gastaría 277 requests preguntando de nuevo por cosas
+   * que acaba de revisar. El proveedor recibe ese tráfico y no sirve para nada.
+   */
+  const db = base();
+  sembrar(db, [
+    { codigo: 'CG001', revisado: MANANA },
+    { codigo: 'CG002' },
+    { codigo: 'CG003', revisado: MANANA },
+  ]);
+
+  const cola = await proximosABarrer(ejecutor(db), { desde: HOY });
+
+  assert.deepEqual(codigos(cola), ['CG002']);
+});
+
+test('revisado EXACTAMENTE al abrirse la vuelta cuenta como cubierto', async () => {
+  /**
+   * El predicado usa `<` estricto, y es lo correcto: `abrirVuelta` sella `iniciada_en` con
+   * el reloj del momento y toda marca posterior es estrictamente mayor. Este test fija el
+   * borde para que nadie lo cambie a `<=` por parecerle más prolijo — con `<=`, un producto
+   * marcado en el mismo instante volvería a la cola y la vuelta no cerraría nunca.
+   */
+  const db = base();
+  sembrar(db, [{ codigo: 'CG001', revisado: HOY }]);
+
+  assert.equal(await contarPendientes(ejecutor(db), { desde: HOY }), 0);
+});
+
+test('UN PRODUCTO NUEVO A MITAD DE VUELTA SUBE EL PENDIENTE, y esta bien', async () => {
+  /**
+   * La cuenta baja al barrer, pero no es monótona: una importación en medio de una vuelta
+   * mete productos con `revisado_en_origen = NULL` y el número sube. Es correcto —a esos
+   * también hay que preguntarles— y queda fijado acá para que no se lea como un bug la
+   * primera vez que alguien lo vea en pantalla.
+   */
+  const db = base();
+  sembrar(db, [{ codigo: 'CG001', revisado: MANANA }]);
+  const ejecutar = ejecutor(db);
+
+  assert.equal(await contarPendientes(ejecutar, { desde: HOY }), 0, 'la vuelta estaba cerrada');
+
+  sembrar(db, [{ codigo: 'CG002' }]);
+
+  assert.equal(await contarPendientes(ejecutar, { desde: HOY }), 1, 'el nuevo entra pendiente');
+});
+
+test('sin vuelta abierta la cola no filtra: todo esta pendiente', async () => {
+  const db = base();
+  sembrar(db, [{ codigo: 'CG001', revisado: MANANA }, { codigo: 'CG002' }]);
+
+  const cola = await proximosABarrer(ejecutor(db));
+
+  assert.equal(cola.length, 2);
 });
 
 test('presente: se anota la revisión y se refresca la ficha del origen', async () => {

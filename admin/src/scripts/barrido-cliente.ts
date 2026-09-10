@@ -118,7 +118,10 @@ export function prepararBarrido(): void {
   }
   if (cola.length === 0) return;
 
-  p.empezar.addEventListener('click', () => void correr(p, cola));
+  // La cola automática corre la vuelta; una selección tildada en la grilla, no.
+  const automatico = p.datos.dataset.automatico === 'si';
+
+  p.empezar.addEventListener('click', () => void correr(p, cola, automatico));
 }
 
 /**
@@ -127,7 +130,7 @@ export function prepararBarrido(): void {
  * Nunca lanza. Un barrido que se corta con una excepción deja la corrida abierta en la
  * base y la próxima importación choca contra ella sin explicación.
  */
-async function correr(p: Pantalla, cola: Candidato[]): Promise<void> {
+async function correr(p: Pantalla, cola: Candidato[], automatico: boolean): Promise<void> {
   let avance: Avance = { ...AVANCE_INICIAL, total: cola.length };
   let scrapeId: number | null = null;
   let cancelado = false;
@@ -174,6 +177,7 @@ async function correr(p: Pantalla, cola: Candidato[]): Promise<void> {
     const abierta = await postJson<{ scrapeId?: number; error?: string }>('/api/scrape/abrir', {
       tipo: 'barrido',
       total: cola.length,
+      automatico,
     });
     if (abierta.error || typeof abierta.scrapeId !== 'number') {
       terminar(p, abierta.error ?? 'No se pudo abrir la corrida.');

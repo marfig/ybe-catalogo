@@ -24,11 +24,12 @@ import {
   candidatosPorIds,
   contarAusentes,
   contarBarribles,
-  contarNuncaRevisados,
+  contarPendientes,
   proximosABarrer,
   type Candidato,
 } from '../lib/scrape/cola.ts';
 import { cerrarCorrida, corridaEnCurso } from '../lib/scrape/corrida.ts';
+import { cerrarVuelta, planDeVuelta, vueltaActual } from '../lib/scrape/vuelta.ts';
 import { PASO_MS } from '../lib/scrape/marcha.ts';
 
 const ejecutar = ejecutorD1(env.DB);
@@ -72,10 +73,40 @@ if (Astro.request.method === 'POST') {
 const ahora = new Date().toISOString();
 const abierta = await corridaEnCurso(ejecutar, { ahora });
 
-const [automatica, total, sinRevisarNunca, yaDeBaja] = await Promise.all([
-  proximosABarrer(ejecutar, { limite: LIMITE_BARRIDO }),
+/**
+ * LA VUELTA MANDA SOBRE TODO LO DEMÁS, así que se resuelve antes que la cola.
+ *
+ * Con una vuelta abierta, la cola Y el pendiente se filtran por su `iniciada_en`: se
+ * revisa sólo lo que esta vuelta todavía debe. Sin vuelta abierta —nunca se barrió, o la
+ * anterior se completó— apretar arranca una nueva y el catálogo entero está pendiente.
+ */
+const vuelta = await vueltaActual(ejecutar);
+const abiertaAhora = vuelta !== null && vuelta.terminada_en === null ? vuelta : null;
+
+const [total, pendientesDeLaAbierta] = await Promise.all([
   contarBarribles(ejecutar),
-  contarNuncaRevisados(ejecutar),
+  abiertaAhora === null
+    ? Promise.resolve(null)
+    : contarPendientes(ejecutar, { desde: abiertaAhora.iniciada_en }),
+]);
+
+/** Todas las decisiones de la vuelta, en una función pura y testeada. */
+const plan = planDeVuelta({ vuelta, pendientesDeLaAbierta, total });
+
+/**
+ * La vuelta se cierra ACÁ, al rendir, y no al marcar el último producto: marcar es un
+ * endpoint por producto, y preguntar «¿ya está completa?» ahí serían 300 `COUNT(*)` por
+ * corrida para una respuesta que importa una sola vez.
+ *
+ * LA CONTRACARA, asumida: si nadie vuelve a entrar a `/barrido` después de la corrida que
+ * vació la vuelta, `terminada_en` se queda en NULL aunque el trabajo esté hecho. No se
+ * pierde nada —la próxima visita lo reconcilia y la cuenta ya está en cero—, y el precio
+ * de evitarlo serían esos 300 `COUNT(*)`.
+ */
+if (plan.cerrar !== null) await cerrarVuelta(ejecutar, plan.cerrar, { ahora });
+
+const [automatica, yaDeBaja] = await Promise.all([
+  proximosABarrer(ejecutar, { limite: LIMITE_BARRIDO, desde: plan.desde }),
   contarAusentes(ejecutar),
 ]);
 
@@ -83,16 +114,13 @@ const [automatica, total, sinRevisarNunca, yaDeBaja] = await Promise.all([
 const aMano = seleccionados !== null;
 const cola = seleccionados ?? automatica;
 
+/** Se completó una vuelta y todavía no empezó la que sigue. Es un logro, y se dice. */
+const vueltaCompleta = !aMano && plan.completada;
+
 const nuncaRevisados = cola.filter((c) => c.revisado_en_origen === null).length;
 
 /** Los que no entran en esta corrida. Quedan primeros en la próxima. */
-const resto = restoDelBarrido({
-  aMano,
-  total,
-  enLaCorrida: cola.length,
-  sinRevisarNunca,
-  sinRevisarEnLaCorrida: nuncaRevisados,
-});
+const resto = restoDelBarrido({ aMano, pendientes: plan.pendientes, enLaCorrida: cola.length });
 
 /** Cuánto va a tardar, a un pedido por segundo. Redondeado hacia arriba. */
 const minutos = Math.ceil((cola.length * PASO_MS) / 60_000);
@@ -160,6 +188,20 @@ const paraElNavegador = JSON.stringify(cola.map((c) => ({ id: c.id, codigo: c.co
       </p>
     ) : (
       <>
+        {/* Una vuelta terminada es un logro y se dice: es la diferencia entre una rueda
+            que gira para siempre y un trabajo que se termina. */}
+        {vueltaCompleta ? (
+          <section class="resumen">
+            <p>
+              <strong>La vuelta anterior se completó.</strong> Se le preguntó al proveedor
+              por los {total} productos del catálogo.
+            </p>
+            <p class="nota">
+              Empezar ahora arranca una vuelta nueva, otra vez por el catálogo entero.
+            </p>
+          </section>
+        ) : null}
+
         <section class="confirmar">
           <h2>
             {cola.length === 1
@@ -193,17 +235,16 @@ const paraElNavegador = JSON.stringify(cola.map((c) => ({ id: c.id, codigo: c.co
           )}
           {/* Lo que no entra NO se esconde: un tope silencioso se lee como "ya se
               reviso todo" cuando no fue asi. */}
-          {resto.tipo === 'sin-revisar' ? (
+          {resto.tipo === 'resto' ? (
             <p class="nota">
-              Quedan <strong>{resto.cuantos}</strong> sin revisar nunca. No se pierden:
-              son los primeros de la próxima corrida, así que apretás de nuevo y sigue
-              por ahí. Este número baja en cada corrida.
+              Quedan <strong>{resto.cuantos}</strong> para completar la vuelta. No se
+              pierden: son los primeros de la próxima corrida, así que apretás de nuevo y
+              sigue por ahí. Este número baja en cada corrida.
             </p>
-          ) : resto.tipo === 'rotacion' ? (
+          ) : resto.tipo === 'ultima' ? (
             <p class="nota">
-              Ya se revisaron todos alguna vez. Cada corrida vuelve sobre los{' '}
-              <strong>{resto.enLaCorrida}</strong> más viejos de {resto.total}, así que
-              apretás de nuevo y sigue por ahí.
+              <strong>Con esta corrida se completa la vuelta.</strong> Después no queda
+              nada pendiente hasta que empieces otra.
             </p>
           ) : null}
 
@@ -262,7 +303,15 @@ const paraElNavegador = JSON.stringify(cola.map((c) => ({ id: c.id, codigo: c.co
 
         <section id="resumen" hidden></section>
 
-        <script id="cola" type="application/json" set:html={paraElNavegador} is:inline />
+        {/* `data-automatico` decide si el barrido corre la vuelta: una selección tildada
+            en la grilla no la mueve. Ver `api/scrape/abrir.ts`. */}
+        <script
+          id="cola"
+          type="application/json"
+          data-automatico={aMano ? 'no' : 'si'}
+          set:html={paraElNavegador}
+          is:inline
+        />
       </>
     )
   }
