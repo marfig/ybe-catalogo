@@ -1,0 +1,157 @@
+---
+/**
+ * Reposición: preguntarle al proveedor por códigos puntuales, pegados a mano.
+ *
+ * PARA QUÉ SIRVE Y PARA QUÉ NO. El barrido recorre lo que YA tenemos; la importación
+ * recorre un listado del proveedor. Ninguna de las dos sirve cuando lo que hace falta
+ * es revisar un puñado de códigos sueltos — un producto que alguien sospecha que
+ * volvió, o que se sabe que quedó a mitad de entrar. Acá se pegan esos códigos y se le
+ * pregunta al proveedor uno por uno.
+ *
+ * RESTAURA Y RESINCRONIZA, LAS DOS COSAS, cuando un código de la papelera vuelve a
+ * estar en el proveedor: la decisión completa vive en `lib/reposicion.ts`
+ * (`resolverCodigo`), que es lo que tiene los tests. Acá no hay ninguna lógica de
+ * negocio, sólo la pantalla.
+ *
+ * MISMO PATRÓN QUE `/importar` Y `/barrido`, no el de `/nuevo`: el recorrido corre en
+ * la pestaña, de a un código por segundo, y los resultados aparecen a medida que
+ * llegan. Ver `scripts/reposicion-cliente.ts`.
+ */
+import { env } from 'cloudflare:workers';
+
+import Panel from '../layouts/Panel.astro';
+import { ejecutorD1 } from '../lib/d1.ts';
+import { haceCuanto } from '../lib/publicaciones.ts';
+import { cerrarCorrida, corridaEnCurso } from '../lib/scrape/corrida.ts';
+
+const ejecutar = ejecutorD1(env.DB);
+
+/**
+ * Cerrar un recorrido que quedó abierto. Un `<form>` y no un `fetch`, igual que en
+ * `/importar`: es lo único de esta pantalla que puede funcionar sin JavaScript.
+ */
+if (Astro.request.method === 'POST') {
+  const form = await Astro.request.formData();
+  const crudo = form.get('scrapeId');
+  const scrapeId = crudo === null ? Number.NaN : Number(crudo);
+
+  if (Number.isInteger(scrapeId) && scrapeId > 0) {
+    try {
+      await cerrarCorrida(ejecutar, scrapeId, {
+        ahora: new Date().toISOString(),
+        estado: 'abortado',
+      });
+    } catch {
+      // Ya estaba cerrada: el resultado que se pedía igual es el que hay.
+    }
+  }
+
+  // Redirect y no render: sin esto, recargar vuelve a mandar el POST.
+  return Astro.redirect('/reposicion', 303);
+}
+
+const ahora = new Date().toISOString();
+const abierta = await corridaEnCurso(ejecutar, { ahora });
+
+const QUIEN_ESTA = {
+  barrido: 'un barrido',
+  importacion: 'una importación',
+  reposicion: 'otra reposición',
+  // Sale de la unión por el mismo motivo que en `barrido.astro`: `migracion` es de un
+  // solo uso y desaparece junto con `lib/migracion/`. Un mensaje impreciso, no un bug.
+  migracion: 'una importación',
+} as const;
+---
+
+<Panel titulo="Reposición" volver="/">
+  {
+    abierta ? (
+      <section class="resumen resumen--error">
+        <p>
+          Hay {QUIEN_ESTA[abierta.tipo] ?? 'otro recorrido'} en curso, que empezó{' '}
+          {haceCuanto(abierta.iniciado_en, ahora)}. Dos recorridos a la vez le duplican el
+          tráfico al proveedor, así que se hace de a uno.
+        </p>
+        <p class="nota">
+          Si quedó abierto porque se cerró la pestaña, cerralo acá. Lo que ya se resolvió
+          queda guardado.
+        </p>
+        <form method="post">
+          <input type="hidden" name="scrapeId" value={abierta.id} />
+          <button type="submit" class="secundario">
+            Cerrar el recorrido anterior
+          </button>
+        </form>
+      </section>
+    ) : null
+  }
+
+  <p class="nota nota--titulo">
+    Pegá uno o más códigos —separados por espacio, coma o salto de línea— y se le
+    pregunta al proveedor por cada uno. Si un código está en la papelera y el proveedor
+    lo sigue publicando, se restaura solo — pero a «Por aprobar», no de vuelta al
+    sitio: hay que revisarlo antes.
+  </p>
+
+  <form id="reposicion">
+    <p class="campo">
+      <label for="codigos">Códigos</label>
+      <textarea
+        id="codigos"
+        name="codigos"
+        rows="4"
+        disabled={abierta !== null}
+        placeholder={'CG85527, CG85528'}
+      ></textarea>
+    </p>
+
+    <p class="pie-guardar">
+      <button type="submit" disabled={abierta !== null}>Reponer</button>
+      <span class="nota">
+        Nuevo o restaurado, entra «Por aprobar»: no se ve en el sitio hasta que lo
+        revises. Al nuevo le falta nombre y precio; al restaurado, revisale el precio
+        antes de aprobarlo de nuevo.
+      </span>
+    </p>
+  </form>
+
+  <noscript>
+    <p class="resumen resumen--error">
+      Esta pantalla necesita JavaScript. El recorrido corre en el navegador a propósito:
+      es lo que permite ver el progreso y marcar el paso de un pedido por segundo.
+    </p>
+  </noscript>
+
+  <section id="marcha" hidden>
+    <p id="progreso" aria-live="polite"></p>
+
+    <div
+      id="barra"
+      class="barra"
+      role="progressbar"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+      aria-label="Avance de la reposición"
+    >
+      <span id="barra-relleno"></span>
+    </div>
+
+    <p class="nota nota--pestana">
+      <strong>No cierres esta pestaña.</strong> El recorrido corre acá: si la cerrás, se
+      interrumpe. Lo que ya se resolvió queda guardado.
+    </p>
+
+    <button type="button" id="cancelar" class="secundario">Cancelar</button>
+
+    <ul id="resultados"></ul>
+  </section>
+
+  <section id="resumen" hidden></section>
+</Panel>
+
+<script>
+  import { prepararReposicion } from '../scripts/reposicion-cliente.ts';
+
+  prepararReposicion();
+</script>

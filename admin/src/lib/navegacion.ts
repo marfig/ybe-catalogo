@@ -25,6 +25,9 @@ const ROTULOS = new Map([
   ['/productos', 'Productos'],
   ['/pedidos-especiales', 'Pedidos especiales'],
   ['/eliminados', 'Papelera'],
+  // Mapeada a mano: la derivación no puede inventar la tilde que el segmento de la
+  // ruta —«reposicion»— no lleva.
+  ['/reposicion', 'Reposición'],
 ]);
 
 /**

@@ -32,6 +32,9 @@ test('las rutas conocidas se nombran como se llaman en el panel', () => {
   // La pantalla se llama «Papelera», no «Eliminados»: el rótulo nombra el destino tal
   // como lo ve la persona, no como se llama el archivo.
   assert.equal(rotuloDeVuelta('/eliminados'), 'Papelera');
+  // Mapeada a mano porque la derivación no puede inventar la tilde: el segmento de la
+  // ruta es «reposicion», sin ella, y derivar la dejaría afuera.
+  assert.equal(rotuloDeVuelta('/reposicion'), 'Reposición');
 });
 
 test('una ruta que nadie mapeó se deriva del último segmento', () => {
