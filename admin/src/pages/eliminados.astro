@@ -95,10 +95,11 @@ const plural = (n: number, singular: string, muchos: string) =>
     restaurados > 0 ? (
       <p class="resumen">
         {restaurados === 1
-          ? '1 producto volvió al catálogo.'
-          : `${restaurados} productos volvieron al catálogo.`}{' '}
+          ? '1 producto volvió, por aprobar.'
+          : `${restaurados} productos volvieron, por aprobar.`}{' '}
         <span class="resumen-omitidos">
-          Se van a ver en el sitio con la próxima publicación.
+          Todavía no se ven en el sitio: revisá el precio y los demás datos antes de
+          aprobarlos.
         </span>
       </p>
     ) : null
@@ -124,8 +125,9 @@ const plural = (n: number, singular: string, muchos: string) =>
       <>
         <p class="nota nota--titulo">
           Estos productos no se ven en el sitio, pero <strong>su enlace no está roto</strong>:
-          quien lo tenga guardado no recibe un error. Restaurarlos los devuelve al catálogo
-          con la misma dirección de siempre.
+          quien lo tenga guardado no recibe un error. Restaurarlos los manda a{' '}
+          <strong>Por aprobar</strong>, con la misma dirección de siempre: revisá el
+          precio y los demás datos antes de que vuelvan a verse en el sitio.
         </p>
 
         <form method="post" action="/eliminados">
@@ -191,8 +193,8 @@ const plural = (n: number, singular: string, muchos: string) =>
               Restaurar los tildados
             </button>
             <span class="nota">
-              Vuelven al catálogo con su dirección de siempre. Se ven en el sitio con la
-              próxima publicación.
+              Vuelven «Por aprobar», con su dirección de siempre. No se ven en el sitio
+              hasta que los revises y los apruebes de nuevo.
             </span>
           </p>
         </form>

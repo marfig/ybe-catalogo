@@ -365,11 +365,25 @@ export async function eliminar(
 }
 
 /**
- * Devuelve al catálogo lo que está en la papelera (§10.5).
+ * Saca de la papelera lo que estuvo publicado — pero a «Por aprobar», no de vuelta al
+ * catálogo (§10.5).
  *
- * Vuelve a `publicado` y no a `aprobado`: el producto YA tuvo URL, y `aprobado` es el
- * estado de algo que todavía no la tuvo. Igual necesita una publicación para volver a
- * verse en el sitio — hasta entonces sigue en `productos.json` con `activo: false`.
+ * VUELVE A `importado` Y NO A `publicado`. Antes volvía directo a `publicado` porque
+ * el producto YA había tenido URL; ese razonamiento quedó superado: quien restaura
+ * necesita la chance de revisar y corregir el precio y los demás datos ANTES de que
+ * el producto se vuelva a ver en el sitio, y `importado` es el ÚNICO estado que la
+ * próxima publicación no puede arrastrar en vivo sin que nadie lo revise —`aprobado` y
+ * `publicado` sí entran en la corrida siguiente (§11.2).
+ *
+ * ES DELIBERADO Y PAREJO PARA TODA RESTAURACIÓN, no sólo para este botón: la
+ * reposición (`lib/reposicion.ts`) restaura llamando a esta misma función, y tiene que
+ * comportarse igual — un producto que vuelve porque el proveedor lo sigue publicando
+ * no es más confiable que uno que alguien restaura a mano.
+ *
+ * LA URL NO SE PIERDE POR ESTO. Este `UPDATE` no toca `slug`, y `aprobar()`
+ * (`transiciones.ts`) reusa el que ya tiene en vez de generar uno nuevo — la misma
+ * dirección que circuló por WhatsApp sigue siendo la de este producto cuando alguien
+ * lo vuelva a aprobar.
  */
 export async function restaurar(
   ejecutar: Ejecutar,
@@ -402,7 +416,7 @@ export async function restaurar(
 
     await ejecutar(
       `UPDATE productos
-          SET estado = 'publicado', eliminado_en = NULL, eliminado_por = NULL,
+          SET estado = 'importado', eliminado_en = NULL, eliminado_por = NULL,
               actualizado_en = ?
         WHERE id = ? AND estado = 'eliminado'`,
       [ahora, id]

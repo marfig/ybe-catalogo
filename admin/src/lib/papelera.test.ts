@@ -296,7 +296,14 @@ test('eliminar: sin ids no toca la base', async () => {
 // Restaurar (§10.5)
 // --------------------------------------------------------------------------
 
-test('restaurar: vuelve a publicado y limpia el sello de eliminación', async () => {
+test('restaurar: vuelve a importado —por aprobar— y limpia el sello de eliminación', async () => {
+  /**
+   * NO vuelve a `publicado`: quien restaura tiene que poder revisar precio y demás
+   * datos antes de que el producto se vea de nuevo en el sitio, y `importado` es el
+   * único estado que el próximo Publicar no puede arrastrar en vivo. La URL no se
+   * pierde por esto — el slug no se toca, y `aprobar()` (`transiciones.ts`) reusa el
+   * que ya tiene en vez de generar uno nuevo.
+   */
   const db = base();
   const p = producto(db, { codigo: 'CG3', estado: 'publicado', slug: 'cg3' });
   await eliminar(ejecutor(db), [p], { ahora: AHORA, porQuien: QUIEN });
@@ -313,10 +320,10 @@ test('restaurar: vuelve a publicado y limpia el sello de eliminación', async ()
   };
 
   assert.equal(r[0].desenlace, 'hecho');
-  assert.equal(fila.estado, 'publicado');
+  assert.equal(fila.estado, 'importado', 'por aprobar, no de vuelta al catálogo todavía');
   assert.equal(fila.eliminado_en, null);
   assert.equal(fila.eliminado_por, null);
-  assert.equal(fila.slug, 'cg3', 'la URL de siempre');
+  assert.equal(fila.slug, 'cg3', 'la URL de siempre, para cuando se vuelva a aprobar');
 });
 
 test('restaurar: sólo desde eliminado. Un publicado se omite', async () => {
