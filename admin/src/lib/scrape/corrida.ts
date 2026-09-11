@@ -25,8 +25,14 @@ import type { Ejecutar } from '../grilla.ts';
  * preguntan por `'barrido'` y caen al otro lado, así que una migración en curso se anuncia
  * como una importación. Es un mensaje impreciso y no un bug: lo que importa de esa guarda
  * es que NO se pueda abrir un segundo recorrido, y eso vale igual para los tres tipos.
+ *
+ * `reposicion` es la cuarta: códigos puntuales que alguien pegó a mano, en vez de un
+ * listado del proveedor o el catálogo propio. Comparte tabla por el mismo motivo que
+ * los otros tres — la guarda de `corridaEnCurso()` — y no es una excepción a ella: la
+ * cortesía de 1 request por segundo (§7.4) se rompe igual si el recorrido de al lado es
+ * una reposición.
  */
-export type TipoCorrida = 'importacion' | 'barrido' | 'migracion';
+export type TipoCorrida = 'importacion' | 'barrido' | 'migracion' | 'reposicion';
 
 export interface Corrida {
   id: number;
