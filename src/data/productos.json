@@ -68514,6 +68514,74 @@
     ]
   },
   {
+    "actualizado": "2026-09-12",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 41 x 30 x 15 cm",
+    "id": "mochila-mediana-grande-impermeable",
+    "nombre": "Mochila mediana grande impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG84938"
+    },
+    "precio": 238000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/143858b0d1a957a4"
+          }
+        ],
+        "sku": "CG84938-N"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a017c4900b07e8c3"
+          }
+        ],
+        "sku": "CG84938-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6db9ae55ac72702d"
+          }
+        ],
+        "sku": "CG84938-3"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5a6aedeb8e883196"
+          }
+        ],
+        "sku": "CG84938-A"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-dama"
@@ -68707,6 +68775,74 @@
           }
         ],
         "sku": "CG86002-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-12",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 36 x 27 x 12 cm",
+    "id": "mochila-mediana-impermeable-6",
+    "nombre": "Mochila mediana impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG84939"
+    },
+    "precio": 228000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5cbca1a5709ac92a"
+          }
+        ],
+        "sku": "CG84939-N"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/68d0e9e1d90df968"
+          }
+        ],
+        "sku": "CG84939-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/daa68590a0b758bb"
+          }
+        ],
+        "sku": "CG84939-3"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/988d9973864945dd"
+          }
+        ],
+        "sku": "CG84939-A"
       }
     ]
   },
