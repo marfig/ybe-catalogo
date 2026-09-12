@@ -26365,7 +26365,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-09-12",
     "categorias": [
       "carteras"
     ],
@@ -26462,38 +26462,6 @@
     ]
   },
   {
-    "activo": false,
-    "actualizado": "2026-08-12",
-    "categorias": [
-      "carteras",
-      "fiesta"
-    ],
-    "descripcion": "Cartera de mano rígida con aplicación completa de strass y cadena desmontable.",
-    "id": "cartera-de-fiesta-con-strass",
-    "nombre": "Cartera de fiesta con strass",
-    "origen": {
-      "proveedor": "chenson",
-      "ref": "CG85527"
-    },
-    "precio": 195000,
-    "variantes": [
-      {
-        "color": "Champagne",
-        "colorHex": "#b98a70",
-        "imagenes": [
-          {
-            "anchos": [
-              300,
-              600
-            ],
-            "base": "catalogo/605ea0e9d91bfbd6"
-          }
-        ],
-        "sku": "CG85527-E"
-      }
-    ]
-  },
-  {
     "actualizado": "2026-09-10",
     "categorias": [
       "carteras"
@@ -26545,6 +26513,48 @@
           }
         ],
         "sku": "CG85254-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-12",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 18 x 23 x 8 cm.",
+    "id": "cartera-de-mano-elegante",
+    "nombre": "cartera de mano elegante",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85527"
+    },
+    "precio": 195000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f12170052cccafcc"
+          }
+        ],
+        "sku": "CG85527-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/406b4fe1006d642b"
+          }
+        ],
+        "sku": "CG85527-P"
       }
     ]
   },
