@@ -42,6 +42,7 @@ export const MARCA = 'Chenson';
  */
 export const DESCRIPCION_LINEAS = [
   'Mochilas, carteras, bolsos, maletas, billeteras, escolares y regalos empresariales. Descuentos para mayoristas de 30 a 40%. Consultá por WhatsApp.',
+  'Envíos a todo el país. Delivery sin costo para Asunción y Gran Asunción.',
 ] as const;
 
 /** Una linea, sin marcado: la version para metadatos y JSON-LD. */
