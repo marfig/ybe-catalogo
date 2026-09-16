@@ -171,3 +171,48 @@ test('construirEnlaceWa: el telefono se normaliza, un + configurado no rompe', (
   const enlace = construirEnlaceWa({ telefono: '+595971878090', nombre: 'X', url: URL_PROD });
   assert.equal(new URL(enlace).pathname, `/${TEL}`);
 });
+
+// --------------------------------------------------------------------------
+// `saludo` (visual-first-pass de Regalos empresariales): opcional, sin tocar
+// el mensaje que ya esta en produccion en la ficha de producto y en pedidos
+// especiales.
+// --------------------------------------------------------------------------
+
+test('sin `saludo`, el mensaje sale BYTE A BYTE igual que antes de agregar el parametro', () => {
+  /**
+   * Este test es el que protege a los dos botones que ya estan en produccion
+   * (ficha de producto y pedidos especiales): ninguno de los dos pasa `saludo`, asi
+   * que si este texto se mueve un caracter, sus mensajes se mueven con el sin que
+   * nadie haya tocado ese codigo.
+   */
+  const enlace = construirEnlaceWa({
+    telefono: TEL,
+    nombre: 'Mochila urbana',
+    url: URL_PROD,
+    color: 'Negro',
+    codigo: 'CG85527',
+  });
+
+  assert.equal(
+    textoDe(enlace),
+    'Hola! Me interesa este producto:\n\nMochila urbana — Negro\nCódigo: CG85527\n' + URL_PROD
+  );
+});
+
+test('con `saludo`, reemplaza la apertura y conserva el resto del mensaje', () => {
+  const texto = textoDe(
+    construirEnlaceWa({
+      telefono: TEL,
+      nombre: 'Mochila urbana',
+      url: URL_PROD,
+      codigo: 'CG85527',
+      saludo: 'Hola! Quisiera cotizar este producto para un pedido empresarial:',
+    })
+  );
+
+  assert.ok(texto.startsWith('Hola! Quisiera cotizar este producto para un pedido empresarial:'));
+  assert.ok(!texto.includes('Me interesa este producto'));
+  assert.ok(texto.includes('Mochila urbana'));
+  assert.ok(texto.includes('Código: CG85527'));
+  assert.ok(texto.trimEnd().endsWith(URL_PROD));
+});

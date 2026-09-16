@@ -1,0 +1,113 @@
+---
+import { SIZES_CARD_DENSO } from '../lib/imagenes.ts';
+import { imagenPrincipal } from '../lib/productos.ts';
+import { regalosEmpresariales } from '../lib/regalos-empresariales.ts';
+import { REGALOS_EMPRESARIALES_PUBLICADO } from '../lib/sitio.ts';
+import ImagenProducto from './ImagenProducto.astro';
+
+/**
+ * Cuantas fotos entran en la tira. CUATRO porque es lo que cabe sin apretarse en un
+ * movil de 360px con el texto arriba (ver el `flex-col` de abajo): una quinta se
+ * superpondria con la anterior o forzaria un segundo salto de linea del texto.
+ */
+const CANTIDAD_FOTOS = 4;
+
+/**
+ * EN DESARROLLO EL BANNER SE VE SIEMPRE, este publicada la seccion o no: es la pieza
+ * que se esta diseñando, y esconderla detras de una bandera obligaria a prenderla y
+ * apagarla a mano para cada ajuste —con el riesgo, cada vez, de que quede prendida en
+ * el commit que se publica—.
+ *
+ * `import.meta.env.DEV` y no una variable de entorno propia: Vite lo reemplaza por la
+ * constante en tiempo de compilacion, asi que en el build de produccion esta rama
+ * queda en `false` literal y el empaquetador borra el banner entero. Una variable de
+ * entorno se puede olvidar mal seteada en el servidor; esto no.
+ *
+ * La condicion va PRIMERO y corta antes de resolver la seleccion: cuando el banner no
+ * se va a mostrar, ni vale la pena tocar el catalogo para calcular unas fotos que
+ * nadie va a ver.
+ */
+const visible = REGALOS_EMPRESARIALES_PUBLICADO || import.meta.env.DEV;
+const productos = visible ? await regalosEmpresariales() : [];
+const fotos = productos.slice(0, CANTIDAD_FOTOS);
+---
+
+{/*
+  LA SECCION SE OCULTA ENTERA SI NO HAY NADA CARGADO, mismo criterio que el bloque de
+  «Pedidos especiales» de esta misma pagina (ver `index.astro`): nadie pidio esta
+  seccion, asi que anunciarla vacia abre un hueco que el visitante no sabia que
+  existia. Entre que se despliega este cambio y que se cargue la seleccion en
+  `regalos-empresariales.json`, o si el dia de mañana se vacia a mano, el banner
+  desaparece solo.
+
+  TAMBIEN se oculta entera en el sitio publicado mientras `REGALOS_EMPRESARIALES_PUBLICADO`
+  este en `false` (soft launch, `lib/sitio.ts`): `productos` ya sale vacio en ese caso,
+  asi que este `if` no necesita conocer la bandera para respetarla. En desarrollo esa
+  rama no aplica y el banner se ve siempre (ver el comentario de `visible` arriba).
+*/}
+{
+  fotos.length > 0 && (
+    <section
+      class="border-borde bg-superficie mt-6 overflow-hidden rounded border"
+      aria-labelledby="h-regalos-empresariales"
+    >
+      {/*
+        DENTRO de la columna de `max-w-6xl` (`Base.astro`) y NO a sangre (full-bleed).
+        Todo lo demas en esta pagina —la bajada, las categorias, pedidos especiales—
+        respeta ese ancho, y un banner que rompe el margen justo entre el parrafo de
+        arriba y la grilla de categorias de abajo se leeria como un anuncio pegado
+        encima del sitio, no como una seccion mas. Ademas romper el margen en Astro
+        estatico pide un margen negativo calculado contra el ancho del viewport, que es
+        justo la clase de CSS fragil que se rompe primero a 360px — el piso de ancho
+        que este sitio tiene que sostener.
+      */}
+      <div class="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:p-6">
+        <div class="flex flex-col items-start gap-2">
+          <h2 id="h-regalos-empresariales" class="text-lg font-semibold sm:text-xl">
+            Regalos empresariales
+          </h2>
+
+          <p class="text-texto-suave max-w-prose text-sm leading-relaxed">
+            Catálogo corporativo para pedidos por cantidad, con la marca de tu empresa.
+            Cotizamos según lo que necesites.
+          </p>
+
+          <a
+            href="/regalos-empresariales"
+            class="bg-accion mt-1 inline-flex items-center gap-1 rounded px-4 py-2 text-sm font-medium text-white"
+          >
+            Ver catálogo corporativo
+          </a>
+        </div>
+
+        {/*
+          La tira de fotos es DECORATIVA: el enlace de arriba ya dice a donde lleva y
+          que es. `aria-hidden` en el contenedor y `alt=""` en cada foto evitan que un
+          lector de pantalla anuncie cuatro imagenes sin nombre antes de leer el enlace
+          que si importa.
+
+          `-space-x` superpone los cuadrados como una pila de fotos dejadas sobre una
+          mesa — a proposito, y no un acomodo roto: es la misma idea de «catalogo
+          impreso» que ordena la pagina propia, y una fila prolija de cuadrados iguales
+          se hubiera leido como una grilla de producto de mas, compitiendo con la de
+          categorias que esta 24px mas abajo.
+        */}
+        <div class="flex shrink-0 -space-x-3 sm:-space-x-4" aria-hidden="true">
+          {fotos.map((producto, i) => (
+            <div
+              class="border-superficie bg-superficie h-16 w-16 shrink-0 overflow-hidden rounded border-2 shadow-sm sm:h-20 sm:w-20"
+              style={`transform: rotate(${i % 2 === 0 ? -3 : 3}deg); z-index: ${fotos.length - i};`}
+            >
+              <ImagenProducto
+                imagen={imagenPrincipal(producto)}
+                alt=""
+                sizes={SIZES_CARD_DENSO}
+                compacto
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

@@ -1,0 +1,140 @@
+---
+import { PUBLIC_WHATSAPP } from 'astro:env/client';
+import Base from '../../layouts/Base.astro';
+import TarjetaRegaloEmpresarial from '../../components/TarjetaRegaloEmpresarial.astro';
+import {
+  agruparPorCategoria,
+  derivarProductoCorporativo,
+  type CategoriaCorporativa,
+} from '../../lib/corporativo.ts';
+import { categoriaPrincipal, categoriasActivas } from '../../lib/productos.ts';
+import { regalosEmpresariales } from '../../lib/regalos-empresariales.ts';
+import { urlCanonica } from '../../lib/seo.ts';
+import { COMERCIO, REGALOS_EMPRESARIALES_PUBLICADO } from '../../lib/sitio.ts';
+
+const TITULO = 'Regalos empresariales';
+const BAJADA =
+  'Selección de nuestro catálogo para regalos corporativos y pedidos por cantidad, ' +
+  'con la marca de tu empresa. El precio se cotiza según la cantidad que necesites: ' +
+  'consultanos por WhatsApp con la referencia del artículo que te interesa.';
+
+const productos = await regalosEmpresariales();
+const categorias = await categoriasActivas();
+const categoriasPlano: CategoriaCorporativa[] = categorias.map((c) => ({
+  id: c.id,
+  nombre: c.data.nombre,
+}));
+
+/**
+ * La categoria de cada producto se resuelve ACA, una sola vez, y no dentro de una
+ * funcion pura de `corporativo.ts`: `categoriaPrincipal()` depende de `getEntries` de
+ * astro:content, que solo existe en el runtime de build. Mantener esa dependencia
+ * fuera de `corporativo.ts` es lo que permite testear el agrupamiento con
+ * `node --test` (ver `corporativo.test.ts`).
+ */
+const vitrina = [];
+for (const producto of productos) {
+  const principal = await categoriaPrincipal(producto);
+  // Sin categoria activa no hay bajo que titulo mostrarlo: mismo criterio de
+  // silencio que `resolverSeleccion` con un id sin producto.
+  if (!principal) continue;
+
+  vitrina.push(
+    derivarProductoCorporativo(
+      {
+        id: producto.id,
+        nombre: producto.data.nombre,
+        descripcion: producto.data.descripcion,
+        origen: producto.data.origen,
+        variantes: producto.data.variantes,
+      },
+      principal.id
+    )
+  );
+}
+
+const grupos = agruparPorCategoria(vitrina, categoriasPlano);
+
+const canonical = urlCanonica(Astro.url.pathname, Astro.site);
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: TITULO,
+    description: BAJADA,
+    url: canonical.href,
+    isPartOf: { '@type': 'WebSite', name: COMERCIO },
+  },
+];
+---
+
+{/*
+  `forzarNoIndexar`: mientras `REGALOS_EMPRESARIALES_PUBLICADO` este en `false` (soft
+  launch, ver `lib/sitio.ts`) esta pagina sigue construyendose y es alcanzable por URL
+  directa —asi se prueba antes de aprobarla— pero no tiene que indexarse todavia. Ver
+  el comentario largo en `layouts/Base.astro`.
+
+  CUELGA DE LA BANDERA Y NO DE `import.meta.env.DEV`, al reves que los dos puntos de
+  entrada. No es una inconsistencia: lo que hay que proteger es el sitio PUBLICADO, que
+  es el unico que un rastreador puede alcanzar. En desarrollo la pagina ya sale con
+  `noindex` por el `INDEXABLE` global, que nace en `false`.
+*/}
+<Base
+  titulo={TITULO}
+  descripcion={BAJADA}
+  jsonLd={jsonLd}
+  forzarNoIndexar={!REGALOS_EMPRESARIALES_PUBLICADO}
+>
+  <nav aria-label="Migas de pan" class="text-texto-suave text-sm">
+    <ol class="flex flex-wrap items-center gap-1">
+      <li><a href="/" class="hover:text-texto underline">Inicio</a></li>
+      <li aria-hidden="true">›</li>
+      <li aria-current="page" class="text-texto">{TITULO}</li>
+    </ol>
+  </nav>
+
+  <h1 class="mt-4 text-xl font-semibold sm:text-2xl">{TITULO}</h1>
+
+  {/*
+    La bajada explica la ausencia de precio, mismo motivo que en `pedidos-especiales`:
+    sin esta linea, la falta de un monto se lee como un dato que falta, no como la
+    propuesta de la seccion.
+  */}
+  {/*
+    SIN `max-w-prose`, al reves que la descripcion de la ficha de producto: se pidio
+    que la bajada ocupe todo el ancho de la columna. El tope de medida lo sigue
+    poniendo el `max-w-6xl` de `layouts/Base.astro`, asi que el renglon no crece sin
+    limite por mucho que se agrande la pantalla.
+  */}
+  <p class="text-texto-suave mt-2 text-sm leading-relaxed">{BAJADA}</p>
+
+  {
+    grupos.length === 0 ? (
+      <p class="text-texto-suave py-8">Todavía no hay artículos cargados en esta sección.</p>
+    ) : (
+      /*
+        AGRUPADO POR CATEGORIA, como el catalogo impreso del que sale esta seccion
+        (ver la carga de `regalos-empresariales.json`): quien lo hojea busca «loncheras»
+        o «portafolios», no una lista de 112 items sin quiebres.
+      */
+      grupos.map((grupo) => (
+        <section class="mt-8" aria-labelledby={`h-cat-${grupo.categoria.id}`}>
+          <h2 id={`h-cat-${grupo.categoria.id}`} class="text-lg font-semibold">
+            {grupo.categoria.nombre}
+          </h2>
+
+          <ul class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+            {grupo.productos.map((producto) => (
+              <TarjetaRegaloEmpresarial
+                producto={producto}
+                telefono={PUBLIC_WHATSAPP}
+                urlPagina={canonical.href}
+              />
+            ))}
+          </ul>
+        </section>
+      ))
+    )
+  }
+</Base>

@@ -15,7 +15,23 @@ export interface ArgsEnlaceWa {
    * puede quedar roto: se omite la linea y el mensaje sigue sirviendo.
    */
   codigo?: string | undefined;
+  /**
+   * La apertura del mensaje. Opcional, con el texto de siempre como default.
+   *
+   * Nace con «Regalos empresariales» (visual-first-pass): ese boton manda a un
+   * comprador corporativo, y «Me interesa este producto» describe una compra al
+   * detalle, no una cotizacion por cantidad — el vendedor del otro lado atenderia
+   * distinto si supiera desde el primer mensaje que es un pedido por volumen.
+   *
+   * DEFAULT explicito y NO un cambio del texto existente: el boton de la ficha de
+   * producto y el de pedidos especiales ya estan en produccion y su mensaje no puede
+   * moverse un caracter sin que este archivo lo note en `whatsapp.test.ts`.
+   */
+  saludo?: string | undefined;
 }
+
+/** El saludo de siempre: se cambia aca y arrastra a todo el que no pasa el suyo. */
+const SALUDO_POR_DEFECTO = 'Hola! Me interesa este producto:';
 
 /**
  * Normaliza un telefono al formato que exige wa.me: solo digitos, con codigo de
@@ -61,6 +77,7 @@ export function construirEnlaceWa({
   url,
   color,
   codigo,
+  saludo = SALUDO_POR_DEFECTO,
 }: ArgsEnlaceWa): string {
   const encabezado = color ? `${nombre} — ${color}` : nombre;
 
@@ -70,7 +87,7 @@ export function construirEnlaceWa({
   if ((codigo ?? '').trim() !== '') lineas.push(`Código: ${codigo!.trim()}`);
   lineas.push(url);
 
-  const texto = `Hola! Me interesa este producto:\n\n${lineas.join('\n')}`;
+  const texto = `${saludo}\n\n${lineas.join('\n')}`;
 
   return `https://wa.me/${normalizarTelefono(telefono)}?text=${encodeURIComponent(texto)}`;
 }

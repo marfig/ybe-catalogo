@@ -79,3 +79,28 @@ export const CUENTA_BANCARIA = {
 
 /** Redes sociales para `sameAs` de Organization y el footer. Pendiente. */
 export const REDES: string[] = [];
+
+/**
+ * TEMPORAL — soft launch de Regalos empresariales.
+ *
+ * En `false`, `/regalos-empresariales` se sigue construyendo y queda alcanzable por
+ * URL directa —asi la revisa y prueba los botones de WhatsApp quien la esta
+ * aprobando—, pero en el SITIO PUBLICADO ningun punto de entrada enlaza a ella: ni el
+ * banner de la home (`BannerRegalosEmpresariales.astro`) ni el enlace del header
+ * (`Header.astro`). Se cambia a `true` el dia que la seccion se aprueba para salir al
+ * publico.
+ *
+ * SE LLAMA `PUBLICADO` Y NO `EN_PORTADA` porque no decide si el banner se ve, decide
+ * si la seccion salio al publico. En desarrollo el banner se ve SIEMPRE: los dos
+ * puntos de entrada lo sacan por `|| import.meta.env.DEV`, para poder trabajar sobre
+ * el banner sin tener que prenderlo y apagarlo a mano —y sin el riesgo de que quede
+ * prendido en el commit que se publica—. Esa condicion vive en los `.astro` y no aca
+ * a proposito: este modulo lo importa `imagenes.test.ts`, que corre en node pelado,
+ * donde `import.meta.env` no existe y leerle una propiedad tira TypeError.
+ *
+ * BORRAR ESTA CONSTANTE Y LOS DOS CONDICIONALES QUE LA USAN EN ESE MOMENTO. Una
+ * bandera que nadie vuelve a apagar ni a sacar es peso muerto: cada persona que lea
+ * `BannerRegalosEmpresariales.astro` o `Header.astro` de aca en mas tendria que
+ * pararse a entender por que hay una condicion que siempre da `true`.
+ */
+export const REGALOS_EMPRESARIALES_PUBLICADO = false;

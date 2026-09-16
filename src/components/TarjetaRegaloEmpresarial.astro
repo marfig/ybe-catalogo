@@ -1,0 +1,94 @@
+---
+import { SIZES_CARD } from '../lib/imagenes.ts';
+import type { ProductoCorporativo } from '../lib/corporativo.ts';
+import { construirEnlaceWa } from '../lib/whatsapp.ts';
+import IconoWhatsApp from './IconoWhatsApp.tsx';
+import ImagenProducto from './ImagenProducto.astro';
+
+interface Props {
+  producto: ProductoCorporativo;
+  telefono: string;
+  /** URL canonica ABSOLUTA de `/regalos-empresariales`, sin el `#ancla`. */
+  urlPagina: string;
+}
+
+const { producto, telefono, urlPagina } = Astro.props;
+
+/**
+ * El ancla que hace de `id` de la tarjeta y de destino del enlace de WhatsApp.
+ *
+ * El CODIGO y no `producto.id` (el slug de Astro): es el dato estable de negocio —la
+ * clave de identidad del catalogo, ver `content.config.ts`— y el que la persona que
+ * atiende el chat va a buscar si alguien reenvia el enlace. El slug es un detalle de
+ * implementacion de este sitio que podria cambiar sin que el codigo se mueva.
+ */
+const ancla = `ref-${producto.codigo}`;
+
+/**
+ * SIN `/productos/${producto.id}` en ningun lado de esta tarjeta, ni siquiera como
+ * enlace de la foto o el nombre.
+ *
+ * Esa ficha muestra el PRECIO DE LISTA (`TarjetaProducto`/`Precio.astro`), y el precio
+ * de lista no es el precio de un pedido corporativo — se cotiza aparte, segun
+ * cantidad. Un enlace «de paso» a esa ficha le mostraria a quien compra por volumen un
+ * numero que no le corresponde y que además contradice el motivo de que esta seccion
+ * exista.
+ */
+const enlaceWa = construirEnlaceWa({
+  telefono,
+  nombre: producto.nombre,
+  url: `${urlPagina}#${ancla}`,
+  codigo: producto.codigo,
+  saludo: 'Hola! Quisiera cotizar este producto para un pedido empresarial:',
+});
+---
+
+<li
+  id={ancla}
+  class="border-borde bg-superficie scroll-mt-24 flex flex-col overflow-hidden rounded border"
+>
+  <ImagenProducto imagen={producto.imagen} alt={producto.nombre} sizes={SIZES_CARD} compacto />
+
+  <div class="flex flex-1 flex-col gap-1 p-3">
+    <h3 class="text-sm leading-snug font-medium">{producto.nombre}</h3>
+
+    <p class="text-texto-suave text-xs">
+      Ref.: <code class="text-texto">{producto.codigo}</code>
+    </p>
+
+    {
+      producto.colores.length > 0 && (
+        <p class="text-texto-suave text-xs">Colores: {producto.colores.join(', ')}</p>
+      )
+    }
+
+    {
+      /* `whitespace-pre-line`, mismo motivo que en la ficha de producto: las medidas
+      se cargan con saltos de linea propios y HTML los colapsa sin esto. */
+      producto.descripcion && (
+        <p class="text-texto-suave mt-1 text-xs leading-relaxed whitespace-pre-line">
+          {producto.descripcion}
+        </p>
+      )
+    }
+
+    <div class="mt-auto pt-2">
+      {
+        /* `aria-label` completo y NO el texto visible «Consultar» a secas: un lector
+        de pantalla que repite «Consultar» 112 veces no le dice a quien navega CUAL
+        producto va a preguntar en cada boton. Arranca con el texto visible para
+        cumplir 2.5.3 (el nombre accesible contiene el texto visible). */
+      }
+      <a
+        href={enlaceWa}
+        target="_blank"
+        rel="noopener"
+        aria-label={`Consultar por WhatsApp — ${producto.nombre}, Ref. ${producto.codigo}`}
+        class="bg-whatsapp flex min-h-10 w-full items-center justify-center gap-2 rounded px-3 py-2 text-center text-sm leading-tight font-medium text-white"
+      >
+        <IconoWhatsApp tamano={16} />
+        Consultar
+      </a>
+    </div>
+  </div>
+</li>

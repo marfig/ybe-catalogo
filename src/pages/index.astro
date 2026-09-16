@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import BannerRegalosEmpresariales from '../components/BannerRegalosEmpresariales.astro';
 import GrillaPedidosEspeciales from '../components/GrillaPedidosEspeciales.astro';
 import { categoriasNavegables } from '../lib/productos.ts';
 import { pedidosEspeciales } from '../lib/pedidos-especiales.ts';
@@ -59,6 +60,8 @@ const jsonLd = [
       ))
     }
   </p>
+
+  <BannerRegalosEmpresariales />
 
   <section class="mt-5" aria-labelledby="h-categorias">
     <div class="flex flex-wrap items-baseline justify-between gap-2">
