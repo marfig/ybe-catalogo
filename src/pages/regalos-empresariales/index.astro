@@ -2,58 +2,34 @@
 import { PUBLIC_WHATSAPP } from 'astro:env/client';
 import Base from '../../layouts/Base.astro';
 import TarjetaRegaloEmpresarial from '../../components/TarjetaRegaloEmpresarial.astro';
-import {
-  agruparPorCategoria,
-  derivarProductoCorporativo,
-  type CategoriaCorporativa,
-} from '../../lib/corporativo.ts';
-import { categoriaPrincipal, categoriasActivas } from '../../lib/productos.ts';
+import { agruparPorSeccion } from '../../lib/corporativo.ts';
 import { regalosEmpresariales } from '../../lib/regalos-empresariales.ts';
 import { urlCanonica } from '../../lib/seo.ts';
 import { COMERCIO, REGALOS_EMPRESARIALES_PUBLICADO } from '../../lib/sitio.ts';
 
 const TITULO = 'Regalos empresariales';
 const BAJADA =
-  'Selección de nuestro catálogo para regalos corporativos y pedidos por cantidad, ' +
-  'con la marca de tu empresa. El precio se cotiza según la cantidad que necesites: ' +
-  'consultanos por WhatsApp con la referencia del artículo que te interesa.';
+  'Para regalos corporativos y pedidos en cantidad. El precio se cotiza según la ' +
+  'cantidad que necesites: consultanos por WhatsApp con la referencia del artículo ' +
+  'que elijas.';
 
 const productos = await regalosEmpresariales();
-const categorias = await categoriasActivas();
-const categoriasPlano: CategoriaCorporativa[] = categorias.map((c) => ({
-  id: c.id,
-  nombre: c.data.nombre,
-}));
+const grupos = agruparPorSeccion(productos);
 
 /**
- * La categoria de cada producto se resuelve ACA, una sola vez, y no dentro de una
- * funcion pura de `corporativo.ts`: `categoriaPrincipal()` depende de `getEntries` de
- * astro:content, que solo existe en el runtime de build. Mantener esa dependencia
- * fuera de `corporativo.ts` es lo que permite testear el agrupamiento con
- * `node --test` (ver `corporativo.test.ts`).
+ * Id de anclaje derivado del titulo de seccion, TAL CUAL sale impreso (con tildes,
+ * mayusculas y la barra de «MOCHILA P/NOTEBOOK»). El titulo visible usa ese texto
+ * sin tocar (mas abajo); esto es solo para tener un `id` valido de HTML al que
+ * `aria-labelledby` pueda apuntar.
  */
-const vitrina = [];
-for (const producto of productos) {
-  const principal = await categoriaPrincipal(producto);
-  // Sin categoria activa no hay bajo que titulo mostrarlo: mismo criterio de
-  // silencio que `resolverSeleccion` con un id sin producto.
-  if (!principal) continue;
-
-  vitrina.push(
-    derivarProductoCorporativo(
-      {
-        id: producto.id,
-        nombre: producto.data.nombre,
-        descripcion: producto.data.descripcion,
-        origen: producto.data.origen,
-        variantes: producto.data.variantes,
-      },
-      principal.id
-    )
-  );
+function idSeccion(seccion: string): string {
+  return seccion
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
 }
-
-const grupos = agruparPorCategoria(vitrina, categoriasPlano);
 
 const canonical = urlCanonica(Astro.url.pathname, Astro.site);
 
@@ -114,14 +90,15 @@ const jsonLd = [
       <p class="text-texto-suave py-8">Todavía no hay artículos cargados en esta sección.</p>
     ) : (
       /*
-        AGRUPADO POR CATEGORIA, como el catalogo impreso del que sale esta seccion
-        (ver la carga de `regalos-empresariales.json`): quien lo hojea busca «loncheras»
-        o «portafolios», no una lista de 112 items sin quiebres.
+        AGRUPADO POR SECCION IMPRESA y no por categoria del catalogo normal: esta
+        pagina reproduce el catalogo en papel, y el papel se hojea por sus propias
+        secciones («BOLSO TÉRMICO», «MOCHILA P/NOTEBOOK»), no por la taxonomia del
+        sitio — las dos pueden nombrar las cosas distinto.
       */
       grupos.map((grupo) => (
-        <section class="mt-8" aria-labelledby={`h-cat-${grupo.categoria.id}`}>
-          <h2 id={`h-cat-${grupo.categoria.id}`} class="text-lg font-semibold">
-            {grupo.categoria.nombre}
+        <section class="mt-8" aria-labelledby={`h-sec-${idSeccion(grupo.seccion)}`}>
+          <h2 id={`h-sec-${idSeccion(grupo.seccion)}`} class="text-lg font-semibold">
+            {grupo.seccion}
           </h2>
 
           <ul class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">

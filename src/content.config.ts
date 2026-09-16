@@ -106,23 +106,35 @@ const pedidosEspeciales = defineCollection({
   }),
 });
 
+/** Un color de una ficha impresa: codigo de referencia, nombre y si es el color
+ * principal fotografiado o una alternativa que el impreso solo nombra. */
+const colorImpreso = z.object({
+  codigo: z.string().min(1),
+  nombre: z.string().min(1),
+  alternativo: z.boolean(),
+});
+
 /**
- * Regalos empresariales: la curaduria del catalogo corporativo (visual-first-pass).
+ * Regalos empresariales: la REPRODUCCION del catalogo corporativo impreso, no una
+ * curaduria sobre `productos`.
  *
- * NO es una coleccion de fichas propias, al reves que `pedidosEspeciales`. Cada
- * entrada es apenas una referencia —`id` de `productos.json` + `orden`— porque el
- * producto YA existe con fotos, colores y medidas: duplicar ese dato aca lo
- * desincronizaria la primera vez que alguien edite el producto y no esta pagina.
+ * CADA ENTRADA CARGA SU PROPIA FICHA COMPLETA —seccion, codigo, medidas, colores tal
+ * como salen impresos— y NO se limita a apuntar `id` + `orden` contra el producto,
+ * que era el diseño anterior. El motivo es que el impreso es una pieza FIJA, ya en
+ * papel, y el producto vivo puede seguir cambiando despues —un color que se agrega,
+ * una medida que se corrige, un nombre de color distinto en la carga del producto—
+ * sin que la pagina que reproduce el impreso tenga que moverse con el. Si esta
+ * coleccion solo apuntara al producto, cualquier edicion normal del catalogo
+ * desincronizaria en silencio lo que la pagina dice contra lo que el papel dice.
  *
- * `id` no va en el schema por el mismo motivo que en las otras colecciones `file()`:
- * el loader ya lo expone como `entry.id`, y es justo el dato que hace falta para
- * resolver contra `productos` (ver `resolverSeleccion` en `src/lib/corporativo.ts`).
+ * `id` SI sigue siendo el de `productos.json`: es el dato que hace falta para resolver
+ * la foto de portada (`resolverSeleccion`/`derivarProductoCorporativo` en
+ * `src/lib/corporativo.ts`), y por eso no va en el schema —el loader `file()` ya lo
+ * expone como `entry.id`, mismo criterio que las otras colecciones de esta coleccion.
  *
- * SIN `reference('productos')` en el propio id de la entrada: `file()` exige que el
- * `id` sea unico y sea el que declara el JSON, asi que no hay donde colgar un
- * `reference()` sin inventar un campo aparte que duplique el id. La resolucion se
- * hace a mano, y un id sin producto se descarta en silencio — mismo criterio que
- * `resolverCategorias` mas abajo.
+ * `etiqueta` y `fotoColor` son OPCIONALES porque no todas las 112 entradas los traen
+ * (6 con etiqueta, ninguna sin `fotoColor` en la carga actual, pero el campo nace
+ * opcional porque no es un dato que el impreso garantice para toda ficha futura).
  */
 const regalosEmpresariales = defineCollection({
   loader: file('src/data/regalos-empresariales.json'),
@@ -130,6 +142,14 @@ const regalosEmpresariales = defineCollection({
     // Mismo criterio que `categorias` y `pedidosEspeciales`: el orden lo decide
     // quien edita el archivo, siguiendo el catalogo corporativo impreso.
     orden: z.number().int().nonnegative().default(999),
+    seccion: z.string().min(1),
+    ordenSeccion: z.number().int().nonnegative(),
+    codigo: z.string().min(1),
+    medidas: z.string().min(1),
+    consultarOtros: z.boolean(),
+    etiqueta: z.string().min(1).optional(),
+    fotoColor: z.string().min(1).optional(),
+    colores: z.array(colorImpreso).min(1),
   }),
 });
 

@@ -17,9 +17,9 @@ const { producto, telefono, urlPagina } = Astro.props;
 /**
  * El ancla que hace de `id` de la tarjeta y de destino del enlace de WhatsApp.
  *
- * El CODIGO y no `producto.id` (el slug de Astro): es el dato estable de negocio —la
- * clave de identidad del catalogo, ver `content.config.ts`— y el que la persona que
- * atiende el chat va a buscar si alguien reenvia el enlace. El slug es un detalle de
+ * El CODIGO IMPRESO y no `producto.id` (el slug de Astro): es el dato que aparece en
+ * el catalogo en papel — la clave de identidad que va a buscar quien reenvia el
+ * enlace o llama preguntando por una referencia. El slug es un detalle de
  * implementacion de este sitio que podria cambiar sin que el codigo se mueva.
  */
 const ancla = `ref-${producto.codigo}`;
@@ -41,6 +41,15 @@ const enlaceWa = construirEnlaceWa({
   codigo: producto.codigo,
   saludo: 'Hola! Quisiera cotizar este producto para un pedido empresarial:',
 });
+
+/**
+ * El color PRINCIPAL siempre existe (dato verificado al cargar `regalos-empresariales.json`:
+ * exactamente un color por entrada trae `alternativo: false`), pero `find` igual
+ * tipa como opcional — no vale la pena un assert que solo puede fallar si el JSON
+ * verificado se corrompe.
+ */
+const principal = producto.colores.find((c) => !c.alternativo);
+const alternativos = producto.colores.filter((c) => c.alternativo);
 ---
 
 <li
@@ -50,6 +59,11 @@ const enlaceWa = construirEnlaceWa({
   <ImagenProducto imagen={producto.imagen} alt={producto.nombre} sizes={SIZES_CARD} compacto />
 
   <div class="flex flex-1 flex-col gap-1 p-3">
+    {
+      /* El nombre SE MANTIENE aunque el impreso no lo traiga: una tarjeta sin texto
+      identificable es inutil para un lector de pantalla, y el mensaje de WhatsApp
+      (arriba) lo necesita para no llegar como «Hola, quisiera cotizar Ref. 1234». */
+    }
     <h3 class="text-sm leading-snug font-medium">{producto.nombre}</h3>
 
     <p class="text-texto-suave text-xs">
@@ -57,20 +71,44 @@ const enlaceWa = construirEnlaceWa({
     </p>
 
     {
-      producto.colores.length > 0 && (
-        <p class="text-texto-suave text-xs">Colores: {producto.colores.join(', ')}</p>
+      // Solo 6 de las 112 entradas la traen (ver content.config.ts): una anotacion
+      // suelta del impreso, tipo «sin tira larga» o «Porta notebook».
+      producto.etiqueta && <p class="text-texto-suave text-xs">{producto.etiqueta}</p>
+    }
+
+    {
+      /* El codigo de color junto al nombre, `(3) NEGRO`, tal como lo imprime el
+      catalogo: quien pide por telefono lee el codigo, no adivina "negro" entre
+      variantes que pueden compartir nombre. Los nombres llegan en MAYUSCULA porque
+      asi los imprimio el catalogo — es el registro que esta pagina reproduce, no un
+      descuido de carga. */
+      principal && (
+        <p class="text-texto-suave text-xs">
+          ({principal.codigo}) {principal.nombre}
+        </p>
       )
     }
 
     {
-      /* `whitespace-pre-line`, mismo motivo que en la ficha de producto: las medidas
-      se cargan con saltos de linea propios y HTML los colapsa sin esto. */
-      producto.descripcion && (
-        <p class="text-texto-suave mt-1 text-xs leading-relaxed whitespace-pre-line">
-          {producto.descripcion}
+      alternativos.length > 0 && (
+        <p class="text-texto-suave text-xs">
+          También disponible en:{' '}
+          {alternativos.map((c) => `(${c.codigo}) ${c.nombre}`).join(', ')}
         </p>
       )
     }
+
+    {
+      // Literal del impreso («Consulte los demas colores»), no una frase propia de
+      // esta pagina: son las entradas que el catalogo marca con esa leyenda.
+      producto.consultarOtros && (
+        <p class="text-texto-suave text-xs">Consulte los demás colores.</p>
+      )
+    }
+
+    <p class="text-texto-suave text-xs">
+      Medidas aprox. (alto x largo x ancho): {producto.medidas} cm
+    </p>
 
     <div class="mt-auto pt-2">
       {

@@ -1,16 +1,6 @@
 ---
-import { SIZES_CARD_DENSO } from '../lib/imagenes.ts';
-import { imagenPrincipal } from '../lib/productos.ts';
 import { regalosEmpresariales } from '../lib/regalos-empresariales.ts';
 import { REGALOS_EMPRESARIALES_PUBLICADO } from '../lib/sitio.ts';
-import ImagenProducto from './ImagenProducto.astro';
-
-/**
- * Cuantas fotos entran en la tira. CUATRO porque es lo que cabe sin apretarse en un
- * movil de 360px con el texto arriba (ver el `flex-col` de abajo): una quinta se
- * superpondria con la anterior o forzaria un segundo salto de linea del texto.
- */
-const CANTIDAD_FOTOS = 4;
 
 /**
  * EN DESARROLLO EL BANNER SE VE SIEMPRE, este publicada la seccion o no: es la pieza
@@ -24,12 +14,29 @@ const CANTIDAD_FOTOS = 4;
  * entorno se puede olvidar mal seteada en el servidor; esto no.
  *
  * La condicion va PRIMERO y corta antes de resolver la seleccion: cuando el banner no
- * se va a mostrar, ni vale la pena tocar el catalogo para calcular unas fotos que
- * nadie va a ver.
+ * se va a mostrar, ni vale la pena tocar el catalogo.
  */
 const visible = REGALOS_EMPRESARIALES_PUBLICADO || import.meta.env.DEV;
+
+/**
+ * Se sigue resolviendo la seleccion aunque el banner ya no muestre fotos: lo que se
+ * necesita de ella es UNA sola cosa, saber si hay algo del otro lado del enlace. Un
+ * banner que anuncia un catalogo vacio es peor que no tener banner.
+ */
 const productos = visible ? await regalosEmpresariales() : [];
-const fotos = productos.slice(0, CANTIDAD_FOTOS);
+
+/**
+ * LA PALETA VIVE ACA Y NO EN `styles/global.css`.
+ *
+ * Los tokens del sitio (`--color-fondo`, `--color-primario`, `--color-acento`) estan
+ * muestreados del logo y son tierra clara: es la identidad del catalogo. Esta pieza es
+ * negro y dorado, que es la identidad de la LINEA CORPORATIVA de la marca, y son dos
+ * cosas distintas a proposito. Subir estos dos valores a `@theme` los ofreceria como
+ * si fueran del sistema y el proximo componente que los use empezaria a mezclar las
+ * dos identidades sin que nadie lo haya decidido.
+ */
+const NEGRO = '#14110d';
+const DORADO = '#c8a86a';
 ---
 
 {/*
@@ -46,9 +53,10 @@ const fotos = productos.slice(0, CANTIDAD_FOTOS);
   rama no aplica y el banner se ve siempre (ver el comentario de `visible` arriba).
 */}
 {
-  fotos.length > 0 && (
+  productos.length > 0 && (
     <section
-      class="border-borde bg-superficie mt-6 overflow-hidden rounded border"
+      class="relative mt-6 overflow-hidden rounded-lg"
+      style={`background-color: ${NEGRO};`}
       aria-labelledby="h-regalos-empresariales"
     >
       {/*
@@ -61,52 +69,102 @@ const fotos = productos.slice(0, CANTIDAD_FOTOS);
         justo la clase de CSS fragil que se rompe primero a 360px — el piso de ancho
         que este sitio tiene que sostener.
       */}
-      <div class="flex flex-col gap-4 p-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:p-6">
-        <div class="flex flex-col items-start gap-2">
-          <h2 id="h-regalos-empresariales" class="text-lg font-semibold sm:text-xl">
-            Regalos empresariales
-          </h2>
 
-          <p class="text-texto-suave max-w-prose text-sm leading-relaxed">
-            Catálogo corporativo para pedidos por cantidad, con la marca de tu empresa.
-            Cotizamos según lo que necesites.
-          </p>
+      {/*
+        El barrido dorado en diagonal, que es lo que da el aire de pieza de marca en
+        vez de caja de color. Va en su propia capa absoluta y no como `background` de
+        la seccion para poder apoyarlo sobre el negro sin que el texto lo herede.
 
-          <a
-            href="/regalos-empresariales"
-            class="bg-accion mt-1 inline-flex items-center gap-1 rounded px-4 py-2 text-sm font-medium text-white"
-          >
-            Ver catálogo corporativo
-          </a>
-        </div>
+        `pointer-events-none` porque es decoracion que cubre toda la caja: sin eso se
+        come el clic del enlace que esta abajo en el orden de apilado.
+      */}
+      <div
+        class="pointer-events-none absolute inset-0"
+        style={`background:
+          radial-gradient(120% 140% at 92% 8%, ${DORADO}33 0%, transparent 55%),
+          linear-gradient(105deg, transparent 0%, transparent 58%, ${DORADO}1f 78%, transparent 100%);`}
+        aria-hidden="true"
+      />
+
+      <div class="relative flex flex-col gap-4 p-6 sm:gap-5 sm:p-10">
+        {/*
+          TITULAR A DOS TONOS SOBRE NEGRO, al reves que la referencia impresa, donde
+          «EMPRESARIALES» va en blanco sobre el beige claro. Ahi el contraste apenas
+          llega y en papel se perdona; en pantalla esa combinacion no pasa AA y es el
+          texto mas grande de la portada. Invertido —dorado y blanco sobre negro— se
+          conserva el lenguaje de la pieza y los dos renglones se leen.
+
+          Un solo `h2` con dos `span` en bloque, y no dos encabezados: es UN titulo que
+          ocupa dos renglones. Dos `h2` le mentirian el esquema de la pagina a un lector
+          de pantalla, que navega por encabezados.
+        */}
+        <h2
+          id="h-regalos-empresariales"
+          class="text-3xl leading-[0.95] font-black tracking-tight uppercase sm:text-5xl"
+        >
+          <span class="block" style={`color: ${DORADO};`}>
+            Regalos
+          </span>
+          <span class="block text-white">Empresariales</span>
+        </h2>
+
+        <p class="max-w-prose text-sm leading-relaxed text-white/70">
+          Catálogo corporativo para pedidos por cantidad. Cotizamos según lo que
+          necesites.
+        </p>
 
         {/*
-          La tira de fotos es DECORATIVA: el enlace de arriba ya dice a donde lleva y
-          que es. `aria-hidden` en el contenedor y `alt=""` en cada foto evitan que un
-          lector de pantalla anuncie cuatro imagenes sin nombre antes de leer el enlace
-          que si importa.
+          EL BOTON NO USA `--color-accion` (el azul reservado para cerrar la venta).
+          Aca el azul caeria como un parche encima de una pieza que es negra y dorada, y
+          ademas este boton no cierra nada: lleva a un catalogo a mirar. El realce lo da
+          el dorado, que es el color de la pieza.
 
-          `-space-x` superpone los cuadrados como una pila de fotos dejadas sobre una
-          mesa — a proposito, y no un acomodo roto: es la misma idea de «catalogo
-          impreso» que ordena la pagina propia, y una fila prolija de cuadrados iguales
-          se hubiera leido como una grilla de producto de mas, compitiendo con la de
-          categorias que esta 24px mas abajo.
+          `min-h-11` para que el area tactil llegue al minimo recomendado en movil sin
+          depender de cuanto mida la linea de texto.
         */}
-        <div class="flex shrink-0 -space-x-3 sm:-space-x-4" aria-hidden="true">
-          {fotos.map((producto, i) => (
-            <div
-              class="border-superficie bg-superficie h-16 w-16 shrink-0 overflow-hidden rounded border-2 shadow-sm sm:h-20 sm:w-20"
-              style={`transform: rotate(${i % 2 === 0 ? -3 : 3}deg); z-index: ${fotos.length - i};`}
-            >
-              <ImagenProducto
-                imagen={imagenPrincipal(producto)}
-                alt=""
-                sizes={SIZES_CARD_DENSO}
-                compacto
-              />
-            </div>
-          ))}
-        </div>
+        <a
+          href="/regalos-empresariales"
+          class="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-bold tracking-wide uppercase transition-colors sm:w-auto sm:self-start"
+          style={`background-color: ${DORADO}; color: ${NEGRO};`}
+        >
+          Ver el catálogo
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </a>
+
+        {/*
+          La linea del regalo va SEPARADA del parrafo de arriba y no pegada a el: uno
+          dice que es la seccion, esta dice para que sirve. Juntarlas daba un bloque de
+          cuatro renglones que en movil empuja el boton abajo del pliegue.
+        */}
+        <p class="flex items-start gap-2 text-xs leading-relaxed text-white/55">
+          <svg
+            class="mt-px shrink-0"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke={DORADO}
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M20 12v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-8M2 7h20v5H2zM12 21V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+          </svg>
+          Sorprendé a tu equipo y a tus clientes con regalos que dejan marca.
+        </p>
       </div>
     </section>
   )

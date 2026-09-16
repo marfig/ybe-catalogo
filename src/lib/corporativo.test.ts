@@ -2,10 +2,10 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 
 import {
-  agruparPorCategoria,
+  agruparPorSeccion,
   derivarProductoCorporativo,
   resolverSeleccion,
-  type CategoriaCorporativa,
+  type ProductoCorporativo,
   type ProductoCorporativoOrigen,
   type RegaloSeleccionado,
 } from './corporativo.ts';
@@ -13,7 +13,7 @@ import {
 /**
  * Tests del catalogo corporativo (regalos empresariales).
  *
- * PIEZAS PURAS: nada de esto toca astro:content. Los productos y categorias son
+ * PIEZAS PURAS: nada de esto toca astro:content. Los productos y entradas son
  * objetos armados a mano, con la forma minima que cada funcion necesita.
  */
 
@@ -21,17 +21,31 @@ import {
 // resolverSeleccion
 // --------------------------------------------------------------------------
 
+function entrada(extra: Partial<RegaloSeleccionado> = {}): RegaloSeleccionado {
+  return {
+    id: 'mochila-a',
+    orden: 1,
+    seccion: 'MOCHILAS',
+    ordenSeccion: 4,
+    codigo: 'CG85527',
+    medidas: '30 x 40 x 15',
+    consultarOtros: false,
+    colores: [{ codigo: '3', nombre: 'NEGRO', alternativo: false }],
+    ...extra,
+  };
+}
+
 test('resolverSeleccion: descarta en silencio un id sin producto', () => {
   const seleccion: RegaloSeleccionado[] = [
-    { id: 'mochila-a', orden: 1 },
-    { id: 'no-existe', orden: 2 },
+    entrada({ id: 'mochila-a', orden: 1 }),
+    entrada({ id: 'no-existe', orden: 2 }),
   ];
   const productos = [{ id: 'mochila-a' }];
 
   const resueltos = resolverSeleccion(seleccion, productos);
 
   assert.deepEqual(
-    resueltos.map((p) => p.id),
+    resueltos.map((r) => r.producto.id),
     ['mochila-a']
   );
 });
@@ -42,35 +56,41 @@ test('resolverSeleccion: una seleccion vacia devuelve un arreglo vacio', () => {
 });
 
 test('resolverSeleccion: sin ningun producto que coincida devuelve vacio', () => {
-  const seleccion: RegaloSeleccionado[] = [{ id: 'no-existe', orden: 1 }];
+  const seleccion: RegaloSeleccionado[] = [entrada({ id: 'no-existe', orden: 1 })];
   assert.deepEqual(resolverSeleccion(seleccion, []), []);
 });
 
 test('resolverSeleccion: ordena por `orden`, no por el orden del arreglo de entrada', () => {
   const seleccion: RegaloSeleccionado[] = [
-    { id: 'c', orden: 3 },
-    { id: 'a', orden: 1 },
-    { id: 'b', orden: 2 },
+    entrada({ id: 'c', orden: 3 }),
+    entrada({ id: 'a', orden: 1 }),
+    entrada({ id: 'b', orden: 2 }),
   ];
   const productos = [{ id: 'a' }, { id: 'b' }, { id: 'c' }];
 
   assert.deepEqual(
-    resolverSeleccion(seleccion, productos).map((p) => p.id),
+    resolverSeleccion(seleccion, productos).map((r) => r.producto.id),
     ['a', 'b', 'c']
   );
 });
 
 test('resolverSeleccion: un empate en `orden` desempata por id, de forma estable', () => {
-  const seleccion: RegaloSeleccionado[] = [
-    { id: 'z', orden: 5 },
-    { id: 'a', orden: 5 },
-  ];
+  const seleccion: RegaloSeleccionado[] = [entrada({ id: 'z', orden: 5 }), entrada({ id: 'a', orden: 5 })];
   const productos = [{ id: 'a' }, { id: 'z' }];
 
   assert.deepEqual(
-    resolverSeleccion(seleccion, productos).map((p) => p.id),
+    resolverSeleccion(seleccion, productos).map((r) => r.producto.id),
     ['a', 'z']
   );
+});
+
+test('resolverSeleccion: conserva la entrada impresa de cada match', () => {
+  const seleccion: RegaloSeleccionado[] = [entrada({ id: 'a', codigo: 'CG1', orden: 1 })];
+  const productos = [{ id: 'a' }];
+
+  const [resuelto] = resolverSeleccion(seleccion, productos);
+
+  assert.equal(resuelto?.entrada.codigo, 'CG1');
 });
 
 // --------------------------------------------------------------------------
@@ -83,105 +103,162 @@ function producto(extra: Partial<ProductoCorporativoOrigen> = {}): ProductoCorpo
   return {
     id: 'mochila-a',
     nombre: 'Mochila urbana',
-    descripcion: 'Medidas aprox.: 30 x 40 x 15 cm',
-    origen: { ref: 'CG85527' },
-    variantes: [{ color: 'Negro', imagenes: [IMG('catalogo/1')] }],
+    variantes: [{ sku: 'CG85527-3', imagenes: [IMG('catalogo/negro')] }],
     ...extra,
   };
 }
 
-test('derivarProductoCorporativo: expone el codigo desde origen.ref', () => {
-  const p = derivarProductoCorporativo(producto(), 'mochilas');
+test('derivarProductoCorporativo: el codigo, medidas y colores salen de la entrada, no del producto', () => {
+  const p = derivarProductoCorporativo(
+    producto(),
+    entrada({ codigo: 'CG85527', medidas: '30 x 40 x 15' })
+  );
+
   assert.equal(p.codigo, 'CG85527');
+  assert.equal(p.medidas, '30 x 40 x 15');
+  assert.deepEqual(p.colores, [{ codigo: '3', nombre: 'NEGRO', alternativo: false }]);
 });
 
-test('derivarProductoCorporativo: un producto con varias variantes lista todos sus colores', () => {
+test('derivarProductoCorporativo: conserva seccion, ordenSeccion y orden de la entrada', () => {
   const p = derivarProductoCorporativo(
-    producto({
-      variantes: [
-        { color: 'Negro', imagenes: [IMG('catalogo/1')] },
-        { color: 'Azul marino', imagenes: [IMG('catalogo/2')] },
-        { color: 'Gris', imagenes: [IMG('catalogo/3')] },
-      ],
-    }),
-    'mochilas'
+    producto(),
+    entrada({ seccion: 'BOLSO', ordenSeccion: 2, orden: 7 })
   );
 
-  assert.deepEqual(p.colores, ['Negro', 'Azul marino', 'Gris']);
+  assert.equal(p.seccion, 'BOLSO');
+  assert.equal(p.ordenSeccion, 2);
+  assert.equal(p.orden, 7);
 });
 
-test('derivarProductoCorporativo: dos variantes con el mismo color no se repiten', () => {
-  const p = derivarProductoCorporativo(
-    producto({
-      variantes: [
-        { color: 'Negro', imagenes: [IMG('catalogo/1')] },
-        { color: 'Negro', imagenes: [IMG('catalogo/2')] },
-      ],
-    }),
-    'mochilas'
-  );
+test('derivarProductoCorporativo: la etiqueta es opcional y se conserva cuando esta', () => {
+  const sinEtiqueta = derivarProductoCorporativo(producto(), entrada());
+  assert.equal(sinEtiqueta.etiqueta, undefined);
 
-  assert.deepEqual(p.colores, ['Negro']);
-});
-
-test('derivarProductoCorporativo: una variante inactiva no aporta color ni foto', () => {
-  const p = derivarProductoCorporativo(
-    producto({
-      variantes: [
-        { color: 'Descontinuado', activo: false, imagenes: [IMG('catalogo/viejo')] },
-        { color: 'Negro', imagenes: [IMG('catalogo/1')] },
-      ],
-    }),
-    'mochilas'
-  );
-
-  assert.deepEqual(p.colores, ['Negro']);
-  assert.equal(p.imagen?.base, 'catalogo/1');
-});
-
-test('derivarProductoCorporativo: usa la primera imagen de la primera variante activa', () => {
-  const p = derivarProductoCorporativo(producto(), 'mochilas');
-  assert.equal(p.imagen?.base, 'catalogo/1');
-});
-
-test('derivarProductoCorporativo: conserva la categoria que se le pasa', () => {
-  const p = derivarProductoCorporativo(producto(), 'mochilas');
-  assert.equal(p.categoriaId, 'mochilas');
+  const conEtiqueta = derivarProductoCorporativo(producto(), entrada({ etiqueta: 'sin tira larga' }));
+  assert.equal(conEtiqueta.etiqueta, 'sin tira larga');
 });
 
 // --------------------------------------------------------------------------
-// agruparPorCategoria
+// derivarProductoCorporativo: resolucion de foto por `fotoColor`
 // --------------------------------------------------------------------------
 
-const CAT_MOCHILAS: CategoriaCorporativa = { id: 'mochilas', nombre: 'Mochila Básica' };
-const CAT_BOLSOS: CategoriaCorporativa = { id: 'bolsos', nombre: 'Bolso de Viaje' };
-const CAT_LONCHERAS: CategoriaCorporativa = { id: 'loncheras', nombre: 'Lonchera para Adulto' };
+test('resolucion de foto: match exacto `<codigo>-<fotoColor>`', () => {
+  const p = derivarProductoCorporativo(
+    producto({ variantes: [{ sku: 'CG85527-3', imagenes: [IMG('catalogo/negro')] }] }),
+    entrada({ codigo: 'CG85527', fotoColor: '3' })
+  );
 
-test('agruparPorCategoria: preserva el orden de categorias que recibe', () => {
+  assert.equal(p.imagen?.base, 'catalogo/negro');
+});
+
+test('resolucion de foto: sufijo `-<nombre>` del sku tambien matchea', () => {
+  const p = derivarProductoCorporativo(
+    producto({ variantes: [{ sku: '1731466-3-negro', imagenes: [IMG('catalogo/negro')] }] }),
+    entrada({ codigo: '1731466', fotoColor: '3' })
+  );
+
+  assert.equal(p.imagen?.base, 'catalogo/negro');
+});
+
+test('resolucion de foto: la trampa `3` vs `3-23` no matchea sin el guion de cierre', () => {
+  const p = derivarProductoCorporativo(
+    producto({
+      variantes: [
+        { sku: '1731466-33-gris', imagenes: [IMG('catalogo/gris')] },
+        { sku: '1731466-3-negro', imagenes: [IMG('catalogo/negro')] },
+      ],
+    }),
+    entrada({ codigo: '1731466', fotoColor: '3' })
+  );
+
+  // Si el match fuera un `startsWith` sin el guion, la primera variante (sku "33")
+  // matchearia primero y la foto saldria gris en vez de negra.
+  assert.equal(p.imagen?.base, 'catalogo/negro');
+});
+
+test('resolucion de foto: el match es case-insensitive', () => {
+  const p = derivarProductoCorporativo(
+    producto({ variantes: [{ sku: 'CG85527-R1', imagenes: [IMG('catalogo/rojo')] }] }),
+    entrada({ codigo: 'CG85527', fotoColor: 'r1' })
+  );
+
+  assert.equal(p.imagen?.base, 'catalogo/rojo');
+});
+
+test('resolucion de foto: sin `fotoColor` cae a la portada normal del producto', () => {
+  const p = derivarProductoCorporativo(
+    producto({ variantes: [{ sku: 'CG85527-3', imagenes: [IMG('catalogo/negro')] }] }),
+    entrada({ fotoColor: undefined })
+  );
+
+  assert.equal(p.imagen?.base, 'catalogo/negro');
+});
+
+test('resolucion de foto: la variante que matchea sin imagenes cae a la portada normal', () => {
+  const p = derivarProductoCorporativo(
+    producto({
+      variantes: [
+        { sku: 'CG85527-R1', imagenes: [IMG('catalogo/rojo')] },
+        { sku: 'CG85527-3', imagenes: [] },
+      ],
+    }),
+    entrada({ codigo: 'CG85527', fotoColor: '3' })
+  );
+
+  // La portada normal es la PRIMERA variante activa del producto (mismo criterio que
+  // `imagenPrincipal` en productos.ts) — no busca entre las demas cual tiene foto.
+  assert.equal(p.imagen?.base, 'catalogo/rojo');
+});
+
+// --------------------------------------------------------------------------
+// agruparPorSeccion
+// --------------------------------------------------------------------------
+
+function productoCorp(extra: Partial<ProductoCorporativo> = {}): ProductoCorporativo {
+  return {
+    id: 'p',
+    nombre: 'Producto',
+    codigo: 'C1',
+    medidas: '1 x 1 x 1',
+    consultarOtros: false,
+    etiqueta: undefined,
+    colores: [{ codigo: '3', nombre: 'NEGRO', alternativo: false }],
+    imagen: undefined,
+    seccion: 'MOCHILAS',
+    ordenSeccion: 4,
+    orden: 1,
+    ...extra,
+  };
+}
+
+test('agruparPorSeccion: ordena los grupos por `ordenSeccion`, no por orden de aparicion', () => {
   const productos = [
-    derivarProductoCorporativo(producto({ id: 'p-bolso' }), 'bolsos'),
-    derivarProductoCorporativo(producto({ id: 'p-mochila' }), 'mochilas'),
+    productoCorp({ id: 'a', seccion: 'MOCHILAS', ordenSeccion: 4, orden: 1 }),
+    productoCorp({ id: 'b', seccion: 'BOLSO', ordenSeccion: 2, orden: 1 }),
   ];
 
-  const grupos = agruparPorCategoria(productos, [CAT_MOCHILAS, CAT_BOLSOS]);
+  const grupos = agruparPorSeccion(productos);
 
   assert.deepEqual(
-    grupos.map((g) => g.categoria.id),
-    ['mochilas', 'bolsos']
+    grupos.map((g) => g.seccion),
+    ['BOLSO', 'MOCHILAS']
   );
 });
 
-test('agruparPorCategoria: una categoria sin productos en la seleccion no genera grupo', () => {
-  const productos = [derivarProductoCorporativo(producto(), 'mochilas')];
+test('agruparPorSeccion: ordena los productos dentro de cada grupo por `orden`', () => {
+  const productos = [
+    productoCorp({ id: 'z', seccion: 'BOLSO', ordenSeccion: 2, orden: 5 }),
+    productoCorp({ id: 'a', seccion: 'BOLSO', ordenSeccion: 2, orden: 1 }),
+  ];
 
-  const grupos = agruparPorCategoria(productos, [CAT_MOCHILAS, CAT_BOLSOS, CAT_LONCHERAS]);
+  const [grupo] = agruparPorSeccion(productos);
 
   assert.deepEqual(
-    grupos.map((g) => g.categoria.id),
-    ['mochilas']
+    grupo?.productos.map((p) => p.id),
+    ['a', 'z']
   );
 });
 
-test('agruparPorCategoria: sin productos no hay ningun grupo', () => {
-  assert.deepEqual(agruparPorCategoria([], [CAT_MOCHILAS]), []);
+test('agruparPorSeccion: sin productos no hay ningun grupo', () => {
+  assert.deepEqual(agruparPorSeccion([]), []);
 });

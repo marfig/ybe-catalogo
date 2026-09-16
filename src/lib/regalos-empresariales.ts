@@ -1,14 +1,15 @@
 import { getCollection } from 'astro:content';
-import { activos, type Producto } from './productos.ts';
-import { resolverSeleccion } from './corporativo.ts';
+import { activos } from './productos.ts';
+import { derivarProductoCorporativo, resolverSeleccion, type ProductoCorporativo } from './corporativo.ts';
 
-/** Un producto del catalogo corporativo. Es un `Producto` normal: mismas fotos,
- * colores y medidas — lo unico que cambia es que no se muestra el precio. */
-export type Regalo = Producto;
+/** Un producto del catalogo corporativo: la ficha impresa (seccion, codigo, medidas,
+ * colores) ya emparejada con la foto de su producto. Ver `ProductoCorporativo`. */
+export type Regalo = ProductoCorporativo;
 
 /**
- * Los productos del catalogo corporativo, resueltos contra `productos` y en el
- * orden curado por `regalos-empresariales.json`.
+ * Los productos del catalogo corporativo, resueltos contra `productos` (solo para la
+ * foto y el nombre) y con el resto de la ficha —seccion, codigo, medidas, colores—
+ * tal como sale del catalogo impreso.
  *
  * FUENTE UNICA para el header, el banner de la home y la pagina propia: las tres
  * necesitan la MISMA respuesta a «¿hay algo cargado?» y el MISMO orden, o el header
@@ -19,8 +20,16 @@ export async function regalosEmpresariales(): Promise<Regalo[]> {
   const seleccion = await getCollection('regalosEmpresariales');
   const productos = await activos();
 
-  return resolverSeleccion(
-    seleccion.map((s) => ({ id: s.id, orden: s.data.orden })),
-    productos
+  const entradas = seleccion.map((s) => ({ id: s.id, ...s.data }));
+
+  return resolverSeleccion(entradas, productos).map(({ entrada, producto }) =>
+    derivarProductoCorporativo(
+      {
+        id: producto.id,
+        nombre: producto.data.nombre,
+        variantes: producto.data.variantes,
+      },
+      entrada
+    )
   );
 }
