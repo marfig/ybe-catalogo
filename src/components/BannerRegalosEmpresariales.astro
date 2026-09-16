@@ -18,8 +18,21 @@ const productos = await regalosEmpresariales();
  *
  * Va PRE-PROCESADA en `public/` y no por `astro:assets`, por el mismo criterio que las
  * del catalogo: el sitio sirve imagenes ya convertidas y medidas, no las optimiza en
- * el build. Se generaron con sharp desde el PNG original de 292 KB; las dos webp
- * juntas pesan 55 KB.
+ * el build.
+ *
+ * EL ORIGINAL QUEDA ARCHIVADO en `docs/regalos-empresariales-origen.png` (645x530, 292
+ * KB) y no se sirve: existe para poder regenerar estas webp en otra medida sin volver
+ * a conseguir el arte. Las dos juntas pesan 55 KB. Se generaron con:
+ *
+ *   node -e "const s=require('sharp'); [480,645].forEach(w =>
+ *     s('docs/regalos-empresariales-origen.png')
+ *       .resize({width:w, withoutEnlargement:true})
+ *       .webp({quality:82, alphaQuality:90})
+ *       .toFile('public/regalos-empresariales-w'+w+'.webp'))"
+ *
+ * `withoutEnlargement` deja el archivo en el ancho del original si se le pide mas, asi
+ * que pedir un w960 sobre estos 645 px produce un archivo de 645 con nombre de 960.
+ * Nombrar las salidas por el ancho REAL que devuelve sharp, no por el que se pidio.
  */
 const ANCHOS_FOTO = [480, 645];
 const SRCSET_FOTO = ANCHOS_FOTO.map((w) => `/regalos-empresariales-w${w}.webp ${w}w`).join(', ');
