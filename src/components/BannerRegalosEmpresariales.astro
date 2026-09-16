@@ -1,42 +1,28 @@
 ---
 import { regalosEmpresariales } from '../lib/regalos-empresariales.ts';
-import { REGALOS_EMPRESARIALES_PUBLICADO } from '../lib/sitio.ts';
 
 /**
- * EN DESARROLLO EL BANNER SE VE SIEMPRE, este publicada la seccion o no: es la pieza
- * que se esta diseñando, y esconderla detras de una bandera obligaria a prenderla y
- * apagarla a mano para cada ajuste —con el riesgo, cada vez, de que quede prendida en
- * el commit que se publica—.
- *
- * `import.meta.env.DEV` y no una variable de entorno propia: Vite lo reemplaza por la
- * constante en tiempo de compilacion, asi que en el build de produccion esta rama
- * queda en `false` literal y el empaquetador borra el banner entero. Una variable de
- * entorno se puede olvidar mal seteada en el servidor; esto no.
- *
- * La condicion va PRIMERO y corta antes de resolver la seleccion: cuando el banner no
- * se va a mostrar, ni vale la pena tocar el catalogo.
+ * Se resuelve la seleccion para UNA sola cosa: saber si hay algo del otro lado del
+ * enlace. Un banner que anuncia un catalogo vacio es peor que no tener banner.
  */
-const visible = REGALOS_EMPRESARIALES_PUBLICADO || import.meta.env.DEV;
+const productos = await regalosEmpresariales();
 
 /**
- * Se sigue resolviendo la seleccion aunque el banner ya no muestre fotos: lo que se
- * necesita de ella es UNA sola cosa, saber si hay algo del otro lado del enlace. Un
- * banner que anuncia un catalogo vacio es peor que no tener banner.
- */
-const productos = visible ? await regalosEmpresariales() : [];
-
-/**
- * LA PALETA VIVE ACA Y NO EN `styles/global.css`.
+ * LA FOTO DEL BANNER NO SALE DE R2 como las del catalogo, y es la unica imagen del
+ * sitio que no lo hace.
  *
- * Los tokens del sitio (`--color-fondo`, `--color-primario`, `--color-acento`) estan
- * muestreados del logo y son tierra clara: es la identidad del catalogo. Esta pieza es
- * negro y dorado, que es la identidad de la LINEA CORPORATIVA de la marca, y son dos
- * cosas distintas a proposito. Subir estos dos valores a `@theme` los ofreceria como
- * si fueran del sistema y el proximo componente que los use empezaria a mezclar las
- * dos identidades sin que nadie lo haya decidido.
+ * Las de R2 son fichas de producto: fondo claro opaco y la marca de agua del
+ * proveedor incrustada. Sobre un fondo de color se ven como recortes blancos pegados.
+ * Esta es una composicion con alfa real —29% de los pixeles en transparencia— que se
+ * apoya sobre el degradado sin caja.
+ *
+ * Va PRE-PROCESADA en `public/` y no por `astro:assets`, por el mismo criterio que las
+ * del catalogo: el sitio sirve imagenes ya convertidas y medidas, no las optimiza en
+ * el build. Se generaron con sharp desde el PNG original de 292 KB; las dos webp
+ * juntas pesan 55 KB.
  */
-const NEGRO = '#14110d';
-const DORADO = '#c8a86a';
+const ANCHOS_FOTO = [480, 645];
+const SRCSET_FOTO = ANCHOS_FOTO.map((w) => `/regalos-empresariales-w${w}.webp ${w}w`).join(', ');
 ---
 
 {/*
@@ -46,17 +32,11 @@ const DORADO = '#c8a86a';
   existia. Entre que se despliega este cambio y que se cargue la seleccion en
   `regalos-empresariales.json`, o si el dia de mañana se vacia a mano, el banner
   desaparece solo.
-
-  TAMBIEN se oculta entera en el sitio publicado mientras `REGALOS_EMPRESARIALES_PUBLICADO`
-  este en `false` (soft launch, `lib/sitio.ts`): `productos` ya sale vacio en ese caso,
-  asi que este `if` no necesita conocer la bandera para respetarla. En desarrollo esa
-  rama no aplica y el banner se ve siempre (ver el comentario de `visible` arriba).
 */}
 {
   productos.length > 0 && (
     <section
-      class="relative mt-6 overflow-hidden rounded-lg"
-      style={`background-color: ${NEGRO};`}
+      class="border-borde from-fondo to-borde/70 mt-6 overflow-hidden rounded-lg border bg-gradient-to-br"
       aria-labelledby="h-regalos-empresariales"
     >
       {/*
@@ -68,103 +48,79 @@ const DORADO = '#c8a86a';
         estatico pide un margen negativo calculado contra el ancho del viewport, que es
         justo la clase de CSS fragil que se rompe primero a 360px — el piso de ancho
         que este sitio tiene que sostener.
+
+        EL FONDO ES LA PALETA DEL SITIO, un degradado de `--color-fondo` a `--color-borde`.
+        Se descarto el negro y dorado de la linea corporativa de la marca: sobre la
+        portada convivia con las tarjetas claras de categorias como un anuncio de otro
+        sitio. Y el degradado claro resuelve ademas el problema de la foto — los bolsos
+        son negros, y sobre claro recortan solos.
       */}
+      <div class="flex flex-col gap-5 p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-7">
+        <div class="flex flex-col items-start gap-2.5">
+          <h2 id="h-regalos-empresariales" class="text-xl font-semibold sm:text-2xl">
+            Regalos empresariales
+          </h2>
 
-      {/*
-        El barrido dorado en diagonal, que es lo que da el aire de pieza de marca en
-        vez de caja de color. Va en su propia capa absoluta y no como `background` de
-        la seccion para poder apoyarlo sobre el negro sin que el texto lo herede.
+          <p class="text-texto-suave max-w-prose text-sm leading-relaxed">
+            Catálogo corporativo para pedidos por cantidad. Cotizamos según lo que
+            necesites.
+          </p>
 
-        `pointer-events-none` porque es decoracion que cubre toda la caja: sin eso se
-        come el clic del enlace que esta abajo en el orden de apilado.
-      */}
-      <div
-        class="pointer-events-none absolute inset-0"
-        style={`background:
-          radial-gradient(120% 140% at 92% 8%, ${DORADO}33 0%, transparent 55%),
-          linear-gradient(105deg, transparent 0%, transparent 58%, ${DORADO}1f 78%, transparent 100%);`}
-        aria-hidden="true"
-      />
+          {/*
+            EL BOTON NO USA `--color-accion` (el azul reservado para cerrar la venta).
+            Este enlace no cierra nada: lleva a un catalogo a mirar, y el azul de accion
+            gastado aca le resta peso al que si cierra, en la ficha de producto.
+            `--color-primario` es el tono oscuro de la paleta y alcanza para que el
+            boton se lea como el destino del bloque.
 
-      <div class="relative flex flex-col gap-4 p-6 sm:gap-5 sm:p-10">
-        {/*
-          TITULAR A DOS TONOS SOBRE NEGRO, al reves que la referencia impresa, donde
-          «EMPRESARIALES» va en blanco sobre el beige claro. Ahi el contraste apenas
-          llega y en papel se perdona; en pantalla esa combinacion no pasa AA y es el
-          texto mas grande de la portada. Invertido —dorado y blanco sobre negro— se
-          conserva el lenguaje de la pieza y los dos renglones se leen.
-
-          Un solo `h2` con dos `span` en bloque, y no dos encabezados: es UN titulo que
-          ocupa dos renglones. Dos `h2` le mentirian el esquema de la pagina a un lector
-          de pantalla, que navega por encabezados.
-        */}
-        <h2
-          id="h-regalos-empresariales"
-          class="text-3xl leading-[0.95] font-black tracking-tight uppercase sm:text-5xl"
-        >
-          <span class="block" style={`color: ${DORADO};`}>
-            Regalos
-          </span>
-          <span class="block text-white">Empresariales</span>
-        </h2>
-
-        <p class="max-w-prose text-sm leading-relaxed text-white/70">
-          Catálogo corporativo para pedidos por cantidad. Cotizamos según lo que
-          necesites.
-        </p>
-
-        {/*
-          EL BOTON NO USA `--color-accion` (el azul reservado para cerrar la venta).
-          Aca el azul caeria como un parche encima de una pieza que es negra y dorada, y
-          ademas este boton no cierra nada: lleva a un catalogo a mirar. El realce lo da
-          el dorado, que es el color de la pieza.
-
-          `min-h-11` para que el area tactil llegue al minimo recomendado en movil sin
-          depender de cuanto mida la linea de texto.
-        */}
-        <a
-          href="/regalos-empresariales"
-          class="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-bold tracking-wide uppercase transition-colors sm:w-auto sm:self-start"
-          style={`background-color: ${DORADO}; color: ${NEGRO};`}
-        >
-          Ver el catálogo
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
+            `min-h-11` para que el area tactil llegue al minimo recomendado en movil sin
+            depender de cuanto mida la linea de texto.
+          */}
+          <a
+            href="/regalos-empresariales"
+            class="bg-primario mt-1 inline-flex min-h-11 items-center gap-1.5 rounded px-5 py-2.5 text-sm font-medium text-white"
           >
-            <path d="M5 12h14M13 6l6 6-6 6" />
-          </svg>
-        </a>
+            Ver el catálogo
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </a>
+        </div>
 
         {/*
-          La linea del regalo va SEPARADA del parrafo de arriba y no pegada a el: uno
-          dice que es la seccion, esta dice para que sirve. Juntarlas daba un bloque de
-          cuatro renglones que en movil empuja el boton abajo del pliegue.
+          LA FOTO ES DECORATIVA: `alt=""` y no una descripcion. El `h2` y el enlace ya
+          dicen que es esto y a donde lleva; describir «varias mochilas y bolsos negros»
+          solo agrega ruido antes del enlace, que es lo unico accionable del bloque.
+
+          `width`/`height` reales para que el navegador reserve el hueco antes de
+          descargarla y la portada no salte cuando entra (CLS).
+
+          Se apoya al ras del borde inferior en escritorio —`-mb-7` contra el `p-7` del
+          contenedor— para que los bolsos se paren sobre el filo de la caja en vez de
+          flotar en el medio. En movil no: ahi la foto va arriba del pliegue y comerse
+          el margen inferior la pega al boton.
         */}
-        <p class="flex items-start gap-2 text-xs leading-relaxed text-white/55">
-          <svg
-            class="mt-px shrink-0"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke={DORADO}
-            stroke-width="1.8"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M20 12v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-8M2 7h20v5H2zM12 21V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
-          </svg>
-          Sorprendé a tu equipo y a tus clientes con regalos que dejan marca.
-        </p>
+        <img
+          src="/regalos-empresariales-w645.webp"
+          srcset={SRCSET_FOTO}
+          sizes="(min-width: 640px) 22rem, 100vw"
+          width="645"
+          height="530"
+          alt=""
+          loading="lazy"
+          decoding="async"
+          class="mx-auto w-full max-w-xs self-end sm:mx-0 sm:-mb-7 sm:w-88 sm:max-w-none sm:shrink-0"
+        />
       </div>
     </section>
   )

@@ -12,23 +12,6 @@ interface Props {
   ogType?: 'website' | 'product';
   ogImagen?: string | undefined;
   jsonLd?: unknown[];
-  /**
-   * Fuerza `noindex, nofollow` para ESTA pagina, sin tocar `INDEXABLE` (global, por
-   * variable de entorno).
-   *
-   * Nace con el soft launch de Regalos empresariales (`REGALOS_EMPRESARIALES_PUBLICADO`
-   * en `lib/sitio.ts`): esa pagina esta construida y alcanzable por URL directa desde
-   * el dia uno, aunque ningun enlace del sitio apunte a ella todavia —es la forma en
-   * que se la revisa y se prueban los botones de WhatsApp antes de aprobarla, mandando
-   * el enlace por WhatsApp—, y un enlace de prueba se filtra: capturas, reenvios, la
-   * propia previsualizacion de WhatsApp. Sin este forzado, un rastreador que la
-   * encuentre por ese camino la indexaria con el `INDEXABLE` de produccion en `true`,
-   * antes del lanzamiento.
-   *
-   * Default `false`: toda pagina existente sigue dependiendo solo de `INDEXABLE`,
-   * BYTE A BYTE igual que antes de que este prop existiera.
-   */
-  forzarNoIndexar?: boolean;
 }
 
 const {
@@ -37,7 +20,6 @@ const {
   ogType = 'website',
   ogImagen,
   jsonLd = [],
-  forzarNoIndexar = false,
 } = Astro.props;
 
 // NO se usa Astro.url.pathname directo: con build.format 'file' daria
@@ -65,10 +47,8 @@ const tituloCompleto = titulo === COMERCIO ? COMERCIO : `${titulo} — ${COMERCI
     <meta name="description" content={descripcion} />
     <link rel="canonical" href={canonical.href} />
 
-    {/* Falla segura: sin INDEXABLE explicito el sitio NO se indexa (SPEC §7.2).
-        `forzarNoIndexar` se suma con OR y nunca lo reemplaza: una pagina puede pedir
-        noindex para si misma, pero ninguna pagina puede des-forzar el noindex global. */}
-    {(!INDEXABLE || forzarNoIndexar) && <meta name="robots" content="noindex, nofollow" />}
+    {/* Falla segura: sin INDEXABLE explicito el sitio NO se indexa (SPEC §7.2). */}
+    {!INDEXABLE && <meta name="robots" content="noindex, nofollow" />}
 
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={tituloCompleto} />

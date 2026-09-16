@@ -5,7 +5,7 @@ import TarjetaRegaloEmpresarial from '../../components/TarjetaRegaloEmpresarial.
 import { agruparPorSeccion } from '../../lib/corporativo.ts';
 import { regalosEmpresariales } from '../../lib/regalos-empresariales.ts';
 import { urlCanonica } from '../../lib/seo.ts';
-import { COMERCIO, REGALOS_EMPRESARIALES_PUBLICADO } from '../../lib/sitio.ts';
+import { COMERCIO } from '../../lib/sitio.ts';
 
 const TITULO = 'Regalos empresariales';
 const BAJADA =
@@ -45,23 +45,7 @@ const jsonLd = [
 ];
 ---
 
-{/*
-  `forzarNoIndexar`: mientras `REGALOS_EMPRESARIALES_PUBLICADO` este en `false` (soft
-  launch, ver `lib/sitio.ts`) esta pagina sigue construyendose y es alcanzable por URL
-  directa —asi se prueba antes de aprobarla— pero no tiene que indexarse todavia. Ver
-  el comentario largo en `layouts/Base.astro`.
-
-  CUELGA DE LA BANDERA Y NO DE `import.meta.env.DEV`, al reves que los dos puntos de
-  entrada. No es una inconsistencia: lo que hay que proteger es el sitio PUBLICADO, que
-  es el unico que un rastreador puede alcanzar. En desarrollo la pagina ya sale con
-  `noindex` por el `INDEXABLE` global, que nace en `false`.
-*/}
-<Base
-  titulo={TITULO}
-  descripcion={BAJADA}
-  jsonLd={jsonLd}
-  forzarNoIndexar={!REGALOS_EMPRESARIALES_PUBLICADO}
->
+<Base titulo={TITULO} descripcion={BAJADA} jsonLd={jsonLd}>
   <nav aria-label="Migas de pan" class="text-texto-suave text-sm">
     <ol class="flex flex-wrap items-center gap-1">
       <li><a href="/" class="hover:text-texto underline">Inicio</a></li>

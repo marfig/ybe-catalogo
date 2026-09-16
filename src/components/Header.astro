@@ -1,7 +1,7 @@
 ---
 import Logo from './Logo.astro';
 import Buscador from './islas/Buscador.tsx';
-import { COMERCIO, NOMBRE_CORTO, REGALOS_EMPRESARIALES_PUBLICADO } from '../lib/sitio.ts';
+import { COMERCIO, NOMBRE_CORTO } from '../lib/sitio.ts';
 import { categoriasNavegables } from '../lib/productos.ts';
 import { pedidosEspeciales } from '../lib/pedidos-especiales.ts';
 import { regalosEmpresariales } from '../lib/regalos-empresariales.ts';
@@ -43,19 +43,7 @@ const hayPedidosEspeciales = (await pedidosEspeciales()).length > 0;
 // `resolverSeleccion` en corporativo.ts—, el header no puede ofrecer un enlace a
 // «todavia no hay nada».
 //
-// SUMA la bandera del soft launch (`lib/sitio.ts`) con `&&`, no la reemplaza: la
-// bandera decide si esta seccion es publica, la longitud decide si hay algo que
-// mostrar cuando lo sea. `&&` corta antes de llamar a `regalosEmpresariales()`
-// cuando el enlace no se va a mostrar, asi que tampoco se paga el costo de resolver
-// la seleccion.
-//
-// El `|| import.meta.env.DEV` va por la misma razon que en el banner: en desarrollo
-// la seccion se navega como si estuviera publicada, para poder recorrerla desde el
-// menu. Vite reemplaza esa constante en compilacion, asi que en el build de
-// produccion la rama desaparece y solo manda la bandera.
-const hayRegalosEmpresariales =
-  (REGALOS_EMPRESARIALES_PUBLICADO || import.meta.env.DEV) &&
-  (await regalosEmpresariales()).length > 0;
+const hayRegalosEmpresariales = (await regalosEmpresariales()).length > 0;
 ---
 
 {/*
