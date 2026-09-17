@@ -24535,6 +24535,61 @@
     ]
   },
   {
+    "actualizado": "2026-09-17",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 27 x 13 cm",
+    "id": "cartera-bandolera-5",
+    "nombre": "cartera/bandolera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85094"
+    },
+    "precio": 195000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7e478e318d8c7e08"
+          }
+        ],
+        "sku": "CG85094-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e82ee35e01f2e548"
+          }
+        ],
+        "sku": "CG85094-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3a4dc587d862f5fd"
+          }
+        ],
+        "sku": "CG85094-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-10",
     "categorias": [
       "bandolera-dama"
@@ -28851,6 +28906,74 @@
           }
         ],
         "sku": "CG85329-7"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-17",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 28 x 42 x 15 cm",
+    "id": "cartera-grande-38",
+    "nombre": "cartera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85284"
+    },
+    "precio": 198000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6d947ac1796ce523"
+          }
+        ],
+        "sku": "CG85284-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/311dd00aee646934"
+          }
+        ],
+        "sku": "CG85284-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/381e6abdbf3d2696"
+          }
+        ],
+        "sku": "CG85284-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/45e089bb3d5ba251"
+          }
+        ],
+        "sku": "CG85284-3"
       }
     ]
   },
