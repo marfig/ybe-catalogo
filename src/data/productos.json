@@ -46664,6 +46664,35 @@
     ]
   },
   {
+    "actualizado": "2026-09-17",
+    "categorias": [
+      "portafolios"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 32 x 42 x 9 cm",
+    "id": "maletin-impermeable-grande",
+    "nombre": "maletin impermeable grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "6734059"
+    },
+    "precio": 195000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7a3247ad7710bd86"
+          }
+        ],
+        "sku": "6734059-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-26",
     "categorias": [
       "lonchera-termica-infantil"
@@ -73893,6 +73922,49 @@
           }
         ],
         "sku": "6721779"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-17",
+    "categorias": [
+      "porta-tenis"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 14 x 33 x 17 cm",
+    "id": "porta-tenis",
+    "nombre": "porta tenis",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4121886"
+    },
+    "precio": 88000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/eec546575f78aa82"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7242e10586779ae9"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4c72a4da9a276eba"
+          }
+        ],
+        "sku": "4121886-3"
       }
     ]
   },
