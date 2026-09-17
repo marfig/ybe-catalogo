@@ -1668,6 +1668,74 @@
     ]
   },
   {
+    "actualizado": "2026-09-17",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 13 x 19 x 6 cm",
+    "id": "bandolera-127",
+    "nombre": "bandolera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG84929"
+    },
+    "precio": 158000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4301ad5c8231c0b7"
+          }
+        ],
+        "sku": "CG84929-E"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1bbaf2bc959e1f5a"
+          }
+        ],
+        "sku": "CG84929-B"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4f957e4d2dd5a4d6"
+          }
+        ],
+        "sku": "CG84929-T"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/98236ba745687087"
+          }
+        ],
+        "sku": "CG84929-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-10",
     "categorias": [
       "bandoleras"
@@ -7211,6 +7279,142 @@
           }
         ],
         "sku": "CG85600-B"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-17",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 14 x 23 x 8 cm",
+    "id": "bandolera-impermeable",
+    "nombre": "bandolera impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG84531"
+    },
+    "precio": 156000,
+    "variantes": [
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dd32c516f9409649"
+          }
+        ],
+        "sku": "CG84531-N"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/acdb9e85ac1cee8d"
+          }
+        ],
+        "sku": "CG84531-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/64eacbd48781d201"
+          }
+        ],
+        "sku": "CG84531-3"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e11b1b7b46a0084c"
+          }
+        ],
+        "sku": "CG84531-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-17",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 23 x 10 cm",
+    "id": "bandolera-impermeable-2",
+    "nombre": "bandolera impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG84948"
+    },
+    "precio": 156000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/87b8586cfa466268"
+          }
+        ],
+        "sku": "CG84948-N"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5680ad73d8167a5b"
+          }
+        ],
+        "sku": "CG84948-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/50b8ab2ec302ab31"
+          }
+        ],
+        "sku": "CG84948-3"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cf92aa5120d98937"
+          }
+        ],
+        "sku": "CG84948-A"
       }
     ]
   },
@@ -24590,6 +24794,129 @@
     ]
   },
   {
+    "actualizado": "2026-09-17",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 33 x 12 cm",
+    "id": "cartera-bandolera-impermeable",
+    "nombre": "cartera/bandolera impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG84942"
+    },
+    "precio": 195000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0fc86751e44c3538"
+          }
+        ],
+        "sku": "CG84942-N"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/da3540b37b6d447b"
+          }
+        ],
+        "sku": "CG84942-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/56d24888f5ab6aaf"
+          }
+        ],
+        "sku": "CG84942-3"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4db058a181699f5f"
+          }
+        ],
+        "sku": "CG84942-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-17",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 20 x 31 x 12 cm",
+    "id": "cartera-bandolera-impermeable-2",
+    "nombre": "cartera/bandolera impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG84943"
+    },
+    "precio": 195000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bdc18f252cace4ab"
+          }
+        ],
+        "sku": "CG84943-N"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/76510a82aed81b09"
+          }
+        ],
+        "sku": "CG84943-3"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7f2a509eedbce665"
+          }
+        ],
+        "sku": "CG84943-A"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-10",
     "categorias": [
       "bandolera-dama"
@@ -29528,6 +29855,74 @@
           }
         ],
         "sku": "CG85991-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-17",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 19 x 27 x 12 cm",
+    "id": "cartera-impermeable-2",
+    "nombre": "cartera impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG84944"
+    },
+    "precio": 178000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ca784ed2358587f9"
+          }
+        ],
+        "sku": "CG84944-N"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/87404d42c68810b5"
+          }
+        ],
+        "sku": "CG84944-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/604fa946808f440f"
+          }
+        ],
+        "sku": "CG84944-3"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fc57c9981a4bd69a"
+          }
+        ],
+        "sku": "CG84944-A"
       }
     ]
   },
