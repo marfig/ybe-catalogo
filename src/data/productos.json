@@ -49058,6 +49058,49 @@
     ]
   },
   {
+    "actualizado": "2026-09-17",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44.0 x 31.0 x 12.0 cm",
+    "id": "mochila-132",
+    "nombre": "mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8721778"
+    },
+    "precio": 168000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/13e7948b959f8d21"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b1094ba6f5814507"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d62d375fca9293e7"
+          }
+        ],
+        "sku": "8721778-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-09",
     "categorias": [
       "mochilas"
