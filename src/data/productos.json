@@ -17450,7 +17450,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-09-17",
     "categorias": [
       "carteras"
     ],
@@ -17464,19 +17464,6 @@
     "precio": 248000,
     "variantes": [
       {
-        "color": "Marron Claro",
-        "imagenes": [
-          {
-            "anchos": [
-              300,
-              600
-            ],
-            "base": "catalogo/123375b98a222991"
-          }
-        ],
-        "sku": "CG85166-C"
-      },
-      {
         "color": "Negro",
         "imagenes": [
           {
@@ -17488,6 +17475,19 @@
           }
         ],
         "sku": "CG85166-3"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/123375b98a222991"
+          }
+        ],
+        "sku": "CG85166-C"
       },
       {
         "color": "Rosado",
@@ -17560,7 +17560,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-09-17",
     "categorias": [
       "carteras"
     ],
@@ -17573,6 +17573,19 @@
     },
     "precio": 185000,
     "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/808af295ed73c2da"
+          }
+        ],
+        "sku": "CG85277-3"
+      },
       {
         "color": "Khaki",
         "imagenes": [
@@ -17598,19 +17611,6 @@
           }
         ],
         "sku": "CG85277-B"
-      },
-      {
-        "color": "Negro",
-        "imagenes": [
-          {
-            "anchos": [
-              300,
-              600
-            ],
-            "base": "catalogo/808af295ed73c2da"
-          }
-        ],
-        "sku": "CG85277-3"
       }
     ]
   },
@@ -27095,7 +27095,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-09-17",
     "categorias": [
       "carteras"
     ],
