@@ -13834,6 +13834,48 @@
     ]
   },
   {
+    "actualizado": "2026-09-17",
+    "categorias": [
+      "billetera-hombre"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 9 x 10",
+    "id": "billetera-sin-cierre",
+    "nombre": "billetera sin cierre",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2510409"
+    },
+    "precio": 98000,
+    "variantes": [
+      {
+        "color": "Marron Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a34cd360aca6f763"
+          }
+        ],
+        "sku": "2510409-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0b4374a87698dc10"
+          }
+        ],
+        "sku": "2510409-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-26",
     "categorias": [
       "billetera-hombre"
