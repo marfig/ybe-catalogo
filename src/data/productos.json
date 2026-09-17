@@ -7365,19 +7365,6 @@
     "precio": 156000,
     "variantes": [
       {
-        "color": "Marron",
-        "imagenes": [
-          {
-            "anchos": [
-              300,
-              600
-            ],
-            "base": "catalogo/87b8586cfa466268"
-          }
-        ],
-        "sku": "CG84948-N"
-      },
-      {
         "color": "Marron Oscuro",
         "imagenes": [
           {
@@ -7389,6 +7376,19 @@
           }
         ],
         "sku": "CG84948-D"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/87b8586cfa466268"
+          }
+        ],
+        "sku": "CG84948-N"
       },
       {
         "color": "Negro",
