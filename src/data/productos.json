@@ -19249,6 +19249,35 @@
     ]
   },
   {
+    "actualizado": "2026-09-23",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 22 x 29 x 12 cm",
+    "id": "cartera-141",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85433"
+    },
+    "precio": 215000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4f5b937a23d86073"
+          }
+        ],
+        "sku": "CG85433-B"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-10",
     "categorias": [
       "carteras"
@@ -41712,6 +41741,48 @@
           }
         ],
         "sku": "MB66077-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-23",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 15 x 24 x 7 cm",
+    "id": "cartuchera-doble-cierre-5",
+    "nombre": "cartuchera doble cierre",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734634"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/55af5132b570ff24"
+          }
+        ],
+        "sku": "1734634-V"
+      },
+      {
+        "color": "Turquesa",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3ecd354210fb3568"
+          }
+        ],
+        "sku": "1734634-T"
       }
     ]
   },
@@ -66164,6 +66235,42 @@
           }
         ],
         "sku": "8734999-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-23",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 48 x 34 x 13 cm",
+    "id": "mochila-grande-9",
+    "nombre": "mochila grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8130477"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2536a41dadaecbcc"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9fcf3e57ebb6a7f0"
+          }
+        ],
+        "sku": "8130477-3"
       }
     ]
   },
