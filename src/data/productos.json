@@ -1736,6 +1736,140 @@
     ]
   },
   {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "id": "bandolera-128",
+    "nombre": "bandolera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85751"
+    },
+    "precio": 178000,
+    "variantes": [
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1f08cf17d72c5cfc"
+          }
+        ],
+        "sku": "CG85751-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ccb36b7103f0466d"
+          }
+        ],
+        "sku": "CG85751-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ba8f9063108972af"
+          }
+        ],
+        "sku": "CG85751-3"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/60ceb03bee66e8d7"
+          }
+        ],
+        "sku": "CG85751-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "id": "bandolera-129",
+    "nombre": "bandolera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85766"
+    },
+    "precio": 198000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/636959f48d9ca6ec"
+          }
+        ],
+        "sku": "CG85766-W"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5a534bf4eeaabc9c"
+          }
+        ],
+        "sku": "CG85766-B"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/557a56870f7a12c3"
+          }
+        ],
+        "sku": "CG85766-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/21cebc933eb19910"
+          }
+        ],
+        "sku": "CG85766-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-10",
     "categorias": [
       "bandoleras"
@@ -1761,6 +1895,328 @@
           }
         ],
         "sku": "6734494-33"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "id": "bandolera-130",
+    "nombre": "bandolera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85767"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/023aad9690f6151f"
+          }
+        ],
+        "sku": "CG85767-W"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c525015d51587f66"
+          }
+        ],
+        "sku": "CG85767-B"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cecbb8e4b64c873e"
+          }
+        ],
+        "sku": "CG85767-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fa2fa89f8173ed3f"
+          }
+        ],
+        "sku": "CG85767-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "id": "bandolera-131",
+    "nombre": "bandolera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85773"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a51026d922aef238"
+          }
+        ],
+        "sku": "CG85773-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f3df5f342d2be948"
+          }
+        ],
+        "sku": "CG85773-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/684c9dbade9086be"
+          }
+        ],
+        "sku": "CG85773-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "id": "bandolera-132",
+    "nombre": "bandolera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85902"
+    },
+    "precio": 159000,
+    "variantes": [
+      {
+        "color": "Crema Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d99b90bdcca33e12"
+          }
+        ],
+        "sku": "CG85902-W"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/00dc0379625a17ef"
+          }
+        ],
+        "sku": "CG85902-B"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/eb242a5989fb08b2"
+          }
+        ],
+        "sku": "CG85902-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e91c2d9daa4992a4"
+          }
+        ],
+        "sku": "CG85902-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "id": "bandolera-133",
+    "nombre": "bandolera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85988"
+    },
+    "precio": 158000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/25afefce52991c8e"
+          }
+        ],
+        "sku": "CG85988-N"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fa9cc8540c73d723"
+          }
+        ],
+        "sku": "CG85988-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/41e23afd35eb5848"
+          }
+        ],
+        "sku": "CG85988-3"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4641edafed8ea134"
+          }
+        ],
+        "sku": "CG85988-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "id": "bandolera-134",
+    "nombre": "bandolera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85989"
+    },
+    "precio": 158000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e59644bcc714786d"
+          }
+        ],
+        "sku": "CG85989-N"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0a7926929a332deb"
+          }
+        ],
+        "sku": "CG85989-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d4def1871370cc5f"
+          }
+        ],
+        "sku": "CG85989-3"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bdcb41701326bdf5"
+          }
+        ],
+        "sku": "CG85989-A"
       }
     ]
   },
@@ -13661,6 +14117,47 @@
     ]
   },
   {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "billeteras"
+    ],
+    "id": "billetera-pequena-4",
+    "nombre": "billetera pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2515306"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b85ce707c709974b"
+          }
+        ],
+        "sku": "2515306-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/70798744a2b49dca"
+          }
+        ],
+        "sku": "2515306-P"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-09",
     "categorias": [
       "billeteras"
@@ -19278,6 +19775,477 @@
     ]
   },
   {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-142",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85745"
+    },
+    "precio": 219000,
+    "variantes": [
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/af5311b17b453914"
+          }
+        ],
+        "sku": "CG85745-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/46fc6e2dd63379d0"
+          }
+        ],
+        "sku": "CG85745-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3fbd42b7eab375b9"
+          }
+        ],
+        "sku": "CG85745-3"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3f1b168f678d5226"
+          }
+        ],
+        "sku": "CG85745-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-143",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85746"
+    },
+    "precio": 215000,
+    "variantes": [
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b424f733bdd089ed"
+          }
+        ],
+        "sku": "CG85746-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2449ec1254b9aa22"
+          }
+        ],
+        "sku": "CG85746-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/98f74b1593c1e94d"
+          }
+        ],
+        "sku": "CG85746-3"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d968dd1568c37e05"
+          }
+        ],
+        "sku": "CG85746-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-144",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85747"
+    },
+    "precio": 219000,
+    "variantes": [
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bd993e3665b1da48"
+          }
+        ],
+        "sku": "CG85747-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/06996923b3978f95"
+          }
+        ],
+        "sku": "CG85747-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6e86401b0a1b30a9"
+          }
+        ],
+        "sku": "CG85747-3"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a7cc0d4910b9f1b0"
+          }
+        ],
+        "sku": "CG85747-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-145",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85940"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5b9cc5cf79924fa5"
+          }
+        ],
+        "sku": "CG85940-B"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/151a572d8907c325"
+          }
+        ],
+        "sku": "CG85940-T"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/31a34eb62891012f"
+          }
+        ],
+        "sku": "CG85940-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-146",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85941"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/41e11b6ae8f29d9a"
+          }
+        ],
+        "sku": "CG85941-B"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d5f7ce1357d0fc1c"
+          }
+        ],
+        "sku": "CG85941-T"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f120520a3c53548f"
+          }
+        ],
+        "sku": "CG85941-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-147",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85942"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/78915dc69acad9a4"
+          }
+        ],
+        "sku": "CG85942-B"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f19d0fc24c6214d9"
+          }
+        ],
+        "sku": "CG85942-T"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/16c52ff1f575312d"
+          }
+        ],
+        "sku": "CG85942-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-148",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85952"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2640e55aa43d4f83"
+          }
+        ],
+        "sku": "CG85952-B"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ee2ed42d87391502"
+          }
+        ],
+        "sku": "CG85952-T"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9ef82857beacd3bd"
+          }
+        ],
+        "sku": "CG85952-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-149",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85953"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b3e2bd1e8e15909a"
+          }
+        ],
+        "sku": "CG85953-B"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7cd9ca3269259ded"
+          }
+        ],
+        "sku": "CG85953-T"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e55bdd590bd4c70c"
+          }
+        ],
+        "sku": "CG85953-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-10",
     "categorias": [
       "carteras"
@@ -19320,6 +20288,611 @@
     ]
   },
   {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-150",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85954"
+    },
+    "precio": 198000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c575fddec36699ed"
+          }
+        ],
+        "sku": "CG85954-B"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/71aa10f08ae1bddc"
+          }
+        ],
+        "sku": "CG85954-T"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/811b1e5c8042a4ab"
+          }
+        ],
+        "sku": "CG85954-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-151",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85955"
+    },
+    "precio": 195000,
+    "variantes": [
+      {
+        "color": "Beige",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/13f9716634145597"
+          }
+        ],
+        "sku": "CG85955-E"
+      },
+      {
+        "color": "Crema Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/efbad6fa44a52694"
+          }
+        ],
+        "sku": "CG85955-W"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a86950eb0ed72b90"
+          }
+        ],
+        "sku": "CG85955-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-152",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85956"
+    },
+    "precio": 195000,
+    "variantes": [
+      {
+        "color": "Beige",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/98edad36d8ede55e"
+          }
+        ],
+        "sku": "CG85956-E"
+      },
+      {
+        "color": "Crema Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6e6bcb7697a4c3c5"
+          }
+        ],
+        "sku": "CG85956-W"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ee6a973f82ba3512"
+          }
+        ],
+        "sku": "CG85956-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-153",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85957"
+    },
+    "precio": 195000,
+    "variantes": [
+      {
+        "color": "Beige",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6bf7dcbef0e3fbf3"
+          }
+        ],
+        "sku": "CG85957-E"
+      },
+      {
+        "color": "Crema Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/acac84ff543096af"
+          }
+        ],
+        "sku": "CG85957-W"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/31d19ee64d10f4cd"
+          }
+        ],
+        "sku": "CG85957-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-154",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85961"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/410740ca9eccfcc8"
+          }
+        ],
+        "sku": "CG85961-E"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cd74dc22e0c19f28"
+          }
+        ],
+        "sku": "CG85961-B"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/010066e75afaaca5"
+          }
+        ],
+        "sku": "CG85961-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-155",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85748"
+    },
+    "precio": 215000,
+    "variantes": [
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a145734ca47a56ed"
+          }
+        ],
+        "sku": "CG85748-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a27440dea1a50fcc"
+          }
+        ],
+        "sku": "CG85748-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d884a17d70b92c09"
+          }
+        ],
+        "sku": "CG85748-3"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c0d08b5f970412f4"
+          }
+        ],
+        "sku": "CG85748-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-156",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85749"
+    },
+    "precio": 215000,
+    "variantes": [
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1be57febe4c73ac1"
+          }
+        ],
+        "sku": "CG85749-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f0487320c1115521"
+          }
+        ],
+        "sku": "CG85749-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/79ed312fff933e80"
+          }
+        ],
+        "sku": "CG85749-3"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/67fcc6a178163bca"
+          }
+        ],
+        "sku": "CG85749-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-157",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85750"
+    },
+    "precio": 210000,
+    "variantes": [
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/89ab5ab9ffbdae14"
+          }
+        ],
+        "sku": "CG85750-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/00685333d33e2481"
+          }
+        ],
+        "sku": "CG85750-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8f47cf79eccdfcf3"
+          }
+        ],
+        "sku": "CG85750-3"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3affe3ce6efb01d9"
+          }
+        ],
+        "sku": "CG85750-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-158",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85761"
+    },
+    "precio": 198000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/00e263e83ce014b4"
+          }
+        ],
+        "sku": "CG85761-W"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3dda8033ad645e1b"
+          }
+        ],
+        "sku": "CG85761-B"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7f274b314e33f3e6"
+          }
+        ],
+        "sku": "CG85761-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/75655d9e77a1ebe8"
+          }
+        ],
+        "sku": "CG85761-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-159",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85762"
+    },
+    "precio": 215000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e95864935025a927"
+          }
+        ],
+        "sku": "CG85762-W"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6904d95f76896ede"
+          }
+        ],
+        "sku": "CG85762-B"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d220842ecda81c30"
+          }
+        ],
+        "sku": "CG85762-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2a632dfabe26b81f"
+          }
+        ],
+        "sku": "CG85762-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-10",
     "categorias": [
       "carteras"
@@ -19358,6 +20931,611 @@
           }
         ],
         "sku": "CG85410-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-160",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85763"
+    },
+    "precio": 215000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b585be5409dbb438"
+          }
+        ],
+        "sku": "CG85763-W"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/06e60525f9fef0e0"
+          }
+        ],
+        "sku": "CG85763-B"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f305bbb9cd10e049"
+          }
+        ],
+        "sku": "CG85763-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1d57422f310f2ede"
+          }
+        ],
+        "sku": "CG85763-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-161",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85764"
+    },
+    "precio": 198000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f35d20d123223a82"
+          }
+        ],
+        "sku": "CG85764-W"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ad8764044d0cbf02"
+          }
+        ],
+        "sku": "CG85764-B"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4adbd5ee20bc7e91"
+          }
+        ],
+        "sku": "CG85764-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fa8c0f718665d094"
+          }
+        ],
+        "sku": "CG85764-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-162",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85765"
+    },
+    "precio": 210000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4c602855203445c2"
+          }
+        ],
+        "sku": "CG85765-W"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0d653946049bace9"
+          }
+        ],
+        "sku": "CG85765-B"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/43b4542a6a4c2128"
+          }
+        ],
+        "sku": "CG85765-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a56db0150cd42553"
+          }
+        ],
+        "sku": "CG85765-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-163",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85768"
+    },
+    "precio": 215000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c6fea063280df199"
+          }
+        ],
+        "sku": "CG85768-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/87b6f4878d3ae6c5"
+          }
+        ],
+        "sku": "CG85768-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ba0bc8cc9686b5e6"
+          }
+        ],
+        "sku": "CG85768-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-164",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85769"
+    },
+    "precio": 215000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/55da51187b976c10"
+          }
+        ],
+        "sku": "CG85769-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/579e2c0b13968a5a"
+          }
+        ],
+        "sku": "CG85769-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0555fe513ba078f2"
+          }
+        ],
+        "sku": "CG85769-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-165",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85770"
+    },
+    "precio": 219000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1f532cae0f2e7e79"
+          }
+        ],
+        "sku": "CG85770-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8d44b50ed152b030"
+          }
+        ],
+        "sku": "CG85770-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7cf4aa4138e43e00"
+          }
+        ],
+        "sku": "CG85770-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-166",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85771"
+    },
+    "precio": 215000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/92bfe2b62e8ab1f4"
+          }
+        ],
+        "sku": "CG85771-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/37128e6371002f9c"
+          }
+        ],
+        "sku": "CG85771-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a4e55425aabe7142"
+          }
+        ],
+        "sku": "CG85771-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-167",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85772"
+    },
+    "precio": 215000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bddc158f40a2d1ef"
+          }
+        ],
+        "sku": "CG85772-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7fd17e35ae069087"
+          }
+        ],
+        "sku": "CG85772-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/831f361a95da990a"
+          }
+        ],
+        "sku": "CG85772-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-168",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85876"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/017a60d8c075972f"
+          }
+        ],
+        "sku": "CG85876-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c266ee166b233a08"
+          }
+        ],
+        "sku": "CG85876-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3fca05a1ef3cb2c2"
+          }
+        ],
+        "sku": "CG85876-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e18f34de38c913ae"
+          }
+        ],
+        "sku": "CG85876-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-169",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85877"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2b20f4c9d1d09a01"
+          }
+        ],
+        "sku": "CG85877-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/018430139119d92c"
+          }
+        ],
+        "sku": "CG85877-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9e37418ff23ed434"
+          }
+        ],
+        "sku": "CG85877-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7a32c78ab9978aef"
+          }
+        ],
+        "sku": "CG85877-3"
       }
     ]
   },
@@ -19417,6 +21595,676 @@
     ]
   },
   {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-170",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85878"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/407d2f60821e6ea6"
+          }
+        ],
+        "sku": "CG85878-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4426f7bd59ae2193"
+          }
+        ],
+        "sku": "CG85878-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/80316a6392603e7f"
+          }
+        ],
+        "sku": "CG85878-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e4080936cccb0a6b"
+          }
+        ],
+        "sku": "CG85878-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-171",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85879"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/76875d29011a4c49"
+          }
+        ],
+        "sku": "CG85879-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e4dfc50d6a2c697c"
+          }
+        ],
+        "sku": "CG85879-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b25e46c4fd874e1e"
+          }
+        ],
+        "sku": "CG85879-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f4498327daa1275a"
+          }
+        ],
+        "sku": "CG85879-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-172",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85880"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4a80de4f84543321"
+          }
+        ],
+        "sku": "CG85880-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/470b0ad5270f4859"
+          }
+        ],
+        "sku": "CG85880-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/be1486fc7a44777e"
+          }
+        ],
+        "sku": "CG85880-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/44be1a03d66b7139"
+          }
+        ],
+        "sku": "CG85880-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-173",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85881"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dd8f2f5dac182b7e"
+          }
+        ],
+        "sku": "CG85881-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dbcbb14769aa3c7a"
+          }
+        ],
+        "sku": "CG85881-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1a67605bc7aab5ef"
+          }
+        ],
+        "sku": "CG85881-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ea1e49c960620c46"
+          }
+        ],
+        "sku": "CG85881-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-174",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85882"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/29c9c9498741ce73"
+          }
+        ],
+        "sku": "CG85882-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/99d507506587444f"
+          }
+        ],
+        "sku": "CG85882-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/357a4a431659f26b"
+          }
+        ],
+        "sku": "CG85882-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c91a36c1b4f89503"
+          }
+        ],
+        "sku": "CG85882-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-175",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85883"
+    },
+    "precio": 178000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/155204bbdf9fa600"
+          }
+        ],
+        "sku": "CG85883-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d083a836bc357a97"
+          }
+        ],
+        "sku": "CG85883-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d522322ba3a3ef32"
+          }
+        ],
+        "sku": "CG85883-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b3842c20059606b8"
+          }
+        ],
+        "sku": "CG85883-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-176",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85884"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c6d6e25ccb320a76"
+          }
+        ],
+        "sku": "CG85884-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/91c5425bc5dd509c"
+          }
+        ],
+        "sku": "CG85884-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2ec254dc0c6cf10d"
+          }
+        ],
+        "sku": "CG85884-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/883b3c2ec4ec8edf"
+          }
+        ],
+        "sku": "CG85884-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-177",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85885"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d59539a246bf60aa"
+          }
+        ],
+        "sku": "CG85885-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a2f27f49156b2807"
+          }
+        ],
+        "sku": "CG85885-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/71d85d3b8083f22f"
+          }
+        ],
+        "sku": "CG85885-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/346458fd6d65a09c"
+          }
+        ],
+        "sku": "CG85885-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-178",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85886"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/80d1d455878ccc94"
+          }
+        ],
+        "sku": "CG85886-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/125596ba74814b7e"
+          }
+        ],
+        "sku": "CG85886-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5f550d8a98d8e0ff"
+          }
+        ],
+        "sku": "CG85886-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cdeedc218f261520"
+          }
+        ],
+        "sku": "CG85886-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-179",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85887"
+    },
+    "precio": 178000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1bc0cd30caa94f3b"
+          }
+        ],
+        "sku": "CG85887-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/99e07d669cde7539"
+          }
+        ],
+        "sku": "CG85887-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/aa5048685125d80f"
+          }
+        ],
+        "sku": "CG85887-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a10faf434f5ccae4"
+          }
+        ],
+        "sku": "CG85887-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-10",
     "categorias": [
       "carteras"
@@ -19472,6 +22320,585 @@
     ]
   },
   {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-180",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85888"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e6e3523f3f22bef0"
+          }
+        ],
+        "sku": "CG85888-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e102ec3444723393"
+          }
+        ],
+        "sku": "CG85888-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/34399478b5c04cb5"
+          }
+        ],
+        "sku": "CG85888-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/45736a7b0e75b9eb"
+          }
+        ],
+        "sku": "CG85888-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-181",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85889"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6504ce7bf4d8b8a7"
+          }
+        ],
+        "sku": "CG85889-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/401e4f85ed110c94"
+          }
+        ],
+        "sku": "CG85889-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3ecc8632b2dca694"
+          }
+        ],
+        "sku": "CG85889-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b9a221cec4b1e358"
+          }
+        ],
+        "sku": "CG85889-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-182",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85901"
+    },
+    "precio": 195000,
+    "variantes": [
+      {
+        "color": "Crema Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2956cb438f617cb9"
+          }
+        ],
+        "sku": "CG85901-W"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e3fd44ed9240665e"
+          }
+        ],
+        "sku": "CG85901-B"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/36b673223f0791bc"
+          }
+        ],
+        "sku": "CG85901-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b7692e438555da96"
+          }
+        ],
+        "sku": "CG85901-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-183",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85962"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bd4046e7444e3ddf"
+          }
+        ],
+        "sku": "CG85962-E"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f61a69246563ba2a"
+          }
+        ],
+        "sku": "CG85962-B"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2914d743c2d32da7"
+          }
+        ],
+        "sku": "CG85962-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-184",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85963"
+    },
+    "precio": 178000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3ce8a0bfede18c10"
+          }
+        ],
+        "sku": "CG85963-E"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7677152a5d63c560"
+          }
+        ],
+        "sku": "CG85963-B"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3f80faaa3bba91fe"
+          }
+        ],
+        "sku": "CG85963-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-185",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85964"
+    },
+    "precio": 198000,
+    "variantes": [
+      {
+        "color": "Crema Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/672e77cb2062b365"
+          }
+        ],
+        "sku": "CG85964-W"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/58f7f970627fff9b"
+          }
+        ],
+        "sku": "CG85964-B"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ec22057c2d9d3d74"
+          }
+        ],
+        "sku": "CG85964-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-186",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85965"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Crema Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/79741722e9d11ee2"
+          }
+        ],
+        "sku": "CG85965-W"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e7f1ecd06c8cc2b2"
+          }
+        ],
+        "sku": "CG85965-B"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5b4c37ac6c5ec57c"
+          }
+        ],
+        "sku": "CG85965-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-187",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85966"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Crema Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cf4176e7b435a0cb"
+          }
+        ],
+        "sku": "CG85966-W"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d7ecd9abb5b162b6"
+          }
+        ],
+        "sku": "CG85966-B"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/66250f9f8e9ebd1b"
+          }
+        ],
+        "sku": "CG85966-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-188",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG86008"
+    },
+    "precio": 245000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/31105114ae92e253"
+          }
+        ],
+        "sku": "CG86008-W"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/931ac87bfffe3f26"
+          }
+        ],
+        "sku": "CG86008-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/54f318bfae201522"
+          }
+        ],
+        "sku": "CG86008-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-189",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG86009"
+    },
+    "precio": 235000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/35d10d3d9dbb6e18"
+          }
+        ],
+        "sku": "CG86009-W"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/127b6801b6b9f19b"
+          }
+        ],
+        "sku": "CG86009-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fe15f5bfe594deca"
+          }
+        ],
+        "sku": "CG86009-P"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-10",
     "categorias": [
       "carteras"
@@ -19523,6 +22950,73 @@
           }
         ],
         "sku": "CG85434-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "carteras"
+    ],
+    "id": "cartera-190",
+    "nombre": "cartera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG86012"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/05aca0d101ef805d"
+          }
+        ],
+        "sku": "CG86012-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8771115bb8862460"
+          }
+        ],
+        "sku": "CG86012-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e83e705cae5c6d87"
+          }
+        ],
+        "sku": "CG86012-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e672e3aa01fd1431"
+          }
+        ],
+        "sku": "CG86012-3"
       }
     ]
   },
@@ -49244,6 +52738,207 @@
           }
         ],
         "sku": "8721778-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "id": "mochila-133",
+    "nombre": "mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85744"
+    },
+    "precio": 225000,
+    "variantes": [
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/648dc56ed6634e2a"
+          }
+        ],
+        "sku": "CG85744-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/50006ffdd692763e"
+          }
+        ],
+        "sku": "CG85744-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/efd31c4d1af6da4f"
+          }
+        ],
+        "sku": "CG85744-3"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/51340663eb6316f5"
+          }
+        ],
+        "sku": "CG85744-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "id": "mochila-134",
+    "nombre": "mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85760"
+    },
+    "precio": 225000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3230f7fa1afbc897"
+          }
+        ],
+        "sku": "CG85760-W"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0cff1a79ce35306e"
+          }
+        ],
+        "sku": "CG85760-B"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d5f1e82129b3f55d"
+          }
+        ],
+        "sku": "CG85760-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d8998df644644d5e"
+          }
+        ],
+        "sku": "CG85760-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-09-26",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "id": "mochila-135",
+    "nombre": "mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85875"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8e07498c81bdfc8d"
+          }
+        ],
+        "sku": "CG85875-E"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/16b37c08050b5289"
+          }
+        ],
+        "sku": "CG85875-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0ccc49cb6b7d1fcc"
+          }
+        ],
+        "sku": "CG85875-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5b56fa44d4c07d17"
+          }
+        ],
+        "sku": "CG85875-3"
       }
     ]
   },
