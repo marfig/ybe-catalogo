@@ -80,33 +80,18 @@ const SRCSET_FOTO = ANCHOS_FOTO.map((w) => `/regalos-empresariales-w${w}.webp ${
           </p>
 
           {/*
-            EL BOTON NO USA `--color-accion` (el azul reservado para cerrar la venta).
-            Este enlace no cierra nada: lleva a un catalogo a mirar, y el azul de accion
-            gastado aca le resta peso al que si cierra, en la ficha de producto.
-            `--color-primario` es el tono oscuro de la paleta y alcanza para que el
-            boton se lea como el destino del bloque.
+            UN ENLACE DE TEXTO Y NO UN BOTON. Como boton, «Ver el catalogo» se confundia
+            con la entrada al catalogo general de la tienda, que ahora vive arriba de
+            este bloque (`index.astro`). El texto dice para que es: cotizar por cantidad.
 
             `min-h-11` para que el area tactil llegue al minimo recomendado en movil sin
             depender de cuanto mida la linea de texto.
           */}
           <a
             href="/regalos-empresariales"
-            class="bg-primario mt-1 inline-flex min-h-11 items-center gap-1.5 rounded px-5 py-2.5 text-sm font-medium text-white"
+            class="text-primario hover:text-texto inline-flex min-h-11 items-center text-sm font-medium underline underline-offset-2"
           >
-            Ver el catálogo
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M5 12h14M13 6l6 6-6 6" />
-            </svg>
+            Cotizar precio mayorista
           </a>
         </div>
 

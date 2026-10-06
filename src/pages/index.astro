@@ -61,6 +61,32 @@ const jsonLd = [
     }
   </p>
 
+  {/*
+    VA FUERA DEL BANNER y no adentro: lleva al catalogo general, no al corporativo.
+    Cuando estaba dentro del bloque de regalos empresariales, el visitante lo leia
+    como la entrada al catalogo de la tienda y terminaba en la seleccion por cantidad.
+    Tampoco depende de que haya seleccion cargada: se muestra siempre.
+  */}
+  <a
+    href="/categorias"
+    class="bg-primario mt-4 inline-flex min-h-11 items-center gap-1.5 rounded px-5 py-2.5 text-sm font-medium text-white"
+  >
+    Ver catálogo
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M5 12h14M13 6l6 6-6 6" />
+    </svg>
+  </a>
+
   <BannerRegalosEmpresariales />
 
   <section class="mt-5" aria-labelledby="h-categorias">
