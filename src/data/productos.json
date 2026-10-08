@@ -43736,6 +43736,295 @@
     ]
   },
   {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-31",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734579"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fde02ec7d6a509f7"
+          }
+        ],
+        "sku": "1734579-U"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-32",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734616"
+    },
+    "precio": 39000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b2c9d541b9471e02"
+          }
+        ],
+        "sku": "1734616-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-33",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734646"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9ead8e12b6b3103d"
+          }
+        ],
+        "sku": "1734646-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a228c56945e8c755"
+          }
+        ],
+        "sku": "1734646-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-34",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734651"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3cc3902db56f8de5"
+          }
+        ],
+        "sku": "1734651-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5e27ef5d700c8ecb"
+          }
+        ],
+        "sku": "1734651-P"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7d2479aa8a4efb0e"
+          }
+        ],
+        "sku": "1734651-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-35",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734685"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d97a4ae0ecf3e03e"
+          }
+        ],
+        "sku": "1734685-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-36",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734727"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/99ca745e316cf2ad"
+          }
+        ],
+        "sku": "1734727-U"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/293b524ab593b27d"
+          }
+        ],
+        "sku": "1734727-P"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bc6d379eae6ea4f3"
+          }
+        ],
+        "sku": "1734727-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-37",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734766"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8ee2d2c946082607"
+          }
+        ],
+        "sku": "1734766-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-38",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734770"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/07850c1bdeeb53eb"
+          }
+        ],
+        "sku": "1734770-A"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
@@ -44389,6 +44678,103 @@
           }
         ],
         "sku": "1734637-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-3-cierres-22",
+    "nombre": "cartuchera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734625"
+    },
+    "precio": 42000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a5726f9fd1cf3fdb"
+          }
+        ],
+        "sku": "1734625-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-3-cierres-23",
+    "nombre": "cartuchera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734642"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c3366f96157e4a16"
+          }
+        ],
+        "sku": "1734642-U"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1d0cd4d05e5fcc41"
+          }
+        ],
+        "sku": "1734642-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-3-cierres-24",
+    "nombre": "cartuchera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734722"
+    },
+    "precio": 45000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2e59997874a1978c"
+          }
+        ],
+        "sku": "1734722-2"
       }
     ]
   },
@@ -46109,6 +46495,34 @@
           }
         ],
         "sku": "1734730-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-libro-11",
+    "nombre": "cartuchera libro",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734718"
+    },
+    "precio": 55000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/446d79f309e79e50"
+          }
+        ],
+        "sku": "1734718-3"
       }
     ]
   },
