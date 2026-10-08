@@ -41564,6 +41564,34 @@
     ]
   },
   {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-38",
+    "nombre": "cartuchera",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5654190"
+    },
+    "precio": 48000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/006667bd8c981863"
+          }
+        ],
+        "sku": "5654190-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
@@ -44025,6 +44053,34 @@
     ]
   },
   {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-39",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5654199"
+    },
+    "precio": 39000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5ef26efd8b54fe33"
+          }
+        ],
+        "sku": "5654199-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-09",
     "categorias": [
       "cartucheras"
@@ -44050,6 +44106,118 @@
           }
         ],
         "sku": "1734398-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-40",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66129"
+    },
+    "precio": 39000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8a55bd27f25048d1"
+          }
+        ],
+        "sku": "MB66129-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-41",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB70625"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/15a6e70d2aa773e4"
+          }
+        ],
+        "sku": "MB70625-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-42",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB70668"
+    },
+    "precio": 38000,
+    "variantes": [
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3ddf30765bba74e5"
+          }
+        ],
+        "sku": "MB70668-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-2-cierres-43",
+    "nombre": "cartuchera de 2 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66432"
+    },
+    "precio": 35000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2d7db79a48a8f9ce"
+          }
+        ],
+        "sku": "MB66432-3"
       }
     ]
   },
@@ -44775,6 +44943,34 @@
           }
         ],
         "sku": "1734722-2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "cartucheras"
+    ],
+    "id": "cartuchera-de-3-cierres-25",
+    "nombre": "cartuchera de 3 cierres",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "DK66602"
+    },
+    "precio": 49000,
+    "variantes": [
+      {
+        "color": "Naranja",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a3e26d52d53cf04c"
+          }
+        ],
+        "sku": "DK66602-O"
       }
     ]
   },
@@ -50408,6 +50604,90 @@
     ]
   },
   {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-47",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734578"
+    },
+    "precio": 119000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/699881e88bd74c43"
+          }
+        ],
+        "sku": "4734578-U"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-48",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734615"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bfc87d119c19a545"
+          }
+        ],
+        "sku": "4734615-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-49",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734624"
+    },
+    "precio": 120000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/25f0193d947e9efb"
+          }
+        ],
+        "sku": "4734624-P"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-09",
     "categorias": [
       "lonchera-termica-infantil"
@@ -50437,6 +50717,364 @@
     ]
   },
   {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-50",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734641"
+    },
+    "precio": 129000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8878dd4951bca47e"
+          }
+        ],
+        "sku": "4734641-U"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b767e8fd40fcb9ef"
+          }
+        ],
+        "sku": "4734641-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-51",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734645"
+    },
+    "precio": 120000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8e2193b16cc5b46f"
+          }
+        ],
+        "sku": "4734645-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/605ec0c96fe7e00d"
+          }
+        ],
+        "sku": "4734645-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-52",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734650"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/86c5d0357c05939e"
+          }
+        ],
+        "sku": "4734650-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0253ea1d03bb0c05"
+          }
+        ],
+        "sku": "4734650-P"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d14d410032adb148"
+          }
+        ],
+        "sku": "4734650-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-53",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734684"
+    },
+    "precio": 118000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/99f1ac2124fab416"
+          }
+        ],
+        "sku": "4734684-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-54",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734717"
+    },
+    "precio": 129000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/80ef0f351af78f86"
+          }
+        ],
+        "sku": "4734717-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-55",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734721"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/61d094efd75fcad1"
+          }
+        ],
+        "sku": "4734721-2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-56",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734726"
+    },
+    "precio": 120000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/19294616c7b8ac7a"
+          }
+        ],
+        "sku": "4734726-U"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d10d14de5e08d7d6"
+          }
+        ],
+        "sku": "4734726-P"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/97f36d1400875a0f"
+          }
+        ],
+        "sku": "4734726-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-57",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734765"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/66dfae1aaeddbb5f"
+          }
+        ],
+        "sku": "4734765-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-58",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4734769"
+    },
+    "precio": 115000,
+    "variantes": [
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f3f64754b11d67f5"
+          }
+        ],
+        "sku": "4734769-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-59",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5654115"
+    },
+    "precio": 120000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/79c7e891e3098eef"
+          }
+        ],
+        "sku": "5654115-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-09",
     "categorias": [
       "lonchera-termica-infantil"
@@ -50462,6 +51100,146 @@
           }
         ],
         "sku": "4734387-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-60",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "DK66601"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "Naranja",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2ace82bb471aa61b"
+          }
+        ],
+        "sku": "DK66601-O"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-61",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66128"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6a02742f1c70c3ea"
+          }
+        ],
+        "sku": "MB66128-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-62",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66431"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e3eea03122f23d18"
+          }
+        ],
+        "sku": "MB66431-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-63",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB70624"
+    },
+    "precio": 120000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bc1e3a2229c16d78"
+          }
+        ],
+        "sku": "MB70624-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "id": "lonchera-termica-64",
+    "nombre": "Lonchera térmica",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB70667"
+    },
+    "precio": 118000,
+    "variantes": [
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/14cbfdf6999deeb9"
+          }
+        ],
+        "sku": "MB70667-G"
       }
     ]
   },
@@ -60973,6 +61751,77 @@
     ]
   },
   {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 46 x largo 29 x ancho 19 cm",
+    "id": "mochila-con-ruedas-grande-6",
+    "nombre": "mochila con ruedas grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734648"
+    },
+    "precio": 275000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4b21f9b04ae252c7"
+          }
+        ],
+        "sku": "8734648-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ebba66b72f9b90cc"
+          }
+        ],
+        "sku": "8734648-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 37 x largo 25 x ancho 16 cm",
+    "id": "mochila-con-ruedas-grande-7",
+    "nombre": "mochila con ruedas mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66131"
+    },
+    "precio": 235000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b029cea538becf60"
+          }
+        ],
+        "sku": "MB66131-9"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-26",
     "categorias": [
       "mochila-infantil"
@@ -62602,6 +63451,35 @@
           }
         ],
         "sku": "8734732-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 30 x largo 24 x ancho 16 cm",
+    "id": "mochila-con-ruedas-pequena-14",
+    "nombre": "mochila con ruedas pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5654169"
+    },
+    "precio": 179000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/74d163a9550f313f"
+          }
+        ],
+        "sku": "5654169-3"
       }
     ]
   },
@@ -68366,6 +69244,348 @@
     ]
   },
   {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 41 x largo 32 x ancho 25 cm",
+    "id": "mochila-espaldera-grande-60",
+    "nombre": "mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5654140"
+    },
+    "precio": 162000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1c4edc2b9c3c390a"
+          }
+        ],
+        "sku": "5654140-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 45 x largo 34 x ancho 18 cm",
+    "id": "mochila-espaldera-grande-61",
+    "nombre": "mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734577"
+    },
+    "precio": 148000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c47245ae44cdcea7"
+          }
+        ],
+        "sku": "8734577-U"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 44 x largo 32 x ancho 18 cm",
+    "id": "mochila-espaldera-grande-62",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734614"
+    },
+    "precio": 195000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/694fa98fd72d445c"
+          }
+        ],
+        "sku": "8734614-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 48 x largo 30 x ancho 23 cm",
+    "id": "mochila-espaldera-grande-63",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734623"
+    },
+    "precio": 175000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/343f3f7e42733474"
+          }
+        ],
+        "sku": "8734623-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 44 x largo 29 x ancho 18 cm",
+    "id": "mochila-espaldera-grande-64",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734640"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8c191b010a21e408"
+          }
+        ],
+        "sku": "8734640-U"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b39dc4bb5b372ba8"
+          }
+        ],
+        "sku": "8734640-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 48 x largo 28 x ancho 22 cm",
+    "id": "mochila-espaldera-grande-65",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734644"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fe6251f4f0c4494e"
+          }
+        ],
+        "sku": "8734644-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/091c73822dc8b253"
+          }
+        ],
+        "sku": "8734644-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 45 x largo 30 x ancho 22 cm",
+    "id": "mochila-espaldera-grande-66",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734649"
+    },
+    "precio": 138000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d134928337083c84"
+          }
+        ],
+        "sku": "8734649-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e5349407ad16d169"
+          }
+        ],
+        "sku": "8734649-P"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5f8193a5259153f9"
+          }
+        ],
+        "sku": "8734649-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 41 x largo 31 x ancho 25 cm",
+    "id": "mochila-espaldera-grande-67",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734683"
+    },
+    "precio": 165000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8061272cfd92d904"
+          }
+        ],
+        "sku": "8734683-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 44 x largo 32 x ancho 22 cm",
+    "id": "mochila-espaldera-grande-68",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734716"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/821a4fe5265d34b7"
+          }
+        ],
+        "sku": "8734716-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 45 x largo 30 x ancho 22 cm",
+    "id": "mochila-espaldera-grande-69",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734720"
+    },
+    "precio": 178000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7d13071d80d65eb4"
+          }
+        ],
+        "sku": "8734720-2"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-27",
     "categorias": [
       "mochila-infantil"
@@ -68395,6 +69615,373 @@
     ]
   },
   {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 36 x largo 26 x ancho 13 cm",
+    "id": "mochila-espaldera-grande-70",
+    "nombre": "Mochila espaldera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734724"
+    },
+    "precio": 155000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/aaab08aca83cd2da"
+          }
+        ],
+        "sku": "8734724-2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 45 x largo 27 x ancho 20 cm",
+    "id": "mochila-espaldera-grande-71",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734725"
+    },
+    "precio": 188000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cbe600d1c2b08c2e"
+          }
+        ],
+        "sku": "8734725-U"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c485481a5b6a61d2"
+          }
+        ],
+        "sku": "8734725-P"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cb725abdbe2248b1"
+          }
+        ],
+        "sku": "8734725-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 45 x largo 30 x ancho 23 cm",
+    "id": "mochila-espaldera-grande-72",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734764"
+    },
+    "precio": 158000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1bed40f8395ed562"
+          }
+        ],
+        "sku": "8734764-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 48 x largo 30 x ancho 25 cm",
+    "id": "mochila-espaldera-grande-73",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734768"
+    },
+    "precio": 158000,
+    "variantes": [
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8256877f40f8ba25"
+          }
+        ],
+        "sku": "8734768-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 43 x largo 32 x ancho 15 cm",
+    "id": "mochila-espaldera-grande-74",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8735298"
+    },
+    "precio": 128000,
+    "variantes": [
+      {
+        "color": "Azul Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d4b9dcf410a6df2e"
+          }
+        ],
+        "sku": "8735298-9X"
+      },
+      {
+        "color": "Lila Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9e29e58185c3133f"
+          }
+        ],
+        "sku": "8735298-V"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bc48ecd26e80e587"
+          }
+        ],
+        "sku": "8735298-3"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7b3168fc8595a997"
+          }
+        ],
+        "sku": "8735298-M"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 45 x largo 31 x ancho 15 cm",
+    "id": "mochila-espaldera-grande-75",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8735299"
+    },
+    "precio": 135000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d412f8c08ffb1282"
+          }
+        ],
+        "sku": "8735299-3"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4715fe51b081f8f0"
+          }
+        ],
+        "sku": "8735299-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 45 x largo 25 x nacho 25 cm",
+    "id": "mochila-espaldera-grande-76",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "DK66600"
+    },
+    "precio": 189000,
+    "variantes": [
+      {
+        "color": "Naranja",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/95ea494e80c47a6a"
+          }
+        ],
+        "sku": "DK66600-O"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 48 x largo 33 x ancho 22 cm",
+    "id": "mochila-espaldera-grande-77",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66127"
+    },
+    "precio": 178000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/aeeb0aa55fe3d188"
+          }
+        ],
+        "sku": "MB66127-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 37 x largo 26 x ancho 14 cm",
+    "id": "mochila-espaldera-grande-78",
+    "nombre": "Mochila espaldera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66130"
+    },
+    "precio": 148000,
+    "variantes": [
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4be5ec44a2be7a81"
+          }
+        ],
+        "sku": "MB66130-9"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "id": "mochila-espaldera-grande-79",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB66430"
+    },
+    "precio": null,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7140d73592b3f404"
+          }
+        ],
+        "sku": "MB66430-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-27",
     "categorias": [
       "mochila-infantil"
@@ -68420,6 +70007,62 @@
           }
         ],
         "sku": "8734299"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "id": "mochila-espaldera-grande-80",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB70623"
+    },
+    "precio": null,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/71d4380c8562c85f"
+          }
+        ],
+        "sku": "MB70623-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "id": "mochila-espaldera-grande-81",
+    "nombre": "Mochila espaldera grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "MB70666"
+    },
+    "precio": null,
+    "variantes": [
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d492f6c9f86b83aa"
+          }
+        ],
+        "sku": "MB70666-G"
       }
     ]
   },
@@ -70122,6 +71765,77 @@
     ]
   },
   {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 31 x largo 25 x ancho 20 cm",
+    "id": "mochila-espaldera-mediana-21",
+    "nombre": "mochila espaldera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5654136"
+    },
+    "precio": 138000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d495b081e5d9970b"
+          }
+        ],
+        "sku": "5654136-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 32 x largo 25 x ancho 13 cm",
+    "id": "mochila-espaldera-mediana-22",
+    "nombre": "Mochila espaldera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734647"
+    },
+    "precio": 165000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3d99dbf41a602a0f"
+          }
+        ],
+        "sku": "8734647-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/82a2fd69999c2747"
+          }
+        ],
+        "sku": "8734647-P"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -71182,6 +72896,35 @@
           }
         ],
         "sku": "5458226-U"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 23 x largo 19 x ancho 15 cm",
+    "id": "mochila-espaldera-pequena-2",
+    "nombre": "mochila espaldera pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5654126"
+    },
+    "precio": 125000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/acdd5ec9f17f7d76"
+          }
+        ],
+        "sku": "5654126-3"
       }
     ]
   },
@@ -77254,6 +78997,164 @@
     ]
   },
   {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho) cm::\t42 x 30 x 20 cm",
+    "id": "mochila-reforzada-con-ruedas-grande-13",
+    "nombre": "mochila reforzada con ruedas grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734643"
+    },
+    "precio": 385000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d954b5efbf24c766"
+          }
+        ],
+        "sku": "8734643-U"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/505c770b8e0c0416"
+          }
+        ],
+        "sku": "8734643-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 48 x largo 28 x ancho 21 cm",
+    "id": "mochila-reforzada-con-ruedas-grande-14",
+    "nombre": "mochila reforzada con ruedas grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734719"
+    },
+    "precio": 365000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b17002e4988c949d"
+          }
+        ],
+        "sku": "8734719-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 45 x largo 29 x ancho 18 cm",
+    "id": "mochila-reforzada-con-ruedas-grande-15",
+    "nombre": "mochila reforzada con ruedas grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734723"
+    },
+    "precio": 375000,
+    "variantes": [
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/40caab576c5c0fb5"
+          }
+        ],
+        "sku": "8734723-2"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 46 x largo 33 x ancho 22 cm",
+    "id": "mochila-reforzada-con-ruedas-grande-16",
+    "nombre": "mochila reforzada con ruedas grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734767"
+    },
+    "precio": 365000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dc7c725056ad4fad"
+          }
+        ],
+        "sku": "8734767-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 47 x largo 33 x ancho 22 cm",
+    "id": "mochila-reforzada-con-ruedas-grande-17",
+    "nombre": "mochila reforzada con ruedas grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8734771"
+    },
+    "precio": 365000,
+    "variantes": [
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/922765a15f3c73f4"
+          }
+        ],
+        "sku": "8734771-A"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
@@ -77688,6 +79589,35 @@
           }
         ],
         "sku": "MB70433-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-10-08",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "alto 42 x largo 29 x ancho 21 cm",
+    "id": "mochila-reforzada-grande-con-ruedas",
+    "nombre": "mochila reforzada grande con ruedas",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "5654167"
+    },
+    "precio": 365000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0915e4438b334f07"
+          }
+        ],
+        "sku": "5654167-3"
       }
     ]
   },
