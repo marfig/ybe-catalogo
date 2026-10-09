@@ -80,6 +80,12 @@ const jsonLd = [
       {total} {total === 1 ? 'producto' : 'productos'}
     </p>
   </div>
+  {/*
+    Hubo clientes que creyeron que esta pagina ERA el catalogo: veian una grilla de
+    fotos y no entraban a ninguna. Esta linea, la sombra y el «Ver los N productos»
+    de cada caja atacan lo mismo desde tres lados.
+  */}
+  <p class="text-texto-suave mt-1 text-sm">Elegí una categoría para ver todos sus productos.</p>
 
   {
     navegables.length === 0 ? (
@@ -99,10 +105,14 @@ const jsonLd = [
               Estructura de `TarjetaProducto`: foto arriba, texto abajo, y el borde que
               separa la foto del fondo —la foto viene sobre #FFFFFF y --color-fondo es
               #FAFAF9, 1.01:1 de contraste (SPEC §3.3)—. Sin borde la portada flota.
+
+              La sombra y el levantarse en hover son lo unico que la distingue de la de
+              producto, y a proposito: hubo clientes que creyeron que esta pagina era el
+              catalogo entero. El redondeo NO cambia, por consistencia con el resto.
             */}
             <a
               href={`/categorias/${categoria.id}`}
-              class="border-borde bg-superficie hover:border-acento group flex flex-1 flex-col overflow-hidden rounded border transition-colors"
+              class="border-borde bg-superficie hover:border-acento group flex flex-1 flex-col overflow-hidden rounded border shadow-sm transition hover:-translate-y-0.5 hover:shadow-md motion-reduce:transition-none motion-reduce:hover:translate-y-0"
             >
               {/*
                 `alt=""` a proposito: la portada es DECORATIVA. El nombre de la
@@ -121,8 +131,14 @@ const jsonLd = [
                 <h2 class="group-hover:text-primario text-sm leading-snug font-medium">
                   {categoria.data.nombre}
                 </h2>
-                <span class="text-texto-suave mt-auto pt-1 text-xs">
-                  {cantidad} {cantidad === 1 ? 'producto' : 'productos'}
+                {/*
+                  Un llamado a entrar y no un conteo: «24 productos» se leia como dato
+                  de la ficha. En `--color-accion` porque es el color que el sitio ya
+                  usa para «esto hace algo».
+                */}
+                <span class="text-accion mt-auto pt-1 text-xs font-medium group-hover:underline">
+                  {cantidad === 1 ? 'Ver el producto' : `Ver los ${cantidad} productos`}{' '}
+                  <span aria-hidden="true">→</span>
                 </span>
               </div>
             </a>
