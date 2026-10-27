@@ -6808,7 +6808,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "activo": false,
+    "actualizado": "2026-10-26",
     "categorias": [
       "bandolera-dama"
     ],
@@ -36705,7 +36706,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "activo": false,
+    "actualizado": "2026-10-26",
     "categorias": [
       "carteras"
     ],
@@ -77680,7 +77682,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "activo": false,
+    "actualizado": "2026-10-26",
     "categorias": [
       "mochila-dama"
     ],
