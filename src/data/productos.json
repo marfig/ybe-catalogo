@@ -53594,7 +53594,8 @@
     ]
   },
   {
-    "actualizado": "2026-08-26",
+    "activo": false,
+    "actualizado": "2026-10-29",
     "categorias": [
       "lonchera-termica-infantil"
     ],
