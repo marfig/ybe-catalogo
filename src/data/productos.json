@@ -76531,6 +76531,42 @@
     ]
   },
   {
+    "actualizado": "2026-11-04",
+    "categorias": [
+      "mochila-para-notebook"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 31 x 12 cm",
+    "id": "mochila-impermeable-5",
+    "nombre": "mochila impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8735030"
+    },
+    "precio": 175000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fad874447c6cf3a3"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/cec208a8d21d7105"
+          }
+        ],
+        "sku": "8735030-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-10",
     "categorias": [
       "bandolera-dama"
