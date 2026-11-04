@@ -37199,7 +37199,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "activo": false,
+    "actualizado": "2026-11-04",
     "categorias": [
       "carteras"
     ],
@@ -44770,7 +44771,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "activo": false,
+    "actualizado": "2026-11-04",
     "categorias": [
       "cartucheras"
     ],
@@ -82520,7 +82522,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "activo": false,
+    "actualizado": "2026-11-04",
     "categorias": [
       "mochila-para-notebook"
     ],
