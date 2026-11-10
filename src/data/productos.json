@@ -19374,7 +19374,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-10",
     "categorias": [
       "carteras"
     ],
@@ -19388,19 +19388,6 @@
     "precio": 185000,
     "variantes": [
       {
-        "color": "Crema",
-        "imagenes": [
-          {
-            "anchos": [
-              300,
-              600
-            ],
-            "base": "catalogo/f863a4c239d35cd1"
-          }
-        ],
-        "sku": "CG85291-E"
-      },
-      {
         "color": "Negro",
         "imagenes": [
           {
@@ -19412,6 +19399,19 @@
           }
         ],
         "sku": "CG85291-3"
+      },
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f863a4c239d35cd1"
+          }
+        ],
+        "sku": "CG85291-E"
       },
       {
         "color": "Rosado",
@@ -28290,7 +28290,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-10",
     "categorias": [
       "carteras"
     ],
@@ -28303,6 +28303,19 @@
     },
     "precio": 225000,
     "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8aca6bde60165545"
+          }
+        ],
+        "sku": "CG85026-3"
+      },
       {
         "color": "Blanco",
         "imagenes": [
@@ -28328,19 +28341,6 @@
           }
         ],
         "sku": "CG85026-C"
-      },
-      {
-        "color": "Negro",
-        "imagenes": [
-          {
-            "anchos": [
-              300,
-              600
-            ],
-            "base": "catalogo/8aca6bde60165545"
-          }
-        ],
-        "sku": "CG85026-3"
       },
       {
         "color": "Rosado",
@@ -28426,7 +28426,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-10",
     "categorias": [
       "carteras"
     ],
@@ -28440,19 +28440,6 @@
     "precio": 205000,
     "variantes": [
       {
-        "color": "Blanco",
-        "imagenes": [
-          {
-            "anchos": [
-              300,
-              600
-            ],
-            "base": "catalogo/bff46c12ed6f3616"
-          }
-        ],
-        "sku": "CG85028-W"
-      },
-      {
         "color": "Marron Claro",
         "imagenes": [
           {
@@ -28464,6 +28451,19 @@
           }
         ],
         "sku": "CG85028-C"
+      },
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bff46c12ed6f3616"
+          }
+        ],
+        "sku": "CG85028-W"
       },
       {
         "color": "Negro",
