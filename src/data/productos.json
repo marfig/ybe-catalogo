@@ -29814,6 +29814,19 @@
     "precio": 210000,
     "variantes": [
       {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c1ff5462074e360f"
+          }
+        ],
+        "sku": "CG85756-D"
+      },
+      {
         "color": "Blanco",
         "imagenes": [
           {
@@ -29838,19 +29851,6 @@
           }
         ],
         "sku": "CG85756-E"
-      },
-      {
-        "color": "Marron Oscuro",
-        "imagenes": [
-          {
-            "anchos": [
-              300,
-              600
-            ],
-            "base": "catalogo/c1ff5462074e360f"
-          }
-        ],
-        "sku": "CG85756-D"
       },
       {
         "color": "Negro",
