@@ -18973,7 +18973,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "activo": false,
+    "actualizado": "2026-11-11",
     "categorias": [
       "carteras"
     ],
