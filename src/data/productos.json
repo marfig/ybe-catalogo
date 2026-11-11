@@ -8223,6 +8223,61 @@
     ]
   },
   {
+    "actualizado": "2026-11-11",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 22 x 22 x 13 cm",
+    "id": "bandolera-mediana-7",
+    "nombre": "bandolera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85857"
+    },
+    "precio": 225000,
+    "variantes": [
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/535d10742f60d342"
+          }
+        ],
+        "sku": "CG85857-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b5f0b04e079a632b"
+          }
+        ],
+        "sku": "CG85857-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1ead82f15688ae16"
+          }
+        ],
+        "sku": "CG85857-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-10",
     "categorias": [
       "bandoleras"
@@ -12398,6 +12453,74 @@
     ]
   },
   {
+    "actualizado": "2026-11-11",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 18 x 27 x 10 cm",
+    "id": "bandolera-pequena-79",
+    "nombre": "bandolera pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85758"
+    },
+    "precio": 195000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a0988db52f7c019d"
+          }
+        ],
+        "sku": "CG85758-W"
+      },
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/696c6115eceabaff"
+          }
+        ],
+        "sku": "CG85758-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2cc44fbc0c80f6d9"
+          }
+        ],
+        "sku": "CG85758-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a92da51560f13338"
+          }
+        ],
+        "sku": "CG85758-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-10",
     "categorias": [
       "bandolera-dama"
@@ -12436,6 +12559,129 @@
           }
         ],
         "sku": "CG85409-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-11-11",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 19 x 27 x 10 cm",
+    "id": "bandolera-pequena-80",
+    "nombre": "bandolera pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85779"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/36027048655db55e"
+          }
+        ],
+        "sku": "CG85779-W"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/68cd30aecd6bf72c"
+          }
+        ],
+        "sku": "CG85779-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d5107cad275f11dc"
+          }
+        ],
+        "sku": "CG85779-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/de7435efec66e51f"
+          }
+        ],
+        "sku": "CG85779-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-11-11",
+    "categorias": [
+      "bandolera-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 19 x 23 x 10 cm",
+    "id": "bandolera-pequena-81",
+    "nombre": "bandolera pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85828"
+    },
+    "precio": 189000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/de6fdcdcea90aef2"
+          }
+        ],
+        "sku": "CG85828-E"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1f7e1d1268b9518b"
+          }
+        ],
+        "sku": "CG85828-B"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b883c0b3deeff606"
+          }
+        ],
+        "sku": "CG85828-3"
       }
     ]
   },
@@ -39667,6 +39913,294 @@
     ]
   },
   {
+    "actualizado": "2026-11-11",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 33 x 14 cm",
+    "id": "cartera-mediana-92",
+    "nombre": "cartera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85754"
+    },
+    "precio": 215000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0fbafb75190eda78"
+          }
+        ],
+        "sku": "CG85754-W"
+      },
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ed35bd170baff375"
+          }
+        ],
+        "sku": "CG85754-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/06be17afd7293265"
+          }
+        ],
+        "sku": "CG85754-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/eb1c36693be7393d"
+          }
+        ],
+        "sku": "CG85754-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-11-11",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 22 x 34 x 14 cm",
+    "id": "cartera-mediana-93",
+    "nombre": "cartera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85783"
+    },
+    "precio": 225000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/aeb5ab5ec15c4897"
+          }
+        ],
+        "sku": "CG85783-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a9501d6df9d135b1"
+          }
+        ],
+        "sku": "CG85783-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fdb473a3f5322bbc"
+          }
+        ],
+        "sku": "CG85783-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-11-11",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 23 x 30 x 13 cm",
+    "id": "cartera-mediana-94",
+    "nombre": "cartera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85853"
+    },
+    "precio": 235000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/60d60e34f7620701"
+          }
+        ],
+        "sku": "CG85853-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/30b82cebc0910b3a"
+          }
+        ],
+        "sku": "CG85853-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/02014897a16ba668"
+          }
+        ],
+        "sku": "CG85853-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-11-11",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 37 x 10 cm",
+    "id": "cartera-mediana-95",
+    "nombre": "cartera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85938"
+    },
+    "precio": 169000,
+    "variantes": [
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/03ab7c3375b3b847"
+          }
+        ],
+        "sku": "CG85938-B"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/045d4b2cac3716e1"
+          }
+        ],
+        "sku": "CG85938-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f4def67cce1dd5b6"
+          }
+        ],
+        "sku": "CG85938-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-11-11",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 33 x 11 cm",
+    "id": "cartera-mediana-96",
+    "nombre": "cartera mediana",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85969"
+    },
+    "precio": 185000,
+    "variantes": [
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8af26b67eb4590c3"
+          }
+        ],
+        "sku": "CG85969-E"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8ba3f044c715c9d6"
+          }
+        ],
+        "sku": "CG85969-B"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d31046baa6509161"
+          }
+        ],
+        "sku": "CG85969-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-11-09",
     "categorias": [
       "carteras"
@@ -40079,6 +40613,142 @@
           }
         ],
         "sku": "CG85951-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-11-11",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 26 x 38 x 13 cm",
+    "id": "cartera-mediana-grande-6",
+    "nombre": "cartera mediana grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85753"
+    },
+    "precio": 225000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fe1941ca7545beaf"
+          }
+        ],
+        "sku": "CG85753-W"
+      },
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c5d0bbb4d2bf7edf"
+          }
+        ],
+        "sku": "CG85753-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/aadcd213a526c519"
+          }
+        ],
+        "sku": "CG85753-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ac86afd9c9613cd2"
+          }
+        ],
+        "sku": "CG85753-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-11-11",
+    "categorias": [
+      "carteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 20 x 31 x 14 cm",
+    "id": "cartera-mediana-pequena",
+    "nombre": "cartera mediana pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85757"
+    },
+    "precio": 215000,
+    "variantes": [
+      {
+        "color": "Blanco",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/17e52a2ed1b7de39"
+          }
+        ],
+        "sku": "CG85757-W"
+      },
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a82a4a7eac305405"
+          }
+        ],
+        "sku": "CG85757-E"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b8113f9309c9c755"
+          }
+        ],
+        "sku": "CG85757-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7217f83cfcb0188d"
+          }
+        ],
+        "sku": "CG85757-3"
       }
     ]
   },
