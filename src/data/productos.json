@@ -28854,13 +28854,13 @@
     ]
   },
   {
-    "actualizado": "2026-11-09",
+    "actualizado": "2026-11-12",
     "categorias": [
-      "carteras"
+      "bolsos"
     ],
     "descripcion": "Medidas aprox. (alto x largo x ancho): 24 x 40 x 13 cm",
     "id": "cartera-amplia-alargada-2",
-    "nombre": "cartera amplia alargada",
+    "nombre": "bolso de cuero ecológico",
     "origen": {
       "proveedor": "chenson",
       "ref": "CG85846"
@@ -28868,17 +28868,17 @@
     "precio": 228000,
     "variantes": [
       {
-        "color": "Blanco",
+        "color": "Vino",
         "imagenes": [
           {
             "anchos": [
               300,
               600
             ],
-            "base": "catalogo/8905556b501f65cd"
+            "base": "catalogo/575c160ad6012790"
           }
         ],
-        "sku": "CG85846-W"
+        "sku": "CG85846-M"
       },
       {
         "color": "Crema",
@@ -28894,17 +28894,17 @@
         "sku": "CG85846-E"
       },
       {
-        "color": "Vino",
+        "color": "Blanco",
         "imagenes": [
           {
             "anchos": [
               300,
               600
             ],
-            "base": "catalogo/575c160ad6012790"
+            "base": "catalogo/8905556b501f65cd"
           }
         ],
-        "sku": "CG85846-M"
+        "sku": "CG85846-W"
       }
     ]
   },
