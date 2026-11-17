@@ -65845,6 +65845,34 @@
     ]
   },
   {
+    "actualizado": "2026-11-17",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "id": "mochila-cartera-impermeable",
+    "nombre": "mochila/cartera impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8735338"
+    },
+    "precio": 169000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3316068db0ac03b9"
+          }
+        ],
+        "sku": "8735338-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-10",
     "categorias": [
       "mochila-infantil"
