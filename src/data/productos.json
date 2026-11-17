@@ -14090,7 +14090,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-09",
+    "activo": false,
+    "actualizado": "2026-11-17",
     "categorias": [
       "billeteras"
     ],
@@ -14608,7 +14609,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-09",
+    "activo": false,
+    "actualizado": "2026-11-17",
     "categorias": [
       "billeteras"
     ],
@@ -74200,7 +74202,8 @@
     ]
   },
   {
-    "actualizado": "2026-10-01",
+    "activo": false,
+    "actualizado": "2026-11-17",
     "categorias": [
       "mochila-infantil"
     ],
