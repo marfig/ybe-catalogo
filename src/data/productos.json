@@ -64672,7 +64672,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-18",
     "categorias": [
       "mochilas"
     ],
@@ -64762,6 +64762,45 @@
           }
         ],
         "sku": "8734088-P3"
+      },
+      {
+        "color": "Verde Os/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c4948b53c19ddf00"
+          }
+        ],
+        "sku": "8734088-A3"
+      },
+      {
+        "color": "Marron O/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dbd695481985e968"
+          }
+        ],
+        "sku": "8734088-D3"
+      },
+      {
+        "color": "Marron C/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8c6bb3e6576684a5"
+          }
+        ],
+        "sku": "8734088-T3"
       }
     ]
   },
@@ -69947,7 +69986,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-18",
     "categorias": [
       "mochilas"
     ],
@@ -70037,6 +70076,45 @@
           }
         ],
         "sku": "8734087-P3"
+      },
+      {
+        "color": "Verde Os/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9c7be559411a5dbc"
+          }
+        ],
+        "sku": "8734087-A3"
+      },
+      {
+        "color": "Marron O/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8d0501dc41c3d399"
+          }
+        ],
+        "sku": "8734087-D3"
+      },
+      {
+        "color": "Marron C/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5c62e667914a7a58"
+          }
+        ],
+        "sku": "8734087-T3"
       }
     ]
   },
@@ -72523,7 +72601,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-18",
     "categorias": [
       "mochilas"
     ],
@@ -72613,6 +72691,45 @@
           }
         ],
         "sku": "8734084-P3"
+      },
+      {
+        "color": "Verde Os/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e4e254d3ee4986e7"
+          }
+        ],
+        "sku": "8734084-A3"
+      },
+      {
+        "color": "Marron O/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/69d79e4660b1c5f3"
+          }
+        ],
+        "sku": "8734084-D3"
+      },
+      {
+        "color": "Marron C/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/30bd7424d2947851"
+          }
+        ],
+        "sku": "8734084-T3"
       }
     ]
   },
