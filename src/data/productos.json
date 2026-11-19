@@ -57821,7 +57821,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -57892,6 +57892,19 @@
           }
         ],
         "sku": "8743436-3R"
+      },
+      {
+        "color": "(3-26) Negro/negr",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a2a8464b5d124c89"
+          }
+        ],
+        "sku": "8743436-3-26-negro-negr"
       }
     ]
   },
@@ -58002,7 +58015,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -58096,7 +58109,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -58190,7 +58203,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -59481,10 +59494,11 @@
     ]
   },
   {
-    "actualizado": "2026-09-26",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-dama"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 31 x 25 x 13 cm.",
     "id": "mochila-133",
     "nombre": "mochila",
     "origen": {
@@ -59990,7 +60004,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -60085,7 +60099,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-para-notebook"
     ],
@@ -60114,7 +60128,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-para-notebook"
     ],
@@ -60467,7 +60481,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -60593,7 +60607,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -61211,7 +61225,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -61344,7 +61358,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -61477,7 +61491,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -61617,7 +61631,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -61711,7 +61725,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -61753,7 +61767,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -62023,7 +62037,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -62146,7 +62160,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -62240,7 +62254,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -62334,7 +62348,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -62428,7 +62442,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -62499,6 +62513,20 @@
               300
             ],
             "base": "catalogo/6f7d09712e4cdc05"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c47c63547d716bff"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/72a43c142d9728db"
           }
         ],
         "sku": "8730885-3"
@@ -62518,7 +62546,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -62573,7 +62601,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -62628,7 +62656,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -62683,7 +62711,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -62725,7 +62753,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -62780,7 +62808,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -62851,7 +62879,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -62892,7 +62920,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -62954,7 +62982,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -63006,11 +63034,89 @@
           }
         ],
         "sku": "8731441-9x-p-azul"
+      },
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/467dc883574bc86e"
+          }
+        ],
+        "sku": "8731441-6X"
+      },
+      {
+        "color": "(rx-P) Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/90e6f0c0b470b345"
+          }
+        ],
+        "sku": "8731441-rx-p-rojo"
+      },
+      {
+        "color": "(dx-P) Marron Osc",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2435d13598dd1129"
+          }
+        ],
+        "sku": "8731441-dx-p-marron-osc"
+      },
+      {
+        "color": "(1x-P) Gris Osc",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2fae07fe91682d2a"
+          }
+        ],
+        "sku": "8731441-1x-p-gris-osc"
+      },
+      {
+        "color": "(ax-P) Verde Osc",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bae95b429082a6b0"
+          }
+        ],
+        "sku": "8731441-ax-p-verde-osc"
+      },
+      {
+        "color": "(px-P) Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/43760bcc79416323"
+          }
+        ],
+        "sku": "8731441-px-p-rosado"
       }
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -63117,7 +63223,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -63211,7 +63317,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -63299,7 +63405,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -63374,7 +63480,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -63559,7 +63665,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -63700,11 +63806,50 @@
           }
         ],
         "sku": "8731687-33"
+      },
+      {
+        "color": "(6k-P) Azul Os/kh",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f046c62ff98e84bc"
+          }
+        ],
+        "sku": "8731687-6k-p-azul-os-kh"
+      },
+      {
+        "color": "(5k-P) Verde Cl/k",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fb8a50b30db5c632"
+          }
+        ],
+        "sku": "8731687-5k-p-verde-cl-k"
+      },
+      {
+        "color": "(rk-P) Rojo Os/kh",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2e1eb21072b753ad"
+          }
+        ],
+        "sku": "8731687-rk-p-rojo-os-kh"
       }
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -63840,7 +63985,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -63921,7 +64066,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -64002,7 +64147,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -64083,7 +64228,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -64111,22 +64256,54 @@
       },
       {
         "color": "(r3-P) Rojo",
-        "imagenes": [],
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dd893ed19f979226"
+          }
+        ],
         "sku": "8731717-r3-p-rojo"
       },
       {
         "color": "(23-P) Gris",
-        "imagenes": [],
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/81236f64eaabff64"
+          }
+        ],
         "sku": "8731717-23-p-gris"
       },
       {
         "color": "(a3-P) Verde",
-        "imagenes": [],
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fa8c94ed6a2adeaf"
+          }
+        ],
         "sku": "8731717-a3-p-verde"
       },
       {
         "color": "(63-P) Azul",
-        "imagenes": [],
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/46bb4e20a903719d"
+          }
+        ],
         "sku": "8731717-63-p-azul"
       }
     ]
@@ -64227,7 +64404,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -64273,11 +64450,45 @@
           }
         ],
         "sku": "8734041-A"
+      },
+      {
+        "color": "Gris Camuf.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7ffd5b9240697190"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d3f11b0f222d3182"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dc8eb90165374eb2"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/79db08301f50db0a"
+          }
+        ],
+        "sku": "8734041-1"
       }
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -64316,11 +64527,24 @@
           }
         ],
         "sku": "8734042-A"
+      },
+      {
+        "color": "Gris Camuf.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dd93f7c54f07626c"
+          }
+        ],
+        "sku": "8734042-1"
       }
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -64359,6 +64583,19 @@
           }
         ],
         "sku": "8734043-A"
+      },
+      {
+        "color": "Gris Camuf.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/08b3004f0b4cfef1"
+          }
+        ],
+        "sku": "8734043-1"
       }
     ]
   },
@@ -64434,7 +64671,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -64524,11 +64761,24 @@
           }
         ],
         "sku": "8734083-P3"
+      },
+      {
+        "color": "Marron O/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/98f651cbe6225b9d"
+          }
+        ],
+        "sku": "8734083-D3"
       }
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -64618,11 +64868,63 @@
           }
         ],
         "sku": "8734085-P3"
+      },
+      {
+        "color": "Verde Os/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/987fe200076251a0"
+          }
+        ],
+        "sku": "8734085-A3"
+      },
+      {
+        "color": "Lila Cl/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/942fc27b377ba7ae"
+          }
+        ],
+        "sku": "8734085-V3"
+      },
+      {
+        "color": "Marron O/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6dd46a72dd338b09"
+          }
+        ],
+        "sku": "8734085-D3"
+      },
+      {
+        "color": "Marron C/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a6e8999f6e4b56da"
+          }
+        ],
+        "sku": "8734085-T3"
       }
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -64673,11 +64975,63 @@
           }
         ],
         "sku": "8734086-P3"
+      },
+      {
+        "color": "Marron O/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d14ce5712e60d536"
+          }
+        ],
+        "sku": "8734086-D3"
+      },
+      {
+        "color": "Marron C/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f45ef6df3120ac38"
+          }
+        ],
+        "sku": "8734086-T3"
+      },
+      {
+        "color": "Verde Os/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/aa0778658ef009d9"
+          }
+        ],
+        "sku": "8734086-A3"
+      },
+      {
+        "color": "Lila Cl/neg",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/da8ab2e53ba7a33a"
+          }
+        ],
+        "sku": "8734086-V3"
       }
     ]
   },
   {
-    "actualizado": "2026-11-18",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -65515,7 +65869,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -65782,7 +66136,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-dama"
     ],
@@ -65885,6 +66239,110 @@
           }
         ],
         "sku": "8731691-negro"
+      },
+      {
+        "color": "(mb-25) Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/18cafe37483c5c74"
+          }
+        ],
+        "sku": "8731691-mb-25-vino"
+      },
+      {
+        "color": "(6b-25) Azul M.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2bc6c1a5521d7002"
+          }
+        ],
+        "sku": "8731691-6b-25-azul-m"
+      },
+      {
+        "color": "(pb-25) Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/87b81666b57855e7"
+          }
+        ],
+        "sku": "8731691-pb-25-rosado"
+      },
+      {
+        "color": "(2b-25) Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d862a86e9744a0a7"
+          }
+        ],
+        "sku": "8731691-2b-25-gris"
+      },
+      {
+        "color": "(ab-25) Verde Osc",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/40e7c06c16facea6"
+          }
+        ],
+        "sku": "8731691-ab-25-verde-osc"
+      },
+      {
+        "color": "(3b-25) Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/20d71549cb9f8dca"
+          }
+        ],
+        "sku": "8731691-3b-25-negro"
+      },
+      {
+        "color": "(qb-26) Lila Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e6700665ea03bb33"
+          }
+        ],
+        "sku": "8731691-qb-26-lila-osc"
+      },
+      {
+        "color": "(bb-26) Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2204fd8d9572557e"
+          }
+        ],
+        "sku": "8731691-bb-26-marron"
       }
     ]
   },
@@ -69604,7 +70062,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -69991,7 +70449,7 @@
     ]
   },
   {
-    "actualizado": "2026-11-18",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -70124,7 +70582,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -70295,7 +70753,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -70363,7 +70821,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -70392,7 +70850,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -70421,7 +70879,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -70634,7 +71092,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -70815,7 +71273,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -71313,7 +71771,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -71468,7 +71926,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -72018,7 +72476,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-26",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -72104,7 +72562,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -72175,7 +72633,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -72606,7 +73064,7 @@
     ]
   },
   {
-    "actualizado": "2026-11-18",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -73917,7 +74375,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-01",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -74127,7 +74585,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-01",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -74156,7 +74614,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-01",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -74629,7 +75087,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-08",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -74658,7 +75116,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-08",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -74829,7 +75287,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-08",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75000,7 +75458,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-08",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75142,7 +75600,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-08",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75210,7 +75668,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-08",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75252,7 +75710,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-08",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75281,7 +75739,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-08",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75310,7 +75768,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-08",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75396,10 +75854,11 @@
     ]
   },
   {
-    "actualizado": "2026-10-08",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 25 x 30 x 20 cm",
     "id": "mochila-espaldera-grande-80",
     "nombre": "Mochila espaldera grande",
     "origen": {
@@ -75424,10 +75883,11 @@
     ]
   },
   {
-    "actualizado": "2026-10-08",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 45 x 28 x 20 cm",
     "id": "mochila-espaldera-grande-81",
     "nombre": "Mochila espaldera grande",
     "origen": {
@@ -75452,7 +75912,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-26",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75480,7 +75940,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-26",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75508,7 +75968,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-26",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75536,7 +75996,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-26",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75577,7 +76037,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-26",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75605,7 +76065,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-26",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75646,7 +76106,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-26",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75674,7 +76134,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-26",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75738,7 +76198,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-26",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75766,7 +76226,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-26",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75794,7 +76254,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-26",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75822,7 +76282,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-26",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75850,7 +76310,7 @@
     ]
   },
   {
-    "actualizado": "2026-11-12",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75879,7 +76339,7 @@
     ]
   },
   {
-    "actualizado": "2026-11-12",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -75908,7 +76368,7 @@
     ]
   },
   {
-    "actualizado": "2026-11-12",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -76911,7 +77371,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-dama"
     ],
@@ -76936,6 +77396,84 @@
           }
         ],
         "sku": "CG32227-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/beabfdafa229dd57"
+          }
+        ],
+        "sku": "CG32227-P"
+      },
+      {
+        "color": "Verde",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c4fcae3cc2559402"
+          }
+        ],
+        "sku": "CG32227-A"
+      },
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/23c27847cfa2f92c"
+          }
+        ],
+        "sku": "CG32227-V"
+      },
+      {
+        "color": "Rosa Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/88c6a76a858b71d7"
+          }
+        ],
+        "sku": "CG32227-F"
+      },
+      {
+        "color": "Azul Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/f0fbdb1245ea064e"
+          }
+        ],
+        "sku": "CG32227-9"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/430b9dac563b3df7"
+          }
+        ],
+        "sku": "CG32227-2"
       }
     ]
   },
@@ -77018,7 +77556,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-26",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -77046,7 +77584,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-dama"
     ],
@@ -77084,36 +77622,71 @@
           }
         ],
         "sku": "8131693-P"
-      }
-    ]
-  },
-  {
-    "activo": false,
-    "actualizado": "2026-09-10",
-    "categorias": [
-      "mochila-dama"
-    ],
-    "descripcion": "Medidas: alto 44 x largo 31 x ancho 13 cm\r\nPara libros 📚 y carpetas 📂",
-    "id": "mochila-espaldera-impermeable-2",
-    "nombre": "Mochila espaldera impermeable",
-    "origen": {
-      "proveedor": "chenson",
-      "ref": "8181421"
-    },
-    "precio": 148000,
-    "variantes": [
+      },
       {
-        "color": "Negro",
+        "color": "Rosa Osc.",
         "imagenes": [
           {
             "anchos": [
               300,
               600
             ],
-            "base": "catalogo/6f8a08757a42dd71"
+            "base": "catalogo/8e43b693b5a93656"
           }
         ],
-        "sku": "8181421-3"
+        "sku": "8131693-F"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8cc9b6ec70d79cbf"
+          }
+        ],
+        "sku": "8131693-A"
+      },
+      {
+        "color": "Lila Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/22b25d36738eb1bd"
+          }
+        ],
+        "sku": "8131693-V"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a5f9f52edfb5f5bc"
+          }
+        ],
+        "sku": "8131693-2"
+      },
+      {
+        "color": "Azul Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0d176f2c0a6b661b"
+          }
+        ],
+        "sku": "8131693-9"
       }
     ]
   },
@@ -77516,7 +78089,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-01",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -77545,7 +78118,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-01",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -77603,7 +78176,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-01",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -77632,7 +78205,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-08",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -77661,7 +78234,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-08",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -77703,7 +78276,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-26",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -77731,7 +78304,7 @@
     ]
   },
   {
-    "actualizado": "2026-11-12",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -77760,7 +78333,7 @@
     ]
   },
   {
-    "actualizado": "2026-11-12",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -77789,7 +78362,7 @@
     ]
   },
   {
-    "actualizado": "2026-11-12",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -78295,7 +78868,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -78354,6 +78927,79 @@
           }
         ],
         "sku": "8734217-rosa"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/841c70e805b809a4"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a01009d5b6a5159f"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c31f69ab84724dc7"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c3348987bc1e0280"
+          }
+        ],
+        "sku": "8734217-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8e0f9502e2cdfeea"
+          }
+        ],
+        "sku": "8734217-P"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ed8cf165e69310f5"
+          }
+        ],
+        "sku": "8734217-2"
+      },
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/abfd4bf34ff171e6"
+          }
+        ],
+        "sku": "8734217-U"
       }
     ]
   },
@@ -78853,7 +79499,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-26",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -78910,7 +79556,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-08",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -78939,7 +79585,7 @@
     ]
   },
   {
-    "actualizado": "2026-11-12",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -78968,7 +79614,7 @@
     ]
   },
   {
-    "actualizado": "2026-11-12",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -78997,7 +79643,7 @@
     ]
   },
   {
-    "actualizado": "2026-11-12",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -79026,7 +79672,7 @@
     ]
   },
   {
-    "actualizado": "2026-11-12",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -79405,7 +80051,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -79506,7 +80152,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -79613,7 +80259,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -79690,11 +80336,24 @@
           }
         ],
         "sku": "8731689-p3-p-rosado"
+      },
+      {
+        "color": "(63-P) Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3a377f74c3f441d2"
+          }
+        ],
+        "sku": "8731689-63-p-azul"
       }
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -79788,7 +80447,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -79882,7 +80541,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
     ],
@@ -79976,7 +80635,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -80005,7 +80664,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -80801,7 +81460,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -80843,7 +81502,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-para-notebook"
     ],
@@ -80943,7 +81602,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-para-notebook"
     ],
@@ -80972,7 +81631,7 @@
     ]
   },
   {
-    "actualizado": "2026-11-04",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-para-notebook"
     ],
@@ -81285,7 +81944,7 @@
     ]
   },
   {
-    "actualizado": "2026-10-26",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -82699,7 +83358,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -82780,7 +83439,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -82874,7 +83533,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -82975,7 +83634,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -83056,7 +83715,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -83212,7 +83871,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -87284,7 +87943,7 @@
     ]
   },
   {
-    "actualizado": "2026-08-31",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
@@ -87343,6 +88002,86 @@
           }
         ],
         "sku": "8734218-negro"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/686cacb9863f5a76"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dbfdc217dbdcd391"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a0e162581579efb4"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c96de3cc7668e703"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/47a9918e5be2ac88"
+          }
+        ],
+        "sku": "8734218-P"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0d1b3884a2741a35"
+          }
+        ],
+        "sku": "8734218-3"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/be63e8cbf0e894ce"
+          }
+        ],
+        "sku": "8734218-2"
+      },
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2278316cb0277085"
+          }
+        ],
+        "sku": "8734218-U"
       }
     ]
   },
@@ -88351,7 +89090,7 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "actualizado": "2026-11-19",
     "categorias": [
       "mochila-infantil"
     ],
