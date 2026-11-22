@@ -88087,6 +88087,79 @@
     ]
   },
   {
+    "actualizado": "2026-11-22",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 30 x 27 x 14 cm",
+    "id": "mochilita-para-dama",
+    "nombre": "mochilita para dama",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85112"
+    },
+    "precio": 168000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a35961e1df76d769"
+          }
+        ],
+        "sku": "CG85112-3"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/33495bc6e2d049f2"
+          }
+        ],
+        "sku": "CG85112-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bc11a5e53f06cc09"
+          }
+        ],
+        "sku": "CG85112-D"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/156d3927690043a6"
+          }
+        ],
+        "sku": "CG85112-A"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [],
+        "sku": "CG85112-P"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-26",
     "categorias": [
       "mochila-infantil"
