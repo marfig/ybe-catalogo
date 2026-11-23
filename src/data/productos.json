@@ -43035,7 +43035,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "activo": false,
+    "actualizado": "2026-11-23",
     "categorias": [
       "carteras"
     ],
@@ -53971,7 +53972,8 @@
     ]
   },
   {
-    "actualizado": "2026-08-19",
+    "activo": false,
+    "actualizado": "2026-11-23",
     "categorias": [
       "lonchera-termica-infantil"
     ],
@@ -88320,7 +88322,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-09",
+    "activo": false,
+    "actualizado": "2026-11-23",
     "categorias": [
       "necessaires"
     ],
@@ -88349,7 +88352,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-09",
+    "activo": false,
+    "actualizado": "2026-11-23",
     "categorias": [
       "necessaires"
     ],
@@ -88722,7 +88726,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-09",
+    "activo": false,
+    "actualizado": "2026-11-23",
     "categorias": [
       "necessaires"
     ],
