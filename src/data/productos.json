@@ -2324,7 +2324,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "activo": false,
+    "actualizado": "2026-11-26",
     "categorias": [
       "bandolera-dama"
     ],
@@ -3145,7 +3146,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "activo": false,
+    "actualizado": "2026-11-26",
     "categorias": [
       "bandolera-dama"
     ],
@@ -13609,7 +13611,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-09",
+    "activo": false,
+    "actualizado": "2026-11-26",
     "categorias": [
       "billeteras"
     ],
@@ -91165,7 +91168,8 @@
     ]
   },
   {
-    "actualizado": "2026-09-10",
+    "activo": false,
+    "actualizado": "2026-11-26",
     "categorias": [
       "portafolios"
     ],
