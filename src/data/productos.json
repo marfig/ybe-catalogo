@@ -13726,6 +13726,113 @@
     ]
   },
   {
+    "actualizado": "2026-11-26",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 10 x 16 x 3 cm",
+    "id": "billetera-alargada",
+    "nombre": "billetera alargada",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2515252"
+    },
+    "precio": 95000,
+    "variantes": [
+      {
+        "color": "Amarillo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/194cd442abe69807"
+          }
+        ],
+        "sku": "2515252-L"
+      },
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5463562ccd715f9a"
+          }
+        ],
+        "sku": "2515252-E"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2b80bb7da66d4953"
+          }
+        ],
+        "sku": "2515252-B"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0daef4c8a111f6e8"
+          }
+        ],
+        "sku": "2515252-3"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c79f957510373580"
+          }
+        ],
+        "sku": "2515252-R"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fe16415b393c6ee9"
+          }
+        ],
+        "sku": "2515252-P"
+      },
+      {
+        "color": "Verde Olivo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/90710c5767fad238"
+          }
+        ],
+        "sku": "2515252-G"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-26",
     "categorias": [
       "billeteras"
@@ -14692,6 +14799,231 @@
           }
         ],
         "sku": "2515306-P"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-11-26",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 9 x 11,5 x 3 cm",
+    "id": "billetera-pequena-5",
+    "nombre": "billetera pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2515249"
+    },
+    "precio": 88000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/232075625ff4fcc3"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e5b9414d1ecacf7b"
+          }
+        ],
+        "sku": "2515249-3"
+      },
+      {
+        "color": "Amarillo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4ce79d227a1f9207"
+          }
+        ],
+        "sku": "2515249-L"
+      },
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fa38b9a228bd5c44"
+          }
+        ],
+        "sku": "2515249-E"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/77015c32fdac916e"
+          }
+        ],
+        "sku": "2515249-B"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/657cfb08d7611c7c"
+          }
+        ],
+        "sku": "2515249-R"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300
+            ],
+            "base": "catalogo/bde53935600fd613"
+          }
+        ],
+        "sku": "2515249-P"
+      },
+      {
+        "color": "Verde Olivo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/02f122c5a102ae2c"
+          }
+        ],
+        "sku": "2515249-G"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-11-26",
+    "categorias": [
+      "billeteras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 8 x 11 x 2 cm",
+    "id": "billetera-pequena-6",
+    "nombre": "billetera pequeña",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "2515251"
+    },
+    "precio": 78000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6bd2f8bfe7f27a36"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e3c448bf4df390ce"
+          }
+        ],
+        "sku": "2515251-3"
+      },
+      {
+        "color": "Amarillo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/699787bd0b5a2f9d"
+          }
+        ],
+        "sku": "2515251-L"
+      },
+      {
+        "color": "Crema",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fbdd6fc2e93823bb"
+          }
+        ],
+        "sku": "2515251-E"
+      },
+      {
+        "color": "Marron",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/ef25fa535e0e04c2"
+          }
+        ],
+        "sku": "2515251-B"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fd44a95b3ebcb421"
+          }
+        ],
+        "sku": "2515251-R"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3a5c097bc2ba0fff"
+          }
+        ],
+        "sku": "2515251-P"
+      },
+      {
+        "color": "Verde Olivo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/dd4b4f79c6c3d983"
+          }
+        ],
+        "sku": "2515251-G"
       }
     ]
   },
@@ -16475,6 +16807,74 @@
           }
         ],
         "sku": "4734143-F"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-11-26",
+    "categorias": [
+      "bolsos"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 27 x 44 x 23 cm",
+    "id": "bolso-de-viaje-mediano-4",
+    "nombre": "bolso de viaje mediano",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4132235"
+    },
+    "precio": 149000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/428b0fe5f1ddd459"
+          }
+        ],
+        "sku": "4132235-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3be4e4a368a5bea5"
+          }
+        ],
+        "sku": "4132235-P"
+      },
+      {
+        "color": "Vino",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/8870c8236d609fdc"
+          }
+        ],
+        "sku": "4132235-M"
+      },
+      {
+        "color": "Amarillo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e4d42a2a7dfdfd5e"
+          }
+        ],
+        "sku": "4132235-L"
       }
     ]
   },
@@ -49925,6 +50325,95 @@
     ]
   },
   {
+    "actualizado": "2026-11-26",
+    "categorias": [
+      "cartucheras"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 13 x 23 x 5 cm",
+    "id": "cartuchera-doble-cierre-10",
+    "nombre": "cartuchera doble cierre",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "1734220"
+    },
+    "precio": 39000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/64b1b2c7545986be"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3a9a61b01777dfb7"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/edeb10178a1c022d"
+          },
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a0ca3cc68a889b37"
+          }
+        ],
+        "sku": "1734220-P"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/33b564eb2b4221fe"
+          }
+        ],
+        "sku": "1734220-2"
+      },
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/574220135ded5932"
+          }
+        ],
+        "sku": "1734220-U"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a0e0afe00c0da00f"
+          }
+        ],
+        "sku": "1734220-3"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-26",
     "categorias": [
       "cartucheras"
@@ -57352,6 +57841,74 @@
     ]
   },
   {
+    "actualizado": "2026-11-26",
+    "categorias": [
+      "lonchera-termica-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 21 x 23 x 11 cm",
+    "id": "merendero-termico-7",
+    "nombre": "merendero térmico",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "4735355"
+    },
+    "precio": 118000,
+    "variantes": [
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e9e041ebf1007140"
+          }
+        ],
+        "sku": "4735355-U"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3d6d93a7493ae69e"
+          }
+        ],
+        "sku": "4735355-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/5da91dcc1570702d"
+          }
+        ],
+        "sku": "4735355-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/bf24e785df352ba7"
+          }
+        ],
+        "sku": "4735355-P"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-08-26",
     "categorias": [
       "lonchera-termica-infantil"
@@ -59700,6 +60257,73 @@
           }
         ],
         "sku": "CG85875-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-11-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "id": "mochila-136",
+    "nombre": "mochila",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8735356"
+    },
+    "precio": 155000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7bbc2138bf34f14b"
+          }
+        ],
+        "sku": "8735356-P"
+      },
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/034f3262cc7f7f0f"
+          }
+        ],
+        "sku": "8735356-U"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1431e0a3d6820e27"
+          }
+        ],
+        "sku": "8735356-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/2e96ec4906186728"
+          }
+        ],
+        "sku": "8735356-3"
       }
     ]
   },
@@ -65877,6 +66501,87 @@
     ]
   },
   {
+    "actualizado": "2026-11-26",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 42 x 35 x 16 cm",
+    "id": "mochila-amplia-dama-impermeable",
+    "nombre": "mochila amplia dama impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85335"
+    },
+    "precio": 228000,
+    "variantes": [
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9881a68a512653a6"
+          }
+        ],
+        "sku": "CG85335-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e71f2298599a1a92"
+          }
+        ],
+        "sku": "CG85335-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3174aaa8a4e5576b"
+          }
+        ],
+        "sku": "CG85335-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0a8365bb47b6026d"
+          }
+        ],
+        "sku": "CG85335-P"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/b4e5184984f41849"
+          }
+        ],
+        "sku": "CG85335-A"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-11-19",
     "categorias": [
       "mochilas"
@@ -70066,6 +70771,74 @@
           }
         ],
         "sku": "8734090-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-11-26",
+    "categorias": [
+      "mochila-infantil"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 35 x 18 cm",
+    "id": "mochila-con-ruedas-reforzada-grande-2",
+    "nombre": "mochila con ruedas reforzada grande",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8735357"
+    },
+    "precio": 368000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/41edfa0ed75871f7"
+          }
+        ],
+        "sku": "8735357-P"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7af038f968b924b4"
+          }
+        ],
+        "sku": "8735357-2"
+      },
+      {
+        "color": "Lila",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0fe2113a5eab8be3"
+          }
+        ],
+        "sku": "8735357-U"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1df883b0b01f87b3"
+          }
+        ],
+        "sku": "8735357-3"
       }
     ]
   },
@@ -81381,6 +82154,113 @@
     ]
   },
   {
+    "actualizado": "2026-11-26",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 44 x 31 x 13 cm",
+    "id": "mochila-grande-de-tela",
+    "nombre": "mochila grande de tela",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "8181421"
+    },
+    "precio": 149000,
+    "variantes": [
+      {
+        "color": "Lila Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/75d846de21023236"
+          }
+        ],
+        "sku": "8181421-V"
+      },
+      {
+        "color": "Azul",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6d54739850e4f489"
+          }
+        ],
+        "sku": "8181421-9"
+      },
+      {
+        "color": "Gris",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fbec8f1e50dd7f8d"
+          }
+        ],
+        "sku": "8181421-2"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/6f8a08757a42dd71"
+          }
+        ],
+        "sku": "8181421-3"
+      },
+      {
+        "color": "Rosa Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/41542d1e39c0728d"
+          }
+        ],
+        "sku": "8181421-F"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e46fc7bc3783eae9"
+          }
+        ],
+        "sku": "8181421-P"
+      },
+      {
+        "color": "Verde Osc.",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/3036125d3ba85942"
+          }
+        ],
+        "sku": "8181421-A"
+      }
+    ]
+  },
+  {
     "actualizado": "2026-09-09",
     "categorias": [
       "mochila-infantil"
@@ -83273,6 +84153,385 @@
           }
         ],
         "sku": "5551266-3"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-11-26",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 31 x 27 x 13 cm",
+    "id": "mochila-mediana-dama-impermeable",
+    "nombre": "mochila mediana dama impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG84532"
+    },
+    "precio": 195000,
+    "variantes": [
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/be7b009325628f4e"
+          }
+        ],
+        "sku": "CG84532-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/e9a7f6e28cf231d9"
+          }
+        ],
+        "sku": "CG84532-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fb77b3920fedbbb3"
+          }
+        ],
+        "sku": "CG84532-P"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/c17da5f9450906f7"
+          }
+        ],
+        "sku": "CG84532-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-11-26",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 36 x 27 x 12 cm",
+    "id": "mochila-mediana-dama-impermeable-2",
+    "nombre": "mochila mediana dama impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG84759"
+    },
+    "precio": 225000,
+    "variantes": [
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/33f29db5677e278d"
+          }
+        ],
+        "sku": "CG84759-B"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/1c7cf553714bee28"
+          }
+        ],
+        "sku": "CG84759-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/4e930c39c459ebbb"
+          }
+        ],
+        "sku": "CG84759-3"
+      },
+      {
+        "color": "Rojo",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a414d83bb00f2813"
+          }
+        ],
+        "sku": "CG84759-R"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-11-26",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 30 x 23 x 17 cm",
+    "id": "mochila-mediana-dama-impermeable-3",
+    "nombre": "mochila mediana dama impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85334"
+    },
+    "precio": 198000,
+    "variantes": [
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/de4271e28a6cb686"
+          }
+        ],
+        "sku": "CG85334-3"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/7e6e477d5113190a"
+          }
+        ],
+        "sku": "CG85334-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/fb169d74dc208a1e"
+          }
+        ],
+        "sku": "CG85334-D"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0ef96c17c2118c98"
+          }
+        ],
+        "sku": "CG85334-P"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/36e7b34e735e8d59"
+          }
+        ],
+        "sku": "CG85334-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-11-26",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 38 x 33 x 14 cm",
+    "id": "mochila-mediana-dama-impermeable-4",
+    "nombre": "mochila mediana dama impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85338"
+    },
+    "precio": 210000,
+    "variantes": [
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/47c2c9b7f18e0be4"
+          }
+        ],
+        "sku": "CG85338-P"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/99d8c5538b109371"
+          }
+        ],
+        "sku": "CG85338-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d0799fafb9cf22df"
+          }
+        ],
+        "sku": "CG85338-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/af143e29bf1c99cc"
+          }
+        ],
+        "sku": "CG85338-3"
+      },
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/be4e2f8b51e18fb8"
+          }
+        ],
+        "sku": "CG85338-A"
+      }
+    ]
+  },
+  {
+    "actualizado": "2026-11-26",
+    "categorias": [
+      "mochila-dama"
+    ],
+    "descripcion": "Medidas aprox. (alto x largo x ancho): 34 x 35 x 15 cm",
+    "id": "mochila-mediana-dama-impermeable-5",
+    "nombre": "mochila mediana dama impermeable",
+    "origen": {
+      "proveedor": "chenson",
+      "ref": "CG85339"
+    },
+    "precio": 225000,
+    "variantes": [
+      {
+        "color": "Verde Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/a8e729f01f5176f6"
+          }
+        ],
+        "sku": "CG85339-A"
+      },
+      {
+        "color": "Marron Claro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/9b9741b10cd8ac33"
+          }
+        ],
+        "sku": "CG85339-T"
+      },
+      {
+        "color": "Marron Oscuro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/d5f21a2edfadffec"
+          }
+        ],
+        "sku": "CG85339-D"
+      },
+      {
+        "color": "Negro",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/0fb6a00419e54d8d"
+          }
+        ],
+        "sku": "CG85339-3"
+      },
+      {
+        "color": "Rosado",
+        "imagenes": [
+          {
+            "anchos": [
+              300,
+              600
+            ],
+            "base": "catalogo/26c1d6b8a207fcc6"
+          }
+        ],
+        "sku": "CG85339-P"
       }
     ]
   },
